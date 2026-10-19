@@ -298,6 +298,11 @@ def main():
     parken_ids = {e["id"] for e in parken}
     events += [e for e in manual if e["date"] >= today and e["id"] not in parken_ids]
 
+    # Ikke alle Tikkio-arrangementer har adresse; bruk den fra et annet arrangement på samme scene
+    known = {e["venue"]: e["address"] for e in events if e.get("address")}
+    for e in events:
+        e["address"] = e.get("address") or known.get(e["venue"], "")
+
     seeded_at = old["meta"].get("seededAt") or now
     # Første gang en ny kilde gir treff, regnes alt derfra som startprogram og ikke som NYTT
     sources = set(old["meta"].get("sources", ["tikkio"]))
