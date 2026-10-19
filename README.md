@@ -21,6 +21,10 @@ Konserter, standup, show og happenings i Ålesund, samlet på ett sted, med bill
 
 Kategorier: `konsert`, `standup`, `show`, `barn`, `klubb`, `happening`.
 
+## Forhåndsvisning i Claude
+
+`python3 scripts/artifact_preview.py` lager `preview/` (ikke i git), som publiseres til artefakten «Skjer i Ålesund» på claude.ai for å se designendringer før de merges. Artefakten er bare en kopi: den oppdateres ikke av seg selv, og «Legg i kalender» virker ikke der.
+
 ## Kjøre lokalt
 
 ```sh
