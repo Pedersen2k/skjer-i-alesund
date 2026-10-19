@@ -11,6 +11,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  issues: write
 
 concurrency:
   group: pages
@@ -29,9 +30,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Hent program fra Tikkio
+      - name: Hent program fra Tikkio og Parken
+        id: sync
         if: github.event_name != 'push'
-        run: python3 scripts/sync.py
+        env:
+          SYNC_WARNINGS: ${{ runner.temp }}/sync-warnings.md
+        run: |
+          python3 scripts/sync.py
+          if [ -s "$SYNC_WARNINGS" ]; then echo "warnings=true" >> "$GITHUB_OUTPUT"; fi
 
       - name: Lagre endringer
         if: github.event_name != 'push'
@@ -49,3 +55,39 @@ jobs:
 
       - id: deploy
         uses: actions/deploy-pages@v4
+
+      # Varsling: ett åpent issue samler problemene (GitHub sender e-post til eieren).
+      # Det lukkes automatisk neste gang alt går fint.
+      - name: Varsle om problemer
+        if: always() && github.event_name != 'push' && (failure() || steps.sync.outputs.warnings == 'true')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SYNC_WARNINGS: ${{ runner.temp }}/sync-warnings.md
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          FAILED: ${{ job.status != 'success' }}
+        run: |
+          {
+            if [ "$FAILED" = "true" ]; then
+              echo "Den daglige oppdateringen feilet, så siden viser fortsatt programmet fra forrige vellykkede kjøring."
+              echo
+            fi
+            if [ -s "$SYNC_WARNINGS" ]; then cat "$SYNC_WARNINGS"; echo; fi
+            echo "Logg: $RUN_URL"
+          } > body.md
+          title="Programoppdateringen trenger tilsyn"
+          num=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$num" ]; then
+            gh issue comment "$num" --repo "$GITHUB_REPOSITORY" --body-file body.md
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file body.md
+          fi
+
+      - name: Lukk varsel når alt er i orden igjen
+        if: success() && github.event_name != 'push' && steps.sync.outputs.warnings != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Programoppdateringen trenger tilsyn"
+          for num in $(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"$title\" in:title" --json number --jq '.[].number'); do
+            gh issue close "$num" --repo "$GITHUB_REPOSITORY" --comment "Oppdateringen gikk fint i dag igjen, så jeg lukker dette."
+          done

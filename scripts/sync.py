@@ -11,6 +11,7 @@ Kjør: python3 scripts/sync.py
 import datetime
 import html
 import json
+import os
 import re
 import sys
 import time
@@ -278,6 +279,16 @@ def guess_cat(title):
     return "konsert"
 
 
+def warn(msg):
+    """Problemer som ikke stopper publiseringen, men som eieren bør vite om.
+    I GitHub Actions skrives de til filen i SYNC_WARNINGS, og workflowen lager et issue."""
+    print("ADVARSEL:", msg, file=sys.stderr)
+    path = os.environ.get("SYNC_WARNINGS")
+    if path:
+        with open(path, "a") as f:
+            f.write(f"- {msg}\n")
+
+
 def main():
     overrides = json.loads((DATA / "overrides.json").read_text())
     manual = json.loads((DATA / "manual.json").read_text())
@@ -291,6 +302,8 @@ def main():
     if not events:
         sys.exit("Fant ingen arrangementer på Tikkio – beholder forrige versjon.")
     parken = build_events(fetch_parken(), overrides)
+    if not parken:
+        warn("Fikk ingen arrangementer fra Parken kulturhus. Siden viser reserven i data/manual.json, som kan være utdatert.")
     # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
     seen = {(e["date"], norm_key(e["title"])) for e in events}
     events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
@@ -321,6 +334,10 @@ def main():
         "sources": sorted(sources),
     }
     events.sort(key=lambda e: (e["date"], e["time"] or "99"))
+    # Et kraftig fall i antall arrangementer tyder på at en kilde har endret seg og ikke leses riktig lenger
+    before = sum(e["date"] >= today for e in old["events"])
+    if before >= 20 and len(events) < before * 0.6:
+        warn(f"Antall arrangementer falt fra {before} til {len(events)}. Sjekk om Tikkio eller Parken har endret sidene sine.")
     old_path.write_text(json.dumps({"meta": meta, "events": events}, ensure_ascii=False, indent=1) + "\n")
     print(f"{len(events)} arrangementer, {meta['lastAdded']} nye")
 

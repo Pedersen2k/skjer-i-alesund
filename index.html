@@ -108,6 +108,7 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .price.sold { color: var(--accent); }
 .new { font: 700 10px/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; background: var(--accent); color: var(--accent-ink); padding: 3px 6px; border-radius: 4px; }
 .status { font: 500 12px/1.4 var(--font-mono); color: var(--muted); }
+.status.stale { color: var(--accent); }
 .empty { padding: 40px 0; color: var(--muted); text-align: center; }
 footer { margin-top: 28px; font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
 footer a { color: var(--sea); }
@@ -165,6 +166,18 @@ const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn
 let E = [];
 let meta = {};
 
+// Besøksstatistikk med GoatCounter (uten informasjonskapsler). Tom kode = ingen statistikk.
+// Lag en gratis konto på goatcounter.com og skriv inn koden, f.eks. "skjer-i-alesund".
+const GOATCOUNTER = "";
+if (GOATCOUNTER) {
+  const gc = document.createElement("script");
+  gc.async = true; gc.src = "https://gc.zgo.at/count.js";
+  gc.dataset.goatcounter = `https://${GOATCOUNTER}.goatcounter.com/count`;
+  document.head.appendChild(gc);
+}
+// Teller hva folk trykker på (billetter, kalender, deling, filtre), aldri hva de søker etter
+const track = name => { try { window.goatcounter?.count?.({ path: name, title: name, event: true }); } catch {} };
+
 const store = {
   get(k, f) { try { return JSON.parse(localStorage.getItem(k)) ?? f; } catch { return f; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
@@ -215,19 +228,22 @@ function fillVenues() {
   $("venue").innerHTML = `<option value="">Alle scener</option>` + [...new Set(E.map(e => e.venue))].sort().map(v => `<option${v === cur ? " selected" : ""}>${esc(v)}</option>`).join("");
 }
 
-$("when").onclick = e => { const b = e.target.closest("[data-w]"); if (!b) return; state.when = b.dataset.w; $("when").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); render(); };
-$("cats").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return; const c = b.dataset.c; state.cats.has(c) ? state.cats.delete(c) : state.cats.add(c); b.setAttribute("aria-pressed", state.cats.has(c)); render(); };
+$("when").onclick = e => { const b = e.target.closest("[data-w]"); if (!b) return; state.when = b.dataset.w; track("filter/" + (b.dataset.w.startsWith("m") ? "måned" : b.dataset.w)); $("when").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); render(); };
+$("cats").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return; const c = b.dataset.c; state.cats.has(c) ? state.cats.delete(c) : (state.cats.add(c), track("filter/" + c)); b.setAttribute("aria-pressed", state.cats.has(c)); render(); };
 $("venue").onchange = e => { state.venue = e.target.value; render(); };
 $("price").onchange = e => { state.price = e.target.value; render(); };
 $("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
 $("favonly").onclick = e => { state.favOnly = !state.favOnly; e.currentTarget.setAttribute("aria-pressed", state.favOnly); render(); };
 $("list").onclick = e => {
+  const art = e.target.closest(".ev"), evId = art ? art.id.slice(3) : "";
+  if (e.target.closest(".link")) { track("billett/" + evId); return; }
+  if (e.target.closest(".venue")) { track("kart/" + evId); return; }
   const c = e.target.closest(".cal");
-  if (c) { const ev = E.find(x => x.id === c.dataset.cal); if (ev) downloadIcs(ev); return; }
+  if (c) { const ev = E.find(x => x.id === c.dataset.cal); if (ev) downloadIcs(ev); track("kalender/" + c.dataset.cal); return; }
   const sh = e.target.closest(".share");
-  if (sh) { const ev = E.find(x => x.id === sh.dataset.share); if (ev) shareEvent(ev, sh); return; }
+  if (sh) { const ev = E.find(x => x.id === sh.dataset.share); if (ev) shareEvent(ev, sh); track("del/" + sh.dataset.share); return; }
   const b = e.target.closest(".fav"); if (!b) return;
-  const id = b.dataset.id; favs.has(id) ? favs.delete(id) : favs.add(id);
+  const id = b.dataset.id; favs.has(id) ? favs.delete(id) : (favs.add(id), track("lagre/" + id));
   store.set("skjer-favs", [...favs]); render();
 };
 
@@ -338,7 +354,10 @@ function render() {
 function showStatus() {
   if (!meta.updatedAt) { $("status").textContent = ""; return; }
   const t = new Date(meta.updatedAt);
-  $("status").textContent = `Sist sjekket ${t.getDate()}. ${MO[t.getMonth()]} kl. ${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}` + (meta.lastAdded ? ` · ${meta.lastAdded} nye sist` : "");
+  const age = Math.floor((now - t) / dayMs);
+  $("status").textContent = `Sist sjekket ${t.getDate()}. ${MO[t.getMonth()]} kl. ${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}` + (meta.lastAdded ? ` · ${meta.lastAdded} nye sist` : "")
+    + (age >= 3 ? ` · Programmet er ${age} dager gammelt, så sjekk hos arrangøren` : "");
+  $("status").classList.toggle("stale", age >= 3);
 }
 
 render();
