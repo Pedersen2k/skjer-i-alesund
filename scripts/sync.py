@@ -1,9 +1,10 @@
 """Bygger data/events.json for Skjer i Ålesund.
 
-Henter Ålesund-arrangementer og billettpriser fra Tikkio, slår sammen
-gjentatte forestillinger, og legger til manuelle arrangementer fra
-data/manual.json. Overstyringer (kategori, tittel, tid, notat) ligger i
-data/overrides.json, med normalisert tittel som nøkkel.
+Henter Ålesund-arrangementer og billettpriser fra Tikkio og programmet til
+Parken kulturhus, slår sammen gjentatte forestillinger, og legger til
+manuelle arrangementer fra data/manual.json. Overstyringer (kategori, tittel,
+tid, notat) ligger i data/overrides.json, med normalisert tittel som nøkkel
+(eller «parken-<id>» for et bestemt Parken-arrangement).
 
 Kjør: python3 scripts/sync.py
 """
@@ -22,7 +23,9 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 TZ = ZoneInfo("Europe/Oslo")
 LISTING = "https://tikkio.com/locations/151197-alesund"
-UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)"}
+PARKEN = "https://www.parkenkulturhus.no"
+PARKEN_VENUE = "Parken kulturhus"
+UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
 
 ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
 VENUE_NAMES = {"Terminalen": "Terminalen Byscene"}
@@ -107,6 +110,94 @@ def fetch_tickets(url):
     return tickets
 
 
+def page_text(page):
+    """HTML til ren tekst med én linje per element, så regexene ikke avhenger av markup."""
+    page = re.sub(r"<(script|style|noscript)\b.*?</\1>", " ", page, flags=re.S | re.I)
+    text = html.unescape(re.sub(r"<[^>]+>", "\n", page)).replace("\xa0", " ")
+    return "\n".join(line for line in (re.sub(r"\s+", " ", l).strip() for l in text.split("\n")) if line)
+
+
+def guess_year(day, month, today):
+    # Datoer uten år («07.11»): velg neste gang datoen kommer, med litt slakk bakover
+    year = today.year
+    if datetime.date(year, month, day) < today - datetime.timedelta(days=60):
+        year += 1
+    return year
+
+
+def parse_parken(page, today):
+    """Leser ett arrangement fra Parken. Returnerer (tittel, [(start, utsolgt)], pris-tuple)."""
+    h1 = re.search(r"<h1[^>]*>(.*?)</h1>", page, re.S | re.I)
+    title = clean_title(re.sub(r"<[^>]+>", " ", h1.group(1))) if h1 else ""
+    title = re.sub(r"\s+", " ", title).strip()
+    text = page_text(page)
+    # Hovedinnholdet kommer først; kutt før «andre arrangementer» så vi ikke leser naboene
+    text = re.split(r"\n(?:Se også|Andre arrangementer|Du vil kanskje også like|Relaterte arrangementer)\n", text)[0]
+
+    shows = []
+    for m in re.finditer(r"\b(\d{1,2})\.(\d{1,2})\s*-\s*kl\.\s*(\d{1,2})[:.](\d{2})(?:\s*-\s*\d{1,2}[:.]\d{2})?\s*(Utsolgt)?", text):
+        d, mo, hh, mm = (int(x) for x in m.group(1, 2, 3, 4))
+        try:
+            start = datetime.datetime(guess_year(d, mo, today), mo, d, hh, mm, tzinfo=TZ)
+        except ValueError:
+            continue
+        if all(s != start for s, _ in shows):
+            shows.append((start, bool(m.group(5))))
+    if not shows:
+        m = re.search(r"\b(\d{1,2})\.\s*(" + "|".join(MONTHS) + r")[a-zæøå]*\.?\s*(\d{4})(?:\s*kl\.\s*(\d{1,2})[:.](\d{2}))?", text, re.I)
+        if m:
+            d, mo, y = int(m.group(1)), MONTHS.index(m.group(2).lower()) + 1, int(m.group(3))
+            hh, mm = (int(m.group(4)), int(m.group(5))) if m.group(4) else (0, 0)
+            try:
+                start = datetime.datetime(y, mo, d, hh, mm, tzinfo=TZ)
+                shows.append((start, False))
+            except ValueError:
+                pass
+
+    price = None
+    m = re.search(r"Pris:\s*(?:\n\s*)?(?:fra\s*)?(\d[\d .]*?)\s*kr(?:\s*til\s*(\d[\d .]*?)\s*kr)?", text, re.I)
+    if m:
+        lo = int(re.sub(r"\D", "", m.group(1)))
+        hi = int(re.sub(r"\D", "", m.group(2))) if m.group(2) else None
+        price = (f"{lo}–{hi} kr" if hi and hi != lo else f"{lo} kr", lo, "")
+    elif re.search(r"Pris:\s*(?:\n\s*)?Gratis", text, re.I):
+        price = ("Gratis", 0, "")
+    return title, shows, price
+
+
+def fetch_parken():
+    try:
+        listing = get(PARKEN + "/program/")
+    except Exception as e:
+        print("Parken: klarte ikke å hente programmet:", e, file=sys.stderr)
+        return []
+    today = datetime.datetime.now(TZ).date()
+    urls = []
+    for m in re.finditer(r'href="((?:https://www\.parkenkulturhus\.no)?/program/(\d+)-[^"/?#]+/?)"', listing):
+        url = m.group(1) if m.group(1).startswith("http") else PARKEN + m.group(1)
+        if all(u != url for u, _ in urls):
+            urls.append((url, m.group(2)))
+    raw = []
+    for url, pid in urls:
+        try:
+            page = get(url)
+            time.sleep(0.5)
+        except Exception as e:  # en enkelt side som feiler skal ikke stoppe hele kjøringen
+            print("feil:", url, e, file=sys.stderr)
+            continue
+        title, shows, price = parse_parken(page, today)
+        if not title or not shows or SKIP.search(title):
+            continue
+        for start, sold in shows:
+            if start.date() < today:
+                continue
+            raw.append({"name": title, "venue": PARKEN_VENUE, "start": start, "url": url,
+                        "tickets": [], "price": price, "soldOut": sold, "group": "parken-" + pid,
+                        "noTime": start.hour == 0 and start.minute == 0})  # dato uten klokkeslett
+    print(f"Parken: {len(urls)} lenker, {len(raw)} forestillinger", file=sys.stderr)
+    return raw
+
+
 def price_info(tickets):
     real = [(n, p) for n, p in tickets if not NOISE.search(n)]
     paid = [(n, p) for n, p in real if p > 0]
@@ -123,22 +214,27 @@ def fmt_day(d):
     return f"{d.day}. {MONTHS[d.month - 1]}"
 
 
-def build_tikkio(raw, overrides):
+def build_events(raw, overrides):
     groups = {}
     for r in raw:
         title = clean_title(r["name"])
-        groups.setdefault((norm_key(title), r["venue"]), []).append({**r, "title": title})
+        groups.setdefault((r.get("group") or norm_key(title), r["venue"]), []).append({**r, "title": title})
     events = []
     for (key, venue), shows in groups.items():
         shows.sort(key=lambda s: s["start"])
         first = shows[0]
-        o = overrides.get(key, {})
-        price, price_min, disc = price_info(first["tickets"])
+        title_key = norm_key(first["title"])
+        o = overrides.get(key) or overrides.get(title_key, {})
+        price, price_min, disc = first.get("price") or price_info(first["tickets"])
         notes = [o.get("note", "")]
         extra_days = sorted({s["start"].date() for s in shows[1:]} - {first["start"].date()})
         same_day = [s["start"].strftime("%H:%M") for s in shows[1:] if s["start"].date() == first["start"].date()]
         if same_day:
             notes.append("Også kl. " + " og ".join(same_day) + ".")
+        sold = [s for s in shows if s["soldOut"]]
+        if sold and len(sold) < len(shows):
+            when = [s["start"].strftime("%H:%M") if s["start"].date() == first["start"].date() else fmt_day(s["start"].date()) for s in sold]
+            notes.append("Utsolgt: " + ", ".join(when) + ".")
         if extra_days:
             listed = ", ".join(fmt_day(d) for d in extra_days[:5])
             notes.append(f"Flere forestillinger: {listed}" + (" m.fl." if len(extra_days) > 5 else "") + ".")
@@ -147,7 +243,7 @@ def build_tikkio(raw, overrides):
         events.append({
             "id": slug(key + "-" + venue),
             "date": first["start"].date().isoformat(),
-            "time": o.get("time") or first["start"].strftime("%H:%M"),
+            "time": o.get("time") or ("" if first.get("noTime") else first["start"].strftime("%H:%M")),
             "title": o.get("title") or first["title"],
             "venue": venue,
             "cat": o.get("cat") or guess_cat(first["title"]),
@@ -182,19 +278,33 @@ def main():
 
     now = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     today = datetime.datetime.now(TZ).date().isoformat()
-    events = build_tikkio(fetch_tikkio(), overrides)
+    events = build_events(fetch_tikkio(), overrides)
     if not events:
         sys.exit("Fant ingen arrangementer på Tikkio – beholder forrige versjon.")
-    events += [e for e in manual if e["date"] >= today]
+    parken = build_events(fetch_parken(), overrides)
+    # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
+    seen = {(e["date"], norm_key(e["title"])) for e in events}
+    events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
+    # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
+    parken_ids = {e["id"] for e in parken}
+    events += [e for e in manual if e["date"] >= today and e["id"] not in parken_ids]
 
+    seeded_at = old["meta"].get("seededAt") or now
+    # Første gang en ny kilde gir treff, regnes alt derfra som startprogram og ikke som NYTT
+    sources = set(old["meta"].get("sources", ["tikkio"]))
+    fresh_source = {e["id"] for e in parken} if parken and "parken" not in sources else set()
+    if parken:
+        sources.add("parken")
     added = 0
     for e in events:
-        e["addedAt"] = first_seen.get(e["id"]) or now
-        added += e["id"] not in first_seen
+        is_new = e["id"] not in first_seen and e["id"] not in fresh_source and not e.get("addedAt")
+        e["addedAt"] = first_seen.get(e["id"]) or e.get("addedAt") or (now if is_new else seeded_at)
+        added += is_new
     meta = {
         "updatedAt": now,
-        "seededAt": old["meta"].get("seededAt") or now,
+        "seededAt": seeded_at,
         "lastAdded": added if first_seen else 0,
+        "sources": sorted(sources),
     }
     events.sort(key=lambda e: (e["date"], e["time"] or "99"))
     old_path.write_text(json.dumps({"meta": meta, "events": events}, ensure_ascii=False, indent=1) + "\n")

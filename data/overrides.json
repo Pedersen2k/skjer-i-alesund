@@ -15,6 +15,9 @@
     "cat": "standup",
     "title": "André Ulveseter – «Uten sammenheng for øvrig»"
   },
+  "apestjernen": {
+    "cat": "barn"
+  },
   "baerre-bjarne-et-musikalsk-standupshow": {
     "cat": "standup",
     "title": "«Bærre Bjarne» – musikalsk standupshow"
@@ -44,9 +47,15 @@
     "cat": "konsert",
     "title": "Darling West – juleturné"
   },
+  "dyrene-i-hakkebakkeskogen": {
+    "cat": "barn"
+  },
   "erlend-gunstveit-my-nashville-christmas-to-you": {
     "cat": "konsert",
     "title": "Erlend Gunstveit – My Nashville Christmas To You"
+  },
+  "finn-tre-feil": {
+    "cat": "show"
   },
   "golf": {
     "cat": "konsert",
@@ -63,6 +72,12 @@
   "husfest-2026": {
     "cat": "klubb",
     "title": "Husfest – Pir 5 år"
+  },
+  "hvis-gud-vil": {
+    "cat": "show"
+  },
+  "iselin-guttormsen-kommer": {
+    "cat": "standup"
   },
   "iver-kleive-knut-reiersrud-vidunderligst-av-alt-pa-jord": {
     "cat": "konsert",
@@ -133,6 +148,17 @@
     "title": "Nøtteknekkeren",
     "note": "Premiere 1. desember."
   },
+  "parken-43179": {
+    "cat": "konsert",
+    "title": "Ålesund symfoniorkester – Carmina Burana"
+  },
+  "parken-43180": {
+    "cat": "konsert",
+    "title": "Ålesund symfoniorkester – Adventskonsert"
+  },
+  "peter-pan": {
+    "cat": "barn"
+  },
   "pubkonsert-med-quiz": {
     "cat": "happening",
     "title": "Pubkonsert med quiz"
@@ -142,6 +168,9 @@
     "title": "Purppuri med Jorun Marie Kvernberg – dansekonsert",
     "note": "Aalesund Folk Festival. Dører 18:00. Gratis under 18 år.",
     "time": "19:00"
+  },
+  "putti-plutti-pott": {
+    "cat": "barn"
   },
   "romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby": {
     "cat": "happening",
@@ -154,6 +183,10 @@
   "salmer-pa-pobb": {
     "cat": "konsert",
     "title": "Salmer på pøbb"
+  },
+  "sans": {
+    "cat": "barn",
+    "title": "Sans – Piero Issa og Ole Petter Knarvik"
   },
   "schuberts-testamente": {
     "cat": "konsert",
@@ -196,6 +229,17 @@
     "title": "The Good The Bad and The Zugly",
     "note": "Support: Daufødt."
   },
+  "the-show-must-go-on": {
+    "cat": "show",
+    "title": "The Show Must Go On – Åge Sten Nilsen"
+  },
+  "treretters-en-lattergalla": {
+    "cat": "standup",
+    "note": "Kevin Vågenes, Cess og Rasmus Wold."
+  },
+  "tuva-ronny-folger-drommen": {
+    "cat": "show"
+  },
   "valkyrien-allstars": {
     "cat": "konsert",
     "title": "Valkyrien Allstars"
@@ -209,6 +253,13 @@
     "title": "Viggo Venneløs",
     "note": "Dører 18:00 · 15 år.",
     "time": "19:00"
+  },
+  "vitenshitshow": {
+    "cat": "barn",
+    "note": "Med Dennis Siva og Stian Sandø."
+  },
+  "ylvis-calle": {
+    "cat": "show"
   },
   "zimmermann-julekonsert": {
     "cat": "konsert",

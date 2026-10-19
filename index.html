@@ -82,8 +82,11 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .ev .side { grid-row: 1 / span 2; grid-column: 2; display: flex; flex-direction: column; gap: 6px; align-items: end; }
 .fav { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 20px; line-height: 1; padding: 4px; border-radius: 6px; }
 .fav[aria-pressed="true"] { color: var(--accent); }
-.link { grid-column: 1 / -1; font-size: 13px; font-weight: 600; color: var(--sea); text-decoration: none; }
-.link:hover { text-decoration: underline; }
+.actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; }
+.link, .cal { font: 600 13px/1.4 var(--font-body); color: var(--sea); text-decoration: none; }
+.cal { border: 0; background: transparent; padding: 0; cursor: pointer; display: inline-flex; gap: 5px; align-items: center; }
+.cal svg { width: 14px; height: 14px; }
+.link:hover, .cal:hover { text-decoration: underline; }
 .price { font: 600 13px/1.2 var(--font-mono); color: var(--fg); white-space: nowrap; }
 .price.unk { font: 500 12px/1.2 var(--font-body); color: var(--muted); }
 .price.sold { color: var(--accent); }
@@ -134,8 +137,8 @@ footer a { color: var(--sea); }
   <main id="list"></main>
 
   <footer>
-    <div>Programmet hentes fra Terminalen Byscene, Parken kulturhus, Løvenvold Theater og billettsider, og oppdateres automatisk hver morgen. Priser vises der arrangøren har publisert dem. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div>
-    <div>Kilder: <a href="https://www.terminalenbyscene.no/program" target="_blank" rel="noopener">Terminalen</a> · <a href="https://www.parkenkulturhus.no/" target="_blank" rel="noopener">Parken</a> · <a href="https://lovenvoldtheater.no/" target="_blank" rel="noopener">Løvenvold</a> · <a href="https://tikkio.com/locations/151197-alesund" target="_blank" rel="noopener">Tikkio</a> · <a href="https://bypatrioten.com/kalender/" target="_blank" rel="noopener">Bypatrioten</a></div>
+    <div>Programmet hentes automatisk hver morgen fra Tikkio (blant annet Terminalen Byscene og Løvenvold Theater) og fra programmet til Parken kulturhus. Enkelte andre arrangementer legges inn for hånd. Priser vises der arrangøren har publisert dem. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div>
+    <div>Kilder: <a href="https://www.terminalenbyscene.no/program" target="_blank" rel="noopener">Terminalen</a> · <a href="https://www.parkenkulturhus.no/program/" target="_blank" rel="noopener">Parken</a> · <a href="https://lovenvoldtheater.no/" target="_blank" rel="noopener">Løvenvold</a> · <a href="https://tikkio.com/locations/151197-alesund" target="_blank" rel="noopener">Tikkio</a> · <a href="https://bypatrioten.com/kalender/" target="_blank" rel="noopener">Bypatrioten</a></div>
   </footer>
 </div>
 
@@ -202,6 +205,8 @@ $("price").onchange = e => { state.price = e.target.value; render(); };
 $("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
 $("favonly").onclick = e => { state.favOnly = !state.favOnly; e.currentTarget.setAttribute("aria-pressed", state.favOnly); render(); };
 $("list").onclick = e => {
+  const c = e.target.closest(".cal");
+  if (c) { const ev = E.find(x => x.id === c.dataset.cal); if (ev) downloadIcs(ev); return; }
   const b = e.target.closest(".fav"); if (!b) return;
   const id = b.dataset.id; favs.has(id) ? favs.delete(id) : favs.add(id);
   store.set("skjer-favs", [...favs]); render();
@@ -213,6 +218,37 @@ const WD = ["søn", "man", "tir", "ons", "tor", "fre", "lør"];
 const rel = d => { const n = diffDays(d); return n === 0 ? "I dag" : n === 1 ? "I morgen" : n < 7 ? `Om ${n} dager` : ""; };
 const isNew = e => meta.seededAt && e.addedAt && e.addedAt > meta.seededAt && (now - new Date(e.addedAt)) < 14 * dayMs;
 const priceOk = e => state.price === "" || (typeof e.priceMin === "number" && e.priceMin <= Number(state.price) && (state.price !== "0" || e.priceMin === 0));
+
+// Kalenderfil (.ics) for ett arrangement. Uten klokkeslett blir det en heldagshendelse, ellers 2 timer.
+const CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>';
+const icsText = s => String(s ?? "").replace(/[\\;,]/g, c => "\\" + c).replace(/\r?\n/g, "\\n");
+const icsFold = line => line.match(/.{1,60}/gu).join("\r\n ");
+const stamp = (d, withTime) => d.toISOString().replace(/[-:]/g, "").slice(0, withTime ? 15 : 8);
+function downloadIcs(e) {
+  const [y, m, d] = e.date.split("-").map(Number);
+  // Regnes i UTC-felt bare for å legge til tid; verdiene skrives som lokal tid i Europe/Oslo
+  let start, end;
+  if (/^\d{1,2}:\d{2}$/.test(e.time || "")) {
+    const [hh, mm] = e.time.split(":").map(Number);
+    const s0 = new Date(Date.UTC(y, m - 1, d, hh, mm)), e0 = new Date(s0.getTime() + 2 * 36e5);
+    start = `DTSTART;TZID=Europe/Oslo:${stamp(s0, true)}`; end = `DTEND;TZID=Europe/Oslo:${stamp(e0, true)}`;
+  } else {
+    const s0 = new Date(Date.UTC(y, m - 1, d)), e0 = new Date(s0.getTime() + dayMs);
+    start = `DTSTART;VALUE=DATE:${stamp(s0)}`; end = `DTEND;VALUE=DATE:${stamp(e0)}`;
+  }
+  const u = safeUrl(e.url);
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Skjer i Ålesund//NB", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "BEGIN:VEVENT",
+    `UID:${e.id}-${e.date}@skjer-i-alesund`, `DTSTAMP:${stamp(new Date(), true)}Z`, start, end,
+    `SUMMARY:${icsText(e.title)}`, `LOCATION:${icsText(e.venue + ", Ålesund")}`,
+    `DESCRIPTION:${icsText([e.note, e.price && "Pris: " + e.price, u].filter(Boolean).join("\n"))}`,
+    ...(u ? [`URL:${u}`] : []), "END:VEVENT", "END:VCALENDAR"];
+  const blob = new Blob([lines.map(icsFold).join("\r\n") + "\r\n"], { type: "text/calendar;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (e.id || "arrangement") + ".ics";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
 
 function priceHtml(e) {
   if (e.soldOut) return `<span class="price sold">Utsolgt</span>`;
@@ -243,7 +279,7 @@ function render() {
         <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}</div>
         <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${CATS[c]}</span><span>${esc(e.venue)}</span>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
         ${e.note ? `<div class="note ${e.uncertain ? "warn" : ""}">${esc(e.note)}</div>` : ""}
-        ${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}
+        <div class="actions">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}<button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button></div>
       </article>`; }).join("")}</div></section>`;
   }).join("");
 }
