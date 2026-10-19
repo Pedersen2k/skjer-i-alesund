@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Konserter, standup, show og happenings i Ålesund – samlet på ett sted, med priser.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c8432b'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='800'%3EÅ%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2048%2052%22%20role%3D%22img%22%20aria-label%3D%22Logo%3A%20jugendgavl%20ved%20sj%C3%B8en%22%3E%20%3Ccircle%20cx%3D%2224%22%20cy%3D%226%22%20r%3D%223.5%22%20fill%3D%22none%22%20stroke%3D%22%23c8432b%22%20stroke-width%3D%222.5%22/%3E%20%3Cpath%20d%3D%22M7%2044V24h5c0-6%204-10%208-11.5L24%2011l4%201.5c4%201.5%208%205.5%208%2011.5h5v20Z%22%20fill%3D%22%23c8432b%22/%3E%20%3Ccircle%20cx%3D%2215%22%20cy%3D%2230%22%20r%3D%222%22%20fill%3D%22%23ffffff%22/%3E%3Ccircle%20cx%3D%2233%22%20cy%3D%2230%22%20r%3D%222%22%20fill%3D%22%23ffffff%22/%3E%20%3Cpath%20d%3D%22M19.5%2044v-8a4.5%204.5%200%200%201%209%200v8Z%22%20fill%3D%22%23ffffff%22/%3E%20%3Cpath%20d%3D%22M4%2049c3.5-2.5%206.5-2.5%2010%200s6.5%202.5%2010%200%206.5-2.5%2010%200%206.5%202.5%2010%200%22%20fill%3D%22none%22%20stroke%3D%22%231f6f78%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22/%3E%20%3C/svg%3E">
 <title>Skjer i Ålesund</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -44,6 +44,8 @@ body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body);
 
 header.top { display: grid; gap: 6px; padding-bottom: 18px; }
 .eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--sea); }
+.brand { display: flex; align-items: center; gap: clamp(10px, 2.5vw, 16px); }
+.logo { flex: none; width: clamp(44px, 10vw, 70px); height: auto; }
 h1 { font: 800 clamp(40px, 9vw, 68px)/0.92 var(--font-display); letter-spacing: -0.03em; margin: 0; text-wrap: balance; }
 h1 span { color: var(--accent); }
 .lede { margin: 6px 0 0; color: var(--muted); max-width: 52ch; }
@@ -95,7 +97,16 @@ footer a { color: var(--sea); }
 <div class="wrap">
   <header class="top">
     <div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div>
+    <div class="brand">
+    <svg class="logo" viewBox="0 0 48 52" role="img" aria-label="Logo: jugendgavl ved sjøen">
+      <circle cx="24" cy="6" r="3.5" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+      <path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="var(--accent)"/>
+      <circle cx="15" cy="30" r="2" fill="var(--bg)"/><circle cx="33" cy="30" r="2" fill="var(--bg)"/>
+      <path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="var(--bg)"/>
+      <path d="M4 49c3.5-2.5 6.5-2.5 10 0s6.5 2.5 10 0 6.5-2.5 10 0 6.5 2.5 10 0" fill="none" stroke="var(--sea)" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
     <h1>Skjer i <span>Ålesund</span></h1>
+    </div>
     <p class="lede">Konserter, standup, show og happenings i byen, samlet på ett sted. Programmet sjekkes hver morgen, og nye arrangementer merkes med NYTT. Trykk ☆ for å lagre det du vil på.</p>
     <div class="status" id="status">Henter programmet …</div>
   </header>
