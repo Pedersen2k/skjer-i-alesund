@@ -61,6 +61,9 @@
     "cat": "konsert",
     "title": "GOLF"
   },
+  "gospelfest": {
+    "cat": "konsert"
+  },
   "halloween-klubb-med-mentum": {
     "cat": "klubb",
     "title": "Halloween-klubb med MENTUM"
@@ -125,6 +128,10 @@
     "title": "Maria Mena",
     "note": "40-årsturné og 25 år som artist."
   },
+  "marianne-heske-fra-tafjord-til-verdens-kunstscene": {
+    "cat": "happening",
+    "title": "Marianne Heske – fra Tafjord til verdens kunstscene"
+  },
   "marie-lovas-duo": {
     "cat": "konsert",
     "title": "Marie Løvås Duo"
@@ -179,6 +186,10 @@
   "rotlaus": {
     "cat": "konsert",
     "title": "Rotlaus"
+  },
+  "russland-var-dystre-natid": {
+    "cat": "happening",
+    "title": "Russland – vår dystre nåtid"
   },
   "salmer-pa-pobb": {
     "cat": "konsert",

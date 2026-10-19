@@ -237,7 +237,7 @@ def build_events(raw, overrides):
             notes.append("Utsolgt: " + ", ".join(when) + ".")
         if extra_days:
             listed = ", ".join(fmt_day(d) for d in extra_days[:5])
-            notes.append(f"Flere forestillinger: {listed}" + (" m.fl." if len(extra_days) > 5 else "") + ".")
+            notes.append(f"Flere forestillinger: {listed}" + (" m.fl." if len(extra_days) > 5 else "."))
         if o.get("discountNote", True):
             notes.append(disc)
         events.append({
