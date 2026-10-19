@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-19T14:39:40Z",
+  "updatedAt": "2026-10-19T18:54:57Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -9,22 +9,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-47487-parken-kulturhus",
-   "date": "2026-10-19",
-   "time": "18:00",
-   "title": "Apestjernen",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "barn",
-   "price": "256–315 kr",
-   "priceMin": 256,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47487-apestjernen/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "parken-48285-parken-kulturhus",
    "date": "2026-10-21",
