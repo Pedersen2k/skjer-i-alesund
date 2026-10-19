@@ -25,6 +25,7 @@ TZ = ZoneInfo("Europe/Oslo")
 LISTING = "https://tikkio.com/locations/151197-alesund"
 PARKEN = "https://www.parkenkulturhus.no"
 PARKEN_VENUE = "Parken kulturhus"
+PARKEN_ADDRESS = "Parkgata 3B, 6003 Ålesund"
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
 
 ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
@@ -61,6 +62,12 @@ def norm_key(title):
     return slug(re.sub(r"\b(premiere|gr\.\s*\d)\b", "", title, flags=re.I))
 
 
+def clean_address(street, venue):
+    # Tikkio har iblant bare stedsnavnet i adressefeltet; uten husnummer er det ikke en adresse
+    a = re.sub(r",\s*(Norge|Norway)\s*$", "", (street or "").strip())
+    return a if re.search(r"\d", a) and a != venue else ""
+
+
 def fetch_tikkio():
     page = get(LISTING)
     today = datetime.datetime.now(TZ).date()
@@ -87,6 +94,7 @@ def fetch_tikkio():
             offer = offer[0] if isinstance(offer, list) else offer
             url = offer.get("url") or ""
             raw.append({"name": name, "venue": VENUE_NAMES.get(venue, venue), "start": start,
+                        "address": clean_address(addr.get("streetAddress"), venue),
                         "url": url, "tickets": fetch_tickets(url),
                         "soldOut": "SoldOut" in json.dumps(offer.get("availability"))})
     return raw
@@ -191,7 +199,7 @@ def fetch_parken():
         for start, sold in shows:
             if start.date() < today:
                 continue
-            raw.append({"name": title, "venue": PARKEN_VENUE, "start": start, "url": url,
+            raw.append({"name": title, "venue": PARKEN_VENUE, "address": PARKEN_ADDRESS, "start": start, "url": url,
                         "tickets": [], "price": price, "soldOut": sold, "group": "parken-" + pid,
                         "noTime": start.hour == 0 and start.minute == 0})  # dato uten klokkeslett
     print(f"Parken: {len(urls)} lenker, {len(raw)} forestillinger", file=sys.stderr)
@@ -246,6 +254,7 @@ def build_events(raw, overrides):
             "time": o.get("time") or ("" if first.get("noTime") else first["start"].strftime("%H:%M")),
             "title": o.get("title") or first["title"],
             "venue": venue,
+            "address": first.get("address", ""),
             "cat": o.get("cat") or guess_cat(first["title"]),
             "price": price, "priceMin": price_min,
             "soldOut": all(s["soldOut"] for s in shows),
