@@ -1,0 +1,217 @@
+{
+  "50-ar-med-the-beatles": {
+    "cat": "konsert",
+    "title": "50 år med The Beatles"
+  },
+  "aktiv-dodshjelp": {
+    "cat": "konsert",
+    "title": "Aktiv Dödshjelp"
+  },
+  "alerakk-vol-2": {
+    "cat": "konsert",
+    "title": "ÅLERÅKK Vol. 2"
+  },
+  "andre-ulveseter-uten-sammenheng-for-ovrig": {
+    "cat": "standup",
+    "title": "André Ulveseter – «Uten sammenheng for øvrig»"
+  },
+  "baerre-bjarne-et-musikalsk-standupshow": {
+    "cat": "standup",
+    "title": "«Bærre Bjarne» – musikalsk standupshow"
+  },
+  "ballinciaga": {
+    "cat": "konsert",
+    "title": "Ballinciaga"
+  },
+  "bigbang": {
+    "cat": "konsert",
+    "title": "Bigbang"
+  },
+  "bjorn-bjarte": {
+    "cat": "show",
+    "title": "Bjørn & Bjarte",
+    "note": "Flyttet fra 11. november."
+  },
+  "claudia-scott-og-torstein-flakne": {
+    "cat": "konsert",
+    "title": "Claudia Scott og Torstein Flakne"
+  },
+  "daniel-herskedal": {
+    "cat": "konsert",
+    "title": "Daniel Herskedal"
+  },
+  "darling-west-juleturne-26": {
+    "cat": "konsert",
+    "title": "Darling West – juleturné"
+  },
+  "erlend-gunstveit-my-nashville-christmas-to-you": {
+    "cat": "konsert",
+    "title": "Erlend Gunstveit – My Nashville Christmas To You"
+  },
+  "golf": {
+    "cat": "konsert",
+    "title": "GOLF"
+  },
+  "halloween-klubb-med-mentum": {
+    "cat": "klubb",
+    "title": "Halloween-klubb med MENTUM"
+  },
+  "hoyt-lavt-badesken-og-rune-nilson": {
+    "cat": "standup",
+    "title": "Høyt & Lavt – BAdesKen og Rune Nilson"
+  },
+  "husfest-2026": {
+    "cat": "klubb",
+    "title": "Husfest – Pir 5 år"
+  },
+  "iver-kleive-knut-reiersrud-vidunderligst-av-alt-pa-jord": {
+    "cat": "konsert",
+    "title": "Iver Kleive & Knut Reiersrud – «Vidunderligst av alt på jord»",
+    "note": "Redusert billett 270 kr.",
+    "discountNote": false
+  },
+  "janove": {
+    "cat": "konsert",
+    "title": "Janove"
+  },
+  "julekonsert-spjelkavik-kyrkje": {
+    "cat": "konsert",
+    "title": "Julekonsert i Spjelkavik kyrkje"
+  },
+  "juleshow-pa-lovenvold-vol-4": {
+    "cat": "standup",
+    "title": "Juleshow på Løvenvold Vol. 4",
+    "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30.",
+    "time": "18:30"
+  },
+  "juleverksted-alesund-cupcakekrans": {
+    "cat": "happening",
+    "title": "Juleverksted – cupcakekrans"
+  },
+  "kamelen": {
+    "cat": "konsert",
+    "title": "Kamelen"
+  },
+  "kristiansen": {
+    "cat": "konsert",
+    "title": "Kristiansen // Vemøy"
+  },
+  "leprous": {
+    "cat": "konsert",
+    "title": "Leprous",
+    "note": "18 år."
+  },
+  "lille-caesar": {
+    "cat": "show",
+    "title": "Lille Caesar"
+  },
+  "maria-mena": {
+    "cat": "konsert",
+    "title": "Maria Mena",
+    "note": "40-årsturné og 25 år som artist."
+  },
+  "marie-lovas-duo": {
+    "cat": "konsert",
+    "title": "Marie Løvås Duo"
+  },
+  "men-har-du-provd-yoga-et-standupshow-om-a-skli-pa-isen": {
+    "cat": "standup",
+    "title": "«Men har du prøvd yoga?» – standup",
+    "note": "Ordinær 299–330 kr.",
+    "discountNote": false
+  },
+  "nar-barokken-moter-nord": {
+    "cat": "konsert",
+    "title": "Når Barokken møter Nord"
+  },
+  "nils-ingar-aadne-tenk-det": {
+    "cat": "standup",
+    "title": "Nils-Ingar Aadne – «Tenk det»"
+  },
+  "notteknekkeren": {
+    "cat": "show",
+    "title": "Nøtteknekkeren",
+    "note": "Premiere 1. desember."
+  },
+  "pubkonsert-med-quiz": {
+    "cat": "happening",
+    "title": "Pubkonsert med quiz"
+  },
+  "purppuri-med-jorun-marie-kvernberg-dansekonsert-i-alesund": {
+    "cat": "konsert",
+    "title": "Purppuri med Jorun Marie Kvernberg – dansekonsert",
+    "note": "Aalesund Folk Festival. Dører 18:00. Gratis under 18 år.",
+    "time": "19:00"
+  },
+  "romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby": {
+    "cat": "happening",
+    "title": "Romjulsdans med Steinar Engelbrektson og Sissel Lunde Sundby"
+  },
+  "rotlaus": {
+    "cat": "konsert",
+    "title": "Rotlaus"
+  },
+  "salmer-pa-pobb": {
+    "cat": "konsert",
+    "title": "Salmer på pøbb"
+  },
+  "schuberts-testamente": {
+    "cat": "konsert",
+    "title": "Schuberts Testamente"
+  },
+  "skifilm-festival-tgr-friends": {
+    "cat": "happening",
+    "title": "Skifilmfestival – TGR & Friends"
+  },
+  "slomosa": {
+    "cat": "konsert",
+    "title": "Slomosa"
+  },
+  "sofia-emelia-robert-botn": {
+    "cat": "konsert",
+    "title": "Sofia Emelia & Robert Botn"
+  },
+  "soulsisters-jazzy-night": {
+    "cat": "konsert",
+    "title": "Soulsisters Jazzy Night"
+  },
+  "stein-torleif-bjella": {
+    "cat": "konsert",
+    "title": "Stein Torleif Bjella"
+  },
+  "sult": {
+    "cat": "konsert",
+    "title": "SULT"
+  },
+  "susanne-sundfor": {
+    "cat": "konsert",
+    "title": "Susanne Sundfør"
+  },
+  "synne-vo-her-vil-e-vaer-norgesturne": {
+    "cat": "konsert",
+    "title": "Synne Vo – «Her vil e vær»"
+  },
+  "the-good-the-bad-and-the-zugly": {
+    "cat": "konsert",
+    "title": "The Good The Bad and The Zugly",
+    "note": "Support: Daufødt."
+  },
+  "valkyrien-allstars": {
+    "cat": "konsert",
+    "title": "Valkyrien Allstars"
+  },
+  "vassendgutane": {
+    "cat": "konsert",
+    "title": "Vassendgutane"
+  },
+  "viggo-vennelos": {
+    "cat": "standup",
+    "title": "Viggo Venneløs",
+    "note": "Dører 18:00 · 15 år.",
+    "time": "19:00"
+  },
+  "zimmermann-julekonsert": {
+    "cat": "konsert",
+    "title": "Zimmermann – julekonsert"
+  }
+}

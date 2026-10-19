@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Konserter, standup, show og happenings i Ålesund – samlet på ett sted, med priser.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c8432b'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='800'%3EÅ%3C/text%3E%3C/svg%3E">
+<title>Skjer i Ålesund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; font-size: 14px; }
+[hidden] { display: none !important; }
+/* Layout: smal kalenderkolonne, dager som "kaier" med arrangementer fortøyd under, filterlist øverst */
+:root {
+  --bg: #eef3f2;          /* tåke over Storfjorden */
+  --surface: #ffffff;
+  --fg: #10282f;          /* fjorddyp */
+  --muted: #5a7177;
+  --line: #d3dfdd;
+  --accent: #c8432b;      /* jugend-tak */
+  --accent-ink: #ffffff;
+  --sea: #1f6f78;
+  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
+  --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
+  --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a;
+  color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body); }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; }
+
+header.top { display: grid; gap: 6px; padding-bottom: 18px; }
+.eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--sea); }
+h1 { font: 800 clamp(40px, 9vw, 68px)/0.92 var(--font-display); letter-spacing: -0.03em; margin: 0; text-wrap: balance; }
+h1 span { color: var(--accent); }
+.lede { margin: 6px 0 0; color: var(--muted); max-width: 52ch; }
+
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.search { width: 100%; font: inherit; padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); }
+.search:focus-visible, button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chip { font: 500 13px/1 var(--font-body); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--muted)); }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.chip.when[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+select.chip { appearance: none; padding-right: 28px; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%; background-size: 5px 5px; background-repeat: no-repeat; }
+.count { margin-left: auto; font: 500 12px var(--font-mono); color: var(--muted); }
+
+.day { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.date { text-align: left; }
+.date .wd { font: 500 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.date .num { font: 800 38px/1 var(--font-display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.date .mo { font: 500 12px/1 var(--font-mono); text-transform: uppercase; color: var(--accent); letter-spacing: .06em; }
+.date .rel { margin-top: 6px; font: 600 11px/1.2 var(--font-body); color: var(--sea); }
+.events { display: grid; gap: 10px; min-width: 0; }
+.ev { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; border-left: 4px solid var(--c); }
+.ev h3 { margin: 0; font: 700 17px/1.25 var(--font-display); letter-spacing: -0.01em; text-wrap: balance; min-width: 0; }
+.meta { grid-column: 1; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; color: var(--muted); }
+.meta .t { font-family: var(--font-mono); color: var(--fg); }
+.tag { font: 600 11px/1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--c); }
+.note { grid-column: 1 / -1; font-size: 12.5px; color: var(--muted); }
+.note.warn { color: var(--accent); }
+.ev .side { grid-row: 1 / span 2; grid-column: 2; display: flex; flex-direction: column; gap: 6px; align-items: end; }
+.fav { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 20px; line-height: 1; padding: 4px; border-radius: 6px; }
+.fav[aria-pressed="true"] { color: var(--accent); }
+.link { grid-column: 1 / -1; font-size: 13px; font-weight: 600; color: var(--sea); text-decoration: none; }
+.link:hover { text-decoration: underline; }
+.price { font: 600 13px/1.2 var(--font-mono); color: var(--fg); white-space: nowrap; }
+.price.unk { font: 500 12px/1.2 var(--font-body); color: var(--muted); }
+.price.sold { color: var(--accent); }
+.new { font: 700 10px/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; background: var(--accent); color: var(--accent-ink); padding: 3px 6px; border-radius: 4px; }
+.status { font: 500 12px/1.4 var(--font-mono); color: var(--muted); }
+.empty { padding: 40px 0; color: var(--muted); text-align: center; }
+footer { margin-top: 28px; font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
+footer a { color: var(--sea); }
+@media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
+@media (prefers-reduced-motion: no-preference) { .ev { transition: transform .15s ease; } .ev:hover { transform: translateX(2px); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div>
+    <h1>Skjer i <span>Ålesund</span></h1>
+    <p class="lede">Konserter, standup, show og happenings i byen, samlet på ett sted. Programmet sjekkes hver morgen, og nye arrangementer merkes med NYTT. Trykk ☆ for å lagre det du vil på.</p>
+    <div class="status" id="status">Henter programmet …</div>
+  </header>
+
+  <div class="controls">
+    <input id="q" class="search" type="search" placeholder="Søk etter artist, sted eller show …" aria-label="Søk">
+    <div class="row" id="when"></div>
+    <div class="row" id="cats"></div>
+    <div class="row">
+      <select id="venue" class="chip" aria-label="Velg scene"></select>
+      <select id="price" class="chip" aria-label="Velg pris">
+        <option value="">Alle priser</option><option value="0">Gratis</option><option value="300">Under 300 kr</option><option value="500">Under 500 kr</option>
+      </select>
+      <button id="favonly" class="chip" aria-pressed="false">★ Mine</button>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+
+  <main id="list"></main>
+
+  <footer>
+    <div>Programmet hentes fra Terminalen Byscene, Parken kulturhus, Løvenvold Theater og billettsider, og oppdateres automatisk hver morgen. Priser vises der arrangøren har publisert dem. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div>
+    <div>Kilder: <a href="https://www.terminalenbyscene.no/program" target="_blank" rel="noopener">Terminalen</a> · <a href="https://www.parkenkulturhus.no/" target="_blank" rel="noopener">Parken</a> · <a href="https://lovenvoldtheater.no/" target="_blank" rel="noopener">Løvenvold</a> · <a href="https://tikkio.com/locations/151197-alesund" target="_blank" rel="noopener">Tikkio</a> · <a href="https://bypatrioten.com/kalender/" target="_blank" rel="noopener">Bypatrioten</a></div>
+  </footer>
+</div>
+
+<script>
+const now = new Date();
+const TODAY = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn & familie", klubb: "Klubb", happening: "Happening" };
+let E = [];
+let meta = {};
+
+const store = {
+  get(k, f) { try { return JSON.parse(localStorage.getItem(k)) ?? f; } catch { return f; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+const favs = new Set(store.get("skjer-favs", []));
+const state = { q: "", when: "alt", cats: new Set(), venue: "", price: "", favOnly: false };
+
+const dayMs = 864e5;
+const diffDays = d => Math.floor((d - TODAY) / dayMs);
+const WHEN = {
+  alt: ["Alt", () => true],
+  uke: ["Neste 7 dager", d => diffDays(d) <= 7],
+  helg: ["Helga", d => { const n = diffDays(d), wd = d.getDay(); return n <= 7 && (wd === 5 || wd === 6 || wd === 0); }]
+};
+// Månedsknapper for de neste seks månedene
+const MO = ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "des"];
+const MONTHS = ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"];
+for (let k = 0; k < 6; k++) { const m = (TODAY.getMonth() + k) % 12; WHEN["m" + m] = [MONTHS[m], d => d.getMonth() === m]; }
+
+const $ = id => document.getElementById(id);
+$("when").innerHTML = Object.entries(WHEN).map(([k, [l]]) => `<button class="chip when" data-w="${k}" aria-pressed="${k === state.when}">${l}</button>`).join("");
+$("cats").innerHTML = Object.entries(CATS).map(([k, l]) => `<button class="chip" data-c="${k}" style="--c:var(--c-${k})" aria-pressed="false"><span class="dot"></span>${l}</button>`).join("");
+
+function fillVenues() {
+  const cur = state.venue;
+  $("venue").innerHTML = `<option value="">Alle scener</option>` + [...new Set(E.map(e => e.venue))].sort().map(v => `<option${v === cur ? " selected" : ""}>${esc(v)}</option>`).join("");
+}
+
+$("when").onclick = e => { const b = e.target.closest("[data-w]"); if (!b) return; state.when = b.dataset.w; $("when").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); render(); };
+$("cats").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return; const c = b.dataset.c; state.cats.has(c) ? state.cats.delete(c) : state.cats.add(c); b.setAttribute("aria-pressed", state.cats.has(c)); render(); };
+$("venue").onchange = e => { state.venue = e.target.value; render(); };
+$("price").onchange = e => { state.price = e.target.value; render(); };
+$("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
+$("favonly").onclick = e => { state.favOnly = !state.favOnly; e.currentTarget.setAttribute("aria-pressed", state.favOnly); render(); };
+$("list").onclick = e => {
+  const b = e.target.closest(".fav"); if (!b) return;
+  const id = b.dataset.id; favs.has(id) ? favs.delete(id) : favs.add(id);
+  store.set("skjer-favs", [...favs]); render();
+};
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const safeUrl = u => /^https:\/\//.test(u || "") ? u : "";
+const WD = ["søn", "man", "tir", "ons", "tor", "fre", "lør"];
+const rel = d => { const n = diffDays(d); return n === 0 ? "I dag" : n === 1 ? "I morgen" : n < 7 ? `Om ${n} dager` : ""; };
+const isNew = e => meta.seededAt && e.addedAt && e.addedAt > meta.seededAt && (now - new Date(e.addedAt)) < 14 * dayMs;
+const priceOk = e => state.price === "" || (typeof e.priceMin === "number" && e.priceMin <= Number(state.price) && (state.price !== "0" || e.priceMin === 0));
+
+function priceHtml(e) {
+  if (e.soldOut) return `<span class="price sold">Utsolgt</span>`;
+  if (e.priceMin === 0) return `<span class="price">Gratis</span>`;
+  if (e.price) return `<span class="price">${esc(e.price)}</span>`;
+  return `<span class="price unk">Pris hos arrangør</span>`;
+}
+
+function render() {
+  const items = E.filter(e =>
+    e.d >= TODAY &&
+    WHEN[state.when][1](e.d) &&
+    (!state.cats.size || state.cats.has(e.cat)) &&
+    (!state.venue || e.venue === state.venue) &&
+    priceOk(e) &&
+    (!state.favOnly || favs.has(e.id)) &&
+    (!state.q || (e.title + " " + e.venue + " " + (CATS[e.cat] || "")).toLowerCase().includes(state.q))
+  ).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
+  $("count").textContent = `${items.length} arrangement${items.length === 1 ? "" : "er"}`;
+  if (!items.length) { $("list").innerHTML = `<div class="empty">${!E.length ? "Ingen arrangementer er lagt inn ennå. De dukker opp her når programmet er hentet." : state.favOnly ? "Du har ikke lagret noe som passer filteret. Trykk ☆ på et arrangement for å lagre det." : "Ingenting passer søket. Prøv et annet filter."}</div>`; return; }
+  const groups = new Map();
+  items.forEach(e => { const k = e.d.toDateString(); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(e); });
+  $("list").innerHTML = [...groups.values()].map(g => {
+    const d = g[0].d;
+    return `<section class="day"><div class="date"><div class="wd">${WD[d.getDay()]}</div><div class="num">${d.getDate()}</div><div class="mo">${MO[d.getMonth()]}</div>${rel(d) ? `<div class="rel">${rel(d)}</div>` : ""}</div>
+      <div class="events">${g.map(e => { const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); return `<article class="ev" style="--c:var(--c-${c})">
+        <h3>${esc(e.title)}</h3>
+        <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}</div>
+        <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${CATS[c]}</span><span>${esc(e.venue)}</span>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
+        ${e.note ? `<div class="note ${e.uncertain ? "warn" : ""}">${esc(e.note)}</div>` : ""}
+        ${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}
+      </article>`; }).join("")}</div></section>`;
+  }).join("");
+}
+
+function showStatus() {
+  if (!meta.updatedAt) { $("status").textContent = ""; return; }
+  const t = new Date(meta.updatedAt);
+  $("status").textContent = `Sist sjekket ${t.getDate()}. ${MO[t.getMonth()]} kl. ${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}` + (meta.lastAdded ? ` · ${meta.lastAdded} nye sist` : "");
+}
+
+render();
+fetch("data/events.json", { cache: "no-cache" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data => {
+    meta = data.meta || {};
+    E = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
+    fillVenues(); showStatus(); render();
+  })
+  .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
+</script>
+
+</body>
+</html>
