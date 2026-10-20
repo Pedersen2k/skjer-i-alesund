@@ -16,7 +16,7 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
   - A light/dark toggle.
   - "Legg i kalender", "Del" and map links on each event.
   - A logo (a jugendstil gable above a wave), also used as the favicon and for link previews (`og-image.png`).
-- GitHub Actions runs every morning at about 06:50 Norway time. It fetches the latest events and commits `data/events.json`. If anything changed, it redeploys Pages.
+- GitHub Actions runs twice a day, at about 06:50 and 20:50 Norway time (winter time; one hour later in summer). It fetches the latest events and commits `data/events.json`. If anything changed, it redeploys Pages.
 - If a run fails or returns warnings, the workflow opens a GitHub issue, which emails the owner. The issue is closed automatically once a later run succeeds.
 
 ## Key decisions

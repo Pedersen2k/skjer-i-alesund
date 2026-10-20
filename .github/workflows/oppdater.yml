@@ -2,7 +2,10 @@ name: Oppdater og publiser
 
 on:
   schedule:
-    - cron: "50 4 * * *"   # hver morgen ca. kl. 06:50 norsk tid
+    # GitHub bruker UTC og kan starte 10–30 min forsinket.
+    # Vintertid: ca. 06:50 og 20:50 (sommertid: 07:50 og 21:50).
+    - cron: "50 5 * * *"    # morgen
+    - cron: "50 19 * * *"   # kveld
   push:
     branches: [main]
   workflow_dispatch:

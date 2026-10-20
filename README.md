@@ -6,7 +6,7 @@ Konserter, standup, show og happenings i Ålesund, samlet på ett sted, med bill
 
 - `index.html` er hele nettsiden. Den leser programmet fra `data/events.json`.
 - `scripts/sync.py` henter Ålesund-arrangementer og billettpriser fra Tikkio og programmet til Parken kulturhus, og skriver `data/events.json`.
-- GitHub Actions (`.github/workflows/oppdater.yml`) kjører skriptet hver morgen, lagrer endringene og publiserer siden på GitHub Pages.
+- GitHub Actions (`.github/workflows/oppdater.yml`) kjører skriptet to ganger i døgnet (morgen og kveld), lagrer endringene og publiserer siden på GitHub Pages.
 
 ## Varsling og statistikk
 
