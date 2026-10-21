@@ -1,8 +1,8 @@
 {
  "meta": {
-  "updatedAt": "2026-10-20T05:15:32Z",
+  "updatedAt": "2026-10-21T06:13:20Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 2,
   "sources": [
    "parken",
    "tikkio"
@@ -1274,6 +1274,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "humorgalla-pa-lovenvold-theater-lovenvold-theater",
+   "date": "2027-01-30",
+   "time": "17:30",
+   "title": "Humorgalla på Løvenvold Theater",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "standup",
+   "price": "435 kr",
+   "priceMin": 435,
+   "soldOut": false,
+   "note": "Rabatt: Early Bird 395 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/66909-humorgalla-pa-lovenvold-theater",
+   "addedAt": "2026-10-21T06:13:20Z"
+  },
+  {
    "id": "iver-kleive-knut-reiersrud-vidunderligst-av-alt-pa-jord-spje",
    "date": "2027-02-04",
    "time": "18:30",
@@ -1480,6 +1496,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48873-iselin-guttormsen-kommer/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-51055-parken-kulturhus",
+   "date": "2027-03-13",
+   "time": "19:00",
+   "title": "Halvor Johansson",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "350–450 kr",
+   "priceMin": 350,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51055-halvor-johansson/",
+   "addedAt": "2026-10-21T06:13:20Z"
   },
   {
    "id": "synne-vo-her-vil-e-vaer-norgesturne-terminalen-byscene",
