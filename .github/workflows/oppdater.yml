@@ -2,10 +2,14 @@ name: Oppdater og publiser
 
 on:
   schedule:
-    # GitHub bruker UTC og kan starte 10–30 min forsinket.
-    # Vintertid: ca. 06:50 og 20:50 (sommertid: 07:50 og 21:50).
-    - cron: "50 5 * * *"    # morgen
-    - cron: "50 19 * * *"   # kveld
+    # GitHub hopper av og til over planlagte kjøringer, særlig rett på hel/halv time.
+    # Derfor: hovedkjøring på et "rolig" minutt, og en reserve en time senere.
+    # Å kjøre to ganger er ufarlig: det committes bare hvis programmet er endret.
+    # UTC. Vintertid: ca. 06:17 og 20:43 (sommertid: en time senere).
+    - cron: "17 5 * * *"    # morgen
+    - cron: "43 6 * * *"    # morgen, reserve
+    - cron: "43 19 * * *"   # kveld
+    - cron: "17 21 * * *"   # kveld, reserve
   push:
     branches: [main]
   workflow_dispatch:
