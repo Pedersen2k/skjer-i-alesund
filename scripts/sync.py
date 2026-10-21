@@ -83,7 +83,9 @@ def fetch_tikkio():
             addr = loc.get("address") if isinstance(loc.get("address"), dict) else {}
             venue = (loc.get("name") or "").strip()
             city = (addr.get("addressLocality") or "").strip()
-            if not (city == "Ålesund" or any(v in venue for v in ALESUND_VENUES)):
+            # Bynavnet mangler av og til (Dampsentralen), men gateadressen sier «6003 Ålesund»
+            in_alesund = city == "Ålesund" or "Ålesund" in (addr.get("streetAddress") or "")
+            if not (in_alesund or any(v in venue for v in ALESUND_VENUES)):
                 continue
             name = html.unescape(it.get("name") or "").strip()
             if SKIP.search(name):
