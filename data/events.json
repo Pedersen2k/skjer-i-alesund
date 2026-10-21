@@ -1,30 +1,14 @@
 {
  "meta": {
-  "updatedAt": "2026-10-21T12:45:40Z",
+  "updatedAt": "2026-10-21T20:05:07Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 4,
+  "lastAdded": 0,
   "sources": [
    "parken",
    "tikkio"
   ]
  },
  "events": [
-  {
-   "id": "parken-48285-parken-kulturhus",
-   "date": "2026-10-21",
-   "time": "19:00",
-   "title": "Ola Kvernberg m/TrondheimSolistene",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "450 kr",
-   "priceMin": 450,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48285-ola-kvernberg-m-trondheimsolistene/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "alerakk-vol-2-terminalen-byscene",
    "date": "2026-10-23",
