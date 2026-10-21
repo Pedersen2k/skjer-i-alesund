@@ -1,8 +1,8 @@
 {
  "meta": {
-  "updatedAt": "2026-10-21T06:13:20Z",
+  "updatedAt": "2026-10-21T12:45:40Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 2,
+  "lastAdded": 4,
   "sources": [
    "parken",
    "tikkio"
@@ -72,6 +72,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/64511-daniel-herskedal",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "dampsentralen-og-loran-inviterer-til-hostkonsert-dampsentral",
+   "date": "2026-10-23",
+   "time": "19:00",
+   "title": "Dampsentralen og Loran inviterer til høstkonsert",
+   "venue": "Dampsentralen",
+   "address": "Keiser Wilhelms g. 22, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "880 kr",
+   "priceMin": 880,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/66461-hostkonsert",
+   "addedAt": "2026-10-21T12:45:40Z"
   },
   {
    "id": "50-ar-med-the-beatles-lovenvold-theater",
@@ -152,6 +168,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/65958-vennefest-2026-pir-5-ar",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "klubb-dvask-fra-kultursjokk-terminalen-byscene",
+   "date": "2026-10-24",
+   "time": "23:00",
+   "title": "KLUBB | Dvask fra Kultursjokk",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "klubb",
+   "price": "50 kr",
+   "priceMin": 50,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67082-klubb-dvask-fra-kultursjokk-terminalen",
+   "addedAt": "2026-10-21T12:45:40Z"
   },
   {
    "id": "parken-48385-parken-kulturhus",
@@ -568,6 +600,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/64656-susanne-sundfor-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-45760-parken-kulturhus",
+   "date": "2026-11-10",
+   "time": "19:00",
+   "title": "Bak lukkede dører",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "417–460 kr",
+   "priceMin": 417,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/45760-bak-lukkede-dorer/",
+   "addedAt": "2026-10-21T12:45:40Z"
   },
   {
    "id": "parken-41531-parken-kulturhus",
@@ -1496,6 +1544,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48873-iselin-guttormsen-kommer/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "motorpsycho-terminalen-byscene",
+   "date": "2027-03-05",
+   "time": "20:00",
+   "title": "Motorpsycho",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "450 kr",
+   "priceMin": 450,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/66896-motorpsycho-terminalen",
+   "addedAt": "2026-10-21T12:45:40Z"
   },
   {
    "id": "parken-51055-parken-kulturhus",
