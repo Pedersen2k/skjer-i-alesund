@@ -1,6 +1,6 @@
 # Handoff: Skjer i Ålesund
 
-_State as of 22 Oct 2026 (evening)._
+_State as of 22 Oct 2026 (evening, static subpages added)._
 
 ## Goal
 A public website listing what's on in Ålesund (concerts, standup, shows, kids' events, clubs, happenings, AaFK home matches), with ticket prices, that updates itself every day.
@@ -18,6 +18,7 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
   - Visitor stats with GoatCounter (no cookies), code `skjer-i-alesund`: https://skjer-i-alesund.goatcounter.com
   - A "Sport" category with match cards for AaFK home matches (men and women): league and venue on top, home team, kick-off time and away team, then ticket link. Prices are not shown (see Next steps).
   - Search engine support: schema.org `Event` JSON-LD, built in `index.html` from `events.json`, and `sitemap.xml`. The site is added to Google Search Console (verification meta tag in `index.html`, sitemap submitted).
+  - Static subpages from `scripts/pages.py` (built at every deploy into `_site/`, which is what Pages publishes): `i-dag/`, `denne-helgen/`, one per category (`konserter/`, `standup/`, `show/`, `barn-og-familie/`, `klubb/`, `happenings/`, `aafk-hjemmekamper/`), `scene/<venue>/` for venues with 3+ events, and `arrangement/<id>/` per event, each with its own title, description and JSON-LD. `sitemap.xml` (all of them) and `404.html` are generated too. "Del" on the front page now links to the event page, so shared links get a proper preview.
   - A logo (a jugendstil gable above a wave), also used as the favicon and for link previews (`og-image.png`).
 - GitHub Actions runs twice a day, at about 06:50 and 20:50 Norway time (winter time; one hour later in summer). It fetches the latest events and commits `data/events.json`. If anything changed, it redeploys Pages.
 - If a run fails or returns warnings, the workflow opens a GitHub issue, which emails the owner. The issue is closed automatically once a later run succeeds.
@@ -43,12 +44,14 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
 | `data/manual.json` | Events with no automatic source (e.g. the julemarked). Edit by hand. |
 | `data/overrides.json` | Per-event fixes to category, title, time or note. The key is the normalized title slug. |
 | `.github/workflows/oppdater.yml` | Daily sync, commit, Pages deploy, and failure alerts. |
+| `scripts/pages.py` | Builds `_site/`: the front page plus static subpages, `sitemap.xml` and `404.html`. Run on every deploy. |
 | `scripts/artifact_preview.py` | Builds a preview of the site that can be published as a Claude artifact. |
 
 ## Next steps
 1. **More sources:** Ålesunds Museum and Jugendstilsenteret (now vitimusea.no) are only covered if they sell on Tikkio. Allow `www.aalesundmuseum.no` and `www.vitimusea.no` in the environment, check if their programmes can be read, otherwise add `manual.json` entries from their own pages.
 2. **AaFK prices:** They are in TicketCo (`aafk.ticketco.events`). Check in a new session whether those pages can be read (the domain was allowed late in the last session). If not, keep "Pris hos arrangør".
-3. **Search Console:** Check that the sitemap shows "Vellykket" and look at the Events report after a few days. The JSON-LD has only been tested in node, not in Google's Rich Results Test.
+3. **Search Console:** After the subpages deploy, resubmit `sitemap.xml` and request indexing for `denne-helgen/` and a few category pages. Also add the site to Bing Webmaster Tools.
+   Earlier note: Check that the sitemap shows "Vellykket" and look at the Events report after a few days. The JSON-LD has only been tested in node, not in Google's Rich Results Test.
 4. **Mobile check:** The match cards were only rendered at desktop width.
 5. **Custom domain** (optional): e.g. `skjerialesund.no`, about 150 kr a year. Point DNS to GitHub Pages and set it in repo Settings → Pages.
 6. **Permission:** before promoting the site widely, check Tikkio's terms or ask the venues. Always link to their ticket pages, as the site does now.
