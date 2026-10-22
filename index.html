@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="google-site-verification" content="YxNiqAO8ZDddYUaHQItH1QvgU5AMC8i1cirrb7-CAOs" />
 <meta name="description" content="Konserter, standup, show og happenings i Ålesund – samlet på ett sted, med priser.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2048%2052%22%20role%3D%22img%22%20aria-label%3D%22Logo%3A%20jugendgavl%20ved%20sj%C3%B8en%22%3E%20%3Ccircle%20cx%3D%2224%22%20cy%3D%226%22%20r%3D%223.5%22%20fill%3D%22none%22%20stroke%3D%22%23c8432b%22%20stroke-width%3D%222.5%22/%3E%20%3Cpath%20d%3D%22M7%2044V24h5c0-6%204-10%208-11.5L24%2011l4%201.5c4%201.5%208%205.5%208%2011.5h5v20Z%22%20fill%3D%22%23c8432b%22/%3E%20%3Ccircle%20cx%3D%2215%22%20cy%3D%2230%22%20r%3D%222%22%20fill%3D%22%23ffffff%22/%3E%3Ccircle%20cx%3D%2233%22%20cy%3D%2230%22%20r%3D%222%22%20fill%3D%22%23ffffff%22/%3E%20%3Cpath%20d%3D%22M19.5%2044v-8a4.5%204.5%200%200%201%209%200v8Z%22%20fill%3D%22%23ffffff%22/%3E%20%3Cpath%20d%3D%22M4%2049c3.5-2.5%206.5-2.5%2010%200s6.5%202.5%2010%200%206.5-2.5%2010%200%206.5%202.5%2010%200%22%20fill%3D%22none%22%20stroke%3D%22%231f6f78%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22/%3E%20%3C/svg%3E">
 <title>Skjer i Ålesund</title>
@@ -360,13 +361,37 @@ function showStatus() {
   $("status").classList.toggle("stale", age >= 3);
 }
 
+// schema.org/Event for søkemotorer (Google kjører JavaScript og leser dette). Kun felt vi har fra kilden.
+function addStructuredData() {
+  try {
+    const list = E.filter(e => e.d >= new Date(now.getFullYear(), now.getMonth(), now.getDate())).map(e => {
+      const o = {
+        "@type": "Event",
+        name: e.title,
+        startDate: e.date + (/^\d{2}:\d{2}$/.test(e.time || "") ? "T" + e.time : ""),
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        location: { "@type": "Place", name: e.venue, address: { "@type": "PostalAddress", streetAddress: e.address || undefined, addressLocality: "Ålesund", addressCountry: "NO" } },
+        url: e.url
+      };
+      if (e.priceMin > 0) o.offers = { "@type": "Offer", url: e.url, price: String(e.priceMin), priceCurrency: "NOK", availability: e.soldOut ? "https://schema.org/SoldOut" : "https://schema.org/InStock" };
+      return o;
+    });
+    if (!list.length) return;
+    const s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": list });
+    document.head.appendChild(s);
+  } catch {}
+}
+
 render();
 fetch("data/events.json", { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(data => {
     meta = data.meta || {};
     E = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
-    fillVenues(); showStatus(); render(); showHashed();
+    fillVenues(); showStatus(); render(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
 </script>
