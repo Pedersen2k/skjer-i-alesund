@@ -35,7 +35,7 @@ body { margin: 0; font-size: 14px; }
   --accent: #c8432b;      /* jugend-tak */
   --accent-ink: #ffffff;
   --sea: #1f6f78;
-  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12;
+  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12; --c-sport: #2b5fa8;
   --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -43,12 +43,12 @@ body { margin: 0; font-size: 14px; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
-  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-sport: #7aa7e6;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
-  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-sport: #7aa7e6;
   color-scheme: dark; }
 
 * { box-sizing: border-box; }
@@ -163,7 +163,7 @@ footer a { color: var(--sea); }
 <script>
 const now = new Date();
 const TODAY = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn & familie", klubb: "Klubb", happening: "Happening" };
+const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn & familie", klubb: "Klubb", happening: "Happening", sport: "Sport" };
 let E = [];
 let meta = {};
 

@@ -27,6 +27,9 @@ LISTING = "https://tikkio.com/locations/151197-alesund"
 PARKEN = "https://www.parkenkulturhus.no"
 PARKEN_VENUE = "Parken kulturhus"
 PARKEN_ADDRESS = "Parkgata 3B, 6003 Ålesund"
+AAFK_TEAMS = [("https://www.aafk.no/terminliste", "Aalesund"),
+              ("https://www.aafk.no/lag/aalesund-fk-kvinner-senior-a/terminliste", "AaFK Kvinner")]
+AAFK_VENUE = "Color Line Stadion"
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
 
 ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
@@ -225,6 +228,46 @@ def fmt_day(d):
     return f"{d.day}. {MONTHS[d.month - 1]}"
 
 
+def fetch_aafk():
+    """Hjemmekamper fra terminlistene til AaFK (herrer og kvinner). Billettprisene ligger i TicketCo og hentes ikke."""
+    today = datetime.datetime.now(TZ).date()
+    events = []
+    for url, team in AAFK_TEAMS:
+        try:
+            page = get(url)
+        except Exception as e:
+            warn(f"Klarte ikke å hente terminlisten til AaFK ({url}): {e}")
+            continue
+        rows = re.findall(r'<tr class="[^"]*schedule__match">(.*?)</tr>', page, re.S)
+        if not rows:  # ingen hjemmekamper er greit utenom sesongen, men en tom liste betyr at siden er endret
+            warn(f"Fant ingen kamper i terminlisten til AaFK ({url}). Sjekk om aafk.no har endret siden.")
+        for row in rows:
+            m = re.search(r'item--teams">(.*?)</td>', row, re.S)
+            d = re.search(r"<span>(\d{2})\.(\d{2})\.<span[^>]*>(\d{4})</span></span>\s*<span class=\"schedule__time\">\s*(\d{2}:\d{2})", row)
+            if not m or not d or AAFK_VENUE not in row:
+                continue
+            teams = [t.strip() for t in re.sub(r"<[^>]+>", " ", m.group(1)).split(" - ")]
+            if len(teams) != 2 or not teams[0].startswith(team):  # bare hjemmekamper
+                continue
+            day = datetime.date(int(d.group(3)), int(d.group(2)), int(d.group(1)))
+            if day < today:
+                continue
+            link = re.search(r'ticket__button" href="([^"]+)"', row)
+            opponent = html.unescape(teams[1])
+            events.append({
+                "id": slug(f"aafk-{day.isoformat()}-{team}-{opponent}"),
+                "date": day.isoformat(), "time": d.group(4),
+                "title": f"{html.unescape(teams[0])} – {opponent}",
+                "venue": AAFK_VENUE, "address": "",
+                "cat": "sport", "price": "", "priceMin": None, "soldOut": False,
+                "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
+                "uncertain": False,
+                "url": html.unescape(link.group(1)) if link else url,
+            })
+    print(f"AaFK: {len(events)} hjemmekamper", file=sys.stderr)
+    return events
+
+
 def build_events(raw, overrides):
     groups = {}
     for r in raw:
@@ -306,6 +349,8 @@ def main():
     parken = build_events(fetch_parken(), overrides)
     if not parken:
         warn("Fikk ingen arrangementer fra Parken kulturhus. Siden viser reserven i data/manual.json, som kan være utdatert.")
+    aafk = fetch_aafk()
+    events += aafk
     # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
     seen = {(e["date"], norm_key(e["title"])) for e in events}
     events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
@@ -322,8 +367,12 @@ def main():
     # Første gang en ny kilde gir treff, regnes alt derfra som startprogram og ikke som NYTT
     sources = set(old["meta"].get("sources", ["tikkio"]))
     fresh_source = {e["id"] for e in parken} if parken and "parken" not in sources else set()
+    if aafk and "aafk" not in sources:
+        fresh_source |= {e["id"] for e in aafk}
     if parken:
         sources.add("parken")
+    if aafk:
+        sources.add("aafk")
     added = 0
     for e in events:
         is_new = e["id"] not in first_seen and e["id"] not in fresh_source and not e.get("addedAt")
