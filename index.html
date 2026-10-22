@@ -360,13 +360,37 @@ function showStatus() {
   $("status").classList.toggle("stale", age >= 3);
 }
 
+// schema.org/Event for søkemotorer (Google kjører JavaScript og leser dette). Kun felt vi har fra kilden.
+function addStructuredData() {
+  try {
+    const list = E.filter(e => e.d >= new Date(now.getFullYear(), now.getMonth(), now.getDate())).map(e => {
+      const o = {
+        "@type": "Event",
+        name: e.title,
+        startDate: e.date + (/^\d{2}:\d{2}$/.test(e.time || "") ? "T" + e.time : ""),
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        location: { "@type": "Place", name: e.venue, address: { "@type": "PostalAddress", streetAddress: e.address || undefined, addressLocality: "Ålesund", addressCountry: "NO" } },
+        url: e.url
+      };
+      if (e.priceMin > 0) o.offers = { "@type": "Offer", url: e.url, price: String(e.priceMin), priceCurrency: "NOK", availability: e.soldOut ? "https://schema.org/SoldOut" : "https://schema.org/InStock" };
+      return o;
+    });
+    if (!list.length) return;
+    const s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": list });
+    document.head.appendChild(s);
+  } catch {}
+}
+
 render();
 fetch("data/events.json", { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(data => {
     meta = data.meta || {};
     E = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
-    fillVenues(); showStatus(); render(); showHashed();
+    fillVenues(); showStatus(); render(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
 </script>
