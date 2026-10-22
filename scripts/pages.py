@@ -295,7 +295,7 @@ def main():
     try:
         import helgepost
         (OUT / "denne-helgen").mkdir(parents=True, exist_ok=True)
-        helgepost.render_image(weekend, start, sun, OUT / "denne-helgen" / "helgen.png")
+        helgepost.render_image(weekend, start, sun, OUT / "denne-helgen")
         image = (f"{BASE}denne-helgen/helgen.png?v={today.isoformat()}", helgepost.W, helgepost.H)
     except Exception as err:  # bildet skal aldri stoppe publiseringen
         print(f"Lager ikke helgebilde ({err!r})", file=sys.stderr)

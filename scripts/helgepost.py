@@ -2,7 +2,7 @@
 
 Teksten lages av .github/workflows/helgepost.yml hver torsdag og legges i et issue, så eieren
 får den på e-post og kan lime den inn. Bildet lages av scripts/pages.py ved hver publisering
-(denne-helgen/helgen.png). Alt kommer fra data/events.json, samme utvalg som siden «Denne helgen».
+(denne-helgen/helgen.png, og helgen-2.png osv. når alt ikke får plass på ett). Alt kommer fra data/events.json, samme utvalg som siden «Denne helgen».
 
 Kjør: python3 scripts/helgepost.py [fil]   (skriver issue-teksten til filen, ellers til skjermen)
 Skrifter: legg BricolageGrotesque.ttf og Figtree.ttf i mappen FONT_DIR peker på, ellers brukes DejaVu.
@@ -65,13 +65,15 @@ def instagram_text(evs, start, sun):
 
 
 def issue_body(evs, start, sun, today):
-    img = f"{pages.BASE}denne-helgen/helgen.png?v={today.isoformat()}"
+    names = image_names(evs)
+    imgs = "\n\n".join(f"![Helgen i Ålesund, bilde {i}]({pages.BASE}denne-helgen/{n}?v={today.isoformat()})" for i, n in enumerate(names, 1))
+    many = f"Det er {len(names)} bilder. Legg dem ut sammen som karusell på Instagram. " if len(names) > 1 else ""
     return f"""Her er helgeposten. Kopier teksten og lim den inn i Facebook-grupper eller på Instagram.
 
-### Bilde (Instagram, 1080 × 1350)
-Trykk på bildet og lagre det. Det er også forhåndsvisningen når noen deler {pages.BASE}denne-helgen/
+### {"Bilder" if len(names) > 1 else "Bilde"} (Instagram, 1080 × 1350)
+{many}Trykk på bildet og lagre det. Det første er også forhåndsvisningen når noen deler {pages.BASE}denne-helgen/
 
-![Helgen i Ålesund]({img})
+{imgs}
 
 ### Facebook
 ```text
@@ -119,74 +121,105 @@ def fit(draw, text, f, width):
     return text.rstrip(" ,–-") + "…"
 
 
-def pick(evs, rows):
-    """Fordel plassene jevnt på dagene, så søndag ikke forsvinner når fredag er full."""
-    days = {}
-    for e in evs:
-        days.setdefault(e["date"], []).append(e)
-    take = {d: 0 for d in days}
-    left = rows - len(days)  # hver dag bruker én rad til overskrift
-    while left > 0 and any(take[d] < len(v) for d, v in days.items()):
-        for d, v in days.items():
-            if left > 0 and take[d] < len(v):
-                take[d] += 1
-                left -= 1
-    return {d: v[:take[d]] for d, v in days.items() if take[d]}
+# Oppsett: stort (to linjer per arrangement) når alt får plass, ellers kompakt (én linje).
+# Får heller ikke det plass, fortsetter lista på helgen-2.png osv. (karusell på Instagram).
+PAD = 80
+BOTTOM = H - PAD - 34 - 30  # over streken og bunnteksten
+LARGE = {"top": 372, "day": 54, "row": 100}
+COMPACT = {"top": 336, "day": 50, "row": 54}
+NEXT_TOP = 236  # på bilde 2 og utover er overskriften mindre
 
 
-def render_image(evs, start, sun, out):
+def height(items, m):
+    return len({e["date"] for e in items}) * m["day"] + len(items) * m["row"]
+
+
+def plan(evs):
+    """Hvilket oppsett, og hvilke arrangementer som havner på hvert bilde."""
+    if height(evs, LARGE) <= BOTTOM - LARGE["top"]:
+        return LARGE, [evs]
+    sheets, rest, top = [], list(evs), COMPACT["top"]
+    while rest:
+        n = 1
+        while n < len(rest) and height(rest[:n + 1], COMPACT) <= BOTTOM - top:
+            n += 1
+        sheets.append(rest[:n])
+        rest, top = rest[n:], NEXT_TOP
+    return COMPACT, sheets
+
+
+def image_names(evs):
+    return ["helgen.png"] + [f"helgen-{i}.png" for i in range(2, len(plan(evs)[1]) + 1)]
+
+
+def render_image(evs, start, sun, folder):
+    """Lager helgen.png (og helgen-2.png osv. ved behov) i folder. Gir filnavnene tilbake."""
     from PIL import Image, ImageDraw
-    img = Image.new("RGB", (W, H), BG)
-    dr = ImageDraw.Draw(img)
-    pad = 80
-    inner = W - 2 * pad
+    m, sheets = plan(evs)
+    names = image_names(evs)
+    for old in folder.glob("helgen*.png"):
+        old.unlink()
+    inner = W - 2 * PAD
+    big = m is LARGE
     f_eyebrow = font("Figtree.ttf", 30, weight=600)
-    f_h1 = font("BricolageGrotesque.ttf", 132, weight=800, optical=96, width=100)
-    f_span = font("BricolageGrotesque.ttf", 56, weight=800, optical=48, width=100)
+    f_h1 = font("BricolageGrotesque.ttf", 132 if big else 112, weight=800, optical=96, width=100)
+    f_h1_next = font("BricolageGrotesque.ttf", 72, weight=800, optical=72, width=100)
+    f_span = font("BricolageGrotesque.ttf", 56 if big else 48, weight=800, optical=48, width=100)
     f_day = font("Figtree.ttf", 26, weight=700)
-    f_title = font("BricolageGrotesque.ttf", 38, weight=700, optical=24, width=100)
-    f_meta = font("Figtree.ttf", 28, weight=500)
+    f_title = font("BricolageGrotesque.ttf", 38 if big else 32, weight=700, optical=24, width=100)
+    f_meta = font("Figtree.ttf", 28 if big else 26, weight=500)
     f_foot = font("Figtree.ttf", 28, weight=600)
+    span = pages.range_text(start, sun)
 
-    y = pad
-    dr.text((pad, y), "SKJER I ÅLESUND", font=f_eyebrow, fill=SEA)
-    y += 52
-    dr.text((pad - 4, y), "I helgen", font=f_h1, fill=FG)
-    y += 140
-    dr.text((pad, y), pages.range_text(start, sun), font=f_span, fill=ACCENT)
-    y += 100
-
-    foot_y = H - pad - 34
-    day_h, row_h = 54, 100
-    rows = max(1, (foot_y - 40 - y) // row_h)
-    chosen = pick(evs, rows + 1)  # dagsoverskriftene er lavere enn radene, så det er plass til litt mer
-    shown = 0
-    for date, items in chosen.items():
-        if y + day_h + row_h > foot_y - 30:
-            break
-        d = datetime.date.fromisoformat(date)
-        dr.text((pad, y), f"{pages.WD[d.weekday()].upper()} {d.day}. {pages.MO[d.month - 1].upper()}", font=f_day, fill=ACCENT)
-        y += day_h
+    for i, items in enumerate(sheets or [[]]):
+        img = Image.new("RGB", (W, H), BG)
+        dr = ImageDraw.Draw(img)
+        dr.text((PAD, PAD), "SKJER I ÅLESUND", font=f_eyebrow, fill=SEA)
+        if i == 0:
+            dr.text((PAD - 4, PAD + 52), "I helgen", font=f_h1, fill=FG)
+            dr.text((PAD, PAD + (192 if big else 170)), span, font=f_span, fill=ACCENT)
+            y = m["top"]
+        else:
+            dr.text((PAD - 3, PAD + 50), f"I helgen, forts.", font=f_h1_next, fill=FG)
+            y = NEXT_TOP
+        day = None
         for e in items:
-            if y + row_h > foot_y - 30:
-                break
-            dr.rounded_rectangle((pad, y, pad + 8, y + row_h - 22), radius=4, fill=CAT_COLOR.get(e["cat"], SEA))
-            x = pad + 30
-            dr.text((x, y - 2), fit(dr, e["title"], f_title, inner - 30), font=f_title, fill=FG)
-            meta = " · ".join(p for p in [e.get("time") and f"kl. {e['time']}", e["venue"], pages.price_text(e) if pages.price_text(e) != "Pris hos arrangør" else ""] if p)
-            dr.text((x, y + 46), fit(dr, meta, f_meta, inner - 30), font=f_meta, fill=MUTED)
-            y += row_h
-            shown += 1
-        y += 6
-    if not evs:
-        dr.text((pad, y), "Programmet fylles på fortløpende.", font=f_meta, fill=MUTED)
+            if e["date"] != day:
+                day = e["date"]
+                d = datetime.date.fromisoformat(day)
+                dr.text((PAD, y), f"{pages.WD[d.weekday()].upper()} {d.day}. {pages.MO[d.month - 1].upper()}", font=f_day, fill=ACCENT)
+                y += m["day"]
+            color = CAT_COLOR.get(e["cat"], SEA)
+            x = PAD + 30
+            if big:
+                dr.rounded_rectangle((PAD, y, PAD + 8, y + m["row"] - 22), radius=4, fill=color)
+                dr.text((x, y - 2), fit(dr, e["title"], f_title, inner - 30), font=f_title, fill=FG)
+                price = pages.price_text(e)
+                meta = " · ".join(p for p in [e.get("time") and f"kl. {e['time']}", e["venue"], price if price != "Pris hos arrangør" else ""] if p)
+                dr.text((x, y + 46), fit(dr, meta, f_meta, inner - 30), font=f_meta, fill=MUTED)
+            else:
+                # Én linje: klokkeslett, tittel og scene. Tittelen kortes ned før scenen.
+                dr.rounded_rectangle((PAD, y + 4, PAD + 8, y + m["row"] - 14), radius=4, fill=color)
+                t = (e.get("time") or "").split(" og ")[0]
+                dr.text((x, y + 4), t, font=f_meta, fill=MUTED)
+                x += 96
+                venue = " · " + e["venue"]
+                vw = min(dr.textlength(venue, font=f_meta), inner * 0.42)
+                venue = fit(dr, venue, f_meta, vw)
+                title = fit(dr, e["title"], f_title, inner - (x - PAD) - vw)
+                dr.text((x, y), title, font=f_title, fill=FG)
+                dr.text((x + dr.textlength(title, font=f_title), y + 4), venue, font=f_meta, fill=MUTED)
+            y += m["row"]
+        if not evs:
+            dr.text((PAD, y), "Programmet fylles på fortløpende.", font=f_meta, fill=MUTED)
 
-    dr.line((pad, foot_y - 26, W - pad, foot_y - 26), fill=LINE, width=2)
-    rest = len(evs) - shown
-    dr.text((pad, foot_y), f"+ {rest} til i helgen" if rest > 0 else "Priser og billetter på nettsiden", font=f_foot, fill=FG)
-    site = "pedersen2k.github.io/skjer-i-alesund"
-    dr.text((W - pad - dr.textlength(site, font=f_foot), foot_y), site, font=f_foot, fill=SEA)
-    img.save(out, optimize=True)
+        foot_y = H - PAD - 34
+        dr.line((PAD, foot_y - 26, W - PAD, foot_y - 26), fill=LINE, width=2)
+        dr.text((PAD, foot_y), f"{i + 1}/{len(sheets)}" if len(sheets) > 1 else "Priser og billetter på nettsiden", font=f_foot, fill=FG)
+        site = "pedersen2k.github.io/skjer-i-alesund"
+        dr.text((W - PAD - dr.textlength(site, font=f_foot), foot_y), site, font=f_foot, fill=SEA)
+        img.save(folder / names[i], optimize=True)
+    return names
 
 
 def main():
