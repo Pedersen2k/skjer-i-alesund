@@ -1,0 +1,39 @@
+name: Helgepost
+
+# Hver torsdag: ferdig tekst til Facebook og Instagram om helgen, lagt i et issue (eieren får e-post).
+# Helgebildet lages av «Oppdater og publiser» og ligger på denne-helgen/helgen.png.
+# Kan også startes for hånd under Actions → Helgepost → Run workflow.
+
+on:
+  schedule:
+    - cron: "37 7 * * 4"   # torsdag, UTC. Vintertid ca. 08:37, sommertid 09:37.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  helgepost:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Lag teksten
+        id: post
+        run: python3 scripts/helgepost.py body.md
+
+      - name: Legg helgeposten i et issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: ${{ steps.post.outputs.title }}
+        run: |
+          # Forrige ukes helgepost lukkes, så bare den nyeste er åpen
+          for num in $(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"Helgepost:\" in:title" --json number --jq '.[].number'); do
+            gh issue close "$num" --repo "$GITHUB_REPOSITORY" --comment "Erstattet av en nyere helgepost."
+          done
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file body.md

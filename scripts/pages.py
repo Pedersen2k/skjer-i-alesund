@@ -103,10 +103,12 @@ def ld_script(obj):
     return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False).replace("</", "<\\/") + "</script>"
 
 
-def page(path, title, description, body, ld=None, up=None):
+def page(path, title, description, body, ld=None, up=None, image=None):
     """Hele HTML-dokumentet. path er relativ adresse, f.eks. «konserter/».
-    up er veien tilbake til roten; 404-siden vises på vilkårlige adresser og bruker derfor full adresse."""
+    up er veien tilbake til roten; 404-siden vises på vilkårlige adresser og bruker derfor full adresse.
+    image er (adresse, bredde, høyde) for forhåndsvisningsbildet, ellers brukes logoen."""
     up = "../" * path.count("/") if up is None else up
+    img, img_w, img_h = image or (BASE + "og-image.png", 1200, 630)
     url = BASE + path
     return f"""<!doctype html>
 <html lang="nb">
@@ -123,9 +125,9 @@ def page(path, title, description, body, ld=None, up=None):
 <meta property="og:title" content="{escape(title)}">
 <meta property="og:description" content="{escape(description)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{BASE}og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image" content="{escape(img)}">
+<meta property="og:image:width" content="{img_w}">
+<meta property="og:image:height" content="{img_h}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#eef3f2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -209,6 +211,28 @@ def write(path, html):
     f.write_text(html)
 
 
+def weekend_range(today):
+    """Fredag–søndag. Fra mandag til torsdag er det helgen som kommer."""
+    wd = today.weekday()
+    return today + datetime.timedelta(days=max(0, 4 - wd)), today + datetime.timedelta(days=6 - wd)
+
+
+def occurrences(events, start, end):
+    """Arrangementene som går mellom start og end, én gang per dag. Gjentatte forestillinger
+    (moreShows) tas med selv om første dato er tidligere, med dato og klokkeslett for den dagen
+    («15:00 og 19:00» når det er flere samme dag)."""
+    out = []
+    for e in events:
+        days = {}
+        for d, t in [(e["date"], e.get("time") or "")] + [(s[:10], s[11:16]) for s in e.get("moreShows", [])]:
+            if start.isoformat() <= d <= end.isoformat():
+                days.setdefault(d, [])
+                if t and t not in days[d]:
+                    days[d].append(t)
+        out += [{**e, "date": d, "time": " og ".join(sorted(ts))} for d, ts in days.items()]
+    return sorted(out, key=lambda e: (e["date"], e["time"] or "99"))
+
+
 def describe(events, what):
     n = len(events)
     if not n:
@@ -251,27 +275,33 @@ def main():
     cats_present = {e["cat"] for e in events}
     pages = []  # (adresse, endret)
 
-    def listing_page(path, title, h1, lede, evs, empty, what):
+    def listing_page(path, title, h1, lede, evs, empty, what, image=None):
         write(path, page(path, title, describe(evs, what), listing(path, h1, lede, evs, empty, cats_present),
-                         {"@context": "https://schema.org", "@graph": [event_ld(e) for e in evs]} if evs else None))
+                         {"@context": "https://schema.org", "@graph": [event_ld(e) for e in evs]} if evs else None, image=image))
         pages.append((path, updated))
 
     # I dag
-    tod = [e for e in events if e["date"] == today.isoformat()]
+    tod = occurrences(events, today, today)
     listing_page("i-dag/", f"Hva skjer i Ålesund i dag? {day_text(today).capitalize()} | {SITE}", "Skjer i Ålesund i dag",
                  f"Konserter, standup, show og andre arrangementer i Ålesund {day_text(today)}.", tod,
                  "Vi har ingen arrangementer registrert i dag. Se hva som skjer i helgen eller i hele programmet.",
                  "Hva skjer i Ålesund i dag")
 
-    # Denne helgen: fredag–søndag. Fra mandag til torsdag er det helgen som kommer.
-    wd = today.weekday()
-    start = today + datetime.timedelta(days=max(0, 4 - wd))
-    sun = today + datetime.timedelta(days=6 - wd)
-    weekend = [e for e in events if start.isoformat() <= e["date"] <= sun.isoformat()]
+    start, sun = weekend_range(today)
+    weekend = occurrences(events, start, sun)
     span = range_text(start, sun)
+    # Helgebildet (Instagram-format) blir også forhåndsvisningen når siden deles. Krever Pillow.
+    image = None
+    try:
+        import helgepost
+        (OUT / "denne-helgen").mkdir(parents=True, exist_ok=True)
+        helgepost.render_image(weekend, start, sun, OUT / "denne-helgen" / "helgen.png")
+        image = (f"{BASE}denne-helgen/helgen.png?v={today.isoformat()}", helgepost.W, helgepost.H)
+    except Exception as err:  # bildet skal aldri stoppe publiseringen
+        print(f"Lager ikke helgebilde ({err!r})", file=sys.stderr)
     listing_page("denne-helgen/", f"Hva skjer i Ålesund i helgen? {span} | {SITE}", "Skjer i Ålesund i helgen",
                  f"Alt vi har funnet i Ålesund {span}: konserter, standup, show, klubb og familie, med billettpriser.", weekend,
-                 "Vi har ingen arrangementer registrert denne helgen ennå.", f"Hva skjer i Ålesund i helgen, {span}")
+                 "Vi har ingen arrangementer registrert denne helgen ennå.", f"Hva skjer i Ålesund i helgen, {span}", image)
 
     for k, (p, h1, what) in CATS.items():
         # Lages også uten arrangementer, så lenkene fra forsiden aldri blir døde
