@@ -101,7 +101,8 @@ jobs:
           if [ -n "$num" ]; then
             gh issue comment "$num" --repo "$GITHUB_REPOSITORY" --body-file body.md
           else
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file body.md
+            # Tildeles eieren, så GitHub sender e-post (også om nye kommentarer) uten at repoet må følges
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file body.md --assignee "$GITHUB_REPOSITORY_OWNER"
           fi
 
       - name: Lukk varsel når alt er i orden igjen

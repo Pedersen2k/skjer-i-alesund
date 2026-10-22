@@ -36,4 +36,5 @@ jobs:
           for num in $(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"Helgepost:\" in:title" --json number --jq '.[].number'); do
             gh issue close "$num" --repo "$GITHUB_REPOSITORY" --comment "Erstattet av en nyere helgepost."
           done
-          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file body.md
+          # Tildeles eieren, så GitHub sender varsel på e-post uten at repoet må følges
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file body.md --assignee "$GITHUB_REPOSITORY_OWNER"
