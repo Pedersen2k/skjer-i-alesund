@@ -1,6 +1,6 @@
 # Handoff: Skjer i Ålesund
 
-_State as of 22 Oct 2026 (evening, subpages and weekly post added)._
+_State as of 22 Oct 2026 (late afternoon). Session ended while starting the cinema page; see Next steps 1._
 
 ## Goal
 A public website listing what's on in Ålesund (concerts, standup, shows, kids' events, clubs, happenings, AaFK home matches), with ticket prices, that updates itself every day.
@@ -24,6 +24,7 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
   - A logo (a jugendstil gable above a wave), also used as the favicon and for link previews (`og-image.png`).
 - GitHub Actions runs twice a day, at about 06:50 and 20:50 Norway time (winter time; one hour later in summer). It fetches the latest events and commits `data/events.json`. If anything changed, it redeploys Pages.
 - If a run fails or returns warnings, the workflow opens a GitHub issue, which emails the owner. The issue is closed automatically once a later run succeeds.
+- Alert and Helgepost issues are assigned to the repo owner (`--assignee "$GITHUB_REPOSITORY_OWNER"`). Issues opened by the Actions bot only email people watching the repo; assignment makes GitHub email the owner. Confirmed working on 22 Oct (issue #12).
 
 ## Key decisions
 - **Static site + GitHub Pages + Actions.** It's free, and visitors don't need to log in. An earlier version was a Claude artifact backed by a database, but only signed-in Claude users could see its data. The daily Claude task that updated it (`trig_01UEPBzcKQrHz5XpXGLXK7qc`) is **disabled, not deleted**. That artifact (https://claude.ai/artifact/GqCPeYEgqsrcpUir5M7FHj) is no longer updated.
@@ -52,14 +53,20 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
 | `scripts/artifact_preview.py` | Builds a preview of the site that can be published as a Claude artifact. |
 
 ## Next steps
-1. **More sources:** Ålesunds Museum and Jugendstilsenteret (now vitimusea.no) are only covered if they sell on Tikkio. Allow `www.aalesundmuseum.no` and `www.vitimusea.no` in the environment, check if their programmes can be read, otherwise add `manual.json` entries from their own pages.
-2. **AaFK prices:** They are in TicketCo (`aafk.ticketco.events`). Check in a new session whether those pages can be read (the domain was allowed late in the last session). If not, keep "Pris hos arrangør".
-3. **Search Console:** After the subpages deploy, resubmit `sitemap.xml` and request indexing for `denne-helgen/` and a few category pages. Also add the site to Bing Webmaster Tools.
-   Earlier note: Check that the sitemap shows "Vellykket" and look at the Events report after a few days. The JSON-LD has only been tested in node, not in Google's Rich Results Test.
-4. **Mobile check:** The match cards were only rendered at desktop width.
-5. **Custom domain** (optional): e.g. `skjerialesund.no`, about 150 kr a year. Point DNS to GitHub Pages and set it in repo Settings → Pages.
-6. **Permission:** before promoting the site widely, check Tikkio's terms or ask the venues. Always link to their ticket pages, as the site does now.
-7. Optional: a form where organizers can submit their own events.
+1. **Cinema page (in progress, design approved by the owner).** The cinema is ODEON Ålesund (Amfi Moa, Langelandsvegen 35). Official programme: https://www.odeonkino.no/alesund/kino/odeon-alesund/ . Fallbacks: Filmweb (https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund) and kinoprogram.nu. All were blocked by the environment's network policy on 22 Oct; the owner was asked to allow `www.odeonkino.no`, `odeonkino.no`, `mobile.odeonkino.no` and `www.filmweb.no`. Start by checking whether those hosts load now, then find how showtimes are delivered (HTML or a JSON API) and write a fetcher. GitHub Actions has no such restriction.
+   Approved design (the owner wants cinema kept separate so the main list doesn't get cluttered):
+   - **Not** in the main list, "I dag", "Denne helgen" or category pages. Store films separately (e.g. `data/kino.json`), not in `events.json`.
+   - Own page `kino/` built by `pages.py`: day chips (I dag, I morgen, Lør 24., …), one card per **film** (poster if the source has one, else a coloured block; title; age rating box; genre; duration), then showtimes as monospace buttons linking to booking. Past times struck through, sold-out red, small "3D"/"Norsk tale" tags. Own accent colour `#3d4f8f`.
+   - Front page: one strip under the filters, "🎬 På kino i dag: N filmer, M visninger · Kinoprogram →". Nothing else.
+   - Helgepost: one line at the end of the Facebook text, "🎬 På kino i helgen: Film A, Film B, Film C og N til". Not on the image.
+2. **Bing Webmaster Tools:** the owner postponed it. A reminder is scheduled for 12 Nov 2026 in the earlier Claude session; if that doesn't reach them, remind them (bing.com/webmasters → import from Google Search Console).
+3. **More sources:** Ålesunds Museum and Jugendstilsenteret (now vitimusea.no) are only covered if they sell on Tikkio. Allow `www.aalesundmuseum.no` and `www.vitimusea.no` in the environment, check if their programmes can be read, otherwise add `manual.json` entries from their own pages.
+4. **AaFK prices:** They are in TicketCo (`aafk.ticketco.events`). Check in a new session whether those pages can be read (the domain was allowed late in the last session). If not, keep "Pris hos arrangør".
+5. **Search Console:** The owner resubmitted the sitemap after the subpages went live (22 Oct). After a few days, check that the sitemap shows "Vellykket" and look at the Events report. The JSON-LD has only been tested in node, not in Google's Rich Results Test.
+6. **Mobile check:** The match cards were only rendered at desktop width.
+7. **Custom domain** (optional): e.g. `skjerialesund.no`, about 150 kr a year. Point DNS to GitHub Pages and set it in repo Settings → Pages.
+8. **Permission:** before promoting the site widely, check Tikkio's terms or ask the venues. Always link to their ticket pages, as the site does now.
+9. Optional: a form where organizers can submit their own events.
 
 ## Gotchas
 - The Claude cloud environment blocks `*.github.io`. Claude can't open the live site, so test locally: `python3 -m http.server`.
