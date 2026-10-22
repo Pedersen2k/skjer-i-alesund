@@ -9,6 +9,10 @@ Konserter, standup, show og happenings i Ålesund, samlet på ett sted, med bill
 - `scripts/pages.py` lager statiske undersider for søkemotorer og deling: «I dag», «Denne helgen», én side per kategori, per scene (med minst tre arrangementer) og per arrangement, pluss `sitemap.xml` og `404.html`. Alt legges i `_site/` (ikke i git) sammen med forsiden, og det er `_site/` som publiseres.
 - GitHub Actions (`.github/workflows/oppdater.yml`) kjører skriptet to ganger i døgnet (morgen og kveld), lagrer endringene og publiserer siden på GitHub Pages.
 
+## Helgepost
+
+Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et issue med tittelen «Helgepost: …», så du får det på e-post. Det inneholder en ferdig tekst til Facebook-grupper, en bildetekst til Instagram og helgebildet (1080 × 1350), som ligger på `denne-helgen/helgen.png` og også er forhåndsvisningen når noen deler `denne-helgen/`. Er det mange arrangementer, blir linjene kompakte, og får heller ikke det plass, fortsetter lista på `helgen-2.png` osv., som du legger ut som karusell. Forrige ukes helgepost lukkes automatisk. Du kan lage en når som helst under Actions → Helgepost → Run workflow. Teksten og bildet lages av `scripts/helgepost.py`.
+
 ## Varsling og statistikk
 
 - **Varsling:** Feiler morgenoppdateringen, svarer ikke Parken, eller faller antall arrangementer kraftig, lager jobben et issue med tittelen «Programoppdateringen trenger tilsyn», og GitHub sender deg e-post. Nye problemer legges til som kommentarer i samme issue. Det lukkes automatisk neste morgen alt går fint. Siden viser også selv et varsel hvis programmet er mer enn tre dager gammelt.
