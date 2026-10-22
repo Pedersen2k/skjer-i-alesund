@@ -33,7 +33,8 @@ AAFK_VENUE = "Color Line Stadion"
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
 
 ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
-VENUE_NAMES = {"Terminalen": "Terminalen Byscene"}
+VENUE_NAMES = {"Terminalen": "Terminalen Byscene", "Spjelkavik Kyrkje": "Spjelkavik kyrkje"}
+VENUE_BY_FOLD = {k.casefold(): v for k, v in VENUE_NAMES.items()}
 # Kurs, medlemskap og ungdomsforestillinger som ikke hører hjemme i kalenderen
 SKIP = re.compile(r"medlemsskap|gruppe, høst|day pass|cowork|festivalpass|SPIRE|foredrag|påmelding|^FUND$", re.I)
 # Billettyper som ikke er reelle priser
@@ -99,7 +100,7 @@ def fetch_tikkio():
             offer = it.get("offers") or {}
             offer = offer[0] if isinstance(offer, list) else offer
             url = offer.get("url") or ""
-            raw.append({"name": name, "venue": VENUE_NAMES.get(venue, venue), "start": start,
+            raw.append({"name": name, "venue": VENUE_BY_FOLD.get(venue.casefold(), venue), "start": start,
                         "address": clean_address(addr.get("streetAddress"), venue),
                         "url": url, "tickets": fetch_tickets(url),
                         "soldOut": "SoldOut" in json.dumps(offer.get("availability"))})
