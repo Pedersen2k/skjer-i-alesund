@@ -253,11 +253,18 @@ def fetch_aafk():
             if day < today:
                 continue
             link = re.search(r'ticket__button" href="([^"]+)"', row)
+            lg = re.search(r'item--league[^>]*>(.*?)</td>', row, re.S)
+            league = ""
+            if lg:
+                alt = re.search(r'alt="([^"]+)"', lg.group(1))
+                league = html.unescape(alt.group(1) if alt else re.sub(r"<[^>]+>", " ", lg.group(1)))
+                league = re.sub(r"\s*(-\s*)?\d{4}.*$", "", " ".join(league.split()))
             opponent = html.unescape(teams[1])
             events.append({
                 "id": slug(f"aafk-{day.isoformat()}-{team}-{opponent}"),
                 "date": day.isoformat(), "time": d.group(4),
                 "title": f"{html.unescape(teams[0])} – {opponent}",
+                "home": html.unescape(teams[0]), "away": opponent, "league": league,
                 "venue": AAFK_VENUE, "address": "",
                 "cat": "sport", "price": "", "priceMin": None, "soldOut": False,
                 "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
