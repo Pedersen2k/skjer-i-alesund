@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-22T13:22:28Z",
+  "updatedAt": "2026-10-22T15:12:37Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -88,6 +88,9 @@
    "note": "Også kl. 20:00.",
    "uncertain": false,
    "url": "https://tikkio.com/events/61772-50-ar-med-the-beatles",
+   "moreShows": [
+    "2026-10-24T20:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -104,6 +107,9 @@
    "note": "Flere forestillinger: 25. okt.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/43179-alesund-symfoniorkester/",
+   "moreShows": [
+    "2026-10-25T17:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -379,6 +385,9 @@
    "note": "Også kl. 21:00.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45111-kristian-valen/",
+   "moreShows": [
+    "2026-10-31T21:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -459,6 +468,9 @@
    "note": "Også kl. 21:00.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/46413-storefri/",
+   "moreShows": [
+    "2026-11-05T21:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -491,6 +503,32 @@
    "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/62677-juleshow-pa-lovenvold-vol-4-511",
+   "moreShows": [
+    "2026-11-06T17:30",
+    "2026-11-06T20:00",
+    "2026-11-07T17:30",
+    "2026-11-07T20:00",
+    "2026-11-19T17:30",
+    "2026-11-20T17:30",
+    "2026-11-20T20:00",
+    "2026-11-21T17:30",
+    "2026-11-21T20:00",
+    "2026-11-26T17:30",
+    "2026-11-27T17:30",
+    "2026-11-27T20:00",
+    "2026-11-28T17:30",
+    "2026-11-28T20:00",
+    "2026-12-03T17:30",
+    "2026-12-04T17:30",
+    "2026-12-04T20:00",
+    "2026-12-05T17:30",
+    "2026-12-05T20:00",
+    "2026-12-10T17:30",
+    "2026-12-11T17:30",
+    "2026-12-12T17:30",
+    "2026-12-17T17:30",
+    "2026-12-18T17:30"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -590,6 +628,10 @@
    "note": "Også kl. 15:30 og 18:00. Utsolgt: 13:00, 15:30.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45583-dyrene-i-hakkebakkeskogen/",
+   "moreShows": [
+    "2026-11-07T15:30",
+    "2026-11-07T18:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -606,6 +648,9 @@
    "note": "Også kl. 16:00.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49587-sans/",
+   "moreShows": [
+    "2026-11-08T16:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -670,6 +715,9 @@
    "note": "Flere forestillinger: 15. des.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/41531-yoga-piano/",
+   "moreShows": [
+    "2026-12-15T18:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -798,6 +846,9 @@
    "note": "Flere forestillinger: 16. nov.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/50876-sparebanken-more-tonje-glimmerdal/",
+   "moreShows": [
+    "2026-11-16T18:00"
+   ],
    "addedAt": "2026-10-22T12:10:15Z"
   },
   {
@@ -897,6 +948,18 @@
    "note": "Flere forestillinger: 28. nov, 29. nov, 3. des, 4. des, 5. des m.fl.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49740-putti-plutti-pott/",
+   "moreShows": [
+    "2026-11-28T13:00",
+    "2026-11-28T16:00",
+    "2026-11-29T13:00",
+    "2026-11-29T16:00",
+    "2026-12-03T18:00",
+    "2026-12-04T18:00",
+    "2026-12-05T13:00",
+    "2026-12-05T16:00",
+    "2026-12-06T13:00",
+    "2026-12-06T16:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -945,6 +1008,9 @@
    "note": "Også kl. 19:30.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66251-ekstra-zimmermann-julekonsert",
+   "moreShows": [
+    "2026-11-29T19:30"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -977,6 +1043,11 @@
    "note": "Premiere 1. desember. Flere forestillinger: 2. des, 3. des, 4. des.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66795-notteknekkeren-premiere-gr1",
+   "moreShows": [
+    "2026-12-02T17:30",
+    "2026-12-03T17:30",
+    "2026-12-04T17:30"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1060,6 +1131,9 @@
    "note": "Også kl. 21:00.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48003-ylvis-calle/",
+   "moreShows": [
+    "2026-12-08T21:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1236,6 +1310,9 @@
    "note": "Også kl. 19:00.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66944-ekstrakonsert-darling-west-juleturne-26",
+   "moreShows": [
+    "2026-12-19T19:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
