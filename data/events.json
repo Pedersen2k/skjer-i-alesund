@@ -1,8 +1,8 @@
 {
  "meta": {
-  "updatedAt": "2026-10-22T12:10:15Z",
+  "updatedAt": "2026-10-22T13:22:28Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 2,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "parken",
@@ -984,7 +984,7 @@
    "date": "2026-12-04",
    "time": "18:30",
    "title": "Julekonsert i Spjelkavik kyrkje",
-   "venue": "Spjelkavik Kyrkje",
+   "venue": "Spjelkavik kyrkje",
    "address": "Vestmoa 20, 6018 Ålesund",
    "cat": "konsert",
    "price": "375 kr",

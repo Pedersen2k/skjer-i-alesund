@@ -74,6 +74,7 @@ def clean_address(street, venue):
 
 def fetch_tikkio():
     page = get(LISTING)
+    spelling = {}  # Tikkio staver samme sted ulikt («kyrkje»/«Kyrkje»); første skrivemåte vinner
     today = datetime.datetime.now(TZ).date()
     raw = []
     for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', page, re.S):
@@ -99,7 +100,8 @@ def fetch_tikkio():
             offer = it.get("offers") or {}
             offer = offer[0] if isinstance(offer, list) else offer
             url = offer.get("url") or ""
-            raw.append({"name": name, "venue": VENUE_NAMES.get(venue, venue), "start": start,
+            venue = spelling.setdefault(venue.casefold(), VENUE_NAMES.get(venue, venue))
+            raw.append({"name": name, "venue": venue, "start": start,
                         "address": clean_address(addr.get("streetAddress"), venue),
                         "url": url, "tickets": fetch_tickets(url),
                         "soldOut": "SoldOut" in json.dumps(offer.get("availability"))})
