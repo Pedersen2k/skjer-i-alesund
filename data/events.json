@@ -1,9 +1,10 @@
 {
  "meta": {
-  "updatedAt": "2026-10-22T07:27:13Z",
+  "updatedAt": "2026-10-22T12:10:15Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 2,
   "sources": [
+   "aafk",
    "parken",
    "tikkio"
   ]
@@ -330,6 +331,25 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "aafk-2026-10-31-aalesund-sandefjord-fotball",
+   "date": "2026-10-31",
+   "time": "18:00",
+   "title": "Aalesund – Sandefjord Fotball",
+   "home": "Aalesund",
+   "away": "Sandefjord Fotball",
+   "league": "Eliteserien",
+   "venue": "Color Line Stadion",
+   "address": "",
+   "cat": "sport",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
+   "uncertain": false,
+   "url": "https://aafk.ticketco.events/no/nb",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "viggo-vennelos-lovenvold-theater",
    "date": "2026-10-31",
    "time": "19:00",
@@ -538,6 +558,25 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "aafk-2026-11-07-aafk-kvinner-valerenga-fotball",
+   "date": "2026-11-07",
+   "time": "13:00",
+   "title": "AaFK Kvinner – Vålerenga Fotball",
+   "home": "AaFK Kvinner",
+   "away": "Vålerenga Fotball",
+   "league": "Toppserien",
+   "venue": "Color Line Stadion",
+   "address": "",
+   "cat": "sport",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
+   "uncertain": false,
+   "url": "https://aafk.ticketco.events/no/nb",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-45583-parken-kulturhus",
    "date": "2026-11-07",
    "time": "13:00",
@@ -600,6 +639,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45760-bak-lukkede-dorer/",
    "addedAt": "2026-10-21T12:45:40Z"
+  },
+  {
+   "id": "filmvisning-how-to-live-on-earth-pir-cowork",
+   "date": "2026-11-11",
+   "time": "17:30",
+   "title": "Filmvisning: How to live on earth",
+   "venue": "Pir Cowork",
+   "address": "Keiser Wilhelms g. 22, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "100 kr",
+   "priceMin": 100,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67117-filmvisning-how-to-live-on-earth",
+   "addedAt": "2026-10-22T12:10:15Z"
   },
   {
    "id": "parken-41531-parken-kulturhus",
@@ -730,6 +785,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "parken-50876-parken-kulturhus",
+   "date": "2026-11-15",
+   "time": "18:00",
+   "title": "Sparebanken Møre | Tonje Glimmerdal",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "note": "Flere forestillinger: 16. nov.",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/50876-sparebanken-more-tonje-glimmerdal/",
+   "addedAt": "2026-10-22T12:10:15Z"
+  },
+  {
    "id": "nar-barokken-moter-nord-sobra-scene",
    "date": "2026-11-19",
    "time": "18:30",
@@ -775,6 +846,25 @@
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66594-kristiansen-vemoy",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "aafk-2026-11-22-aalesund-rosenborg",
+   "date": "2026-11-22",
+   "time": "17:00",
+   "title": "Aalesund – Rosenborg",
+   "home": "Aalesund",
+   "away": "Rosenborg",
+   "league": "Eliteserien",
+   "venue": "Color Line Stadion",
+   "address": "",
+   "cat": "sport",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
+   "uncertain": false,
+   "url": "https://aafk.ticketco.events/no/nb",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -903,6 +993,25 @@
    "note": "Rabatt: Barn Spjelkavik 218 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66724-julekonsert-spjelkavik-kyrkje",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "aafk-2026-12-05-aalesund-bodo-glimt",
+   "date": "2026-12-05",
+   "time": "16:00",
+   "title": "Aalesund – Bodø/Glimt",
+   "home": "Aalesund",
+   "away": "Bodø/Glimt",
+   "league": "Eliteserien",
+   "venue": "Color Line Stadion",
+   "address": "",
+   "cat": "sport",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
+   "uncertain": false,
+   "url": "https://aafk.ticketco.events/no/nb",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
