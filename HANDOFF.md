@@ -1,6 +1,6 @@
 # Handoff: Skjer i Ålesund
 
-_State as of 20 Oct 2026._
+_State as of 22 Oct 2026._
 
 ## Goal
 A public website listing what's on in Ålesund (concerts, standup, shows, kids' events, clubs, happenings), with ticket prices, that updates itself every day.
@@ -15,6 +15,7 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
   - Favourites ("Mine"), stored in the browser.
   - A light/dark toggle.
   - "Legg i kalender", "Del" and map links on each event.
+  - Visitor stats with GoatCounter (no cookies), code `skjer-i-alesund`: https://skjer-i-alesund.goatcounter.com
   - A logo (a jugendstil gable above a wave), also used as the favicon and for link previews (`og-image.png`).
 - GitHub Actions runs twice a day, at about 06:50 and 20:50 Norway time (winter time; one hour later in summer). It fetches the latest events and commits `data/events.json`. If anything changed, it redeploys Pages.
 - If a run fails or returns warnings, the workflow opens a GitHub issue, which emails the owner. The issue is closed automatically once a later run succeeds.
@@ -41,11 +42,10 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
 | `scripts/artifact_preview.py` | Builds a preview of the site that can be published as a Claude artifact. |
 
 ## Next steps
-1. **GoatCounter:** create a free account and set `GOATCOUNTER` in `index.html` (line ~171). Until then, no visits are counted.
-2. **More sources:** Sjøborg, Ålesunds Museum, Jugendstilsenteret and AaFK are only covered if they sell on Tikkio. Add a scraper or `manual.json` entries for them.
-3. **Custom domain** (optional): e.g. `skjerialesund.no`, about 150 kr a year. Point DNS to GitHub Pages and set it in repo Settings → Pages.
-4. **Permission:** before promoting the site widely, check Tikkio's terms or ask the venues. Always link to their ticket pages, as the site does now.
-5. Optional: a form where organizers can submit their own events.
+1. **More sources:** Sjøborg, Ålesunds Museum, Jugendstilsenteret and AaFK are only covered if they sell on Tikkio. Add a scraper or `manual.json` entries for them.
+2. **Custom domain** (optional): e.g. `skjerialesund.no`, about 150 kr a year. Point DNS to GitHub Pages and set it in repo Settings → Pages.
+3. **Permission:** before promoting the site widely, check Tikkio's terms or ask the venues. Always link to their ticket pages, as the site does now.
+4. Optional: a form where organizers can submit their own events.
 
 ## Gotchas
 - The Claude cloud environment blocks `*.github.io`. Claude can't open the live site, so test locally: `python3 -m http.server`.
