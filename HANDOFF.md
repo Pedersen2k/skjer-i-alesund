@@ -1,11 +1,11 @@
 # Handoff: Skjer i Ålesund
 
-_State as of 24 Oct 2026. Cinema page live; the new mobile filter menu is live and the owner has tested it on a phone (looks good). The cinema calendar bug was fixed. See Next steps._
+_State as of 24 Oct 2026 (calendar subscription and calendar view live; moving to kaskjerda.no). Cinema page live; the new mobile filter menu is live and the owner has tested it on a phone (looks good). The cinema calendar bug was fixed. See Next steps._
 
 ## Goal
 A public website listing what's on in Ålesund (concerts, standup, shows, kids' events, clubs, happenings, AaFK home matches), with ticket prices, that updates itself every day.
 
-**Live:** https://pedersen2k.github.io/skjer-i-alesund/
+**Live:** https://kaskjerda.no/ (the old https://pedersen2k.github.io/skjer-i-alesund/ redirects there)
 **Repo:** https://github.com/Pedersen2k/skjer-i-alesund (owner: Pedersen2k)
 
 ## Current state
@@ -61,17 +61,14 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
 4. **AaFK prices:** They are in TicketCo (`aafk.ticketco.events`). Check in a new session whether those pages can be read (the domain was allowed late in the last session). If not, keep "Pris hos arrangør".
 5. **Search Console:** The owner resubmitted the sitemap after the subpages went live (22 Oct). After a few days, check that the sitemap shows "Vellykket" and look at the Events report. The JSON-LD has only been tested in node, not in Google's Rich Results Test.
 6. **Mobile check:** The match cards were only rendered at desktop width.
-7. **Custom domain `kaskjerda.no` (in progress, 24 Oct).** Owner bought it ("Ka skjer da?" is the dialect phrase; the site name stays "Skjer i Ålesund", keep "Ålesund" in titles for search). No hosting package is needed, only the domain. Status:
-   - DNS zone is set up at the registrar (the panel with "Legg til peker"; name servers `ns1.no1.groupdnsservice.com` / `ns2.no1.groupdnsservice.com`): four A records for `@` (185.199.108.153, .109.153, .110.153, .111.153) and CNAME `www` → `pedersen2k.github.io`. MX and TXT records were left as they were.
-   - Norid lists the name servers correctly, and `nslookup kaskjerda.no ns1.no1.groupdnsservice.com` returns the four GitHub IPs. But `nslookup kaskjerda.no 8.8.8.8` still said "Non-existent domain" even after flushing Google's cache (dns.google/cache), so the .no registry had probably not published the delegation yet. GitHub Pages therefore showed `InvalidDNSError` when the domain was added under Settings → Pages. Nothing else needs changing in DNS.
-   - **Next:** (a) test `nslookup kaskjerda.no 8.8.8.8` again; if it still fails after a day, contact the registrar's support ("registered, name servers at Norid, but NXDOMAIN from public DNS"). (b) Repo Settings → Pages: Custom domain `kaskjerda.no` (Remove and re-add if the check is stale), wait for the green check, tick Enforce HTTPS. (c) Only then change the repo: `BASE` in `scripts/pages.py`, absolute URLs in `index.html` (canonical, og, JSON-LD), sitemap, a `CNAME` file in `_site/`, README and this file. Calendar feeds use relative links and should not need changes. (d) Search Console: add `kaskjerda.no` as a new property, verify, resubmit `https://kaskjerda.no/sitemap.xml`; do Bing Webmaster at the same time. GoatCounter works unchanged. (e) Optional: buy `skjerialesund.no` (about 150 kr) and set up a 301 forward to `kaskjerda.no`. The old github.io address redirects automatically once the custom domain is active.
+7. **Custom domain `kaskjerda.no` (live from 24 Oct, once this is merged).** GitHub Pages DNS check passed. `BASE` in `scripts/pages.py`, `og:url`/`og:image`/canonical in `index.html`, the Helgepost image footer and a `CNAME` file in `_site/` now use `kaskjerda.no`. DNS zone at the registrar: four A records for `@` (185.199.108.153, .109.153, .110.153, .111.153), CNAME `www` → `pedersen2k.github.io`; MX/TXT untouched. Remaining for the owner: tick **Enforce HTTPS** in Settings → Pages (when available); Search Console: add `kaskjerda.no` as a new property, verify (the verification meta tag is already in `index.html`), submit `https://kaskjerda.no/sitemap.xml`; Bing Webmaster Tools at the same time. GoatCounter is unchanged. Optional: buy `skjerialesund.no` and 301-forward it. The site name stays "Skjer i Ålesund"; "Ka skjer da?" is only the address.
 8. **Permission:** before promoting the site widely, check Tikkio's terms or ask the venues. Always link to their ticket pages, as the site does now.
 9. Optional: a form where organizers can submit their own events.
 
-## Calendar subscription (23 Oct, on branch, not merged)
+## Calendar subscription (23 Oct, live; owner confirmed it works on iPhone)
 `build_ics()` in `pages.py` writes `kalender/alle.ics` and one `.ics` per category into `_site/` at every deploy (one VEVENT per day/show, from `occurrences()`; Europe/Oslo VTIMEZONE; refresh hint 12 h). Owner chose design D from `docs/kalenderforslag.html`: in `index.html`, `#subscribe` is a strip that shows only when exactly one category is selected ("Abonner på standup i kalenderen"), expanding to iPhone/Mac (`webcal://`), Google Calendar and copy link (`updateSubscribe()`, called from `render()`). Not tested on a real phone; no entry point when no category is chosen (consider design A, a button at the top, as a supplement).
 
-## Calendar view (23 Oct, on branch, not merged)
+## Calendar view (23 Oct, live; owner approved the design after testing on phone)
 `index.html` has a "Liste | Kalender" switch (`#viewseg`, remembered in localStorage as `skjer-view`). Calendar = month grid with one coloured dot per event and the selected day's events below (`renderCal()`, `.mc-*` styles). It uses the same filters as the list except the date filter (hidden via `.kalmode`), and counts `moreShows` dates. Owner chose month + day list only; a week view (mockups in `docs/visningsforslag.html`, `docs/kalender-kombinert.html`) can be added later if GoatCounter `kalender-visning/*` shows use.
 
 ## Mobile menu (24 Oct)

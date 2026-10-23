@@ -237,7 +237,7 @@ def render_image(evs, start, sun, folder):
         foot_y = H - PAD - 34
         dr.line((PAD, foot_y - 26, W - PAD, foot_y - 26), fill=LINE, width=2)
         dr.text((PAD, foot_y), f"{i + 1}/{len(sheets)}" if len(sheets) > 1 else "Priser og billetter på nettsiden", font=f_foot, fill=FG)
-        site = "pedersen2k.github.io/skjer-i-alesund"
+        site = "kaskjerda.no"
         dr.text((W - PAD - dr.textlength(site, font=f_foot), foot_y), site, font=f_foot, fill=SEA)
         img.save(folder / names[i], optimize=True)
     return names

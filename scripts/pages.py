@@ -21,7 +21,7 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "_site"
-BASE = "https://pedersen2k.github.io/skjer-i-alesund/"
+BASE = "https://kaskjerda.no/"
 TZ = ZoneInfo("Europe/Oslo")
 SITE = "Skjer i Ålesund"
 # Scener med færre arrangementer enn dette får ikke egen side (tynne sider hjelper ikke i søk)
@@ -317,6 +317,7 @@ def main():
     # Forsiden og det den trenger, kopiert som de er
     shutil.copy(ROOT / "index.html", OUT / "index.html")
     shutil.copy(ROOT / "og-image.png", OUT / "og-image.png")
+    (OUT / "CNAME").write_text("kaskjerda.no\n")
     (OUT / "data").mkdir()
     shutil.copy(ROOT / "data" / "events.json", OUT / "data" / "events.json")
     if (ROOT / "data" / "kino.json").exists():

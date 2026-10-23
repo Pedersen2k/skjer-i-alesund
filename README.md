@@ -1,5 +1,7 @@
 # Skjer i Ålesund
 
+Nettsiden ligger på https://kaskjerda.no/ (GitHub Pages med eget domene).
+
 Konserter, standup, show og happenings i Ålesund, samlet på ett sted, med billettpriser.
 
 ## Slik fungerer det
