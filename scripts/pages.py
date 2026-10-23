@@ -451,12 +451,8 @@ def kino_page(films, meta, today):
   </header>
   <div class="kinobar">
     <div class="row" id="kinodays">{chips}</div>
-    <div class="row" id="kinoview" role="group" aria-label="Visning">
-      <button type="button" class="chip" data-v="list" aria-pressed="true">Kort</button>
-      <button type="button" class="chip" data-v="grid" aria-pressed="false">Plakater</button>
-    </div>
   </div>
-  <main id="films" class="kinofilms">
+  <main id="films" class="kinofilms grid">
 {sections if days else '<p class="empty">Vi har ikke kinoprogrammet akkurat nå. Se ODEON Ålesund sin egen side.</p>'}
   </main>
   <p class="empty" id="kinoempty" hidden>Ingen flere visninger denne dagen.</p>
@@ -488,10 +484,6 @@ function pick(day) {
 chips.forEach(c => c.addEventListener("click", () => { pick(c.dataset.day); try { history.replaceState(null, "", "#" + c.dataset.day); } catch {} }));
 const wanted = location.hash.slice(1);
 pick(chips.find(c => c.dataset.day === wanted) ? wanted : (chips.find(c => c.dataset.day >= today) || chips[0] || {}).dataset?.day);
-const films = document.getElementById("films");
-function view(v) { films.classList.toggle("grid", v === "grid"); document.querySelectorAll("#kinoview .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === v)); try { localStorage.setItem("skjer-kinovisning", v); } catch {} }
-document.querySelectorAll("#kinoview .chip").forEach(b => b.addEventListener("click", () => view(b.dataset.v)));
-try { view(localStorage.getItem("skjer-kinovisning") === "grid" ? "grid" : "list"); } catch { view("list"); }
 """
 
 
