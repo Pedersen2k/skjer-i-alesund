@@ -72,7 +72,9 @@ h1 { font: 800 clamp(40px, 9vw, 68px)/0.92 var(--font-display); letter-spacing: 
 h1 span { color: var(--accent); }
 .lede { margin: 6px 0 0; color: var(--muted); max-width: 52ch; }
 
-.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); transition: transform .22s ease; }
+.controls.gone { transform: translateY(-101%); }
+@media (prefers-reduced-motion: reduce) { .controls { transition: none; } }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .search { width: 100%; font: inherit; padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); }
 .search:focus-visible, button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -82,6 +84,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 .chip.when[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 select.chip { appearance: none; padding-right: 28px; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%; background-size: 5px 5px; background-repeat: no-repeat; }
+.msel { display: none; }
+@media (max-width: 640px) {
+  /* Mobil: søk + Mine på én linje, så et 2×2-rutenett med nedtrekk (tid, kategori, scene, pris) */
+  .controls { grid-template-columns: repeat(4, 1fr); gap: 6px; padding-block: 8px; }
+  .controls > .row { display: contents; }
+  #when, #cats { display: none; }
+  .search { grid-column: span 3; order: 1; padding: 9px 12px; }
+  #favonly { grid-column: span 1; order: 2; justify-content: center; padding-inline: 4px; }
+  .controls select.chip { display: inline-flex; grid-column: span 2; width: 100%; min-width: 0; padding: 10px 24px 10px 11px; text-overflow: ellipsis; overflow: hidden; }
+  #mwhen { order: 3; } #mcat { order: 4; } #venue { order: 5; } #price { order: 6; }
+  .controls .count { grid-column: 1 / -1; order: 7; margin: 0; text-align: right; font-size: 11px; line-height: 1; }
+}
 .count { margin-left: auto; font: 500 12px var(--font-mono); color: var(--muted); }
 
 .day { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding-block: 18px; border-bottom: 1px solid var(--line); }
@@ -160,6 +174,8 @@ footer a { color: var(--sea); }
     <div class="row" id="when"></div>
     <div class="row" id="cats"></div>
     <div class="row">
+      <select id="mwhen" class="chip msel" aria-label="Velg tidspunkt"></select>
+      <select id="mcat" class="chip msel" aria-label="Velg kategori"></select>
       <select id="venue" class="chip" aria-label="Velg scene"></select>
       <select id="price" class="chip" aria-label="Velg pris">
         <option value="">Alle priser</option><option value="0">Gratis</option><option value="300">Under 300 kr</option><option value="500">Under 500 kr</option>
@@ -244,13 +260,29 @@ const $ = id => document.getElementById(id);
 $("when").innerHTML = Object.entries(WHEN).map(([k, [l]]) => `<button class="chip when" data-w="${k}" aria-pressed="${k === state.when}">${l}</button>`).join("");
 $("cats").innerHTML = Object.entries(CATS).map(([k, l]) => `<button class="chip" data-c="${k}" style="--c:var(--c-${k})" aria-pressed="false"><span class="dot"></span>${l}</button>`).join("");
 
+// Mobilens nedtrekk deler tilstand med chipsene (som vises på større skjermer)
+$("mwhen").innerHTML = Object.entries(WHEN).map(([k, [l]]) => `<option value="${k}">${k === "alt" ? "Alle datoer" : l}</option>`).join("");
+$("mcat").innerHTML = `<option value="">Alle kategorier</option>` + Object.entries(CATS).map(([k, l]) => `<option value="${k}">${l}</option>`).join("");
+function syncFilters() {
+  $("mwhen").value = state.when;
+  $("mcat").value = state.cats.size === 1 ? [...state.cats][0] : "";
+}
+$("mwhen").onchange = e => {
+  state.when = e.target.value; track("filter/" + (state.when.startsWith("m") ? "måned" : state.when));
+  $("when").querySelectorAll("[data-w]").forEach(x => x.setAttribute("aria-pressed", x.dataset.w === state.when)); render();
+};
+$("mcat").onchange = e => {
+  const c = e.target.value; state.cats = new Set(c ? [c] : []); if (c) track("filter/" + c);
+  $("cats").querySelectorAll("[data-c]").forEach(x => x.setAttribute("aria-pressed", state.cats.has(x.dataset.c))); render();
+};
+
 function fillVenues() {
   const cur = state.venue;
   $("venue").innerHTML = `<option value="">Alle scener</option>` + [...new Set(E.map(e => e.venue))].sort().map(v => `<option${v === cur ? " selected" : ""}>${esc(v)}</option>`).join("");
 }
 
-$("when").onclick = e => { const b = e.target.closest("[data-w]"); if (!b) return; state.when = b.dataset.w; track("filter/" + (b.dataset.w.startsWith("m") ? "måned" : b.dataset.w)); $("when").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); render(); };
-$("cats").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return; const c = b.dataset.c; state.cats.has(c) ? state.cats.delete(c) : (state.cats.add(c), track("filter/" + c)); b.setAttribute("aria-pressed", state.cats.has(c)); render(); };
+$("when").onclick = e => { const b = e.target.closest("[data-w]"); if (!b) return; state.when = b.dataset.w; track("filter/" + (b.dataset.w.startsWith("m") ? "måned" : b.dataset.w)); $("when").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); syncFilters(); render(); };
+$("cats").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return; const c = b.dataset.c; state.cats.has(c) ? state.cats.delete(c) : (state.cats.add(c), track("filter/" + c)); b.setAttribute("aria-pressed", state.cats.has(c)); syncFilters(); render(); };
 $("venue").onchange = e => { state.venue = e.target.value; render(); };
 $("price").onchange = e => { state.price = e.target.value; render(); };
 $("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
@@ -442,6 +474,20 @@ fetch("data/kino.json", { cache: "no-cache" })
     el.hidden = false;
   })
   .catch(() => {});
+{ const q = $("q"), long = q.placeholder, mqs = matchMedia("(max-width: 640px)"); const ph = () => { q.placeholder = mqs.matches ? "Søk …" : long; }; ph(); mqs.addEventListener("change", ph); }
+// Mobil: menyen skjules når man scroller ned og kommer tilbake når man scroller opp
+(() => {
+  const ctl = document.querySelector(".controls"), mq = matchMedia("(max-width: 640px)");
+  let last = scrollY, acc = 0;
+  addEventListener("scroll", () => {
+    const y = scrollY, d = y - last; last = y;
+    if (!mq.matches) { ctl.classList.remove("gone"); return; }
+    acc = Math.sign(d) === Math.sign(acc) ? acc + d : d;
+    if (y < 160 || acc < -8) ctl.classList.remove("gone");
+    else if (acc > 14 && !ctl.contains(document.activeElement)) ctl.classList.add("gone");
+  }, { passive: true });
+  ctl.addEventListener("focusin", () => ctl.classList.remove("gone"));
+})();
 </script>
 
 </body>
