@@ -142,6 +142,16 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .status { font: 500 12px/1.4 var(--font-mono); color: var(--muted); }
 .status.stale { color: var(--accent); }
 .empty { padding: 40px 0; color: var(--muted); text-align: center; }
+.subscribe { margin-top: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 0; }
+.subscribe summary { cursor: pointer; padding: 12px 14px; font: 600 14px/1.3 var(--font-body); color: var(--fg); display: flex; gap: 8px; align-items: center; }
+.subscribe summary svg { width: 16px; height: 16px; color: var(--sea); flex: none; }
+.subscribe .sub-body { padding: 0 14px 14px; display: grid; gap: 12px; font-size: 14px; }
+.subscribe p { margin: 0; color: var(--muted); }
+.subscribe select { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--fg); width: 100%; }
+.subscribe .sub-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.subscribe .sub-actions a, .subscribe .sub-actions button { font: 600 14px/1 var(--font-body); padding: 11px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--sea); text-decoration: none; cursor: pointer; }
+.subscribe .sub-actions a.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.subscribe .sub-msg { min-height: 1em; font-size: 13px; color: var(--sea); }
 footer { margin-top: 28px; font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
 footer a { color: var(--sea); }
 @media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
@@ -188,6 +198,20 @@ footer a { color: var(--sea); }
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
 
   <main id="list"></main>
+
+  <details class="subscribe" id="subscribe">
+    <summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Abonner på kalender</summary>
+    <div class="sub-body">
+      <p>Få arrangementene rett i mobilkalenderen. Nye arrangementer dukker opp av seg selv, og du ser dem sammen med resten av dagen din.</p>
+      <select id="subcat" aria-label="Hva vil du abonnere på?"></select>
+      <div class="sub-actions">
+        <a class="primary" id="subapple" href="#">Abonner (iPhone/Mac)</a>
+        <a id="subgoogle" href="#" target="_blank" rel="noopener">Google Kalender</a>
+        <button type="button" id="subcopy">Kopier lenke</button>
+      </div>
+      <div class="sub-msg" id="submsg" role="status"></div>
+    </div>
+  </details>
 
   <footer>
     <div>Programmet hentes automatisk morgen og kveld fra Tikkio (blant annet Terminalen Byscene og Løvenvold Theater) og fra programmet til Parken kulturhus. Enkelte andre arrangementer legges inn for hånd. Priser vises der arrangøren har publisert dem. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div>
@@ -337,6 +361,26 @@ function downloadIcs(e) {
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
+
+// Kalenderabonnement: filene kalender/<navn>.ics lages av scripts/pages.py ved hver publisering
+const FEEDS = { alle: "Alle arrangementer", konserter: "Konserter", standup: "Standup", show: "Show", "barn-og-familie": "Barn og familie", klubb: "Klubb", happenings: "Happenings", "aafk-hjemmekamper": "AaFK-hjemmekamper" };
+$("subcat").innerHTML = Object.entries(FEEDS).map(([k, l]) => `<option value="${k}">${l}</option>`).join("");
+const feedUrl = () => new URL("kalender/" + $("subcat").value + ".ics", location.href).href;
+function updateFeed() {
+  const u = feedUrl();
+  $("subapple").href = u.replace(/^https?:/, "webcal:");
+  $("subgoogle").href = "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(u.replace(/^https?:/, "webcal:"));
+}
+$("subcat").onchange = () => { updateFeed(); $("submsg").textContent = ""; };
+$("subscribe").addEventListener("toggle", () => { if ($("subscribe").open) track("kalender/apne"); });
+$("subapple").onclick = () => track("kalender/abonner/" + $("subcat").value);
+$("subgoogle").onclick = () => track("kalender/google/" + $("subcat").value);
+$("subcopy").onclick = async () => {
+  try { await navigator.clipboard.writeText(feedUrl()); $("submsg").textContent = "Lenken er kopiert. Lim den inn under «Legg til kalender fra URL»."; }
+  catch { $("submsg").textContent = feedUrl(); }
+  track("kalender/kopier/" + $("subcat").value);
+};
+updateFeed();
 
 // Kart: Google Maps-søk fungerer på alle telefoner og åpner kart-appen der den finnes
 const PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>';
