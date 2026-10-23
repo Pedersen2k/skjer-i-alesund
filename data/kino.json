@@ -1,0 +1,484 @@
+{
+ "meta": {
+  "updatedAt": "2026-10-23T06:27:28Z",
+  "cinema": "ODEON Ålesund",
+  "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
+ },
+ "films": [
+  {
+   "id": "EDI20261279",
+   "title": "(NE)TOBULI MELAGIAI",
+   "age": null,
+   "minutes": null,
+   "genres": [],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f1303a4a444a94b39dc396885d9730b385b12d5d-1080x1920.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-16",
+   "shows": [
+    {
+     "start": "2026-10-23T18:30:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/83e572bd-f524-4df0-b084-696d6a57b501",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "WAB20240262",
+   "title": "Clayface",
+   "age": 15,
+   "minutes": 108,
+   "genres": [
+    "Action",
+    "Drama",
+    "Horror",
+    "Superheltfilm"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/22ed50ebf0c5bc8143fe7606704caead1ff02875-1500x2223.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-23",
+   "shows": [
+    {
+     "start": "2026-10-23T18:15:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/b869a3f5-c134-4a8a-a2a5-93c6b4fdc6dd",
+     "club": false
+    },
+    {
+     "start": "2026-10-23T21:00:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/d68203ba-f128-49c3-935f-b416a684efc2",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "NOR20230682",
+   "title": "Drapet på Benjamin Hermansen",
+   "age": 15,
+   "minutes": 96,
+   "genres": [
+    "Drama"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/eb4b617f94d0ff88352912d08252a7d22ada253a-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-02",
+   "shows": [
+    {
+     "start": "2026-10-23T19:00:00",
+     "screen": "Sal 5",
+     "tags": [
+      "Norsk tale",
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/ca694314-f57e-4dc8-bbf9-3b1186dff03f",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "SFN20241749",
+   "title": "En nasjon i sjakk",
+   "age": 15,
+   "minutes": 115,
+   "genres": [
+    "Action",
+    "Spenning",
+    "Thriller"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ce797c664fa97646a09fdfdb807c5ec4668040af-1500x2103.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-09-11",
+   "shows": [
+    {
+     "start": "2026-10-23T15:45:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/8f2ee2b9-0da3-4250-9103-b8ec488b7d72",
+     "club": true
+    },
+    {
+     "start": "2026-10-23T21:00:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/a9d12614-15ce-444a-9153-966e1f62f1ac",
+     "club": true
+    }
+   ]
+  },
+  {
+   "id": "EDI20260087",
+   "title": "Fjord",
+   "age": 9,
+   "minutes": 145,
+   "genres": [
+    "Drama"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ab687f2b76b25c9f2b13449a4ca2b85e4a5d129a-1500x2143.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-09-04",
+   "shows": [
+    {
+     "start": "2026-10-23T12:00:00",
+     "screen": "Sal 2",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/e1261d23-f363-47db-8650-ecdd136bc6f7",
+     "club": true
+    }
+   ]
+  },
+  {
+   "id": "UIP20221470",
+   "title": "Glemselens øy",
+   "age": 9,
+   "minutes": 109,
+   "genres": [
+    "Animasjon",
+    "Barnefilm"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/d7f37b4dd10260c620949baf6caba8ba06beee0e-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-09-25",
+   "shows": [
+    {
+     "start": "2026-10-23T15:10:00",
+     "screen": "Sal 2",
+     "tags": [
+      "Norsk tale",
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/95d2ef92-ae5a-4d19-a29e-817714a55759",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20260203",
+   "title": "Heart of the Beast",
+   "age": 12,
+   "minutes": 101,
+   "genres": [
+    "Action"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f73aa5f1d8a24cb412b69b828e2f56dcd502c171-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-09-25",
+   "shows": [
+    {
+     "start": "2026-10-23T18:45:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/65c123d7-00e8-47ec-9073-223b4eca3505",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20251555",
+   "title": "Kjærast",
+   "age": 9,
+   "minutes": 114,
+   "genres": [],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6dd9d54eff588819ac86f3052872a05d74f9af4d-1500x2104.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-09-18",
+   "shows": [
+    {
+     "start": "2026-10-23T12:00:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/86f8c46b-8282-42e9-a14d-93121d5d60df",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20251487",
+   "title": "La fjella leve",
+   "age": 0,
+   "minutes": 100,
+   "genres": [
+    "Dokumentar"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/9e2becf046d5e48f185642c6975acaa812ac5992-904x1280.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-09",
+   "shows": [
+    {
+     "start": "2026-10-23T13:20:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/908ef3f1-4968-402a-a016-9b9b4674fdd4",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20250084",
+   "title": "Mysteriepakken",
+   "age": 0,
+   "minutes": 86,
+   "genres": [
+    "Familiefilm"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/e796551111af9fba503fffcbd45d77f4a13d0521-1080x1527.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-16",
+   "shows": [
+    {
+     "start": "2026-10-23T14:45:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/fe7ff6dc-9c88-47f7-9258-ba913fc36d81",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20261518",
+   "title": "NAZA",
+   "age": 15,
+   "minutes": 80,
+   "genres": [
+    "Dokumentar"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/601be3b4ad3e0068e2c6681604063271bfff31f7-595x841.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-23",
+   "shows": [
+    {
+     "start": "2026-10-23T17:00:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/d211dba7-c370-4aea-8324-f47c6da12f28",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20250893",
+   "title": "Other Mommy",
+   "age": 15,
+   "minutes": 91,
+   "genres": [
+    "Horror"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/a7dc76dfccdd99ba7baf997317d7a807c1bccba9-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-09",
+   "shows": [
+    {
+     "start": "2026-10-23T20:45:00",
+     "screen": "1 isense",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/1fd3a012-9c32-4808-be11-e577059a2f7a",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20250183",
+   "title": "Pensjonskuppet",
+   "age": 9,
+   "minutes": 110,
+   "genres": [
+    "Action",
+    "Komedie"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/b7c7d07d556cff3e5c9868b5e6fd02656f31e59c-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-16",
+   "shows": [
+    {
+     "start": "2026-10-23T12:45:00",
+     "screen": "1 isense",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/307890ad-29d5-40c5-b550-20ba0eac0c0f",
+     "club": false
+    },
+    {
+     "start": "2026-10-23T15:20:00",
+     "screen": "1 isense",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/504efd59-13d7-4f86-9b8a-da6238b1a11b",
+     "club": false
+    },
+    {
+     "start": "2026-10-23T18:00:00",
+     "screen": "1 isense",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/343bbeac-aadc-4e78-90ff-c77f8cbe7f81",
+     "club": false
+    },
+    {
+     "start": "2026-10-23T20:30:00",
+     "screen": "Sal 2",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/1a7e0ddc-e280-4766-b298-83630decc3c8",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20260563",
+   "title": "Sangen fra skogene",
+   "age": 0,
+   "minutes": 93,
+   "genres": [
+    "Dokumentar"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/299654017bf4eea9a09d6f2c85a1f5139b0f90c7-1440x2057.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-23",
+   "shows": [
+    {
+     "start": "2026-10-23T12:15:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/20cbcb2c-2d0c-4f1e-9db7-3f1496e6feb2",
+     "club": false
+    },
+    {
+     "start": "2026-10-23T16:30:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/9b71cac6-276e-4f9f-8fcd-7597c91d41e3",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20250794",
+   "title": "Sauen Shaun - Gårdens fårbannelse",
+   "age": 0,
+   "minutes": 81,
+   "genres": [
+    "Animasjon",
+    "Barnefilm",
+    "Familiefilm"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/0690cc492885fe739c3d101a3af245ffa6db81a9-1500x2143.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-02",
+   "shows": [
+    {
+     "start": "2026-10-23T14:30:00",
+     "screen": "3",
+     "tags": [
+      "Norsk tale",
+      "Utekstet"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/adddb25c-9a20-47e6-a3f5-7cf31d057992",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20251787",
+   "title": "Sense and Sensibility",
+   "age": 0,
+   "minutes": 132,
+   "genres": [
+    "Drama",
+    "Romantikk"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/08c062fc034ea81b413d46721ded439a550abcb4-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-09",
+   "shows": [
+    {
+     "start": "2026-10-23T12:15:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/dbe5b9a3-ad5e-4f7a-b4fd-9fb93dcb72fa",
+     "club": true
+    },
+    {
+     "start": "2026-10-23T15:30:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/7c9ef20f-5323-4dc4-b3b5-b43f408ffbd9",
+     "club": true
+    }
+   ]
+  },
+  {
+   "id": "EDI20251333",
+   "title": "Street Fighter",
+   "age": 12,
+   "minutes": 119,
+   "genres": [
+    "Action"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/118b91932835d0bc0b4d237194dc60e93a805a50-1500x2121.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-16",
+   "shows": [
+    {
+     "start": "2026-10-23T21:15:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/1a987ce4-dc11-4cc7-940f-815e760fb3e4",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20260552",
+   "title": "Verity",
+   "age": 15,
+   "minutes": 117,
+   "genres": [
+    "Romantikk",
+    "Thriller"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/c0244aa90fbcd342cf565324c22260fb9d82c865-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-02",
+   "shows": [
+    {
+     "start": "2026-10-23T17:45:00",
+     "screen": "Sal 2",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/fe8073ac-832a-4217-b56f-f7a7b01151cf",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "BVI20220663",
+   "title": "Whalefall",
+   "age": 12,
+   "minutes": 106,
+   "genres": [
+    "Thriller"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/57c857b68706fdf57f4637b2a54c4b4ca85e898e-1440x2057.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-16",
+   "shows": [
+    {
+     "start": "2026-10-23T21:30:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/892de8fb-43e8-47f8-9175-294725eef7f9",
+     "club": false
+    }
+   ]
+  }
+ ]
+}

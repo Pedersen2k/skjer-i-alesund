@@ -1,6 +1,6 @@
 # Handoff: Skjer i Ålesund
 
-_State as of 22 Oct 2026 (late afternoon). Session ended while starting the cinema page; see Next steps 1._
+_State as of 23 Oct 2026. Cinema page built and published (today only); see Next steps 1._
 
 ## Goal
 A public website listing what's on in Ålesund (concerts, standup, shows, kids' events, clubs, happenings, AaFK home matches), with ticket prices, that updates itself every day.
@@ -53,12 +53,7 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
 | `scripts/artifact_preview.py` | Builds a preview of the site that can be published as a Claude artifact. |
 
 ## Next steps
-1. **Cinema page (in progress, design approved by the owner).** The cinema is ODEON Ålesund (Amfi Moa, Langelandsvegen 35). Official programme: https://www.odeonkino.no/alesund/kino/odeon-alesund/ . Fallbacks: Filmweb (https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund) and kinoprogram.nu. All were blocked by the environment's network policy on 22 Oct; the owner was asked to allow `www.odeonkino.no`, `odeonkino.no`, `mobile.odeonkino.no` and `www.filmweb.no`. Start by checking whether those hosts load now, then find how showtimes are delivered (HTML or a JSON API) and write a fetcher. GitHub Actions has no such restriction.
-   Approved design (the owner wants cinema kept separate so the main list doesn't get cluttered):
-   - **Not** in the main list, "I dag", "Denne helgen" or category pages. Store films separately (e.g. `data/kino.json`), not in `events.json`.
-   - Own page `kino/` built by `pages.py`: day chips (I dag, I morgen, Lør 24., …), one card per **film** (poster if the source has one, else a coloured block; title; age rating box; genre; duration), then showtimes as monospace buttons linking to booking. Past times struck through, sold-out red, small "3D"/"Norsk tale" tags. Own accent colour `#3d4f8f`.
-   - Front page: one strip under the filters, "🎬 På kino i dag: N filmer, M visninger · Kinoprogram →". Nothing else.
-   - Helgepost: one line at the end of the Facebook text, "🎬 På kino i helgen: Film A, Film B, Film C og N til". Not on the image.
+1. **Cinema: more days (page is live, today only).** `scripts/kino.py` reads Filmweb's ODEON Ålesund page (programme JSON is embedded in the HTML, with poster, age rating, length and a direct odeonkino.no booking link) and writes `data/kino.json`. odeonkino.no itself is behind Cloudflare and returns 403. Filmweb's HTML only has **today's** shows; later days come from `https://movieinfoqs.filmweb.no/graphql` (blocked in the Claude environment; ask the owner to allow it, or test it from Actions). `merge()` already keeps later days, so a multi-day fetcher only needs to return more dates. Poster images are hotlinked from `cdn.sanity.io` (also blocked here, so never seen rendering from this environment; each poster has a coloured fallback with the title). Pieces: `kino/` page + CSS + JS in `pages.py` (day chips, "Kort/Plakater" toggle), a strip in `index.html` (`#kinostrip`), `kino_line()` in `helgepost.py` (only prints when the weekend has shows), a "Hent kinoprogram" step in `oppdater.yml`. Not in the main list, "I dag" or category pages, by design. Sold-out status is not in the source, so it is not shown.
 2. **Bing Webmaster Tools:** the owner postponed it. A reminder is scheduled for 12 Nov 2026 in the earlier Claude session; if that doesn't reach them, remind them (bing.com/webmasters → import from Google Search Console).
 3. **More sources:** Ålesunds Museum and Jugendstilsenteret (now vitimusea.no) are only covered if they sell on Tikkio. Allow `www.aalesundmuseum.no` and `www.vitimusea.no` in the environment, check if their programmes can be read, otherwise add `manual.json` entries from their own pages.
 4. **AaFK prices:** They are in TicketCo (`aafk.ticketco.events`). Check in a new session whether those pages can be read (the domain was allowed late in the last session). If not, keep "Pris hos arrangør".

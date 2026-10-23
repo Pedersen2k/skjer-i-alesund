@@ -36,6 +36,7 @@ body { margin: 0; font-size: 14px; }
   --accent-ink: #ffffff;
   --sea: #1f6f78;
   --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12; --c-sport: #2b5fa8;
+  --kino: #3d4f8f; --kino-soft: #e3e8f5;
   --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -44,13 +45,18 @@ body { margin: 0; font-size: 14px; }
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
   --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-sport: #7aa7e6;
+  --kino: #8fa3e6; --kino-soft: #1c2748;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
   --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-sport: #7aa7e6;
+  --kino: #8fa3e6; --kino-soft: #1c2748;
   color-scheme: dark; }
 
+.kinostrip { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin: 4px 0 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--kino-soft); color: var(--fg); text-decoration: none; font-size: 14px; }
+.kinostrip b { font-family: var(--font-display); }
+.kinostrip span { margin-left: auto; color: var(--kino); font-weight: 600; }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body); }
 .wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; }
@@ -163,11 +169,13 @@ footer a { color: var(--sea); }
     </div>
   </div>
 
+  <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
+
   <main id="list"></main>
 
   <footer>
     <div>Programmet hentes automatisk morgen og kveld fra Tikkio (blant annet Terminalen Byscene og Løvenvold Theater) og fra programmet til Parken kulturhus. Enkelte andre arrangementer legges inn for hånd. Priser vises der arrangøren har publisert dem. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div>
-    <nav>Snarveier: <a href="i-dag/">I dag</a> · <a href="denne-helgen/">Denne helgen</a> · <a href="konserter/">Konserter</a> · <a href="standup/">Standup</a> · <a href="show/">Show</a> · <a href="barn-og-familie/">Barn og familie</a> · <a href="klubb/">Klubb</a> · <a href="happenings/">Happenings</a> · <a href="aafk-hjemmekamper/">AaFK-hjemmekamper</a></nav>
+    <nav>Snarveier: <a href="i-dag/">I dag</a> · <a href="denne-helgen/">Denne helgen</a> · <a href="kino/">Kino</a> · <a href="konserter/">Konserter</a> · <a href="standup/">Standup</a> · <a href="show/">Show</a> · <a href="barn-og-familie/">Barn og familie</a> · <a href="klubb/">Klubb</a> · <a href="happenings/">Happenings</a> · <a href="aafk-hjemmekamper/">AaFK-hjemmekamper</a></nav>
     <div>Kilder: <a href="https://www.terminalenbyscene.no/program" target="_blank" rel="noopener">Terminalen</a> · <a href="https://www.parkenkulturhus.no/program/" target="_blank" rel="noopener">Parken</a> · <a href="https://lovenvoldtheater.no/" target="_blank" rel="noopener">Løvenvold</a> · <a href="https://tikkio.com/locations/151197-alesund" target="_blank" rel="noopener">Tikkio</a> · <a href="https://bypatrioten.com/kalender/" target="_blank" rel="noopener">Bypatrioten</a></div>
   </footer>
 </div>
@@ -417,6 +425,23 @@ fetch("data/events.json", { cache: "no-cache" })
     fillVenues(); showStatus(); render(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
+// Kino: én stripe under filtrene (filmene ligger ikke i hovedlista)
+fetch("data/kino.json", { cache: "no-cache" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(k => {
+    const p = Object.fromEntries(new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map(x => [x.type, x.value]));
+    const nowStr = `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`, day = nowStr.slice(0, 10);
+    let films = 0, shows = 0;
+    for (const f of k.films || []) {
+      const n = f.shows.filter(s => s.start.slice(0, 10) === day && s.start >= nowStr).length;
+      if (n) { films++; shows += n; }
+    }
+    if (!shows) return;
+    const el = $("kinostrip");
+    el.innerHTML = `<div>🎬 <b>På kino i dag:</b> ${films} ${films === 1 ? "film" : "filmer"}, ${shows} ${shows === 1 ? "visning" : "visninger"}</div><span>Kinoprogram →</span>`;
+    el.hidden = false;
+  })
+  .catch(() => {});
 </script>
 
 </body>

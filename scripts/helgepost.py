@@ -52,8 +52,29 @@ def facebook_text(evs, start, sun):
         out.append(line(e))
     if len(evs) > TEXT_MAX:
         out += ["", f"… og {len(evs) - TEXT_MAX} til."]
+    kino = kino_line(start, sun)
+    if kino:
+        out += ["", kino]
     out += ["", "Priser, billettlenker og kart:", url]
     return "\n".join(out)
+
+
+def kino_line(start, sun, limit=3):
+    """«🎬 På kino i helgen: A, B, C og N til». Tom hvis vi ikke har kinoprogram for helgen."""
+    f = pages.ROOT / "data" / "kino.json"
+    if not f.exists():
+        return ""
+    days = {(start + datetime.timedelta(days=i)).isoformat() for i in range((sun - start).days + 1)}
+    films = [x for x in json.loads(f.read_text()).get("films", []) if any(s["start"][:10] in days for s in x["shows"])]
+    films.sort(key=lambda x: (-sum(s["start"][:10] in days for s in x["shows"]), x["title"].lower()))  # flest visninger først
+    titles = [x["title"] for x in films]
+    if not titles:
+        return ""
+    if len(titles) > limit:
+        shown, more = ", ".join(titles[:limit]), f" og {len(titles) - limit} til"
+    else:
+        shown, more = (", ".join(titles[:-1]) + " og " + titles[-1]) if len(titles) > 1 else titles[0], ""
+    return f"🎬 På kino i helgen: {shown}{more}. Program: {pages.BASE}kino/"
 
 
 def instagram_text(evs, start, sun):
