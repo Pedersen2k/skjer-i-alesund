@@ -436,9 +436,8 @@ def kino_film(f, day):
 
 def kino_page(films, meta, today):
     days = sorted({s["start"][:10] for f in films for s in f["shows"]})
-    chips = "".join(
-        f'<button type="button" class="chip" data-day="{d}" aria-pressed="false">'
-        f'{WD_SHORT[datetime.date.fromisoformat(d).weekday()]} {datetime.date.fromisoformat(d).day}.</button>' for d in days)
+    counts = {d: [sum(1 for f in films if any(x["start"][:10] == d for x in f["shows"])),
+                  sum(1 for f in films for x in f["shows"] if x["start"][:10] == d)] for d in days}
     sections = ""
     for d in days:
         sections += f'  <section class="kinoday" data-day="{d}" hidden aria-label="Program {d}">\n'
@@ -450,8 +449,12 @@ def kino_page(films, meta, today):
     <p class="lede">Hva som går på ODEON Ålesund (Amfi Moa).</p>
   </header>
   <div class="kinobar">
-    <div class="row" id="kinodays">{chips}</div>
+    <div class="kstrip" id="kdays"></div>
+    <button type="button" class="kpick" id="kpick" aria-expanded="false" aria-controls="kpop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span>Velg dato</span></button>
   </div>
+  <div class="kpop" id="kpop" hidden></div>
+  <p class="ksum" id="ksum"></p>
+  <script type="application/json" id="kinodata">{json.dumps(counts)}</script>
   <main id="films" class="kinofilms grid">
 {sections if days else '<p class="empty">Vi har ikke kinoprogrammet akkurat nå. Se ODEON Ålesund sin egen side.</p>'}
   </main>
@@ -468,22 +471,66 @@ KINO_JS = """
 const osloNow = () => { const p = Object.fromEntries(new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map(x => [x.type, x.value])); return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`; };
 const now = osloNow(), today = now.slice(0, 10);
 const addDay = d => { const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.getUTCDate() + 1); return x.toISOString().slice(0, 10); };
-const chips = [...document.querySelectorAll("#kinodays .chip")];
-chips.forEach(c => { if (c.dataset.day === today) c.textContent = "I dag"; else if (c.dataset.day === addDay(today)) c.textContent = "I morgen"; });
+const counts = JSON.parse(document.getElementById("kinodata").textContent);
+const allDays = Object.keys(counts).sort();
+const WD = ["søn", "man", "tir", "ons", "tor", "fre", "lør"], WDL = ["søndag", "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag"];
+const MOS = ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "des"];
+const MO = ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"];
+const dt = s => new Date(s + "T12:00:00Z");
+const isWe = s => [0, 6].includes(dt(s).getUTCDay());
+const upcoming = allDays.filter(d => d >= today);
+const horizon = (() => { const x = dt(today); x.setUTCDate(x.getUTCDate() + 7); return x.toISOString().slice(0, 10); })();
+let stripDays = upcoming.filter(d => d < horizon);
+if (!stripDays.length) stripDays = upcoming.slice(0, 7);
+let sel = null, open = false, cal = null;
 document.querySelectorAll(".t").forEach(t => { if (t.dataset.start < now) t.classList.add("past"); });
-function pick(day) {
-  chips.forEach(c => c.setAttribute("aria-pressed", c.dataset.day === day));
-  let any = false;
-  document.querySelectorAll(".kinoday").forEach(s => { s.hidden = s.dataset.day !== day; });
-  document.querySelectorAll(".kinoday:not([hidden]) .film").forEach(f => {
-    const live = f.querySelector(".t:not(.past)");
-    f.classList.toggle("done", !live); any = true;
-  });
-  document.getElementById("kinoempty").hidden = any || chips.length === 0;
+const nf = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+function tile(d, extra) {
+  const x = dt(d), c = counts[d];
+  return `<button type="button" class="ktile${isWe(d) ? " we" : ""}${c[1] < 5 ? " sparse" : ""}${d === today ? " today" : ""}${extra ? " extra" : ""}" data-day="${d}" aria-pressed="${d === sel}"><span class="wd">${d === today ? "I dag" : WD[x.getUTCDay()]}</span><span class="n">${x.getUTCDate()}</span><span class="mo">${MOS[x.getUTCMonth()]}</span><span class="c">${nf(c[0], "film", "filmer")}</span></button>`;
 }
-chips.forEach(c => c.addEventListener("click", () => { pick(c.dataset.day); try { history.replaceState(null, "", "#" + c.dataset.day); } catch {} }));
+function calendar() {
+  const [y, m] = cal, first = new Date(Date.UTC(y, m, 1, 12)), n = new Date(Date.UTC(y, m + 1, 0, 12)).getUTCDate(), off = (first.getUTCDay() + 6) % 7;
+  const lo = upcoming[0] ? [+upcoming[0].slice(0, 4), +upcoming[0].slice(5, 7) - 1] : cal, last = allDays[allDays.length - 1];
+  const hi = [+last.slice(0, 4), +last.slice(5, 7) - 1];
+  const idx = ([a, b]) => a * 12 + b;
+  let h = `<div class="khead"><button type="button" class="karrow" data-nav="-1" aria-label="Forrige måned"${idx(cal) <= idx(lo) ? " disabled" : ""}>‹</button><h2>${MO[m]} ${y}</h2><button type="button" class="karrow" data-nav="1" aria-label="Neste måned"${idx(cal) >= idx(hi) ? " disabled" : ""}>›</button></div><div class="k7">`;
+  ["man", "tir", "ons", "tor", "fre", "lør", "søn"].forEach(w => { h += `<div class="kdow">${w}</div>`; });
+  for (let i = 0; i < off; i++) h += "<div></div>";
+  for (let d = 1; d <= n; d++) {
+    const s = `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`, c = counts[s], ok = c && s >= today, dots = ok ? Math.min(3, Math.ceil(c[0] / 7)) : 0;
+    h += `<button type="button" class="kday${ok ? " has" : " none"}${s === today ? " today" : ""}" data-pick="${s}" aria-pressed="${s === sel}"${ok ? "" : " disabled"}><span class="d">${d}</span><span class="dots">${"<i></i>".repeat(dots)}</span></button>`;
+  }
+  return h + "</div>";
+}
+function render() {
+  let h = stripDays.map(d => tile(d)).join("");
+  if (sel && !stripDays.includes(sel)) h += tile(sel, true);
+  document.getElementById("kdays").innerHTML = h;
+  document.querySelectorAll(".kinoday").forEach(s => { s.hidden = s.dataset.day !== sel; });
+  let any = false;
+  document.querySelectorAll(".kinoday:not([hidden]) .film").forEach(f => { f.classList.toggle("done", !f.querySelector(".t:not(.past)")); any = true; });
+  document.getElementById("kinoempty").hidden = any;
+  const c = counts[sel];
+  const sum = document.getElementById("ksum");
+  if (sum) sum.innerHTML = c ? `<b>${(WDL[dt(sel).getUTCDay()] + " " + dt(sel).getUTCDate() + ". " + MO[dt(sel).getUTCMonth()]).replace(/^./, x => x.toUpperCase())}</b> · ${nf(c[0], "film", "filmer")}, ${nf(c[1], "visning", "visninger")}` : "";
+  const pop = document.getElementById("kpop");
+  pop.hidden = !open;
+  document.getElementById("kpick").setAttribute("aria-expanded", open);
+  if (open) pop.innerHTML = calendar();
+}
+function choose(d) { sel = d; open = false; render(); try { history.replaceState(null, "", "#" + d); } catch {} }
+document.getElementById("kdays").addEventListener("click", e => { const b = e.target.closest("[data-day]"); if (b) choose(b.dataset.day); });
+document.getElementById("kpick").addEventListener("click", () => { open = !open; if (open) cal = [+(sel || today).slice(0, 4), +(sel || today).slice(5, 7) - 1]; render(); });
+document.getElementById("kpop").addEventListener("click", e => {
+  const nav = e.target.closest("[data-nav]");
+  if (nav) { const i = cal[0] * 12 + cal[1] + +nav.dataset.nav; cal = [Math.floor(i / 12), i % 12]; render(); return; }
+  const b = e.target.closest("[data-pick]"); if (b && !b.disabled) choose(b.dataset.pick);
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && open) { open = false; render(); } });
 const wanted = location.hash.slice(1);
-pick(chips.find(c => c.dataset.day === wanted) ? wanted : (chips.find(c => c.dataset.day >= today) || chips[0] || {}).dataset?.day);
+sel = allDays.includes(wanted) && wanted >= today ? wanted : (upcoming[0] || allDays[0] || null);
+render();
 """
 
 
@@ -518,10 +565,40 @@ SUB_CSS = """
 :root { --kino: #3d4f8f; --kino-soft: #e3e8f5; --kino-ink: #ffffff; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --kino: #8fa3e6; --kino-soft: #1c2748; --kino-ink: #0b1230; } }
 :root[data-theme="dark"] { --kino: #8fa3e6; --kino-soft: #1c2748; --kino-ink: #0b1230; }
-.kinobar { display: grid; gap: 10px; margin-bottom: 16px; }
-.kinobar #kinodays { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
-.kinobar .chip { flex: none; }
-.kinobar .chip[aria-pressed="true"] { background: var(--kino); border-color: var(--kino); color: var(--kino-ink); }
+.kinobar { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 12px; min-width: 0; }
+.kstrip { flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px; scroll-snap-type: x proximity; }
+.ktile { flex: none; scroll-snap-align: start; width: 68px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 12px; padding: 8px 0 7px; display: grid; justify-items: center; gap: 1px; cursor: pointer; font: inherit; }
+.ktile .wd { font: 500 11px/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.ktile .n { font: 800 24px/1.1 var(--font-display); }
+.ktile .mo { font: 500 11px/1.3 var(--font-body); color: var(--muted); }
+.ktile .c { font: 600 10px/1.3 var(--font-mono); margin-top: 3px; color: var(--kino); }
+.ktile.we { background: var(--kino-soft); }
+.ktile.sparse:not([aria-pressed="true"]) { opacity: .6; }
+.ktile.today .wd { color: var(--accent); }
+.ktile[aria-pressed="true"] { background: var(--kino); border-color: var(--kino); color: var(--kino-ink); }
+.ktile[aria-pressed="true"] .wd, .ktile[aria-pressed="true"] .mo, .ktile[aria-pressed="true"] .c { color: var(--kino-ink); opacity: .9; }
+.kpick { flex: none; width: 74px; display: grid; justify-items: center; gap: 3px; padding: 8px 12px; border-radius: 12px; border: 1px solid var(--kino); color: var(--kino); background: var(--surface); font: 600 12px/1.2 var(--font-body); cursor: pointer; }
+.kpick svg { width: 22px; height: 22px; }
+.kpick[aria-expanded="true"] { background: var(--kino-soft); }
+.kpop { max-width: 360px; margin: 0 0 14px auto; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--surface); box-shadow: 0 8px 24px rgb(0 0 0 / .12); display: grid; gap: 10px; }
+.khead { display: flex; align-items: center; justify-content: space-between; }
+.khead h2 { margin: 0; font: 800 18px/1.2 var(--font-display); text-transform: capitalize; }
+.karrow { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--fg); font-size: 16px; cursor: pointer; }
+.karrow:disabled { opacity: .35; cursor: default; }
+.k7 { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.kdow { font: 500 11px/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); text-align: center; padding-bottom: 2px; }
+.kday { aspect-ratio: 1; max-height: 48px; border-radius: 10px; border: 1px solid transparent; background: none; color: var(--fg); display: grid; place-items: center; align-content: center; gap: 2px; font: inherit; cursor: pointer; }
+.kday .d { font: 600 15px/1 var(--font-body); }
+.kday .dots { display: flex; gap: 2px; height: 5px; }
+.kday .dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--kino); }
+.kday.has { background: var(--kino-soft); }
+.kday.none { color: var(--muted); opacity: .45; cursor: default; }
+.kday.today .d { color: var(--accent); font-weight: 800; }
+.kday[aria-pressed="true"] { background: var(--kino); color: var(--kino-ink); }
+.kday[aria-pressed="true"] .d { color: var(--kino-ink); }
+.kday[aria-pressed="true"] .dots i { background: var(--kino-ink); }
+.ksum { margin: 0 0 12px; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+.ksum b { color: var(--fg); font: 700 17px var(--font-display); }
 .kinoday { display: grid; gap: 12px; }
 .film { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 8px 14px; }
 .film.done { opacity: .6; }
