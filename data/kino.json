@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-23T08:02:37Z",
+  "updatedAt": "2026-10-23T08:06:50Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -8,8 +8,6 @@
   {
    "id": "EDI20261279",
    "title": "(NE)TOBULI MELAGIAI",
-   "original": "(NE)TOBULI MELAGIAI",
-   "year": null,
    "age": null,
    "minutes": null,
    "genres": [],
@@ -30,8 +28,6 @@
   {
    "id": "SFN20201290",
    "title": "Batman: The Dark Knight-trilogien",
-   "original": "Batman: The Dark Knight-trilogien",
-   "year": null,
    "age": null,
    "minutes": null,
    "genres": [
@@ -57,8 +53,6 @@
   {
    "id": "MER20240096",
    "title": "Butterfly",
-   "original": "Butterfly",
-   "year": "2026",
    "age": 12,
    "minutes": 117,
    "genres": [
@@ -79,8 +73,6 @@
   {
    "id": "WAB20240262",
    "title": "Clayface",
-   "original": "Clayface",
-   "year": "2026",
    "age": 15,
    "minutes": 108,
    "genres": [
@@ -199,8 +191,6 @@
   {
    "id": "EDI20260915",
    "title": "Coyote vs. Acme - Per Ulv på saken",
-   "original": "Coyote vs. Acme",
-   "year": null,
    "age": 6,
    "minutes": 103,
    "genres": [
@@ -236,8 +226,6 @@
   {
    "id": "NOR20230682",
    "title": "Drapet på Benjamin Hermansen",
-   "original": "",
-   "year": "2026",
    "age": 15,
    "minutes": 96,
    "genres": [
@@ -321,8 +309,6 @@
   {
    "id": "SFN20241749",
    "title": "En nasjon i sjakk",
-   "original": "En nasjon i sjakk",
-   "year": "2026",
    "age": 15,
    "minutes": 115,
    "genres": [
@@ -436,8 +422,6 @@
   {
    "id": "EDI20260087",
    "title": "Fjord",
-   "original": "Fjord",
-   "year": "2026",
    "age": 9,
    "minutes": 145,
    "genres": [
@@ -487,8 +471,6 @@
   {
    "id": "EDI20260922",
    "title": "George Michael: The Faith Tour",
-   "original": "George Michael: The Faith Tour",
-   "year": "2026",
    "age": 0,
    "minutes": 113,
    "genres": [
@@ -512,8 +494,6 @@
   {
    "id": "UIP20221470",
    "title": "Glemselens øy",
-   "original": "Forgotten Island",
-   "year": "2026",
    "age": 9,
    "minutes": 109,
    "genres": [
@@ -618,8 +598,6 @@
   {
    "id": "EDI20261027",
    "title": "Godzilla Minus Zero",
-   "original": "Gojira-0.0",
-   "year": "2026",
    "age": 15,
    "minutes": 136,
    "genres": [
@@ -644,8 +622,6 @@
   {
    "id": "EDI20260203",
    "title": "Heart of the Beast",
-   "original": "Heart of the Beast",
-   "year": "2026",
    "age": 12,
    "minutes": 101,
    "genres": [
@@ -717,8 +693,6 @@
   {
    "id": "NOR20230648",
    "title": "Hunger Games 1-4 Maraton",
-   "original": "Hunger Games 1-4 Maraton",
-   "year": null,
    "age": 12,
    "minutes": null,
    "genres": [],
@@ -737,8 +711,6 @@
   {
    "id": "EDI20261686",
    "title": "Jak zyc, zeby nie zwariowac",
-   "original": "Jak zyc, zeby nie zwariowac",
-   "year": "2026",
    "age": null,
    "minutes": null,
    "genres": [
@@ -761,8 +733,6 @@
   {
    "id": "NOR20240691",
    "title": "Julenissens verksted",
-   "original": "Julenissens verksted",
-   "year": "2026",
    "age": 0,
    "minutes": 73,
    "genres": [
@@ -850,8 +820,6 @@
   {
    "id": "EDI20251555",
    "title": "Kjærast",
-   "original": "Kjærast",
-   "year": "2026",
    "age": 9,
    "minutes": 114,
    "genres": [],
@@ -879,8 +847,6 @@
   {
    "id": "EDI20251487",
    "title": "La fjella leve",
-   "original": "",
-   "year": "2026",
    "age": 0,
    "minutes": 100,
    "genres": [
@@ -901,8 +867,6 @@
   {
    "id": "EDI20260975",
    "title": "Lille spøkelset Laban skøyer igjen",
-   "original": "",
-   "year": null,
    "age": 0,
    "minutes": 61,
    "genres": [
@@ -939,8 +903,6 @@
   {
    "id": "EDI20251399",
    "title": "Markens grøde",
-   "original": "Markens grøde",
-   "year": "2026",
    "age": 12,
    "minutes": 155,
    "genres": [
@@ -975,8 +937,6 @@
   {
    "id": "UIP20241749",
    "title": "Minions & monstre",
-   "original": "Minions & Monsters",
-   "year": "2026",
    "age": 6,
    "minutes": 85,
    "genres": [
@@ -1009,8 +969,6 @@
   {
    "id": "EDI20260513",
    "title": "Monster Mia",
-   "original": "",
-   "year": "2026",
    "age": 6,
    "minutes": 81,
    "genres": [
@@ -1046,8 +1004,6 @@
   {
    "id": "EDI20250084",
    "title": "Mysteriepakken",
-   "original": "Mysteriepakken",
-   "year": "2026",
    "age": 0,
    "minutes": 86,
    "genres": [
@@ -1152,8 +1108,6 @@
   {
    "id": "EDI20261518",
    "title": "NAZA",
-   "original": "NAZA",
-   "year": "2026",
    "age": 15,
    "minutes": 80,
    "genres": [
@@ -1221,8 +1175,6 @@
   {
    "id": "EDI20250893",
    "title": "Other Mommy",
-   "original": "Other Mommy",
-   "year": "2026",
    "age": 15,
    "minutes": 91,
    "genres": [
@@ -1295,8 +1247,6 @@
   {
    "id": "EDI20261486",
    "title": "Ozzy & Black Sabbath: Back To The Beginning",
-   "original": "Ozzy & Black Sabbath: Back To The Beginning",
-   "year": "2026",
    "age": null,
    "minutes": 147,
    "genres": [
@@ -1328,8 +1278,6 @@
   {
    "id": "EDI20251106",
    "title": "Paw Patrol: Dinofilmen",
-   "original": "Paw Patrol Dino Movie",
-   "year": "2026",
    "age": 0,
    "minutes": 88,
    "genres": [
@@ -1380,8 +1328,6 @@
   {
    "id": "EDI20250183",
    "title": "Pensjonskuppet",
-   "original": "",
-   "year": "2026",
    "age": 9,
    "minutes": 110,
    "genres": [
@@ -1671,8 +1617,6 @@
   {
    "id": "EDI20261650",
    "title": "Pirates of the Caribbean: Maraton",
-   "original": "Pirates of the Caribbean",
-   "year": "2026",
    "age": null,
    "minutes": 463,
    "genres": [
@@ -1696,8 +1640,6 @@
   {
    "id": "EDI20261481",
    "title": "Primetime",
-   "original": "",
-   "year": "2026",
    "age": 15,
    "minutes": 110,
    "genres": [
@@ -1721,8 +1663,6 @@
   {
    "id": "EDI20261593",
    "title": "Ramayana: Rise of a Legend",
-   "original": "",
-   "year": null,
    "age": 15,
    "minutes": 210,
    "genres": [
@@ -1745,8 +1685,6 @@
   {
    "id": "EDI20261479",
    "title": "Rammstein - Live in Mexico City",
-   "original": "Rammstein - Live in Mexico City",
-   "year": "2026",
    "age": null,
    "minutes": 110,
    "genres": [
@@ -1781,8 +1719,6 @@
   {
    "id": "EDI20260642",
    "title": "Resident Evil",
-   "original": "Resident Evil",
-   "year": null,
    "age": 15,
    "minutes": 93,
    "genres": [
@@ -1815,8 +1751,6 @@
   {
    "id": "SFN20180923",
    "title": "Ringenes herre: Trilogien (Extended, utekstet)",
-   "original": "The Lord of the Rings: The Motion Picture Trilogy (Extended)",
-   "year": "2001",
    "age": null,
    "minutes": 681,
    "genres": [
@@ -1842,8 +1776,6 @@
   {
    "id": "EDI20261651",
    "title": "Rocky",
-   "original": "Rocky",
-   "year": "1976",
    "age": null,
    "minutes": 119,
    "genres": [
@@ -1867,8 +1799,6 @@
   {
    "id": "EDI20260563",
    "title": "Sangen fra skogene",
-   "original": "Le chant des forêts",
-   "year": "2025",
    "age": 0,
    "minutes": 93,
    "genres": [
@@ -1945,8 +1875,6 @@
   {
    "id": "EDI20250794",
    "title": "Sauen Shaun - Gårdens fårbannelse",
-   "original": "Shaun the Sheep: The Beast of Mossy Bottom",
-   "year": "2026",
    "age": 0,
    "minutes": 81,
    "genres": [
@@ -2076,8 +2004,6 @@
   {
    "id": "EDI20251787",
    "title": "Sense and Sensibility",
-   "original": "Sense and Sensibility",
-   "year": "2026",
    "age": 0,
    "minutes": 132,
    "genres": [
@@ -2214,8 +2140,6 @@
   {
    "id": "EDI20251333",
    "title": "Street Fighter",
-   "original": "Street Fighter",
-   "year": "2026",
    "age": 12,
    "minutes": 119,
    "genres": [
@@ -2278,8 +2202,6 @@
   {
    "id": "UIP20241680",
    "title": "The Odyssey",
-   "original": "The Odyssey",
-   "year": "2026",
    "age": 12,
    "minutes": 172,
    "genres": [],
@@ -2300,8 +2222,6 @@
   {
    "id": "EDI20261390",
    "title": "Tulpiniai. Lemtinga klaida",
-   "original": "Tulpiniai. Lemtinga klaida",
-   "year": null,
    "age": null,
    "minutes": null,
    "genres": [],
@@ -2323,8 +2243,6 @@
   {
    "id": "EDI20260552",
    "title": "Verity",
-   "original": "",
-   "year": null,
    "age": 15,
    "minutes": 117,
    "genres": [
@@ -2447,8 +2365,6 @@
   {
    "id": "BVI20220663",
    "title": "Whalefall",
-   "original": "Whalefall",
-   "year": "2026",
    "age": 12,
    "minutes": 106,
    "genres": [
@@ -2507,8 +2423,6 @@
   {
    "id": "EDI20260846",
    "title": "Wildwood",
-   "original": "Wildwood",
-   "year": null,
    "age": 12,
    "minutes": 130,
    "genres": [

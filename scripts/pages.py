@@ -422,9 +422,6 @@ def kino_film(f, day):
         title = escape(f'{f["title"]} {s["start"][11:16]}, {s["screen"]}' + (" (LUXE)" if "LUXE" in s["tags"] else ""), True)
         times += (f'<a class="t" href="{escape(safe_url(s["url"]))}" target="_blank" rel="noopener noreferrer" '
                   f'data-start="{s["start"]}" title="{title}">{s["start"][11:16]}{tags}</a>')
-    q = quote_plus(f'{f.get("original") or f["title"]} {f.get("year") or ""}'.strip())
-    links = (f'<a href="https://www.imdb.com/find/?q={q}&s=tt&ttype=ft" target="_blank" rel="noopener" title="Søk etter filmen på IMDb">IMDb</a>'
-             f'<a href="https://www.filmweb.no/film/{escape(f["id"])}" target="_blank" rel="noopener" title="Omtale og vurderinger på Filmweb">Filmweb</a>')
     premiere = '<span class="newfilm">Ny</span>' if f.get("premiere") == day else ""
     return f"""    <article class="film">
       <div class="poster" style="--pc:{color}"><span>{escape(f["title"])}</span>{img}</div>
@@ -433,7 +430,6 @@ def kino_film(f, day):
         <div class="facts">{kino_age(f.get("age"))}<span>{escape(" · ".join(facts))}</span></div>
       </div>
       <div class="times">{times}</div>
-      <div class="flinks">{links}</div>
     </article>
 """
 
@@ -621,9 +617,6 @@ SUB_CSS = """
 .film .t:hover { background: var(--kino); color: var(--kino-ink); }
 .film .t small { font: 600 10px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; opacity: .85; }
 .film .t.past { text-decoration: line-through; border-color: var(--line); color: var(--muted); }
-.flinks { grid-column: 1 / -1; display: flex; gap: 14px; font: 600 12px/1 var(--font-body); }
-.flinks a { color: var(--muted); text-decoration: none; }
-.flinks a:hover { color: var(--kino); text-decoration: underline; }
 .kinosrc { margin-top: 18px; }
 .kinofilms.grid .kinoday { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 .kinofilms.grid .film { grid-template-columns: 1fr; padding: 0; overflow: hidden; align-content: start; gap: 0; }
@@ -631,8 +624,7 @@ SUB_CSS = """
 .kinofilms.grid .poster span { font-size: 17px; padding: 12px; }
 .kinofilms.grid .info { padding: 10px 12px 0; }
 .kinofilms.grid .info h2 { font-size: 15px; }
-.kinofilms.grid .times { padding: 10px 12px 10px; gap: 5px; }
-.kinofilms.grid .flinks { padding: 0 12px 12px; }
+.kinofilms.grid .times { padding: 10px 12px 12px; gap: 5px; }
 .kinofilms.grid .t { padding: 6px 8px; font-size: 13px; }
 @media (max-width: 400px) { .kinofilms.grid .kinoday { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 """
