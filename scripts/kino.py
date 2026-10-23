@@ -4,8 +4,8 @@ Kilden er Filmweb sin programside for ODEON Ålesund (odeonkino.no blokkerer rob
 programmet som JSON i HTML-en, med plakat, aldersgrense, varighet og billettlenke rett til ODEON.
 Kinoprogrammet holdes adskilt fra data/events.json, så det ikke fyller opp hovedlista.
 
-Filmweb viser bare dagens program i HTML-en. Visninger for senere dager som vi har lagret fra før,
-beholdes, og dagens program erstatter det som lå der for i dag.
+Flere dager hentes fra Filmwebs GraphQL-API (getCurrentMovies med dato). Svikter det, brukes dagens
+program fra HTML-en. Visninger for senere dager som vi har lagret fra før, beholdes når de ikke hentes på nytt.
 
 Kjør: python3 scripts/kino.py
 """
@@ -14,6 +14,7 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 import urllib.request
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -22,6 +23,10 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "kino.json"
 TZ = ZoneInfo("Europe/Oslo")
 SOURCE = "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
+API = "https://movieinfoqs.filmweb.no/graphql"
+DAYS = 21  # hvor mange dager frem vi spør om
+FIELDS = ("mainVersionId title rating lengthInMinutes genres premiere sanityImagePosterUrl externalImagePosterUrl "
+          "shows{showStart screenName ticketSaleUrl isKinoklubb theaterName firmName versionTags{tag type}}")
 CINEMA = "ODEON Ålesund"
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
 # Merker som er verdt å vise. 2D og «Norsk tekst» er standard og sier ingenting.
@@ -46,6 +51,28 @@ def movies_in(page):
         if obj.get("shows"):
             found[obj["mainVersionId"]] = obj
     return list(found.values())
+
+
+def api_day(day):
+    q = '{movieQuery{getCurrentMovies(date:"%s", location:"Ålesund", removePastShows:false){%s}}}' % (day, FIELDS)
+    raw = get(API + "?" + urllib.parse.urlencode({"query": q}))
+    data = json.loads(raw)
+    if data.get("errors"):
+        raise ValueError(str(data["errors"])[:200])
+    return [m for m in data["data"]["movieQuery"]["getCurrentMovies"] or [] if m.get("shows")]
+
+
+def api_movies(today):
+    """Filmene for de neste dagene, med alle visningene samlet per film."""
+    by_id = {}
+    start = datetime.date.fromisoformat(today)
+    for i in range(DAYS):
+        day = (start + datetime.timedelta(days=i)).isoformat()
+        for m in api_day(day):
+            shows = [s for s in m["shows"] if s["showStart"][:10] == day]
+            if shows:
+                by_id.setdefault(m["mainVersionId"], {**m, "shows": []})["shows"] += shows
+    return list(by_id.values())
 
 
 def poster(url):
@@ -118,7 +145,11 @@ def main():
     today = datetime.datetime.now(TZ).date().isoformat()
     old = json.loads(OUT.read_text()) if OUT.exists() else {"films": []}
     try:
-        new = build(movies_in(get(SOURCE)))
+        try:
+            new = build(api_movies(today))
+        except Exception as err:
+            warn(f"Filmwebs API for flere dager svarte ikke ({err!r}). Bruker bare dagens program.")
+            new = build(movies_in(get(SOURCE)))
     except Exception as err:  # kino skal aldri stoppe resten av oppdateringen
         warn(f"Kinoprogrammet fra Filmweb kunne ikke hentes ({err!r}). Siden beholder forrige versjon.")
         return
