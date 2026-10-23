@@ -1,6 +1,6 @@
 # Handoff: Skjer i Ålesund
 
-_State as of 23 Oct 2026 (end of day). Cinema page live and styled; owner will review the design on mobile next; see Next steps 1._
+_State as of 24 Oct 2026. Cinema page live; the new mobile filter menu is live and the owner has tested it on a phone (looks good). The cinema calendar bug was fixed. See Next steps._
 
 ## Goal
 A public website listing what's on in Ålesund (concerts, standup, shows, kids' events, clubs, happenings, AaFK home matches), with ticket prices, that updates itself every day.
@@ -53,7 +53,7 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
 | `scripts/artifact_preview.py` | Builds a preview of the site that can be published as a Claude artifact. |
 
 ## Next steps
-1. **Cinema: check the design on mobile (next session starts here).** The `kino/` page is live. `scripts/kino.py` fetches ODEON Ålesund for the next 21 days from Filmweb's GraphQL API (`https://movieinfoqs.filmweb.no/graphql`, `movieQuery.getCurrentMovies(date, location:"Ålesund", removePastShows:false)`; introspection works) and writes `data/kino.json`. If the API fails it falls back to today's programme embedded in Filmweb's HTML (a warning issue is opened). The cinema publishes about a week ahead, so days after that only hold a few special screenings. odeonkino.no itself is behind Cloudflare (403), so Filmweb is the source (bookings link straight to odeonkino.no). Poster images are hotlinked from `cdn.sanity.io` (allowed in the environment since 23 Oct; verified they render undistorted; each poster has a coloured fallback with the title).
+1. **Cinema: mobile review (partly done 24 Oct).** The owner has tried the cinema calendar on a phone: the month arrows were broken (panel closed on click) and are fixed. Still not reviewed: day tiles that scroll sideways (the owner dislikes sideways scrolling on mobile, so consider a wrapped grid), the 2-column poster grid under 400px and the front-page strip. The `kino/` page is live. `scripts/kino.py` fetches ODEON Ålesund for the next 21 days from Filmweb's GraphQL API (`https://movieinfoqs.filmweb.no/graphql`, `movieQuery.getCurrentMovies(date, location:"Ålesund", removePastShows:false)`; introspection works) and writes `data/kino.json`. If the API fails it falls back to today's programme embedded in Filmweb's HTML (a warning issue is opened). The cinema publishes about a week ahead, so days after that only hold a few special screenings. odeonkino.no itself is behind Cloudflare (403), so Filmweb is the source (bookings link straight to odeonkino.no). Poster images are hotlinked from `cdn.sanity.io` (allowed in the environment since 23 Oct; verified they render undistorted; each poster has a coloured fallback with the title).
    Decisions from the owner, 23 Oct: **poster wall only** (no list/"Kort" view); the intro line is just "Hva som går på ODEON Ålesund (Amfi Moa)."; the date picker is day tiles for the first 7 days plus a "Velg dato" button next to them; the calendar opens as a floating panel **over** the posters (never pushes them down); **no IMDb or Filmweb links or ratings** under the films (Filmweb's rating field is empty; IMDb needs an OMDb key; owner said no). The source credit line at the bottom of the page ("Program og plakater via Filmweb ...") is kept.
    Pieces: `kino/` page, CSS and JS in `pages.py` (`kino_page`, `KINO_JS`, `.k*` and `.film`/`.poster` styles), a strip in `index.html` (`#kinostrip`), `kino_line()` in `helgepost.py` (only prints when the weekend has shows), a "Hent kinoprogram" step in `oppdater.yml`. Cinema is deliberately not in the main list, "I dag" or category pages. Sold-out status is not in the source, so it is not shown. Not yet reviewed by the owner on a phone: day tiles scroll sideways, the calendar panel, the 2-column poster grid under 400px, the front-page strip.
 2. **Bing Webmaster Tools:** the owner postponed it. A reminder is scheduled for 12 Nov 2026 in the earlier Claude session; if that doesn't reach them, remind them (bing.com/webmasters → import from Google Search Console).
@@ -67,6 +67,14 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
 
 ## Mobile menu (24 Oct)
 The sticky filter bar (`.controls`) used to be about 440 px tall at 320 px width. Owner chose design H (no sideways scrolling): on phones (max-width 640px) the bar is search + "★ Mine" on one line and a 2x2 grid of dropdowns (`#mwhen`, `#mcat`, `#venue`, `#price`), about 160 px tall, and it slides away when scrolling down and returns on a small scroll up. On wider screens the chips are unchanged; the dropdowns and chips share `state` through `syncFilters()`. The dropdown for category is single-select (the chips allow several). The other designs (A, B, C, D, E, F, G) are kept as interactive mockups in `docs/menyforslag.html` and `docs/menyforslag-2.html` (open in a browser; not published).
+
+## Bug fixed 24 Oct: cinema calendar arrows
+Clicking the month arrows in the `kino/` calendar closed the panel. `render()` replaces the panel's HTML, so the clicked arrow was already detached when the document-level "click outside" handler ran. The handler now ignores detached targets (`e.target.isConnected`) in `KINO_JS` in `pages.py`. Beyond 31 Oct the calendar only has a few special screenings, because Filmweb publishes about a week ahead; that is expected.
+
+## Preferences from the owner (24 Oct)
+- Dislikes sideways scrolling on mobile.
+- Wants to see several design options as interactive mockups before deciding (see `docs/`), then picks one.
+- Tests on the phone after a merge to `main`, so merge when asked and say how to bypass the cache (hard refresh or private tab).
 
 ## Gotchas
 - The Claude cloud environment blocks `*.github.io`. Claude can't open the live site, so test locally: `python3 -m http.server`.
