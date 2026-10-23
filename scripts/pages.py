@@ -232,6 +232,69 @@ def occurrences(events, start, end):
         out += [{**e, "date": d, "time": " og ".join(sorted(ts))} for d, ts in days.items()]
     return sorted(out, key=lambda e: (e["date"], e["time"] or "99"))
 
+OSLO_TZ = """BEGIN:VTIMEZONE
+TZID:Europe/Oslo
+BEGIN:STANDARD
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+END:DAYLIGHT
+END:VTIMEZONE"""
+
+
+def ics_text(s):
+    return re.sub(r"[\\;,]", lambda m: "\\" + m.group(0), str(s or "")).replace("\r", "").replace("\n", "\\n")
+
+
+def ics_fold(line):
+    """Maks 75 byte per linje (RFC 5545), brutt mellom tegn."""
+    out, cur = [], ""
+    for ch in line:
+        if len((cur + ch).encode()) > (75 if not out else 74):
+            out.append(cur)
+            cur = ch
+        else:
+            cur += ch
+    out.append(cur)
+    return "\r\n ".join(out)
+
+
+def build_ics(name, events, today):
+    """Abonnerbar kalenderfil med kommende arrangementer, én hendelse per dag og visning."""
+    end = today + datetime.timedelta(days=366)
+    stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Skjer i Ålesund//NB", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+             f"X-WR-CALNAME:{ics_text(name)}", "X-WR-TIMEZONE:Europe/Oslo", "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
+             "X-PUBLISHED-TTL:PT12H", *OSLO_TZ.split("\n")]
+    for e in events:
+        for o in occurrences([e], today, end):
+            d = o["date"].replace("-", "")
+            for t in (o["time"].split(" og ") if o["time"] else [""]):
+                if re.fullmatch(r"\d{1,2}:\d{2}", t):
+                    hh, mm = map(int, t.split(":"))
+                    s0 = datetime.datetime.strptime(o["date"], "%Y-%m-%d").replace(hour=hh, minute=mm)
+                    times = [f"DTSTART;TZID=Europe/Oslo:{s0:%Y%m%dT%H%M%S}",
+                             f"DTEND;TZID=Europe/Oslo:{s0 + datetime.timedelta(hours=2):%Y%m%dT%H%M%S}"]
+                else:
+                    nxt = datetime.date.fromisoformat(o["date"]) + datetime.timedelta(days=1)
+                    times = [f"DTSTART;VALUE=DATE:{d}", f"DTEND;VALUE=DATE:{nxt:%Y%m%d}"]
+                url = e.get("url") if str(e.get("url", "")).startswith("https://") else ""
+                desc = "\n".join(x for x in [e.get("note"), e.get("price") and "Pris: " + e["price"], url] if x)
+                lines += ["BEGIN:VEVENT", f"UID:{e['id']}-{o['date']}-{t.replace(':', '')}@skjer-i-alesund", f"DTSTAMP:{stamp}", *times,
+                          f"SUMMARY:{ics_text(e['title'])}", f"LOCATION:{ics_text(e['venue'] + ', Ålesund')}",
+                          f"DESCRIPTION:{ics_text(desc)}", *([f"URL:{url}"] if url else []), "END:VEVENT"]
+    lines.append("END:VCALENDAR")
+    return "\r\n".join(ics_fold(l) for l in lines) + "\r\n"
+
 
 def describe(events, what):
     n = len(events)
@@ -322,6 +385,14 @@ def main():
         path = f"arrangement/{e['id']}/"
         write(path, event_page(e, events, path))
         pages.append((path, (e.get("addedAt") or updated)[:10]))
+
+    # Kalenderabonnement: kalender/alle.ics og én per kategori
+    (OUT / "kalender").mkdir()
+    feeds = {"alle": ("Skjer i Ålesund", events)}
+    for k, (p, h1, _) in CATS.items():
+        feeds[p] = (f"Skjer i Ålesund: {h1}", [e for e in events if e["cat"] == k])
+    for fname, (cal_name, evs) in feeds.items():
+        (OUT / "kalender" / f"{fname}.ics").write_text(build_ics(cal_name, evs, today))
 
     # Kino ligger på egen side og er ikke med i lister, kategorier eller helgeposten på bildet
     kino_meta, kino_films = load_kino(today)

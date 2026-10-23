@@ -65,6 +65,9 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
 8. **Permission:** before promoting the site widely, check Tikkio's terms or ask the venues. Always link to their ticket pages, as the site does now.
 9. Optional: a form where organizers can submit their own events.
 
+## Calendar subscription (23 Oct, on branch, not merged)
+`build_ics()` in `pages.py` writes `kalender/alle.ics` and one `.ics` per category into `_site/` at every deploy (one VEVENT per day/show, from `occurrences()`; Europe/Oslo VTIMEZONE; refresh hint 12 h). Owner chose design D from `docs/kalenderforslag.html`: in `index.html`, `#subscribe` is a strip that shows only when exactly one category is selected ("Abonner på standup i kalenderen"), expanding to iPhone/Mac (`webcal://`), Google Calendar and copy link (`updateSubscribe()`, called from `render()`). Not tested on a real phone; no entry point when no category is chosen (consider design A, a button at the top, as a supplement).
+
 ## Mobile menu (24 Oct)
 The sticky filter bar (`.controls`) used to be about 440 px tall at 320 px width. Owner chose design H (no sideways scrolling): on phones (max-width 640px) the bar is search + "★ Mine" on one line and a 2x2 grid of dropdowns (`#mwhen`, `#mcat`, `#venue`, `#price`), about 160 px tall, and it slides away when scrolling down and returns on a small scroll up. On wider screens the chips are unchanged; the dropdowns and chips share `state` through `syncFilters()`. The dropdown for category is single-select (the chips allow several). The other designs (A, B, C, D, E, F, G) are kept as interactive mockups in `docs/menyforslag.html` and `docs/menyforslag-2.html` (open in a browser; not published).
 
