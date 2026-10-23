@@ -93,6 +93,7 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
   .search { grid-column: span 3; order: 1; padding: 9px 12px; }
   #favonly { grid-column: span 1; order: 2; justify-content: center; padding-inline: 4px; }
   .controls select.chip { display: inline-flex; grid-column: span 2; width: 100%; min-width: 0; padding: 10px 24px 10px 11px; text-overflow: ellipsis; overflow: hidden; }
+  .controls.kalmode #price { grid-column: span 4; }
   #mwhen { order: 3; } #mcat { order: 4; } #venue { order: 5; } #price { order: 6; }
   .controls .count { grid-column: 1 / -1; order: 7; margin: 0; text-align: right; font-size: 11px; line-height: 1; }
 }
@@ -155,6 +156,29 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .subscribe .sub-actions a.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .subscribe .sub-msg { font-size: 13px; color: var(--sea); }
 .subscribe .sub-msg:empty { display: none; }
+.viewseg { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; margin: 10px 0 4px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.viewseg button { font: 600 14px/1 var(--font-body); padding: 10px; border: 0; border-radius: 7px; background: transparent; color: var(--muted); cursor: pointer; }
+.viewseg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.mc-nav { display: flex; align-items: center; justify-content: space-between; margin: 12px 0 6px; }
+.mc-nav b { font: 800 19px/1 var(--font-display); text-transform: capitalize; }
+.mc-nav button { width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--fg); font-size: 18px; cursor: pointer; }
+.mc-nav button:disabled { opacity: .3; cursor: default; }
+.mc-wd, .mc-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.mc-wd span { font: 500 10px/1 var(--font-mono); color: var(--muted); text-align: center; text-transform: uppercase; padding: 4px 0; }
+.mc-cell { aspect-ratio: 1 / 1.1; min-width: 0; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--fg); display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 5px 2px; font: 600 13px/1 var(--font-body); cursor: pointer; }
+.mc-cell.out { opacity: .3; } .mc-cell.past { opacity: .4; cursor: default; }
+.mc-cell.today { border: 2px solid var(--accent); }
+.mc-cell.sel { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.mc-dots { display: flex; flex-wrap: wrap; gap: 2px; justify-content: center; align-content: flex-start; }
+.mc-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
+.mc-dots em { font: normal 500 8px/6px var(--font-mono); }
+.mc-cell.sel .mc-dots i { outline: 1px solid var(--bg); }
+.mc-leg { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--muted); margin: 10px 0 0; }
+.mc-leg i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c); margin-right: 4px; }
+.mc-head { font: 800 18px/1.2 var(--font-display); margin: 20px 0 10px; scroll-margin-top: 190px; }
+.mc-head small { font: 500 12px var(--font-mono); color: var(--muted); margin-left: 8px; }
+@media (min-width: 700px) { .mc-cell { aspect-ratio: 1.6 / 1; } }
+.controls.kalmode #when, .controls.kalmode #mwhen { display: none; }
 footer { margin-top: 28px; font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
 footer a { color: var(--sea); }
 @media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
@@ -196,6 +220,11 @@ footer a { color: var(--sea); }
       <button id="favonly" class="chip" aria-pressed="false">★ Mine</button>
       <span class="count" id="count"></span>
     </div>
+  </div>
+
+  <div class="viewseg" id="viewseg" role="group" aria-label="Visning">
+    <button type="button" data-view="liste" aria-pressed="true">Liste</button>
+    <button type="button" data-view="kal" aria-pressed="false">Kalender</button>
   </div>
 
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
@@ -270,7 +299,7 @@ document.getElementById("theme").onclick = () => {
 };
 darkQuery.addEventListener("change", paintTheme);
 paintTheme();
-const state = { q: "", when: "alt", cats: new Set(), venue: "", price: "", favOnly: false };
+const state = { q: "", when: "alt", cats: new Set(), venue: "", price: "", favOnly: false, view: store.get("skjer-view", "liste") === "kal" ? "kal" : "liste" };
 
 const dayMs = 864e5;
 const diffDays = d => Math.floor((d - TODAY) / dayMs);
@@ -446,17 +475,27 @@ function matchHtml(e, u) {
   </article>`;
 }
 
+const matchesBase = e =>
+  (!state.cats.size || state.cats.has(e.cat)) &&
+  (!state.venue || e.venue === state.venue) &&
+  priceOk(e) &&
+  (!state.favOnly || favs.has(e.id)) &&
+  (!state.q || (e.title + " " + e.venue + " " + (CATS[e.cat] || "")).toLowerCase().includes(state.q));
+
+function eventHtml(e) { const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
+        <h3>${esc(e.title)}</h3>
+        <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}</div>
+        <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${CATS[c]}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
+        ${e.note ? `<div class="note ${e.uncertain ? "warn" : ""}">${esc(e.note)}</div>` : ""}
+        <div class="actions">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}<button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div>
+      </article>`; }
+
 function render() {
-  const items = E.filter(e =>
-    e.d >= TODAY &&
-    WHEN[state.when][1](e.d) &&
-    (!state.cats.size || state.cats.has(e.cat)) &&
-    (!state.venue || e.venue === state.venue) &&
-    priceOk(e) &&
-    (!state.favOnly || favs.has(e.id)) &&
-    (!state.q || (e.title + " " + e.venue + " " + (CATS[e.cat] || "")).toLowerCase().includes(state.q))
-  ).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
+  const items = E.filter(e => e.d >= TODAY && WHEN[state.when][1](e.d) && matchesBase(e)).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
   updateSubscribe();
+  document.querySelector(".controls").classList.toggle("kalmode", state.view === "kal");
+  document.querySelectorAll("#viewseg [data-view]").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === state.view));
+  if (state.view === "kal") return renderCal();
   $("count").textContent = `${items.length} arrangement${items.length === 1 ? "" : "er"}`;
   if (!items.length) { $("list").innerHTML = `<div class="empty">${!E.length ? "Ingen arrangementer er lagt inn ennå. De dukker opp her når programmet er hentet." : state.favOnly ? "Du har ikke lagret noe som passer filteret. Trykk ☆ på et arrangement for å lagre det." : "Ingenting passer søket. Prøv et annet filter."}</div>`; return; }
   const groups = new Map();
@@ -464,15 +503,72 @@ function render() {
   $("list").innerHTML = [...groups.values()].map(g => {
     const d = g[0].d;
     return `<section class="day"><div class="date"><div class="wd">${WD[d.getDay()]}</div><div class="num">${d.getDate()}</div><div class="mo">${MO[d.getMonth()]}</div>${rel(d) ? `<div class="rel">${rel(d)}</div>` : ""}</div>
-      <div class="events">${g.map(e => { const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
-        <h3>${esc(e.title)}</h3>
-        <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}</div>
-        <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${CATS[c]}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
-        ${e.note ? `<div class="note ${e.uncertain ? "warn" : ""}">${esc(e.note)}</div>` : ""}
-        <div class="actions">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}<button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div>
-      </article>`; }).join("")}</div></section>`;
+      <div class="events">${g.map(eventHtml).join("")}</div></section>`;
   }).join("");
 }
+
+// Kalendervisning: måned med én prikk per arrangement, og dagens arrangementer under.
+// Gjentatte forestillinger (moreShows) telles på hver dato de går.
+const pad2 = n => String(n).padStart(2, "0");
+const dkey = d => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+let calMonth = new Date(TODAY.getFullYear(), TODAY.getMonth(), 1), calSel = TODAY, calTap = false;
+function calOcc() {
+  const out = [];
+  E.forEach(e => {
+    if (!matchesBase(e)) return;
+    const days = new Map([[e.date, e.time || ""]]);
+    (e.moreShows || []).forEach(x => { const d = x.slice(0, 10); if (!days.has(d)) days.set(d, x.slice(11, 16)); });
+    days.forEach((time, date) => { const d = new Date(date + "T12:00"); if (d >= TODAY) out.push({ ...e, date, time, d }); });
+  });
+  return out.sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
+}
+function renderCal() {
+  const occ = calOcc(), byDay = new Map();
+  occ.forEach(e => { const k = dkey(e.d); if (!byDay.has(k)) byDay.set(k, []); byDay.get(k).push(e); });
+  const y = calMonth.getFullYear(), m = calMonth.getMonth(), first = new Date(y, m, 1);
+  const lead = (first.getDay() + 6) % 7, dim = new Date(y, m + 1, 0).getDate(), n = Math.ceil((lead + dim) / 7) * 7;
+  const lastD = occ.length ? occ[occ.length - 1].d : TODAY;
+  const canPrev = calMonth > new Date(TODAY.getFullYear(), TODAY.getMonth(), 1), canNext = new Date(y, m + 1, 1) <= lastD;
+  // Etter filterbytte eller månedsbytte: hopp til første dag med arrangementer hvis valgt dag er tom
+  if (!calTap && !byDay.has(dkey(calSel))) {
+    const f = occ.find(x => x.d.getFullYear() === y && x.d.getMonth() === m);
+    if (f) calSel = f.d;
+  }
+  calTap = false;
+  const selKey = dkey(calSel), monthCount = occ.filter(e => e.d.getFullYear() === y && e.d.getMonth() === m).length;
+  $("count").textContent = `${monthCount} arrangement${monthCount === 1 ? "" : "er"} i ${MONTHS[m].toLowerCase()}`;
+  let cells = "";
+  for (let i = 0; i < n; i++) {
+    const d = new Date(y, m, 1 - lead + i, 12), k = dkey(d), es = byDay.get(k) || [], past = d < TODAY, inM = d.getMonth() === m;
+    const dots = es.slice(0, 4).map(e => `<i style="--c:var(--c-${CATS[e.cat] ? e.cat : "happening"})"></i>`).join("") + (es.length > 4 ? `<em>+${es.length - 4}</em>` : "");
+    cells += `<button type="button" class="mc-cell${inM ? "" : " out"}${past ? " past" : ""}${k === dkey(TODAY) ? " today" : ""}${k === selKey ? " sel" : ""}" ${past ? "disabled" : `data-mc-day="${k}"`} aria-label="${d.getDate()}. ${MONTHS[d.getMonth()].toLowerCase()}, ${es.length} arrangement${es.length === 1 ? "" : "er"}"${k === selKey ? ' aria-pressed="true"' : ""}>${d.getDate()}<span class="mc-dots">${dots}</span></button>`;
+  }
+  const es = byDay.get(selKey) || [], sd = calSel;
+  $("list").innerHTML = `<div class="mc-nav"><button type="button" data-mc-nav="-1" ${canPrev ? "" : "disabled"} aria-label="Forrige måned">‹</button><b>${MONTHS[m]} ${y}</b><button type="button" data-mc-nav="1" ${canNext ? "" : "disabled"} aria-label="Neste måned">›</button></div>
+    <div class="mc-wd">${["man", "tir", "ons", "tor", "fre", "lør", "søn"].map(x => `<span>${x}</span>`).join("")}</div><div class="mc-grid">${cells}</div>
+    <div class="mc-leg">${Object.entries(CATS).map(([k, l]) => `<span><i style="--c:var(--c-${k})"></i>${l}</span>`).join("")}</div>
+    <h2 class="mc-head" id="mc-head">${WD[sd.getDay()]} ${sd.getDate()}. ${MO[sd.getMonth()]}<small>${es.length} arrangement${es.length === 1 ? "" : "er"}</small></h2>
+    ${es.length ? `<div class="events">${es.map(eventHtml).join("")}</div>` : `<div class="empty">Ingenting registrert denne dagen${state.cats.size || state.venue || state.q || state.favOnly || state.price !== "" ? " med filteret ditt" : ""}.</div>`}`;
+}
+$("list").addEventListener("click", e => {
+  const day = e.target.closest("[data-mc-day]"), nav = e.target.closest("[data-mc-nav]");
+  if (day) {
+    calSel = new Date(day.dataset.mcDay + "T12:00");
+    if (calSel.getMonth() !== calMonth.getMonth()) calMonth = new Date(calSel.getFullYear(), calSel.getMonth(), 1);
+    calTap = true; render(); track("kalender-visning/dag");
+    const h = $("mc-head"); if (h && h.getBoundingClientRect().top > innerHeight - 160) h.scrollIntoView({ block: "start", behavior: "smooth" });
+  } else if (nav) {
+    calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + Number(nav.dataset.mcNav), 1);
+    const isNow = calMonth.getFullYear() === TODAY.getFullYear() && calMonth.getMonth() === TODAY.getMonth();
+    const firstWith = calOcc().find(x => x.d.getFullYear() === calMonth.getFullYear() && x.d.getMonth() === calMonth.getMonth());
+    calSel = isNow ? TODAY : firstWith ? firstWith.d : calMonth;
+    render(); track("kalender-visning/maned");
+  }
+});
+$("viewseg").onclick = e => {
+  const b = e.target.closest("[data-view]"); if (!b || b.dataset.view === state.view) return;
+  state.view = b.dataset.view; store.set("skjer-view", state.view); track("kalender-visning/" + state.view); render();
+};
 
 function showStatus() {
   if (!meta.updatedAt) { $("status").textContent = ""; return; }
