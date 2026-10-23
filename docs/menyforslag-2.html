@@ -1,0 +1,217 @@
+<title>Menyforslag med nedtrekk</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: forslagene som telefonrammer side om side; hver ramme er en liten kopi av forsiden med ekte scrolling */
+:root {
+  --bg: #eef3f2; --surface: #ffffff; --fg: #10282f; --muted: #5a7177; --line: #d3dfdd;
+  --accent: #c8432b; --accent-ink: #ffffff; --sea: #1f6f78;
+  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c;
+  --shell: #10282f; --good: #2f8a4c;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
+  --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a;
+  --shell: #02080a; --good: #6cc98a; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
+  --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a;
+  --shell: #02080a; --good: #6cc98a; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 56px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.page { max-width: 1240px; margin: 0 auto; display: grid; gap: 28px; }
+h1 { font: 800 clamp(30px, 6vw, 44px)/1 var(--font-display); letter-spacing: -.03em; margin: 0; text-wrap: balance; }
+h1 span { color: var(--accent); }
+.intro { color: var(--muted); max-width: 62ch; margin: 8px 0 0; }
+.intro b { color: var(--fg); font-weight: 600; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 36px 24px; justify-items: center; }
+.opt { width: 100%; max-width: 340px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.opt h2 { margin: 0; font: 800 22px/1.1 var(--font-display); letter-spacing: -.02em; display: flex; gap: 10px; align-items: baseline; }
+.opt h2 .k { font: 500 12px/1 var(--font-mono); color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+.opt p { margin: 0; font-size: 14px; color: var(--muted); }
+.opt .hint { font: 500 12px/1.4 var(--font-mono); color: var(--muted); }
+.meter { display: flex; align-items: center; gap: 10px; font: 500 12px/1.3 var(--font-mono); }
+.meter .bar { flex: 1; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.meter .bar i { display: block; height: 100%; background: var(--accent); width: 0; }
+.meter output { min-width: 9.5em; text-align: right; color: var(--fg); font-variant-numeric: tabular-nums; }
+.rec { font: 600 11px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; padding: 4px 8px; border-radius: 999px; background: var(--good); color: var(--bg); }
+
+/* Telefonramme */
+.phone { width: 332px; max-width: 100%; border-radius: 30px; background: var(--shell); padding: 6px; box-shadow: 0 10px 30px rgba(8, 24, 28, .22); }
+.screen { height: 560px; border-radius: 24px; overflow-y: auto; overflow-x: hidden; position: relative; background: var(--bg); overscroll-behavior: contain; scrollbar-width: none; }
+.screen::-webkit-scrollbar { display: none; }
+.in { padding: 0 14px 40px; position: relative; }
+.in * { min-width: 0; }
+
+/* Kopi av forsiden */
+.top { padding-top: 18px; display: grid; gap: 6px; padding-bottom: 14px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.eyebrow { font: 500 10px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--sea); }
+.theme { font: 500 11px/1 var(--font-body); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo { flex: none; width: 40px; height: auto; }
+.top h3 { font: 800 38px/.92 var(--font-display); letter-spacing: -.03em; margin: 0; }
+.top h3 span { color: var(--accent); }
+.lede { margin: 4px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+.controls { position: sticky; top: 0; z-index: 5; background: var(--bg); display: grid; gap: 8px; padding: 10px 14px; margin-inline: -14px; border-bottom: 1px solid var(--line); transition: transform .22s ease; }
+.controls.gone { transform: translateY(-101%); }
+@media (prefers-reduced-motion: reduce) { .controls { transition: none; } }
+.search { width: 100%; font: inherit; font-size: 14px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); }
+.search:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chip { font: 500 12.5px/1 var(--font-body); padding: 8px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; flex: none; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.chip.when[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.count { margin-left: auto; font: 500 11px var(--font-mono); color: var(--muted); white-space: nowrap; }
+select.chip { appearance: none; padding-right: 26px; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%; background-size: 5px 5px; background-repeat: no-repeat; }
+
+/* C og D: enlinjes rader som scroller sideveis */
+.snap .row { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -14px; padding-inline: 14px; mask-image: linear-gradient(90deg, #000 calc(100% - 22px), transparent); }
+.snap .row::-webkit-scrollbar { display: none; }
+.snap { gap: 6px; padding-block: 8px; }
+
+/* B: kompakt stolpe + panel */
+.bar1 { display: flex; gap: 6px; align-items: center; }
+.bar1 .search { flex: 1; padding-block: 8px; }
+.fbtn { position: relative; }
+.fbtn .n { display: none; min-width: 16px; height: 16px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font: 600 10px/16px var(--font-body); text-align: center; padding-inline: 4px; }
+.fbtn.has .n { display: inline-block; }
+.panel { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 14px 24px rgba(8, 24, 28, .2); padding: 4px 14px 14px; display: none; gap: 10px; }
+.panel.open { display: grid; }
+.panel h4 { margin: 0 0 6px; font: 500 10px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.panel .row + h4 { margin-top: 2px; }
+.panel .done { justify-self: stretch; text-align: center; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; padding-block: 10px; justify-content: center; }
+.scrim { position: absolute; inset: 0; top: 100%; height: 600px; background: rgba(8, 24, 28, .32); display: none; }
+.scrim.open { display: block; }
+
+/* Eksempelinnhold */
+.day { display: grid; grid-template-columns: 44px 1fr; gap: 10px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.date .wd { font: 500 9.5px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.date .num { font: 800 28px/1 var(--font-display); letter-spacing: -.02em; }
+.date .mo { font: 500 10px/1 var(--font-mono); text-transform: uppercase; color: var(--accent); }
+.evs { display: grid; gap: 8px; }
+.ev { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 10px; padding: 9px 11px; display: grid; gap: 3px; }
+.ev h5 { margin: 0; font: 700 15px/1.25 var(--font-display); letter-spacing: -.01em; }
+.ev .m { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 2px 10px; }
+.ev .m b { font: 500 12px var(--font-mono); color: var(--fg); }
+.ev .tg { font: 600 10px/1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--c); }
+
+.switch { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.note { font-size: 13px; color: var(--muted); max-width: 70ch; }
+@media (max-width: 400px) { .opt .meter output { min-width: 8em; } }
+
+/* Nedtrekk i rutenett: ingen sideveis scrolling */
+.sels { display: grid; gap: 6px; }
+.sels.g2 { grid-template-columns: 1fr 1fr; }
+.sels.g3 { grid-template-columns: 1fr 1fr 1fr; }
+.sels select.chip { width: 100%; padding: 10px 24px 10px 11px; text-overflow: ellipsis; overflow: hidden; }
+.sels.g3 select.chip { padding-inline: 9px 20px; background-position: calc(100% - 12px) 50%, calc(100% - 7px) 50%; }
+.bar1 { display: flex; gap: 6px; align-items: center; }
+.bar1 .search { flex: 1; padding-block: 8px; }
+.bar1 .fav { padding-block: 10px; }
+.tight { gap: 6px; padding-block: 8px; }
+</style>
+
+
+<div class="page">
+  <header>
+    <h1>Menyforslag med <span>nedtrekk</span></h1>
+    <p class="intro">Kategoriene flyttes inn i en nedtrekksmeny, som «Alle scener» i dag. Ingen av forslagene scroller sideveis. Alle rammene har samme innhold og ekte filterlister, så målerne under viser reell høyde ved 320 px bredde. <b>Scroll inne i rammene</b> for å prøve dem. Eksempelkort er plassholdere.</p>
+  </header>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+const MONTHS = ["Oktober", "November", "Desember", "Januar", "Februar", "Mars"];
+const WHEN = ["Alt", "I kveld", "Neste 7 dager", "Helga", ...MONTHS];
+const CATS = ["Konsert", "Standup", "Show", "Barn & familie", "Klubb", "Happening", "Sport"];
+const DOT = { Konsert: "konsert", Standup: "standup", Show: "show", "Barn & familie": "barn" };
+const OPTS = [
+  { v: "now", k: "Slik er det nå", t: "Dagens meny", d: "Tid og kategori som chips som brytes over mange linjer.", hint: "Til sammenligning." },
+  { v: "e", k: "Forslag E", t: "Kategori som nedtrekk", d: "Minste endring: bare kategoriene flyttes til et nedtrekk. Tid-chipsene, scene og pris er som før.", hint: "Prøv: trykk på «Alle kategorier»." },
+  { v: "f", k: "Forslag F", t: "Fire nedtrekk i rutenett", d: "Søk og ★ øverst, så et 2×2-rutenett med Når, Kategori, Scene og Pris. Alt er et nedtrekk, ingenting brytes.", hint: "Prøv: velg noe i hvert nedtrekk." },
+  { v: "g", k: "Forslag G", t: "Korte chips og tre nedtrekk", d: "Bare de fire vanligste tidene som chips. Måneder, kategori, scene og pris ligger i nedtrekk på to rader.", hint: "Prøv: «Måned» og «Kategori»." },
+  { v: "h", k: "Forslag H", t: "F og skjul ved scroll ned", d: "Rutenettet fra F, og hele menyen skjules når du scroller ned og kommer tilbake når du scroller litt opp.", hint: "Prøv: scroll ned og så litt opp.", rec: true },
+];
+const EVS = [
+  ["Fre", "23", "okt", "konsert", "Konsert", "Eksempelkonsert", "20:00", "Eksempelscene", "kr 350"],
+  ["Lør", "24", "okt", "standup", "Standup", "Eksempel standup", "19:30", "Eksempelscene", "kr 295"],
+  ["Lør", "24", "okt", "barn", "Barn & familie", "Eksempel familieshow", "13:00", "Eksempelscene", "kr 180"],
+  ["Søn", "25", "okt", "show", "Show", "Eksempelshow", "18:00", "Eksempelscene", "kr 420"],
+  ["Tor", "29", "okt", "konsert", "Konsert", "Eksempelkonsert 2", "20:30", "Eksempelscene", "kr 250"],
+  ["Fre", "30", "okt", "standup", "Standup", "Eksempel standup 2", "20:00", "Eksempelscene", "kr 320"],
+  ["Lør", "31", "okt", "show", "Show", "Eksempelshow 2", "19:00", "Eksempelscene", "kr 390"],
+  ["Søn", "1", "nov", "konsert", "Konsert", "Eksempelkonsert 3", "17:00", "Eksempelscene", "kr 220"],
+];
+const LOGO = `<svg class="logo" viewBox="0 0 48 52" aria-hidden="true"><circle cx="24" cy="6" r="3.5" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="var(--accent)"/><circle cx="15" cy="30" r="2" fill="var(--bg)"/><circle cx="33" cy="30" r="2" fill="var(--bg)"/><path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="var(--bg)"/><path d="M4 49c3.5-2.5 6.5-2.5 10 0s6.5 2.5 10 0 6.5-2.5 10 0 6.5 2.5 10 0" fill="none" stroke="var(--sea)" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+
+const chips = (list, cls, first = 0) => list.map((w, i) => `<button class="chip ${cls}" type="button" aria-pressed="${i === first}">${w}</button>`).join("");
+const sel = (label, opts, all) => `<select class="chip" aria-label="${label}"><option>${all}</option>${opts.map(o => `<option>${o}</option>`).join("")}</select>`;
+const VENUES = ["Terminalen Byscene", "Parken kulturhus", "Løvenvold Theater", "Color Line Stadion"];
+const PRICES = ["Gratis", "Under 300 kr", "Under 500 kr"];
+const search = ph => `<input class="search" type="search" placeholder="${ph}" aria-label="Søk">`;
+const fav = lbl => `<button class="chip fav" type="button" aria-pressed="false">${lbl}</button>`;
+
+function controls(v) {
+  if (v === "now") return `<div class="controls"><div class="row">${chips(WHEN.slice(0), "when")}</div>`.replace('<div class="controls"><div', `<div class="controls">${search("Søk etter artist, sted eller show …")}<div`) + `<div class="row">${chips(["Alle", ...CATS], "cat")}</div><div class="row">${sel("Scene", VENUES, "Alle scener")}${sel("Pris", PRICES, "Alle priser")}${fav("★ Mine")}<span class="count">110 arr.</span></div></div>`;
+  if (v === "e") return `<div class="controls">${search("Søk etter artist, sted eller show …")}<div class="row">${chips(WHEN, "when")}</div><div class="row">${sel("Kategori", CATS, "Alle kategorier")}${sel("Scene", VENUES, "Alle scener")}${sel("Pris", PRICES, "Alle priser")}${fav("★ Mine")}<span class="count">110 arr.</span></div></div>`;
+  if (v === "g") return `<div class="controls">${search("Søk etter artist, sted eller show …")}<div class="row">${chips(["Alt", "I kveld", "Neste 7 dager", "Helga"], "when")}${sel("Måned", MONTHS, "Måned")}</div><div class="sels g3">${sel("Kategori", CATS, "Kategori")}${sel("Scene", VENUES, "Scene")}${sel("Pris", PRICES, "Pris")}</div><div class="row">${fav("★ Mine")}<span class="count">110 arrangementer</span></div></div>`;
+  const grid = `<div class="sels g2">${sel("Når", WHEN.slice(1), "Når: alt")}${sel("Kategori", CATS, "Alle kategorier")}${sel("Scene", VENUES, "Alle scener")}${sel("Pris", PRICES, "Alle priser")}</div>`;
+  return `<div class="controls tight ${v === "h" ? "auto" : ""}"><div class="bar1">${search("Søk …")}${fav("★ Mine")}</div>${grid}</div>`;
+}
+function days() {
+  return EVS.map(e => `<section class="day"><div class="date"><div class="wd">${e[0]}</div><div class="num">${e[1]}</div><div class="mo">${e[2]}</div></div>
+    <div class="evs"><article class="ev" style="--c: var(--c-${e[3]})"><span class="tg">${e[4]}</span><h5>${e[5]}</h5><div class="m"><b>${e[6]}</b><span>${e[7]}</span><span>${e[8]}</span></div></article></div></section>`).join("");
+}
+function phone(o) {
+  return `<article class="opt"><h2><span class="k">${o.k}</span>${o.t}${o.rec ? ' <span class="rec">Anbefalt</span>' : ""}</h2>
+  <p>${o.d}</p>
+  <div class="phone"><div class="screen" data-v="${o.v}"><div class="in">
+    <header class="top"><div class="topbar"><div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div><span class="theme">Mørk</span></div>
+    <div class="brand">${LOGO}<h3>Skjer i <span>Ålesund</span></h3></div>
+    <p class="lede">Konserter, standup, show og happenings i byen, samlet på ett sted. Programmet sjekkes hver morgen og kveld.</p></header>
+    ${controls(o.v)}
+    <main>${days()}</main></div></div></div>
+  <div class="meter"><span class="bar"><i></i></span><output>–</output></div>
+  <div class="hint">${o.hint}</div></article>`;
+}
+document.getElementById("grid").innerHTML = OPTS.map(phone).join("");
+
+document.querySelectorAll(".screen").forEach(screen => {
+  const ctl = screen.querySelector(".controls");
+  const box = screen.closest(".opt"), out = box.querySelector(".meter output"), fill = box.querySelector(".meter i");
+  const measure = () => {
+    const h = ctl.offsetHeight, pct = Math.round(h / screen.clientHeight * 100);
+    out.textContent = `${h} px · ${pct} % av skjermen` + (ctl.classList.contains("auto") ? " (når synlig)" : "");
+    fill.style.width = pct + "%";
+  };
+  measure(); addEventListener("resize", measure); document.fonts?.ready.then(measure);
+  screen.querySelectorAll(".row").forEach(row => row.addEventListener("click", e => {
+    const b = e.target.closest("button.chip"); if (!b || b.classList.contains("fav")) return;
+    row.querySelectorAll("button.chip:not(.fav)").forEach(x => x.setAttribute("aria-pressed", x === b));
+  }));
+  screen.querySelectorAll(".fav").forEach(b => b.addEventListener("click", () => b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") !== "true")));
+  if (ctl.classList.contains("auto")) {
+    let last = 0, acc = 0;
+    screen.addEventListener("scroll", () => {
+      const top = screen.scrollTop, d = top - last; last = top;
+      acc = Math.sign(d) === Math.sign(acc) ? acc + d : d;
+      if (top <= ctl.offsetTop) ctl.classList.remove("gone");
+      else if (acc > 14 && !ctl.contains(document.activeElement)) ctl.classList.add("gone");
+      else if (acc < -8) ctl.classList.remove("gone");
+    }, { passive: true });
+    ctl.addEventListener("focusin", () => ctl.classList.remove("gone"));
+  }
+});
+</script>
