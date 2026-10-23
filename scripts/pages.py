@@ -447,7 +447,7 @@ def kino_page(films, meta, today):
     updated = (meta.get("updatedAt") or "")[:10]
     body = f"""  <header class="top">
     <h1>Kino i Ålesund</h1>
-    <p class="lede">Hva som går på ODEON Ålesund (Amfi Moa), med plakat, aldersgrense og visningstider. Trykk på et klokkeslett for å bestille hos ODEON.</p>
+    <p class="lede">Hva som går på ODEON Ålesund (Amfi Moa).</p>
   </header>
   <div class="kinobar">
     <div class="row" id="kinodays">{chips}</div>
