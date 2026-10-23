@@ -1,12 +1,14 @@
 <!doctype html><html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Forslag: kalendervisning</title>
+<title>Forslag til kalendervisning</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
 :root{--bg:#eef3f2;--surface:#fff;--fg:#10282f;--muted:#5a7177;--line:#d3dfdd;--accent:#c8432b;--accent-ink:#fff;--sea:#1f6f78;--shell:#10282f;--soft:#e3eeec;
 --c-konsert:#1f6f78;--c-standup:#b5531c;--c-show:#6a4fa3;--c-barn:#2f8a4c;--c-klubb:#a83167;--c-happening:#8a6d12;--c-sport:#2b5fa8;
 --fd:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--fb:"Figtree",system-ui,sans-serif;--fm:"JetBrains Mono",ui-monospace,monospace}
-@media(prefers-color-scheme:dark){:root{--bg:#0b171b;--surface:#12232a;--fg:#e3eeec;--muted:#8fa6a9;--line:#22383f;--accent:#ec6a4f;--accent-ink:#1a0b07;--sea:#5ab7bf;--shell:#02080a;--soft:#1a2f37;
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b171b;--surface:#12232a;--fg:#e3eeec;--muted:#8fa6a9;--line:#22383f;--accent:#ec6a4f;--accent-ink:#1a0b07;--sea:#5ab7bf;--shell:#02080a;--soft:#1a2f37;
 --c-konsert:#5ab7bf;--c-standup:#f08a4b;--c-show:#ab93e6;--c-barn:#6cc98a;--c-klubb:#ec78ab;--c-happening:#d9b84a;--c-sport:#7aa7e6;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b171b;--surface:#12232a;--fg:#e3eeec;--muted:#8fa6a9;--line:#22383f;--accent:#ec6a4f;--accent-ink:#1a0b07;--sea:#5ab7bf;--shell:#02080a;--soft:#1a2f37;
+--c-konsert:#5ab7bf;--c-standup:#f08a4b;--c-show:#ab93e6;--c-barn:#6cc98a;--c-klubb:#ec78ab;--c-happening:#d9b84a;--c-sport:#7aa7e6;color-scheme:dark}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 var(--fb);padding:28px 16px 56px}
 .page{max-width:1100px;margin:0 auto;display:grid;gap:28px}
 h1{font:800 clamp(28px,6vw,42px)/1 var(--fd);letter-spacing:-.03em;margin:0}h1 span{color:var(--accent)}
