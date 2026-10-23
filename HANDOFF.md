@@ -65,6 +65,9 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
 8. **Permission:** before promoting the site widely, check Tikkio's terms or ask the venues. Always link to their ticket pages, as the site does now.
 9. Optional: a form where organizers can submit their own events.
 
+## Mobile menu (24 Oct)
+The sticky filter bar (`.controls`) is about 440 px tall at 320 px width (380 px at 375). Option A is live in `index.html`: the bar slides away when scrolling down and returns on a small scroll up (phones only, max-width 640px). All four designs (now, A, B one-line bar with a Filtre panel, C one-line sideways rows, D = A + C) are kept as an interactive mockup in `docs/menyforslag.html` (open it in a browser; it is not published). Since the bar is still 440 px tall when it returns, C/D is the next step if small-screen users still find it big.
+
 ## Gotchas
 - The Claude cloud environment blocks `*.github.io`. Claude can't open the live site, so test locally: `python3 -m http.server`.
 - `www.` domains must be allowlisted separately in the environment's network settings.
