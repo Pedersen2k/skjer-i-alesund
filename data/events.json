@@ -1,8 +1,8 @@
 {
  "meta": {
-  "updatedAt": "2026-10-23T07:26:18Z",
+  "updatedAt": "2026-10-23T20:01:48Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "parken",
@@ -24,38 +24,6 @@
    "note": "Rabatt: ÅSS-billett 350 kr, DNB-kunde 476 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/62987-alerakk-vol-2-terminalen",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "purppuri-med-jorun-marie-kvernberg-dansekonsert-i-alesund-so",
-   "date": "2026-10-23",
-   "time": "19:00",
-   "title": "Purppuri med Jorun Marie Kvernberg – dansekonsert",
-   "venue": "Sobra Scene",
-   "address": "Korsegata 6, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "300 kr",
-   "priceMin": 300,
-   "soldOut": false,
-   "note": "Aalesund Folk Festival. Dører 18:00. Gratis under 18 år.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/66607-purppuri-med-jorun-marie-kvernberg-dansekonsert-i-alesund",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "daniel-herskedal-lovenvold-theater",
-   "date": "2026-10-23",
-   "time": "19:00",
-   "title": "Daniel Herskedal",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "349 kr",
-   "priceMin": 349,
-   "soldOut": false,
-   "note": "Rabatt: Medlemmer av Jazzsirkelen 249 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/64511-daniel-herskedal",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -642,8 +610,8 @@
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "barn",
-   "price": "75–100 kr",
-   "priceMin": 75,
+   "price": "Gratis",
+   "priceMin": 0,
    "soldOut": false,
    "note": "Også kl. 16:00.",
    "uncertain": false,
@@ -843,7 +811,7 @@
    "price": "Gratis",
    "priceMin": 0,
    "soldOut": false,
-   "note": "Flere forestillinger: 16. nov.",
+   "note": "Utsolgt: 18:00. Flere forestillinger: 16. nov.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/50876-sparebanken-more-tonje-glimmerdal/",
    "moreShows": [
@@ -1794,6 +1762,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48269-jorn-hoel-steinar-albrigtsen/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "hans-magne-skard-skruball-lovenvold-theater",
+   "date": "2027-04-09",
+   "time": "17:30",
+   "title": "Hans Magne Skard – «Skruball»",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "325 kr",
+   "priceMin": 325,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67120-hans-magne-skard-skruball",
+   "addedAt": "2026-10-23T20:01:48Z"
   },
   {
    "id": "parken-50848-parken-kulturhus",
