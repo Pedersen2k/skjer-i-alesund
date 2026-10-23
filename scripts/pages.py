@@ -451,8 +451,8 @@ def kino_page(films, meta, today):
   <div class="kinobar">
     <div class="kstrip" id="kdays"></div>
     <button type="button" class="kpick" id="kpick" aria-expanded="false" aria-controls="kpop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span>Velg dato</span></button>
+    <div class="kpop" id="kpop" hidden></div>
   </div>
-  <div class="kpop" id="kpop" hidden></div>
   <p class="ksum" id="ksum"></p>
   <script type="application/json" id="kinodata">{json.dumps(counts)}</script>
   <main id="films" class="kinofilms grid">
@@ -527,6 +527,7 @@ document.getElementById("kpop").addEventListener("click", e => {
   if (nav) { const i = cal[0] * 12 + cal[1] + +nav.dataset.nav; cal = [Math.floor(i / 12), i % 12]; render(); return; }
   const b = e.target.closest("[data-pick]"); if (b && !b.disabled) choose(b.dataset.pick);
 });
+document.addEventListener("click", e => { if (open && !e.target.closest("#kpop, #kpick")) { open = false; render(); } });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && open) { open = false; render(); } });
 const wanted = location.hash.slice(1);
 sel = allDays.includes(wanted) && wanted >= today ? wanted : (upcoming[0] || allDays[0] || null);
@@ -565,8 +566,8 @@ SUB_CSS = """
 :root { --kino: #3d4f8f; --kino-soft: #e3e8f5; --kino-ink: #ffffff; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --kino: #8fa3e6; --kino-soft: #1c2748; --kino-ink: #0b1230; } }
 :root[data-theme="dark"] { --kino: #8fa3e6; --kino-soft: #1c2748; --kino-ink: #0b1230; }
-.kinobar { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 12px; min-width: 0; }
-.kstrip { flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px; scroll-snap-type: x proximity; }
+.kinobar { position: relative; display: flex; gap: 8px; align-items: flex-start; margin-bottom: 12px; min-width: 0; }
+.kstrip { flex: 0 1 auto; min-width: 0; display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px; scroll-snap-type: x proximity; }
 .ktile { flex: none; scroll-snap-align: start; width: 68px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 12px; padding: 8px 0 7px; display: grid; justify-items: center; gap: 1px; cursor: pointer; font: inherit; }
 .ktile .wd { font: 500 11px/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 .ktile .n { font: 800 24px/1.1 var(--font-display); }
@@ -580,7 +581,7 @@ SUB_CSS = """
 .kpick { flex: none; width: 74px; display: grid; justify-items: center; gap: 3px; padding: 8px 12px; border-radius: 12px; border: 1px solid var(--kino); color: var(--kino); background: var(--surface); font: 600 12px/1.2 var(--font-body); cursor: pointer; }
 .kpick svg { width: 22px; height: 22px; }
 .kpick[aria-expanded="true"] { background: var(--kino-soft); }
-.kpop { max-width: 360px; margin: 0 0 14px auto; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--surface); box-shadow: 0 8px 24px rgb(0 0 0 / .12); display: grid; gap: 10px; }
+.kpop { position: absolute; top: 100%; right: 0; z-index: 20; width: min(360px, 100%); border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--surface); box-shadow: 0 8px 24px rgb(0 0 0 / .12); display: grid; gap: 10px; }
 .khead { display: flex; align-items: center; justify-content: space-between; }
 .khead h2 { margin: 0; font: 800 18px/1.2 var(--font-display); text-transform: capitalize; }
 .karrow { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--fg); font-size: 16px; cursor: pointer; }
