@@ -527,7 +527,8 @@ document.getElementById("kpop").addEventListener("click", e => {
   if (nav) { const i = cal[0] * 12 + cal[1] + +nav.dataset.nav; cal = [Math.floor(i / 12), i % 12]; render(); return; }
   const b = e.target.closest("[data-pick]"); if (b && !b.disabled) choose(b.dataset.pick);
 });
-document.addEventListener("click", e => { if (open && !e.target.closest("#kpop, #kpick")) { open = false; render(); } });
+// render() bytter ut panelet, så et trykk på pilene er allerede løsrevet fra DOM-en her og må ikke regnes som et trykk utenfor
+document.addEventListener("click", e => { if (open && e.target.isConnected && !e.target.closest("#kpop, #kpick")) { open = false; render(); } });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && open) { open = false; render(); } });
 const wanted = location.hash.slice(1);
 sel = allDays.includes(wanted) && wanted >= today ? wanted : (upcoming[0] || allDays[0] || null);
