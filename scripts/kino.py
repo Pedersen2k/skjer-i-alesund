@@ -25,7 +25,7 @@ TZ = ZoneInfo("Europe/Oslo")
 SOURCE = "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
 API = "https://movieinfoqs.filmweb.no/graphql"
 DAYS = 21  # hvor mange dager frem vi spør om
-FIELDS = ("mainVersionId title titleOriginal productionYear rating lengthInMinutes genres premiere sanityImagePosterUrl externalImagePosterUrl "
+FIELDS = ("mainVersionId title rating lengthInMinutes genres premiere sanityImagePosterUrl externalImagePosterUrl "
           "shows{showStart screenName ticketSaleUrl isKinoklubb theaterName firmName versionTags{tag type}}")
 CINEMA = "ODEON Ålesund"
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
@@ -109,8 +109,7 @@ def build(movies):
             continue
         shows.sort(key=lambda s: s["start"])
         films.append({
-            "id": m["mainVersionId"], "title": m["title"].strip(),
-            "original": (m.get("titleOriginal") or "").strip(), "year": m.get("productionYear") or None, "age": age(m.get("rating")),
+            "id": m["mainVersionId"], "title": m["title"].strip(), "age": age(m.get("rating")),
             "minutes": m.get("lengthInMinutes") or None, "genres": m.get("genres") or [],
             "poster": poster(m.get("sanityImagePosterUrl") or m.get("externalImagePosterUrl")),
             "premiere": (m.get("premiere") or "")[:10], "shows": shows,
