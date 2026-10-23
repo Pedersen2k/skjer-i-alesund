@@ -185,7 +185,7 @@ def venue_path(v):
 
 def links_nav(up, current, extra):
     """Snarveier til de andre undersidene, så både folk og søkemotorer finner rundt."""
-    items = [("i-dag/", "I dag"), ("denne-helgen/", "Denne helgen")] + [(p + "/", CAT_LABEL[k] if k != "sport" else "AaFK") for k, (p, _, _) in CATS.items() if k in extra]
+    items = [("i-dag/", "I dag"), ("denne-helgen/", "Denne helgen"), ("kino/", "Kino")] + [(p + "/", CAT_LABEL[k] if k != "sport" else "AaFK") for k, (p, _, _) in CATS.items() if k in extra]
     items += [(p, v) for v, p in VENUE_PAGES.items()]
     return '<nav class="more"><h2>Mer fra programmet</h2><div class="row">' + "".join(
         f'<a class="chip" href="{up}{p}"{" aria-current=\"page\"" if p == current else ""}>{escape(l)}</a>' for p, l in items) + "</div></nav>"
@@ -256,6 +256,8 @@ def main():
     shutil.copy(ROOT / "og-image.png", OUT / "og-image.png")
     (OUT / "data").mkdir()
     shutil.copy(ROOT / "data" / "events.json", OUT / "data" / "events.json")
+    if (ROOT / "data" / "kino.json").exists():
+        shutil.copy(ROOT / "data" / "kino.json", OUT / "data" / "kino.json")
     index = (ROOT / "index.html").read_text()
     # Undersidene bruker samme stil og ikon som forsiden, hentet rett fra index.html
     css = re.search(r"<style>(.*?)</style>", index, re.S).group(1)
@@ -321,6 +323,12 @@ def main():
         write(path, event_page(e, events, path))
         pages.append((path, (e.get("addedAt") or updated)[:10]))
 
+    # Kino ligger på egen side og er ikke med i lister, kategorier eller helgeposten på bildet
+    kino_meta, kino_films = load_kino(today)
+    write("kino/", page("kino/", f"Kinoprogram ODEON Ålesund: hva går på kino? | {SITE}", "Hva går på kino i Ålesund? Program, plakater og visningstider for ODEON Ålesund (Amfi Moa).",
+                        kino_page(kino_films, kino_meta, today)))
+    pages.append(("kino/", (kino_meta.get("updatedAt") or updated)[:10]))
+
     # Delte lenker til arrangementer som er over, havner her
     write("404.html", page("404.html", f"Fant ikke siden | {SITE}", "Arrangementet er over eller finnes ikke lenger.",
                            f"""  <header class="top"><h1>Fant ikke siden</h1>
@@ -370,6 +378,123 @@ def event_page(e, events, path):
 
 
 # Det undersidene trenger i tillegg til forsidens stil
+# --- Kino (egen side, holdt utenfor hovedlista) ---
+
+KINO_COLORS = ["#4a5d3a", "#7a3b3b", "#2d4a6b", "#2a6a72", "#a8561c", "#5b3a7a", "#8a4a68", "#3f6b4a", "#7a6420", "#44505e"]
+WD_SHORT = ["Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"]
+
+
+def load_kino(today):
+    """Filmene med bare de visningene som er i dag eller senere. Tom liste hvis data/kino.json mangler."""
+    f = ROOT / "data" / "kino.json"
+    if not f.exists():
+        return {}, []
+    data = json.loads(f.read_text())
+    films = []
+    for film in data.get("films", []):
+        shows = [s for s in film["shows"] if s["start"][:10] >= today.isoformat()]
+        if shows:
+            films.append({**film, "shows": shows})
+    return data.get("meta", {}), films
+
+
+def kino_age(a):
+    if a is None:
+        return ""
+    return f'<span class="age a{a}" title="{"Tillatt for alle" if a == 0 else f"Aldersgrense {a} år"}">{"A" if a == 0 else a}</span>'
+
+
+def kino_film(f, day):
+    shows = [s for s in f["shows"] if s["start"][:10] == day]
+    if not shows:
+        return ""
+    color = KINO_COLORS[sum(map(ord, f["title"])) % len(KINO_COLORS)]
+    img = (f'<img src="{escape(f["poster"])}" width="360" height="540" loading="lazy" alt="Plakat for {escape(f["title"], True)}" '
+           f'onerror="this.remove()">') if f.get("poster") else ""
+    facts = []
+    if f.get("minutes"):
+        facts.append(f'{f["minutes"] // 60}t {f["minutes"] % 60}m')
+    if f.get("genres"):
+        facts.append(" / ".join(f["genres"][:3]))
+    times = ""
+    for s in shows:
+        tags = "".join(f"<small>{escape(t)}</small>" for t in s["tags"] if t != "LUXE")
+        title = escape(f'{f["title"]} {s["start"][11:16]}, {s["screen"]}' + (" (LUXE)" if "LUXE" in s["tags"] else ""), True)
+        times += (f'<a class="t" href="{escape(safe_url(s["url"]))}" target="_blank" rel="noopener noreferrer" '
+                  f'data-start="{s["start"]}" title="{title}">{s["start"][11:16]}{tags}</a>')
+    premiere = '<span class="newfilm">Ny</span>' if f.get("premiere") == day else ""
+    return f"""    <article class="film">
+      <div class="poster" style="--pc:{color}"><span>{escape(f["title"])}</span>{img}</div>
+      <div class="info">
+        <h2>{escape(f["title"])} {premiere}</h2>
+        <div class="facts">{kino_age(f.get("age"))}<span>{escape(" · ".join(facts))}</span></div>
+      </div>
+      <div class="times">{times}</div>
+    </article>
+"""
+
+
+def kino_page(films, meta, today):
+    days = sorted({s["start"][:10] for f in films for s in f["shows"]})
+    chips = "".join(
+        f'<button type="button" class="chip" data-day="{d}" aria-pressed="false">'
+        f'{WD_SHORT[datetime.date.fromisoformat(d).weekday()]} {datetime.date.fromisoformat(d).day}.</button>' for d in days)
+    sections = ""
+    for d in days:
+        sections += f'  <section class="kinoday" data-day="{d}" hidden aria-label="Program {d}">\n'
+        sections += "".join(kino_film(f, d) for f in films)
+        sections += "  </section>\n"
+    updated = (meta.get("updatedAt") or "")[:10]
+    body = f"""  <header class="top">
+    <h1>Kino i Ålesund</h1>
+    <p class="lede">Hva som går på ODEON Ålesund (Amfi Moa), med plakat, aldersgrense og visningstider. Trykk på et klokkeslett for å bestille hos ODEON.</p>
+  </header>
+  <div class="kinobar">
+    <div class="row" id="kinodays">{chips}</div>
+    <div class="row" id="kinoview" role="group" aria-label="Visning">
+      <button type="button" class="chip" data-v="list" aria-pressed="true">Kort</button>
+      <button type="button" class="chip" data-v="grid" aria-pressed="false">Plakater</button>
+    </div>
+  </div>
+  <main id="films" class="kinofilms">
+{sections if days else '<p class="empty">Vi har ikke kinoprogrammet akkurat nå. Se ODEON Ålesund sin egen side.</p>'}
+  </main>
+  <p class="empty" id="kinoempty" hidden>Ingen flere visninger denne dagen.</p>
+  <p class="small kinosrc">Program og plakater via <a href="https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund" target="_blank" rel="noopener">Filmweb</a>, bestilling hos <a href="https://www.odeonkino.no/alesund/kino/odeon-alesund/" target="_blank" rel="noopener">ODEON Ålesund</a>. Hentet {updated}. Sjekk alltid tidene hos kinoen.</p>
+  <script>
+{KINO_JS}
+  </script>
+  <footer><div>Kinoprogrammet er adskilt fra resten av programmet. Det oppdateres morgen og kveld.</div></footer>"""
+    return body
+
+
+KINO_JS = """
+const osloNow = () => { const p = Object.fromEntries(new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map(x => [x.type, x.value])); return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`; };
+const now = osloNow(), today = now.slice(0, 10);
+const addDay = d => { const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.getUTCDate() + 1); return x.toISOString().slice(0, 10); };
+const chips = [...document.querySelectorAll("#kinodays .chip")];
+chips.forEach(c => { if (c.dataset.day === today) c.textContent = "I dag"; else if (c.dataset.day === addDay(today)) c.textContent = "I morgen"; });
+document.querySelectorAll(".t").forEach(t => { if (t.dataset.start < now) t.classList.add("past"); });
+function pick(day) {
+  chips.forEach(c => c.setAttribute("aria-pressed", c.dataset.day === day));
+  let any = false;
+  document.querySelectorAll(".kinoday").forEach(s => { s.hidden = s.dataset.day !== day; });
+  document.querySelectorAll(".kinoday:not([hidden]) .film").forEach(f => {
+    const live = f.querySelector(".t:not(.past)");
+    f.classList.toggle("done", !live); any = true;
+  });
+  document.getElementById("kinoempty").hidden = any || chips.length === 0;
+}
+chips.forEach(c => c.addEventListener("click", () => { pick(c.dataset.day); try { history.replaceState(null, "", "#" + c.dataset.day); } catch {} }));
+const wanted = location.hash.slice(1);
+pick(chips.find(c => c.dataset.day === wanted) ? wanted : (chips.find(c => c.dataset.day >= today) || chips[0] || {}).dataset?.day);
+const films = document.getElementById("films");
+function view(v) { films.classList.toggle("grid", v === "grid"); document.querySelectorAll("#kinoview .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === v)); try { localStorage.setItem("skjer-kinovisning", v); } catch {} }
+document.querySelectorAll("#kinoview .chip").forEach(b => b.addEventListener("click", () => view(b.dataset.v)));
+try { view(localStorage.getItem("skjer-kinovisning") === "grid" ? "grid" : "list"); } catch { view("list"); }
+"""
+
+
 SUB_CSS = """
 /* Undersider (lages av scripts/pages.py) */
 .sub .crumbs { font: 500 13px/1.4 var(--font-body); padding-bottom: 14px; }
@@ -396,6 +521,42 @@ SUB_CSS = """
 .btn { display: inline-block; font: 600 15px/1 var(--font-body); padding: 12px 16px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); text-decoration: none; }
 .btn:hover { filter: brightness(1.05); }
 .detail .small { font-size: 12.5px; color: var(--muted); margin: 14px 0 0; }
+
+/* Kino */
+:root { --kino: #3d4f8f; --kino-soft: #e3e8f5; --kino-ink: #ffffff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --kino: #8fa3e6; --kino-soft: #1c2748; --kino-ink: #0b1230; } }
+:root[data-theme="dark"] { --kino: #8fa3e6; --kino-soft: #1c2748; --kino-ink: #0b1230; }
+.kinobar { display: grid; gap: 10px; margin-bottom: 16px; }
+.kinobar #kinodays { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
+.kinobar .chip { flex: none; }
+.kinobar .chip[aria-pressed="true"] { background: var(--kino); border-color: var(--kino); color: var(--kino-ink); }
+.kinoday { display: grid; gap: 12px; }
+.film { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 8px 14px; }
+.film.done { opacity: .6; }
+.poster { grid-row: span 1; width: 72px; aspect-ratio: 2 / 3; border-radius: 6px; background: var(--pc); position: relative; overflow: hidden; color: #fff; }
+.poster span { position: absolute; inset: 0; padding: 6px; font: 700 11px/1.15 var(--font-display); display: flex; align-items: flex-end; overflow-wrap: break-word; hyphens: auto; }
+.poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.film .info { min-width: 0; display: grid; gap: 6px; align-content: start; }
+.film h2 { margin: 0; font: 700 19px/1.2 var(--font-display); overflow-wrap: anywhere; }
+.film .facts { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; color: var(--muted); font-size: 13px; }
+.age { display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 5px; border-radius: 5px; font: 700 12px/1 var(--font-display); color: #fff; background: #2f8a4c; }
+.age.a7, .age.a9 { background: #2b7fb8; } .age.a12 { background: #9a6d0f; } .age.a15 { background: #c8432b; } .age.a18 { background: #1a1a1a; }
+.newfilm { font: 700 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; padding: 3px 6px; border-radius: 4px; background: var(--kino); color: var(--kino-ink); vertical-align: middle; }
+.film .times { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
+.film .t { font: 500 15px/1 var(--font-mono); font-variant-numeric: tabular-nums; padding: 8px 12px; border-radius: 8px; border: 1.5px solid var(--kino); color: var(--kino); text-decoration: none; display: inline-flex; gap: 6px; align-items: baseline; }
+.film .t:hover { background: var(--kino); color: var(--kino-ink); }
+.film .t small { font: 600 10px/1 var(--font-body); letter-spacing: .04em; text-transform: uppercase; opacity: .85; }
+.film .t.past { text-decoration: line-through; border-color: var(--line); color: var(--muted); }
+.kinosrc { margin-top: 18px; }
+.kinofilms.grid .kinoday { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.kinofilms.grid .film { grid-template-columns: 1fr; padding: 0; overflow: hidden; align-content: start; gap: 0; }
+.kinofilms.grid .poster { width: 100%; border-radius: 0; }
+.kinofilms.grid .poster span { font-size: 17px; padding: 12px; }
+.kinofilms.grid .info { padding: 10px 12px 0; }
+.kinofilms.grid .info h2 { font-size: 15px; }
+.kinofilms.grid .times { padding: 10px 12px 12px; gap: 5px; }
+.kinofilms.grid .t { padding: 6px 8px; font-size: 13px; }
+@media (max-width: 400px) { .kinofilms.grid .kinoday { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 """
 
 
