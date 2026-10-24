@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-24T07:19:57Z",
+  "updatedAt": "2026-10-24T19:56:33Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -10,25 +10,6 @@
   ]
  },
  "events": [
-  {
-   "id": "50-ar-med-the-beatles-lovenvold-theater",
-   "date": "2026-10-24",
-   "time": "17:30",
-   "title": "50 år med The Beatles",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "634 kr",
-   "priceMin": 634,
-   "soldOut": false,
-   "note": "Også kl. 20:00.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/61772-50-ar-med-the-beatles",
-   "moreShows": [
-    "2026-10-24T20:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "parken-43179-parken-kulturhus",
    "date": "2026-10-24",
@@ -46,6 +27,22 @@
    "moreShows": [
     "2026-10-25T17:00"
    ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "50-ar-med-the-beatles-lovenvold-theater",
+   "date": "2026-10-24",
+   "time": "20:00",
+   "title": "50 år med The Beatles",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "634 kr",
+   "priceMin": 634,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/61939-ekstrakonsert-50-ar-med-the-beatles",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -778,8 +775,8 @@
    "cat": "konsert",
    "price": "Gratis",
    "priceMin": 0,
-   "soldOut": false,
-   "note": "Utsolgt: 18:00. Flere forestillinger: 16. nov.",
+   "soldOut": true,
+   "note": "Flere forestillinger: 16. nov.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/50876-sparebanken-more-tonje-glimmerdal/",
    "moreShows": [
