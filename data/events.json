@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-24T19:56:33Z",
+  "updatedAt": "2026-10-24T21:43:11Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -27,38 +27,6 @@
    "moreShows": [
     "2026-10-25T17:00"
    ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "50-ar-med-the-beatles-lovenvold-theater",
-   "date": "2026-10-24",
-   "time": "20:00",
-   "title": "50 år med The Beatles",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "634 kr",
-   "priceMin": 634,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/61939-ekstrakonsert-50-ar-med-the-beatles",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "ballinciaga-terminalen-byscene",
-   "date": "2026-10-24",
-   "time": "20:00",
-   "title": "Ballinciaga",
-   "venue": "Terminalen Byscene",
-   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "425 kr",
-   "priceMin": 425,
-   "soldOut": false,
-   "note": "Rabatt: Rabatterte billetter 320 kr, ÅSS / Studentbillett 325 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/65858-ballinciaga-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
