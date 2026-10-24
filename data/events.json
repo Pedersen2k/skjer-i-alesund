@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-23T21:44:35Z",
+  "updatedAt": "2026-10-24T05:42:53Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -10,38 +10,6 @@
   ]
  },
  "events": [
-  {
-   "id": "alerakk-vol-2-terminalen-byscene",
-   "date": "2026-10-23",
-   "time": "18:00",
-   "title": "ÅLERÅKK Vol. 2",
-   "venue": "Terminalen Byscene",
-   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "595 kr",
-   "priceMin": 595,
-   "soldOut": false,
-   "note": "Rabatt: ÅSS-billett 350 kr, DNB-kunde 476 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/62987-alerakk-vol-2-terminalen",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "dampsentralen-og-loran-inviterer-til-hostkonsert-dampsentral",
-   "date": "2026-10-23",
-   "time": "19:00",
-   "title": "Dampsentralen og Loran inviterer til høstkonsert",
-   "venue": "Dampsentralen",
-   "address": "Keiser Wilhelms g. 22, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "880 kr",
-   "priceMin": 880,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/66461-hostkonsert",
-   "addedAt": "2026-10-21T12:45:40Z"
-  },
   {
    "id": "50-ar-med-the-beatles-lovenvold-theater",
    "date": "2026-10-24",
