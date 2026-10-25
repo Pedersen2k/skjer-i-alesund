@@ -88,6 +88,12 @@ jobs:
       - id: deploy
         uses: actions/deploy-pages@v5
 
+      # Gi Bing m.fl. beskjed om sidene som endrer seg (IndexNow). Feil her stopper ikke noe.
+      - name: Si fra til søkemotorer
+        if: steps.deploy.outcome == 'success'
+        continue-on-error: true
+        run: python3 scripts/indexnow.py
+
       # Varsling: ett åpent issue samler problemene (GitHub sender e-post til eieren).
       # Det lukkes automatisk neste gang alt går fint.
       - name: Varsle om problemer

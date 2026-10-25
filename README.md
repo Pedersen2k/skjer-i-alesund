@@ -12,6 +12,10 @@ Konserter, standup, show og happenings i Ålesund, samlet på ett sted, med bill
 - `scripts/kino.py` henter kinoprogrammet til ODEON Ålesund fra Filmweb (odeonkino.no blokkerer roboter) og skriver `data/kino.json`. Kino holdes utenfor `events.json`, og vises på `kino/` og som en stripe på forsiden. Fjern det ved å slette kino-delene i `pages.py`, `index.html`, `helgepost.py` og workflowen.
 - GitHub Actions (`.github/workflows/oppdater.yml`) kjører skriptet to ganger i døgnet (morgen og kveld), lagrer endringene og publiserer siden på GitHub Pages.
 
+## Søkemotorer (SEO)
+
+`scripts/pages.py` lager hele det søkemotorene trenger: forsiden får tittel med nøkkelord, de neste ukene som vanlig HTML (scriptet bytter dem ut når programmet er hentet) og JSON-LD (`WebSite`, `Organization`, `Event`). Undersidene (i dag, i morgen, denne helgen, neste 7 dager, måneder, kategorier, scener og ett arrangement hver) har egne titler, beskrivelser, brødsmuler (`BreadcrumbList`) og korte datadrevne tekster. Dessuten lages `robots.txt`, `sitemap.xml`, `manifest.webmanifest` og ikonene. `scripts/indexnow.py` sier fra til Bing m.fl. etter hver publisering (Google henter sitemapet selv).
+
 ## Helgepost
 
 Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et issue med tittelen «Helgepost: …», så du får det på e-post. Det inneholder en ferdig tekst til Facebook-grupper, en bildetekst til Instagram og helgebildet (1080 × 1350), som ligger på `denne-helgen/helgen.png` og også er forhåndsvisningen når noen deler `denne-helgen/`. Er det mange arrangementer, blir linjene kompakte, og får heller ikke det plass, fortsetter lista på `helgen-2.png` osv., som du legger ut som karusell. Forrige ukes helgepost lukkes automatisk. Du kan lage en når som helst under Actions → Helgepost → Run workflow. Teksten og bildet lages av `scripts/helgepost.py`.

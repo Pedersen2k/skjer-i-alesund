@@ -181,6 +181,7 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .mc-head small { font: 500 12px var(--font-mono); color: var(--muted); margin-left: 8px; }
 @media (min-width: 700px) { .mc-cell { aspect-ratio: 1.6 / 1; } }
 .controls.kalmode #when, .controls.kalmode #mwhen { display: none; }
+#list a.title { color: inherit; text-decoration: none; }
 footer { margin-top: 28px; font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
 footer a { color: var(--sea); }
 @media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
@@ -583,6 +584,7 @@ function showStatus() {
 
 // schema.org/Event for søkemotorer (Google kjører JavaScript og leser dette). Kun felt vi har fra kilden.
 function addStructuredData() {
+  if (document.getElementById("ld-front")) return; // bygges inn ferdig av scripts/pages.py
   try {
     const list = E.filter(e => e.d >= new Date(now.getFullYear(), now.getMonth(), now.getDate())).map(e => {
       const o = {
@@ -605,7 +607,7 @@ function addStructuredData() {
   } catch {}
 }
 
-render();
+if (!$("list").firstElementChild) render(); // lista kan allerede være lagt inn som HTML av scripts/pages.py
 fetch("data/events.json", { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(data => {
