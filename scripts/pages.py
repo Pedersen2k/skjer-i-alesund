@@ -26,6 +26,23 @@ TZ = ZoneInfo("Europe/Oslo")
 SITE = "Skjer i Ålesund"
 # Scener med færre arrangementer enn dette får ikke egen side (tynne sider hjelper ikke i søk)
 VENUE_MIN = 3
+# IndexNow: nøkkelen må ligge som <nøkkel>.txt på roten (se scripts/indexnow.py)
+INDEXNOW_KEY = "7c1e5b0a9d3f4a62b8e0c4d71f2a9e65"
+ROBOTS_META = "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+FRONT_TITLE = "Hva skjer i Ålesund? Konserter, standup og show | Skjer i Ålesund"
+FRONT_DESC = "Hva skjer i Ålesund i dag og i helgen? Konserter, standup, show, barn og klubb med billettpriser. Oppdatert hver morgen og kveld. Ka skjer da?"
+ICON_LINKS = ('<link rel="icon" href="{up}favicon.svg" type="image/svg+xml">\n<link rel="icon" href="{up}favicon-48.png" type="image/png" sizes="48x48">\n'
+              '<link rel="apple-touch-icon" href="{up}apple-touch-icon.png">\n<link rel="manifest" href="{up}manifest.webmanifest">')
+CAT_TEXT = {
+    "konsert": "Konserter i Ålesund spenner fra symfoniorkester og kor til band, visesang og jazz. Oversikten henter dato, scene og billettpris fra arrangørenes egne billettsider, så du slipper å lete på flere steder.",
+    "standup": "Standup og humor i Ålesund: turnerende komikere og lokale kvelder. Her ser du hvor og når det er show, og hva billettene koster.",
+    "show": "Show, revy og teater i Ålesund. Se hva som går på scenene i byen, med datoer og billettpriser.",
+    "barn": "Arrangementer for barn og familie i Ålesund, fra barneteater til familieforestillinger. Sjekk aldersanbefaling hos arrangøren.",
+    "klubb": "Klubbkvelder og fest i Ålesund. Sjekk alltid aldersgrense og åpningstid hos arrangøren.",
+    "happening": "Happenings, marked og andre arrangementer i Ålesund som ikke passer i de andre kategoriene, for eksempel festivaler og julemarked.",
+    "sport": "Hjemmekamper for Aalesunds FK på Color Line Stadion, for både herrer og damer, med avspark og lenke til billetter.",
+}
+MONTH_PAGES = {}
 
 WD = ["mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag", "søndag"]
 MO = ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"]
@@ -90,12 +107,37 @@ def event_ld(e):
     }
     if e.get("address"):
         o["location"]["address"]["streetAddress"] = e["address"]
-    if e.get("note"):
-        o["description"] = e["note"]
-    if isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] > 0 and safe_url(e.get("url")):
-        o["offers"] = {"@type": "Offer", "url": e["url"], "price": str(e["priceMin"]), "priceCurrency": "NOK",
+    d = datetime.date.fromisoformat(e["date"])
+    o["description"] = e.get("note") or f"{e['title']} på {e['venue']} i Ålesund {day_text(d, year=True)}" + (f" kl. {e['time']}." if e.get("time") else ".")
+    if isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] >= 0:
+        o["offers"] = {"@type": "Offer", "url": safe_url(e.get("url")) or o["url"], "price": str(e["priceMin"]), "priceCurrency": "NOK",
                        "availability": "https://schema.org/SoldOut" if e.get("soldOut") else "https://schema.org/InStock"}
+        if e["priceMin"] == 0:
+            o["isAccessibleForFree"] = True
     return o
+
+
+def breadcrumb_ld(trail):
+    return {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": i, "name": n, "item": u} for i, (n, u) in enumerate(trail, 1)]}
+
+
+def facts_html(evs):
+    """Kort, datadrevet tekst øverst på listesidene: unikt innhold for hver side, uten noe vi ikke har fra kildene."""
+    if not evs:
+        return ""
+    n = len(evs)
+    nxt = evs[0]
+    d = datetime.date.fromisoformat(nxt["date"])
+    parts = [f"{n} {'arrangement' if n == 1 else 'arrangementer'} i oversikten. Først ut er {nxt['title']} på {nxt['venue']} {day_text(d)}."]
+    prices = [x["priceMin"] for x in evs if isinstance(x.get("priceMin"), (int, float)) and x["priceMin"] > 0]
+    if prices:
+        parts.append(f"Billettene starter på {min(prices)} kr.")
+    top = {}
+    for x in evs:
+        top[x["venue"]] = top.get(x["venue"], 0) + 1
+    if len(top) > 1:
+        parts.append("Mest på " + ", ".join(f"{v} ({c})" for v, c in sorted(top.items(), key=lambda t: -t[1])[:3]) + ".")
+    return f'<p class="facts">{escape(" ".join(parts))}</p>'
 
 
 def ld_script(obj):
@@ -117,8 +159,8 @@ def page(path, title, description, body, ld=None, up=None, image=None):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{escape(title)}</title>
 <meta name="description" content="{escape(description)}">
-{'<meta name="robots" content="noindex">' if path == "404.html" else f'<link rel="canonical" href="{url}">'}
-<link rel="icon" href="{up}favicon.svg" type="image/svg+xml">
+{'<meta name="robots" content="noindex">' if path == "404.html" else f'<meta name="robots" content="{ROBOTS_META}">' + chr(10) + f'<link rel="canonical" href="{url}">'}
+{ICON_LINKS.format(up=up)}
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nb_NO">
 <meta property="og:site_name" content="{SITE}">
@@ -131,6 +173,7 @@ def page(path, title, description, body, ld=None, up=None, image=None):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#eef3f2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="{up}stil.css">
 <script>try {{ const t = JSON.parse(localStorage.getItem("skjer-theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch {{}}</script>
@@ -185,17 +228,20 @@ def venue_path(v):
 
 def links_nav(up, current, extra):
     """Snarveier til de andre undersidene, så både folk og søkemotorer finner rundt."""
-    items = [("i-dag/", "I dag"), ("denne-helgen/", "Denne helgen"), ("kino/", "Kino")] + [(p + "/", CAT_LABEL[k] if k != "sport" else "AaFK") for k, (p, _, _) in CATS.items() if k in extra]
+    items = [("i-dag/", "I dag"), ("i-morgen/", "I morgen"), ("denne-helgen/", "Denne helgen"), ("denne-uka/", "Neste 7 dager"), ("kino/", "Kino")] + [(p + "/", CAT_LABEL[k] if k != "sport" else "AaFK") for k, (p, _, _) in CATS.items() if k in extra]
+    items += [(p, l) for l, p in MONTH_PAGES.items()]
     items += [(p, v) for v, p in VENUE_PAGES.items()]
     return '<nav class="more"><h2>Mer fra programmet</h2><div class="row">' + "".join(
         f'<a class="chip" href="{up}{p}"{" aria-current=\"page\"" if p == current else ""}>{escape(l)}</a>' for p, l in items) + "</div></nav>"
 
 
-def listing(path, h1, lede, events, empty, cats_present):
+def listing(path, h1, lede, events, empty, cats_present, about=""):
     up = "../" * path.count("/")
     body = f"""  <header class="top">
     <h1>{escape(h1)}</h1>
     <p class="lede">{escape(lede)}</p>
+    {f'<p class="lede">{escape(about)}</p>' if about else ""}
+    {facts_html(events)}
   </header>
   <main>
 {day_list(events, up) if events else f'<p class="empty">{escape(empty)}</p>'}
@@ -300,8 +346,35 @@ def describe(events, what):
     n = len(events)
     if not n:
         return f"{what}. Oversikt med billettpriser, oppdatert morgen og kveld."
-    names = ", ".join(e["title"] for e in events[:3])
-    return f"{n} {'arrangement' if n == 1 else 'arrangementer'}: {names}{' med flere' if n > 3 else ''}. {what}, med billettpriser, oppdatert morgen og kveld."[:300]
+    uniq = list(dict.fromkeys(e["title"] for e in events))
+    names = ", ".join(uniq[:3])
+    return f"{n} {'arrangement' if n == 1 else 'arrangementer'}: {names}{' med flere' if len(uniq) > 3 else ''}. {what}, med billettpriser, oppdatert morgen og kveld."[:300]
+
+
+def front_html(src, events, today):
+    """Forsiden bygger lista med JavaScript. Her legges de neste ukene også inn som vanlig HTML og JSON-LD,
+    så søkemotorer og delingstjenester ser innholdet uten å kjøre scriptet. Scriptet bytter ut lista når programmet er hentet."""
+    h = src
+    def sub(pattern, repl, count=1):
+        nonlocal h
+        new, n = re.subn(pattern, lambda _: repl, h, count=count)
+        assert n, pattern
+        h = new
+    sub(r"<title>[^<]*</title>", f"<title>{escape(FRONT_TITLE)}</title>")
+    sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{escape(FRONT_DESC)}">')
+    sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{escape(FRONT_TITLE)}">')
+    sub(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{escape(FRONT_DESC)}">')
+    sub(r'<link rel="icon" href="data:[^"]*">', ICON_LINKS.format(up=""))
+    graph = [
+        {"@type": "WebSite", "@id": BASE + "#website", "url": BASE, "name": SITE, "alternateName": ["Ka skjer da?", "kaskjerda.no"], "inLanguage": "nb-NO", "description": FRONT_DESC},
+        {"@type": "Organization", "@id": BASE + "#org", "name": SITE, "url": BASE, "logo": {"@type": "ImageObject", "url": BASE + "icon-512.png", "width": 512, "height": 512}},
+    ] + [event_ld(e) for e in occurrences(events, today, today + datetime.timedelta(days=30))]
+    head_extra = (f'<meta name="robots" content="{ROBOTS_META}">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+                  + ld_script({"@context": "https://schema.org", "@graph": graph}).replace('<script type="application/ld+json">', '<script type="application/ld+json" id="ld-front">', 1))
+    sub(r"</head>", head_extra + "\n</head>")
+    soon = occurrences(events, today, today + datetime.timedelta(days=45))
+    sub(r'<main id="list"></main>', f'<main id="list">\n{day_list(soon, "")}\n  </main>')
+    return h
 
 
 def main():
@@ -315,14 +388,23 @@ def main():
         shutil.rmtree(OUT)
     OUT.mkdir()
     # Forsiden og det den trenger, kopiert som de er
-    shutil.copy(ROOT / "index.html", OUT / "index.html")
     shutil.copy(ROOT / "og-image.png", OUT / "og-image.png")
+    for f in ("favicon-48.png", "icon-192.png", "icon-512.png", "apple-touch-icon.png"):
+        shutil.copy(ROOT / f, OUT / f)
+    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}sitemap.xml\n")
+    (OUT / f"{INDEXNOW_KEY}.txt").write_text(INDEXNOW_KEY)
+    (OUT / "manifest.webmanifest").write_text(json.dumps({
+        "name": SITE, "short_name": "Ka skjer da?", "description": FRONT_DESC, "lang": "nb", "start_url": "/", "scope": "/", "display": "standalone",
+        "background_color": "#eef3f2", "theme_color": "#c8432b",
+        "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}]},
+        ensure_ascii=False, indent=2))
     (OUT / "CNAME").write_text("kaskjerda.no\n")
     (OUT / "data").mkdir()
     shutil.copy(ROOT / "data" / "events.json", OUT / "data" / "events.json")
     if (ROOT / "data" / "kino.json").exists():
         shutil.copy(ROOT / "data" / "kino.json", OUT / "data" / "kino.json")
     index = (ROOT / "index.html").read_text()
+    (OUT / "index.html").write_text(front_html(index, events, today))
     # Undersidene bruker samme stil og ikon som forsiden, hentet rett fra index.html
     css = re.search(r"<style>(.*?)</style>", index, re.S).group(1)
     (OUT / "stil.css").write_text(css + SUB_CSS)
@@ -340,10 +422,21 @@ def main():
             VENUE_PAGES[v] = f"scene/{slug(v)}/"
     cats_present = {e["cat"] for e in events}
     pages = []  # (adresse, endret)
+    MONTH_PAGES.clear()
+    months = []
+    y, m = today.year, today.month
+    for _ in range(8):
+        first = max(datetime.date(y, m, 1), today)
+        last = (datetime.date(y + (m == 12), m % 12 + 1, 1) - datetime.timedelta(days=1))
+        evs_m = occurrences(events, first, last)
+        if len(evs_m) >= 6:
+            months.append((y, m, evs_m))
+            MONTH_PAGES[f"{MO[m - 1].capitalize()} {y}"] = f"maned/{MO[m - 1]}-{y}/"
+        y, m = y + (m == 12), m % 12 + 1
 
-    def listing_page(path, title, h1, lede, evs, empty, what, image=None):
-        write(path, page(path, title, describe(evs, what), listing(path, h1, lede, evs, empty, cats_present),
-                         {"@context": "https://schema.org", "@graph": [event_ld(e) for e in evs]} if evs else None, image=image))
+    def listing_page(path, title, h1, lede, evs, empty, what, image=None, about=""):
+        write(path, page(path, title, describe(evs, what), listing(path, h1, lede, evs, empty, cats_present, about),
+                         {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (h1, BASE + path)])] + [event_ld(e) for e in evs]}, image=image))
         pages.append((path, updated))
 
     # I dag
@@ -352,6 +445,19 @@ def main():
                  f"Konserter, standup, show og andre arrangementer i Ålesund {day_text(today)}.", tod,
                  "Vi har ingen arrangementer registrert i dag. Se hva som skjer i helgen eller i hele programmet.",
                  "Hva skjer i Ålesund i dag")
+
+    tomorrow = today + datetime.timedelta(days=1)
+    listing_page("i-morgen/", f"Hva skjer i Ålesund i morgen? {day_text(tomorrow).capitalize()} | {SITE}", "Skjer i Ålesund i morgen",
+                 f"Konserter, standup, show og andre arrangementer i Ålesund {day_text(tomorrow)}.", occurrences(events, tomorrow, tomorrow),
+                 "Vi har ingen arrangementer registrert i morgen. Se hva som skjer i helgen eller i hele programmet.", "Hva skjer i Ålesund i morgen")
+    week7 = today + datetime.timedelta(days=6)
+    listing_page("denne-uka/", f"Hva skjer i Ålesund de neste 7 dagene? {range_text(today, week7)} | {SITE}", "Skjer i Ålesund de neste 7 dagene",
+                 f"Alt vi har funnet i Ålesund {range_text(today, week7)}: konserter, standup, show, barn og klubb, med billettpriser.", occurrences(events, today, week7),
+                 "Vi har ingen arrangementer registrert de neste dagene ennå.", "Hva skjer i Ålesund de neste 7 dagene")
+    for y, m, evs_m in months:
+        mo = MO[m - 1]
+        listing_page(f"maned/{mo}-{y}/", f"Hva skjer i Ålesund i {mo} {y}? Konserter, standup og show | {SITE}", f"Hva skjer i Ålesund i {mo} {y}",
+                     f"Konserter, standup, show, barn og klubb i Ålesund i {mo} {y}, med datoer og billettpriser.", evs_m, "", f"Hva skjer i Ålesund i {mo} {y}")
 
     start, sun = weekend_range(today)
     weekend = occurrences(events, start, sun)
@@ -374,13 +480,14 @@ def main():
         evs = [e for e in events if e["cat"] == k]
         listing_page(p + "/", f"{h1} – program og billettpriser | {SITE}", h1,
                      f"{what}: {len(evs)} kommende {'arrangement' if len(evs) == 1 else 'arrangementer'}, " + ("med avspark og billettlenker." if k == "sport" else "med datoer og billettpriser."),
-                     evs, f"Ingen kommende arrangementer i denne kategorien akkurat nå. Se hele programmet.", what)
+                     evs, f"Ingen kommende arrangementer i denne kategorien akkurat nå. Se hele programmet.", what, about=CAT_TEXT.get(k, ""))
 
     for v, p in VENUE_PAGES.items():
         evs = [e for e in events if e["venue"] == v]
         listing_page(p, f"{v} – program og billetter | {SITE}", f"Program for {v}",
                      f"Kommende arrangementer på {v}{', ' + evs[0]['address'] if evs[0].get('address') else ', Ålesund'}, med datoer og billettpriser.",
-                     evs, "", f"Program for {v} i Ålesund")
+                     evs, "", f"Program for {v} i Ålesund",
+                     about=f"{v} er en av scenene i Ålesund. Oversikten viser kommende arrangementer med dato, klokkeslett og billettpris, hentet fra arrangørens egne sider.")
 
     for e in events:
         path = f"arrangement/{e['id']}/"
@@ -446,7 +553,8 @@ def event_page(e, events, path):
   {f'<section class="also"><h2>Mer på {venue}</h2><div class="events">{"".join(card(x, up) for x in same_venue)}</div></section>' if same_venue else ""}
   </main>
   <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a><a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
-    return page(path, title, desc[:300], body, {"@context": "https://schema.org", **event_ld(e)})
+    trail = [(SITE, BASE), (CATS.get(c, CATS["happening"])[1], BASE + cat_path), (e["title"], BASE + path)]
+    return page(path, title, desc[:300], body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail), event_ld(e)]})
 
 
 # Det undersidene trenger i tillegg til forsidens stil
@@ -614,6 +722,7 @@ SUB_CSS = """
 .sub .crumbs a, .sub .venue, .sub a.title { color: inherit; }
 .sub a.title { text-decoration: none; }
 .sub a.title:hover { text-decoration: underline; }
+.sub .facts { margin: 0 0 6px; font-size: 14px; color: var(--muted); }
 .sub h1 { font-size: clamp(32px, 7vw, 52px); }
 .sub .ev { grid-template-columns: 1fr auto; }
 .sub .ev .side { grid-row: 1; }
