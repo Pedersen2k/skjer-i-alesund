@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-25T07:20:46Z",
+  "updatedAt": "2026-10-25T19:56:38Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -10,22 +10,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-43179-parken-kulturhus",
-   "date": "2026-10-25",
-   "time": "17:00",
-   "title": "Ålesund symfoniorkester – Carmina Burana",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "130–480 kr",
-   "priceMin": 130,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/43179-alesund-symfoniorkester/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "parken-48385-parken-kulturhus",
    "date": "2026-10-26",
