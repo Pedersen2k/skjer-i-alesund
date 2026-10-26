@@ -40,6 +40,7 @@ CAT_TEXT = {
     "barn": "Arrangementer for barn og familie i Ålesund, fra barneteater til familieforestillinger. Sjekk aldersanbefaling hos arrangøren.",
     "klubb": "Klubbkvelder og fest i Ålesund. Sjekk alltid aldersgrense og åpningstid hos arrangøren.",
     "happening": "Happenings, marked og andre arrangementer i Ålesund som ikke passer i de andre kategoriene, for eksempel festivaler og julemarked.",
+    "quiz": "Pubquiz, musikkquiz, bingo og andre quizkvelder i Ålesund, samlet på ett sted. Datoer, klokkeslett og pris hentes fra arrangørenes egne sider.",
     "sport": "Hjemmekamper for Aalesunds FK på Color Line Stadion, for både herrer og damer, med avspark og lenke til billetter.",
 }
 MONTH_PAGES = {}
@@ -56,9 +57,10 @@ CATS = {
     "barn": ("barn-og-familie", "Barn og familie i Ålesund", "Arrangementer for barn og familie i Ålesund"),
     "klubb": ("klubb", "Klubb og fest i Ålesund", "Klubbkvelder og fest i Ålesund"),
     "happening": ("happenings", "Happenings i Ålesund", "Happenings, marked og andre arrangementer i Ålesund"),
+    "quiz": ("quiz", "Quiz i Ålesund", "Pubquiz og quizkvelder i Ålesund"),
     "sport": ("aafk-hjemmekamper", "AaFK-hjemmekamper", "Aalesunds hjemmekamper på Color Line Stadion"),
 }
-CAT_LABEL = {"konsert": "Konsert", "standup": "Standup", "show": "Show", "barn": "Barn & familie", "klubb": "Klubb", "happening": "Happening", "sport": "Sport"}
+CAT_LABEL = {"konsert": "Konsert", "standup": "Standup", "show": "Show", "barn": "Barn & familie", "klubb": "Klubb", "happening": "Happening", "quiz": "Quiz", "sport": "Sport"}
 
 
 def slug(s):
@@ -210,14 +212,38 @@ def card(e, up):
       </article>"""
 
 
-def day_list(events, up):
+def quiz_card(q, up):
+    """Alle quizkvelder som ett kort i lista på forsiden (samme som quizHtml() i index.html)."""
+    places = len({e["venue"] for e in q})
+    prices = [e["priceMin"] for e in q if isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] > 0]
+    rows = ""
+    for e in q[:3]:
+        d = datetime.date.fromisoformat(e["date"])
+        u = safe_url(e.get("url"))
+        tag, attrs = ("a", f' href="{escape(u)}" target="_blank" rel="noopener"') if u else ("div", "")
+        rows += f'<{tag}{attrs} class="qrow"><b>{d.day}. {MO[d.month - 1][:3]}</b><span>{escape(e["title"])} <small>{escape(e["venue"])}</small></span><small>{escape("Gratis" if e.get("priceMin") == 0 else e.get("price") or "")}</small></{tag}>'
+    return f"""<article class="ev quizcard" style="--c:var(--c-quiz)">
+        <h3><a class="title" href="{up}quiz/">Quiz i Ålesund</a></h3>
+        <div class="side">{f'<span class="price">fra {min(prices)} kr</span>' if prices else ""}</div>
+        <div class="meta"><span class="tag">Quiz</span><span>{places} {'sted' if places == 1 else 'steder'}</span><span class="t">{len(q)} {'kveld' if len(q) == 1 else 'kvelder'}</span></div>
+        <div class="qrows">{rows}</div>
+        <div class="actions"><a class="link" href="{up}quiz/">Alle quizkvelder →</a></div>
+      </article>"""
+
+
+def day_list(events, up, collapse_quiz=False):
     out, days = [], {}
+    q = [e for e in events if e["cat"] == "quiz"] if collapse_quiz else []
+    if len(q) < 2:
+        q = []
     for e in events:
+        if q and e["cat"] == "quiz" and e is not q[0]:
+            continue
         days.setdefault(e["date"], []).append(e)
     for date, evs in days.items():
         d = datetime.date.fromisoformat(date)
         out.append(f"""<section class="day"><div class="date"><div class="wd">{WD[d.weekday()][:3]}</div><div class="num">{d.day}</div><div class="mo">{MO[d.month - 1][:3]}</div></div>
-      <div class="events">{"".join(card(e, up) for e in evs)}</div></section>""")
+      <div class="events">{"".join(quiz_card(q, up) if q and e is q[0] else card(e, up) for e in evs)}</div></section>""")
     return "\n".join(out)
 
 
@@ -239,7 +265,7 @@ def links_nav(up, current, extra):
         f'<a class="chip" href="{up}{p}"{" aria-current=\"page\"" if p == current else ""}>{escape(l)}</a>' for p, l in items) + "</div></nav>"
 
 
-def listing(path, h1, lede, events, empty, cats_present, about=""):
+def listing(path, h1, lede, events, empty, cats_present, about="", lead=""):
     up = "../" * path.count("/")
     body = f"""  <header class="top">
     <h1>{escape(h1)}</h1>
@@ -247,6 +273,7 @@ def listing(path, h1, lede, events, empty, cats_present, about=""):
     {f'<p class="lede">{escape(about)}</p>' if about else ""}
     {facts_html(events)}
   </header>
+  {lead}
   <main>
 {day_list(events, up) if events else f'<p class="empty">{escape(empty)}</p>'}
   </main>
@@ -313,6 +340,16 @@ def kontakt_page():
   </section>
   </main>
   <footer><div>Programmet hentes automatisk morgen og kveld fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div></footer>"""
+
+
+def quiz_week(evs, today):
+    """Neste syv dager med en prikk der det er quiz."""
+    cells = ""
+    for i in range(7):
+        d = today + datetime.timedelta(days=i)
+        has = any(e["date"] == d.isoformat() or any(m[:10] == d.isoformat() for m in e.get("moreShows", [])) for e in evs)
+        cells += f'<div{" class=\"q\"" if has else ""}>{WD[d.weekday()][:3]}<b>{d.day}</b>{"<i></i>" if has else ""}</div>'
+    return f'<div class="qweek" aria-label="Neste syv dager, prikk der det er quiz">{cells}</div>'
 
 
 def write(path, html):
@@ -559,7 +596,7 @@ def front_html(src, events, today):
                   + ld_script({"@context": "https://schema.org", "@graph": graph}).replace('<script type="application/ld+json">', '<script type="application/ld+json" id="ld-front">', 1))
     sub(r"</head>", head_extra + "\n</head>")
     soon = occurrences(events, today, today + datetime.timedelta(days=45))
-    sub(r'<main id="list"></main>', f'<main id="list">\n{day_list(soon, "")}\n  </main>')
+    sub(r'<main id="list"></main>', f'<main id="list">\n{day_list(soon, "", collapse_quiz=True)}\n  </main>')
     return h
 
 
@@ -622,8 +659,8 @@ def main():
             MONTH_PAGES[f"{MO[m - 1].capitalize()} {y}"] = f"maned/{MO[m - 1]}-{y}/"
         y, m = y + (m == 12), m % 12 + 1
 
-    def listing_page(path, title, h1, lede, evs, empty, what, image=None, about=""):
-        write(path, page(path, title, describe(evs, what), listing(path, h1, lede, evs, empty, cats_present, about),
+    def listing_page(path, title, h1, lede, evs, empty, what, image=None, about="", lead=""):
+        write(path, page(path, title, describe(evs, what), listing(path, h1, lede, evs, empty, cats_present, about, lead),
                          {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (h1, BASE + path)])] + [event_ld(e) for e in evs]}, image=image))
         pages.append((path, updated))
 
@@ -668,7 +705,8 @@ def main():
         evs = [e for e in events if e["cat"] == k]
         listing_page(p + "/", f"{h1} – program og billettpriser | {SITE}", h1,
                      f"{what}: {len(evs)} kommende {'arrangement' if len(evs) == 1 else 'arrangementer'}, " + ("med avspark og billettlenker." if k == "sport" else "med datoer og billettpriser."),
-                     evs, f"Ingen kommende arrangementer i denne kategorien akkurat nå. Se hele programmet.", what, about=CAT_TEXT.get(k, ""))
+                     evs, f"Ingen kommende arrangementer i denne kategorien akkurat nå. Se hele programmet.", what, about=CAT_TEXT.get(k, ""),
+                     lead=quiz_week(evs, today) if k == "quiz" else "")
 
     for v, p in VENUE_PAGES.items():
         evs = [e for e in events if e["venue"] == v]
@@ -939,6 +977,11 @@ SUB_CSS = """
 .detail .cta { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: 14px; }
 .btn { display: inline-block; font: 600 15px/1 var(--font-body); padding: 12px 16px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); text-decoration: none; }
 .btn:hover { filter: brightness(1.05); }
+.qweek { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 4px 0 18px; }
+.qweek div { background: var(--surface); border: 1px solid var(--line); border-radius: 9px; text-align: center; padding: 7px 0; font: 600 11px var(--font-mono); color: var(--muted); }
+.qweek b { display: block; font: 800 18px var(--font-display); color: var(--fg); }
+.qweek .q { background: color-mix(in srgb, var(--c-quiz) 12%, var(--surface)); border-color: var(--c-quiz); color: var(--c-quiz); }
+.qweek .q i { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-quiz); margin: 3px auto 0; }
 .kform { display: grid; gap: 14px; max-width: 560px; }
 .kform label { display: grid; gap: 6px; font: 600 14px/1.3 var(--font-body); }
 .kform input, .kform select, .kform textarea { font: 400 16px/1.4 var(--font-body); padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); width: 100%; box-sizing: border-box; }
