@@ -80,6 +80,28 @@
     "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+    "id": "julebuffet-brasserie-normandie-scandic-parken",
+    "date": "2026-11-13",
+    "time": "",
+    "title": "Julebuffet i Brasserie Normandie",
+    "venue": "Scandic Parken",
+    "address": "Storgata 16, 6002 Ålesund",
+    "cat": "julebord",
+    "price": "",
+    "priceMin": null,
+    "soldOut": false,
+    "uncertain": false,
+    "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026",
+    "note": "Stor varm julebuffet, dessertbuffet og kaffe, og trubadur i lobbybaren om kvelden. Også 20., 21. og 27. nov og 4. og 11. des. Pris og klokkeslett står ikke på hotellets side; bestilling på e-post til Scandic Parken.",
+    "moreShows": [
+      "2026-11-20",
+      "2026-11-21",
+      "2026-11-27",
+      "2026-12-04",
+      "2026-12-11"
+    ]
+  },
+  {
     "id": "parken-49079-parken-kulturhus",
     "date": "2026-11-14",
     "time": "15:00",
@@ -96,6 +118,21 @@
     "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+    "id": "julebord-pa-ms-bruvik",
+    "date": "2026-11-28",
+    "time": "19:30",
+    "title": "Julebord på MS Bruvik",
+    "venue": "MS Bruvik",
+    "address": "",
+    "cat": "julebord",
+    "price": "",
+    "priceMin": null,
+    "soldOut": true,
+    "uncertain": false,
+    "url": "https://www.cruise-service.no/en/event-details-1/julebord-pa-ms-bruvik-2",
+    "note": "Helaftens julebord på fjorden: tradisjonell julemat, dessert og kaffe. Fra Ålesund kl. 19:30, tilbake 23:30 (fra Langevåg kl. 19:00). Cruise Service melder at billettene ikke er i salg lenger."
+  },
+  {
     "id": "julemarkedet",
     "date": "2026-11-28",
     "time": "",
@@ -109,6 +146,36 @@
     "note": "Ikke bekreftet av arrangør ennå.",
     "uncertain": true,
     "url": "https://bypatrioten.com/kalender/"
+  },
+  {
+    "id": "parkens-store-julebord-beatles-scandic-parken",
+    "date": "2026-12-05",
+    "time": "",
+    "title": "Parkens store julebord – Beatles-kveld",
+    "venue": "Scandic Parken",
+    "address": "Storgata 16, 6002 Ålesund",
+    "cat": "julebord",
+    "price": "",
+    "priceMin": null,
+    "soldOut": false,
+    "uncertain": false,
+    "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026",
+    "note": "Beatles-tributeband i Bankettsalen. Prisen inkluderer underholdning, stor varm julematbuffet, kaldtbord med blant annet spekemat og sjømat, kake- og dessertbord og kaffe. Pris og klokkeslett står ikke på hotellets side; bestilling på e-post til Scandic Parken."
+  },
+  {
+    "id": "parkens-store-julebord-abba-scandic-parken",
+    "date": "2026-12-12",
+    "time": "",
+    "title": "Parkens store julebord – ABBA-kveld",
+    "venue": "Scandic Parken",
+    "address": "Storgata 16, 6002 Ålesund",
+    "cat": "julebord",
+    "price": "",
+    "priceMin": null,
+    "soldOut": true,
+    "uncertain": false,
+    "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026",
+    "note": "Absolute Abba i Bankettsalen, med julematbuffet, kaldtbord, dessertbord og kaffe. Hotellet melder at kvelden er full."
   },
   {
     "id": "parken-49424-parken-kulturhus",

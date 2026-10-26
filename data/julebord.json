@@ -1,0 +1,21 @@
+{
+  "_info": "Julemeny på restaurant uten faste datoer, vist på julebord/. Bare tilbud med kildelenke; sjekk hver sesong (sist sjekket 26. okt 2026).",
+  "julemeny": [
+    {
+      "name": "Julemeny på Apotekergata No. 5",
+      "venue": "Hotel Brosundet",
+      "period": "6. november – 19. desember",
+      "price": "950 kr",
+      "note": "Firerettersmeny med juleinspirasjon. Vinpakke 850 kr, aperitiff 160 kr. Bestilles med forespørsel til hotellet.",
+      "url": "https://www.brosundet.no/julebord"
+    },
+    {
+      "name": "Jule à la carte i Polarbjørn",
+      "venue": "Scandic Parken",
+      "period": "Hele førjulen",
+      "price": "",
+      "note": "Julemat à la carte i hotellets øverste etasje. Chambre séparée for opptil 20 personer kan leies.",
+      "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026"
+    }
+  ]
+}

@@ -37,7 +37,7 @@ body { margin: 0; font-size: 14px; }
   --accent: #c8432b;      /* jugend-tak */
   --accent-ink: #ffffff;
   --sea: #1f6f78;
-  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12; --c-quiz: #7a4fb0; --c-sport: #2b5fa8;
+  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12; --c-quiz: #7a4fb0; --c-julebord: #b3262d; --c-sport: #2b5fa8;
   --kino: #3d4f8f; --kino-soft: #e3e8f5;
   --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -46,13 +46,13 @@ body { margin: 0; font-size: 14px; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
-  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-sport: #7aa7e6;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-julebord: #ef7a7f; --c-sport: #7aa7e6;
   --kino: #8fa3e6; --kino-soft: #1c2748;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
-  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-sport: #7aa7e6;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-julebord: #ef7a7f; --c-sport: #7aa7e6;
   --kino: #8fa3e6; --kino-soft: #1c2748;
   color-scheme: dark; }
 
@@ -295,7 +295,7 @@ footer a { color: var(--sea); }
 <script>
 const now = new Date();
 const TODAY = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn & familie", klubb: "Klubb", happening: "Happening", quiz: "Quiz", sport: "Sport" };
+const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn & familie", klubb: "Klubb", happening: "Happening", quiz: "Quiz", julebord: "Julebord", sport: "Sport" };
 let E = [];
 let meta = {};
 
@@ -338,11 +338,20 @@ for (let k = 0; k < 6; k++) { const m = (TODAY.getMonth() + k) % 12; WHEN["m" + 
 
 const $ = id => document.getElementById(id);
 $("when").innerHTML = Object.entries(WHEN).map(([k, [l]]) => `<button class="chip when" data-w="${k}" aria-pressed="${k === state.when}">${l}</button>`).join("");
-$("cats").innerHTML = Object.entries(CATS).map(([k, l]) => `<button class="chip" data-c="${k}" style="--c:var(--c-${k})" aria-pressed="false"><span class="dot"></span>${l}</button>`).join("");
+// Sesongkategorier (julebord) vises bare når programmet har slike arrangementer; se seasonCats()
+const SEASON = new Set(["julebord"]);
+$("cats").innerHTML = Object.entries(CATS).map(([k, l]) => `<button class="chip" data-c="${k}" style="--c:var(--c-${k})" aria-pressed="false"${SEASON.has(k) ? " hidden" : ""}><span class="dot"></span>${l}</button>`).join("");
 
 // Mobilens nedtrekk deler tilstand med chipsene (som vises på større skjermer)
 $("mwhen").innerHTML = Object.entries(WHEN).map(([k, [l]]) => `<option value="${k}">${k === "alt" ? "Alle datoer" : l}</option>`).join("");
-$("mcat").innerHTML = `<option value="">Alle kategorier</option>` + Object.entries(CATS).map(([k, l]) => `<option value="${k}">${l}</option>`).join("");
+$("mcat").innerHTML = `<option value="">Alle kategorier</option>` + Object.entries(CATS).map(([k, l]) => `<option value="${k}"${SEASON.has(k) ? " hidden disabled" : ""}>${l}</option>`).join("");
+function seasonCats() {
+  for (const k of SEASON) {
+    const on = E.some(e => e.cat === k);
+    $("cats").querySelector(`[data-c="${k}"]`).hidden = !on;
+    Object.assign($("mcat").querySelector(`option[value="${k}"]`), { hidden: !on, disabled: !on });
+  }
+}
 function syncFilters() {
   $("mwhen").value = state.when;
   $("mcat").value = state.cats.size === 1 ? [...state.cats][0] : "";
@@ -420,7 +429,7 @@ function downloadIcs(e) {
 
 // Kalenderabonnement: filene kalender/<navn>.ics lages av scripts/pages.py ved hver publisering.
 // Tilbudet vises når akkurat én kategori er valgt i filteret, og gjelder den kategorien.
-const FEEDS = { konsert: ["konserter", "konserter"], standup: ["standup", "standup"], show: ["show", "show"], barn: ["barn-og-familie", "barn og familie"], klubb: ["klubb", "klubb"], happening: ["happenings", "happenings"], quiz: ["quiz", "quiz"], sport: ["aafk-hjemmekamper", "AaFK-hjemmekamper"] };
+const FEEDS = { konsert: ["konserter", "konserter"], standup: ["standup", "standup"], show: ["show", "show"], barn: ["barn-og-familie", "barn og familie"], klubb: ["klubb", "klubb"], happening: ["happenings", "happenings"], quiz: ["quiz", "quiz"], julebord: ["julebord", "julebord"], sport: ["aafk-hjemmekamper", "AaFK-hjemmekamper"] };
 let feedKey = "";
 const feedUrl = () => new URL("kalender/" + FEEDS[feedKey][0] + ".ics", location.href).href;
 function updateSubscribe() {
@@ -667,7 +676,7 @@ fetch("data/events.json", { cache: "no-cache" })
   .then(data => {
     meta = data.meta || {};
     E = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
-    fillVenues(); showStatus(); render(); showHashed(); addStructuredData();
+    fillVenues(); seasonCats(); showStatus(); render(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
 // Kino: én stripe under filtrene (filmene ligger ikke i hovedlista)

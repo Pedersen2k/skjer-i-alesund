@@ -20,6 +20,10 @@ Konserter, standup, show og happenings i Ålesund, samlet på ett sted, med bill
 
 `jul-i-alesund/` (bygget av `jul_page()` i `scripts/pages.py`) er en sesongside med adventskalender og liste. Julearrangementer finnes automatisk: ord i tittel eller notat som begynner på jul, advent, nøtteknekk, lucia, romjul, nisse eller tomte. Rett opp med `data/jul.json` (`include` og `exclude` med arrangement-id). Julekortet på forsiden vises av JavaScript bare fra 1. november til 26. desember (legg til `?jul=1` i adressen for å se det utenom sesongen), og «Jul i Ålesund» kommer i snarveiene fra 1. november.
 
+## Julebord
+
+Kategorien `julebord` er for julebord som alle kan bestille (ikke selskapslokaler for store grupper). Den vises på forsiden bare når programmet har julebord, og har egen side `julebord/`. Tittel med «julebord», «julebuffet» eller «julegilde» blir julebord automatisk. Julebord på hoteller og båter uten billettside ligger i `data/manual.json` med lenke til kilden. Julemenyer på restaurant uten faste datoer står i `data/julebord.json` og vises i en egen boks på `julebord/`. Sjekk begge hver høst.
+
 ## Helgepost
 
 Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et issue med tittelen «Helgepost: …», så du får det på e-post. Det inneholder en ferdig tekst til Facebook-grupper, en bildetekst til Instagram og helgebildet (1080 × 1350), som ligger på `denne-helgen/helgen.png` og også er forhåndsvisningen når noen deler `denne-helgen/`. Er det mange arrangementer, blir linjene kompakte, og får heller ikke det plass, fortsetter lista på `helgen-2.png` osv., som du legger ut som karusell. Forrige ukes helgepost lukkes automatisk. Du kan lage en når som helst under Actions → Helgepost → Run workflow. Teksten og bildet lages av `scripts/helgepost.py`.
@@ -35,7 +39,7 @@ Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et iss
 - **Parken-arrangementer i `manual.json`** (id `parken-<nr>-parken-kulturhus`, der nummeret står i Parken-lenken) brukes bare som reserve når Parken-siden ikke svarer. Når henteren får tak i arrangementet, vinner den.
 - **Rette kategori, tittel, klokkeslett eller notat**: legg inn en overstyring i `data/overrides.json`. Nøkkelen er den normaliserte tittelen (små bokstaver, bindestrek i stedet for mellomrom). For Parken kan du også bruke `parken-<nr>` når to arrangementer har samme tittel, for eksempel Ålesund symfoniorkester.
 
-Kategorier: `konsert`, `standup`, `show`, `barn`, `klubb`, `happening`.
+Kategorier: `konsert`, `standup`, `show`, `barn`, `klubb`, `happening`, `quiz`, `julebord`, `sport`.
 
 ## Forhåndsvisning i Claude
 

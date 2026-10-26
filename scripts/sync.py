@@ -543,6 +543,8 @@ def build_events(raw, overrides):
 
 def guess_cat(title):
     t = title.lower()
+    if re.search(r"julebord|julebuffet|julegilde", t):
+        return "julebord"
     if re.search(r"standup|stand-up|komiker|humor", t):
         return "standup"
     if re.search(r"quiz|bingo", t):
