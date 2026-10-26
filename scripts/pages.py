@@ -179,6 +179,7 @@ def page(path, title, description, body, ld=None, up=None, image=None, raw=False
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="{up}stil.css">
+<script>try{{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld")localStorage.setItem("skjer-tema","kveld");else if(q==="standard")localStorage.removeItem("skjer-tema");if(localStorage.getItem("skjer-tema")==="kveld"){{document.documentElement.dataset.tema="kveld";document.write('<link rel="stylesheet" href="{up}tema-kveld.css">')}}}}catch{{}}</script>
 <script>try {{ const t = JSON.parse(localStorage.getItem("skjer-theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch {{}}</script>
 {ld_script(ld) if ld else ""}
 {head_extra}
@@ -631,6 +632,7 @@ def main():
     # Undersidene bruker samme stil og ikon som forsiden, hentet rett fra index.html
     css = re.search(r"<style>(.*?)</style>", index, re.S).group(1)
     (OUT / "stil.css").write_text(css + SUB_CSS)
+    (OUT / "tema-kveld.css").write_text((ROOT / "tema-kveld.css").read_text())
     icon = re.search(r'<link rel="icon" href="data:image/svg\+xml,([^"]+)"', index)
     if icon:
         from urllib.parse import unquote

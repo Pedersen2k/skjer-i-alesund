@@ -1,0 +1,17 @@
+/* Tema D «Kveldsstemning»: legges over eksisterende stiler (forhåndsvisning, ikke i bruk) */
+:root, :root[data-theme] { --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a; --accent:#ff8a6b; --accent-ink:#1a0b07; --sea:#5ab7bf; --gold:#f7c873; }
+html { background:#0a171b; }
+body { background: radial-gradient(130% 480px at 50% 0, #17434d 0%, rgba(10,23,27,0) 100%), #0a171b; color:var(--fg); }
+.brand h1 span, h1 span { background:linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.eyebrow { color:var(--gold) !important; }
+.chip[aria-pressed="true"], .chip.on { background:var(--gold) !important; color:#10282f !important; border-color:var(--gold) !important; }
+.ev { background:linear-gradient(135deg, color-mix(in srgb, var(--c) 20%, #13252d), #13252d 62%) !important; border-color:#25414a !important; border-left-color:var(--c) !important; box-shadow:0 8px 24px #0006; }
+.ev .link, .link { color:var(--gold) !important; }
+.date .num { color:#fff; } .date .mo { color:#ff8a6b; }
+.controls { background:color-mix(in srgb, #0a171b 88%, transparent) !important; backdrop-filter:blur(10px); }
+.viewseg [aria-pressed="true"] { background:var(--gold) !important; color:#10282f !important; }
+.kinostrip, .strip { background:#13252d !important; border-color:#25414a !important; }
+.missing { background:#13252d !important; border-color:#25414a !important; }
+.btn { background:var(--accent) !important; color:#1a0b07 !important; }
+.kform input, .kform select, .kform textarea { background:#0f1f26; color:#e8f1ef; }
+.qweek div { background:#13252d; } .qweek b { color:#e8f1ef; }
