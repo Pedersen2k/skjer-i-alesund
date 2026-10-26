@@ -78,6 +78,24 @@
     ]
   },
   {
+    "id": "lutefiskaften-quality-hotel-alesund",
+    "date": "2026-11-06",
+    "time": "",
+    "title": "Lutefiskaften på Skansekaia",
+    "venue": "Quality Hotel Ålesund",
+    "address": "",
+    "cat": "julebord",
+    "price": "685 kr",
+    "priceMin": 685,
+    "soldOut": false,
+    "uncertain": false,
+    "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
+    "note": "Lutefisk av loin med ertepuré, mandelpoteter, baconsmør, sennep, brunost, sirup og flatbrød eller lompe; påfyll 100 kr. Juletallerken for dem som ikke vil ha lutefisk. Også 7. nov. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.",
+    "moreShows": [
+      "2026-11-07"
+    ]
+  },
+  {
     "id": "parken-45583-parken-kulturhus",
     "date": "2026-11-07",
     "time": "13:00",
@@ -180,7 +198,7 @@
     "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
     "price": "845 kr",
     "priceMin": 845,
-    "note": "Stor julebuffet med varme og kalde klassikere, ribbe, sild og desserter. Lørdager: også 28. nov, 5. og 12. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.",
+    "note": "Stor julebuffet med varme og kalde klassikere, ribbe, julesild og desserter, og DJ. Lørdager: også 28. nov, 5. og 12. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.",
     "moreShows": [
       "2026-11-28",
       "2026-12-05",
@@ -245,7 +263,7 @@
     "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
     "price": "625 kr",
     "priceMin": 625,
-    "note": "Kl. 14–17, også 13. des. Voksne 625 kr, barn 4–12 år 295 kr. Med juleverksted for barna og besøk av julenissen.",
+    "note": "Kl. 14–17, også 13. des. Voksne 625 kr, barn 4–11 år 295 kr, gratis for barn 0–3 år. Med juleverksted for barna og besøk av julenissen.",
     "moreShows": [
       "2026-12-13T14:00"
     ]
