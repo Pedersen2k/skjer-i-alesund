@@ -692,7 +692,10 @@ fetch("data/kino.json", { cache: "no-cache" })
 (() => {
   const ctl = document.querySelector(".controls"), mq = matchMedia("(max-width: 640px)");
   let last = scrollY, acc = 0;
+  const stuck = () => ctl.classList.toggle("stuck", ctl.getBoundingClientRect().top <= 1);  // fast bakgrunn bare når menyen ligger over lista
+  stuck(); addEventListener("resize", stuck);
   addEventListener("scroll", () => {
+    stuck();
     const y = scrollY, d = y - last; last = y;
     if (!mq.matches) { ctl.classList.remove("gone"); return; }
     acc = Math.sign(d) === Math.sign(acc) ? acc + d : d;
