@@ -337,7 +337,8 @@ def build_events(raw, overrides):
             notes.append(disc)
         events.append({
             "id": slug(key + "-" + venue),
-            "date": first["start"].date().isoformat(),
+            # «date» i en overstyring retter en feil dato hos kilden, men bare så lenge kilden fortsatt har «fromDate»
+            "date": (o["date"] if o.get("date") and first["start"].date().isoformat() == o.get("fromDate", first["start"].date().isoformat()) else first["start"].date().isoformat()),
             "time": o.get("time") or ("" if first.get("noTime") else first["start"].strftime("%H:%M")),
             "title": o.get("title") or first["title"],
             "venue": venue,
