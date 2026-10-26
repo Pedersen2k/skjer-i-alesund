@@ -1,0 +1,81 @@
+<!doctype html><html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jul i Ålesund utkast</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,700;1,400;1,700&display=swap"><style>
+:root{--green:#0d3327;--green2:#164a39;--red:#b3262d;--gold:#e8b04a;--cream:#f6efe0;--paper:#fffaf0;--ink:#2a2a22;--muted:#6b6455;--fs:"Fraunces",Georgia,serif;--fb:"Figtree",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:#0d3327;color:var(--ink);font:15px/1.5 var(--fb)}
+.app{max-width:520px;margin:0 auto;background:var(--cream);min-height:100vh;position:relative;overflow:hidden;box-shadow:0 0 40px #0006}
+.hero{position:relative;background:radial-gradient(120% 90% at 50% 0%,#1d5c47 0%,#0d3327 70%);color:#fff;padding:54px 20px 34px;text-align:center;overflow:hidden}
+.garland{position:absolute;left:0;right:0;top:0;height:46px}
+.garland path{fill:none;stroke:#2a1d12;stroke-width:2}
+.bulb{animation:tw 2.6s ease-in-out infinite}.bulb:nth-of-type(2n){animation-delay:.6s}.bulb:nth-of-type(3n){animation-delay:1.3s}.bulb:nth-of-type(5n){animation-delay:1.9s}
+@keyframes tw{0%,100%{opacity:1}50%{opacity:.35}}
+.snow,.snow2{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,#fff 1.6px,transparent 2.2px),radial-gradient(circle,#fffb 1.2px,transparent 1.8px),radial-gradient(circle,#fff9 2px,transparent 2.6px);background-size:90px 90px,140px 140px,200px 200px;background-position:0 0,40px 60px,90px 20px;animation:fall 16s linear infinite;opacity:.8}
+.snow2{background-size:70px 70px,110px 110px,170px 170px;animation-duration:24s;opacity:.5}
+@keyframes fall{to{background-position:0 90px,40px 200px,90px 220px}}
+.hero small{display:block;font:700 11px var(--fb);letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.hero h1{margin:8px 0 2px;font:italic 700 58px/.95 var(--fs);letter-spacing:-.01em;text-shadow:0 2px 12px #0006}
+.hero p{margin:10px auto 0;max-width:30ch;font:400 15px/1.4 var(--fs);color:#e9e2cf}
+.cd{display:inline-flex;align-items:center;gap:12px;margin-top:18px;padding:8px 18px 8px 12px;border-radius:99px;background:#ffffff14;border:1px solid #e8b04a66}
+.cd b{font:700 34px/1 var(--fs);color:var(--gold)}.cd span{font:600 13px/1.15 var(--fb);text-align:left}
+.trees{position:absolute;left:0;right:0;bottom:-1px;height:34px;display:block}
+.sec{padding:22px 16px 6px}.sec h2{margin:0;font:italic 700 26px/1.1 var(--fs);color:var(--green)}.sec p{margin:2px 0 12px;font-size:13px;color:var(--muted)}
+.cal{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;padding:0 16px}
+.door{position:relative;aspect-ratio:1;border:0;border-radius:12px;color:#fff;font:700 28px/1 var(--fs);display:grid;place-items:center;box-shadow:0 4px 0 #0003,0 8px 14px #0002;transition:transform .18s;overflow:hidden;cursor:pointer}
+.door:active{transform:scale(.96)}
+.door.has::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:15%;transform:translateX(-50%);background:linear-gradient(#f3cd7a,#d39a2a)}
+.door.has::after{content:"";position:absolute;top:50%;left:0;right:0;height:15%;transform:translateY(-50%);background:linear-gradient(90deg,#f3cd7a,#d39a2a)}
+.door span{position:relative;z-index:2;background:#fffaf0;color:var(--ink);border-radius:50%;width:2.1ch;min-width:34px;aspect-ratio:1;display:grid;place-items:center;font-size:19px;box-shadow:0 2px 4px #0003}
+.door.no{background:#e4dac3!important;color:#a8a08a;box-shadow:none;opacity:.8}.door.no span{background:none;box-shadow:none;color:#a79f89}
+.door .n{position:absolute;right:5px;top:5px;z-index:3;background:var(--red);color:#fff;font:800 11px/1 var(--fb);padding:3px 6px;border-radius:99px;box-shadow:0 1px 3px #0004}
+.door.sel{transform:translateY(-3px) scale(1.05);box-shadow:0 0 0 3px var(--gold),0 0 22px #e8b04aaa}
+.day{margin:16px 16px 6px;padding:14px;background:var(--paper);border-radius:16px;border:1px solid #e6dab8;box-shadow:0 6px 16px #0001;position:relative}
+.day::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:6px;border-radius:16px 16px 0 0;background:repeating-linear-gradient(45deg,var(--red) 0 10px,#fffaf0 10px 20px)}
+.day h3{margin:6px 0 8px;font:italic 700 20px/1.1 var(--fs);color:var(--green)}
+.card{background:#fff;border:1px solid #eadfc4;border-left:5px solid var(--c);border-radius:12px;padding:10px 12px;margin-bottom:8px;box-shadow:0 2px 0 #0000000d}
+.card b{display:block;font:700 16px/1.2 var(--fs)}.card small{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}.card .p{font:700 12.5px var(--fb);color:var(--red)}
+.empty{font:italic 400 14px/1.4 var(--fs);color:var(--muted);padding:6px 2px}
+.nov{margin:14px 16px 0;padding:10px 12px;border:1.5px dashed var(--red);border-radius:12px;font-size:13px;background:#fffaf0aa}
+.list{padding:8px 0 40px}.hd{position:sticky;top:0;z-index:5;background:var(--cream);padding:14px 16px 10px;border-bottom:1px solid #e6dab8}
+.hd h2{margin:0 0 8px;font:italic 700 26px/1.1 var(--fs);color:var(--green)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{font:600 13px var(--fb);padding:8px 13px;border-radius:99px;border:1.5px solid #cdbf98;background:var(--paper);color:var(--ink);cursor:pointer}.chip[aria-pressed=true]{background:var(--green);color:#fff;border-color:var(--green)}
+.cnt{font:500 11.5px ui-monospace,monospace;color:var(--muted);padding:10px 16px 0}
+.row{display:grid;grid-template-columns:54px 1fr;gap:12px;padding:12px 16px;border-bottom:1px dashed #d8cba5}
+.dt{text-align:center;background:var(--green);color:#fff;border-radius:12px;padding:6px 0;height:max-content;box-shadow:0 3px 0 #0003}.dt small{display:block;font:700 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}.dt b{display:block;font:700 24px/1 var(--fs)}
+.rep{display:block;font:600 12px var(--fb);color:var(--red);background:none;border:0;padding:4px 0;cursor:pointer}.dl{display:none;font-size:12.5px;color:var(--muted);line-height:1.7}.dl.on{display:block}
+.foot{background:var(--green);color:#e9e2cf;text-align:center;padding:26px 20px 34px;font:italic 400 16px/1.4 var(--fs);position:relative}
+.foot b{display:block;font:italic 700 22px var(--fs);color:var(--gold);margin-bottom:4px}.foot a{color:#fff}
+@media(prefers-reduced-motion:reduce){.snow,.snow2,.bulb{animation:none}}
+</style></head><body><div class="app" id="app"></div><script>
+const EV=[{"date": "2026-11-05", "time": "18:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-11-06", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-11-07", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-11-12", "time": "17:45", "title": "Juleverksted – cupcakekrans", "venue": "Thon Hotel Baronen", "cat": "happening", "price": "749 kr", "min": 749}, {"date": "2026-11-19", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-11-20", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-11-21", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-11-26", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-11-27", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-11-28", "time": "", "title": "Julemarkedet åpner", "venue": "Sentrum", "cat": "happening", "price": "", "min": null}, {"date": "2026-11-28", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-11-29", "time": "17:00", "title": "Zimmermann – julekonsert", "venue": "Løvenvold Theater", "cat": "konsert", "price": "449 kr", "min": 449}, {"date": "2026-11-29", "time": "17:00", "title": "Ålesund symfoniorkester – Adventskonsert", "venue": "Parken kulturhus", "cat": "konsert", "price": "105–280 kr", "min": 105}, {"date": "2026-12-01", "time": "17:30", "title": "Nøtteknekkeren", "venue": "Arbeideren kulturhus", "cat": "show", "price": "299 kr", "min": 299}, {"date": "2026-12-02", "time": "17:30", "title": "Nøtteknekkeren", "venue": "Arbeideren kulturhus", "cat": "show", "price": "299 kr", "min": 299}, {"date": "2026-12-03", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-12-03", "time": "17:30", "title": "Nøtteknekkeren", "venue": "Arbeideren kulturhus", "cat": "show", "price": "299 kr", "min": 299}, {"date": "2026-12-04", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-12-04", "time": "17:30", "title": "Nøtteknekkeren", "venue": "Arbeideren kulturhus", "cat": "show", "price": "299 kr", "min": 299}, {"date": "2026-12-04", "time": "18:30", "title": "Julekonsert i Spjelkavik kyrkje", "venue": "Spjelkavik kyrkje", "cat": "konsert", "price": "375 kr", "min": 375}, {"date": "2026-12-05", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-12-10", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-12-11", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-12-12", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-12-17", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-12-18", "time": "17:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "min": 699}, {"date": "2026-12-19", "time": "16:00", "title": "Darling West – juleturné", "venue": "Løvenvold Theater", "cat": "konsert", "price": "520 kr", "min": 520}, {"date": "2026-12-26", "time": "20:00", "title": "Romjulsdans med Steinar Engelbrektson og Sissel Lunde Sundby", "venue": "Quality Hotel Ålesund", "cat": "happening", "price": "380 kr", "min": 380}],TODAY="2026-10-26";
+const MON=["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"],MONL=["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"],WD=["søn","man","tir","ons","tor","fre","lør"],WDL=["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"];
+const dt=s=>new Date(s+"T12:00"),fd=s=>{const d=dt(s);return `${WD[d.getDay()]} ${d.getDate()}. ${MON[d.getMonth()]}`},fl=s=>{const d=dt(s);return `${WDL[d.getDay()]} ${d.getDate()}. ${MONL[d.getMonth()]}`};
+const CATC={konsert:"#1f6f78",standup:"#b5531c",show:"#6a4fa3",happening:"#8a6d12",barn:"#2f8a4c",klubb:"#a83167"};
+const days=Math.ceil((dt("2026-12-24")-dt(TODAY))/864e5);
+const groups=(()=>{const m=new Map();EV.forEach(e=>{const k=e.title+"|"+e.venue;if(!m.has(k))m.set(k,{...e,dates:[]});m.get(k).dates.push(e)});return [...m.values()]})();
+const bulbs=["#d9372f","#e8b04a","#2f9e62","#3f7fd0"];
+const garland=(()=>{let s='<svg class="garland" viewBox="0 0 520 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8 Q65 40 130 8 T260 8 T390 8 T520 8"/>';for(let i=0;i<13;i++){const x=i*40+20,y=8+Math.sin((x/130)*Math.PI)*0+0;const yy=[22,33,24,33,22,33,24,33,22,33,24,33,22][i];s+=`<g class="bulb"><circle cx="${i*40+10}" cy="${yy+2}" r="5" fill="${bulbs[i%4]}"/><circle cx="${i*40+10}" cy="${yy+2}" r="10" fill="${bulbs[i%4]}" opacity=".25"/></g>`}return s+"</svg>"})();
+const trees='<svg class="trees" viewBox="0 0 520 34" preserveAspectRatio="none" aria-hidden="true"><path fill="#f6efe0" d="M0 34V26l12-18 12 18-6 0 10 14H0Zm44 0l14-26 14 26h-8l8 0v0H44Zm80 0l12-22 12 22Zm60 0l10-16 10 16Zm70 0l14-28 14 28Zm80 0l10-18 10 18Zm60 0l13-24 13 24Zm70 0l11-20 11 20Zm60 0l14-26 14 26ZM0 34h520v0Z"/><rect y="28" width="520" height="6" fill="#f6efe0"/></svg>';
+const col=["#b3262d","#1b6a4d","#2c5aa0","#8a3a7a"];
+let sel="2026-12-01",cats=new Set(),cheap=false;
+const by=d=>EV.filter(e=>e.date===d);
+const card=e=>`<div class="card" style="--c:${CATC[e.cat]||"#888"}"><b>${e.title}</b><small>${e.venue}${e.time?" · kl. "+e.time:""}</small><small class="p">${e.price||"Pris hos arrangør"}</small></div>`;
+const nov=groups.filter(g=>g.date<"2026-12-01");
+function draw(){const y=scrollY;
+ const doors=[...Array(24)].map((_,i)=>{const d="2026-12-"+String(i+1).padStart(2,"0"),n=by(d).length;return `<button class="door ${n?"has":"no"} ${d===sel?"sel":""}" data-d="${d}" style="background:${col[i%4]}" aria-label="${i+1}. desember: ${n} arrangementer"><span>${i+1}</span>${n?`<i class="n">${n}</i>`:""}</button>`}).join("");
+ const es=by(sel);
+ const list=EV.filter(e=>(!cats.size||cats.has(e.cat))&&(!cheap||(typeof e.min==="number"&&e.min<=350)));
+ const byd={};list.forEach(e=>(byd[e.date]??=[]).push(e));
+ const chip=(k,l)=>`<button class="chip" data-c="${k}" aria-pressed="${cats.has(k)}">${l}</button>`;
+ document.getElementById("app").innerHTML=`<header class="hero"><div class="snow"></div><div class="snow2"></div>${garland}<small>Ålesund · julen 2026</small><h1>Jul i Ålesund</h1><p>Sett deg ned med en kopp kakao og finn årets julekos.</p><div class="cd"><b>${days}</b><span>dager til<br>julaften</span></div>${trees}</header>
+ <section class="sec"><h2>Adventskalender</h2><p>Pakkene med bånd har noe på programmet. Trykk for å åpne.</p></section><div class="cal">${doors}</div>
+ <div class="day"><h3>${fl(sel)}</h3>${es.length?es.map(card).join(""):'<div class="empty">Ingenting registrert denne dagen. Kos deg hjemme, eller åpne en annen pakke.</div>'}</div>
+ <div class="nov"><b>Allerede i november:</b> ${nov.map(g=>g.title+" ("+fd(g.date)+")").join(" · ")}</div>
+ <section class="list"><div class="hd"><h2>Alle julearrangementer</h2><div class="chips">${chip("konsert","Konsert")}${chip("standup","Standup og show")}${chip("happening","Marked og verksted")}<button class="chip" data-p aria-pressed="${cheap}">Under 350 kr</button></div></div><div class="cnt">${list.length} arrangementer</div>
+ ${Object.entries(byd).map(([d,l])=>{const x=dt(d);return `<div class="row"><div class="dt"><small>${WD[x.getDay()]}</small><b>${x.getDate()}</b><small>${MON[x.getMonth()]}</small></div><div>${l.map(card).join("")}</div></div>`}).join("")}</section>
+ <footer class="foot"><b>God jul!</b>Programmet oppdateres to ganger i døgnet. Sjekk alltid hos arrangøren før du kjøper billett.</footer>`;
+ scrollTo(0,y)}
+document.getElementById("app").addEventListener("click",e=>{const d=e.target.closest("[data-d]"),c=e.target.closest("[data-c]"),p=e.target.closest("[data-p]");
+ if(d){sel=d.dataset.d;draw();document.querySelector(".day").scrollIntoView({block:"nearest",behavior:"smooth"})}
+ if(c){const k=c.dataset.c;if(k==="standup"){cats.has("standup")?(cats.delete("standup"),cats.delete("show")):(cats.add("standup"),cats.add("show"))}else cats.has(k)?cats.delete(k):cats.add(k);draw()}
+ if(p){cheap=!cheap;draw()}});
+draw();
+</script></body></html>
