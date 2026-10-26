@@ -148,6 +148,46 @@
     "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+    "id": "julegilde-quality-hotel-alesund",
+    "date": "2026-11-20",
+    "time": "",
+    "title": "Julegilde på Skansekaia",
+    "venue": "Quality Hotel Ålesund",
+    "address": "",
+    "cat": "julebord",
+    "soldOut": false,
+    "uncertain": false,
+    "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
+    "price": "745 kr",
+    "priceMin": 745,
+    "note": "Buffet med varme, tradisjonelle retter og dessert, deretter DJ og dans. Fredager: også 27. nov, 4. og 11. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.",
+    "moreShows": [
+      "2026-11-27",
+      "2026-12-04",
+      "2026-12-11"
+    ]
+  },
+  {
+    "id": "julebuffet-quality-hotel-alesund",
+    "date": "2026-11-21",
+    "time": "",
+    "title": "Julebuffet på Skansekaia",
+    "venue": "Quality Hotel Ålesund",
+    "address": "",
+    "cat": "julebord",
+    "soldOut": false,
+    "uncertain": false,
+    "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
+    "price": "845 kr",
+    "priceMin": 845,
+    "note": "Stor julebuffet med varme og kalde klassikere, ribbe, sild og desserter. Lørdager: også 28. nov, 5. og 12. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.",
+    "moreShows": [
+      "2026-11-28",
+      "2026-12-05",
+      "2026-12-12"
+    ]
+  },
+  {
     "id": "julebord-pa-ms-bruvik",
     "date": "2026-11-28",
     "time": "19:30",
@@ -191,6 +231,24 @@
     "uncertain": false,
     "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026",
     "note": "Beatles-tributeband i Bankettsalen. Prisen inkluderer underholdning, stor varm julematbuffet, kaldtbord med blant annet spekemat og sjømat, kake- og dessertbord og kaffe. Pris og klokkeslett står ikke på hotellets side; bestilling på e-post til Scandic Parken."
+  },
+  {
+    "id": "familiejulebord-quality-hotel-alesund",
+    "date": "2026-12-06",
+    "time": "14:00",
+    "title": "Familiejulebord på Skansekaia",
+    "venue": "Quality Hotel Ålesund",
+    "address": "",
+    "cat": "julebord",
+    "soldOut": false,
+    "uncertain": false,
+    "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
+    "price": "625 kr",
+    "priceMin": 625,
+    "note": "Kl. 14–17, også 13. des. Voksne 625 kr, barn 4–12 år 295 kr. Med juleverksted for barna og besøk av julenissen.",
+    "moreShows": [
+      "2026-12-13T14:00"
+    ]
   },
   {
     "id": "parkens-store-julebord-abba-scandic-parken",
