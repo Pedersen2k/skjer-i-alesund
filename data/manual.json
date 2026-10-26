@@ -48,6 +48,36 @@
     "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+    "id": "juleinspirert-tapasbuffet-hotel-1904",
+    "date": "2026-11-06",
+    "time": "18:00",
+    "title": "Juleinspirert tapasbuffét",
+    "venue": "Hotel 1904",
+    "address": "Løvenvoldgata 8, 6002 Ålesund",
+    "cat": "julebord",
+    "price": "995 kr",
+    "priceMin": 995,
+    "soldOut": false,
+    "note": "Hver fredag og lørdag i november og desember, kl. 18–22. Prisen er per person; endelig meny kommer. Bestill bord på nett hos hotellet. Siste dato står ikke på siden, vi viser til og med 19. desember.",
+    "uncertain": true,
+    "url": "https://1904.no/kalender/juleinspirert-tapas-buff%C3%A9t",
+    "moreShows": [
+      "2026-11-07T18:00",
+      "2026-11-13T18:00",
+      "2026-11-14T18:00",
+      "2026-11-20T18:00",
+      "2026-11-21T18:00",
+      "2026-11-27T18:00",
+      "2026-11-28T18:00",
+      "2026-12-04T18:00",
+      "2026-12-05T18:00",
+      "2026-12-11T18:00",
+      "2026-12-12T18:00",
+      "2026-12-18T18:00",
+      "2026-12-19T18:00"
+    ]
+  },
+  {
     "id": "parken-45583-parken-kulturhus",
     "date": "2026-11-07",
     "time": "13:00",

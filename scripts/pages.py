@@ -41,7 +41,7 @@ CAT_TEXT = {
     "klubb": "Klubbkvelder og fest i Ålesund. Sjekk alltid aldersgrense og åpningstid hos arrangøren.",
     "happening": "Happenings, marked og andre arrangementer i Ålesund som ikke passer i de andre kategoriene, for eksempel festivaler og julemarked.",
     "quiz": "Pubquiz, musikkquiz, bingo og andre quizkvelder i Ålesund, samlet på ett sted. Datoer, klokkeslett og pris hentes fra arrangørenes egne sider.",
-    "julebord": "Julebord i Ålesund som alle kan bestille, også par, vennegjenger og små firma: julebuffet, dinnershow og julebord på fjorden. Dato og pris hentes fra hotellenes og scenenes egne sider; mangler prisen, står den hos arrangøren.",
+    "julebord": "Her er julebordene der også par, vennegjenger og små firma kan bestille plass: julebuffet, juletapas, dinnershow og julebord på fjorden. Dato og pris hentes fra hotellenes og scenenes egne sider; mangler prisen, står den hos arrangøren.",
     "sport": "Hjemmekamper for Aalesunds FK på Color Line Stadion, for både herrer og damer, med avspark og lenke til billetter.",
 }
 MONTH_PAGES = {}
