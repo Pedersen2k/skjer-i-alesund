@@ -186,7 +186,7 @@ def page(path, title, description, body, ld=None, up=None, image=None, raw=False
 </head>
 <body{f' class="{body_class}"' if body_class else ""}>
 {body if raw else f'''<div class="wrap sub">
-  <div class="topbar"><nav class="crumbs"><a href="{up}">← {SITE}: hele programmet</a></nav><div class="tsw" role="group" aria-label="Design"><button type="button" data-t="kveld"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Mørkt</button><button type="button" data-t="standard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Lyst</button></div></div>
+  <div class="topbar"><nav class="crumbs"><a href="{up}">← {SITE}: hele programmet</a></nav><div class="tright"><a class="mbtn" href="{up}nyhetsbrev/" aria-label="Nyhetsbrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="tx">Nyhetsbrev</span></a><div class="tsw" role="group" aria-label="Design"><button type="button" data-t="kveld"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Mørkt</button><button type="button" data-t="standard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Lyst</button></div></div></div>
 {body}
 </div>'''}
 <script>document.querySelectorAll(".tsw button").forEach(b=>{{b.setAttribute("aria-pressed",String((b.dataset.t==="kveld")===(document.documentElement.dataset.tema==="kveld")));b.onclick=()=>{{try{{localStorage.setItem("skjer-tema",b.dataset.t);if(b.dataset.t==="standard")localStorage.setItem("skjer-theme",'"light"')}}catch{{}}location.reload()}}}})</script>
@@ -287,6 +287,77 @@ def listing(path, h1, lede, events, empty, cats_present, about="", lead=""):
 WEB3FORMS_KEY = "4fdbd7cb-a640-4982-a1f4-6fefbf772424"  # offentlig nøkkel: kan bare brukes til å sende til eieren
 
 
+NB_JS = """
+// Nyhetsbrev: påmelding med valg av tema. NB.action settes til skjema-adressen hos e-posttjenesten (f.eks. Buttondown) når den er opprettet.
+const NB = { action: "" };
+function nbInit(form, pre) {
+  const chips = form.querySelector(".nb-chips"), sum = form.querySelector(".nb-sum"), st = form.querySelector(".nb-st"), on = new Set(pre || []);
+  const draw = () => {
+    chips.innerHTML = NB_CATS.map(([k, l]) => `<button type="button" class="chip" data-k="${k}" aria-pressed="${on.has(k)}" style="--c: var(--c-${k})"><i class="dot"></i>${l}</button>`).join("");
+    chips.querySelectorAll(".chip").forEach(b => b.onclick = () => { on.has(b.dataset.k) ? on.delete(b.dataset.k) : on.add(b.dataset.k); draw(); });
+    sum.innerHTML = "Du får: <b>" + (on.size ? [...on].map(k => NB_CATS.find(c => c[0] === k)[1]).join(", ") : "alt") + "</b> · hver torsdag";
+  };
+  draw();
+  form.nbSet = s => { on.clear(); s.forEach(k => on.add(k)); draw(); };
+  form.onsubmit = async e => {
+    e.preventDefault();
+    if (!NB.action) { st.textContent = "Påmeldingen åpner snart. Kom tilbake om litt."; return; }
+    st.textContent = "Melder deg på …";
+    try {
+      const body = new URLSearchParams({ email: form.querySelector("input[type=email]").value.trim(), embed: "1" });
+      on.forEach(k => body.append("tag", k));
+      await fetch(NB.action, { method: "POST", mode: "no-cors", body });
+      form.querySelector("input[type=email]").value = ""; st.textContent = "Nesten ferdig! Sjekk innboksen og bekreft e-postadressen din.";
+    } catch { st.textContent = "Det gikk ikke. Prøv igjen litt senere."; }
+  };
+}
+"""
+
+
+def nyhetsbrev_page(events, today):
+    """Egen side for påmelding til nyhetsbrevet, med eksempel på brevet bygget av dagens program."""
+    up = "../"
+    cats = [[k, CAT_LABEL[k]] for k in CATS]
+    soon = [e for e in events if today.isoformat() <= e["date"] <= (today + datetime.timedelta(days=9)).isoformat()][:5]
+    rows = "".join(
+        f'<div class="me"><b class="d">{datetime.date.fromisoformat(e["date"]).day}. {MO[datetime.date.fromisoformat(e["date"]).month - 1][:3]}</b>'
+        f'<span>{escape(e["title"])}<i>{escape(e["venue"])}</i></span><em>{escape(price_text(e))}</em></div>' for e in soon)
+    return f"""  <header class="top">
+    <h1>Nyhetsbrev</h1>
+    <p class="lede">Ett kort brev hver torsdag med det som skjer i Ålesund. Velg temaene du bryr deg om, så slipper du resten.</p>
+  </header>
+  <main>
+  <div class="nbhero">
+    <div>
+      <ul class="nbul">
+        <li>Hver torsdag, uten reklame</li>
+        <li>Bare det du har valgt: konserter, standup, barn og mer</li>
+        <li>Priser og billettlenker rett i brevet</li>
+        <li>Meld deg av med ett klikk</li>
+      </ul>
+      <form class="nbform nbpage" id="nbform2">
+        <h3>Hva vil du ha?</h3>
+        <div class="nb-chips"></div>
+        <div class="nb-row"><input type="email" required placeholder="din@epost.no" aria-label="E-post" autocomplete="email"><button class="btn" type="submit">Abonner</button></div>
+        <div class="nb-sum"></div>
+        <p class="nb-st" role="status"></p>
+        <p class="nb-fine">Vi bruker e-posten bare til brevet. <a href="{up}kontakt/">Personvern</a></p>
+      </form>
+    </div>
+    <div class="nbphone" aria-label="Eksempel på brevet">
+      <div class="mailp"><div class="mh"><span>SKJER I ÅLESUND · HELGETIPS</span><b>Dette skjer i helgen</b></div>{rows}<div class="mf">Du får brevet fordi du meldte deg på. Meld deg av · Endre valg</div></div>
+    </div>
+  </div>
+  <script>
+  const NB_CATS = {json.dumps(cats, ensure_ascii=False)};
+  {NB_JS}
+  nbInit(document.getElementById("nbform2"));
+  </script>
+  </main>
+  <footer><div>Programmet hentes automatisk morgen og kveld fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div></footer>"""
+
+
+
 def kontakt_page():
     return f"""  <header class="top">
     <h1>Kontakt og om siden</h1>
@@ -338,6 +409,7 @@ def kontakt_page():
     <p>Skjer i Ålesund samler konserter, standup, show, barnearrangementer, klubbkvelder og AaFK-hjemmekamper i Ålesund på ett sted, med billettpriser. Programmet hentes automatisk morgen og kveld fra Tikkio, Parken kulturhus, Dampsentralen og AaFK, og enkelte arrangementer legges inn for hånd. Vi finner ikke på noe: alt kommer fra arrangørenes egne sider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</p>
     <p>Er du arrangør og mangler på siden? Send oss en lenke til arrangementet, så legger vi det inn.</p>
     <h2>Personvern</h2>
+    <p>Nyhetsbrev: e-postadressen og temaene du velger lagres hos e-posttjenesten som sender brevet. Vi bruker dem bare til brevet, og du kan melde deg av i hvert brev. </p>
     <p>Skjemaet sender bare det du skriver til oss, via tjenesten Web3Forms, og vi bruker det kun til å svare deg eller rette opp i programmet. E-post og navn er valgfritt. Siden teller besøk med GoatCounter, som ikke bruker informasjonskapsler og ikke lagrer personopplysninger.</p>
   </section>
   </main>
@@ -743,6 +815,9 @@ def main():
                         kino_page(kino_films, kino_meta, today)))
     pages.append(("kino/", (kino_meta.get("updatedAt") or updated)[:10]))
 
+    write("nyhetsbrev/", page("nyhetsbrev/", f"Nyhetsbrev: ukentlige tips om hva som skjer i Ålesund | {SITE}", "Få et kort brev hver torsdag med konserter, standup, show og barnearrangementer i Ålesund. Velg temaene du vil ha.", nyhetsbrev_page(events, today)))
+    pages.append(("nyhetsbrev/", updated[:10]))
+
     write("kontakt/", page("kontakt/", f"Kontakt og om siden | {SITE}", "Kontakt Skjer i Ålesund: foreslå et arrangement, rapporter en feil eller si hei. Om siden og personvern.", kontakt_page()))
     pages.append(("kontakt/", updated[:10]))
 
@@ -986,6 +1061,16 @@ SUB_CSS = """
 .qweek b { display: block; font: 800 18px var(--font-display); color: var(--fg); }
 .qweek .q { background: color-mix(in srgb, var(--c-quiz) 12%, var(--surface)); border-color: var(--c-quiz); color: var(--c-quiz); }
 .qweek .q i { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-quiz); margin: 3px auto 0; }
+.nbhero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: start; margin-top: 8px; }
+.nbul { margin: 0 0 18px; padding-left: 18px; color: var(--muted); } .nbul li { margin: 4px 0; }
+.nbpage { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 18px; }
+.nbphone { border: 6px solid var(--bg); outline: 1px solid var(--line); border-radius: 26px; overflow: hidden; box-shadow: 0 12px 40px #0006; max-width: 340px; width: 100%; justify-self: center; }
+.mailp { background: #f4f1ea; color: #1b2b30; font-size: 13.5px; }
+.mailp .mh { background: #10282f; color: #fff; padding: 14px; } .mailp .mh b { font: 800 18px var(--font-display); display: block; } .mailp .mh span { color: #f7c873; font: 500 11px var(--font-mono); letter-spacing: .06em; }
+.mailp .me { display: grid; grid-template-columns: 50px 1fr auto; gap: 8px; padding: 10px 14px; border-top: 1px solid #ddd6c6; align-items: baseline; }
+.mailp .me b.d { font: 500 11.5px var(--font-mono); color: #a8451f; } .mailp .me i { font-style: normal; color: #5a7177; font-size: 12px; display: block; } .mailp .me em { font-style: normal; font: 500 12px var(--font-mono); }
+.mailp .mf { padding: 10px 14px; color: #7a8a8e; font-size: 11.5px; border-top: 1px solid #ddd6c6; }
+@media (max-width: 700px) { .nbhero { grid-template-columns: 1fr; } }
 .kform { display: grid; gap: 14px; max-width: 560px; }
 .kform label { display: grid; gap: 6px; font: 600 14px/1.3 var(--font-body); }
 .kform input, .kform select, .kform textarea { font: 400 16px/1.4 var(--font-body); padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); width: 100%; box-sizing: border-box; }
