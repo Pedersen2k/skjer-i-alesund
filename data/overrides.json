@@ -124,8 +124,9 @@
   },
   "klubb-damp-2-juledag": {
     "cat": "klubb",
-    "uncertain": true,
-    "note": "Tittelen sier 2. juledag, men kalenderen til Dampsentralen har datoen 19. des. Sjekk hos arrangøren."
+    "date": "2026-12-26",
+    "fromDate": "2026-12-19",
+    "note": "Dato: 2. juledag, 26. desember."
   },
   "kristiansen": {
     "cat": "konsert",
