@@ -628,7 +628,9 @@ function addStructuredData() {
         eventStatus: "https://schema.org/EventScheduled",
         eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
         location: { "@type": "Place", name: e.venue, address: { "@type": "PostalAddress", streetAddress: e.address || undefined, addressLocality: "Ålesund", addressCountry: "NO" } },
-        url: e.url
+        url: e.url,
+        image: "https://kaskjerda.no/og-image.png",
+        description: e.note || `${e.title} på ${e.venue} i Ålesund ${e.d.getDate()}. ${MO[e.d.getMonth()]} ${e.d.getFullYear()}` + (/^\d{2}:\d{2}$/.test(e.time || "") ? ` kl. ${e.time}.` : ".")
       };
       if (e.priceMin > 0) o.offers = { "@type": "Offer", url: e.url, price: String(e.priceMin), priceCurrency: "NOK", availability: e.soldOut ? "https://schema.org/SoldOut" : "https://schema.org/InStock" };
       return o;
