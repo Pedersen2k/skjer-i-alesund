@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-25T21:46:16Z",
+  "updatedAt": "2026-10-26T05:49:21Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -65,22 +65,6 @@
    "premiere": "2026-10-23",
    "shows": [
     {
-     "start": "2026-10-25T18:15:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T20:45:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-10-26T18:15:00",
      "screen": "4",
      "tags": [],
@@ -139,31 +123,6 @@
    ]
   },
   {
-   "id": "EDI20260915",
-   "title": "Coyote vs. Acme - Per Ulv på saken",
-   "age": 6,
-   "minutes": 103,
-   "genres": [
-    "Animasjon",
-    "Eventyr",
-    "Komedie"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/43b01f3759a4ec348c13436ec84b35c6f75e7eb3-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-09-11",
-   "shows": [
-    {
-     "start": "2026-10-25T11:15:00",
-     "screen": "4",
-     "tags": [
-      "Norsk tale",
-      "Utekstet"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "NOR20230682",
    "title": "Drapet på Benjamin Hermansen",
    "age": 15,
@@ -174,16 +133,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/eb4b617f94d0ff88352912d08252a7d22ada253a-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-02",
    "shows": [
-    {
-     "start": "2026-10-25T19:15:00",
-     "screen": "Sal 5",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-26T17:00:00",
      "screen": "Sal 5",
@@ -264,15 +213,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ce797c664fa97646a09fdfdb807c5ec4668040af-1500x2103.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-09-11",
    "shows": [
-    {
-     "start": "2026-10-25T20:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-10-26T15:45:00",
      "screen": "4",
@@ -415,26 +355,6 @@
    "premiere": "2026-09-25",
    "shows": [
     {
-     "start": "2026-10-25T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T14:30:00",
-     "screen": "Sal 6",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-10-26T15:10:00",
      "screen": "Sal 2",
      "tags": [
@@ -511,13 +431,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f73aa5f1d8a24cb412b69b828e2f56dcd502c171-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-09-25",
    "shows": [
-    {
-     "start": "2026-10-25T18:30:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-26T18:45:00",
      "screen": "3",
@@ -717,6 +630,42 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/be47dc21-cea1-4c1c-b383-7c04e4c614a2",
      "club": false
+    },
+    {
+     "start": "2026-11-15T10:30:00",
+     "screen": "1 isense",
+     "tags": [
+      "Norsk tale"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/91342ea8-f17c-4a0e-aab3-3afba6d730dd",
+     "club": false
+    },
+    {
+     "start": "2026-11-15T12:30:00",
+     "screen": "1 isense",
+     "tags": [
+      "Norsk tale"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/4da6f570-a6a2-4c1f-92bf-67e38352d43d",
+     "club": false
+    },
+    {
+     "start": "2026-11-15T14:30:00",
+     "screen": "1 isense",
+     "tags": [
+      "Norsk tale"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/58774125-ed2b-48ff-adf5-526dc8d2170c",
+     "club": false
+    },
+    {
+     "start": "2026-11-15T16:30:00",
+     "screen": "1 isense",
+     "tags": [
+      "Norsk tale"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/71cc7ff4-0894-4e41-be35-82442b3309ba",
+     "club": false
     }
    ]
   },
@@ -734,31 +683,6 @@
      "screen": "4",
      "tags": [],
      "url": "https://www.odeonkino.no/booking/kjop/1f4e66f3-d43c-47b2-8924-0eef23dc2455",
-     "club": false
-    }
-   ]
-  },
-  {
-   "id": "EDI20260975",
-   "title": "Lille spøkelset Laban skøyer igjen",
-   "age": 0,
-   "minutes": 61,
-   "genres": [
-    "Animasjon",
-    "Familiefilm"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/9af456586f2b90f0e08d670bdedef2f96e4ee48d-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-10-23",
-   "shows": [
-    {
-     "start": "2026-10-25T10:45:00",
-     "screen": "Sal 2",
-     "tags": [
-      "Norsk tale",
-      "Utekstet",
-      "LUXE"
-     ],
-     "url": "",
      "club": false
     }
    ]
@@ -798,54 +722,6 @@
    ]
   },
   {
-   "id": "UIP20241749",
-   "title": "Minions & monstre",
-   "age": 6,
-   "minutes": 85,
-   "genres": [
-    "Animasjon",
-    "Barnefilm"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f639a9cb4e51005f32fc6e6864e40753f9066914-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-07-01",
-   "shows": [
-    {
-     "start": "2026-10-25T11:45:00",
-     "screen": "3",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
-   "id": "EDI20260513",
-   "title": "Monster Mia",
-   "age": 6,
-   "minutes": 81,
-   "genres": [
-    "Animasjon",
-    "Eventyr",
-    "Komedie"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/fb974225041180a11d91ebb046cc249f344995ac-1500x2250.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-10-16",
-   "shows": [
-    {
-     "start": "2026-10-25T10:45:00",
-     "screen": "Sal 5",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20250084",
    "title": "Mysteriepakken",
    "age": 0,
@@ -856,29 +732,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/e796551111af9fba503fffcbd45d77f4a13d0521-1080x1527.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-10-25T12:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T13:45:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T16:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-26T14:45:00",
      "screen": "Sal 5",
@@ -929,15 +782,6 @@
    "premiere": "2026-10-23",
    "shows": [
     {
-     "start": "2026-10-25T17:10:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-10-26T19:30:00",
      "screen": "Sal 5",
      "tags": [
@@ -977,13 +821,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/a7dc76dfccdd99ba7baf997317d7a807c1bccba9-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-09",
    "shows": [
-    {
-     "start": "2026-10-25T21:15:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-26T20:45:00",
      "screen": "1 isense",
@@ -1054,38 +891,6 @@
    ]
   },
   {
-   "id": "EDI20251106",
-   "title": "Paw Patrol: Dinofilmen",
-   "age": 0,
-   "minutes": 88,
-   "genres": [
-    "Animasjon",
-    "Barnefilm"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/b0c96c74829fac249da479447cb08a07a4ebf7ef-1500x2123.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-08-07",
-   "shows": [
-    {
-     "start": "2026-10-25T14:00:00",
-     "screen": "3",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T16:15:00",
-     "screen": "3",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20250183",
    "title": "Pensjonskuppet",
    "age": 9,
@@ -1097,42 +902,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/b7c7d07d556cff3e5c9868b5e6fd02656f31e59c-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-10-25T12:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T15:15:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T18:00:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T20:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-26T12:30:00",
      "screen": "1 isense",
@@ -1405,29 +1174,6 @@
    ]
   },
   {
-   "id": "EDI20260642",
-   "title": "Resident Evil",
-   "age": 15,
-   "minutes": 93,
-   "genres": [
-    "Horror",
-    "Sci-Fi"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/45979c212a0db611920323256ec3d8265789d36e-1500x2104.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-09-18",
-   "shows": [
-    {
-     "start": "2026-10-25T21:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "SFN20180923",
    "title": "Ringenes herre: Trilogien (Extended, utekstet)",
    "age": null,
@@ -1544,38 +1290,6 @@
    "premiere": "2026-10-02",
    "shows": [
     {
-     "start": "2026-10-25T10:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Norsk tale",
-      "Utekstet"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T12:45:00",
-     "screen": "Sal 5",
-     "tags": [
-      "Norsk tale",
-      "Utekstet",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-25T15:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "Norsk tale",
-      "Utekstet",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-10-26T14:30:00",
      "screen": "3",
      "tags": [
@@ -1629,24 +1343,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/08c062fc034ea81b413d46721ded439a550abcb4-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-09",
    "shows": [
-    {
-     "start": "2026-10-25T14:45:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-10-25T17:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-10-26T12:15:00",
      "screen": "Sal 6",
@@ -1728,13 +1424,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/118b91932835d0bc0b4d237194dc60e93a805a50-1500x2121.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-10-25T21:00:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-26T21:15:00",
      "screen": "3",
@@ -1851,15 +1540,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/c0244aa90fbcd342cf565324c22260fb9d82c865-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-02",
    "shows": [
-    {
-     "start": "2026-10-25T17:45:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-26T12:00:00",
      "screen": "Sal 5",
