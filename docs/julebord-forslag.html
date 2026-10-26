@@ -1,0 +1,183 @@
+<title>Julebord på forsiden</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: forklaring øverst, så fire telefoner side om side (stables på mobil), hver med samme utsnitt av forsiden i kveldstemaet. Bevisst ett tema: det er slik siden ser ut for de fleste. */
+:root {
+  --bg: #0a171b; --surface: #12232a; --surface2: #172c34; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
+  --gold: #f5c46e; --sea: #5ab7bf; --coral: #ec6a4f; --jul: #ef7a7f; --julgreen: #1d5c47; --juldeep: #0d3327; --julgold: #e8b04a;
+  --c-konsert: #5ab7bf; --c-happening: #d9b84a; --kino: #8fa3e6; --kino-soft: #1c2748;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 56px; }
+.wrap { max-width: 1420px; margin: 0 auto; display: grid; gap: 28px; }
+header h1 { font: 800 clamp(28px, 4vw, 40px)/1.05 var(--font-display); margin: 0 0 10px; text-wrap: balance; }
+header p { margin: 0; max-width: 68ch; color: var(--muted); }
+header p + p { margin-top: 8px; }
+header b { color: var(--fg); font-weight: 600; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px 22px; align-items: start; }
+.opt { display: grid; gap: 12px; min-width: 0; }
+.opt h2 { margin: 0; font: 800 22px/1.1 var(--font-display); display: flex; gap: 10px; align-items: baseline; }
+.opt h2 span { font: 700 13px var(--font-mono); color: var(--bg); background: var(--gold); border-radius: 6px; padding: 2px 7px; }
+.opt .why { margin: 0; color: var(--muted); font-size: 14px; min-height: 4.5em; }
+.opt .why b { color: var(--fg); font-weight: 600; }
+.pros { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.pros li::before { content: "+ "; color: var(--sea); font-weight: 700; }
+.pros li.minus::before { content: "– "; color: var(--coral); }
+
+/* telefon */
+.phone { width: 100%; max-width: 360px; justify-self: center; border: 1px solid var(--line); border-radius: 30px; padding: 12px; background: #050d10; box-shadow: 0 20px 50px #0008; }
+.screen { border-radius: 20px; overflow: hidden; height: 640px; background: radial-gradient(120% 60% at 50% 0%, #163238, var(--bg) 60%); padding: 14px 14px 0; display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+.top { display: flex; justify-content: space-between; align-items: center; font: 500 10px var(--font-mono); color: var(--gold); }
+.tsw { display: flex; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 99px; font: 600 10px var(--font-body); }
+.tsw i { font-style: normal; padding: 3px 8px; border-radius: 99px; color: var(--muted); }
+.tsw i:first-child { background: var(--gold); color: var(--bg); }
+.logo { font: 800 26px/1 var(--font-display); letter-spacing: -.02em; }
+.logo em { font-style: normal; background: linear-gradient(90deg, var(--coral), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.row { display: flex; gap: 6px; }
+.in { flex: 1; border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; color: var(--muted); background: var(--surface); }
+.btn { border: 1px solid var(--line); border-radius: 99px; padding: 8px 11px; background: var(--surface); font-weight: 600; white-space: nowrap; }
+.sel { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.sel div { border: 1px solid var(--line); border-radius: 99px; padding: 6px 10px; background: var(--surface); display: flex; justify-content: space-between; }
+.sel div::after { content: "▾"; color: var(--muted); }
+.strip { display: flex; justify-content: space-between; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 12px; padding: 9px 11px; background: var(--surface); }
+.strip span { color: var(--kino); font-weight: 600; white-space: nowrap; }
+.strip.kino b { font-weight: 700; }
+
+.day { display: grid; grid-template-columns: 38px 1fr; gap: 8px; }
+.day .d { font: 600 9px var(--font-mono); color: var(--muted); line-height: 1.15; }
+.day .d b { display: block; font: 800 24px/1 var(--font-display); color: var(--fg); }
+.day .d i { font-style: normal; color: var(--coral); }
+.ev { border: 1px solid var(--line); border-left: 3px solid var(--c, var(--c-konsert)); border-radius: 12px; padding: 9px 11px; background: var(--surface); display: grid; gap: 2px; }
+.ev h4 { margin: 0; font: 800 14.5px/1.15 var(--font-display); display: flex; justify-content: space-between; gap: 8px; }
+.ev h4 small { font: 700 11px var(--font-mono); white-space: nowrap; }
+.ev .t { font: 700 9px var(--font-body); letter-spacing: .1em; color: var(--c); }
+.ev .v { color: var(--muted); font-size: 12px; }
+.dim { opacity: .55; }
+
+/* A: stripe */
+.strip.jb { border-color: color-mix(in srgb, var(--jul) 55%, var(--line)); background: color-mix(in srgb, var(--jul) 10%, var(--surface)); }
+.strip.jb span { color: var(--jul); }
+.hl { outline: 2px dashed var(--gold); outline-offset: 3px; border-radius: 12px; }
+
+/* B: kort */
+.jbcard { position: relative; border-radius: 14px; padding: 12px 12px 10px; color: #fff; background: radial-gradient(120% 100% at 50% 0%, var(--julgreen), var(--juldeep) 75%); overflow: hidden; display: grid; gap: 6px; }
+.jbcard::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, #fff 1.2px, transparent 1.8px), radial-gradient(circle, #fff8 .9px, transparent 1.4px); background-size: 60px 60px, 90px 90px; background-position: 0 0, 30px 40px; opacity: .35; }
+.jbcard > * { position: relative; }
+.jbcard small { font: 700 9px var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--julgold); }
+.jbcard h3 { margin: 0; font: italic 700 22px/1 Georgia, "Times New Roman", serif; }
+.jbcard ul { list-style: none; margin: 2px 0 0; padding: 0; display: grid; gap: 0; font-size: 12px; }
+.jbcard li { display: grid; grid-template-columns: 44px 1fr auto; gap: 6px; padding: 4px 0; border-top: 1px solid #ffffff22; }
+.jbcard li b { font: 700 10.5px var(--font-mono); color: var(--julgold); }
+.jbcard li em { font-style: normal; font: 700 10.5px var(--font-mono); color: #e9e2cf; }
+.jbcard .go { justify-self: start; background: var(--julgold); color: #1a1205; font-weight: 700; border-radius: 99px; padding: 5px 11px; font-size: 12px; }
+
+/* C: knapp i toppen */
+.btn.jbb { border-color: color-mix(in srgb, var(--jul) 60%, var(--line)); color: var(--jul); background: color-mix(in srgb, var(--jul) 12%, var(--surface)); }
+
+/* D: i julekortet */
+.julcard { position: relative; border-radius: 14px; padding: 12px; color: #fff; background: radial-gradient(120% 100% at 50% 0%, var(--julgreen), var(--juldeep) 75%); display: grid; gap: 6px; overflow: hidden; }
+.julcard small { font: 700 9px var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--julgold); }
+.julcard h3 { margin: 0; font: italic 700 22px/1 Georgia, serif; }
+.julcard p { margin: 0; font-size: 11.5px; color: #e9e2cf; }
+.julcard .links { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 2px; }
+.julcard .links div { border-radius: 10px; padding: 7px 9px; font-weight: 700; font-size: 12px; display: grid; gap: 1px; }
+.julcard .links div span { font: 500 10px var(--font-mono); opacity: .85; }
+.julcard .l1 { background: #ffffff1c; }
+.julcard .l2 { background: var(--julgold); color: #1a1205; }
+
+footer.note { color: var(--muted); font-size: 13.5px; max-width: 75ch; border-top: 1px solid var(--line); padding-top: 16px; }
+footer.note b { color: var(--fg); }
+@media (max-width: 420px) { .screen { height: 600px; } }
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Julebord på forsiden: fire forslag</h1>
+  <p>Felles for alle: <b>julebordene tas ut av den vanlige lista og kategorivalget</b>, og samles på en egen side, <b>kaskjerda.no/julebord/</b>, med julemenyene på restaurant og alle datoene. Forsiden får bare én inngang dit. Den vises i julebordsesongen og forsvinner av seg selv etter jul.</p>
+  <p>Telefonene viser toppen av forsiden en dag i november, med ekte tall: 7 julebord, billigste pris 995 kr. Den stiplede rammen viser hva som er nytt.</p>
+</header>
+
+<div class="grid">
+
+<section class="opt">
+  <h2><span>A</span>Stripe, som kinoen</h2>
+  <p class="why">En smal stripe under kinostripen. <b>Roligst</b>: den ser ut som noe som alt finnes på siden.</p>
+  <div class="phone"><div class="screen">
+    <div class="top">62,47° N · 6,15° Ø<div class="tsw"><i>Mørkt</i><i>Lyst</i></div></div>
+    <div class="logo">Skjer i <em>Ålesund</em></div>
+    <div class="row"><div class="in">Søk …</div><div class="btn">★ Mine</div></div>
+    <div class="sel"><div>Alle datoer</div><div>Alle kategorier</div><div>Alle scener</div><div>Alle priser</div></div>
+    <div class="strip kino"><div>🎬 <b>På kino i dag:</b> 9 filmer</div><span>Kinoprogram →</span></div>
+    <div class="strip jb hl"><div>🎄 <b>Julebord i Ålesund:</b> 7 steder, fra 995 kr</div><span>Se alle →</span></div>
+    <div class="day"><div class="d">FRE<b>6</b><i>NOV</i></div><div class="ev" style="--c:var(--c-konsert)"><h4>Heibergs Mandskor<small>Pris hos arr.</small></h4><div class="t">KONSERT</div><div class="v">Fabrikken Kulturscene · kl. 20:30</div></div></div>
+    <div class="day dim"><div class="d">LØR<b>7</b><i>NOV</i></div><div class="ev" style="--c:#f08a4b"><h4>Karsten Blomvik<small>Pris hos arr.</small></h4><div class="t" style="color:#f08a4b">STANDUP</div><div class="v">Fabrikken Kulturscene · kl. 19:00</div></div></div>
+  </div></div>
+  <ul class="pros"><li>Tar nesten ingen plass</li><li>Samme mønster som kino, lett å forstå</li><li class="minus">Lett å overse</li></ul>
+</section>
+
+<section class="opt">
+  <h2><span>B</span>Julebordkort</h2>
+  <p class="why">Et eget kort i juledrakt med de <b>tre neste julebordene</b> og en knapp til resten. Mest fristende, men tar mest plass.</p>
+  <div class="phone"><div class="screen">
+    <div class="top">62,47° N · 6,15° Ø<div class="tsw"><i>Mørkt</i><i>Lyst</i></div></div>
+    <div class="logo">Skjer i <em>Ålesund</em></div>
+    <div class="row"><div class="in">Søk …</div><div class="btn">★ Mine</div></div>
+    <div class="sel"><div>Alle datoer</div><div>Alle kategorier</div><div>Alle scener</div><div>Alle priser</div></div>
+    <div class="jbcard hl">
+      <small>Julebord i Ålesund · 7 steder</small>
+      <h3>Hvor skal julebordet stå?</h3>
+      <ul>
+        <li><b>6. nov</b><span>Juletapas, Hotel 1904</span><em>995 kr</em></li>
+        <li><b>13. nov</b><span>Julebord på Fabrikken</span><em>1350 kr</em></li>
+        <li><b>13. nov</b><span>Julebuffet, Scandic Parken</span><em>hos arr.</em></li>
+      </ul>
+      <div class="go">Se alle julebord →</div>
+    </div>
+    <div class="day"><div class="d">FRE<b>6</b><i>NOV</i></div><div class="ev" style="--c:var(--c-konsert)"><h4>Heibergs Mandskor<small>Pris hos arr.</small></h4><div class="t">KONSERT</div><div class="v">Fabrikken Kulturscene · kl. 20:30</div></div></div>
+  </div></div>
+  <ul class="pros"><li>Viser konkrete tilbud med pris</li><li>Passer i julestemningen fra 1. november</li><li class="minus">Skyver lista lenger ned</li><li class="minus">Ved siden av julekortet blir det to julekort</li></ul>
+</section>
+
+<section class="opt">
+  <h2><span>C</span>Knapp ved «Mine»</h2>
+  <p class="why">En liten knapp «🎄 Julebord» på samme linje som søket. <b>Alltid synlig</b>, også når menyen glir ned igjen ved scrolling.</p>
+  <div class="phone"><div class="screen">
+    <div class="top">62,47° N · 6,15° Ø<div class="tsw"><i>Mørkt</i><i>Lyst</i></div></div>
+    <div class="logo">Skjer i <em>Ålesund</em></div>
+    <div class="row"><div class="in">Søk …</div><div class="btn jbb hl">🎄 Julebord</div><div class="btn">★ Mine</div></div>
+    <div class="sel"><div>Alle datoer</div><div>Alle kategorier</div><div>Alle scener</div><div>Alle priser</div></div>
+    <div class="strip kino"><div>🎬 <b>På kino i dag:</b> 9 filmer</div><span>Kinoprogram →</span></div>
+    <div class="day"><div class="d">FRE<b>6</b><i>NOV</i></div><div class="ev" style="--c:var(--c-konsert)"><h4>Heibergs Mandskor<small>Pris hos arr.</small></h4><div class="t">KONSERT</div><div class="v">Fabrikken Kulturscene · kl. 20:30</div></div></div>
+    <div class="day dim"><div class="d">LØR<b>7</b><i>NOV</i></div><div class="ev" style="--c:#f08a4b"><h4>Karsten Blomvik<small>Pris hos arr.</small></h4><div class="t" style="color:#f08a4b">STANDUP</div><div class="v">Fabrikken Kulturscene · kl. 19:00</div></div></div>
+  </div></div>
+  <ul class="pros"><li>Minst plass, alltid tilgjengelig</li><li>Følger med den klebrige menyen</li><li class="minus">Søkefeltet blir smalere på små telefoner</li></ul>
+</section>
+
+<section class="opt">
+  <h2><span>D</span>Inne i julekortet</h2>
+  <p class="why">Julekortet som kommer 1. november får <b>to knapper</b>: «Jul i Ålesund» og «Julebord». Én juleinngang i stedet for to.</p>
+  <div class="phone"><div class="screen">
+    <div class="top">62,47° N · 6,15° Ø<div class="tsw"><i>Mørkt</i><i>Lyst</i></div></div>
+    <div class="logo">Skjer i <em>Ålesund</em></div>
+    <div class="row"><div class="in">Søk …</div><div class="btn">★ Mine</div></div>
+    <div class="sel"><div>Alle datoer</div><div>Alle kategorier</div><div>Alle scener</div><div>Alle priser</div></div>
+    <div class="julcard">
+      <small>Ålesund · julen 2026</small>
+      <h3>Jul i Ålesund</h3>
+      <p>48 dager til julaften. Konserter, juleshow og julemarked samlet.</p>
+      <div class="links hl"><div class="l1">Jul i Ålesund →<span>54 arrangementer</span></div><div class="l2">🎄 Julebord →<span>7 steder, fra 995 kr</span></div></div>
+    </div>
+    <div class="day"><div class="d">FRE<b>6</b><i>NOV</i></div><div class="ev" style="--c:var(--c-konsert)"><h4>Heibergs Mandskor<small>Pris hos arr.</small></h4><div class="t">KONSERT</div><div class="v">Fabrikken Kulturscene · kl. 20:30</div></div></div>
+  </div></div>
+  <ul class="pros"><li>Ryddigst: all jul på ett sted</li><li>Ingen ny boks på forsiden</li><li class="minus">Vises først fra 1. november, som julekortet</li></ul>
+</section>
+
+</div>
+
+<footer class="note"><b>Min anbefaling: D, eventuelt med A som reserve.</b> D gir én ryddig juleinngang uten å legge til noe nytt på forsiden. Hvis du vil at julebord skal synes før 1. november (folk booker i oktober), kan stripen fra A vises i oktober og gå over til D når julekortet kommer. Uansett valg blir julebordene borte fra den vanlige lista, «I dag», «Denne helgen» og helgeposten, men de er fortsatt med på «Jul i Ålesund» og i kalenderfeeden for julebord.</footer>
+</div>
