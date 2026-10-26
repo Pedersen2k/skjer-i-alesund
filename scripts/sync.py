@@ -287,6 +287,7 @@ def fetch_oconnors():
         body = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html.unescape(page)))
         raw.append({"name": re.sub(r"<[^>]+>", "", html.unescape(name.group(1))).strip(), "venue": OCONNORS_VENUE, "address": OCONNORS_ADDRESS,
                     "start": start, "url": url, "tickets": [], "soldOut": False, "noTime": not hm,
+                    "group": "oconnors-" + start.date().isoformat() + "-" + slug(name.group(1))[:30],  # hver kveld har egen side og egen lenke
                     "price": (f"{price.group(1)} kr", int(price.group(1)), "") if price else None,
                     "gratis": bool(re.search(r"gratis å være med", listing, re.I))})
     print(f"O'Connor's: {len(raw)} arrangementer", file=sys.stderr)
