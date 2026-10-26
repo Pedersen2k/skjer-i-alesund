@@ -35,6 +35,10 @@ DAMP_VENUE = "Dampsentralen"
 OCONNORS = "https://oconnors.no/alesund"
 OCONNORS_VENUE = "O'Connor's"
 OCONNORS_ADDRESS = "Brunholmgata 10, 6004 Ålesund"
+VITI = "https://www.vitimusea.no"
+# Viti har museer i flere kommuner. Bare de i Ålesund er med: (navn hos Viti) -> (navn på siden, adresse)
+VITI_MUSEUMS = {"Jugendstilsenteret og KUBE": ("Jugendstilsenteret", "Apotekergata 16, Ålesund"),
+                "Sunnmøre museum": ("Sunnmøre museum", "Museumsvegen 12, 6015 Ålesund")}
 MONTHS = ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "des"]
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
 
@@ -296,6 +300,74 @@ def fetch_oconnors():
     return raw
 
 
+def viti_price(text):
+    """Pris fra fritekstblokken til arrangementet («Pris: 60 kr», «Inngang: Vaksen kr 80» o.l.). Gir None hvis den ikke står der."""
+    m = re.search(r"(?:Pris|Inngang)\s*:\s*([^\n]+)", text)
+    if not m:
+        return None
+    line = re.sub(r"\s+", " ", m.group(1)).strip()
+    num = re.search(r"(\d+)\s*(?:kr|,-)|kr\s*(\d+)|Vaks\w*\s*(\d+)", line)
+    if not num:
+        return ("Gratis", 0, "") if re.match(r"gratis", line, re.I) else None
+    n = int(next(g for g in num.groups() if g))
+    rest = re.sub(r"^(?:Vaks\w*\s*)?(?:kr\s*)?\d+\s*(?:kr|,-)?[.,\s]*", "", line).strip()
+    return f"{n} kr", n, rest if len(rest) > 3 else ""
+
+
+def fetch_viti():
+    """Arrangementene til Viti (vitimusea.no/arrangement), bare de som er i Ålesund (Jugendstilsenteret og Sunnmøre museum).
+    Sidene er Next.js og har strukturerte data (datoer, by, museum) i __next_f; prisen står i fritekst og leses der den finnes.
+    Arrangementer som varer over flere dager (samleoppføringer som «Familiedager på museet») er ikke med.
+    Gir None hvis siden ikke kunne leses."""
+    today = datetime.datetime.now(TZ).date()
+    try:
+        listing = get(VITI + "/arrangement")
+    except Exception as e:
+        warn(f"Klarte ikke å hente arrangementene til Viti: {e}")
+        return None
+    slugs = list(dict.fromkeys(re.findall(r'href="/arrangement/([^"/]+)"', listing)))
+    if not slugs:
+        warn("Fant ikke arrangementlista hos Viti. Sjekk om vitimusea.no har endret siden.")
+        return None
+    raw, bad = [], 0
+    for sl in slugs:
+        url = f"{VITI}/arrangement/{sl}"
+        try:
+            page = get(url)
+            time.sleep(0.5)
+            flight = "".join(json.loads('"' + c + '"') for c in re.findall(r'self\.__next_f\.push\(\[1,"(.*?)"\]\)</script>', page, re.S))
+            name = re.search(r'"name":"([^"]+)","openingHours"', flight)
+            city = re.search(r'"selectCity":\{"cityName":"([^"]*)"', flight)
+            museums = re.findall(r'"address":"[^"]*","mapLink":"[^"]*","name":"([^"]*)"', flight[flight.find('"selectCity"'):])
+            dates = re.findall(r'"endDate":"([^"]+)","startDate":"([^"]+)"', flight)
+            tour = flight.find('"tour":[')
+            blocks = json.JSONDecoder().raw_decode(flight[tour + 7:])[0] if tour >= 0 else []
+        except Exception as e:
+            print("feil:", url, e, file=sys.stderr)
+            bad += 1
+            continue
+        text = "\n".join("".join(c.get("text", "") for c in b.get("children", [])) for b in blocks if isinstance(b, dict))
+        museum = next((m for m in museums if m in VITI_MUSEUMS), None)
+        in_alesund = (city.group(1) == "Ålesund") if city and city.group(1) else bool(museum)  # tom by: gå etter museet
+        if not (name and dates and museum and in_alesund):
+            continue
+        venue, address = VITI_MUSEUMS[museum]
+        price = viti_price(text)
+        cat = "barn" if re.search(r"familie|baby|barn", name.group(1), re.I) else "happening"
+        for end, start in dates:
+            st = datetime.datetime.fromisoformat(start.replace("Z", "+00:00")).astimezone(TZ)
+            en = datetime.datetime.fromisoformat(end.replace("Z", "+00:00")).astimezone(TZ)
+            if st.date() < today or en.date() != st.date():
+                continue
+            raw.append({"name": html.unescape(name.group(1)).strip(), "venue": venue, "address": address, "start": st, "url": url,
+                        "tickets": [], "soldOut": False, "cat": cat, "group": "viti-" + sl.strip("-"), "price": price})
+    if bad == len(slugs):
+        warn("Klarte ikke å lese noen av arrangementsidene hos Viti. Sjekk om vitimusea.no har endret siden.")
+        return None
+    print(f"Viti: {len(raw)} arrangementer i Ålesund", file=sys.stderr)
+    return raw
+
+
 def price_info(tickets):
     real = [(n, p) for n, p in tickets if not NOISE.search(n)]
     paid = [(n, p) for n, p in real if p > 0]
@@ -393,7 +465,7 @@ def build_events(raw, overrides):
             "title": o.get("title") or first["title"],
             "venue": venue,
             "address": first.get("address", ""),
-            "cat": o.get("cat") or guess_cat(first["title"]),
+            "cat": o.get("cat") or first.get("cat") or guess_cat(first["title"]),
             "price": price, "priceMin": price_min,
             "soldOut": all(s["soldOut"] for s in shows),
             "note": " ".join(n for n in notes if n),
@@ -461,11 +533,17 @@ def main():
             if e["priceMin"] and any(r.get("gratis") for r in oc_raw) and "quiz" in e["title"].lower():
                 e["uncertain"] = True
                 e["note"] = (e["note"] + " " if e["note"] else "") + f"Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. {e['time']} og {e['price']}. Sjekk hos O'Connor's."
+    viti_raw = fetch_viti()
+    if viti_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
+        viti = [e for e in old["events"] if e["venue"] in {v for v, _ in VITI_MUSEUMS.values()} and e["date"] >= today]
+    else:
+        viti = build_events(viti_raw, overrides)
     # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
     seen = {(e["date"], norm_key(e["title"])) for e in events}
     events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in damp if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in oconnors if (e["date"], norm_key(e["title"])) not in seen]
+    events += [e for e in viti if (e["date"], norm_key(e["title"])) not in seen]
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
     events += [e for e in manual if e["date"] >= today and e["id"] not in parken_ids]
@@ -485,6 +563,10 @@ def main():
         fresh_source |= {e["id"] for e in damp}
     if oconnors and "oconnors" not in sources:
         fresh_source |= {e["id"] for e in oconnors}
+    if viti and "viti" not in sources:
+        fresh_source |= {e["id"] for e in viti}
+    if viti:
+        sources.add("viti")
     if oconnors:
         sources.add("oconnors")
     if damp:

@@ -7,7 +7,7 @@ Konserter, standup, show og happenings i Ålesund, samlet på ett sted, med bill
 ## Slik fungerer det
 
 - `index.html` er hele nettsiden. Den leser programmet fra `data/events.json`.
-- `scripts/sync.py` henter Ålesund-arrangementer og billettpriser fra Tikkio, programmet til Parken kulturhus og kalenderen til Dampsentralen (`dampsentralen.no/kalender?format=json`), og skriver `data/events.json`. Dampsentralen har ikke priser på siden sin; er det en Tikkio-lenke i beskrivelsen, hentes prisen derfra.
+- `scripts/sync.py` henter Ålesund-arrangementer og billettpriser fra Tikkio, programmet til Parken kulturhus kalenderen til Dampsentralen (`dampsentralen.no/kalender?format=json`) og arrangementene til Viti (`vitimusea.no/arrangement`, bare de i Ålesund: Jugendstilsenteret og Sunnmøre museum), og skriver `data/events.json`. Dampsentralen har ikke priser på siden sin; er det en Tikkio-lenke i beskrivelsen, hentes prisen derfra.
 - `scripts/pages.py` lager statiske undersider for søkemotorer og deling: «I dag», «Denne helgen», én side per kategori, per scene (med minst tre arrangementer) og per arrangement, pluss `sitemap.xml` og `404.html`. Alt legges i `_site/` (ikke i git) sammen med forsiden, og det er `_site/` som publiseres.
 - `scripts/kino.py` henter kinoprogrammet til ODEON Ålesund fra Filmweb (odeonkino.no blokkerer roboter) og skriver `data/kino.json`. Kino holdes utenfor `events.json`, og vises på `kino/` og som en stripe på forsiden. Fjern det ved å slette kino-delene i `pages.py`, `index.html`, `helgepost.py` og workflowen.
 - GitHub Actions (`.github/workflows/oppdater.yml`) kjører skriptet to ganger i døgnet (morgen og kveld), lagrer endringene og publiserer siden på GitHub Pages.
