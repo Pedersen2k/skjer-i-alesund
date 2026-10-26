@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-26T11:24:27Z",
+  "updatedAt": "2026-10-26T12:32:44Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -8,7 +8,8 @@
    "dampsentralen",
    "oconnors",
    "parken",
-   "tikkio"
+   "tikkio",
+   "viti"
   ]
  },
  "events": [
@@ -26,6 +27,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48385-peter-pan/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "viti-paa-dagtid-om-anders-svors-liv-og-reiser-jugendstilsent",
+   "date": "2026-10-28",
+   "time": "12:00",
+   "title": "På dagtid: Om Anders Svors liv og reiser",
+   "venue": "Jugendstilsenteret og KUBE",
+   "address": "Apotekergata 16, Ålesund",
+   "cat": "happening",
+   "price": "60 kr",
+   "priceMin": 60,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/paa-dagtid-om-anders-svors-liv-og-reiser",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -173,6 +190,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug",
+   "date": "2026-10-31",
+   "time": "12:00",
+   "title": "Familiedag: Halloween på Jugendstilsenteret",
+   "venue": "Jugendstilsenteret og KUBE",
+   "address": "Apotekergata 16, Ålesund",
+   "cat": "barn",
+   "price": "120 kr",
+   "priceMin": 120,
+   "soldOut": false,
+   "note": "Gratis for barn i følge med en voksen som betaler inngang (120,-)",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/familiedag-halloween-paa-jugendstilsenteret-og-kube",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-48033-parken-kulturhus",
    "date": "2026-10-31",
    "time": "14:00",
@@ -272,6 +305,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66489-halloween-klubb-med-mentum-terminalen",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus",
+   "date": "2026-11-01",
+   "time": "13:00",
+   "title": "Pelsdyr i ord og folkesong",
+   "venue": "Sunnmøre museum",
+   "address": "Museumsvegen 12, 6015 Ålesund",
+   "cat": "happening",
+   "price": "80 kr",
+   "priceMin": 80,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/pelsdyr-i-ord-og-folkesong-sunnmore-museum",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -593,6 +642,22 @@
    "addedAt": "2026-10-21T12:45:40Z"
   },
   {
+   "id": "viti-paa-dagtid-innblikk-i-vitis-tekstilsamlinger-jugendstil",
+   "date": "2026-11-11",
+   "time": "12:00",
+   "title": "På dagtid: Innblikk i Vitis tekstilsamlinger",
+   "venue": "Jugendstilsenteret og KUBE",
+   "address": "Apotekergata 16, Ålesund",
+   "cat": "happening",
+   "price": "60 kr",
+   "priceMin": 60,
+   "soldOut": false,
+   "note": "Kunstnere og kunststudenter gratis.",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/paa-dagtid-innblikk-i-vitis-tekstilsamlinger",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "filmvisning-how-to-live-on-earth-pir-cowork",
    "date": "2026-11-11",
    "time": "17:30",
@@ -724,6 +789,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "viti-dans-for-unge-vaksne-aalesunda-sunnmore-museum",
+   "date": "2026-11-14",
+   "time": "12:00",
+   "title": "Dans for unge vaksne - Ålesund",
+   "venue": "Sunnmøre museum",
+   "address": "Museumsvegen 12, 6015 Ålesund",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/dans-for-unge-vaksne-aalesunda",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-49079-parken-kulturhus",
    "date": "2026-11-14",
    "time": "15:00",
@@ -820,6 +901,38 @@
    "note": "Rabatt: DNB-kunde 320 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/65468-valkyrien-allstars-terminalen-byscene",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "viti-loerdagsomvisning-i-jugendstilsenteret-jugendstilsenter",
+   "date": "2026-11-21",
+   "time": "12:00",
+   "title": "Lørdagsomvisning i Jugendstilsenteret",
+   "venue": "Jugendstilsenteret og KUBE",
+   "address": "Apotekergata 16, Ålesund",
+   "cat": "happening",
+   "price": "120 kr",
+   "priceMin": 120,
+   "soldOut": false,
+   "note": "Inkludert i inngangsbillett (120,-). Kunstnere og kunststudenter gratis.",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/loerdagsomvisning-i-jugendstilsenteret-",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "viti-familiedag-design-din-egen-jugendplakat-jugendstilsente",
+   "date": "2026-11-21",
+   "time": "13:00",
+   "title": "Familiedag: Design din egen jugendplakat",
+   "venue": "Jugendstilsenteret og KUBE",
+   "address": "Apotekergata 16, Ålesund",
+   "cat": "barn",
+   "price": "120 kr",
+   "priceMin": 120,
+   "soldOut": false,
+   "note": "Gratis for barn i følge med en voksen som betaler inngang (120,-)",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/familiedag-design-din-egen-jugendplakat",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1204,6 +1317,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "viti-familiedag-jul-i-apotekergaarden-jugendstilsenteret-og-",
+   "date": "2026-12-12",
+   "time": "13:00",
+   "title": "Familiedag: Jul i Apotekergården",
+   "venue": "Jugendstilsenteret og KUBE",
+   "address": "Apotekergata 16, Ålesund",
+   "cat": "barn",
+   "price": "120 kr",
+   "priceMin": 120,
+   "soldOut": false,
+   "note": "Gratis for barn i følge med en voksen som betaler inngang (120,-)",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/familiedag-jul-i-apotekergaarden",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-49425-parken-kulturhus",
    "date": "2026-12-12",
    "time": "19:00",
@@ -1233,6 +1362,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/44202-christel-alsos/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "viti-babyomvisning-i-jugendstilsenteret-jugendstilsenteret-o",
+   "date": "2026-12-16",
+   "time": "12:00",
+   "title": "Babyomvisning i Jugendstilsenteret",
+   "venue": "Jugendstilsenteret og KUBE",
+   "address": "Apotekergata 16, Ålesund",
+   "cat": "barn",
+   "price": "60 kr",
+   "priceMin": 60,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/babyomvisning-i-jugendstilsenteret",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
