@@ -182,6 +182,20 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 @media (min-width: 700px) { .mc-cell { aspect-ratio: 1.6 / 1; } }
 .controls.kalmode #when, .controls.kalmode #mwhen { display: none; }
 #list a.title { color: inherit; text-decoration: none; }
+.julcard { position: relative; display: block; margin: 8px 0 14px; padding: 20px 16px 16px; border-radius: 16px; background: radial-gradient(120% 100% at 50% 0%, #1d5c47, #0d3327 75%); color: #fff; overflow: hidden; box-shadow: 0 6px 16px #0003; text-decoration: none; }
+.julcard::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, #fff 1.4px, transparent 2px), radial-gradient(circle, #fff9 1px, transparent 1.6px); background-size: 70px 70px, 110px 110px; background-position: 0 0, 30px 40px; animation: julfall 14s linear infinite; opacity: .7; }
+@keyframes julfall { to { background-position: 0 70px, 30px 150px; } }
+@media (prefers-reduced-motion: reduce) { .julcard::before { animation: none; } }
+.julcard > * { position: relative; }
+.julcard small { font: 700 10px var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: #e8b04a; }
+.julcard h3 { margin: 2px 0 0; font: italic 700 30px/1 Georgia, "Times New Roman", serif; }
+.julcard p { margin: 4px 0 12px; font-size: 13px; color: #e9e2cf; }
+.julmini { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.julmini i { position: relative; aspect-ratio: 1; border-radius: 7px; overflow: hidden; display: grid; place-items: center; font-style: normal; }
+.julmini i::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 15%; transform: translateX(-50%); background: #e8b04a; }
+.julmini i::after { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 15%; transform: translateY(-50%); background: #e8b04a; }
+.julmini b { position: relative; z-index: 2; background: #fffaf0; color: #2a2a22; border-radius: 50%; width: 20px; height: 20px; display: grid; place-items: center; font: 700 11px var(--font-body); }
+.julbtn { display: inline-block; margin-top: 12px; padding: 9px 14px; border-radius: 99px; background: #e8b04a; color: #2a2a22; font: 800 13px var(--font-body); }
 footer { margin-top: 28px; font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
 footer a { color: var(--sea); }
 @media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
@@ -229,6 +243,12 @@ footer a { color: var(--sea); }
     <button type="button" data-view="liste" aria-pressed="true">Liste</button>
     <button type="button" data-view="kal" aria-pressed="false">Kalender</button>
   </div>
+
+  <a class="julcard" id="julcard" href="jul-i-alesund/" hidden>
+    <small id="julyear">Ålesund · julen</small><h3>Jul i Ålesund</h3>
+    <p><b id="julcd"></b> dager til julaften. Åpne en pakke og se hva som skjer.</p>
+    <div class="julmini" id="julmini"></div><span class="julbtn">Åpne adventskalenderen →</span>
+  </a>
 
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
 
@@ -427,6 +447,20 @@ $("subcopy").onclick = async () => {
   catch { $("submsg").textContent = feedUrl(); }
   track("kalender/kopier/" + feedKey);
 };
+
+// Jul i Ålesund: kortet vises bare fra 1. november til 26. desember
+(function () {
+  const t = new Date(), m = t.getMonth(), d = t.getDate();
+  if (!(m === 10 || (m === 11 && d <= 26) || location.search.includes("jul=1"))) return; // ?jul=1 viser kortet utenom sesongen (til test)
+  const days = Math.ceil((new Date(t.getFullYear(), 11, 24) - new Date(t.getFullYear(), m, d)) / dayMs);
+  $("julyear").textContent = "Ålesund · julen " + t.getFullYear();
+  $("julcd").textContent = Math.max(days, 0);
+  if (days <= 0) $("julcd").parentElement.textContent = "God jul! Se hva som skjer i romjulen.";
+  const first = m === 11 ? Math.min(Math.max(d, 1), 19) : 1, cols = ["#b3262d", "#1b6a4d", "#2c5aa0", "#8a3a7a"];
+  $("julmini").innerHTML = [...Array(6)].map((_, i) => `<i style="background:${cols[(first + i - 1) % 4]}"><b>${first + i}</b></i>`).join("");
+  $("julcard").hidden = false;
+  $("julcard").addEventListener("click", () => track("jul/forside"));
+})();
 
 // Kart: Google Maps-søk fungerer på alle telefoner og åpner kart-appen der den finnes
 const PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>';

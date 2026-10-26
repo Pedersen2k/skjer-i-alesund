@@ -43,6 +43,7 @@ CAT_TEXT = {
     "sport": "Hjemmekamper for Aalesunds FK på Color Line Stadion, for både herrer og damer, med avspark og lenke til billetter.",
 }
 MONTH_PAGES = {}
+JUL_NAV = False  # settes i main(): Jul i Ålesund vises i snarveiene fra 1. november
 
 WD = ["mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag", "søndag"]
 MO = ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"]
@@ -145,7 +146,7 @@ def ld_script(obj):
     return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False).replace("</", "<\\/") + "</script>"
 
 
-def page(path, title, description, body, ld=None, up=None, image=None):
+def page(path, title, description, body, ld=None, up=None, image=None, raw=False, head_extra="", body_class=""):
     """Hele HTML-dokumentet. path er relativ adresse, f.eks. «konserter/».
     up er veien tilbake til roten; 404-siden vises på vilkårlige adresser og bruker derfor full adresse.
     image er (adresse, bredde, høyde) for forhåndsvisningsbildet, ellers brukes logoen."""
@@ -178,12 +179,13 @@ def page(path, title, description, body, ld=None, up=None, image=None):
 <link rel="stylesheet" href="{up}stil.css">
 <script>try {{ const t = JSON.parse(localStorage.getItem("skjer-theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch {{}}</script>
 {ld_script(ld) if ld else ""}
+{head_extra}
 </head>
-<body>
-<div class="wrap sub">
+<body{f' class="{body_class}"' if body_class else ""}>
+{body if raw else f'''<div class="wrap sub">
   <nav class="crumbs"><a href="{up}">← {SITE}: hele programmet</a></nav>
 {body}
-</div>
+</div>'''}
 <script>
 // Besøksstatistikk med GoatCounter (uten informasjonskapsler), samme konto som forsiden
 const gc = document.createElement("script"); gc.async = true; gc.src = "https://gc.zgo.at/count.js";
@@ -229,6 +231,8 @@ def venue_path(v):
 def links_nav(up, current, extra):
     """Snarveier til de andre undersidene, så både folk og søkemotorer finner rundt."""
     items = [("i-dag/", "I dag"), ("i-morgen/", "I morgen"), ("denne-helgen/", "Denne helgen"), ("denne-uka/", "Neste 7 dager"), ("kino/", "Kino")] + [(p + "/", CAT_LABEL[k] if k != "sport" else "AaFK") for k, (p, _, _) in CATS.items() if k in extra]
+    if JUL_NAV:
+        items.insert(5, ("jul-i-alesund/", "Jul i Ålesund"))
     items += [(p, l) for l, p in MONTH_PAGES.items()]
     items += [(p, v) for v, p in VENUE_PAGES.items()]
     return '<nav class="more"><h2>Mer fra programmet</h2><div class="row">' + "".join(
@@ -342,6 +346,130 @@ def build_ics(name, events, today):
     return "\r\n".join(ics_fold(l) for l in lines) + "\r\n"
 
 
+# --- Jul i Ålesund (sesongside) ---
+JUL_PREFIXES = ("jul", "advent", "nøtteknekk", "lucia", "romjul", "nisse", "tomte")
+JUL_NOT = {"juli", "julie", "julia", "julian", "julius"}
+
+
+def jul_config():
+    f = ROOT / "data" / "jul.json"
+    return json.loads(f.read_text()) if f.exists() else {}
+
+
+def is_jul(e, cfg):
+    """Julearrangement: ord i tittel eller notat som begynner på jul/advent osv., eller satt for hånd i data/jul.json."""
+    if e["id"] in cfg.get("exclude", []):
+        return False
+    if e["id"] in cfg.get("include", []):
+        return True
+    words = re.findall(r"[a-zæøå]+", f"{e['title']} {e.get('note') or ''}".lower())
+    return any(w.startswith(JUL_PREFIXES) and w not in JUL_NOT for w in words)
+
+
+def jul_card(e, up):
+    c = e["cat"] if e["cat"] in CAT_LABEL else "happening"
+    pm = e.get("priceMin")
+    return (f'<article class="jc" style="--c:var(--c-{c})" data-cat="{c}" data-min="{pm if isinstance(pm, (int, float)) else ""}">'
+            f'<h3><a href="{up}arrangement/{e["id"]}/">{escape(e["title"])}</a></h3>'
+            f'<div class="jm">{escape(e["venue"])}{" · kl. " + e["time"] if e.get("time") else ""}</div>'
+            f'<div class="jp">{escape(price_text(e))}</div></article>')
+
+
+def jul_page(events, today):
+    """jul-i-alesund/: adventskalender og liste med julearrangementene. Returnerer (html, antall) eller None uten arrangementer."""
+    cfg = jul_config()
+    year = today.year
+    jul_events = [e for e in events if is_jul(e, cfg)]
+    occ = occurrences(jul_events, today, datetime.date(year, 12, 31))
+    if not occ:
+        return None
+    up = "../"
+    by_day = {}
+    for e in occ:
+        by_day.setdefault(e["date"], []).append(e)
+    colors = ["#b3262d", "#1b6a4d", "#2c5aa0", "#8a3a7a"]
+    doors = ""
+    for d in range(1, 25):
+        key = f"{year}-12-{d:02d}"
+        n = len(by_day.get(key, []))
+        past = key < today.isoformat()
+        cls = "door has" if n and not past else "door no"
+        label = f"{d}. desember: {n} arrangement{'er' if n != 1 else ''}"
+        badge = f'<i class="n">{n}</i>' if n and not past else ""
+        tag = "a" if n and not past else "span"
+        href = f' href="#r-{key}" data-day="{key}"' if tag == "a" else ""
+        doors += f'<{tag} class="{cls}" style="background:{colors[(d - 1) % 4]}"{href} aria-label="{label}"><b>{d}</b>{badge}</{tag}>'
+    before = [e for e in {x["title"]: x for x in occ if x["date"] < f"{year}-12-01"}.values()]
+    before_html = ""
+    if before:
+        before_html = '<p class="jul-nov"><b>Allerede i november:</b> ' + " · ".join(f"{escape(e['title'])} ({day_text(datetime.date.fromisoformat(e['date']))})" for e in before) + "</p>"
+    rows = ""
+    for date, evs in by_day.items():
+        d = datetime.date.fromisoformat(date)
+        rows += (f'<div class="jrow" id="r-{date}" data-date="{date}"><div class="jdt"><small>{WD[d.weekday()][:3]}</small><b>{d.day}</b><small>{MO[d.month - 1][:3]}</small></div>'
+                 f'<div class="jcards">{"".join(jul_card(e, up) for e in evs)}</div></div>')
+    cd = (datetime.date(year, 12, 24) - today).days
+    cd_html = f'<div class="jcd"><b id="jul-days">{cd}</b><span>dager til<br>julaften</span></div>' if cd > 0 else ""
+    bulbs = ["#d9372f", "#e8b04a", "#2f9e62", "#3f7fd0"]
+    garland = '<svg class="jgar" viewBox="0 0 520 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8 Q65 40 130 8 T260 8 T390 8 T520 8" fill="none" stroke="#2a1d12" stroke-width="2"/>' + "".join(
+        f'<g class="bulb"><circle cx="{i * 40 + 10}" cy="{[24, 35, 26, 35][i % 4]}" r="5" fill="{bulbs[i % 4]}"/><circle cx="{i * 40 + 10}" cy="{[24, 35, 26, 35][i % 4]}" r="10" fill="{bulbs[i % 4]}" opacity=".25"/></g>' for i in range(13)) + "</svg>"
+    n_ev = len(occ)
+    body = f"""<div class="jul-hero"><div class="snow"></div><div class="snow2"></div>{garland}
+  <a class="jul-back" href="{up}">← {SITE}</a>
+  <small>Ålesund · julen {year}</small><h1>Jul i Ålesund</h1>
+  <p>Julekonserter, juleshow, adventskonserter og julemarked i Ålesund, samlet på ett sted med datoer og billettpriser.</p>{cd_html}</div>
+<main class="jul-main">
+  <section><h2>Adventskalender</h2><p class="jul-sub">Pakkene med bånd har noe på programmet. Trykk for å se hva som skjer den dagen.</p><div class="jcal">{doors}</div>
+  <div class="jday" id="jday" hidden></div>{before_html}</section>
+  <section class="jlist"><div class="jhd"><h2>Alle julearrangementer</h2><div class="jchips" id="jchips">
+    <button type="button" class="chip" data-c="konsert" aria-pressed="false">Konsert</button><button type="button" class="chip" data-c="standup,show" aria-pressed="false">Standup og show</button><button type="button" class="chip" data-c="happening" aria-pressed="false">Marked og verksted</button><button type="button" class="chip" data-p="350" aria-pressed="false">Under 350 kr</button></div></div>
+  <div class="jcnt" id="jcnt">{n_ev} arrangementer</div>{rows}</section>
+  <p class="jul-note">Programmet hentes automatisk fra arrangørenes billettsider og oppdateres morgen og kveld. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. Savner du et julearrangement? <a href="https://github.com/Pedersen2k/skjer-i-alesund/issues/new">Gi beskjed</a>.</p>
+  {links_nav(up, "jul-i-alesund/", {e["cat"] for e in events})}
+</main>
+<script>
+(function () {{
+  document.documentElement.classList.add("js");
+  var day = document.getElementById("jday"), cnt = document.getElementById("jcnt"), rows = [].slice.call(document.querySelectorAll(".jrow"));
+  var cd = document.getElementById("jul-days");
+  if (cd) {{ var t = new Date(), n = Math.ceil((new Date(t.getFullYear(), 11, 24) - new Date(t.getFullYear(), t.getMonth(), t.getDate())) / 864e5); if (n > 0) cd.textContent = n; }}
+  function open(key) {{
+    var r = document.getElementById("r-" + key); if (!r) return;
+    day.innerHTML = "<h3>" + [].map.call(r.querySelectorAll(".jdt > *"), function (x) {{ return x.textContent; }}).join(" ") + "</h3>" + r.querySelector(".jcards").innerHTML; day.hidden = false;
+    [].forEach.call(document.querySelectorAll(".door"), function (d) {{ d.classList.toggle("sel", d.dataset.day === key); }});
+  }}
+  document.querySelector(".jcal").addEventListener("click", function (e) {{
+    var a = e.target.closest("[data-day]"); if (!a) return; e.preventDefault(); open(a.dataset.day);
+    if (window.goatcounter && goatcounter.count) goatcounter.count({{ path: "jul/luke", title: "jul/luke", event: true }});
+  }});
+  var first = document.querySelector(".door.has"); if (first) open(first.dataset.day);
+  var on = {{ c: null, p: null }};
+  document.getElementById("jchips").addEventListener("click", function (e) {{
+    var b = e.target.closest("button"); if (!b) return; var was = b.getAttribute("aria-pressed") === "true";
+    [].forEach.call(this.querySelectorAll("button"), function (x) {{ if (x.dataset.c && b.dataset.c) x.setAttribute("aria-pressed", "false"); }});
+    b.setAttribute("aria-pressed", String(!was));
+    on.c = null; on.p = null;
+    [].forEach.call(this.querySelectorAll("button[aria-pressed=true]"), function (x) {{ if (x.dataset.c) on.c = x.dataset.c.split(","); if (x.dataset.p) on.p = +x.dataset.p; }});
+    var shown = 0;
+    rows.forEach(function (r) {{
+      var any = 0;
+      [].forEach.call(r.querySelectorAll(".jc"), function (c) {{
+        var ok = (!on.c || on.c.indexOf(c.dataset.cat) > -1) && (!on.p || (c.dataset.min !== "" && +c.dataset.min <= on.p));
+        c.hidden = !ok; if (ok) any++;
+      }});
+      r.hidden = !any; shown += any;
+    }});
+    cnt.textContent = shown + " arrangementer";
+  }});
+}})();
+</script>"""
+    title = f"Jul i Ålesund {year}: julekonserter, juleshow og julemarked | {SITE}"
+    desc = describe(occ, f"Jul i Ålesund {year}: julekonserter, juleshow og julemarked")
+    ld = {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (f"Jul i Ålesund {year}", BASE + "jul-i-alesund/")])] + [event_ld(e) for e in occ]}
+    head_extra = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400;1,700&display=swap">'
+    return page("jul-i-alesund/", title, desc, body, ld, raw=True, head_extra=head_extra, body_class="jul"), n_ev
+
+
 def describe(events, what):
     n = len(events)
     if not n:
@@ -422,6 +550,8 @@ def main():
             VENUE_PAGES[v] = f"scene/{slug(v)}/"
     cats_present = {e["cat"] for e in events}
     pages = []  # (adresse, endret)
+    global JUL_NAV
+    JUL_NAV = (today.month, today.day) >= (11, 1) and today.month != 1
     MONTH_PAGES.clear()
     months = []
     y, m = today.year, today.month
@@ -501,6 +631,12 @@ def main():
         feeds[p] = (f"Skjer i Ålesund: {h1}", [e for e in events if e["cat"] == k])
     for fname, (cal_name, evs) in feeds.items():
         (OUT / "kalender" / f"{fname}.ics").write_text(build_ics(cal_name, evs, today))
+
+    jp = jul_page(events, today)
+    if jp:
+        write("jul-i-alesund/", jp[0])
+        pages.append(("jul-i-alesund/", updated))
+        print(f"Jul i Ålesund: {jp[1]} arrangementer", file=sys.stderr)
 
     # Kino ligger på egen side og er ikke med i lister, kategorier eller helgeposten på bildet
     kino_meta, kino_films = load_kino(today)
@@ -809,6 +945,57 @@ SUB_CSS = """
 .kinofilms.grid .times { padding: 10px 12px 12px; gap: 5px; }
 .kinofilms.grid .t { padding: 6px 8px; font-size: 13px; }
 @media (max-width: 400px) { .kinofilms.grid .kinoday { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Jul i Ålesund (sesongside) */
+body.jul { background: #f6efe0; color: #2a2a22; font-family: "Figtree", system-ui, sans-serif; font-size: 15px; }
+.jul .jul-hero { position: relative; background: radial-gradient(120% 90% at 50% 0%, #1d5c47 0%, #0d3327 70%); color: #fff; padding: 58px 20px 40px; text-align: center; overflow: hidden; }
+.jul .jgar { position: absolute; left: 0; right: 0; top: 0; height: 46px; width: 100%; }
+.jul .bulb { animation: jtw 2.6s ease-in-out infinite; } .jul .bulb:nth-of-type(2n) { animation-delay: .6s; } .jul .bulb:nth-of-type(3n) { animation-delay: 1.3s; }
+@keyframes jtw { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+.jul .snow, .jul .snow2 { position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, #fff 1.6px, transparent 2.2px), radial-gradient(circle, #fffb 1.2px, transparent 1.8px), radial-gradient(circle, #fff9 2px, transparent 2.6px); background-size: 90px 90px, 140px 140px, 200px 200px; background-position: 0 0, 40px 60px, 90px 20px; animation: jfall 16s linear infinite; opacity: .8; }
+.jul .snow2 { background-size: 70px 70px, 110px 110px, 170px 170px; animation-duration: 24s; opacity: .5; }
+@keyframes jfall { to { background-position: 0 90px, 40px 200px, 90px 220px; } }
+@media (prefers-reduced-motion: reduce) { .jul .snow, .jul .snow2, .jul .bulb { animation: none; } }
+.jul .jul-hero > * { position: relative; }
+.jul .jul-back { position: absolute; left: 14px; top: 52px; font: 600 12px/1 "Figtree", sans-serif; color: #e9e2cf; text-decoration: none; }
+.jul .jul-hero small { display: block; font: 700 11px "Figtree", sans-serif; letter-spacing: .24em; text-transform: uppercase; color: #e8b04a; }
+.jul .jul-hero h1 { margin: 10px 0 2px; font: italic 700 clamp(44px, 12vw, 70px)/.95 "Fraunces", Georgia, serif; text-shadow: 0 2px 12px #0006; color: #fff; }
+.jul .jul-hero p { margin: 10px auto 0; max-width: 34ch; font: 400 16px/1.4 "Fraunces", Georgia, serif; color: #e9e2cf; }
+.jul .jcd { display: inline-flex; align-items: center; gap: 12px; margin-top: 18px; padding: 8px 18px 8px 12px; border-radius: 99px; background: #ffffff14; border: 1px solid #e8b04a66; }
+.jul .jcd b { font: 700 34px/1 "Fraunces", serif; color: #e8b04a; } .jul .jcd span { font: 600 13px/1.15 "Figtree", sans-serif; text-align: left; }
+.jul .jul-main { max-width: 760px; margin: 0 auto; padding: 0 16px 40px; }
+.jul .jul-main h2 { margin: 26px 0 2px; font: italic 700 28px/1.1 "Fraunces", Georgia, serif; color: #0d3327; }
+.jul .jul-sub { margin: 2px 0 14px; font-size: 13px; color: #6b6455; }
+.jul .jcal { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; }
+@media (min-width: 640px) { .jul .jcal { grid-template-columns: repeat(6, 1fr); } }
+.jul .door { position: relative; aspect-ratio: 1; border-radius: 12px; color: #fff; display: grid; place-items: center; box-shadow: 0 4px 0 #0003, 0 8px 14px #0002; overflow: hidden; text-decoration: none; transition: transform .18s; }
+.jul .door b { position: relative; z-index: 2; font: 700 19px/1 "Fraunces", serif; background: #fffaf0; color: #2a2a22; border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center; box-shadow: 0 2px 4px #0003; }
+.jul .door.has::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 15%; transform: translateX(-50%); background: linear-gradient(#f3cd7a, #d39a2a); }
+.jul .door.has::after { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 15%; transform: translateY(-50%); background: linear-gradient(90deg, #f3cd7a, #d39a2a); }
+.jul .door.no { background: #e4dac3 !important; box-shadow: none; opacity: .8; } .jul .door.no b { background: none; box-shadow: none; color: #a79f89; font-size: 24px; }
+.jul .door .n { position: absolute; right: 5px; top: 5px; z-index: 3; background: #b3262d; color: #fff; font: 800 11px/1 "Figtree", sans-serif; padding: 3px 6px; border-radius: 99px; font-style: normal; box-shadow: 0 1px 3px #0004; }
+.jul .door.sel { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 0 3px #e8b04a, 0 0 22px #e8b04aaa; }
+.jul .jday { margin: 18px 0 6px; padding: 14px; background: #fffaf0; border-radius: 16px; border: 1px solid #e6dab8; box-shadow: 0 6px 16px #0001; position: relative; }
+.jul .jday::before { content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 6px; border-radius: 16px 16px 0 0; background: repeating-linear-gradient(45deg, #b3262d 0 10px, #fffaf0 10px 20px); }
+.jul .jday h3 { margin: 6px 0 8px; font: italic 700 20px/1.1 "Fraunces", serif; color: #0d3327; }
+.jul .jc { background: #fff; border: 1px solid #eadfc4; border-left: 5px solid var(--c); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; box-shadow: 0 2px 0 #0000000d; }
+.jul .jc[hidden], .jul .jrow[hidden] { display: none; }
+.jul .jc h3 { margin: 0; font: 700 16px/1.2 "Fraunces", Georgia, serif; } .jul .jc h3 a { color: #1d2a24; text-decoration: none; } .jul .jc h3 a:hover { text-decoration: underline; }
+.jul .jm { font-size: 12.5px; color: #6b6455; margin-top: 2px; } .jul .jp { font: 700 12.5px "Figtree", sans-serif; color: #b3262d; margin-top: 2px; }
+.jul .jul-nov { margin: 14px 0 0; padding: 10px 12px; border: 1.5px dashed #b3262d; border-radius: 12px; font-size: 13px; background: #fffaf0aa; }
+.jul .jlist .jhd { position: sticky; top: 0; z-index: 5; background: #f6efe0; padding: 12px 0 10px; border-bottom: 1px solid #e6dab8; margin-top: 24px; }
+.jul .jlist .jhd h2 { margin: 0 0 8px; }
+.jul .jchips { display: flex; flex-wrap: wrap; gap: 7px; }
+.jul .jchips .chip { font: 600 13px "Figtree", sans-serif; padding: 8px 13px; border-radius: 99px; border: 1.5px solid #cdbf98; background: #fffaf0; color: #2a2a22; cursor: pointer; }
+.jul .jchips .chip[aria-pressed="true"] { background: #0d3327; color: #fff; border-color: #0d3327; }
+.jul .jcnt { font: 500 11.5px ui-monospace, monospace; color: #6b6455; padding: 10px 0 0; }
+.jul .jrow { display: grid; grid-template-columns: 54px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px dashed #d8cba5; }
+.jul .jdt { text-align: center; background: #0d3327; color: #fff; border-radius: 12px; padding: 6px 0; height: max-content; box-shadow: 0 3px 0 #0003; }
+.jul .jdt small { display: block; font: 700 10px "Figtree", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #e8b04a; } .jul .jdt b { display: block; font: 700 24px/1 "Fraunces", serif; }
+.jul .jul-note { margin: 22px 0 0; font-size: 12.5px; color: #6b6455; } .jul .jul-note a { color: #1b5a45; }
+.jul .more { margin-top: 26px; } .jul .more h2 { font: italic 700 20px "Fraunces", serif; color: #0d3327; margin: 0 0 8px; }
+.jul .more .chip { background: #fffaf0; color: #2a2a22; border: 1.5px solid #cdbf98; text-decoration: none; padding: 8px 13px; border-radius: 99px; font: 600 13px "Figtree", sans-serif; }
+.jul .more .row { display: flex; flex-wrap: wrap; gap: 7px; }
 """
 
 
