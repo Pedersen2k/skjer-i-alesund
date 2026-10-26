@@ -1,11 +1,12 @@
 {
  "meta": {
-  "updatedAt": "2026-10-26T13:43:14Z",
+  "updatedAt": "2026-10-26T20:01:46Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
+   "fabrikken",
    "oconnors",
    "parken",
    "tikkio",
@@ -13,22 +14,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-48385-parken-kulturhus",
-   "date": "2026-10-26",
-   "time": "18:00",
-   "title": "Peter Pan",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "barn",
-   "price": "200–300 kr",
-   "priceMin": 200,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48385-peter-pan/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "viti-paa-dagtid-om-anders-svors-liv-og-reiser-jugendstilsent",
    "date": "2026-10-28",
@@ -75,6 +60,22 @@
    "note": "Rabatt: Student / U25 340 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/63714-salmer-pa-pobb-terminalen",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "operapub-fabrikken-kulturscene",
+   "date": "2026-10-28",
+   "time": "20:00",
+   "title": "Operapub",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/operapub-pa-fabrikken-onsdag-28-oktober-billetter-1993416",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -190,6 +191,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "van-halen-tribute-avskjedskonsert-fabrikken-kulturscene",
+   "date": "2026-10-30",
+   "time": "20:30",
+   "title": "Van Halen-tribute – avskjedskonsert",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/van-halen-tribute-fabrikken-30-oktober-billetter-1994049",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug",
    "date": "2026-10-31",
    "time": "12:00",
@@ -276,6 +293,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "autumn-nights-nordvest-big-band-med-solister-fabrikken-kultu",
+   "date": "2026-10-31",
+   "time": "20:30",
+   "title": "Autumn Nights – Nordvest Big Band med solister",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/autumn-nights-nordvest-big-band-m-solister-31-oktober-billetter-2027014",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "circus-damp-dampsentralen",
    "date": "2026-10-31",
    "time": "22:00",
@@ -292,10 +325,10 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "halloween-klubb-med-mentum-terminalen-byscene",
+   "id": "utsolgt-halloween-klubb-med-mentum-terminalen-byscene",
    "date": "2026-10-31",
    "time": "23:00",
-   "title": "Halloween-klubb med MENTUM",
+   "title": "UTSOLGT! Halloween Klubb med MENTUM",
    "venue": "Terminalen Byscene",
    "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
    "cat": "klubb",
@@ -305,7 +338,7 @@
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66489-halloween-klubb-med-mentum-terminalen",
-   "addedAt": "2026-10-19T12:59:56Z"
+   "addedAt": "2026-10-26T20:01:46Z"
   },
   {
    "id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus",
@@ -497,6 +530,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "heibergs-mandskor-vid-min-flaska-vil-jag-somna-vid-min-flick",
+   "date": "2026-11-06",
+   "time": "20:30",
+   "title": "Heibergs Mandskor – «Vid min flaska vil jag somna, vid min flicka vakna opp»",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/heibergs-mandskor-vid-min-flaska-vil-jag-sovna-vid-min-kvinne-vakna-opp-billetter-2024642",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-47822-parken-kulturhus",
    "date": "2026-11-06",
    "time": "21:00",
@@ -565,6 +614,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://oconnors.no/alesund/event/musikkbingo-med-martin-oconnors-alesund-lk0xb91hyc/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "karsten-blomvik-lykkelig-deprimert-fabrikken-kulturscene",
+   "date": "2026-11-07",
+   "time": "19:00",
+   "title": "Karsten Blomvik – «Lykkelig deprimert»",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "standup",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 18.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/karsten-blomvik-lykkelig-deprimert-lordag-7-november-billetter-1941304",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -789,6 +854,33 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "julebord-pa-fabrikken-fabrikken-kulturscene",
+   "date": "2026-11-13",
+   "time": "20:00",
+   "title": "Julebord på Fabrikken",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "show",
+   "price": "1350 kr",
+   "priceMin": 1350,
+   "soldOut": false,
+   "note": "Julemat, dinnershow og fest. Prisen er per person. Dørene åpner 19.00. Flere forestillinger: 14. nov, 20. nov, 21. nov, 27. nov, 28. nov m.fl.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/julebord-pa-fabrikken-billetter-1994054",
+   "moreShows": [
+    "2026-11-14T20:00",
+    "2026-11-20T20:00",
+    "2026-11-21T20:00",
+    "2026-11-27T20:00",
+    "2026-11-28T20:00",
+    "2026-12-04T20:00",
+    "2026-12-05T20:00",
+    "2026-12-11T20:00",
+    "2026-12-12T20:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "viti-dans-for-unge-vaksne-aalesunda-sunnmore-museum",
    "date": "2026-11-14",
    "time": "12:00",
@@ -854,6 +946,22 @@
     "2026-11-16T18:00"
    ],
    "addedAt": "2026-10-22T12:10:15Z"
+  },
+  {
+   "id": "visekveld-pa-fabrikken-fabrikken-kulturscene",
+   "date": "2026-11-18",
+   "time": "20:00",
+   "title": "Visekveld på Fabrikken",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/visekveld-pa-fabrikken-onsdag-18-november-billetter-1993424",
+   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "nar-barokken-moter-nord-sobra-scene",
@@ -984,6 +1092,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66682-erlend-gunstveit-my-nashville-christmas-to-you",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "kontrabass-og-heimelaga-lyrikk-med-arne-hjeltnes-og-roger-al",
+   "date": "2026-11-25",
+   "time": "20:00",
+   "title": "Kontrabass og heimelaga lyrikk med Arne Hjeltnes og Roger Allan Ivin",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "show",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/arne-hjeltnes-og-roger-a-ivin-kontrabass-og-heimelaga-lyrikk-onsdag-25-november-billetter-1994042",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1253,6 +1377,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "juleoperapub-fabrikken-kulturscene",
+   "date": "2026-12-09",
+   "time": "20:00",
+   "title": "Juleoperapub",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/juleoperapub-onsdag-6-desember-billetter-1993418",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-44479-parken-kulturhus",
    "date": "2026-12-10",
    "time": "19:00",
@@ -1397,6 +1537,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "julevisekveld-pa-fabrikken-fabrikken-kulturscene",
+   "date": "2026-12-16",
+   "time": "20:00",
+   "title": "Julevisekveld på Fabrikken",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/julevisekveld-pa-fabrikken-onsdag-16-desember-billetter-1993425",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-43586-parken-kulturhus",
    "date": "2026-12-17",
    "time": "18:00",
@@ -1429,6 +1585,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "raindogs-celebrating-tom-waits-fabrikken-kulturscene",
+   "date": "2026-12-17",
+   "time": "20:00",
+   "title": "Raindogs – celebrating Tom Waits",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/raindogs-celebrating-tom-waits-fabrikken-17-desember-billetter-1921343",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-46011-parken-kulturhus",
    "date": "2026-12-18",
    "time": "19:00",
@@ -1458,6 +1630,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/67015",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "haakons-julequiz-fabrikken-kulturscene",
+   "date": "2026-12-18",
+   "time": "20:00",
+   "title": "Haakons Julequiz",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "quiz",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/haakons-julequiz-fredag-18-desember-billetter-1964344",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1525,6 +1713,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66898-romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "den-store-romjulsfesten-2-juledag-fabrikken-kulturscene",
+   "date": "2026-12-26",
+   "time": "21:00",
+   "title": "Den store romjulsfesten – 2. juledag",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/den-store-romjulsfesten-billetter-1933953",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1717,6 +1921,25 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49087-finn-tre-feil/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "ingen-kim-ingen-kos-en-hyllest-til-kim-larsen-fabrikken-kult",
+   "date": "2027-02-05",
+   "time": "21:00",
+   "title": "Ingen Kim, ingen kos – en hyllest til Kim Larsen",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.30. Flere forestillinger: 6. feb.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/ingen-kim-ingen-kos-en-hyllest-til-kim-larsen-billetter-1933945",
+   "moreShows": [
+    "2027-02-06T21:00"
+   ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {

@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-26T13:46:31Z",
+  "updatedAt": "2026-10-26T20:05:11Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -68,14 +68,14 @@
      "start": "2026-10-26T18:15:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/084c8b52-84b3-4067-8220-51e767611237",
+     "url": "",
      "club": false
     },
     {
      "start": "2026-10-26T21:00:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/6c1bf5fa-0111-47d7-9902-a53c0760c68e",
+     "url": "",
      "club": false
     },
     {
@@ -140,7 +140,7 @@
       "Norsk tale",
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/b8a4fe82-5143-4cf9-a59d-f7a0a794cae9",
+     "url": "",
      "club": false
     },
     {
@@ -217,7 +217,7 @@
      "start": "2026-10-26T15:45:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/80745e49-5429-4926-acb0-7dfd64db89a8",
+     "url": "",
      "club": true
     },
     {
@@ -226,7 +226,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/bbc4c275-4773-4cc1-ae29-e8400e5f7627",
+     "url": "",
      "club": true
     },
     {
@@ -361,7 +361,7 @@
       "Norsk tale",
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/d22cb357-4780-42dd-bde6-4bdad761763a",
+     "url": "",
      "club": false
     },
     {
@@ -435,7 +435,7 @@
      "start": "2026-10-26T18:45:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/9ee41c00-716a-4116-a511-cba3b4f3e20d",
+     "url": "",
      "club": false
     },
     {
@@ -738,7 +738,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/1832a7c7-57c1-4d2f-8c74-4cc75f4bef40",
+     "url": "",
      "club": false
     },
     {
@@ -787,7 +787,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/896afb63-cca3-4ea6-8d6b-31c2c20c6794",
+     "url": "",
      "club": false
     },
     {
@@ -827,7 +827,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/36cc8456-da3a-4736-b3ac-7ea3fa010165",
+     "url": "",
      "club": false
     },
     {
@@ -917,7 +917,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/63840a60-2f20-4685-92fa-e843729d850f",
+     "url": "",
      "club": false
     },
     {
@@ -926,7 +926,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/a11caa88-f2c8-4843-8ce7-7fed4ee773ef",
+     "url": "",
      "club": false
     },
     {
@@ -935,7 +935,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/1d84b6da-8d5e-4a25-9c0e-8085088777ba",
+     "url": "",
      "club": false
     },
     {
@@ -944,7 +944,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/071105db-2a75-4d1b-b821-fc0eecde2d93",
+     "url": "",
      "club": false
     },
     {
@@ -1028,18 +1028,18 @@
     },
     {
      "start": "2026-10-29T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/aa2b04d7-8ac5-42c0-a938-56e878760074",
-     "club": false
-    },
-    {
-     "start": "2026-10-29T12:00:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/4ca3ef64-19eb-45c3-b0c9-e950a0260e2b",
+     "club": false
+    },
+    {
+     "start": "2026-10-29T12:00:00",
+     "screen": "1 isense",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/aa2b04d7-8ac5-42c0-a938-56e878760074",
      "club": false
     },
     {
@@ -1243,7 +1243,7 @@
      "start": "2026-10-26T16:30:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/8629f813-746b-4774-a162-78fef03fff92",
+     "url": "",
      "club": false
     },
     {
@@ -1358,7 +1358,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/d2ae53e7-ae66-4881-ba5d-a894edff5425",
+     "url": "",
      "club": true
     },
     {
@@ -1555,7 +1555,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/ef116f1a-e9fd-404d-a4a1-ff0f5e4162af",
+     "url": "",
      "club": false
     },
     {
