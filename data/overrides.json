@@ -18,6 +18,9 @@
   "apestjernen": {
     "cat": "barn"
   },
+  "autumn-nights-nordvest-big-band-med-solister": {
+    "title": "Autumn Nights – Nordvest Big Band med solister"
+  },
   "baerre-bjarne-et-musikalsk-standupshow": {
     "cat": "standup",
     "title": "«Bærre Bjarne» – musikalsk standupshow"
@@ -55,6 +58,9 @@
     "cat": "konsert",
     "title": "Darling West – juleturné"
   },
+  "den-store-romjulsfesten-2-juledag": {
+    "title": "Den store romjulsfesten – 2. juledag"
+  },
   "dyrene-i-hakkebakkeskogen": {
     "cat": "barn"
   },
@@ -76,6 +82,9 @@
     "cat": "klubb",
     "title": "Halloween-klubb med MENTUM"
   },
+  "heibergs-mandskor-vid-min-flaska-vil-jag-somna-vid-min-flick": {
+    "title": "Heibergs Mandskor – «Vid min flaska vil jag somna, vid min flicka vakna opp»"
+  },
   "hoyt-lavt-badesken-og-rune-nilson": {
     "cat": "standup",
     "title": "Høyt & Lavt – BAdesKen og Rune Nilson"
@@ -86,6 +95,9 @@
   },
   "hvis-gud-vil": {
     "cat": "show"
+  },
+  "ingen-kim-ingen-kos-en-hyllest-til-kim-larsen": {
+    "title": "Ingen Kim, ingen kos – en hyllest til Kim Larsen"
   },
   "inkluderingskveld-2026": {
     "cat": "happening",
@@ -104,9 +116,16 @@
     "cat": "konsert",
     "title": "Janove"
   },
+  "julebord-pa-fabrikken": {
+    "cat": "show",
+    "note": "Julemat, dinnershow og fest. Prisen er per person."
+  },
   "julekonsert-spjelkavik-kyrkje": {
     "cat": "konsert",
     "title": "Julekonsert i Spjelkavik kyrkje"
+  },
+  "juleoperapub": {
+    "title": "Juleoperapub"
   },
   "juleshow-pa-lovenvold-vol-4": {
     "cat": "standup",
@@ -118,15 +137,26 @@
     "cat": "happening",
     "title": "Juleverksted – cupcakekrans"
   },
+  "julevisekveld-pa-fabrikken": {
+    "title": "Julevisekveld på Fabrikken"
+  },
   "kamelen": {
     "cat": "konsert",
     "title": "Kamelen"
+  },
+  "karsten-blomvik-lykkelig-deprimert": {
+    "cat": "standup",
+    "title": "Karsten Blomvik – «Lykkelig deprimert»"
   },
   "klubb-damp-2-juledag": {
     "cat": "klubb",
     "date": "2026-12-26",
     "fromDate": "2026-12-19",
     "note": "Dato: 2. juledag, 26. desember."
+  },
+  "kontrabass-og-heimelaga-lyrikk-med-arne-hjeltnes-og-roger-al": {
+    "cat": "show",
+    "title": "Kontrabass og heimelaga lyrikk med Arne Hjeltnes og Roger Allan Ivin"
   },
   "kristiansen": {
     "cat": "konsert",
@@ -173,6 +203,9 @@
     "title": "Nøtteknekkeren",
     "note": "Premiere 1. desember."
   },
+  "operapub": {
+    "title": "Operapub"
+  },
   "parken-43179": {
     "cat": "konsert",
     "title": "Ålesund symfoniorkester – Carmina Burana"
@@ -196,6 +229,9 @@
   },
   "putti-plutti-pott": {
     "cat": "barn"
+  },
+  "raindogs-celebrating-tom-waits": {
+    "title": "Raindogs – celebrating Tom Waits"
   },
   "romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby": {
     "cat": "happening",
@@ -272,6 +308,9 @@
   "valkyrien-allstars": {
     "cat": "konsert",
     "title": "Valkyrien Allstars"
+  },
+  "van-halen-tribute-avskjedskonsert": {
+    "title": "Van Halen-tribute – avskjedskonsert"
   },
   "vassendgutane": {
     "cat": "konsert",
