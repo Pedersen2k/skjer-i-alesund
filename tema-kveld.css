@@ -1,5 +1,6 @@
 /* Tema «Kveldsstemning». Slås på med ?tema=kveld, av med ?tema=standard (huskes i nettleseren). Alt er avgrenset til html[data-tema="kveld"]. */
-html[data-tema="kveld"]:root, html[data-tema="kveld"]:root[data-theme] { --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a; --accent:#ff8a6b; --accent-ink:#1a0b07; --sea:#5ab7bf; --gold:#f7c873; }
+html[data-tema="kveld"]:root, html[data-tema="kveld"]:root[data-theme] { --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a; --accent:#ff8a6b; --accent-ink:#1a0b07; --sea:#5ab7bf; --gold:#f7c873;
+  --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-show:#ab93e6; --c-barn:#6cc98a; --c-klubb:#ec78ab; --c-happening:#d9b84a; --c-quiz:#b497e0; --c-sport:#7aa7e6; --kino:#8fa3e6; --kino-soft:#1c2748; color-scheme:dark; }
 html[data-tema="kveld"] { background:#0a171b; }
 html[data-tema="kveld"] body { background: radial-gradient(130% 480px at 50% 0, #17434d 0%, rgba(10,23,27,0) 100%), #0a171b; color:var(--fg); }
 html[data-tema="kveld"] .brand h1 span, html[data-tema="kveld"] h1 span { background:linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background-clip:text; background-clip:text; color:transparent; }
@@ -11,6 +12,7 @@ html[data-tema="kveld"] .date .num { color:#fff; } .date .mo { color:#ff8a6b; }
 html[data-tema="kveld"] .controls { background:color-mix(in srgb, #0a171b 88%, transparent) !important; backdrop-filter:blur(10px); }
 html[data-tema="kveld"] .viewseg [aria-pressed="true"] { background:var(--gold) !important; color:#10282f !important; }
 html[data-tema="kveld"] .kinostrip, html[data-tema="kveld"] .strip { background:#13252d !important; border-color:#25414a !important; }
+html[data-tema="kveld"] .subscribe { background:#13252d; border-color:#25414a; }
 html[data-tema="kveld"] .missing { background:#13252d !important; border-color:#25414a !important; }
 html[data-tema="kveld"] .btn { background:var(--accent) !important; color:#1a0b07 !important; }
 html[data-tema="kveld"] .kform input, html[data-tema="kveld"] .kform select, html[data-tema="kveld"] .kform textarea { background:#0f1f26; color:#e8f1ef; }

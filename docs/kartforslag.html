@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kartforslag Ålesund</title>
+<style>/* Leaflet 1.9.4 (BSD-2) */
+/* required styles */
+
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+/* Prevents IE11 from highlighting tiles in blue */
+.leaflet-tile::selection {
+	background: transparent;
+}
+/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+/* hack that prevents hw layers "stretching" when loading new tiles */
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
+/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+
+.leaflet-container img.leaflet-tile {
+	/* See: https://bugs.chromium.org/p/chromium/issues/detail?id=600120 */
+	mix-blend-mode: plus-lighter;
+}
+
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	/* Fallback for FF which doesn't support pinch-zoom */
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+
+.leaflet-pane         { z-index: 400; }
+
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	behavior: url(#default#VML);
+	display: inline-block;
+	position: absolute;
+	}
+
+
+/* control positioning */
+
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+
+
+/* zoom and fade animations */
+
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+
+
+/* cursors */
+
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+
+/* marker & overlays interactivity */
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+
+/* visual tweaks */
+
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+
+
+/* general typography */
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+
+
+/* general toolbar styles */
+
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+
+/* zoom control */
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+
+
+/* layers control */
+
+.leaflet-control-layers {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	}
+.leaflet-control-layers-toggle {
+	background-image: none;
+	width: 36px;
+	height: 36px;
+	}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: none;
+	background-size: 26px 26px;
+	}
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 44px;
+	height: 44px;
+	}
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+	}
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+	display: block;
+	position: relative;
+	}
+.leaflet-control-layers-expanded {
+	padding: 6px 10px 6px 6px;
+	color: #333;
+	background: #fff;
+	}
+.leaflet-control-layers-scrollbar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 5px;
+	}
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	}
+.leaflet-control-layers label {
+	display: block;
+	font-size: 13px;
+	font-size: 1.08333em;
+	}
+.leaflet-control-layers-separator {
+	height: 0;
+	border-top: 1px solid #ddd;
+	margin: 5px -10px 5px -6px;
+	}
+
+/* Default icon URLs */
+.leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
+	background-image: none;
+	}
+
+
+/* attribution and scale controls */
+
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+
+
+/* popup */
+
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+
+	margin: -10px auto 0;
+	pointer-events: auto;
+
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+
+.leaflet-oldie .leaflet-popup-content-wrapper {
+	-ms-zoom: 1;
+	}
+.leaflet-oldie .leaflet-popup-tip {
+	width: 24px;
+	margin: 0 auto;
+
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+	}
+
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+	border: 1px solid #999;
+	}
+
+
+/* div icon */
+
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+
+
+/* Tooltip */
+/* Base styles for the element that has a tooltip */
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+
+/* Directions */
+
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+
+/* Printing */
+
+@media print {
+	/* Prevent printers from removing background-images of controls. */
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root { --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a; --accent:#ff8a6b; --sea:#5ab7bf; --gold:#f7c873;
+  --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-show:#ab93e6; --c-barn:#6cc98a; --c-klubb:#ec78ab; --c-happening:#d9b84a; --c-quiz:#b497e0; --c-sport:#7aa7e6;
+  --font-display:"Bricolage Grotesque",system-ui,sans-serif; --font-body:"Figtree",system-ui,sans-serif; --font-mono:"JetBrains Mono",ui-monospace,monospace; }
+* { box-sizing:border-box; }
+body { margin:0; background:radial-gradient(130% 480px at 50% 0,#17434d 0%,rgba(10,23,27,0) 100%),#0a171b; color:var(--fg); font:15px/1.5 var(--font-body); }
+.page { max-width:900px; margin:0 auto; padding:24px 16px 64px; }
+h2.t { font:800 26px/1.1 var(--font-display); margin:0 0 6px; }
+p.intro { color:var(--muted); margin:0 0 22px; max-width:66ch; }
+.opt { margin:0 0 40px; }
+.lab { display:flex; gap:10px; align-items:baseline; margin:0 0 6px; }
+.lab b { font:800 22px var(--font-display); color:var(--gold); min-width:22px; }
+.lab span { font-weight:600; }
+.desc { color:var(--muted); font-size:14px; margin:0 0 10px; max-width:70ch; }
+.frame { border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--surface); position:relative; }
+.map { width:100%; height:420px; background:#0d1f26; }
+.leaflet-container { font-family:var(--font-body); background:#0d1f26; }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background:#13252d; color:var(--fg); border:1px solid var(--line); }
+.leaflet-popup-content { margin:12px 14px; font-size:13.5px; line-height:1.4; min-width:200px; }
+.leaflet-container a { color:var(--gold); }
+.pop h4 { margin:0 0 2px; font:800 16px var(--font-display); }
+.pop small { color:var(--muted); display:block; margin-bottom:6px; }
+.pop .e { display:grid; grid-template-columns:44px 1fr; gap:6px; padding:3px 0; border-top:1px solid var(--line); }
+.pop .e b { font:500 11.5px var(--font-mono); color:var(--gold); padding-top:2px; }
+.pop .go { display:inline-block; margin-top:6px; font-weight:600; }
+.dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+.pin { width:34px; height:34px; border-radius:50% 50% 50% 4px; transform:rotate(-45deg); background:var(--accent); border:2px solid #fff; display:grid; place-items:center; box-shadow:0 3px 10px #0008; }
+.pin span { transform:rotate(45deg); font:800 13px var(--font-display); color:#10282f; }
+.pin.dim { background:#3b5058; border-color:#6b8088; opacity:.7; }
+.pin.dim span { color:#c3d3d6; }
+.pin.live { background:var(--gold); animation:pulse 1.8s infinite; }
+@keyframes pulse { 0%{box-shadow:0 0 0 0 #f7c87388} 70%{box-shadow:0 0 0 14px #f7c87300} 100%{box-shadow:0 0 0 0 #f7c87300} }
+.note { margin-top:30px; padding:16px; border:1px solid var(--line); background:var(--surface); border-radius:12px; color:var(--muted); font-size:14px; }
+.note b { color:var(--fg); }
+.chips { display:flex; flex-wrap:wrap; gap:6px; padding:10px; border-bottom:1px solid var(--line); }
+.chip { font:500 13px/1 var(--font-body); padding:8px 12px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--fg); cursor:pointer; display:inline-flex; gap:6px; align-items:center; }
+.chip[aria-pressed="true"] { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.chip .dot { margin:0; }
+.approx { font:500 11px var(--font-mono); color:var(--muted); padding:6px 12px; border-top:1px solid var(--line); }
+
+/* 1 delt visning */
+.split { display:grid; grid-template-columns:300px 1fr; }
+.split .list { max-height:420px; overflow:auto; border-right:1px solid var(--line); }
+.vrow { display:grid; grid-template-columns:1fr auto; gap:2px 8px; padding:11px 14px; border-bottom:1px solid var(--line); cursor:pointer; }
+.vrow:hover, .vrow.on { background:#1a3540; }
+.vrow b { font:700 15px var(--font-display); }
+.vrow .n { font:500 12px var(--font-mono); color:var(--gold); grid-row:1; grid-column:2; }
+.vrow small { color:var(--muted); grid-column:1 / -1; font-size:12.5px; }
+@media (max-width:700px) { .split { grid-template-columns:1fr; } .split .map { height:300px; order:-1; } .split .list { border-right:0; max-height:260px; } }
+
+/* 2 mobil med bunnark */
+.phonewrap { display:flex; justify-content:center; }
+.phone { width:min(390px,100%); height:620px; position:relative; border:1px solid var(--line); border-radius:28px; overflow:hidden; background:#0d1f26; }
+.phone .map { height:100%; }
+.phone .top { position:absolute; z-index:500; left:12px; right:12px; top:12px; display:flex; gap:8px; }
+.phone .top .search { flex:1; background:#13252dee; border:1px solid var(--line); border-radius:12px; padding:10px 14px; color:var(--muted); font-size:14px; backdrop-filter:blur(8px); }
+.sheet { position:absolute; z-index:600; left:0; right:0; bottom:0; background:#13252d; border-top:1px solid var(--line); border-radius:20px 20px 0 0; padding:8px 16px 16px; transform:translateY(calc(100% - 76px)); transition:transform .25s ease; box-shadow:0 -10px 30px #0008; max-height:70%; overflow:auto; }
+.sheet.open { transform:none; }
+.sheet .grab { width:42px; height:4px; border-radius:2px; background:#3b5058; margin:0 auto 10px; }
+.sheet h4 { margin:0; font:800 19px var(--font-display); }
+.sheet .sub { color:var(--muted); font-size:13px; margin-bottom:8px; }
+.sheet .ev { display:grid; grid-template-columns:54px 1fr auto; gap:8px; padding:9px 0; border-top:1px solid var(--line); font-size:14px; align-items:baseline; }
+.sheet .ev b { font:500 12px var(--font-mono); color:var(--gold); }
+.sheet .ev small { color:var(--muted); display:block; }
+.sheet .btn { display:block; text-align:center; margin-top:10px; padding:11px; border-radius:12px; background:var(--accent); color:#1a0b07; font-weight:700; text-decoration:none; }
+
+/* 3 tid */
+.summary { padding:10px 14px; border-top:1px solid var(--line); font-size:14px; color:var(--muted); }
+.summary b { color:var(--gold); }
+
+/* 5 sektordiagram */
+.legend { display:flex; flex-wrap:wrap; gap:6px; padding:10px; border-bottom:1px solid var(--line); }
+
+/* 4 illustrert kart */
+.illu { position:relative; background:linear-gradient(180deg,#0e2a33,#0a171b); }
+.illu svg { display:block; width:100%; height:auto; }
+.illu .tip { position:absolute; z-index:5; pointer-events:none; background:#13252df2; border:1px solid var(--line); border-radius:12px; padding:10px 12px; font-size:13px; min-width:190px; transform:translate(-50%,-112%); }
+.illu .tip h4 { margin:0; font:800 15px var(--font-display); }
+.illu .tip small { color:var(--muted); }
+.illu .hot { cursor:pointer; }
+.illu .hot:hover .gl, .illu .hot.on .gl { filter:drop-shadow(0 0 8px #f7c873); }
+.illu .lbl { font:700 11px var(--font-body); fill:#e8f1ef; paint-order:stroke; stroke:#0a171b; stroke-width:3px; stroke-linejoin:round; }
+</style>
+</head>
+<body>
+<div class="page">
+  <h2 class="t">Kart over scenene</h2>
+  <p class="intro">Fem forslag til et interaktivt kart over lokalene og scenene på siden. Alle er bygget på de ekte arrangementene som ligger på siden nå (26. oct 2026): hver scene viser hvor mange arrangementer den har og hva som kommer først. Prøv å trykke på markørene, filtrene og listene.</p>
+
+  <div class="opt"><div class="lab"><b>1</b><span>Kart og liste side om side</span></div>
+    <p class="desc">Kart til høyre og scenelista til venstre. Trykk på en scene i lista, så flyr kartet dit og viser neste arrangementer. På mobil ligger kartet øverst og lista under.</p>
+    <div class="frame"><div class="split"><div class="list" id="l1"></div><div class="map" id="m1"></div></div><div class="approx">Plasseringene er omtrentlige i dette forslaget.</div></div></div>
+
+  <div class="opt"><div class="lab"><b>2</b><span>Mobil: fullskjermkart med bunnark</span></div>
+    <p class="desc">Slik som i kartapper: kartet fyller skjermen, og et bunnark glir opp med arrangementene til scenen du trykker på. Fungerer best med tommelen. Her vist i mobilramme.</p>
+    <div class="phonewrap"><div class="phone"><div class="top"><div class="search">Søk etter scene …</div></div><div class="map" id="m2"></div>
+      <div class="sheet" id="s2"><div class="grab"></div><div id="s2c"><h4>Scener i Ålesund</h4><div class="sub">Trykk på en markør for å se hva som skjer</div></div></div></div></div></div>
+
+  <div class="opt"><div class="lab"><b>3</b><span>Hva skjer hvor: tidsfilter på kartet</span></div>
+    <p class="desc">Velg «I kveld», «Denne helgen» eller «Neste 7 dager», så lyser bare scenene som har noe i den perioden. Tallet på markøren er antall arrangementer. Scener uten noe blir grå.</p>
+    <div class="frame"><div class="chips" id="c3"></div><div class="map" id="m3"></div><div class="summary" id="sum3"></div><div class="approx">Plasseringene er omtrentlige i dette forslaget.</div></div></div>
+
+  <div class="opt"><div class="lab"><b>4</b><span>Kategorikart: sektordiagram på hver scene</span></div>
+    <p class="desc">Hver markør er en liten ring som viser fordelingen mellom konsert, standup, show osv. Trykk på kategoriene for å skjule dem, så ser du for eksempel bare hvor standup foregår.</p>
+    <div class="frame"><div class="legend" id="g4"></div><div class="map" id="m4"></div><div class="approx">Plasseringene er omtrentlige i dette forslaget.</div></div></div>
+
+  <div class="opt"><div class="lab"><b>5</b><span>Illustrert kart: egen tegning av byen</span></div>
+    <p class="desc">Uten bakgrunnskart: en tegnet «skattekart-aktig» skisse av byen med sjø, kanal og fjell i samme stil som resten av siden, og små jugendgavler som markører. Raskere å laste og mer særpreget, men ikke målestokk, og du kan ikke zoome. Scener langt unna (Spjelkavik, Sunnmøre museum) tas med som piler i kanten.</p>
+    <div class="frame illu" id="i5"></div></div>
+
+  <div class="note"><b>Om dataene.</b> Siden har i dag bare adresser, ikke koordinater. Plasseringene her er <b>omtrentlige</b> (bare Jugendstilsenteret har koordinater fra kilden). I den ferdige versjonen slår jeg opp adressene automatisk, lagrer koordinatene i en liten fil (<code>data/venues.json</code>) og kontrollerer dem mot kart. Dampsentralen, stadion og noen få andre mangler adresse i kildene og trenger at du bekrefter hvor de ligger. Bakgrunnskartet i 1–4 er OpenStreetMap (mørk stil fra CARTO). Det må krediteres, og kartfliser lastes fra deres tjenere når noen åpner kartet (ellers ingen sporing). Kartet vil ligge på en egen side (<code>kart/</code>) og bare lastes når noen åpner den, så forsiden blir ikke tyngre.</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const V = [{"id": "v0", "name": "Parken kulturhus", "lat": 62.4738, "lng": 6.1572, "far": false, "addr": "Parkgata 3B, 6003 Ålesund", "total": 49, "all": ["barn", "konsert", "konsert", "standup", "konsert", "konsert", "konsert", "show", "happening", "konsert", "konsert", "konsert", "konsert", "barn", "barn", "konsert", "konsert", "konsert", "konsert", "barn", "konsert", "barn", "konsert", "show", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "show", "show", "show", "konsert", "konsert", "standup", "konsert", "konsert", "konsert", "konsert", "konsert", "happening", "konsert"], "events": [{"d": "2026-10-26", "time": "18:00", "title": "Peter Pan", "cat": "barn", "price": "200–300 kr"}, {"d": "2026-10-28", "time": "18:00", "title": "Musikklinjekonsert", "cat": "konsert", "price": "100–250 kr"}, {"d": "2026-10-29", "time": "19:00", "title": "Ingebjørg Bratland", "cat": "konsert", "price": "630 kr"}, {"d": "2026-10-30", "time": "19:00", "title": "Treretters: En lattergalla", "cat": "standup", "price": "530–625 kr"}, {"d": "2026-10-31", "time": "14:00", "title": "Jazzkafe: Vegard Holum sings– ein hyllest til Chet", "cat": "konsert", "price": "150–250 kr"}, {"d": "2026-10-31", "time": "19:00", "title": "Kristian Valen", "cat": "konsert", "price": "625 kr"}, {"d": "2026-11-02", "time": "19:00", "title": "Påfyll", "cat": "konsert", "price": "100 kr"}, {"d": "2026-11-03", "time": "19:00", "title": "Tuva & Ronny følger drømmen", "cat": "show", "price": "480 kr"}, {"d": "2026-11-04", "time": "19:00", "title": "Marianne Heske – fra Tafjord til verdens kunstscene", "cat": "happening", "price": "130–230 kr"}, {"d": "2026-11-05", "time": "18:00", "title": "Storefri", "cat": "konsert", "price": "580 kr"}, {"d": "2026-11-06", "time": "17:30", "title": "The best of Ghibli Studio", "cat": "konsert", "price": "400–450 kr"}, {"d": "2026-11-06", "time": "19:30", "title": "The music of Hans Zimmer vs John Williams", "cat": "konsert", "price": "400–450 kr"}, {"d": "2026-11-06", "time": "21:00", "title": "Hanna Paulsberg: Belonging", "cat": "konsert", "price": "350 kr"}, {"d": "2026-11-07", "time": "13:00", "title": "Dyrene i Hakkebakkeskogen", "cat": "barn", "price": "465 kr"}, {"d": "2026-11-08", "time": "15:00", "title": "Sans – Piero Issa og Ole Petter Knarvik", "cat": "barn", "price": "Gratis"}, {"d": "2026-11-10", "time": "19:00", "title": "Bak lukkede dører", "cat": "konsert", "price": "417–460 kr"}, {"d": "2026-11-11", "time": "18:00", "title": "Yoga Piano", "cat": "konsert", "price": "115–230 kr"}, {"d": "2026-11-12", "time": "19:00", "title": "Anders Jektvik", "cat": "konsert", "price": "450 kr"}, {"d": "2026-11-13", "time": "19:00", "title": "Christine Koht", "cat": "konsert", "price": "450 kr"}, {"d": "2026-11-14", "time": "15:00", "title": "Vitenshitshow", "cat": "barn", "price": "320 kr"}, {"d": "2026-11-15", "time": "18:00", "title": "Sparebanken Møre | Tonje Glimmerdal", "cat": "konsert", "price": "Gratis"}, {"d": "2026-11-27", "time": "18:00", "title": "Putti Plutti Pott", "cat": "barn", "price": "350 kr"}, {"d": "2026-11-29", "time": "17:00", "title": "Ålesund symfoniorkester – Adventskonsert", "cat": "konsert", "price": "105–280 kr"}, {"d": "2026-12-08", "time": "19:00", "title": "Ylvis & Calle", "cat": "show", "price": "680 kr"}, {"d": "2026-12-09", "time": "19:00", "title": "Emil Solli-Tangen", "cat": "konsert", "price": "625 kr"}]}, {"id": "v1", "name": "Terminalen Byscene", "lat": 62.4716, "lng": 6.1528, "far": false, "addr": "Keiser Wilhelms g. 6, 6003 Ålesund", "total": 20, "all": ["konsert", "konsert", "konsert", "klubb", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert", "konsert"], "events": [{"d": "2026-10-28", "time": "18:30", "title": "Salmer på pøbb", "cat": "konsert", "price": "420 kr"}, {"d": "2026-10-29", "time": "20:00", "title": "Stein Torleif Bjella", "cat": "konsert", "price": "450 kr"}, {"d": "2026-10-30", "time": "20:30", "title": "GOLF", "cat": "konsert", "price": "420 kr"}, {"d": "2026-10-31", "time": "23:00", "title": "Halloween-klubb med MENTUM", "cat": "klubb", "price": "200 kr"}, {"d": "2026-11-06", "time": "20:00", "title": "Maria Mena", "cat": "konsert", "price": "699 kr"}, {"d": "2026-11-08", "time": "19:00", "title": "Susanne Sundfør", "cat": "konsert", "price": "700 kr"}, {"d": "2026-11-14", "time": "19:00", "title": "SULT", "cat": "konsert", "price": "250 kr"}, {"d": "2026-11-20", "time": "20:00", "title": "Valkyrien Allstars", "cat": "konsert", "price": "400 kr"}, {"d": "2026-11-28", "time": "19:00", "title": "The Good The Bad and The Zugly", "cat": "konsert", "price": "425 kr"}, {"d": "2026-12-05", "time": "20:00", "title": "Kamelen", "cat": "konsert", "price": "490 kr"}, {"d": "2026-12-11", "time": "20:00", "title": "Leprous", "cat": "konsert", "price": "530 kr"}, {"d": "2026-12-17", "time": "20:00", "title": "Bigbang", "cat": "konsert", "price": "520 kr"}, {"d": "2026-12-27", "time": "20:00", "title": "Vassendgutane", "cat": "konsert", "price": "624 kr"}, {"d": "2027-01-22", "time": "20:00", "title": "Slomosa", "cat": "konsert", "price": "420 kr"}, {"d": "2027-01-23", "time": "19:00", "title": "Aktiv Dödshjelp", "cat": "konsert", "price": "375 kr"}, {"d": "2027-02-12", "time": "20:00", "title": "Janove", "cat": "konsert", "price": "699 kr"}, {"d": "2027-02-13", "time": "19:00", "title": "Soulsisters Jazzy Night", "cat": "konsert", "price": "499 kr"}, {"d": "2027-02-26", "time": "20:00", "title": "Rotlaus", "cat": "konsert", "price": "595 kr"}, {"d": "2027-03-05", "time": "20:00", "title": "Motorpsycho", "cat": "konsert", "price": "450 kr"}, {"d": "2027-03-19", "time": "20:00", "title": "Synne Vo – «Her vil e vær»", "cat": "konsert", "price": "699 kr"}]}, {"id": "v2", "name": "Løvenvold Theater", "lat": 62.4721, "lng": 6.1511, "far": false, "addr": "Løvenvoldgata, Storgata 11, 6002 Ålesund", "total": 17, "all": ["happening", "konsert", "standup", "standup", "show", "konsert", "konsert", "konsert", "konsert", "standup", "standup", "standup", "standup", "standup", "show", "standup", "konsert"], "events": [{"d": "2026-10-29", "time": "17:30", "title": "Skifilmfestival – TGR & Friends", "cat": "happening", "price": "280 kr"}, {"d": "2026-10-30", "time": "18:00", "title": "Claudia Scott og Torstein Flakne", "cat": "konsert", "price": "499 kr"}, {"d": "2026-10-31", "time": "19:00", "title": "Viggo Venneløs", "cat": "standup", "price": "350 kr"}, {"d": "2026-11-05", "time": "18:30", "title": "Juleshow på Løvenvold Vol. 4", "cat": "standup", "price": "699 kr"}, {"d": "2026-11-12", "time": "18:00", "title": "Bjørn & Bjarte", "cat": "show", "price": "699 kr"}, {"d": "2026-11-24", "time": "18:00", "title": "Erlend Gunstveit – My Nashville Christmas To You", "cat": "konsert", "price": "399 kr"}, {"d": "2026-11-29", "time": "17:00", "title": "Zimmermann – julekonsert", "cat": "konsert", "price": "449 kr"}, {"d": "2026-12-06", "time": "17:00", "title": "Marie Løvås Duo", "cat": "konsert", "price": "299 kr"}, {"d": "2026-12-19", "time": "16:00", "title": "Darling West – juleturné", "cat": "konsert", "price": "520 kr"}, {"d": "2027-01-23", "time": "18:00", "title": "Høyt & Lavt – BAdesKen og Rune Nilson", "cat": "standup", "price": "495 kr"}, {"d": "2027-01-29", "time": "18:00", "title": "«Bærre Bjarne» – musikalsk standupshow", "cat": "standup", "price": "599 kr"}, {"d": "2027-01-30", "time": "17:30", "title": "Humorgalla på Løvenvold Theater", "cat": "standup", "price": "435 kr"}, {"d": "2027-02-06", "time": "18:00", "title": "«Men har du prøvd yoga?» – standup", "cat": "standup", "price": "330 kr"}, {"d": "2027-02-12", "time": "18:00", "title": "Nils-Ingar Aadne – «Tenk det»", "cat": "standup", "price": "495 kr"}, {"d": "2027-02-13", "time": "20:00", "title": "Lille Caesar", "cat": "show", "price": "355 kr"}, {"d": "2027-02-18", "time": "17:30", "title": "André Ulveseter – «Uten sammenheng for øvrig»", "cat": "standup", "price": "499 kr"}, {"d": "2027-04-09", "time": "17:30", "title": "Hans Magne Skard – «Skruball»", "cat": "konsert", "price": "325 kr"}]}, {"id": "v3", "name": "Jugendstilsenteret og KUBE", "lat": 62.4710769, "lng": 6.1507397, "far": false, "addr": "Apotekergata 16, Ålesund", "total": 7, "all": ["happening", "barn", "happening", "happening", "barn", "barn", "barn"], "events": [{"d": "2026-10-28", "time": "12:00", "title": "På dagtid: Om Anders Svors liv og reiser", "cat": "happening", "price": "60 kr"}, {"d": "2026-10-31", "time": "12:00", "title": "Familiedag: Halloween på Jugendstilsenteret", "cat": "barn", "price": "120 kr"}, {"d": "2026-11-11", "time": "12:00", "title": "På dagtid: Innblikk i Vitis tekstilsamlinger", "cat": "happening", "price": "60 kr"}, {"d": "2026-11-21", "time": "12:00", "title": "Lørdagsomvisning i Jugendstilsenteret", "cat": "happening", "price": "120 kr"}, {"d": "2026-11-21", "time": "13:00", "title": "Familiedag: Design din egen jugendplakat", "cat": "barn", "price": "120 kr"}, {"d": "2026-12-12", "time": "13:00", "title": "Familiedag: Jul i Apotekergården", "cat": "barn", "price": "120 kr"}, {"d": "2026-12-16", "time": "12:00", "title": "Babyomvisning i Jugendstilsenteret", "cat": "barn", "price": "60 kr"}]}, {"id": "v4", "name": "Dampsentralen", "lat": 62.4698, "lng": 6.1573, "far": false, "addr": "", "total": 7, "all": ["klubb", "klubb", "quiz", "happening", "happening", "quiz", "klubb"], "events": [{"d": "2026-10-31", "time": "22:00", "title": "CIRCUS DAMP", "cat": "klubb", "price": "200 kr"}, {"d": "2026-11-07", "time": "23:00", "title": "KLUBB DAMP", "cat": "klubb", "price": ""}, {"d": "2026-11-20", "time": "19:00", "title": "MUSIKKBINGO", "cat": "quiz", "price": ""}, {"d": "2026-11-26", "time": "18:00", "title": "INKLUDERINGSKVELD 2026", "cat": "happening", "price": ""}, {"d": "2026-12-05", "time": "18:00", "title": "CHRISTMAS PARTY", "cat": "happening", "price": "999 kr"}, {"d": "2026-12-18", "time": "19:00", "title": "QUIZ PÅ DAMP", "cat": "quiz", "price": "400 kr"}, {"d": "2026-12-26", "time": "23:00", "title": "KLUBB DAMP 2.JULEDAG", "cat": "klubb", "price": ""}]}, {"id": "v5", "name": "O'Connor's", "lat": 62.4715, "lng": 6.1495, "far": false, "addr": "Brunholmgata 10, 6004 Ålesund", "total": 5, "all": ["quiz", "quiz", "quiz", "quiz", "quiz"], "events": [{"d": "2026-10-29", "time": "19:00", "title": "Pubquiz", "cat": "quiz", "price": "50 kr"}, {"d": "2026-11-07", "time": "18:00", "title": "Musikkbingo med Martin", "cat": "quiz", "price": "50 kr"}, {"d": "2026-11-12", "time": "19:00", "title": "Pubquiz", "cat": "quiz", "price": "50 kr"}, {"d": "2026-11-26", "time": "19:00", "title": "Pubquiz", "cat": "quiz", "price": "50 kr"}, {"d": "2026-12-10", "time": "19:00", "title": "Pubquiz", "cat": "quiz", "price": "50 kr"}]}, {"id": "v6", "name": "Color Line Stadion", "lat": 62.4636, "lng": 6.1725, "far": true, "addr": "", "total": 4, "all": ["sport", "sport", "sport", "sport"], "events": [{"d": "2026-10-31", "time": "18:00", "title": "Aalesund – Sandefjord Fotball", "cat": "sport", "price": ""}, {"d": "2026-11-07", "time": "13:00", "title": "AaFK Kvinner – Vålerenga Fotball", "cat": "sport", "price": ""}, {"d": "2026-11-22", "time": "17:00", "title": "Aalesund – Rosenborg", "cat": "sport", "price": ""}, {"d": "2026-12-05", "time": "16:00", "title": "Aalesund – Bodø/Glimt", "cat": "sport", "price": ""}]}, {"id": "v7", "name": "Spjelkavik kyrkje", "lat": 62.4767, "lng": 6.3496, "far": true, "addr": "Vestmoa 20, 6018 Ålesund", "total": 3, "all": ["konsert", "konsert", "konsert"], "events": [{"d": "2026-11-21", "time": "16:30", "title": "Kristiansen // Vemøy", "cat": "konsert", "price": "218 kr"}, {"d": "2026-12-04", "time": "18:30", "title": "Julekonsert i Spjelkavik kyrkje", "cat": "konsert", "price": "375 kr"}, {"d": "2027-02-04", "time": "18:30", "title": "Iver Kleive & Knut Reiersrud – «Vidunderligst av alt på jord»", "cat": "konsert", "price": "428 kr"}]}, {"id": "v8", "name": "Sunnmøre museum", "lat": 62.4411, "lng": 6.0976, "far": true, "addr": "Museumsvegen 12, 6015 Ålesund", "total": 2, "all": ["happening", "happening"], "events": [{"d": "2026-11-01", "time": "13:00", "title": "Pelsdyr i ord og folkesong", "cat": "happening", "price": "80 kr"}, {"d": "2026-11-14", "time": "12:00", "title": "Dans for unge vaksne - Ålesund", "cat": "happening", "price": ""}]}, {"id": "v9", "name": "Sobra Scene", "lat": 62.4719, "lng": 6.1488, "far": false, "addr": "Korsegata 6, 6002 Ålesund", "total": 2, "all": ["konsert", "konsert"], "events": [{"d": "2026-11-05", "time": "18:30", "title": "Schuberts Testamente", "cat": "konsert", "price": "250 kr"}, {"d": "2026-11-19", "time": "18:30", "title": "Når Barokken møter Nord", "cat": "konsert", "price": "250 kr"}]}, {"id": "v10", "name": "Pir Cowork", "lat": 62.4714, "lng": 6.1548, "far": false, "addr": "Keiser Wilhelms g. 22, 6003 Ålesund", "total": 1, "all": ["konsert"], "events": [{"d": "2026-11-11", "time": "17:30", "title": "Filmvisning: How to live on earth", "cat": "konsert", "price": "100 kr"}]}, {"id": "v11", "name": "Thon Hotel Baronen", "lat": 62.4693, "lng": 6.1478, "far": false, "addr": "Kanalvegen 1, 6010 Ålesund", "total": 1, "all": ["happening"], "events": [{"d": "2026-11-12", "time": "17:45", "title": "Juleverksted – cupcakekrans", "cat": "happening", "price": "749 kr"}]}, {"id": "v12", "name": "Dråpe Ålesund Kaffehus", "lat": 62.4718, "lng": 6.15, "far": false, "addr": "Storgata 4, 6002 Ålesund", "total": 1, "all": ["konsert"], "events": [{"d": "2026-11-13", "time": "18:30", "title": "Sofia Emelia & Robert Botn", "cat": "konsert", "price": "150 kr"}]}, {"id": "v13", "name": "Arbeideren kulturhus", "lat": 62.4712, "lng": 6.157, "far": false, "addr": "Lorkenesgata 2, 6002 Ålesund", "total": 1, "all": ["show"], "events": [{"d": "2026-12-01", "time": "17:30", "title": "Nøtteknekkeren", "cat": "show", "price": "299 kr"}]}, {"id": "v14", "name": "Quality Hotel Ålesund", "lat": 62.4748, "lng": 6.1561, "far": false, "addr": "Sorenskriver Bulls gate 7, 6002 Ålesund", "total": 1, "all": ["happening"], "events": [{"d": "2026-12-26", "time": "20:00", "title": "Romjulsdans med Steinar Engelbrektson og Sissel Lunde Sundby", "cat": "happening", "price": "380 kr"}]}];
+const CATS = {konsert:["Konsert","--c-konsert"],standup:["Standup","--c-standup"],show:["Show","--c-show"],barn:["Barn & familie","--c-barn"],klubb:["Klubb","--c-klubb"],happening:["Happening","--c-happening"],quiz:["Quiz","--c-quiz"],sport:["Sport","--c-sport"]};
+const col = c => getComputedStyle(document.documentElement).getPropertyValue(CATS[c][1]).trim();
+const MO = ["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"];
+const TODAY = new Date("2026-10-26T00:00:00");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dstr = e => { const d = new Date(e.d + "T00:00:00"); return d.getDate() + ". " + MO[d.getMonth()]; };
+const diff = e => Math.round((new Date(e.d + "T00:00:00") - TODAY) / 864e5);
+const NEAR = V.filter(v => !v.far);
+const tiles = () => L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", { attribution: "© OpenStreetMap, © CARTO", maxZoom: 19 });
+function mkMap(id, opts) {
+  const m = L.map(id, { scrollWheelZoom: false, zoomControl: true, ...opts });
+  tiles().addTo(m);
+  m.fitBounds(L.latLngBounds(NEAR.map(v => [v.lat, v.lng])), { padding: [40, 40], maxZoom: 16 });
+  return m;
+}
+const pinIcon = (n, cls = "") => L.divIcon({ className: "", html: `<div class="pin ${cls}"><span>${n}</span></div>`, iconSize: [34, 34], iconAnchor: [17, 34], popupAnchor: [0, -32] });
+function popup(v, evs = v.events.slice(0, 3)) {
+  return `<div class="pop"><h4>${esc(v.name)}</h4><small>${esc(v.addr || "adresse mangler")} · ${v.total} arrangementer</small>` +
+    evs.map(e => `<div class="e"><b>${dstr(e)}</b><span><i class="dot" style="background:${col(e.cat)}"></i>${esc(e.title)}</span></div>`).join("") +
+    `<a class="go" href="#">Alle arrangementer her →</a></div>`;
+}
+
+/* 1 */
+{ const m = mkMap("m1"), list = document.getElementById("l1"), marks = {};
+  V.slice().sort((a, b) => b.total - a.total).forEach(v => {
+    const mk = L.marker([v.lat, v.lng], { icon: pinIcon(v.total) }).addTo(m).bindPopup(popup(v)); marks[v.id] = mk;
+    const r = document.createElement("div"); r.className = "vrow"; r.dataset.id = v.id;
+    r.innerHTML = `<b>${esc(v.name)}</b><span class="n">${v.total}</span><small>Neste: ${v.events[0] ? dstr(v.events[0]) + " " + esc(v.events[0].title) : "–"}</small>`;
+    r.onclick = () => { m.flyTo([v.lat, v.lng], v.far ? 12 : 17, { duration: .6 }); mk.openPopup(); list.querySelectorAll(".vrow").forEach(x => x.classList.toggle("on", x === r)); };
+    list.appendChild(r); });
+}
+
+/* 2 */
+{ const m = mkMap("m2", { zoomControl: false }), sh = document.getElementById("s2"), c = document.getElementById("s2c");
+  V.forEach(v => L.marker([v.lat, v.lng], { icon: pinIcon(v.total) }).addTo(m).on("click", () => {
+    m.flyTo([v.lat, v.lng], Math.max(m.getZoom(), v.far ? 12 : 16), { duration: .5 });
+    c.innerHTML = `<h4>${esc(v.name)}</h4><div class="sub">${esc(v.addr || "adresse mangler")} · ${v.total} arrangementer</div>` +
+      v.events.slice(0, 6).map(e => `<div class="ev"><b>${dstr(e)}</b><span>${esc(e.title)}<small>${CATS[e.cat][0]}${e.time ? " · kl. " + e.time : ""}</small></span><span>${esc(e.price || "")}</span></div>`).join("") +
+      `<a class="btn" href="#">Se alle ${v.total} →</a>`; sh.classList.add("open"); }));
+  m.on("click", () => sh.classList.remove("open"));
+  sh.querySelector(".grab").onclick = () => sh.classList.toggle("open");
+}
+
+/* 3 */
+{ const m = mkMap("m3"), layer = L.layerGroup().addTo(m), chips = document.getElementById("c3"), sum = document.getElementById("sum3");
+  const P = { ikveld: ["I kveld", e => diff(e) === 0], helg: ["Denne helgen", e => { const d = new Date(e.d + "T00:00:00").getDay(); return diff(e) <= 6 && (d === 5 || d === 6 || d === 0); }], uke: ["Neste 7 dager", e => diff(e) <= 7], alt: ["Alle", () => true] };
+  let cur = "uke";
+  function draw() {
+    layer.clearLayers(); let live = 0, n = 0;
+    V.forEach(v => { const evs = v.events.filter(P[cur][1]), k = cur === "alt" ? v.total : evs.length;
+      if (k) { live++; n += k; }
+      L.marker([v.lat, v.lng], { icon: pinIcon(k, k ? (cur === "ikveld" ? "live" : "") : "dim") }).addTo(layer).bindPopup(k ? popup(v, evs.slice(0, 4)) : `<div class="pop"><h4>${esc(v.name)}</h4><small>Ingenting i denne perioden</small></div>`); });
+    sum.innerHTML = `<b>${live}</b> scener har <b>${n}</b> arrangementer ${cur === "alt" ? "totalt" : "(" + P[cur][0].toLowerCase() + ")"}.`;
+    chips.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === cur));
+  }
+  Object.entries(P).forEach(([k, [l]]) => { const b = document.createElement("button"); b.className = "chip"; b.dataset.k = k; b.textContent = l; b.onclick = () => { cur = k; draw(); }; chips.appendChild(b); });
+  draw();
+}
+
+/* 4 */
+{ const m = mkMap("m4"), layer = L.layerGroup().addTo(m), leg = document.getElementById("g4"), on = new Set(Object.keys(CATS));
+  const donut = v => { const by = {}; v.all.forEach(c => { if (on.has(c)) by[c] = (by[c] || 0) + 1; }); const tot = Object.values(by).reduce((a, b) => a + b, 0); if (!tot) return null;
+    let a0 = -Math.PI / 2, s = ""; const R = 20, r = 12.5, cx = 24, cy = 24;
+    Object.entries(by).forEach(([c, n]) => { const a1 = a0 + n / tot * Math.PI * 2 - (Object.keys(by).length > 1 ? .04 : 0), large = a1 - a0 > Math.PI ? 1 : 0, p = (a, q) => [cx + Math.cos(a) * q, cy + Math.sin(a) * q].map(x => x.toFixed(2)).join(" ");
+      s += Object.keys(by).length === 1 ? `<circle cx="${cx}" cy="${cy}" r="${(R + r) / 2}" fill="none" stroke="${col(c)}" stroke-width="${R - r}"/>` : `<path d="M${p(a0, R)}A${R} ${R} 0 ${large} 1 ${p(a1, R)}L${p(a1, r)}A${r} ${r} 0 ${large} 0 ${p(a0, r)}Z" fill="${col(c)}"/>`; a0 = a1 + .04; });
+    return { tot, html: `<svg width="48" height="48" viewBox="0 0 48 48" style="filter:drop-shadow(0 2px 5px #000a)"><circle cx="24" cy="24" r="22" fill="#0a171bcc"/>${s}<text x="24" y="28.5" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="13" fill="#fff">${tot}</text></svg>` }; };
+  function draw() { layer.clearLayers();
+    V.forEach(v => { const d = donut(v); if (!d) return;
+      L.marker([v.lat, v.lng], { icon: L.divIcon({ className: "", html: d.html, iconSize: [48, 48], iconAnchor: [24, 24], popupAnchor: [0, -24] }) }).addTo(layer).bindPopup(popup(v, v.events.filter(e => on.has(e.cat)).slice(0, 4))); });
+    leg.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", on.has(b.dataset.k))); }
+  Object.entries(CATS).forEach(([k, [l]]) => { if (!V.some(v => v.all.includes(k))) return; const b = document.createElement("button"); b.className = "chip"; b.dataset.k = k; b.innerHTML = `<i class="dot" style="background:${col(k)}"></i>${l}`;
+    b.onclick = () => { on.has(k) ? on.delete(k) : on.add(k); draw(); }; leg.appendChild(b); });
+  draw();
+}
+
+/* 5 illustrert kart */
+{ const box = document.getElementById("i5"), W = 900, H = 520;
+  const lat0 = 62.4685, lat1 = 62.4765, lng0 = 6.1440, lng1 = 6.1640;
+  const X = lng => 40 + (lng - lng0) / (lng1 - lng0) * (W - 80), Y = lat => H - 40 - (lat - lat0) / (lat1 - lat0) * (H - 80);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="sea5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#123741"/><stop offset="1" stop-color="#0b1d23"/></linearGradient>
+  <pattern id="wave5" width="40" height="14" patternUnits="userSpaceOnUse"><path d="M0 7q10-7 20 0t20 0" fill="none" stroke="#5ab7bf" stroke-opacity=".16" stroke-width="1.2"/></pattern>
+  <symbol id="g5" viewBox="0 0 48 52"><path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="currentColor"/><circle cx="24" cy="6" r="3.5" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="#0a171b"/></symbol></defs>
+  <rect width="${W}" height="${H}" fill="url(#sea5)"/><rect width="${W}" height="${H}" fill="url(#wave5)"/>
+  <!-- Aspøya/Nørvøya (skisse) -->
+  <path d="M-10 250C80 215 150 230 220 205C300 175 360 190 430 150C520 100 610 120 700 100C780 82 850 96 910 70V330C830 310 770 340 690 330C610 322 560 360 470 350C380 340 330 380 250 360C170 345 90 380 -10 360Z" fill="#17353f" stroke="#2c5a66" stroke-width="2"/>
+  <path d="M420 330C500 380 600 400 700 392C780 386 850 410 910 400V530H400Z" fill="#17353f" stroke="#2c5a66" stroke-width="2" transform="translate(0 -20)"/>
+  <path d="M-10 190C60 160 110 150 170 120C230 92 250 40 330 30C380 24 420 60 430 90C380 100 330 130 270 160C200 195 120 200 -10 235Z" fill="#102a33" stroke="#2c5a66"/>
+  <path d="M150 120C190 70 240 30 300 20C330 15 360 40 370 60C320 60 270 90 230 120Z" fill="#1d4450"/>
+  <text x="235" y="78" class="lbl" text-anchor="middle" style="font-size:12px">Aksla</text>
+  <path d="M330 232C400 232 470 210 560 200" fill="none" stroke="#0b1d23" stroke-width="16" stroke-linecap="round"/>
+  <path d="M330 232C400 232 470 210 560 200" fill="none" stroke="#5ab7bf" stroke-opacity=".35" stroke-width="2" stroke-dasharray="3 5"/>
+  <text x="440" y="236" class="lbl" text-anchor="middle" style="font-size:11px;font-style:italic">Brosundet</text>
+  <text x="30" y="500" class="lbl" style="font-size:12px;font-style:italic">Illustrasjon, ikke målestokk</text></svg>`;
+  box.innerHTML = svg;
+  const s = box.querySelector("svg"), tip = document.createElement("div"); tip.className = "tip"; tip.hidden = true; box.appendChild(tip);
+  const ns = "http://www.w3.org/2000/svg";
+  NEAR.forEach(v => { const g = document.createElementNS(ns, "g"); g.setAttribute("class", "hot");
+    const x = X(v.lng), y = Y(v.lat), sz = 22 + Math.min(v.total, 40) * .55;
+    g.innerHTML = `<g class="gl" style="color:var(--accent)"><use href="#g5" x="${x - sz / 2}" y="${y - sz}" width="${sz}" height="${sz * 52 / 48}"/></g><circle cx="${x}" cy="${y + 4}" r="3" fill="#f7c873"/>${v.total >= 5 ? `<text x="${x}" y="${y + 20}" class="lbl" text-anchor="middle">${esc(v.name.replace(" kulturhus", "").replace(" Byscene", "").replace(" Theater", "").replace(" og KUBE", ""))}</text>` : ""}`;
+    const show = () => { const r = s.getBoundingClientRect(), k = r.width / W; tip.hidden = false; tip.style.left = (x * k) + "px"; tip.style.top = ((y - sz) * k) + "px";
+      tip.innerHTML = `<h4>${esc(v.name)}</h4><small>${v.total} arrangementer</small>` + v.events.slice(0, 3).map(e => `<div style="margin-top:4px"><b style="color:var(--gold);font:500 11.5px var(--font-mono)">${dstr(e)}</b> ${esc(e.title)}</div>`).join(""); box.querySelectorAll(".hot").forEach(h => h.classList.toggle("on", h === g)); };
+    g.onmouseenter = show; g.onclick = show; g.ontouchstart = show; s.appendChild(g); });
+  s.onmouseleave = () => { tip.hidden = true; };
+  V.filter(v => v.far).forEach((v, i) => { const t = document.createElement("div"); t.className = "chip"; t.style.cssText = `position:absolute;right:12px;bottom:${12 + i * 40}px;z-index:6`; t.innerHTML = `${esc(v.name)} · ${v.total} →`; t.title = v.addr; box.appendChild(t); });
+}
+</script>
+</body>
+</html>
