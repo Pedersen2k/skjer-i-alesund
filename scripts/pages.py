@@ -186,9 +186,10 @@ def page(path, title, description, body, ld=None, up=None, image=None, raw=False
 </head>
 <body{f' class="{body_class}"' if body_class else ""}>
 {body if raw else f'''<div class="wrap sub">
-  <nav class="crumbs"><a href="{up}">← {SITE}: hele programmet</a></nav>
+  <div class="topbar"><nav class="crumbs"><a href="{up}">← {SITE}: hele programmet</a></nav><div class="tsw" role="group" aria-label="Design"><button type="button" data-t="kveld"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Mørkt</button><button type="button" data-t="standard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Lyst</button></div></div>
 {body}
 </div>'''}
+<script>document.querySelectorAll(".tsw button").forEach(b=>{{b.setAttribute("aria-pressed",String((b.dataset.t==="kveld")===(document.documentElement.dataset.tema==="kveld")));b.onclick=()=>{{try{{localStorage.setItem("skjer-tema",b.dataset.t);if(b.dataset.t==="standard")localStorage.setItem("skjer-theme",'"light"')}}catch{{}}location.reload()}}}})</script>
 <script>
 // Besøksstatistikk med GoatCounter (uten informasjonskapsler), samme konto som forsiden
 const gc = document.createElement("script"); gc.async = true; gc.src = "https://gc.zgo.at/count.js";
@@ -279,7 +280,7 @@ def listing(path, h1, lede, events, empty, cats_present, about="", lead=""):
 {day_list(events, up) if events else f'<p class="empty">{escape(empty)}</p>'}
   </main>
   {links_nav(up, path, cats_present)}
-  <footer><div>Programmet hentes automatisk morgen og kveld fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a> · <a href="{up}?tema=standard">Lyst design</a></div></footer>"""
+  <footer><div>Programmet hentes automatisk morgen og kveld fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a></div></footer>"""
     return body
 
 
@@ -955,7 +956,8 @@ render();
 
 SUB_CSS = """
 /* Undersider (lages av scripts/pages.py) */
-.sub .crumbs { font: 500 13px/1.4 var(--font-body); padding-bottom: 14px; }
+.sub .topbar { padding-bottom: 14px; }
+.sub .crumbs { font: 500 13px/1.4 var(--font-body); }
 .sub .crumbs a, .sub .venue, .sub a.title { color: inherit; }
 .sub a.title { text-decoration: none; }
 .sub a.title:hover { text-decoration: underline; }

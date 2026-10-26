@@ -15,4 +15,5 @@ html[data-tema="kveld"] .missing { background:#13252d !important; border-color:#
 html[data-tema="kveld"] .btn { background:var(--accent) !important; color:#1a0b07 !important; }
 html[data-tema="kveld"] .kform input, html[data-tema="kveld"] .kform select, html[data-tema="kveld"] .kform textarea { background:#0f1f26; color:#e8f1ef; }
 html[data-tema="kveld"] .qweek div { background:#13252d; } .qweek b { color:#e8f1ef; }
-html[data-tema="kveld"] #theme { display:none !important; }
+html[data-tema="kveld"] .tsw { background:#13252d; border-color:#25414a; }
+html[data-tema="kveld"] .tsw button[aria-pressed="true"] { background:var(--gold); color:#10282f; }
