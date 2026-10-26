@@ -23,7 +23,7 @@ Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et iss
 ## Varsling og statistikk
 
 - **Varsling:** Feiler morgenoppdateringen, svarer ikke Parken, eller faller antall arrangementer kraftig, lager jobben et issue med tittelen «Programoppdateringen trenger tilsyn», og GitHub sender deg e-post. Nye problemer legges til som kommentarer i samme issue. Det lukkes automatisk neste morgen alt går fint. Siden viser også selv et varsel hvis programmet er mer enn tre dager gammelt.
-- **Statistikk:** Siden teller besøk med [GoatCounter](https://www.goatcounter.com), som ikke bruker informasjonskapsler. Statistikken ligger på https://skjer-i-alesund.goatcounter.com, og koden står i `GOATCOUNTER` øverst i skriptet i `index.html`. I tillegg til sidevisninger telles trykk på billettlenker, kart, kalender, deling, lagring og filtre (aldri hva folk søker etter).
+- **Statistikk:** Siden teller besøk med [GoatCounter](https://www.goatcounter.com), som ikke bruker informasjonskapsler. Statistikken ligger på https://kaskjerda.goatcounter.com (eldre tall fra før domenet ligger på https://skjer-i-alesund.goatcounter.com), og koden står i `GOATCOUNTER` øverst i skriptet i `index.html`. I tillegg til sidevisninger telles trykk på billettlenker, kart, kalender, deling, lagring og filtre (aldri hva folk søker etter).
 
 ## Legge til eller rette arrangementer
 

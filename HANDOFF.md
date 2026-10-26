@@ -15,7 +15,7 @@ A public website listing what's on in Ålesund (concerts, standup, shows, kids' 
   - Favourites ("Mine"), stored in the browser.
   - A light/dark toggle.
   - "Legg i kalender", "Del" and map links on each event.
-  - Visitor stats with GoatCounter (no cookies), code `skjer-i-alesund`: https://skjer-i-alesund.goatcounter.com
+  - Visitor stats with GoatCounter (no cookies), code `kaskjerda`: https://kaskjerda.goatcounter.com (before 26 Oct the code was `skjer-i-alesund`, old stats stay at https://skjer-i-alesund.goatcounter.com)
   - A "Sport" category with match cards for AaFK home matches (men and women): league and venue on top, home team, kick-off time and away team, then ticket link. Prices are not shown (see Next steps).
   - Search engine support: schema.org `Event` JSON-LD, built in `index.html` from `events.json`, and `sitemap.xml`. The site is added to Google Search Console (verification meta tag in `index.html`, sitemap submitted).
   - Static subpages from `scripts/pages.py` (built at every deploy into `_site/`, which is what Pages publishes): `i-dag/`, `denne-helgen/`, one per category (`konserter/`, `standup/`, `show/`, `barn-og-familie/`, `klubb/`, `happenings/`, `aafk-hjemmekamper/`), `scene/<venue>/` for venues with 3+ events, and `arrangement/<id>/` per event, each with its own title, description and JSON-LD. `sitemap.xml` (all of them) and `404.html` are generated too. "Del" on the front page now links to the event page, so shared links get a proper preview.

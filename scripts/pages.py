@@ -187,7 +187,7 @@ def page(path, title, description, body, ld=None, up=None, image=None):
 <script>
 // Besøksstatistikk med GoatCounter (uten informasjonskapsler), samme konto som forsiden
 const gc = document.createElement("script"); gc.async = true; gc.src = "https://gc.zgo.at/count.js";
-gc.dataset.goatcounter = "https://skjer-i-alesund.goatcounter.com/count"; document.head.appendChild(gc);
+gc.dataset.goatcounter = "https://kaskjerda.goatcounter.com/count"; document.head.appendChild(gc);
 </script>
 </body>
 </html>
