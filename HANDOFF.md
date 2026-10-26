@@ -1,6 +1,6 @@
 # Handoff: Skjer i Ålesund
 
-_State as of 26 Oct 2026 (late: contact page, quiz category and O'Connor's added). Live at kaskjerda.no with: calendar subscription and calendar view, SEO work, Jul i Ålesund page (front-page card appears 1 Nov), Dampsentralen as a source, new GoatCounter account. See Next steps and Open decisions._
+_State as of 26 Oct 2026 (late: contact page, quiz category, O'Connor's and the dark default theme added). Live at kaskjerda.no with: calendar subscription and calendar view, SEO work, Jul i Ålesund page (front-page card appears 1 Nov), Dampsentralen as a source, new GoatCounter account. See Next steps and Open decisions._
 
 ## Goal
 A public website listing what's on in Ålesund (concerts, standup, shows, kids' events, clubs, happenings, AaFK home matches), with ticket prices, that updates itself every day.
@@ -121,6 +121,9 @@ Search Console "Forbedre utseendet" (26 Oct): missing `endDate`, `performer`, `o
 New category `quiz` (quiz and bingo; `guess_cat()` in `sync.py`; colour `--c-quiz`; filter chip, `quiz/` page with a 7-day strip (`quiz_week()` in `pages.py`), calendar feed, Helgepost emoji). On the front page all quiz events are collapsed into one card "Quiz i Ålesund" at the first quiz date (`collapseQuiz()`/`quizHtml()` in `index.html`, `quiz_card()` in `pages.py` for the pre-rendered list; not when only the Quiz category is selected). The owner chose designs A+B from `docs/quiz-forslag.html`.
 `fetch_oconnors()` in `sync.py` reads `https://oconnors.no/alesund/hva-skjer/` and each event page (Dato/Tid/Pris in `p.label`/`p.value`); each evening is its own event (`group` per date); the ticket link on their pages is a generic booking page, so `url` is the event page. Sport screenings are deliberately not included (owner decision). `oconnors.no` had to be allowed in the environment's network settings (done). If the site can't be read, old events are kept and a warning issue is opened. Their pages disagree (overview: every other Thursday 20:00 and free; event page: 19:00-21:00 and 50 kr): the pubquiz events are `uncertain: true` with a note. Ask O'Connor's which is right, then remove the note logic in `main()`.
 Not done: Bypatrioten quizzes (`bypatrioten.com/kalender/`, reachable, not parsed); quiz events from Tikkio/Parken are picked up automatically by title (`quiz|bingo`). The overrides `pubkonsert-med-quiz` keeps its own category.
+
+## Theme "kveld" (26 Oct, live as the default for everyone)
+`tema-kveld.css` (copied to `_site/` by `pages.py`) is a dark "Kveldsstemning" theme, scoped to `html[data-tema="kveld"]`. A small inline script in `<head>` (in `index.html` and `page()` in `pages.py`) turns it on for everyone unless the visitor has chosen the old design: `?tema=standard` stores `skjer-tema=standard` in localStorage (light design), `?tema=kveld` switches back. A footer link on the front page and on list subpages toggles it ("Lyst design"/"Mørkt design"). The light/dark toggle is hidden in the theme. The owner liked it and wants to try it as the default for a few days (decision 26 Oct). **To go back to the old design for everyone:** in the loader change `!=="standard"` to `==="kveld"` (opt-in again) in both places, or revert the PR. Mockups: `docs/design-forslag.html` (six designs; D chosen), `docs/tema-d.css` (preview overlay). Not yet tested on a real phone; check contrast of small grey text outdoors. B (skyline illustration) could be combined with D.
 
 ## Preferences from the owner (24 Oct)
 - Dislikes sideways scrolling on mobile.
