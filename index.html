@@ -211,6 +211,7 @@ footer a { color: var(--sea); }
 @media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
 @media (prefers-reduced-motion: no-preference) { .ev { transition: transform .15s ease; } .ev:hover { transform: translateX(2px); } }
 </style>
+<script>try{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld")localStorage.setItem("skjer-tema","kveld");else if(q==="standard")localStorage.removeItem("skjer-tema");if(localStorage.getItem("skjer-tema")==="kveld"){document.documentElement.dataset.tema="kveld";document.write('<link rel="stylesheet" href="tema-kveld.css">')}}catch{}</script>
 </head>
 <body>
 <div class="wrap">
