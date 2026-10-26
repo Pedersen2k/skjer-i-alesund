@@ -94,6 +94,9 @@ Owner to-do (outside the repo): Search Console → request indexing for `/`, `/d
 - `docs/sosiale-medier.html`: six social post designs with ready captions, built from real events of 26 Oct – 1 Nov: brand post, "Uka i tall", Halloween, "Fra 100 kr", story "I kveld", A/B poll. The generators are in the session scratchpad (not in the repo). Owner wants "something cool for social media" more than posters; natural next step is a script like `helgepost.py` that renders the chosen ones automatically from `events.json` and posts them in a weekly issue.
 Both are also published as private Claude artifacts (owner has the links in the chat).
 
+## Jul i Ålesund mockups (26 Oct, on branch until merged)
+`docs/jul-forslag.html`: five designs for a seasonal page `jul-i-alesund/` (A countdown, B advent calendar, C ticket style, D practical filtered list, E "what kind of Christmas?" tiles), built from the 9 real Christmas events found by keywords (`jul`, `nøtteknekk`, `advent`). Owner has not chosen yet. When built: add a `jul` tag/keyword rule in `pages.py` (and optionally a `tags` field in `manual.json`), generate the page with `listing_page`-style static HTML, add it to the sitemap and the nav, and publish it in November. Other ideas from the same chat: "Foreslå et arrangement" form (GitHub issue form), "Handle lokalt" page (needs owner-supplied shops, nothing invented), data-driven pages (gratis/billig, etter kl. 21).
+
 ## Preferences from the owner (24 Oct)
 - Dislikes sideways scrolling on mobile.
 - Wants to see several design options as interactive mockups before deciding (see `docs/`), then picks one.
