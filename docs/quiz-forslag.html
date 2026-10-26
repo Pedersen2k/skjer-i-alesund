@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz: designforslag</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root { --bg:#eef3f2; --surface:#fff; --fg:#10282f; --muted:#5a7177; --line:#d3dfdd; --accent:#c8432b; --sea:#1f6f78; --quiz:#7a4fb0; --quiz-soft:#efe8f8; --d:"Bricolage Grotesque",system-ui,sans-serif; --b:"Figtree",system-ui,sans-serif; --m:"JetBrains Mono",monospace; }
+* { box-sizing:border-box; }
+body { margin:0; background:#dfe8e6; color:var(--fg); font:400 15px/1.5 var(--b); }
+.intro { max-width:900px; margin:0 auto; padding:28px 20px 6px; }
+.intro h1 { font:800 32px/1.1 var(--d); margin:0 0 8px; }
+.intro p { color:var(--muted); margin:0 0 6px; }
+.warn { background:#fff4d6; border:1px solid #e8cf86; border-radius:10px; padding:8px 12px; font-size:13.5px; color:#5b4510; }
+.grid { display:flex; flex-wrap:wrap; gap:28px; justify-content:center; padding:24px 16px 60px; }
+.col { width:390px; }
+.col h2 { font:700 18px/1.2 var(--d); margin:0 0 4px; }
+.col p.cap { font-size:13px; color:var(--muted); margin:0 0 10px; min-height:58px; }
+.phone { height:760px; overflow:auto; background:var(--bg); border:8px solid #10282f; border-radius:30px; }
+.pg { padding:16px; }
+.crumb { font:500 13px var(--b); display:block; margin-bottom:12px; }
+h3.t { font:800 28px/1.05 var(--d); margin:0 0 6px; }
+.lede { color:var(--muted); margin:0 0 14px; font-size:14px; }
+.tag { font:500 11px var(--m); letter-spacing:.08em; text-transform:uppercase; color:var(--quiz); }
+.ev { background:var(--surface); border-left:4px solid var(--c,var(--sea)); border-radius:10px; padding:10px 12px; margin-bottom:10px; }
+.ev b { font:700 16px var(--d); display:block; }
+.ev span { font-size:13px; color:var(--muted); display:block; }
+.mono { font-family:var(--m); font-size:12px; }
+.btn { font:600 14px var(--b); padding:9px 14px; border-radius:10px; background:var(--quiz); color:#fff; border:0; cursor:pointer; text-decoration:none; display:inline-block; }
+.chip { display:inline-block; font:600 13px var(--b); padding:5px 11px; border:1px solid var(--line); border-radius:999px; background:var(--surface); margin:0 6px 6px 0; }
+.chip.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+
+/* A: samlekort */
+.qcard { background:var(--surface); border:1px solid var(--line); border-left:5px solid var(--quiz); border-radius:12px; padding:12px 14px; margin-bottom:10px; }
+.qcard .head { display:flex; justify-content:space-between; align-items:start; gap:10px; }
+.qcard h4 { font:800 20px/1.1 var(--d); margin:2px 0 4px; }
+.qcard .n { background:var(--quiz-soft); color:var(--quiz); font:700 13px var(--d); padding:3px 9px; border-radius:999px; white-space:nowrap; }
+.qrows { margin-top:8px; border-top:1px dashed var(--line); }
+.qrows div { display:grid; grid-template-columns:58px 1fr auto; gap:8px; padding:7px 0; border-bottom:1px solid var(--line); font-size:14px; align-items:baseline; }
+.qrows div:last-child { border:0; }
+.qrows .d { font:700 13px var(--m); color:var(--quiz); }
+.qrows em { font-style:normal; color:var(--muted); font-size:12.5px; }
+.more { background:none; border:0; color:var(--quiz); font:600 14px var(--b); padding:6px 0 0; cursor:pointer; }
+.hide { display:none; }
+
+/* B: egen side med uke */
+.hero { background:var(--quiz); color:#fff; margin:-16px -16px 14px; padding:22px 16px 18px; }
+.hero h3 { font:800 34px/1 var(--d); margin:0 0 6px; }
+.hero p { margin:0; color:#e6dbf3; font-size:14px; }
+.week { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:14px; }
+.week div { background:var(--surface); border:1px solid var(--line); border-radius:8px; text-align:center; padding:6px 0; font:600 11px var(--m); color:var(--muted); }
+.week div b { display:block; font:800 16px var(--d); color:var(--fg); }
+.week div.q { background:var(--quiz-soft); border-color:var(--quiz); color:var(--quiz); }
+.week div.q i { display:block; width:6px; height:6px; border-radius:50%; background:var(--quiz); margin:3px auto 0; }
+h5 { font:700 15px var(--d); margin:16px 0 6px; }
+
+/* C: stripe */
+.strip { display:flex; align-items:center; gap:10px; background:var(--quiz-soft); border:1px solid #d8c8ec; border-radius:12px; padding:11px 13px; margin-bottom:14px; text-decoration:none; color:var(--fg); }
+.strip b { font-family:var(--d); }
+.strip span.r { margin-left:auto; color:var(--quiz); font-weight:600; font-size:14px; white-space:nowrap; }
+.filt { display:flex; flex-wrap:wrap; margin-bottom:6px; }
+
+/* D: pub-kort */
+.pub { background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-bottom:12px; }
+.pub .top { background:var(--quiz-soft); padding:10px 14px; display:flex; justify-content:space-between; align-items:center; }
+.pub .top b { font:800 18px var(--d); }
+.pub .top span { font:700 12px var(--m); color:var(--quiz); }
+.pub .bd { padding:10px 14px 12px; font-size:14px; }
+.pub .when { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0; }
+.pub .when i { font:600 12px var(--m); font-style:normal; border:1px solid var(--quiz); color:var(--quiz); border-radius:6px; padding:2px 7px; }
+.pub .when i.n { background:var(--quiz); color:#fff; }
+
+/* E: tavle */
+.board { background:#1f3b34; color:#f3f1e4; border:10px solid #7a5a3a; border-radius:8px; padding:16px 14px 18px; font-family:"Bricolage Grotesque",cursive; box-shadow:inset 0 0 40px #0006; }
+.board h3 { font:800 30px/1 var(--d); margin:0 0 2px; letter-spacing:.02em; }
+.board .sub { color:#b9c9bf; font-size:13px; margin-bottom: 12px; }
+.board .row { display:grid; grid-template-columns:64px 1fr; gap:10px; padding:9px 0; border-top:2px dashed #ffffff40; }
+.board .row b { font:800 22px var(--d); line-height:1; }
+.board .row b small { display:block; font:500 11px var(--m); color:#e8b04a; letter-spacing:.06em; }
+.board .row h6 { font:700 17px var(--d); margin:0; }
+.board .row span { font-size:13px; color:#c9d7cf; }
+.board .foot { margin-top:10px; color:#e8b04a; font:600 13px var(--b); }
+</style>
+</head>
+<body>
+<div class="intro">
+  <h1>Quiz: fem forslag</h1>
+  <p>Alle er klikkbare, men er bare design. Quiz fra Dampsentralen er ekte (18. des), resten er <b>eksempeldata</b> fra det jeg fant i søk om O'Connor's og Bypatrioten. Ingenting her kommer på siden før vi har lest kildene.</p>
+  <div class="warn">Faste kvelder (O'Connor's annenhver torsdag) har jeg bare fra søkeresultater. Datoene i mockupene er laget for å vise design.</div>
+</div>
+<div class="grid">
+
+<!-- A -->
+<div class="col"><h2>A. Ett samlekort i lista</h2>
+<p class="cap">Alle quizene blir ett kort i den vanlige lista, med de neste kveldene som rader. Trykk «Vis flere». Minst endring i dagens design.</p>
+<div class="phone"><div class="pg">
+  <div class="ev" style="--c:var(--c-konsert)"><b>Peter Pan</b><span>Man 26. okt · Parken</span></div>
+  <div class="qcard">
+    <div class="head"><div><div class="tag">Quiz</div><h4>Quiz i Ålesund</h4><span style="font-size:13px;color:var(--muted)">4 steder · fra 50 kr</span></div><span class="n">7 kvelder</span></div>
+    <div class="qrows" id="qa">
+      <div><span class="d">TOR 29.</span><span>Pubquiz <em>O'Connor's</em></span><em>50 kr</em></div>
+      <div><span class="d">TOR 12.</span><span>Pubquiz <em>O'Connor's</em></span><em>50 kr</em></div>
+      <div><span class="d">ONS 18.</span><span>Musikkquiz <em>Bypatrioten</em></span><em>Gratis</em></div>
+      <div class="hide"><span class="d">TOR 26.</span><span>Pubquiz <em>O'Connor's</em></span><em>50 kr</em></div>
+      <div class="hide"><span class="d">FRE 18.</span><span>Quiz på Damp <em>Dampsentralen</em></span><em>400 kr</em></div>
+    </div>
+    <button class="more" onclick="document.querySelectorAll('#qa .hide').forEach(x=>x.classList.toggle('hide'));this.remove()">Vis flere kvelder ↓</button>
+  </div>
+  <div class="ev" style="--c:var(--c-standup)"><b>Standup: Kveldsvakt</b><span>Tir 27. okt · Terminalen</span></div>
+</div></div></div>
+
+<!-- B -->
+<div class="col"><h2>B. Egen side «Quiz i Ålesund»</h2>
+<p class="cap">En egen side (<code>quiz/</code>) med ukeoversikt øverst, fast faste kvelder og enkeltkvelder under. Samlekort i lista peker hit.</p>
+<div class="phone"><div class="pg">
+  <div class="hero"><a class="crumb" href="#" style="color:#e6dbf3">← Hele programmet</a><h3>Quiz i Ålesund</h3><p>Pubquiz, musikkquiz og quizkvelder. Alt samlet.</p></div>
+  <div class="week"><div>M<b>26</b></div><div>T<b>27</b></div><div>O<b>28</b></div><div class="q">T<b>29</b><i></i></div><div>F<b>30</b></div><div>L<b>31</b></div><div>S<b>1</b></div></div>
+  <h5>Faste kvelder</h5>
+  <div class="ev" style="--c:var(--quiz)"><b>Pubquiz</b><span>Annenhver torsdag kl. 20 · O'Connor's · 50 kr per person</span></div>
+  <h5>Enkeltkvelder</h5>
+  <div class="ev" style="--c:var(--quiz)"><b>Musikkquiz med Martin Hildre</b><span>Ons 18. nov · Bypatrioten · Gratis</span></div>
+  <div class="ev" style="--c:var(--quiz)"><b>Quiz på Damp</b><span>Fre 18. des kl. 19 · Dampsentralen · 400 kr</span></div>
+</div></div></div>
+
+<!-- C -->
+<div class="col"><h2>C. «Quiz i kveld»-stripe + filter</h2>
+<p class="cap">Som kinostripa: en lilla stripe øverst på forsiden viser neste quiz. En «Quiz»-chip i kategorifilteret samler alt i lista.</p>
+<div class="phone"><div class="pg">
+  <h3 class="t">Skjer i <span style="color:var(--accent)">Ålesund</span></h3>
+  <div class="filt"><span class="chip">Alle</span><span class="chip">Konsert</span><span class="chip">Standup</span><span class="chip on">Quiz</span><span class="chip">Show</span></div>
+  <a class="strip" href="#"><span>🧠</span><span><b>Quiz på torsdag:</b> pubquiz på O'Connor's</span><span class="r">Alle quiz →</span></a>
+  <div class="ev" style="--c:var(--quiz)"><b>Pubquiz</b><span>Tor 29. okt kl. 20 · O'Connor's · 50 kr</span></div>
+  <div class="ev" style="--c:var(--quiz)"><b>Pubquiz</b><span>Tor 12. nov kl. 20 · O'Connor's · 50 kr</span></div>
+  <div class="ev" style="--c:var(--quiz)"><b>Musikkquiz med Martin Hildre</b><span>Ons 18. nov · Bypatrioten · Gratis</span></div>
+  <div class="ev" style="--c:var(--quiz)"><b>Quiz på Damp</b><span>Fre 18. des kl. 19 · Dampsentralen · 400 kr</span></div>
+</div></div></div>
+
+<!-- D -->
+<div class="col"><h2>D. Ett kort per sted</h2>
+<p class="cap">Quiz sorteres etter hvor den er: fast tidspunkt, pris og neste datoer som merker. Passer fordi quiz er «et fast tilbud» mer enn enkeltarrangementer.</p>
+<div class="phone"><div class="pg">
+  <h3 class="t">Quiz i Ålesund</h3><p class="lede">Hvor kan du quizze denne måneden?</p>
+  <div class="pub"><div class="top"><b>O'Connor's</b><span>ANNENHVER TOR</span></div><div class="bd">Pubquiz kl. 20 · 50 kr per person · lag på opptil seks.<div class="when"><i class="n">29. okt</i><i>12. nov</i><i>26. nov</i><i>10. des</i></div><a class="btn" href="#" style="margin-top:6px">Se på O'Connor's →</a></div></div>
+  <div class="pub"><div class="top"><b>Bypatrioten</b><span>ENKELTKVELDER</span></div><div class="bd">Musikkquiz og tema-quiz med Martin Hildre.<div class="when"><i class="n">18. nov</i></div><a class="btn" href="#" style="margin-top:6px">Se på Bypatrioten →</a></div></div>
+  <div class="pub"><div class="top"><b>Dampsentralen</b><span>ENKELTKVELD</span></div><div class="bd">Quiz på Damp · 400 kr.<div class="when"><i class="n">18. des</i></div><a class="btn" href="#" style="margin-top:6px">Billetter →</a></div></div>
+</div></div></div>
+
+<!-- E -->
+<div class="col"><h2>E. Quiz-tavla</h2>
+<p class="cap">Pub-tavle i kritt: «Denne uka på tavla». Mer personlighet, passer en quiz-puls. Kan bli forsiden for <code>quiz/</code> eller en seksjon på forsiden.</p>
+<div class="phone"><div class="pg">
+  <div class="board">
+    <h3>QUIZ ÅLESUND</h3><div class="sub">Neste kvelder på tavla</div>
+    <div class="row"><b>29<small>TOR OKT</small></b><div><h6>Pubquiz</h6><span>O'Connor's · kl. 20 · 50 kr</span></div></div>
+    <div class="row"><b>12<small>TOR NOV</small></b><div><h6>Pubquiz</h6><span>O'Connor's · kl. 20 · 50 kr</span></div></div>
+    <div class="row"><b>18<small>ONS NOV</small></b><div><h6>Musikkquiz</h6><span>Bypatrioten · Martin Hildre</span></div></div>
+    <div class="row"><b>18<small>FRE DES</small></b><div><h6>Quiz på Damp</h6><span>Dampsentralen · kl. 19 · 400 kr</span></div></div>
+    <div class="foot">Vis alle quizkvelder →</div>
+  </div>
+</div></div></div>
+
+</div>
+</body>
+</html>

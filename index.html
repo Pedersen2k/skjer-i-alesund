@@ -37,7 +37,7 @@ body { margin: 0; font-size: 14px; }
   --accent: #c8432b;      /* jugend-tak */
   --accent-ink: #ffffff;
   --sea: #1f6f78;
-  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12; --c-sport: #2b5fa8;
+  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12; --c-quiz: #7a4fb0; --c-sport: #2b5fa8;
   --kino: #3d4f8f; --kino-soft: #e3e8f5;
   --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -46,13 +46,13 @@ body { margin: 0; font-size: 14px; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
-  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-sport: #7aa7e6;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-sport: #7aa7e6;
   --kino: #8fa3e6; --kino-soft: #1c2748;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
-  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-sport: #7aa7e6;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-sport: #7aa7e6;
   --kino: #8fa3e6; --kino-soft: #1c2748;
   color-scheme: dark; }
 
@@ -63,6 +63,12 @@ body { margin: 0; font-size: 14px; }
 .missing b { font: 700 17px/1.2 var(--font-display); }
 .missing span { color: var(--muted); font-size: 14px; }
 .missing:hover span { color: var(--fg); }
+.quizcard .qrows { grid-column: 1 / -1; margin-top: 6px; border-top: 1px dashed var(--line); font-size: 14px; }
+.quizcard .qrow { display: grid; grid-template-columns: 58px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--line); color: var(--fg); text-decoration: none; }
+.quizcard .qrow:last-child { border-bottom: 0; }
+.quizcard .qrow b { font: 700 12.5px var(--font-mono); color: var(--c-quiz); white-space: nowrap; }
+.quizcard .qrow small { color: var(--muted); font-size: 12.5px; }
+.quizcard a.qrow:hover span { text-decoration: underline; }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body); }
 .wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; }
@@ -277,7 +283,7 @@ footer a { color: var(--sea); }
 
   <footer>
     <div>Programmet hentes automatisk morgen og kveld fra Tikkio (blant annet Terminalen Byscene og Løvenvold Theater) og fra programmene til Parken kulturhus og Dampsentralen. Enkelte andre arrangementer legges inn for hånd. Priser vises der arrangøren har publisert dem. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div>
-    <nav>Snarveier: <a href="i-dag/">I dag</a> · <a href="denne-helgen/">Denne helgen</a> · <a href="kino/">Kino</a> · <a href="konserter/">Konserter</a> · <a href="standup/">Standup</a> · <a href="show/">Show</a> · <a href="barn-og-familie/">Barn og familie</a> · <a href="klubb/">Klubb</a> · <a href="happenings/">Happenings</a> · <a href="aafk-hjemmekamper/">AaFK-hjemmekamper</a> · <a href="kontakt/">Kontakt</a></nav>
+    <nav>Snarveier: <a href="i-dag/">I dag</a> · <a href="denne-helgen/">Denne helgen</a> · <a href="kino/">Kino</a> · <a href="konserter/">Konserter</a> · <a href="standup/">Standup</a> · <a href="show/">Show</a> · <a href="barn-og-familie/">Barn og familie</a> · <a href="klubb/">Klubb</a> · <a href="happenings/">Happenings</a> · <a href="aafk-hjemmekamper/">AaFK-hjemmekamper</a> · <a href="quiz/">Quiz</a> · <a href="kontakt/">Kontakt</a></nav>
     <div>Kilder: <a href="https://www.terminalenbyscene.no/program" target="_blank" rel="noopener">Terminalen</a> · <a href="https://www.parkenkulturhus.no/program/" target="_blank" rel="noopener">Parken</a> · <a href="https://lovenvoldtheater.no/" target="_blank" rel="noopener">Løvenvold</a> · <a href="https://tikkio.com/locations/151197-alesund" target="_blank" rel="noopener">Tikkio</a> · <a href="https://bypatrioten.com/kalender/" target="_blank" rel="noopener">Bypatrioten</a> · <a href="https://www.dampsentralen.no/kalender" target="_blank" rel="noopener">Dampsentralen</a></div>
   </footer>
 </div>
@@ -285,7 +291,7 @@ footer a { color: var(--sea); }
 <script>
 const now = new Date();
 const TODAY = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn & familie", klubb: "Klubb", happening: "Happening", sport: "Sport" };
+const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn & familie", klubb: "Klubb", happening: "Happening", quiz: "Quiz", sport: "Sport" };
 let E = [];
 let meta = {};
 
@@ -426,7 +432,7 @@ function downloadIcs(e) {
 
 // Kalenderabonnement: filene kalender/<navn>.ics lages av scripts/pages.py ved hver publisering.
 // Tilbudet vises når akkurat én kategori er valgt i filteret, og gjelder den kategorien.
-const FEEDS = { konsert: ["konserter", "konserter"], standup: ["standup", "standup"], show: ["show", "show"], barn: ["barn-og-familie", "barn og familie"], klubb: ["klubb", "klubb"], happening: ["happenings", "happenings"], sport: ["aafk-hjemmekamper", "AaFK-hjemmekamper"] };
+const FEEDS = { konsert: ["konserter", "konserter"], standup: ["standup", "standup"], show: ["show", "show"], barn: ["barn-og-familie", "barn og familie"], klubb: ["klubb", "klubb"], happening: ["happenings", "happenings"], quiz: ["quiz", "quiz"], sport: ["aafk-hjemmekamper", "AaFK-hjemmekamper"] };
 let feedKey = "";
 const feedUrl = () => new URL("kalender/" + FEEDS[feedKey][0] + ".ics", location.href).href;
 function updateSubscribe() {
@@ -524,13 +530,32 @@ const matchesBase = e =>
   (!state.favOnly || favs.has(e.id)) &&
   (!state.q || (e.title + " " + e.venue + " " + (CATS[e.cat] || "")).toLowerCase().includes(state.q));
 
-function eventHtml(e) { const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
+function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
         <h3>${esc(e.title)}</h3>
         <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}</div>
         <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${CATS[c]}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
         ${e.note ? `<div class="note ${e.uncertain ? "warn" : ""}">${esc(e.note)}</div>` : ""}
         <div class="actions">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}<button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div>
       </article>`; }
+
+// Quiz samles i ett kort på første quizdato (ikke når bare kategorien Quiz er valgt); detaljene ligger på quiz/
+function collapseQuiz(items) {
+  const q = items.filter(e => e.cat === "quiz");
+  if (q.length < 2 || (state.cats.size === 1 && state.cats.has("quiz"))) return items;
+  const card = { quizCard: true, d: q[0].d, items: q };
+  return items.filter(e => e.cat !== "quiz" || e === q[0]).map(e => e === q[0] ? card : e);
+}
+function quizHtml(c) {
+  const q = c.items, places = new Set(q.map(e => e.venue)).size, prices = q.map(e => e.priceMin).filter(p => p > 0), min = prices.length ? Math.min(...prices) : 0;
+  const rows = q.slice(0, 3).map(e => { const u = safeUrl(e.url); return `<${u ? `a href="${esc(u)}" target="_blank" rel="noopener"` : "div"} class="qrow"><b>${e.d.getDate()}. ${MO[e.d.getMonth()]}</b><span>${esc(e.title)} <small>${esc(e.venue)}</small></span><small>${esc(e.priceMin === 0 ? "Gratis" : e.price || "")}</small></${u ? "a" : "div"}>`; }).join("");
+  return `<article class="ev quizcard" style="--c:var(--c-quiz)">
+        <h3><a class="title" href="quiz/">Quiz i Ålesund</a></h3>
+        <div class="side">${min ? `<span class="price">fra ${min} kr</span>` : ""}</div>
+        <div class="meta"><span class="tag">Quiz</span><span>${places} ${places === 1 ? "sted" : "steder"}</span><span class="t">${q.length} ${q.length === 1 ? "kveld" : "kvelder"}</span></div>
+        <div class="qrows">${rows}</div>
+        <div class="actions"><a class="link" href="quiz/">Alle quizkvelder →</a></div>
+      </article>`;
+}
 
 function render() {
   const items = E.filter(e => e.d >= TODAY && WHEN[state.when][1](e.d) && matchesBase(e)).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
@@ -541,7 +566,7 @@ function render() {
   $("count").textContent = `${items.length} arrangement${items.length === 1 ? "" : "er"}`;
   if (!items.length) { $("list").innerHTML = `<div class="empty">${!E.length ? "Ingen arrangementer er lagt inn ennå. De dukker opp her når programmet er hentet." : state.favOnly ? "Du har ikke lagret noe som passer filteret. Trykk ☆ på et arrangement for å lagre det." : "Ingenting passer søket. Prøv et annet filter."}</div>`; return; }
   const groups = new Map();
-  items.forEach(e => { const k = e.d.toDateString(); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(e); });
+  collapseQuiz(items).forEach(e => { const k = e.d.toDateString(); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(e); });
   $("list").innerHTML = [...groups.values()].map(g => {
     const d = g[0].d;
     return `<section class="day"><div class="date"><div class="wd">${WD[d.getDay()]}</div><div class="num">${d.getDate()}</div><div class="mo">${MO[d.getMonth()]}</div>${rel(d) ? `<div class="rel">${rel(d)}</div>` : ""}</div>

@@ -32,6 +32,10 @@ AAFK_TEAMS = [("https://www.aafk.no/terminliste", "Aalesund"),
 AAFK_VENUE = "Color Line Stadion"
 DAMP = "https://www.dampsentralen.no"
 DAMP_VENUE = "Dampsentralen"
+OCONNORS = "https://oconnors.no/alesund"
+OCONNORS_VENUE = "O'Connor's"
+OCONNORS_ADDRESS = "Brunholmgata 10, 6004 Ålesund"
+MONTHS = ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "des"]
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
 
 ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
@@ -246,6 +250,52 @@ def fetch_dampsentralen():
     return raw
 
 
+def fetch_oconnors():
+    """Programmet til O'Connor's Irish Pub (oconnors.no/alesund/hva-skjer/). Hvert arrangement har en egen side med dato, tid og pris.
+    Sportsvisninger er ikke egne arrangementer hos dem og er ikke med. Gir None hvis siden ikke kunne leses."""
+    today = datetime.datetime.now(TZ).date()
+    try:
+        listing = get(OCONNORS + "/hva-skjer/")
+    except Exception as e:
+        warn(f"Klarte ikke å hente programmet til O'Connor's: {e}")
+        return None
+    links = list(dict.fromkeys(re.findall(r'href="(https://oconnors\.no/alesund/event/[^"]+)"', listing)))
+    if not links and "resthon-events-query" not in listing:
+        warn("Fant ikke arrangementlista hos O'Connor's. Sjekk om oconnors.no har endret siden.")
+        return None
+    raw = []
+    for url in links:
+        try:
+            page = get(url)
+            time.sleep(0.5)
+        except Exception as e:
+            print("feil:", url, e, file=sys.stderr)
+            continue
+        text = lambda label: (m.group(1).strip() if (m := re.search(rf'<p class="label">{label}</p>\s*<p class="value">([^<]*)</p>', page)) else "")
+        name = re.search(r"<h1[^>]*>(.*?)</h1>", page, re.S)
+        day = re.search(r"(\d{1,2})\.\s*([a-zæøå]{3})", text("Dato").lower())
+        hm = re.search(r"(\d{1,2}):(\d{2})", html.unescape(text("Tid")))
+        if not (name and day and day.group(2) in MONTHS):
+            print("Hopper over arrangement hos O'Connor's (uventet side):", url, file=sys.stderr)
+            continue
+        month = MONTHS.index(day.group(2)) + 1
+        year = today.year + (1 if month < today.month - 1 else 0)
+        start = datetime.datetime(year, month, int(day.group(1)), int(hm.group(1)) if hm else 0, int(hm.group(2)) if hm else 0, tzinfo=TZ)
+        if start.date() < today:
+            continue
+        price = re.search(r"(\d+)", text("Pris"))
+        body = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html.unescape(page)))
+        title = re.sub(r"<[^>]+>", "", html.unescape(name.group(1))).strip().replace("’", "'")
+        title = re.sub(r"\s+(hos\s+)?O'Connor's( Ålesund)?\s*$", "", title).strip(" !") or title  # stedet står allerede ved siden av
+        raw.append({"name": title, "venue": OCONNORS_VENUE, "address": OCONNORS_ADDRESS,
+                    "start": start, "url": url, "tickets": [], "soldOut": False, "noTime": not hm,
+                    "group": "oconnors-" + start.date().isoformat() + "-" + slug(name.group(1))[:30],  # hver kveld har egen side og egen lenke
+                    "price": (f"{price.group(1)} kr", int(price.group(1)), "") if price else None,
+                    "gratis": bool(re.search(r"gratis å være med", listing, re.I))})
+    print(f"O'Connor's: {len(raw)} arrangementer", file=sys.stderr)
+    return raw
+
+
 def price_info(tickets):
     real = [(n, p) for n, p in tickets if not NOISE.search(n)]
     paid = [(n, p) for n, p in real if p > 0]
@@ -359,7 +409,9 @@ def guess_cat(title):
     t = title.lower()
     if re.search(r"standup|stand-up|komiker|humor", t):
         return "standup"
-    if re.search(r"quiz|bingo|verksted|marked|festival|dans\b|romjulsdans|skifilm", t):
+    if re.search(r"quiz|bingo", t):
+        return "quiz"
+    if re.search(r"verksted|marked|festival|dans\b|romjulsdans|skifilm", t):
         return "happening"
     if re.search(r"klubb|halloween|husfest|\bdj\b|fest\b|party", t):
         return "klubb"
@@ -400,10 +452,20 @@ def main():
         damp = [e for e in old["events"] if e["venue"] == DAMP_VENUE and e["date"] >= today]
     else:
         damp = build_events(damp_raw, overrides)
+    oc_raw = fetch_oconnors()
+    if oc_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
+        oconnors = [e for e in old["events"] if e["venue"] == OCONNORS_VENUE and e["date"] >= today]
+    else:
+        oconnors = build_events(oc_raw, overrides)
+        for e in oconnors:
+            if e["priceMin"] and any(r.get("gratis") for r in oc_raw) and "quiz" in e["title"].lower():
+                e["uncertain"] = True
+                e["note"] = (e["note"] + " " if e["note"] else "") + f"Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. {e['time']} og {e['price']}. Sjekk hos O'Connor's."
     # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
     seen = {(e["date"], norm_key(e["title"])) for e in events}
     events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in damp if (e["date"], norm_key(e["title"])) not in seen]
+    events += [e for e in oconnors if (e["date"], norm_key(e["title"])) not in seen]
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
     events += [e for e in manual if e["date"] >= today and e["id"] not in parken_ids]
@@ -421,6 +483,10 @@ def main():
         fresh_source |= {e["id"] for e in aafk}
     if damp and "dampsentralen" not in sources:
         fresh_source |= {e["id"] for e in damp}
+    if oconnors and "oconnors" not in sources:
+        fresh_source |= {e["id"] for e in oconnors}
+    if oconnors:
+        sources.add("oconnors")
     if damp:
         sources.add("dampsentralen")
     if parken:

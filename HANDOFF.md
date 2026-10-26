@@ -1,6 +1,6 @@
 # Handoff: Skjer i Ålesund
 
-_State as of 26 Oct 2026. Live at kaskjerda.no with: calendar subscription and calendar view, SEO work, Jul i Ålesund page (front-page card appears 1 Nov), Dampsentralen as a source, new GoatCounter account. See Next steps and Open decisions._
+_State as of 26 Oct 2026 (late: contact page added, O'Connor's investigated). Live at kaskjerda.no with: calendar subscription and calendar view, SEO work, Jul i Ålesund page (front-page card appears 1 Nov), Dampsentralen as a source, new GoatCounter account. See Next steps and Open decisions._
 
 ## Goal
 A public website listing what's on in Ålesund (concerts, standup, shows, kids' events, clubs, happenings, AaFK home matches), with ticket prices, that updates itself every day.
@@ -111,6 +111,14 @@ Owner asked that events from dampsentralen.no are always included. `fetch_dampse
 - **Owner to-do outside the repo:** Search Console sitemap + request indexing (`/`, `/jul-i-alesund/`, `/denne-helgen/`, `/konserter/`, `/standup/`), Enforce HTTPS, Bing import, links from venues; test `?jul=1` on the phone.
 - **Dampsentralen:** "KLUBB DAMP 2.JULEDAG" is set to 26 Dec by override (`date` + `fromDate`), their calendar says 19 Dec.
 - **Lessons:** never `pkill -f` a pattern that matches the running shell (kills the session shell); when resetting the working branch from `origin/main`, don't force-push over unmerged branch commits; the stop hook wants the branch pushed, committing `data/events.json` from a local sync is not wanted (the bot regenerates it).
+
+## Contact page and Search Console notes (26 Oct, live)
+`kontakt/` (`kontakt_page()` in `pages.py`): contact form via Web3Forms (public access key `WEB3FORMS_KEY` in `pages.py`; the owner's e-mail is never in the code; honeypot field `botcheck`), "Om siden" and personvern text. Types: foreslå arrangement (extra fields only then), feil, arrangør, annet. Owner tested it: works. Entry points: a "Mangler det noe?" strip under the list on the front page (`.missing` in `index.html`), "Kontakt" in the footer shortcuts and footer text of subpages. Included in `sitemap.xml`. The five design options are in `docs/kontakt-forslag.html` (owner chose A). Suggested events arrive by e-mail; add them to `manual.json` with a source link. Owner to-do: restrict the Web3Forms key to `kaskjerda.no` (Access Keys).
+
+Search Console "Forbedre utseendet" (26 Oct): missing `endDate`, `performer`, `organizer`, `validFrom`, `offers` (12 events without price), `description`, `image`. These are recommended fields, not errors. We deliberately do not invent `endDate`, `performer`, `organizer`, `validFrom` or prices (not in the sources). `description` and `image` were already in `event_ld()` in `pages.py`; the JS variant in `index.html` (`addStructuredData`) now has them too. The counts probably come from a crawl before the SEO work; check again in a few weeks. Event-specific images would need Tikkio's images (permission, Next steps 8).
+
+## O'Connor's Ålesund (26 Oct, open)
+Visitors say O'Connor's Irish Pub Ålesund (Brunholmsgata 10) is missing. It is not on Tikkio's Ålesund listing and not in `events.json`. It has its own programme at https://oconnors.no/alesund/hva-skjer/ (WordPress-style event pages, e.g. weekly pubquiz every other Thursday, music quiz, sport on screen). `oconnors.no` is blocked by the environment's network proxy (403 on CONNECT), so it could not be read. Next: owner allows `oconnors.no` (and `www.oconnors.no`) in the environment's network settings, then in a new session check for JSON-LD or a feed and add `fetch_oconnors()` to `sync.py` (like `fetch_dampsentralen()`), or `manual.json` entries. Decide with the owner whether sport screenings and recurring quizzes belong in the programme (category `happening`/`klubb`?); collapse the recurring quiz like KLUBB DAMP with `moreShows`.
 
 ## Preferences from the owner (24 Oct)
 - Dislikes sideways scrolling on mobile.
