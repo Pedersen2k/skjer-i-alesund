@@ -410,9 +410,7 @@ def jul_page(events, today):
                  f'<div class="jcards">{"".join(jul_card(e, up) for e in evs)}</div></div>')
     cd = (datetime.date(year, 12, 24) - today).days
     cd_html = f'<div class="jcd"><b id="jul-days">{cd}</b><span>dager til<br>julaften</span></div>' if cd > 0 else ""
-    bulbs = ["#d9372f", "#e8b04a", "#2f9e62", "#3f7fd0"]
-    garland = '<svg class="jgar" viewBox="0 0 520 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8 Q65 40 130 8 T260 8 T390 8 T520 8" fill="none" stroke="#2a1d12" stroke-width="2"/>' + "".join(
-        f'<g class="bulb"><circle cx="{i * 40 + 10}" cy="{[24, 35, 26, 35][i % 4]}" r="5" fill="{bulbs[i % 4]}"/><circle cx="{i * 40 + 10}" cy="{[24, 35, 26, 35][i % 4]}" r="10" fill="{bulbs[i % 4]}" opacity=".25"/></g>' for i in range(13)) + "</svg>"
+    garland = '<div class="jgar" aria-hidden="true"><i class="w"></i><i class="a"></i><i class="b"></i></div>'
     n_ev = len(occ)
     body = f"""<div class="jul-hero"><div class="snow"></div><div class="snow2"></div>{garland}
   <a class="jul-back" href="{up}">← {SITE}</a>
@@ -949,13 +947,16 @@ SUB_CSS = """
 /* Jul i Ålesund (sesongside) */
 body.jul { background: #f6efe0; color: #2a2a22; font-family: "Figtree", system-ui, sans-serif; font-size: 15px; }
 .jul .jul-hero { position: relative; background: radial-gradient(120% 90% at 50% 0%, #1d5c47 0%, #0d3327 70%); color: #fff; padding: 58px 20px 40px; text-align: center; overflow: hidden; }
-.jul .jgar { position: absolute; left: 0; right: 0; top: 0; height: 46px; width: 100%; }
-.jul .bulb { animation: jtw 2.6s ease-in-out infinite; } .jul .bulb:nth-of-type(2n) { animation-delay: .6s; } .jul .bulb:nth-of-type(3n) { animation-delay: 1.3s; }
+.jul .jgar { position: absolute; left: 0; right: 0; top: 0; height: 46px; pointer-events: none; }
+.jul .jgar i { position: absolute; inset: 0; background-repeat: repeat-x; background-size: 160px 46px; }
+.jul .jgar .w { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%2246%22 viewBox=%220 0 160 46%22%3E%3Cpath d=%22M0 8 Q40 36 80 8 Q120 36 160 8%22 fill=%22none%22 stroke=%22%232a1d12%22 stroke-width=%222%22/%3E%3C/svg%3E"); }
+.jul .jgar .a { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%2246%22 viewBox=%220 0 160 46%22%3E%3Ccircle cx=%2220%22 cy=%2226%22 r=%2211%22 fill=%22%23d9372f%22 opacity=%22.25%22/%3E%3Ccircle cx=%2220%22 cy=%2226%22 r=%225%22 fill=%22%23d9372f%22/%3E%3Ccircle cx=%22100%22 cy=%2226%22 r=%2211%22 fill=%22%233f7fd0%22 opacity=%22.25%22/%3E%3Ccircle cx=%22100%22 cy=%2226%22 r=%225%22 fill=%22%233f7fd0%22/%3E%3C/svg%3E"); animation: jtw 2.6s ease-in-out infinite; }
+.jul .jgar .b { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%2246%22 viewBox=%220 0 160 46%22%3E%3Ccircle cx=%2260%22 cy=%2226%22 r=%2211%22 fill=%22%23e8b04a%22 opacity=%22.25%22/%3E%3Ccircle cx=%2260%22 cy=%2226%22 r=%225%22 fill=%22%23e8b04a%22/%3E%3Ccircle cx=%22140%22 cy=%2226%22 r=%2211%22 fill=%22%232f9e62%22 opacity=%22.25%22/%3E%3Ccircle cx=%22140%22 cy=%2226%22 r=%225%22 fill=%22%232f9e62%22/%3E%3C/svg%3E"); animation: jtw 2.6s ease-in-out -1.3s infinite; }
 @keyframes jtw { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
 .jul .snow, .jul .snow2 { position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, #fff 1.6px, transparent 2.2px), radial-gradient(circle, #fffb 1.2px, transparent 1.8px), radial-gradient(circle, #fff9 2px, transparent 2.6px); background-size: 90px 90px, 140px 140px, 200px 200px; background-position: 0 0, 40px 60px, 90px 20px; animation: jfall 16s linear infinite; opacity: .8; }
 .jul .snow2 { background-size: 70px 70px, 110px 110px, 170px 170px; animation-duration: 24s; opacity: .5; }
 @keyframes jfall { to { background-position: 0 90px, 40px 200px, 90px 220px; } }
-@media (prefers-reduced-motion: reduce) { .jul .snow, .jul .snow2, .jul .bulb { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .jul .snow, .jul .snow2, .jul .jgar .a, .jul .jgar .b { animation: none; } }
 .jul .jul-hero > * { position: relative; }
 .jul .jul-back { position: absolute; left: 14px; top: 52px; font: 600 12px/1 "Figtree", sans-serif; color: #e9e2cf; text-decoration: none; }
 .jul .jul-hero small { display: block; font: 700 11px "Figtree", sans-serif; letter-spacing: .24em; text-transform: uppercase; color: #e8b04a; }
