@@ -102,7 +102,7 @@ def safe_url(u):
 def event_ld(e):
     """schema.org/Event med bare felt vi har fra kilden (samme som forsiden lager med JavaScript)."""
     o = {
-        "@type": "Event",
+        "@type": "FoodEvent" if e.get("cat") == "julebord" else "Event",
         "name": e["title"],
         "startDate": e["date"] + (f"T{e['time']}" if re.fullmatch(r"\d{2}:\d{2}", e.get("time") or "") else ""),
         "eventStatus": "https://schema.org/EventScheduled",
@@ -459,7 +459,7 @@ def build_ics(name, events, today):
 
 
 # --- Jul i Ålesund (sesongside) ---
-JUL_PREFIXES = ("jul", "advent", "nøtteknekk", "lucia", "romjul", "nisse", "tomte")
+JUL_PREFIXES = ("jul", "advent", "nøtteknekk", "lucia", "romjul", "nisse", "tomte", "christmas")
 JUL_NOT = {"juli", "julie", "julia", "julian", "julius"}
 
 
@@ -478,6 +478,50 @@ def is_jul(e, cfg):
     return any(w.startswith(JUL_PREFIXES) and w not in JUL_NOT for w in words)
 
 
+# Julesider etter tema (adresse, overskrift, tekst, utvalg). Lages bare med minst JUL_THEME_MIN arrangementer, og hvert år med årstall i tittelen.
+JUL_THEME_MIN = 3
+JUL_THEMES = [
+    ("julekonserter-i-alesund/", "Julekonserter i Ålesund", "Julekonserter og adventskonserter i Ålesund: kor, symfoniorkester, viser og turnerende artister i kirker, konsertsaler og på klubbscener. Datoer og billettpriser hentes fra arrangørenes egne sider.",
+     lambda e, jul: jul and e["cat"] == "konsert"),
+    ("jul-for-barn-i-alesund/", "Jul for barn og familie i Ålesund", "Juleverksted, familiedager, julekonserter og familiejulebord i Ålesund for store og små. Sjekk aldersanbefaling hos arrangøren.",
+     lambda e, jul: jul and (e["cat"] == "barn" or bool(re.search(r"\bbarn|familie|nisse|juleverksted", f"{e['title']} {e.get('note') or ''}".lower())))),
+    ("julemarked-i-alesund/", "Julemarked og juleverksted i Ålesund", "Julemarked, julemesser og juleverksted i Ålesund, med datoer og sted.",
+     lambda e, jul: bool(re.search(r"julemarked|julemesse|juleverksted|julebasar", f"{e['title']} {e.get('note') or ''}".lower()))),
+    ("romjul-og-nyttar-i-alesund/", "Romjul og nyttår i Ålesund", "Hva skjer i Ålesund i romjulen og på nyttårsaften? Konserter, dans og fest fra 2. juledag til nyttår, med datoer og billettpriser.",
+     None),  # alt fra 26. desember til 1. januar, se jul_theme_events()
+]
+
+
+def jul_theme_events(events, today, cfg):
+    """{adresse: (overskrift, tekst, arrangementer)} for temasidene som har nok arrangementer."""
+    out = {}
+    for path, h1, about, pick in JUL_THEMES:
+        if pick is None:
+            evs = occurrences([e for e in events if e["cat"] not in SEPARATE], datetime.date(today.year, 12, 26), datetime.date(today.year + 1, 1, 1))
+        else:
+            evs = [e for e in events if pick(e, is_jul(e, cfg))]
+        if len(evs) >= JUL_THEME_MIN:
+            out[path] = (h1, about, evs)
+    return out
+
+
+def jul_links(up, current, themes):
+    """«Mer jul i Ålesund»: lenker mellom julesiden, julebordsiden og temasidene."""
+    items = [("jul-i-alesund/", "Jul i Ålesund"), ("julebord/", "Julebord")] + [(p, h1.replace(" i Ålesund", "")) for p, (h1, _, _) in themes.items()]
+    return '<nav class="more julx"><h2>Mer jul i Ålesund</h2><div class="row">' + "".join(
+        f'<a class="chip" href="{up}{p}"{" aria-current=\"page\"" if p == current else ""}>{escape(l)}</a>' for p, l in items) + "</div></nav>"
+
+
+def julebord_facts(evs, year):
+    """Kort svar på «hva koster julebord i Ålesund?», regnet ut fra julebordene vi har."""
+    prices = sorted(e["priceMin"] for e in evs if isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] > 0)
+    if not prices:
+        return ""
+    venues = len({e["venue"] for e in evs})
+    return (f'<p class="lede jbfacts"><b>Hva koster julebord i Ålesund i {year}?</b> Julebordene vi har funnet koster fra {prices[0]} til {prices[-1]} kr per person, '
+            f'fordelt på {venues} steder. Prisen står på hvert julebord; der den mangler, får du den hos hotellet eller restauranten.</p>')
+
+
 def jul_card(e, up):
     c = e["cat"] if e["cat"] in CAT_LABEL else "happening"
     pm = e.get("priceMin")
@@ -487,15 +531,19 @@ def jul_card(e, up):
             f'<div class="jp">{escape(price_text(e))}</div></article>')
 
 
-def jul_page(events, today):
+def jul_page(events, today, themes=None):
     """jul-i-alesund/: adventskalender og liste med julearrangementene. Returnerer (html, antall) eller None uten arrangementer."""
     cfg = jul_config()
     year = today.year
-    jul_events = [e for e in events if is_jul(e, cfg)]
+    up = "../"
+    jul_events = [e for e in events if is_jul(e, cfg) and e["cat"] not in SEPARATE]  # julebord har egen side, se jb_html
     occ = occurrences(jul_events, today, datetime.date(year, 12, 31))
+    jb = [e for e in events if e["cat"] == "julebord"]
+    jb_prices = [e["priceMin"] for e in jb if isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] > 0]
+    jb_html = (f'<a class="jul-jb" href="{up}julebord/">🎄 <b>{len(jb)} julebord i Ålesund</b>{f" fra {min(jb_prices)} kr" if jb_prices else ""}: hoteller, restauranter og dinnershow →</a>'
+               if jb else "")
     if not occ:
         return None
-    up = "../"
     by_day = {}
     for e in occ:
         by_day.setdefault(e["date"], []).append(e)
@@ -529,12 +577,14 @@ def jul_page(events, today):
   <small>Ålesund · julen {year}</small><h1>Jul i Ålesund</h1>
   <p>Julekonserter, juleshow, adventskonserter og julemarked i Ålesund, samlet på ett sted med datoer og billettpriser.</p>{cd_html}</div>
 <main class="jul-main">
+  {jb_html}
   <section><h2>Adventskalender</h2><p class="jul-sub">Pakkene med bånd har noe på programmet. Trykk for å se hva som skjer den dagen.</p><div class="jcal">{doors}</div>
   <div class="jday" id="jday" hidden></div>{before_html}</section>
   <section class="jlist"><div class="jhd"><h2>Alle julearrangementer</h2><div class="jchips" id="jchips">
     <button type="button" class="chip" data-c="konsert" aria-pressed="false">Konsert</button><button type="button" class="chip" data-c="standup,show" aria-pressed="false">Standup og show</button><button type="button" class="chip" data-c="happening" aria-pressed="false">Marked og verksted</button><button type="button" class="chip" data-p="350" aria-pressed="false">Under 350 kr</button></div></div>
   <div class="jcnt" id="jcnt">{n_ev} arrangementer</div>{rows}</section>
-  <p class="jul-note">Programmet hentes automatisk fra arrangørenes billettsider og oppdateres morgen og kveld. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. Savner du et julearrangement? <a href="https://github.com/Pedersen2k/skjer-i-alesund/issues/new">Gi beskjed</a>.</p>
+  <p class="jul-note">Programmet hentes automatisk fra arrangørenes billettsider og oppdateres morgen og kveld. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. Savner du et julearrangement? <a href="{up}kontakt/">Gi beskjed</a>.</p>
+  {jul_links(up, "jul-i-alesund/", themes or {})}
   {links_nav(up, "jul-i-alesund/", {e["cat"] for e in events})}
 </main>
 <script>
@@ -589,7 +639,7 @@ def describe(events, what):
     return f"{n} {'arrangement' if n == 1 else 'arrangementer'}: {names}{' med flere' if len(uniq) > 3 else ''}. {what}, med billettpriser, oppdatert morgen og kveld."[:300]
 
 
-def front_html(src, events, today):
+def front_html(src, events, today, extra_links=()):
     """Forsiden bygger lista med JavaScript. Her legges de neste ukene også inn som vanlig HTML og JSON-LD,
     så søkemotorer og delingstjenester ser innholdet uten å kjøre scriptet. Scriptet bytter ut lista når programmet er hentet."""
     h = src
@@ -610,6 +660,8 @@ def front_html(src, events, today):
     head_extra = (f'<meta name="robots" content="{ROBOTS_META}">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
                   + ld_script({"@context": "https://schema.org", "@graph": graph}).replace('<script type="application/ld+json">', '<script type="application/ld+json" id="ld-front">', 1))
     sub(r"</head>", head_extra + "\n</head>")
+    if extra_links:  # julesidene i snarveiene nederst, så Google finner dem fra forsiden
+        sub(r'<a href="kontakt/">Kontakt</a></nav>', "".join(f'<a href="{p}">{escape(l)}</a> · ' for p, l in extra_links) + '<a href="kontakt/">Kontakt</a></nav>')
     soon = occurrences(events, today, today + datetime.timedelta(days=45))
     sub(r'<main id="list"></main>', f'<main id="list">\n{day_list(soon, "", collapse_quiz=True)}\n  </main>')
     return h
@@ -643,8 +695,13 @@ def main():
     shutil.copy(ROOT / "data" / "events.json", OUT / "data" / "events.json")
     if (ROOT / "data" / "kino.json").exists():
         shutil.copy(ROOT / "data" / "kino.json", OUT / "data" / "kino.json")
+    cfg = jul_config()
+    themes = jul_theme_events(all_events, today, cfg)
+    has_jul = any(is_jul(e, cfg) for e in all_events)
+    extra = ([("jul-i-alesund/", "Jul i Ålesund")] if has_jul else []) + ([("julebord/", "Julebord")] if any(e["cat"] == "julebord" for e in all_events) else []) \
+        + [(p, h1.replace(" i Ålesund", "")) for p, (h1, _, _) in themes.items()]
     index = (ROOT / "index.html").read_text()
-    (OUT / "index.html").write_text(front_html(index, events, today))
+    (OUT / "index.html").write_text(front_html(index, events, today, extra))
     # Undersidene bruker samme stil og ikon som forsiden, hentet rett fra index.html
     css = re.search(r"<style>(.*?)</style>", index, re.S).group(1)
     (OUT / "stil.css").write_text(css + SUB_CSS)
@@ -721,6 +778,12 @@ def main():
     for k, (p, h1, what) in CATS.items():
         # Lages også uten arrangementer, så lenkene fra forsiden aldri blir døde
         evs = [e for e in all_events if e["cat"] == k]
+        if k == "julebord":
+            listing_page(p + "/", f"Julebord i Ålesund {today.year}: alle julebord med pris og dato | {SITE}", f"Julebord i Ålesund {today.year}",
+                         f"{len(evs)} julebord med dato og pris per person, og julemenyer på restaurant.",
+                         evs, "Ingen julebord registrert akkurat nå. Julebordene for neste sesong kommer i oktober.", f"Julebord i Ålesund {today.year}",
+                         about=CAT_TEXT[k], lead=julebord_facts(evs, today.year) + julemeny_html() + jul_links("../", p + "/", themes))
+            continue
         listing_page(p + "/", f"{h1} – program og billettpriser | {SITE}", h1,
                      f"{what}: {len(evs)} kommende {'arrangement' if len(evs) == 1 else 'arrangementer'}, " + ("med avspark og billettlenker." if k == "sport" else "med datoer og billettpriser."),
                      evs, f"Ingen kommende arrangementer i denne kategorien akkurat nå. Se hele programmet.", what, about=CAT_TEXT.get(k, ""),
@@ -746,7 +809,12 @@ def main():
     for fname, (cal_name, evs) in feeds.items():
         (OUT / "kalender" / f"{fname}.ics").write_text(build_ics(cal_name, evs, today))
 
-    jp = jul_page(all_events, today)
+    for p, (h1, about, evs) in themes.items():
+        year = today.year
+        listing_page(p, f"{h1} {year}: datoer og billetter | {SITE}", f"{h1} {year}",
+                     f"{len(evs)} {'arrangement' if len(evs) == 1 else 'arrangementer'} med datoer og billettpriser, oppdatert morgen og kveld.",
+                     evs, "", f"{h1} {year}", about=about, lead=jul_links("../", p, themes))
+    jp = jul_page(all_events, today, themes)
     if jp:
         write("jul-i-alesund/", jp[0])
         pages.append(("jul-i-alesund/", updated))
@@ -1136,6 +1204,8 @@ body.jul { background: #f6efe0; color: #2a2a22; font-family: "Figtree", system-u
 .jul .jrow { display: grid; grid-template-columns: 54px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px dashed #d8cba5; }
 .jul .jdt { text-align: center; background: #0d3327; color: #fff; border-radius: 12px; padding: 6px 0; height: max-content; box-shadow: 0 3px 0 #0003; }
 .jul .jdt small { display: block; font: 700 10px "Figtree", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #e8b04a; } .jul .jdt b { display: block; font: 700 24px/1 "Fraunces", serif; }
+.jul .jul-jb { display: block; margin: 18px 0 4px; padding: 13px 16px; border-radius: 14px; background: #b3262d; color: #fff; text-decoration: none; font-size: 15px; box-shadow: 0 4px 12px #0002; }
+.jul .jul-jb:hover { filter: brightness(1.07); }
 .jul .jul-note { margin: 22px 0 0; font-size: 12.5px; color: #6b6455; } .jul .jul-note a { color: #1b5a45; }
 .jul .more { margin-top: 26px; } .jul .more h2 { font: italic 700 20px "Fraunces", serif; color: #0d3327; margin: 0 0 8px; }
 .jul .more .chip { background: #fffaf0; color: #2a2a22; border: 1.5px solid #cdbf98; text-decoration: none; padding: 8px 13px; border-radius: 99px; font: 600 13px "Figtree", sans-serif; }

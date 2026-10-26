@@ -20,3 +20,7 @@ html[data-tema="kveld"] .kform input, html[data-tema="kveld"] .kform select, htm
 html[data-tema="kveld"] .qweek div { background:#13252d; } .qweek b { color:#e8f1ef; }
 html[data-tema="kveld"] .tsw { background:#13252d; border-color:#25414a; }
 html[data-tema="kveld"] .tsw button[aria-pressed="true"] { background:var(--gold); color:#10282f; }
+/* Jul i Ålesund er laget for lys bakgrunn; i kveldstemaet trenger overskrifter og småtekst lysere farge */
+html[data-tema="kveld"] .jul .jul-main h2 { color: #f1e4c3; }
+html[data-tema="kveld"] .jul .jul-sub, html[data-tema="kveld"] .jul .jul-note, html[data-tema="kveld"] .jul .jcnt, html[data-tema="kveld"] .jul .jul-nov { color: #b9b2a0; }
+html[data-tema="kveld"] .jul .jul-note a { color: #e8b04a; }
