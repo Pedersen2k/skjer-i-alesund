@@ -59,6 +59,10 @@ body { margin: 0; font-size: 14px; }
 .kinostrip { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin: 4px 0 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--kino-soft); color: var(--fg); text-decoration: none; font-size: 14px; }
 .kinostrip b { font-family: var(--font-display); }
 .kinostrip span { margin-left: auto; color: var(--kino); font-weight: 600; }
+.missing { display: flex; flex-direction: column; gap: 2px; margin: 22px 0; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--accent); border-radius: 12px; text-decoration: none; color: var(--fg); }
+.missing b { font: 700 17px/1.2 var(--font-display); }
+.missing span { color: var(--muted); font-size: 14px; }
+.missing:hover span { color: var(--fg); }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body); }
 .wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; }
@@ -269,6 +273,7 @@ footer a { color: var(--sea); }
   </div>
 
   <main id="list"></main>
+  <a class="missing" href="kontakt/"><b>Mangler det noe?</b><span>Foreslå et arrangement eller meld fra om en feil →</span></a>
 
   <footer>
     <div>Programmet hentes automatisk morgen og kveld fra Tikkio (blant annet Terminalen Byscene og Løvenvold Theater) og fra programmene til Parken kulturhus og Dampsentralen. Enkelte andre arrangementer legges inn for hånd. Priser vises der arrangøren har publisert dem. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div>
