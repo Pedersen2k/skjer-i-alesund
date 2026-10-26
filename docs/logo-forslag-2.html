@@ -36,7 +36,7 @@ h1 span { background: linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background
 .g4 { background: #0b1d23; }
 .g5 { background: linear-gradient(180deg,#0b1d23,#0a171b); min-height: 260px; justify-content:flex-end; padding-bottom: 44px; }
 .g6 { background: #081318; min-height: 220px; padding-left: 300px; }
-.g7 { background: linear-gradient(180deg,#0e2a33 0%,#3b3f4f 55%,#8a5a55 100%); min-height: 270px; justify-content:flex-start; padding-bottom: 20px; }
+.g7 { background: linear-gradient(180deg,#0e2a33 0%,#3b3f4f 55%,#8a5a55 100%); min-height: 270px; justify-content:flex-start; padding-top: 12px; padding-bottom: 20px; }
 .g8 { background: #0a1114; min-height: 220px; align-items:center; justify-content:center; }
 .g9 { background: radial-gradient(110% 140% at 15% 40%, #1b4c56 0%, #0a171b 65%); min-height: 220px; justify-content:center; padding-left: 230px; }
 .g10 { background: #0a171b; min-height: 310px; }
@@ -235,7 +235,7 @@ function facades(x0, x1, B, hMin, hMax, sc) {
   return g;
 }
 seed = 16;
-$("j7").innerHTML = `<defs><linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a171b" stop-opacity=".1"/><stop offset="1" stop-color="#1a1230" stop-opacity=".45"/></linearGradient></defs>${[...Array(30)].map(() => `<circle cx="${rnd() * 760}" cy="${rnd() * 80}" r="${.4 + rnd()}" fill="#fff" opacity=".5"/>`).join("")}<g>${facades(-10, 770, 270, 70, 110)}</g><rect width="760" height="270" fill="url(#dusk)"/>
+$("j7").innerHTML = `<defs><linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a171b" stop-opacity=".1"/><stop offset="1" stop-color="#1a1230" stop-opacity=".45"/></linearGradient></defs>${[...Array(30)].map(() => `<circle cx="${rnd() * 760}" cy="${rnd() * 80}" r="${.4 + rnd()}" fill="#fff" opacity=".5"/>`).join("")}<g>${facades(-10, 770, 270, 60, 92)}</g><rect width="760" height="270" fill="url(#dusk)"/>
   <rect y="262" width="760" height="8" fill="#0a171b" opacity=".7"/>`;
 
 // 17 Secession
