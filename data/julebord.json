@@ -24,6 +24,22 @@
       "price": "698 kr",
       "note": "Med grønn erterstuing, bacon, sennepssaus og mandelpotet, flatbrød og lefse.",
       "url": "https://www.anno.no/meny/"
+    },
+    {
+      "name": "Julemeny på Egon",
+      "venue": "Egon Ålesund",
+      "period": "Fra 5. november",
+      "price": "fra 440 kr",
+      "note": "Kjedens julemeny: ribbetallerken 440 kr, pinnekjøtt 549 kr, julekombo med begge 529 kr og julelunsj 290 kr (til kl. 15). Bestill bord på nett.",
+      "url": "https://egon.no/julebord"
+    },
+    {
+      "name": "Julemeny på Egon",
+      "venue": "Egon Moa (Amfi Moa)",
+      "period": "Fra 5. november",
+      "price": "fra 440 kr",
+      "note": "Kjedens julemeny: ribbetallerken 440 kr, pinnekjøtt 549 kr, julekombo med begge 529 kr og julelunsj 290 kr (til kl. 15). Bestill bord på nett.",
+      "url": "https://egon.no/julebord"
     }
   ]
 }
