@@ -346,7 +346,7 @@ def build_events(raw, overrides):
             "price": price, "priceMin": price_min,
             "soldOut": all(s["soldOut"] for s in shows),
             "note": " ".join(n for n in notes if n),
-            "uncertain": False,
+            "uncertain": bool(o.get("uncertain", False)),
             "url": first["url"],
             # Senere forestillinger, så helgelister o.l. finner dem selv om første dato er tidligere
             **({"moreShows": [s["start"].strftime("%Y-%m-%d" if s.get("noTime") else "%Y-%m-%dT%H:%M") for s in shows[1:]]} if len(shows) > 1 else {}),
