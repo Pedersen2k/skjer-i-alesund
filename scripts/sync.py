@@ -543,6 +543,8 @@ def build_events(raw, overrides):
 
 def guess_cat(title):
     t = title.lower()
+    if re.search(r"julebord|julebuffet|julegilde", t):
+        return "julebord"
     if re.search(r"standup|stand-up|komiker|humor", t):
         return "standup"
     if re.search(r"quiz|bingo", t):
@@ -554,6 +556,21 @@ def guess_cat(title):
     if re.search(r"barn|familie", t):
         return "barn"
     return "konsert"
+
+
+def roll_forward(e):
+    """Et manuelt arrangement med flere datoer (moreShows) flyttes til neste dato når den første har vært, så det ikke forsvinner."""
+    today = datetime.datetime.now(TZ).date().isoformat()
+    later = [m for m in e.get("moreShows", []) if m[:10] >= today]
+    if e["date"] >= today or not later:
+        return e
+    nxt, rest = later[0], later[1:]
+    e = {**e, "date": nxt[:10], "time": nxt[11:16] if len(nxt) > 10 else e.get("time", "")}
+    if rest:
+        e["moreShows"] = rest
+    else:
+        e.pop("moreShows", None)
+    return e
 
 
 def warn(msg):
@@ -616,7 +633,7 @@ def main():
     events += [e for e in fabrikken if (e["date"], norm_key(e["title"])) not in seen]
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
-    events += [e for e in manual if e["date"] >= today and e["id"] not in parken_ids]
+    events += [e for e in map(roll_forward, manual) if e["date"] >= today and e["id"] not in parken_ids]
 
     # Ikke alle Tikkio-arrangementer har adresse; bruk den fra et annet arrangement på samme scene
     known = {e["venue"]: e["address"] for e in events if e.get("address")}

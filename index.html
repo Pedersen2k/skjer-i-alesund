@@ -37,7 +37,7 @@ body { margin: 0; font-size: 14px; }
   --accent: #c8432b;      /* jugend-tak */
   --accent-ink: #ffffff;
   --sea: #1f6f78;
-  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12; --c-quiz: #7a4fb0; --c-sport: #2b5fa8;
+  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167; --c-happening: #8a6d12; --c-quiz: #7a4fb0; --c-julebord: #b3262d; --c-sport: #2b5fa8;
   --kino: #3d4f8f; --kino-soft: #e3e8f5;
   --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -46,13 +46,13 @@ body { margin: 0; font-size: 14px; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
-  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-sport: #7aa7e6;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-julebord: #ef7a7f; --c-sport: #7aa7e6;
   --kino: #8fa3e6; --kino-soft: #1c2748;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #0b171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
   --accent: #ec6a4f; --accent-ink: #1a0b07; --sea: #5ab7bf;
-  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-sport: #7aa7e6;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-julebord: #ef7a7f; --c-sport: #7aa7e6;
   --kino: #8fa3e6; --kino-soft: #1c2748;
   color-scheme: dark; }
 
@@ -208,7 +208,13 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .julmini i::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 15%; transform: translateX(-50%); background: #e8b04a; }
 .julmini i::after { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 15%; transform: translateY(-50%); background: #e8b04a; }
 .julmini b { position: relative; z-index: 2; background: #fffaf0; color: #2a2a22; border-radius: 50%; width: 20px; height: 20px; display: grid; place-items: center; font: 700 11px var(--font-body); }
-.julbtn { display: inline-block; margin-top: 12px; padding: 9px 14px; border-radius: 99px; background: #e8b04a; color: #2a2a22; font: 800 13px var(--font-body); }
+.julcard a { color: inherit; text-decoration: none; }
+.julmain { display: block; }
+.julbtns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.julcard a.julbtn { display: inline-block; padding: 9px 14px; border-radius: 99px; background: #e8b04a; color: #2a2a22; font: 800 13px var(--font-body); }
+.julcard a.julbtn.jb { background: #ffffff1f; color: #fff; box-shadow: inset 0 0 0 1px #e8b04a99; }
+.jbstrip { background: color-mix(in srgb, var(--c-julebord) 10%, var(--surface)); border-color: color-mix(in srgb, var(--c-julebord) 45%, var(--line)); }
+.jbstrip span { color: var(--c-julebord); }
 footer { margin-top: 28px; font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
 footer a { color: var(--sea); }
 @media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
@@ -258,13 +264,17 @@ footer a { color: var(--sea); }
     <button type="button" data-view="kal" aria-pressed="false">Kalender</button>
   </div>
 
-  <a class="julcard" id="julcard" href="jul-i-alesund/" hidden>
-    <small id="julyear">Ålesund · julen</small><h3>Jul i Ålesund</h3>
-    <p><b id="julcd"></b> dager til julaften. Åpne en pakke og se hva som skjer.</p>
-    <div class="julmini" id="julmini"></div><span class="julbtn">Åpne adventskalenderen →</span>
-  </a>
+  <div class="julcard" id="julcard" hidden>
+    <a class="julmain" id="julmain" href="jul-i-alesund/">
+      <small id="julyear">Ålesund · julen</small><h3>Jul i Ålesund</h3>
+      <p><b id="julcd"></b> dager til julaften. Åpne en pakke og se hva som skjer.</p>
+      <div class="julmini" id="julmini"></div>
+    </a>
+    <div class="julbtns"><a class="julbtn" href="jul-i-alesund/">Åpne adventskalenderen →</a><a class="julbtn jb" id="jbbtn" href="julebord/" hidden></a></div>
+  </div>
 
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
+  <a class="kinostrip jbstrip" id="jbstrip" href="julebord/" hidden></a>
 
   <div class="subscribe" id="subscribe" hidden>
     <div class="sub-top">
@@ -296,6 +306,8 @@ footer a { color: var(--sea); }
 const now = new Date();
 const TODAY = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn & familie", klubb: "Klubb", happening: "Happening", quiz: "Quiz", sport: "Sport" };
+// Julebord er ikke i lista: de har egen side (julebord/) og en inngang på forsiden, se julebordEntry()
+let JB = [];
 let E = [];
 let meta = {};
 
@@ -447,10 +459,24 @@ $("subcopy").onclick = async () => {
   track("kalender/kopier/" + feedKey);
 };
 
-// Jul i Ålesund: kortet vises bare fra 1. november til 26. desember
+// Jul i Ålesund: kortet vises bare fra 1. november til 26. desember (?jul=1 eller #jul viser det utenom sesongen, til test)
+const JULSEASON = (() => { const t = new Date(), m = t.getMonth(), d = t.getDate(); return m === 10 || (m === 11 && d <= 26) || location.search.includes("jul=1") || location.hash === "#jul"; })();
+// Julebord: en knapp i julekortet i sesongen, ellers (oktober) en stripe under kinostripen
+function julebordEntry() {
+  if (!JB.length) return;
+  const prices = JB.map(e => e.priceMin).filter(p => p > 0), from = prices.length ? `, fra ${Math.min(...prices)} kr` : "";
+  const n = `${JB.length} julebord${from}`;
+  if (JULSEASON) {
+    Object.assign($("jbbtn"), { innerHTML: `🎄 ${esc(n)} →`, hidden: false });
+    $("jbbtn").addEventListener("click", () => track("julebord/julekort"));
+  } else {
+    Object.assign($("jbstrip"), { innerHTML: `<div>🎄 <b>${JB.length} julebord</b> i Ålesund${from}</div><span>Se alle →</span>`, hidden: false });
+    $("jbstrip").addEventListener("click", () => track("julebord/stripe"));
+  }
+}
 (function () {
   const t = new Date(), m = t.getMonth(), d = t.getDate();
-  if (!(m === 10 || (m === 11 && d <= 26) || location.search.includes("jul=1"))) return; // ?jul=1 viser kortet utenom sesongen (til test)
+  if (!JULSEASON) return;
   const days = Math.ceil((new Date(t.getFullYear(), 11, 24) - new Date(t.getFullYear(), m, d)) / dayMs);
   $("julyear").textContent = "Ålesund · julen " + t.getFullYear();
   $("julcd").textContent = Math.max(days, 0);
@@ -458,7 +484,8 @@ $("subcopy").onclick = async () => {
   const first = m === 11 ? Math.min(Math.max(d, 1), 19) : 1, cols = ["#b3262d", "#1b6a4d", "#2c5aa0", "#8a3a7a"];
   $("julmini").innerHTML = [...Array(6)].map((_, i) => `<i style="background:${cols[(first + i - 1) % 4]}"><b>${first + i}</b></i>`).join("");
   $("julcard").hidden = false;
-  $("julcard").addEventListener("click", () => track("jul/forside"));
+  $("julmain").addEventListener("click", () => track("jul/forside"));
+  $("julcard").querySelector(".julbtn").addEventListener("click", () => track("jul/forside"));
 })();
 
 // Kart: Google Maps-søk fungerer på alle telefoner og åpner kart-appen der den finnes
@@ -666,8 +693,10 @@ fetch("data/events.json", { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(data => {
     meta = data.meta || {};
-    E = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
-    fillVenues(); showStatus(); render(); showHashed(); addStructuredData();
+    const all = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
+    JB = all.filter(e => e.cat === "julebord" && e.d >= TODAY);
+    E = all.filter(e => e.cat !== "julebord");
+    fillVenues(); julebordEntry(); showStatus(); render(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
 // Kino: én stripe under filtrene (filmene ligger ikke i hovedlista)

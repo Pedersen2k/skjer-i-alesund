@@ -16,10 +16,10 @@ from pathlib import Path
 import pages
 
 W, H = 1080, 1350  # Instagram stående
-EMOJI = {"konsert": "🎵", "standup": "😂", "show": "🎭", "barn": "🧸", "klubb": "🪩", "happening": "✨", "quiz": "🧠", "sport": "⚽"}
+EMOJI = {"konsert": "🎵", "standup": "😂", "show": "🎭", "barn": "🧸", "klubb": "🪩", "happening": "✨", "quiz": "🧠", "julebord": "🎄", "sport": "⚽"}
 PLURAL = {"konsert": ("konsert", "konserter"), "standup": ("standup", "standup"), "show": ("show", "show"),
           "barn": ("for barn og familie", "for barn og familie"), "klubb": ("klubbkveld", "klubbkvelder"),
-          "happening": ("happening", "happenings"), "quiz": ("quizkveld", "quizkvelder"), "sport": ("AaFK-kamp", "AaFK-kamper")}
+          "happening": ("happening", "happenings"), "quiz": ("quizkveld", "quizkvelder"), "julebord": ("julebord", "julebord"), "sport": ("AaFK-kamp", "AaFK-kamper")}
 TEXT_MAX = 40  # flere enn dette blir for langt for et Facebook-innlegg
 
 
@@ -113,7 +113,7 @@ Sjekk gjerne lista før du poster. Programmet hentes automatisk og kan endre seg
 # --- Bildet ---
 
 BG, FG, MUTED, LINE, ACCENT, SEA, SURFACE = "#eef3f2", "#10282f", "#5a7177", "#d3dfdd", "#c8432b", "#1f6f78", "#ffffff"
-CAT_COLOR = {"konsert": "#1f6f78", "standup": "#b5531c", "show": "#6a4fa3", "barn": "#2f8a4c", "klubb": "#a83167", "happening": "#8a6d12", "quiz": "#7a4fb0", "sport": "#2b5fa8"}
+CAT_COLOR = {"konsert": "#1f6f78", "standup": "#b5531c", "show": "#6a4fa3", "barn": "#2f8a4c", "klubb": "#a83167", "happening": "#8a6d12", "quiz": "#7a4fb0", "julebord": "#b3262d", "sport": "#2b5fa8"}
 
 
 def font(name, size, **axes):
@@ -247,7 +247,7 @@ def main():
     data = json.loads((pages.ROOT / "data" / "events.json").read_text())
     today = datetime.datetime.now(pages.TZ).date()
     start, sun = pages.weekend_range(today)
-    evs = pages.occurrences([e for e in data["events"] if e["date"] >= today.isoformat()], start, sun)
+    evs = pages.occurrences([e for e in data["events"] if e["date"] >= today.isoformat() and e["cat"] not in pages.SEPARATE], start, sun)
     body = issue_body(evs, start, sun, today)
     title = f"Helgepost: {pages.range_text(start, sun)}"
     if len(sys.argv) > 1:

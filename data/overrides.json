@@ -39,7 +39,7 @@
     "note": "Flyttet fra 11. november."
   },
   "christmas-party": {
-    "cat": "happening",
+    "cat": "julebord",
     "note": "Julebord: kjøp bord hos Dampsentralen."
   },
   "circus-damp": {
@@ -117,7 +117,7 @@
     "title": "Janove"
   },
   "julebord-pa-fabrikken": {
-    "cat": "show",
+    "cat": "julebord",
     "note": "Julemat, dinnershow og fest. Prisen er per person."
   },
   "julekonsert-spjelkavik-kyrkje": {

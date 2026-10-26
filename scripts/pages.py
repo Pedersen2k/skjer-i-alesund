@@ -41,6 +41,7 @@ CAT_TEXT = {
     "klubb": "Klubbkvelder og fest i Ålesund. Sjekk alltid aldersgrense og åpningstid hos arrangøren.",
     "happening": "Happenings, marked og andre arrangementer i Ålesund som ikke passer i de andre kategoriene, for eksempel festivaler og julemarked.",
     "quiz": "Pubquiz, musikkquiz, bingo og andre quizkvelder i Ålesund, samlet på ett sted. Datoer, klokkeslett og pris hentes fra arrangørenes egne sider.",
+    "julebord": "Her er julebordene der også par, vennegjenger og små firma kan bestille plass: julebuffet, juletapas, dinnershow og julebord på fjorden. Dato og pris hentes fra hotellenes og scenenes egne sider; mangler prisen, står den hos arrangøren.",
     "sport": "Hjemmekamper for Aalesunds FK på Color Line Stadion, for både herrer og damer, med avspark og lenke til billetter.",
 }
 MONTH_PAGES = {}
@@ -58,9 +59,11 @@ CATS = {
     "klubb": ("klubb", "Klubb og fest i Ålesund", "Klubbkvelder og fest i Ålesund"),
     "happening": ("happenings", "Happenings i Ålesund", "Happenings, marked og andre arrangementer i Ålesund"),
     "quiz": ("quiz", "Quiz i Ålesund", "Pubquiz og quizkvelder i Ålesund"),
+    "julebord": ("julebord", "Julebord i Ålesund", "Julebord i Ålesund som alle kan bestille"),
     "sport": ("aafk-hjemmekamper", "AaFK-hjemmekamper", "Aalesunds hjemmekamper på Color Line Stadion"),
 }
-CAT_LABEL = {"konsert": "Konsert", "standup": "Standup", "show": "Show", "barn": "Barn & familie", "klubb": "Klubb", "happening": "Happening", "quiz": "Quiz", "sport": "Sport"}
+SEPARATE = {"julebord"}  # kategorier med bare egen side
+CAT_LABEL = {"konsert": "Konsert", "standup": "Standup", "show": "Show", "barn": "Barn & familie", "klubb": "Klubb", "happening": "Happening", "quiz": "Quiz", "julebord": "Julebord", "sport": "Sport"}
 
 
 def slug(s):
@@ -354,6 +357,16 @@ def quiz_week(evs, today):
     return f'<div class="qweek" aria-label="Neste syv dager, prikk der det er quiz">{cells}</div>'
 
 
+def julemeny_html():
+    """Julemeny på restaurant uten faste datoer (data/julebord.json), som en egen boks på julebord/. Bare tilbud med kildelenke."""
+    f = ROOT / "data" / "julebord.json"
+    items = json.loads(f.read_text()).get("julemeny", []) if f.exists() else []
+    rows = "".join(f"""<li><a href="{escape(i['url'])}" target="_blank" rel="noopener"><b>{escape(i['name'])}</b></a> <span>{escape(i['venue'])}</span>
+      <small>{escape(" · ".join(x for x in (i.get("period", ""), i.get("price") or "Pris hos arrangør") if x))}</small>{f"<p>{escape(i['note'])}</p>" if i.get("note") else ""}</li>""" for i in items)
+    tips = '<p class="jbtips">Har du et julebord som alle kan bestille? <a href="../kontakt/">Tips oss</a>.</p>'
+    return (f'<section class="julemeny"><h2>Julemeny på restaurant</h2><p>Hele førjulen, uten faste datoer: bestill bord direkte hos restauranten.</p><ul>{rows}</ul></section>' if rows else "") + tips
+
+
 def write(path, html):
     f = OUT / path / "index.html" if path.endswith("/") or not path else OUT / path
     f.parent.mkdir(parents=True, exist_ok=True)
@@ -605,8 +618,10 @@ def front_html(src, events, today):
 def main():
     data = json.loads((ROOT / "data" / "events.json").read_text())
     today = datetime.datetime.now(TZ).date()
-    events = [e for e in data["events"] if e["date"] >= today.isoformat()]
-    events.sort(key=lambda e: (e["date"], e.get("time") or "99"))
+    all_events = [e for e in data["events"] if e["date"] >= today.isoformat()]
+    all_events.sort(key=lambda e: (e["date"], e.get("time") or "99"))
+    # Julebord har egen side og er ikke med i lister, dager, måneder, scener eller helgeposten (som kino)
+    events = [e for e in all_events if e["cat"] not in SEPARATE]
     updated = (data.get("meta", {}).get("updatedAt") or today.isoformat())[:10]
 
     if OUT.exists():
@@ -646,7 +661,7 @@ def main():
     for v, n in sorted(counts.items(), key=lambda x: -x[1]):
         if n >= VENUE_MIN:
             VENUE_PAGES[v] = f"scene/{slug(v)}/"
-    cats_present = {e["cat"] for e in events}
+    cats_present = {e["cat"] for e in all_events}
     pages = []  # (adresse, endret)
     global JUL_NAV
     JUL_NAV = (today.month, today.day) >= (11, 1) and today.month != 1
@@ -705,11 +720,11 @@ def main():
 
     for k, (p, h1, what) in CATS.items():
         # Lages også uten arrangementer, så lenkene fra forsiden aldri blir døde
-        evs = [e for e in events if e["cat"] == k]
+        evs = [e for e in all_events if e["cat"] == k]
         listing_page(p + "/", f"{h1} – program og billettpriser | {SITE}", h1,
                      f"{what}: {len(evs)} kommende {'arrangement' if len(evs) == 1 else 'arrangementer'}, " + ("med avspark og billettlenker." if k == "sport" else "med datoer og billettpriser."),
                      evs, f"Ingen kommende arrangementer i denne kategorien akkurat nå. Se hele programmet.", what, about=CAT_TEXT.get(k, ""),
-                     lead=quiz_week(evs, today) if k == "quiz" else "")
+                     lead=quiz_week(evs, today) if k == "quiz" else julemeny_html() if k == "julebord" else "")
 
     for v, p in VENUE_PAGES.items():
         evs = [e for e in events if e["venue"] == v]
@@ -718,20 +733,20 @@ def main():
                      evs, "", f"Program for {v} i Ålesund",
                      about=f"{v} er en av scenene i Ålesund. Oversikten viser kommende arrangementer med dato, klokkeslett og billettpris, hentet fra arrangørens egne sider.")
 
-    for e in events:
+    for e in all_events:
         path = f"arrangement/{e['id']}/"
-        write(path, event_page(e, events, path))
+        write(path, event_page(e, all_events if e["cat"] in SEPARATE else events, path))
         pages.append((path, (e.get("addedAt") or updated)[:10]))
 
     # Kalenderabonnement: kalender/alle.ics og én per kategori
     (OUT / "kalender").mkdir()
     feeds = {"alle": ("Skjer i Ålesund", events)}
     for k, (p, h1, _) in CATS.items():
-        feeds[p] = (f"Skjer i Ålesund: {h1}", [e for e in events if e["cat"] == k])
+        feeds[p] = (f"Skjer i Ålesund: {h1}", [e for e in all_events if e["cat"] == k])
     for fname, (cal_name, evs) in feeds.items():
         (OUT / "kalender" / f"{fname}.ics").write_text(build_ics(cal_name, evs, today))
 
-    jp = jul_page(events, today)
+    jp = jul_page(all_events, today)
     if jp:
         write("jul-i-alesund/", jp[0])
         pages.append(("jul-i-alesund/", updated))
@@ -784,7 +799,7 @@ def event_page(e, events, path):
       <dt>Pris</dt><dd class="{'sold' if e.get('soldOut') else ''}">{escape(pt)}</dd>
     </dl>
     {f'<p class="note{" warn" if e.get("uncertain") else ""}">{escape(e["note"])}</p>' if e.get("note") else ""}
-    <div class="cta">{f'<a class="btn" href="{escape(u)}" target="_blank" rel="noopener">Billetter og info hos arrangør →</a>' if u else ""}<a class="link" href="{up}#ev-{e['id']}">Se i hele programmet</a></div>
+    <div class="cta">{f'<a class="btn" href="{escape(u)}" target="_blank" rel="noopener">Billetter og info hos arrangør →</a>' if u else ""}{f'<a class="link" href="{up}julebord/">Alle julebord</a>' if e["cat"] in SEPARATE else f'<a class="link" href="{up}#ev-{e["id"]}">Se i hele programmet</a>'}</div>
     <p class="small">Datoer og priser kan endres. Sjekk alltid hos arrangøren før du kjøper billett.</p>
   </article>
   {f'<section class="also"><h2>Samme dag</h2><div class="events">{"".join(card(x, up) for x in same_day)}</div></section>' if same_day else ""}
@@ -986,6 +1001,15 @@ SUB_CSS = """
 .qweek b { display: block; font: 800 18px var(--font-display); color: var(--fg); }
 .qweek .q { background: color-mix(in srgb, var(--c-quiz) 12%, var(--surface)); border-color: var(--c-quiz); color: var(--c-quiz); }
 .qweek .q i { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-quiz); margin: 3px auto 0; }
+.julemeny { margin: 0 0 18px; padding: 14px 16px; border: 1px solid var(--c-julebord); border-radius: 12px; background: color-mix(in srgb, var(--c-julebord) 7%, var(--surface)); }
+.julemeny h2 { margin: 0 0 4px; font-size: 17px; }
+.julemeny > p { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+.julemeny ul { list-style: none; margin: 0; padding: 0; }
+.julemeny li { padding: 8px 0; border-top: 1px solid var(--line); }
+.julemeny li span { color: var(--muted); font-size: 14px; }
+.julemeny li small { display: block; font: 600 13px var(--font-mono); color: var(--c-julebord); margin-top: 2px; }
+.julemeny li p { margin: 4px 0 0; font-size: 14px; }
+.jbtips { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
 .kform { display: grid; gap: 14px; max-width: 560px; }
 .kform label { display: grid; gap: 6px; font: 600 14px/1.3 var(--font-body); }
 .kform input, .kform select, .kform textarea { font: 400 16px/1.4 var(--font-body); padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); width: 100%; box-sizing: border-box; }
