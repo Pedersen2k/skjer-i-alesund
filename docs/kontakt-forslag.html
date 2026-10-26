@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontakt: designforslag</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&display=swap">
+<style>
+:root { --bg:#eef3f2; --surface:#fff; --fg:#10282f; --muted:#5a7177; --line:#d3dfdd; --accent:#c8432b; --sea:#1f6f78; --d:"Bricolage Grotesque",system-ui,sans-serif; --b:"Figtree",system-ui,sans-serif; }
+* { box-sizing: border-box; }
+body { margin:0; background:#dfe8e6; color:var(--fg); font:400 15px/1.5 var(--b); }
+.intro { max-width:900px; margin:0 auto; padding:28px 20px 6px; }
+.intro h1 { font:800 32px/1.1 var(--d); margin:0 0 8px; }
+.intro p { color:var(--muted); margin:0; }
+.grid { display:flex; flex-wrap:wrap; gap:28px; justify-content:center; padding:24px 16px 60px; }
+.col { width:390px; }
+.col h2 { font:700 18px/1.2 var(--d); margin:0 0 4px; }
+.col p.cap { font-size:13px; color:var(--muted); margin:0 0 10px; min-height:56px; }
+.phone { position:relative; height:760px; overflow:auto; background:var(--bg); border:8px solid #10282f; border-radius:30px; }
+.pg { padding:16px; min-height:100%; }
+a { color:var(--sea); }
+.crumb { font:500 13px var(--b); margin-bottom:12px; display:block; color:var(--fg); }
+h3.t { font:800 30px/1.05 var(--d); margin:0 0 6px; }
+.lede { color:var(--muted); margin:0 0 16px; }
+label { display:grid; gap:5px; font:600 14px var(--b); margin-bottom:12px; }
+input, select, textarea { font:400 16px var(--b); padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--fg); width:100%; }
+.btn { font:600 15px var(--b); padding:12px 18px; border-radius:10px; background:var(--accent); color:#fff; border:0; cursor:pointer; }
+.btn.ghost { background:transparent; color:var(--fg); border:1px solid var(--line); }
+.small { font-size:12.5px; color:var(--muted); }
+.about { margin-top:22px; padding-top:6px; border-top:1px solid var(--line); }
+.about h4 { font:700 16px var(--d); margin:14px 0 4px; }
+.about p { font-size:14px; margin:0 0 8px; }
+.fake { color:var(--muted); font-size:12px; text-align:center; padding:10px; }
+
+/* B: flytende knapp */
+.fab { position:sticky; bottom:14px; float:right; margin:0 14px 14px 0; z-index:3; display:flex; align-items:center; gap:8px; background:var(--fg); color:var(--bg); border:0; border-radius:999px; padding:12px 16px; font:600 14px var(--b); box-shadow:0 6px 18px #0004; cursor:pointer; }
+.sheet { position:absolute; inset:0; background:#0007; display:none; align-items:flex-end; z-index:5; }
+.sheet.open { display:flex; }
+.sheet .in { background:var(--surface); width:100%; border-radius:22px 22px 0 0; padding:18px 16px 22px; max-height:92%; overflow:auto; }
+.sheet .grab { width:44px; height:5px; background:var(--line); border-radius:3px; margin:0 auto 14px; }
+.ev { background:var(--surface); border-left:4px solid var(--sea); border-radius:10px; padding:10px 12px; margin-bottom:10px; }
+.ev b { font:700 16px var(--d); }
+.ev span { display:block; font-size:13px; color:var(--muted); }
+
+/* C: kort */
+.cards { display:grid; gap:10px; margin-bottom:14px; }
+.cardbtn { text-align:left; background:var(--surface); border:1px solid var(--line); border-left:5px solid var(--c); border-radius:12px; padding:14px; cursor:pointer; font:inherit; color:inherit; }
+.cardbtn b { font:700 17px var(--d); display:block; }
+.cardbtn span { font-size:13px; color:var(--muted); }
+.cardbtn.on { outline:2px solid var(--c); }
+.panel { background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px; display:none; }
+.panel.on { display:block; }
+
+/* D: billett */
+.hero { background:var(--fg); color:#eef3f2; margin:-16px -16px 16px; padding:26px 16px 22px; }
+.hero h3 { font:800 34px/1 var(--d); margin:0 0 8px; }
+.hero p { margin:0; color:#b9cdcf; }
+.ticket { background:var(--surface); border-radius:14px; position:relative; padding:18px 16px; border:1px solid var(--line); }
+.ticket:before, .ticket:after { content:""; position:absolute; top:46px; width:18px; height:18px; background:var(--bg); border-radius:50%; border:1px solid var(--line); }
+.ticket:before { left:-10px; } .ticket:after { right:-10px; }
+.ticket .stub { font:500 11px/1 monospace; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); border-bottom:2px dashed var(--line); padding-bottom:28px; margin-bottom:16px; }
+.facts { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:16px 0 0; text-align:center; }
+.facts div { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:10px 4px; }
+.facts b { font:800 22px var(--d); display:block; color:var(--accent); }
+.facts span { font-size:11.5px; color:var(--muted); }
+
+/* E: samtale */
+.chat { display:grid; gap:10px; }
+.bub { max-width:85%; padding:10px 13px; border-radius:16px; font-size:15px; }
+.bub.me { background:var(--surface); border:1px solid var(--line); border-bottom-left-radius:4px; }
+.bub.you { background:var(--sea); color:#fff; justify-self:end; border-bottom-right-radius:4px; }
+.opts { display:flex; flex-wrap:wrap; gap:8px; }
+.opt { border:1.5px solid var(--sea); color:var(--sea); background:transparent; padding:8px 13px; border-radius:999px; font:600 14px var(--b); cursor:pointer; }
+.row { display:flex; gap:8px; }
+.row input { flex:1; }
+</style>
+</head>
+<body>
+<div class="intro">
+  <h1>Kontakt: fem forslag</h1>
+  <p>Alle er klikkbare, men ingenting sendes. Skjemaet bak er Web3Forms i alle varianter, og e-posten din vises ingen steder.</p>
+</div>
+<div class="grid">
+
+<!-- A -->
+<div class="col"><h2>A. Egen side, enkelt skjema</h2>
+<p class="cap">Slik det er bygd nå: ei side «Kontakt og om siden» med skjema øverst og tekst under. Lenke i bunnen.</p>
+<div class="phone"><div class="pg">
+  <a class="crumb" href="#">← Skjer i Ålesund: hele programmet</a>
+  <h3 class="t">Kontakt og om siden</h3>
+  <p class="lede">Mangler det et arrangement, er noe feil, eller vil du bare si hei? Send en melding her.</p>
+  <label>Hva gjelder det?<select><option>Foreslå et arrangement</option><option>Rapportere en feil</option><option>Annet</option></select></label>
+  <label>Tittel på arrangementet<input></label>
+  <label>Dato og klokkeslett<input></label>
+  <label>Melding<textarea rows="4"></textarea></label>
+  <label>E-post hvis du vil ha svar (valgfritt)<input></label>
+  <button class="btn">Send</button>
+  <div class="about"><h4>Om siden</h4><p>Skjer i Ålesund samler konserter, standup, show og mer på ett sted. Alt kommer fra arrangørenes egne sider.</p><h4>Personvern</h4><p>Ingen informasjonskapsler. Skjemaet sender bare det du skriver.</p></div>
+</div></div></div>
+
+<!-- B -->
+<div class="col"><h2>B. Flytende «Kontakt»-knapp</h2>
+<p class="cap">En liten knapp som alltid er synlig nederst til høyre på alle sider. Åpner et skjema nedenfra uten å forlate programmet. Trykk på knappen.</p>
+<div class="phone" id="phoneB"><div class="pg">
+  <h3 class="t">Hva skjer i Ålesund?</h3>
+  <p class="lede">Konserter, standup og show med billettpriser.</p>
+  <div class="ev"><b>Ålesund symfoniorkester</b><span>Fre 30. okt · Parken · fra 350 kr</span></div>
+  <div class="ev"><b>Standup: Kveldsvakt</b><span>Lør 31. okt · Terminalen · 280 kr</span></div>
+  <div class="ev"><b>Klubb Damp</b><span>Lør 31. okt · Dampsentralen</span></div>
+  <div class="ev"><b>AaFK – Brann</b><span>Søn 1. nov · Color Line Stadion</span></div>
+  <div class="ev"><b>Familiedag</b><span>Søn 1. nov · Parken · Gratis</span></div>
+  <div style="height:300px"></div>
+  <button class="fab" onclick="document.getElementById('shB').classList.add('open')">✉ Kontakt</button>
+</div>
+<div class="sheet" id="shB" onclick="if(event.target===this)this.classList.remove('open')"><div class="in">
+  <div class="grab"></div>
+  <h3 class="t" style="font-size:24px">Kontakt oss</h3>
+  <p class="lede" style="margin-bottom:10px">Foreslå et arrangement eller meld fra om en feil.</p>
+  <label>Melding<textarea rows="4"></textarea></label>
+  <label>E-post (valgfritt)<input></label>
+  <button class="btn">Send</button> <button class="btn ghost" onclick="document.getElementById('shB').classList.remove('open')">Lukk</button>
+</div></div></div></div>
+
+<!-- C -->
+<div class="col"><h2>C. Velg først, så skjema</h2>
+<p class="cap">Tre store kort: «Foreslå arrangement», «Meld feil», «Jeg er arrangør». Skjemaet tilpasser seg valget, så folk slipper å lete etter riktig felt.</p>
+<div class="phone"><div class="pg">
+  <a class="crumb" href="#">← Skjer i Ålesund: hele programmet</a>
+  <h3 class="t">Ka kan vi hjelpe med?</h3>
+  <p class="lede">Velg det som passer best.</p>
+  <div class="cards">
+    <button class="cardbtn" style="--c:var(--sea)" onclick="pick(this,'c1')"><b>🎤 Foreslå et arrangement</b><span>Mangler noe i programmet?</span></button>
+    <button class="cardbtn" style="--c:var(--accent)" onclick="pick(this,'c2')"><b>⚠ Det er noe feil</b><span>Feil dato, pris eller lenke</span></button>
+    <button class="cardbtn" style="--c:#6a4fa3" onclick="pick(this,'c3')"><b>🏛 Jeg er arrangør</b><span>Få dere med på siden</span></button>
+  </div>
+  <div class="panel" id="c1"><label>Tittel<input></label><label>Dato og sted<input></label><label>Lenke til billetter<input placeholder="https://"></label><button class="btn">Send forslag</button></div>
+  <div class="panel" id="c2"><label>Hvilket arrangement?<input></label><label>Hva er feil?<textarea rows="3"></textarea></label><button class="btn">Meld fra</button></div>
+  <div class="panel" id="c3"><label>Navn på scene/arrangør<input></label><label>Lenke til programmet deres<input placeholder="https://"></label><label>E-post<input></label><button class="btn">Send</button></div>
+</div></div></div>
+
+<!-- D -->
+<div class="col"><h2>D. «Om oss» med billett-skjema</h2>
+<p class="cap">Mørk topp med kort presentasjon og tall, og skjemaet formet som en billett. Passer sidens tema, og gir også en skikkelig «Om siden».</p>
+<div class="phone"><div class="pg">
+  <div class="hero"><a class="crumb" href="#" style="color:#b9cdcf">← Hele programmet</a><h3>Ka skjer da?</h3><p>Alt som skjer i Ålesund, samlet på ett sted. Hentet fra arrangørene selv, oppdatert morgen og kveld.</p></div>
+  <div class="ticket">
+    <div class="stub">Send oss en melding · Admit one</div>
+    <label>Hva gjelder det?<select><option>Foreslå et arrangement</option><option>Feil i programmet</option><option>Annet</option></select></label>
+    <label>Melding<textarea rows="4"></textarea></label>
+    <label>E-post (valgfritt)<input></label>
+    <button class="btn" style="width:100%">Send billetten →</button>
+  </div>
+  <div class="facts"><div><b>110</b><span>arrangementer</span></div><div><b>6</b><span>kilder</span></div><div><b>2×</b><span>oppdatert daglig</span></div></div>
+  <p class="small" style="margin-top:14px">Ingen informasjonskapsler. Skjemaet sender bare det du skriver.</p>
+</div></div></div>
+
+<!-- E -->
+<div class="col"><h2>E. Samtale</h2>
+<p class="cap">Ett spørsmål om gangen, som en liten chat med «Ka skjer da?». Lite skrekk for å sende noe. Prøv å trykke på valgene.</p>
+<div class="phone"><div class="pg">
+  <a class="crumb" href="#">← Skjer i Ålesund: hele programmet</a>
+  <div class="chat" id="chatE">
+    <div class="bub me">Hei! Ka kan vi hjelpe deg med? 👋</div>
+    <div class="opts" id="eo1"><button class="opt" onclick="chat(this,1)">Foreslå arrangement</button><button class="opt" onclick="chat(this,1)">Meld feil</button><button class="opt" onclick="chat(this,1)">Annet</button></div>
+  </div>
+  <p class="fake" id="eFake"></p>
+</div></div></div>
+
+</div>
+<script>
+function pick(b, id) {
+  document.querySelectorAll('.cardbtn').forEach(x => x.classList.remove('on')); b.classList.add('on');
+  document.querySelectorAll('.panel').forEach(x => x.classList.remove('on')); document.getElementById(id).classList.add('on');
+}
+function chat(b, step) {
+  const c = document.getElementById('chatE'); document.getElementById('eo1') && document.getElementById('eo1').remove();
+  const you = document.createElement('div'); you.className = 'bub you'; you.textContent = b.textContent; c.appendChild(you);
+  const me = document.createElement('div'); me.className = 'bub me'; me.textContent = 'Fortell oss litt mer. Hva vil du si?'; c.appendChild(me);
+  const f = document.createElement('div'); f.className = 'row'; f.innerHTML = '<input placeholder="Skriv her …"><button class="btn">Send</button>'; c.appendChild(f);
+  const n = document.createElement('div'); n.className = 'bub me'; n.textContent = 'Vil du ha svar? Legg igjen e-post (valgfritt) i neste steg.'; c.appendChild(n);
+}
+</script>
+</body>
+</html>

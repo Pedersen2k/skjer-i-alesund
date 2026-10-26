@@ -251,8 +251,68 @@ def listing(path, h1, lede, events, empty, cats_present, about=""):
 {day_list(events, up) if events else f'<p class="empty">{escape(empty)}</p>'}
   </main>
   {links_nav(up, path, cats_present)}
-  <footer><div>Programmet hentes automatisk morgen og kveld fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div></footer>"""
+  <footer><div>Programmet hentes automatisk morgen og kveld fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a></div></footer>"""
     return body
+
+
+WEB3FORMS_KEY = "4fdbd7cb-a640-4982-a1f4-6fefbf772424"  # offentlig nøkkel: kan bare brukes til å sende til eieren
+
+
+def kontakt_page():
+    return f"""  <header class="top">
+    <h1>Kontakt og om siden</h1>
+    <p class="lede">Mangler det et arrangement, er noe feil, eller vil du bare si hei? Send en melding her.</p>
+  </header>
+  <main>
+  <form id="kform" class="kform" action="https://api.web3forms.com/submit" method="post">
+    <input type="hidden" name="access_key" value="{WEB3FORMS_KEY}">
+    <input type="hidden" name="subject" value="Melding fra kaskjerda.no">
+    <input type="hidden" name="from_name" value="kaskjerda.no">
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" style="display:none">
+    <label>Hva gjelder det?
+      <select name="Type" id="ktype">
+        <option>Foreslå et arrangement</option>
+        <option>Rapportere en feil</option>
+        <option>Er du arrangør?</option>
+        <option>Annet</option>
+      </select></label>
+    <div id="kevent">
+      <label>Tittel på arrangementet <input name="Arrangement" maxlength="150"></label>
+      <label>Dato og klokkeslett <input name="Dato" maxlength="100"></label>
+      <label>Sted <input name="Sted" maxlength="100"></label>
+      <label>Lenke til billetter eller mer info <input name="Lenke" type="url" placeholder="https://" maxlength="300"></label>
+    </div>
+    <label>Melding <textarea name="Melding" rows="5" maxlength="3000" required></textarea></label>
+    <label>Navn (valgfritt) <input name="name" maxlength="100"></label>
+    <label>E-post hvis du vil ha svar (valgfritt) <input name="email" type="email" maxlength="150"></label>
+    <button class="btn" type="submit">Send</button>
+    <p id="kstatus" class="small" role="status"></p>
+  </form>
+  <script>
+  (function () {{
+    const f = document.getElementById("kform"), st = document.getElementById("kstatus"), t = document.getElementById("ktype"), ev = document.getElementById("kevent");
+    const sync = () => {{ ev.hidden = t.value !== "Foreslå et arrangement"; }};
+    t.onchange = sync; sync();
+    f.onsubmit = async e => {{
+      e.preventDefault(); st.textContent = "Sender …";
+      try {{
+        const r = await fetch(f.action, {{ method: "POST", headers: {{ Accept: "application/json" }}, body: new FormData(f) }});
+        const j = await r.json();
+        if (!j.success) throw 0;
+        f.reset(); sync(); st.textContent = "Takk! Meldingen er sendt.";
+      }} catch {{ st.textContent = "Det gikk ikke å sende. Prøv igjen litt senere."; }}
+    }};
+  }})();
+  </script>
+  <section class="about">
+    <h2>Om siden</h2>
+    <p>Skjer i Ålesund samler konserter, standup, show, barnearrangementer, klubbkvelder og AaFK-hjemmekamper i Ålesund på ett sted, med billettpriser. Programmet hentes automatisk morgen og kveld fra Tikkio, Parken kulturhus, Dampsentralen og AaFK, og enkelte arrangementer legges inn for hånd. Vi finner ikke på noe: alt kommer fra arrangørenes egne sider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</p>
+    <p>Er du arrangør og mangler på siden? Send oss en lenke til arrangementet, så legger vi det inn.</p>
+    <h2>Personvern</h2>
+    <p>Skjemaet sender bare det du skriver til oss, via tjenesten Web3Forms, og vi bruker det kun til å svare deg eller rette opp i programmet. E-post og navn er valgfritt. Siden teller besøk med GoatCounter, som ikke bruker informasjonskapsler og ikke lagrer personopplysninger.</p>
+  </section>
+  </main>
+  <footer><div>Programmet hentes automatisk morgen og kveld fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div></footer>"""
 
 
 def write(path, html):
@@ -642,6 +702,9 @@ def main():
                         kino_page(kino_films, kino_meta, today)))
     pages.append(("kino/", (kino_meta.get("updatedAt") or updated)[:10]))
 
+    write("kontakt/", page("kontakt/", f"Kontakt og om siden | {SITE}", "Kontakt Skjer i Ålesund: foreslå et arrangement, rapporter en feil eller si hei. Om siden og personvern.", kontakt_page()))
+    pages.append(("kontakt/", updated[:10]))
+
     # Delte lenker til arrangementer som er over, havner her
     write("404.html", page("404.html", f"Fant ikke siden | {SITE}", "Arrangementet er over eller finnes ikke lenger.",
                            f"""  <header class="top"><h1>Fant ikke siden</h1>
@@ -876,6 +939,15 @@ SUB_CSS = """
 .detail .cta { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: 14px; }
 .btn { display: inline-block; font: 600 15px/1 var(--font-body); padding: 12px 16px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); text-decoration: none; }
 .btn:hover { filter: brightness(1.05); }
+.kform { display: grid; gap: 14px; max-width: 560px; }
+.kform label { display: grid; gap: 6px; font: 600 14px/1.3 var(--font-body); }
+.kform input, .kform select, .kform textarea { font: 400 16px/1.4 var(--font-body); padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); width: 100%; box-sizing: border-box; }
+.kform #kevent { display: grid; gap: 14px; }
+.kform #kevent[hidden] { display: none; }
+.kform .btn { border: 0; cursor: pointer; justify-self: start; }
+.about { max-width: 640px; margin-top: 32px; }
+.about h2 { font: 700 18px/1.2 var(--font-display); margin: 22px 0 8px; }
+.about p { font-size: 15px; line-height: 1.55; }
 .detail .small { font-size: 12.5px; color: var(--muted); margin: 14px 0 0; }
 
 /* Kino */
