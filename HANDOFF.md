@@ -1,6 +1,6 @@
 # Handoff: Skjer i Ålesund
 
-_State as of 26 Oct 2026 (late: contact page added, O'Connor's investigated). Live at kaskjerda.no with: calendar subscription and calendar view, SEO work, Jul i Ålesund page (front-page card appears 1 Nov), Dampsentralen as a source, new GoatCounter account. See Next steps and Open decisions._
+_State as of 26 Oct 2026 (late: contact page, quiz category and O'Connor's added). Live at kaskjerda.no with: calendar subscription and calendar view, SEO work, Jul i Ålesund page (front-page card appears 1 Nov), Dampsentralen as a source, new GoatCounter account. See Next steps and Open decisions._
 
 ## Goal
 A public website listing what's on in Ålesund (concerts, standup, shows, kids' events, clubs, happenings, AaFK home matches), with ticket prices, that updates itself every day.
@@ -117,8 +117,10 @@ Owner asked that events from dampsentralen.no are always included. `fetch_dampse
 
 Search Console "Forbedre utseendet" (26 Oct): missing `endDate`, `performer`, `organizer`, `validFrom`, `offers` (12 events without price), `description`, `image`. These are recommended fields, not errors. We deliberately do not invent `endDate`, `performer`, `organizer`, `validFrom` or prices (not in the sources). `description` and `image` were already in `event_ld()` in `pages.py`; the JS variant in `index.html` (`addStructuredData`) now has them too. The counts probably come from a crawl before the SEO work; check again in a few weeks. Event-specific images would need Tikkio's images (permission, Next steps 8).
 
-## O'Connor's Ålesund (26 Oct, open)
-Visitors say O'Connor's Irish Pub Ålesund (Brunholmsgata 10) is missing. It is not on Tikkio's Ålesund listing and not in `events.json`. It has its own programme at https://oconnors.no/alesund/hva-skjer/ (WordPress-style event pages, e.g. weekly pubquiz every other Thursday, music quiz, sport on screen). `oconnors.no` is blocked by the environment's network proxy (403 on CONNECT), so it could not be read. Next: owner allows `oconnors.no` (and `www.oconnors.no`) in the environment's network settings, then in a new session check for JSON-LD or a feed and add `fetch_oconnors()` to `sync.py` (like `fetch_dampsentralen()`), or `manual.json` entries. Decide with the owner whether sport screenings and recurring quizzes belong in the programme (category `happening`/`klubb`?); collapse the recurring quiz like KLUBB DAMP with `moreShows`.
+## Quiz and O'Connor's (26 Oct, live)
+New category `quiz` (quiz and bingo; `guess_cat()` in `sync.py`; colour `--c-quiz`; filter chip, `quiz/` page with a 7-day strip (`quiz_week()` in `pages.py`), calendar feed, Helgepost emoji). On the front page all quiz events are collapsed into one card "Quiz i Ålesund" at the first quiz date (`collapseQuiz()`/`quizHtml()` in `index.html`, `quiz_card()` in `pages.py` for the pre-rendered list; not when only the Quiz category is selected). The owner chose designs A+B from `docs/quiz-forslag.html`.
+`fetch_oconnors()` in `sync.py` reads `https://oconnors.no/alesund/hva-skjer/` and each event page (Dato/Tid/Pris in `p.label`/`p.value`); each evening is its own event (`group` per date); the ticket link on their pages is a generic booking page, so `url` is the event page. Sport screenings are deliberately not included (owner decision). `oconnors.no` had to be allowed in the environment's network settings (done). If the site can't be read, old events are kept and a warning issue is opened. Their pages disagree (overview: every other Thursday 20:00 and free; event page: 19:00-21:00 and 50 kr): the pubquiz events are `uncertain: true` with a note. Ask O'Connor's which is right, then remove the note logic in `main()`.
+Not done: Bypatrioten quizzes (`bypatrioten.com/kalender/`, reachable, not parsed); quiz events from Tikkio/Parken are picked up automatically by title (`quiz|bingo`). The overrides `pubkonsert-med-quiz` keeps its own category.
 
 ## Preferences from the owner (24 Oct)
 - Dislikes sideways scrolling on mobile.
