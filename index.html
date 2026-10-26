@@ -705,14 +705,20 @@ fetch("data/kino.json", { cache: "no-cache" })
   .then(k => {
     const p = Object.fromEntries(new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map(x => [x.type, x.value]));
     const nowStr = `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`, day = nowStr.slice(0, 10);
-    let films = 0, shows = 0;
-    for (const f of k.films || []) {
-      const n = f.shows.filter(s => s.start.slice(0, 10) === day && s.start >= nowStr).length;
-      if (n) { films++; shows += n; }
+    // Visninger igjen i dag; når kveldens siste har startet, vises neste dag med program (stripen skal alltid være der)
+    const count = (d, from) => { let films = 0, shows = 0; for (const f of k.films || []) { const n = f.shows.filter(s => s.start.slice(0, 10) === d && s.start >= from).length; if (n) { films++; shows += n; } } return [films, shows]; };
+    let [films, shows] = count(day, nowStr), label = "i dag";
+    if (!shows) {
+      const next = (k.films || []).flatMap(f => f.shows.map(s => s.start)).filter(s => s.slice(0, 10) > day).sort()[0];
+      if (next) {
+        const d = next.slice(0, 10), t = new Date(day + "T12:00"); t.setDate(t.getDate() + 1);
+        const tomorrow = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`;
+        [films, shows] = count(d, ""); label = d === tomorrow ? "i morgen" : new Date(d + "T12:00").toLocaleDateString("nb-NO", { weekday: "long", day: "numeric", month: "long" });
+      }
     }
-    if (!shows) return;
     const el = $("kinostrip");
-    el.innerHTML = `<div>🎬 <b>På kino i dag:</b> ${films} ${films === 1 ? "film" : "filmer"}, ${shows} ${shows === 1 ? "visning" : "visninger"}</div><span>Kinoprogram →</span>`;
+    el.innerHTML = shows ? `<div>🎬 <b>På kino ${label}:</b> ${films} ${films === 1 ? "film" : "filmer"}, ${shows} ${shows === 1 ? "visning" : "visninger"}</div><span>Kinoprogram →</span>`
+      : `<div>🎬 <b>Kino i Ålesund:</b> program og plakater for ODEON</div><span>Kinoprogram →</span>`;
     el.hidden = false;
   })
   .catch(() => {});
