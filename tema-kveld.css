@@ -9,7 +9,8 @@ html[data-tema="kveld"] .chip[aria-pressed="true"], html[data-tema="kveld"] .chi
 html[data-tema="kveld"] .ev { background:linear-gradient(135deg, color-mix(in srgb, var(--c) 20%, #13252d), #13252d 62%) !important; border-color:#25414a !important; border-left-color:var(--c) !important; box-shadow:0 8px 24px #0006; }
 html[data-tema="kveld"] .ev .link, html[data-tema="kveld"] .link { color:var(--gold) !important; }
 html[data-tema="kveld"] .date .num { color:#fff; } .date .mo { color:#ff8a6b; }
-html[data-tema="kveld"] .controls { background:color-mix(in srgb, #0a171b 88%, transparent) !important; backdrop-filter:blur(10px); }
+html[data-tema="kveld"] .controls { background:transparent !important; }
+html[data-tema="kveld"] .controls.stuck { background:color-mix(in srgb, #0a171b 88%, transparent) !important; backdrop-filter:blur(10px); }
 html[data-tema="kveld"] .viewseg [aria-pressed="true"] { background:var(--gold) !important; color:#10282f !important; }
 html[data-tema="kveld"] .kinostrip, html[data-tema="kveld"] .strip { background:#13252d !important; border-color:#25414a !important; }
 html[data-tema="kveld"] .subscribe { background:#13252d; border-color:#25414a; }
