@@ -247,7 +247,7 @@ def main():
     data = json.loads((pages.ROOT / "data" / "events.json").read_text())
     today = datetime.datetime.now(pages.TZ).date()
     start, sun = pages.weekend_range(today)
-    evs = pages.occurrences([e for e in data["events"] if e["date"] >= today.isoformat()], start, sun)
+    evs = pages.occurrences([e for e in data["events"] if e["date"] >= today.isoformat() and e["cat"] not in pages.SEPARATE], start, sun)
     body = issue_body(evs, start, sun, today)
     title = f"Helgepost: {pages.range_text(start, sun)}"
     if len(sys.argv) > 1:

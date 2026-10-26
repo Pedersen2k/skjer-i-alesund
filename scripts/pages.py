@@ -62,6 +62,7 @@ CATS = {
     "julebord": ("julebord", "Julebord i Ålesund", "Julebord i Ålesund som alle kan bestille"),
     "sport": ("aafk-hjemmekamper", "AaFK-hjemmekamper", "Aalesunds hjemmekamper på Color Line Stadion"),
 }
+SEPARATE = {"julebord"}  # kategorier med bare egen side
 CAT_LABEL = {"konsert": "Konsert", "standup": "Standup", "show": "Show", "barn": "Barn & familie", "klubb": "Klubb", "happening": "Happening", "quiz": "Quiz", "julebord": "Julebord", "sport": "Sport"}
 
 
@@ -617,8 +618,10 @@ def front_html(src, events, today):
 def main():
     data = json.loads((ROOT / "data" / "events.json").read_text())
     today = datetime.datetime.now(TZ).date()
-    events = [e for e in data["events"] if e["date"] >= today.isoformat()]
-    events.sort(key=lambda e: (e["date"], e.get("time") or "99"))
+    all_events = [e for e in data["events"] if e["date"] >= today.isoformat()]
+    all_events.sort(key=lambda e: (e["date"], e.get("time") or "99"))
+    # Julebord har egen side og er ikke med i lister, dager, måneder, scener eller helgeposten (som kino)
+    events = [e for e in all_events if e["cat"] not in SEPARATE]
     updated = (data.get("meta", {}).get("updatedAt") or today.isoformat())[:10]
 
     if OUT.exists():
@@ -658,7 +661,7 @@ def main():
     for v, n in sorted(counts.items(), key=lambda x: -x[1]):
         if n >= VENUE_MIN:
             VENUE_PAGES[v] = f"scene/{slug(v)}/"
-    cats_present = {e["cat"] for e in events}
+    cats_present = {e["cat"] for e in all_events}
     pages = []  # (adresse, endret)
     global JUL_NAV
     JUL_NAV = (today.month, today.day) >= (11, 1) and today.month != 1
@@ -717,7 +720,7 @@ def main():
 
     for k, (p, h1, what) in CATS.items():
         # Lages også uten arrangementer, så lenkene fra forsiden aldri blir døde
-        evs = [e for e in events if e["cat"] == k]
+        evs = [e for e in all_events if e["cat"] == k]
         listing_page(p + "/", f"{h1} – program og billettpriser | {SITE}", h1,
                      f"{what}: {len(evs)} kommende {'arrangement' if len(evs) == 1 else 'arrangementer'}, " + ("med avspark og billettlenker." if k == "sport" else "med datoer og billettpriser."),
                      evs, f"Ingen kommende arrangementer i denne kategorien akkurat nå. Se hele programmet.", what, about=CAT_TEXT.get(k, ""),
@@ -730,20 +733,20 @@ def main():
                      evs, "", f"Program for {v} i Ålesund",
                      about=f"{v} er en av scenene i Ålesund. Oversikten viser kommende arrangementer med dato, klokkeslett og billettpris, hentet fra arrangørens egne sider.")
 
-    for e in events:
+    for e in all_events:
         path = f"arrangement/{e['id']}/"
-        write(path, event_page(e, events, path))
+        write(path, event_page(e, all_events if e["cat"] in SEPARATE else events, path))
         pages.append((path, (e.get("addedAt") or updated)[:10]))
 
     # Kalenderabonnement: kalender/alle.ics og én per kategori
     (OUT / "kalender").mkdir()
     feeds = {"alle": ("Skjer i Ålesund", events)}
     for k, (p, h1, _) in CATS.items():
-        feeds[p] = (f"Skjer i Ålesund: {h1}", [e for e in events if e["cat"] == k])
+        feeds[p] = (f"Skjer i Ålesund: {h1}", [e for e in all_events if e["cat"] == k])
     for fname, (cal_name, evs) in feeds.items():
         (OUT / "kalender" / f"{fname}.ics").write_text(build_ics(cal_name, evs, today))
 
-    jp = jul_page(events, today)
+    jp = jul_page(all_events, today)
     if jp:
         write("jul-i-alesund/", jp[0])
         pages.append(("jul-i-alesund/", updated))
@@ -796,7 +799,7 @@ def event_page(e, events, path):
       <dt>Pris</dt><dd class="{'sold' if e.get('soldOut') else ''}">{escape(pt)}</dd>
     </dl>
     {f'<p class="note{" warn" if e.get("uncertain") else ""}">{escape(e["note"])}</p>' if e.get("note") else ""}
-    <div class="cta">{f'<a class="btn" href="{escape(u)}" target="_blank" rel="noopener">Billetter og info hos arrangør →</a>' if u else ""}<a class="link" href="{up}#ev-{e['id']}">Se i hele programmet</a></div>
+    <div class="cta">{f'<a class="btn" href="{escape(u)}" target="_blank" rel="noopener">Billetter og info hos arrangør →</a>' if u else ""}{f'<a class="link" href="{up}julebord/">Alle julebord</a>' if e["cat"] in SEPARATE else f'<a class="link" href="{up}#ev-{e["id"]}">Se i hele programmet</a>'}</div>
     <p class="small">Datoer og priser kan endres. Sjekk alltid hos arrangøren før du kjøper billett.</p>
   </article>
   {f'<section class="also"><h2>Samme dag</h2><div class="events">{"".join(card(x, up) for x in same_day)}</div></section>' if same_day else ""}
