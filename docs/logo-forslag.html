@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logoforslag Ålesund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root { --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a; --accent:#ff8a6b; --sea:#5ab7bf; --gold:#f7c873;
+  --font-display:"Bricolage Grotesque",system-ui,sans-serif; --font-body:"Figtree",system-ui,sans-serif; --font-mono:"JetBrains Mono",ui-monospace,monospace; }
+* { box-sizing: border-box; }
+body { margin:0; background:#0a171b; color:var(--fg); font:15px/1.5 var(--font-body); }
+.page { max-width: 820px; margin: 0 auto; padding: 24px 16px 64px; }
+h2.t { font: 800 26px/1.1 var(--font-display); margin: 0 0 6px; }
+p.intro { color: var(--muted); margin: 0 0 26px; max-width: 60ch; }
+.opt { margin: 0 0 34px; }
+.opt .lab { display:flex; gap:10px; align-items:baseline; margin: 0 0 8px; }
+.opt .lab b { font: 800 22px var(--font-display); color: var(--gold); }
+.opt .lab span { color: var(--muted); font-size: 14px; }
+
+/* Felles for alle hero-ene */
+.hero { position: relative; overflow: hidden; border-radius: 18px; border: 1px solid var(--line); padding: 22px 22px 20px; min-height: 190px; display:flex; flex-direction:column; justify-content:flex-end; gap:4px; isolation:isolate; }
+.hero > svg.bg { position:absolute; inset:0; width:100%; height:100%; z-index:-1; }
+.eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color: var(--gold); position:relative; z-index:2; }
+.brand { display:flex; align-items:center; gap: clamp(10px,2.5vw,16px); position:relative; z-index:2; }
+.logo { flex:none; width: clamp(44px,10vw,70px); height:auto; }
+h1 { font: 800 clamp(38px,9vw,64px)/.92 var(--font-display); letter-spacing:-.03em; margin:0; }
+h1 span { background: linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.sub { position:relative; z-index:2; color: var(--muted); font-size:14px; margin-top:6px; }
+
+/* 1 skyline */
+.h1 { background: linear-gradient(180deg,#0f2a33 0%,#0a171b 100%); }
+/* 2 soloppgang */
+.h2 { background: linear-gradient(180deg,#0e2a33 0%,#2a3d44 55%,#6b4a45 100%); }
+/* 3 nordlys */
+.h3 { background: #06121a; }
+/* 4 speiling */
+.h4 { background: linear-gradient(180deg,#0a171b 0%,#0a171b 52%,#0d2630 52%,#0a1c24 100%); min-height: 300px; justify-content:center; }
+.h4 .mirror { position:absolute; left:22px; right:22px; bottom:calc(48% - 2px); z-index:1; transform:scaleY(-1); transform-origin: bottom; opacity:.28; filter: blur(1.2px); pointer-events:none;
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent 85%); mask-image: linear-gradient(to bottom, #000, transparent 85%); }
+.h4 .mirror .brand { align-items:center; }
+.h4 .main { position:absolute; left:22px; right:22px; bottom:calc(48% + 2px); z-index:2; }
+/* 5 fyr */
+.h5 { background: linear-gradient(180deg,#07141a 0%,#0e2b35 100%); }
+/* 6 ornament */
+.h6 { background: radial-gradient(120% 140% at 20% 0%, #17434d 0%, #0a171b 70%); padding: 40px 22px 24px 58px; min-height: 215px; }
+/* 7 bølger */
+.h7 { background: linear-gradient(120deg,#ff8a6b 0%,#f7c873 100%); border-color: transparent; }
+.h7 h1, .h7 h1 span { color:#10282f; background:none; -webkit-text-fill-color:#10282f; }
+.h7 .eyebrow { color:#10282f; }
+.h7 .sub { color:#10282fcc; }
+/* 8 billett */
+.h8 { background: transparent; border: 0; padding: 0; min-height: 0; overflow: visible; }
+.ticket { position:relative; display:grid; grid-template-columns: 112px 1fr; background: linear-gradient(135deg,#1a3b45,#13252d 70%); border-radius: 16px; border:1px solid var(--line);
+  -webkit-mask: radial-gradient(circle 11px at 112px 0, #0000 98%, #000) top/100% 51% no-repeat, radial-gradient(circle 11px at 112px 100%, #0000 98%, #000) bottom/100% 51% no-repeat;
+  mask: radial-gradient(circle 11px at 112px 0, #0000 98%, #000) top/100% 51% no-repeat, radial-gradient(circle 11px at 112px 100%, #0000 98%, #000) bottom/100% 51% no-repeat; }
+.ticket .stub { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding: 18px 10px; border-right: 2px dashed #3b6068; background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.ticket .stub .logo { width: 62px; }
+.ticket .stub small { font: 500 10px var(--font-mono); letter-spacing:.1em; color: var(--gold); text-align:center; }
+.ticket .main { padding: 22px 22px 18px; position:relative; }
+.ticket .main::after { content:"№ 62.47"; position:absolute; right:18px; top:14px; font: 500 11px var(--font-mono); color: var(--muted); letter-spacing:.1em; }
+.ticket .strip { margin-top: 12px; height: 26px; background: repeating-linear-gradient(90deg,#e8f1ef 0 2px,transparent 2px 5px,#e8f1ef 5px 6px,transparent 6px 10px,#e8f1ef 10px 13px,transparent 13px 15px); opacity:.55; border-radius:3px; }
+/* 9 scenelys */
+.h9 { background: #070e12; }
+
+.note { margin-top: 36px; padding: 16px; border:1px solid var(--line); background: var(--surface); border-radius: 12px; color: var(--muted); font-size: 14px; }
+.note b { color: var(--fg); }
+@media (max-width: 560px) { .ticket { grid-template-columns: 84px 1fr; } .ticket .stub .logo { width: 48px; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="gavl" viewBox="0 0 48 52">
+      <circle cx="24" cy="6" r="3.5" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+      <path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="var(--accent)"/>
+      <circle cx="15" cy="30" r="2" fill="#0a171b"/><circle cx="33" cy="30" r="2" fill="#0a171b"/>
+      <path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="#0a171b"/>
+      <path d="M4 49c3.5-2.5 6.5-2.5 10 0s6.5 2.5 10 0 6.5-2.5 10 0 6.5 2.5 10 0" fill="none" stroke="var(--sea)" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <h2 class="t">Logoforslag</h2>
+  <p class="intro">Samme ordmerke «Skjer i <b style="color:var(--accent)">Ålesund</b>» i alle ni. Det er grafikken rundt og bak som er ulik. Alle er tegnet i kveldstemningen (mørk, som siden er nå). Forklaring nederst.</p>
+
+  <!-- 1 -->
+  <div class="opt"><div class="lab"><b>1</b><span>Jugendby: taklinjen i Ålesund som silhuett bak</span></div>
+    <div class="hero h1"><svg class="bg" id="s1" preserveAspectRatio="xMidYMax slice" viewBox="0 0 760 200"></svg>
+      <div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div>
+      <div class="brand"><svg class="logo"><use href="#gavl"/></svg><h1>Skjer i <span>Ålesund</span></h1></div>
+    </div></div>
+
+  <!-- 2 -->
+  <div class="opt"><div class="lab"><b>2</b><span>Aksla i solnedgang: fjell, sol og sjø</span></div>
+    <div class="hero h2"><svg class="bg" id="s2" preserveAspectRatio="xMidYMax slice" viewBox="0 0 760 200"></svg>
+      <div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div>
+      <div class="brand"><svg class="logo"><use href="#gavl"/></svg><h1>Skjer i <span>Ålesund</span></h1></div>
+    </div></div>
+
+  <!-- 3 -->
+  <div class="opt"><div class="lab"><b>3</b><span>Nordlys over byen</span></div>
+    <div class="hero h3"><svg class="bg" id="s3" preserveAspectRatio="xMidYMax slice" viewBox="0 0 760 200"></svg>
+      <div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div>
+      <div class="brand"><svg class="logo"><use href="#gavl"/></svg><h1>Skjer i <span>Ålesund</span></h1></div>
+    </div></div>
+
+  <!-- 4 -->
+  <div class="opt"><div class="lab"><b>4</b><span>Speiling: ordmerket står på vannet</span></div>
+    <div class="hero h4"><svg class="bg" id="s4" preserveAspectRatio="none" viewBox="0 0 760 250"></svg>
+      <div class="main"><div class="eyebrow" style="margin-bottom:8px">62,47° N · 6,15° Ø · Ålesund</div>
+        <div class="brand"><svg class="logo"><use href="#gavl"/></svg><h1>Skjer i <span>Ålesund</span></h1></div></div>
+      <div class="mirror" aria-hidden="true"><div class="brand"><svg class="logo"><use href="#gavl"/></svg><h1>Skjer i <span>Ålesund</span></h1></div></div>
+    </div></div>
+
+  <!-- 5 -->
+  <div class="opt"><div class="lab"><b>5</b><span>Fyrtårn: lysstråle feier over teksten (Alnes fyr)</span></div>
+    <div class="hero h5"><svg class="bg" id="s5" preserveAspectRatio="xMaxYMax slice" viewBox="0 0 760 200"></svg>
+      <div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div>
+      <div class="brand"><svg class="logo"><use href="#gavl"/></svg><h1>Skjer i <span>Ålesund</span></h1></div>
+    </div></div>
+
+  <!-- 6 -->
+  <div class="opt"><div class="lab"><b>6</b><span>Jugendornament: svingete art nouveau-ramme og tårn</span></div>
+    <div class="hero h6"><svg class="bg" id="s6" preserveAspectRatio="xMidYMid slice" viewBox="0 0 760 200"></svg>
+      <div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div>
+      <div class="brand"><svg class="logo"><use href="#gavl"/></svg><h1>Skjer i <span>Ålesund</span></h1></div>
+    </div></div>
+
+  <!-- 7 -->
+  <div class="opt"><div class="lab"><b>7</b><span>Bølgebånd: sterke farger, plakatlook</span></div>
+    <div class="hero h7"><svg class="bg" id="s7" preserveAspectRatio="none" viewBox="0 0 760 200"></svg>
+      <div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div>
+      <div class="brand"><svg class="logo" style="--accent:#10282f;--sea:#10282f"><use href="#gavl"/></svg><h1>Skjer i <span>Ålesund</span></h1></div>
+    </div></div>
+
+  <!-- 8 -->
+  <div class="opt"><div class="lab"><b>8</b><span>Billett: logoen som billettstubb, ordmerket på selve billetten</span></div>
+    <div class="hero h8"><div class="ticket">
+      <div class="stub"><svg class="logo"><use href="#gavl"/></svg><small>ADMIT<br>ALL</small></div>
+      <div class="main"><div class="eyebrow" style="margin-bottom:8px">62,47° N · 6,15° Ø · Ålesund</div>
+        <div class="brand"><h1>Skjer i <span>Ålesund</span></h1></div><div class="strip"></div></div>
+    </div></div></div>
+
+  <!-- 9 -->
+  <div class="opt"><div class="lab"><b>9</b><span>Scenelys: lyskastere, røyk og publikum</span></div>
+    <div class="hero h9"><svg class="bg" id="s9" preserveAspectRatio="xMidYMax slice" viewBox="0 0 760 200"></svg>
+      <div class="eyebrow">62,47° N · 6,15° Ø · Ålesund</div>
+      <div class="brand"><svg class="logo"><use href="#gavl"/></svg><h1>Skjer i <span>Ålesund</span></h1></div>
+    </div></div>
+
+  <div class="note">
+    <b>Om forslagene.</b> Alle bruker fargene siden har fra før (korall, gull, havgrønt på mørk bunn) og beholder ordmerket uendret. 1, 2, 3, 5 og 9 er stemningsbilder bak teksten og gir mest «wow». 4 og 8 er mer et konsept for hele logoen. 6 er den mest «jugend». 7 skiller seg ut ved å være lys og kraftig, og passer best som plakat/sosiale medier og ikke som toppen av siden. Si hvilke du liker (gjerne to som kan kombineres, f.eks. 1 + 3: byen med nordlys), så bygger jeg det inn i siden, favicon og delebilde.
+  </div>
+</div>
+
+<script>
+const NS = "http://www.w3.org/2000/svg";
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const $ = id => document.getElementById(id);
+
+function skyline(W, B, o) {
+  // returner path d for en rekke bygg med gavler, trappegavler og tårn
+  let x = o.x0 ?? -10, d = "", wins = "";
+  while (x < W + 10) {
+    const w = o.minW + rnd() * (o.maxW - o.minW), h = o.minH + rnd() * (o.maxH - o.minH), t = rnd();
+    const y = B - h;
+    if (t < 0.45) d += `M${x} ${B}V${y}L${x + w / 2} ${y - w * 0.5}L${x + w} ${y}V${B}Z`;
+    else if (t < 0.7) d += `M${x} ${B}V${y}H${x + w * .14}V${y - 9}H${x + w * .3}V${y - 18}H${x + w * .42}V${y - 26}H${x + w * .58}V${y - 18}H${x + w * .7}V${y - 9}H${x + w * .86}V${y}H${x + w}V${B}Z`;
+    else if (t < 0.85) { const c = x + w / 2, tw = w * .5; d += `M${x} ${B}V${y}H${c - tw / 2}V${y - 26}L${c} ${y - 26 - o.spire}L${c + tw / 2} ${y - 26}V${y}H${x + w}V${B}Z`; }
+    else d += `M${x} ${B}V${y}H${x + w}V${B}Z`;
+    if (o.win) for (let wx = x + 7; wx < x + w - 8; wx += 12) for (let wy = y + 10; wy < B - 6; wy += 15) if (rnd() < 0.3) wins += `<rect x="${wx}" y="${wy}" width="4" height="6" rx="1" fill="#f7c873" opacity="${.5 + rnd() * .5}"/>`;
+    x += w + (o.gap ?? 0);
+  }
+  return { d, wins };
+}
+function stars(W, H, n, maxY) { let s = ""; for (let i = 0; i < n; i++) s += `<circle cx="${rnd() * W}" cy="${rnd() * maxY}" r="${.4 + rnd() * 1}" fill="#fff" opacity="${.3 + rnd() * .6}"/>`; return s; }
+function wave(W, y, amp, len, ph) { let d = `M0 ${y}`; for (let x = 0; x <= W + 8; x += 8) d += `L${x} ${(y + Math.sin(x / len + ph) * amp).toFixed(1)}`; return d; }
+
+// 1 skyline
+seed = 11;
+{ const far = skyline(760, 200, { minW: 34, maxW: 60, minH: 40, maxH: 85, spire: 34 });
+  const near = skyline(760, 200, { minW: 44, maxW: 76, minH: 22, maxH: 56, spire: 26, win: true, x0: -20 });
+  $("s1").innerHTML = `<path d="${far.d}" fill="#5ab7bf" opacity=".13"/><path d="${near.d}" fill="#16343d"/>${near.wins}<rect y="196" width="760" height="4" fill="#5ab7bf" opacity=".35"/>
+  <circle cx="650" cy="46" r="16" fill="#f7c873" opacity=".9"/><circle cx="650" cy="46" r="30" fill="#f7c873" opacity=".08"/>` + stars(760, 200, 40, 90); }
+
+// 2 Aksla
+seed = 21;
+{ let sea = ""; for (let i = 0; i < 7; i++) sea += `<path d="${wave(760, 170 + i * 5, 1.6, 22 + i * 3, i)}" fill="none" stroke="#f7c873" stroke-width="1" opacity="${.35 - i * .04}"/>`;
+  $("s2").innerHTML = `<defs><radialGradient id="sun2"><stop offset="0" stop-color="#ffd58a"/><stop offset=".55" stop-color="#ff8a6b" stop-opacity=".9"/><stop offset="1" stop-color="#ff8a6b" stop-opacity="0"/></radialGradient></defs>
+  <circle cx="610" cy="120" r="110" fill="url(#sun2)" opacity=".55"/><circle cx="610" cy="120" r="34" fill="#ffd58a"/>
+  <path d="M0 130 L70 98 L120 112 L190 70 L250 104 L330 84 L410 120 L470 100 L560 132 L650 110 L760 138 V200 H0Z" fill="#17353f" opacity=".85"/>
+  <path d="M0 150 L90 126 L170 142 L260 112 L340 140 L450 128 L540 150 L660 130 L760 152 V200H0Z" fill="#0f262e"/>
+  <rect y="165" width="760" height="35" fill="#0a171b" opacity=".6"/>${sea}`; }
+
+// 3 nordlys
+seed = 31;
+{ const sk = skyline(760, 200, { minW: 40, maxW: 70, minH: 18, maxH: 44, spire: 22, win: true });
+  $("s3").innerHTML = `<defs><filter id="bl3"><feGaussianBlur stdDeviation="9"/></filter>
+  <linearGradient id="a1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ef0b4" stop-opacity="0"/><stop offset=".5" stop-color="#4ef0b4" stop-opacity=".75"/><stop offset="1" stop-color="#5ab7bf" stop-opacity="0"/></linearGradient>
+  <linearGradient id="a2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b48cff" stop-opacity="0"/><stop offset=".6" stop-color="#b48cff" stop-opacity=".55"/><stop offset="1" stop-color="#ff8a6b" stop-opacity="0"/></linearGradient></defs>
+  ${stars(760, 200, 70, 130)}
+  <g filter="url(#bl3)"><path d="M-20 60 C100 0 200 110 330 50 S560 0 780 70 V130 C600 80 520 140 360 100 S110 60 -20 110Z" fill="url(#a1)"/>
+  <path d="M120 40 C240 -20 330 90 470 36 S650 10 780 40 V90 C640 60 560 100 450 70 S240 40 120 80Z" fill="url(#a2)"/></g>
+  <path d="${sk.d}" fill="#0a171b"/>${sk.wins}`; }
+
+// 4 speiling (bakgrunn: vannlinje med krusninger)
+seed = 41;
+{ let r = ""; for (let i = 0; i < 9; i++) r += `<path d="${wave(760, 138 + i * 11, 1.8, 18 + i * 4, i * 2)}" fill="none" stroke="#5ab7bf" stroke-width="1" opacity="${.35 - i * .03}"/>`;
+  $("s4").innerHTML = `<rect y="129" width="760" height="1.5" fill="#5ab7bf" opacity=".6"/>${r}`; }
+
+// 5 fyr
+seed = 51;
+{ let sea = ""; for (let i = 0; i < 5; i++) sea += `<path d="${wave(760, 176 + i * 6, 2, 26 + i * 4, i)}" fill="none" stroke="#5ab7bf" stroke-width="1" opacity="${.4 - i * .06}"/>`;
+  $("s5").innerHTML = `<defs><linearGradient id="beam" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#f7c873" stop-opacity=".75"/><stop offset="1" stop-color="#f7c873" stop-opacity="0"/></linearGradient></defs>
+  ${stars(760, 200, 36, 90)}
+  <path d="M690 62 L-20 -10 V120Z" fill="url(#beam)" opacity=".45"/>
+  <path d="M0 200 C120 186 200 190 300 192 S560 188 760 190V200Z" fill="#0d2630"/>
+  <path d="M600 200 C620 176 650 170 690 168 C720 168 740 176 760 184V200Z" fill="#05090c"/>
+  <g transform="translate(690 0)"><path d="M-17 168 L-11 78 H11 L17 168Z" fill="#e8f1ef"/><path d="M-14 128 L-12.5 106 H12.5 L14 128Z" fill="#d9483b"/><path d="M-14 160 L-13 142 H13 L14 160Z" fill="#d9483b"/>
+  <rect x="-13" y="62" width="26" height="16" fill="#f7c873"/><rect x="-16" y="76" width="32" height="4" fill="#10282f"/><path d="M-14 62 L0 46 L14 62Z" fill="#10282f"/><circle cx="0" cy="70" r="30" fill="#f7c873" opacity=".18"/></g>${sea}`; }
+
+// 6 ornament (whiplash-kurver i hjørner + tårn)
+seed = 61;
+{ const sp = (x, y, s, fx, fy) => `<g transform="translate(${x} ${y}) scale(${fx * s} ${fy * s})"><path d="M0 0 C30 0 44 14 44 32 C44 48 30 54 22 46 C14 38 22 26 32 30" fill="none" stroke="#f7c873" stroke-width="2.2" stroke-linecap="round"/><path d="M0 12 C20 12 30 20 30 30" fill="none" stroke="#ff8a6b" stroke-width="1.6" stroke-linecap="round" opacity=".8"/><circle cx="32" cy="30" r="2.6" fill="#f7c873"/></g>`;
+  $("s6").innerHTML = `<rect x="8" y="8" width="744" height="184" rx="14" fill="none" stroke="#f7c873" stroke-opacity=".28" stroke-width="1.2"/>
+  <rect x="13" y="13" width="734" height="174" rx="10" fill="none" stroke="#ff8a6b" stroke-opacity=".18" stroke-width="1"/>
+  ${sp(14, 14, 1, 1, 1)}${sp(746, 14, 1, -1, 1)}${sp(14, 186, 1, 1, -1)}${sp(746, 186, 1, -1, -1)}
+  <g transform="translate(655 200)" fill="#16343d"><rect x="-22" y="-120" width="44" height="120"/><path d="M-22 -120 L0 -165 L22 -120Z"/><rect x="-6" y="-188" width="12" height="26"/><path d="M-9 -162 L0 -196 L9 -162Z" fill="#1d4450"/>
+  <circle cx="0" cy="-200" r="3" fill="#f7c873"/><rect x="-5" y="-100" width="10" height="22" rx="5" fill="#f7c873" opacity=".85"/><rect x="-5" y="-60" width="10" height="22" rx="5" fill="#f7c873" opacity=".5"/></g>
+  <g transform="translate(585 200)" fill="#102a32"><rect x="-26" y="-70" width="52" height="70"/><path d="M-26 -70 L0 -100 L26 -70Z"/></g>
+  <g stroke="#5ab7bf" stroke-opacity=".25" fill="none"><path d="M40 175 H720" stroke-width="1"/></g>`; }
+
+// 7 bølgebånd
+{ let w = ""; const cols = ["#ffffff", "#10282f"]; for (let i = 0; i < 5; i++) w += `<path d="${wave(760, 60 + i * 30, 12, 60 + i * 12, i * 1.4)} V200 H0Z" fill="${i % 2 ? '#10282f' : '#ffffff'}" opacity="${.16 + i * .04}"/>`;
+  $("s7").innerHTML = w; }
+
+// 9 scenelys
+seed = 91;
+{ let crowd = ""; for (let x = -6; x < 780; x += 17) { const y = 192 - rnd() * 7; crowd += `<circle cx="${x}" cy="${y}" r="7.5" fill="#030608"/><path d="M${x - 11} 204 Q${x} ${y + 3} ${x + 11} 204Z" fill="#030608"/>`; }
+  let conf = ""; const cc = ["#ff8a6b", "#f7c873", "#5ab7bf", "#b48cff"]; for (let i = 0; i < 38; i++) conf += `<rect x="${rnd() * 760}" y="${rnd() * 150}" width="4" height="7" rx="1" fill="${cc[i % 4]}" opacity=".75" transform="rotate(${rnd() * 180} ${rnd() * 760} ${rnd() * 150})"/>`;
+  $("s9").innerHTML = `<defs><filter id="bl9"><feGaussianBlur stdDeviation="3"/></filter>
+  <linearGradient id="b1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a6b" stop-opacity=".8"/><stop offset="1" stop-color="#ff8a6b" stop-opacity="0"/></linearGradient>
+  <linearGradient id="b2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5ab7bf" stop-opacity=".8"/><stop offset="1" stop-color="#5ab7bf" stop-opacity="0"/></linearGradient>
+  <linearGradient id="b3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7c873" stop-opacity=".8"/><stop offset="1" stop-color="#f7c873" stop-opacity="0"/></linearGradient></defs>
+  <g filter="url(#bl9)" opacity=".55"><path d="M60 -6 L-40 200 L190 200Z" fill="url(#b1)"/><path d="M380 -6 L250 200 L520 200Z" fill="url(#b3)"/><path d="M700 -6 L560 200 L820 200Z" fill="url(#b2)"/><path d="M230 -6 L330 200 L110 200Z" fill="url(#b2)" opacity=".7"/><path d="M540 -6 L450 200 L640 200Z" fill="url(#b1)" opacity=".7"/></g>
+  ${conf}${crowd}`; }
+</script>
+</body>
+</html>

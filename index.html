@@ -211,7 +211,7 @@ footer a { color: var(--sea); }
 @media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
 @media (prefers-reduced-motion: no-preference) { .ev { transition: transform .15s ease; } .ev:hover { transform: translateX(2px); } }
 </style>
-<script>try{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld"||q==="standard")localStorage.setItem("skjer-tema",q);if(q==="standard")localStorage.setItem("skjer-theme",'"light"');if(localStorage.getItem("skjer-tema")!=="standard"){document.documentElement.dataset.tema="kveld";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#0a171b";document.write('<link rel="stylesheet" href="tema-kveld.css">')}}catch{}</script>
+<script>try{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld"||q==="standard")localStorage.setItem("skjer-tema",q);if(q==="standard")localStorage.setItem("skjer-theme",'"light"');if(q){const u=new URL(location.href);u.searchParams.delete("tema");history.replaceState(null,"",u)}if(localStorage.getItem("skjer-tema")!=="standard"){document.documentElement.dataset.tema="kveld";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#0a171b";document.write('<link rel="stylesheet" href="tema-kveld.css">')}}catch{}</script>
 </head>
 <body>
 <div class="wrap">
