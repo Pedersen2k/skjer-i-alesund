@@ -35,6 +35,8 @@ DAMP_VENUE = "Dampsentralen"
 OCONNORS = "https://oconnors.no/alesund"
 OCONNORS_VENUE = "O'Connor's"
 OCONNORS_ADDRESS = "Brunholmgata 10, 6004 Ålesund"
+FABRIKKEN = "https://www.fabrikkenkulturscene.no"
+FABRIKKEN_VENUE = "Fabrikken Kulturscene"
 VITI = "https://www.vitimusea.no"
 # Viti har museer i flere kommuner. Bare de i Ålesund er med: (navn hos Viti) -> (navn på siden, adresse)
 VITI_MUSEUMS = {"Jugendstilsenteret og KUBE": ("Jugendstilsenteret og KUBE", "Apotekergata 16, Ålesund"),
@@ -300,6 +302,68 @@ def fetch_oconnors():
     return raw
 
 
+FAB_DATE = re.compile(r"\d{1,2}\.\s*(januar|februar|mars|april|mai|juni|juli|august|september|oktober|november|desember)|^(mandag|tirsdag|onsdag|torsdag|fredag|lørdag|søndag)\b", re.I)
+
+
+def fabrikken_title(name):
+    """«AUTUMN NIGHTS // Nordvest Big Band med solister // Lørdag 31. oktober» -> «AUTUMN NIGHTS – Nordvest Big Band med solister».
+    Delene med ukedag eller dato tas bort (datoen står ved siden av), resten beholdes."""
+    parts = [re.sub(r"\s+20\d\d$", "", p.strip()) for p in re.split(r"\s+/{1,2}\s+", html.unescape(name).strip())]
+    return " – ".join(p for p in parts if p and not FAB_DATE.search(p)) or parts[0]
+
+
+def fetch_fabrikken():
+    """Programmet til Fabrikken Kulturscene (fabrikkenkulturscene.no/program, Webflow). Lista har dato, tittel og billettlenke
+    (Billetto); klokkeslett (konsert-/showstart) og eventuell pris står i fritekst på arrangementsiden. Uten pris på siden
+    vises «Pris hos arrangør». Gir None hvis siden ikke kunne leses."""
+    today = datetime.datetime.now(TZ).date()
+    try:
+        listing = get(FABRIKKEN + "/program")
+    except Exception as e:
+        warn(f"Klarte ikke å hente programmet til Fabrikken Kulturscene: {e}")
+        return None
+    items = listing.split('role="listitem"')[1:]
+    if not items:
+        warn("Fant ikke arrangementlista hos Fabrikken Kulturscene. Sjekk om fabrikkenkulturscene.no har endret siden.")
+        return None
+    raw, parsed = [], 0
+    for it in items:
+        link = re.search(r'href="(/program/[^"]+)"', it)
+        day = re.search(r'card-date[^>]*>\s*<div>(\d{1,2})</div><div>\.</div><div>(\d{1,2})</div><div>\.</div><div>(\d{2})</div>', it)
+        name = re.search(r"<h3[^>]*>(.*?)</h3>", it, re.S)
+        if not (link and day and name):
+            continue
+        parsed += 1
+        d = datetime.date(2000 + int(day.group(3)), int(day.group(2)), int(day.group(1)))
+        if d < today:
+            continue
+        url = FABRIKKEN + link.group(1)
+        try:
+            page = get(url)
+            time.sleep(0.5)
+        except Exception as e:
+            print("feil:", url, e, file=sys.stderr)
+            continue
+        body = page.split("Andre arrangement")[0]
+        text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"<(script|style)[^>]*>.*?</\1>", "", body, flags=re.S))))
+        # «konsertstart ca. 20.30», «showstart 19.00», «Julebuffet og dinnershow starter kl. 20.00», «Forestilling: 20.00»
+        hm = re.search(r"(?:start|starter|forestilling)\s*:?\s*(?:ca\.?\s*|kl\.?\s*)*(\d{1,2})\s*[.:]\s*(\d{2})", text, re.I)
+        doors = re.search(r"Dør\w*\s+(?:åpner|opnar)\s*:?\s*(?:kl\.?\s*)?(\d{1,2})\s*[.:]\s*(\d{2})", text, re.I)
+        hm = hm or doors
+        ticket = re.search(r'href="(https://billetto\.no/e/[^"]+)"', it)
+        raw.append({"name": fabrikken_title(re.sub(r"<[^>]+>", "", name.group(1))), "venue": FABRIKKEN_VENUE, "address": "",
+                    "start": datetime.datetime(d.year, d.month, d.day, int(hm.group(1)) if hm else 0, int(hm.group(2)) if hm else 0, tzinfo=TZ),
+                    "url": ticket.group(1) if ticket else url, "tickets": [], "soldOut": False, "noTime": not hm,
+                    # bare beløpet; resten av fritekstlinja er beskrivelse
+                    "price": (price[0], price[1], "") if (price := viti_price(text)) else ("", None, ""),
+                    "note": f"Dørene åpner {int(doors.group(1)):02d}.{doors.group(2)}." if doors and hm is not doors else ""})
+    if not parsed:
+        warn("Klarte ikke å lese arrangementene hos Fabrikken Kulturscene. Sjekk om fabrikkenkulturscene.no har endret siden.")
+        return None
+    print(f"Fabrikken Kulturscene: {len(raw)} arrangementer", file=sys.stderr)
+    return raw
+
+
 def viti_price(text):
     """Pris fra fritekstblokken til arrangementet («Pris: 60 kr», «Inngang: Vaksen kr 80» o.l.). Gir None hvis den ikke står der."""
     m = re.search(r"(?:Pris|Inngang)\s*:\s*([^\n]+)", text)
@@ -443,7 +507,7 @@ def build_events(raw, overrides):
         title_key = norm_key(first["title"])
         o = overrides.get(key) or overrides.get(title_key, {})
         price, price_min, disc = first.get("price") or price_info(first["tickets"])
-        notes = [o.get("note", "")]
+        notes = [o.get("note", ""), first.get("note", "")]
         extra_days = sorted({s["start"].date() for s in shows[1:]} - {first["start"].date()})
         same_day = [s["start"].strftime("%H:%M") for s in shows[1:] if s["start"].date() == first["start"].date()]
         if same_day:
@@ -538,12 +602,18 @@ def main():
         viti = [e for e in old["events"] if e["venue"] in {v for v, _ in VITI_MUSEUMS.values()} and e["date"] >= today]
     else:
         viti = build_events(viti_raw, overrides)
+    fab_raw = fetch_fabrikken()
+    if fab_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
+        fabrikken = [e for e in old["events"] if e["venue"] == FABRIKKEN_VENUE and e["date"] >= today]
+    else:
+        fabrikken = build_events(fab_raw, overrides)
     # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
     seen = {(e["date"], norm_key(e["title"])) for e in events}
     events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in damp if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in oconnors if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in viti if (e["date"], norm_key(e["title"])) not in seen]
+    events += [e for e in fabrikken if (e["date"], norm_key(e["title"])) not in seen]
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
     events += [e for e in manual if e["date"] >= today and e["id"] not in parken_ids]
@@ -565,6 +635,10 @@ def main():
         fresh_source |= {e["id"] for e in oconnors}
     if viti and "viti" not in sources:
         fresh_source |= {e["id"] for e in viti}
+    if fabrikken and "fabrikken" not in sources:
+        fresh_source |= {e["id"] for e in fabrikken}
+    if fabrikken:
+        sources.add("fabrikken")
     if viti:
         sources.add("viti")
     if oconnors:

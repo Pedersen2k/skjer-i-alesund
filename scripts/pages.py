@@ -335,7 +335,7 @@ def kontakt_page():
   </script>
   <section class="about">
     <h2>Om siden</h2>
-    <p>Skjer i Ålesund samler konserter, standup, show, barnearrangementer, klubbkvelder og AaFK-hjemmekamper i Ålesund på ett sted, med billettpriser. Programmet hentes automatisk morgen og kveld fra Tikkio, Parken kulturhus, Dampsentralen og AaFK, og enkelte arrangementer legges inn for hånd. Vi finner ikke på noe: alt kommer fra arrangørenes egne sider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</p>
+    <p>Skjer i Ålesund samler konserter, standup, show, barnearrangementer, klubbkvelder og AaFK-hjemmekamper i Ålesund på ett sted, med billettpriser. Programmet hentes automatisk morgen og kveld fra Tikkio, Parken kulturhus, Dampsentralen, Fabrikken Kulturscene og AaFK, og enkelte arrangementer legges inn for hånd. Vi finner ikke på noe: alt kommer fra arrangørenes egne sider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</p>
     <p>Er du arrangør og mangler på siden? Send oss en lenke til arrangementet, så legger vi det inn.</p>
     <h2>Personvern</h2>
     <p>Skjemaet sender bare det du skriver til oss, via tjenesten Web3Forms, og vi bruker det kun til å svare deg eller rette opp i programmet. E-post og navn er valgfritt. Siden teller besøk med GoatCounter, som ikke bruker informasjonskapsler og ikke lagrer personopplysninger.</p>
