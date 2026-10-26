@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design: seks forslag</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600;9..144,800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root { --bg:#eef3f2; --surface:#fff; --fg:#10282f; --muted:#5a7177; --line:#d3dfdd; --accent:#c8432b; --sea:#1f6f78; --d:"Bricolage Grotesque",system-ui,sans-serif; --b:"Figtree",system-ui,sans-serif; --m:"JetBrains Mono",monospace; }
+* { box-sizing:border-box; }
+body { margin:0; background:#dfe8e6; color:var(--fg); font:400 15px/1.5 var(--b); }
+.intro { max-width:900px; margin:0 auto; padding:28px 20px 6px; }
+.intro h1 { font:800 32px/1.1 var(--d); margin:0 0 8px; }
+.intro p { color:var(--muted); margin:0 0 6px; }
+.warn { background:#fff4d6; border:1px solid #e8cf86; border-radius:10px; padding:8px 12px; font-size:13.5px; color:#5b4510; }
+.grid { display:flex; flex-wrap:wrap; gap:28px; justify-content:center; padding:24px 16px 60px; }
+.col { width:390px; }
+.col h2 { font:700 18px/1.2 var(--d); margin:0 0 4px; }
+.col p.cap { font-size:13px; color:var(--muted); margin:0 0 10px; min-height:58px; }
+.phone { height:780px; overflow:auto; border:8px solid #10282f; border-radius:30px; }
+.pg { padding:16px; min-height:100%; }
+.chips { display:flex; gap:6px; flex-wrap:wrap; margin:12px 0; }
+.chip { font:600 13px var(--b); padding:5px 11px; border:1px solid var(--line); border-radius:999px; background:var(--surface); }
+.chip.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+.ev { background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--c); border-radius:12px; padding:11px 13px; margin-bottom:10px; }
+.ev b { font:700 17px/1.2 var(--d); display:block; }
+.ev .m { font-size:13px; color:var(--muted); }
+.ev .p { float:right; font:700 14px var(--m); }
+.day { font:500 12px var(--m); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:14px 0 6px; }
+
+/* A */
+.A .logo { width:62px; }
+.A h1 { font:800 38px/1 var(--d); margin:6px 0 4px; letter-spacing:-.02em; }
+.A h1 span { color:var(--accent); }
+.A .tag { color:var(--muted); font-size:14px; }
+
+/* B skyline */
+.B { background:linear-gradient(#cfe6e8 0%, #eef3f2 62%); }
+.B .hero { margin:-16px -16px 0; padding:22px 16px 0; position:relative; }
+.B h1 { font:800 36px/1 var(--d); margin:0 0 4px; }
+.B h1 span { color:var(--accent); }
+.B .sub { color:#3b5a60; font-size:14px; max-width:260px; }
+.B svg.sky { display:block; width:calc(100% + 32px); margin:6px -16px 0; }
+.B .sun { position:absolute; right:22px; top:22px; width:46px; height:46px; border-radius:50%; background:#f7c873; box-shadow:0 0 0 10px #f7c87340; }
+
+/* C poster */
+.C { background:#c8432b; color:#fff7ea; }
+.C h1 { font:800 64px/.9 var(--d); margin:4px 0 6px; letter-spacing:-.04em; text-transform:uppercase; }
+.C h1 em { font-style:normal; color:#10282f; }
+.C .tag { font:600 14px var(--b); max-width:280px; }
+.C .chip { background:transparent; color:#fff7ea; border-color:#fff7ea88; }
+.C .chip.on { background:#fff7ea; color:#c8432b; }
+.C .ev { background:#fff7ea; color:#10282f; border:0; border-left:8px solid var(--c); border-radius:4px; }
+.C .day { color:#ffd9cf; }
+.C .ticker { margin:12px -16px 0; background:#10282f; color:#fff7ea; font:800 15px var(--d); text-transform:uppercase; padding:6px 0; white-space:nowrap; overflow:hidden; letter-spacing:.06em; }
+
+/* D natt */
+.D { --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a; background:radial-gradient(120% 60% at 50% 0%, #17434d 0%, #0a171b 60%); color:var(--fg); }
+.D h1 { font:800 36px/1 var(--d); margin:8px 0 4px; }
+.D h1 span { background:linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background-clip:text; color:transparent; }
+.D .tag { color:#8fa8ab; font-size:14px; }
+.D .chip { background:#13252d; color:#cfe1de; border-color:#25414a; }
+.D .chip.on { background:#f7c873; color:#10282f; border-color:#f7c873; }
+.D .ev { background:linear-gradient(135deg, color-mix(in srgb, var(--c) 22%, #13252d), #13252d 60%); border-color:#25414a; box-shadow:0 8px 24px #0006; }
+.D .now { display:inline-flex; align-items:center; gap:6px; font:600 12px var(--b); color:#f7c873; }
+.D .now i { width:8px; height:8px; border-radius:50%; background:#f7c873; box-shadow:0 0 10px #f7c873; }
+
+/* E bildekort */
+.E h1 { font:800 34px/1 var(--d); margin:4px 0 2px; }
+.E h1 span { color:var(--accent); }
+.E .ec { background:var(--surface); border-radius:16px; overflow:hidden; margin-bottom:14px; border:1px solid var(--line); }
+.E .img { height:120px; position:relative; display:flex; align-items:flex-end; padding:10px 12px; color:#fff; font:700 12px var(--m); letter-spacing:.06em; text-transform:uppercase; }
+.E .img svg { position:absolute; inset:0; width:100%; height:100%; }
+.E .img span { position:relative; background:#0007; padding:2px 8px; border-radius:6px; }
+.E .bd { padding:10px 13px 13px; }
+.E .bd b { font:800 19px/1.15 var(--d); display:block; }
+.E .bd .m { font-size:13px; color:var(--muted); }
+.E .row { display:flex; justify-content:space-between; align-items:center; margin-top:8px; }
+.E .btn { background:var(--fg); color:var(--bg); border-radius:9px; padding:7px 12px; font:600 13px var(--b); }
+
+/* F jugend */
+.F { background:#f6efe0; --fg:#2a1f14; --muted:#7a6a55; --line:#dccfb4; --surface:#fffaf0; --accent:#a8321f; color:var(--fg); }
+.F h1 { font:800 38px/1 "Fraunces",serif; margin:6px 0 2px; text-align:center; }
+.F h1 span { color:var(--accent); font-style:italic; }
+.F .tag { text-align:center; color:var(--muted); font-style:italic; font-family:"Fraunces",serif; }
+.F .orn { display:block; margin:8px auto; width:200px; }
+.F .chip { background:var(--surface); border-color:var(--line); font-family:"Fraunces",serif; font-weight:600; }
+.F .chip.on { background:var(--accent); border-color:var(--accent); color:#fff; }
+.F .ev { background:var(--surface); border-radius:6px; border:1px solid var(--line); border-left:4px double var(--c); }
+.F .ev b { font-family:"Fraunces",serif; font-weight:800; }
+.F .day { font-family:"Fraunces",serif; letter-spacing:0; text-transform:none; font-size:15px; font-weight:600; border-bottom:1px solid var(--line); padding-bottom:3px; }
+</style>
+</head>
+<body>
+<div class="intro">
+  <h1>Design: seks forslag</h1>
+  <p>Toppen av forsiden med logo, bilde/illustrasjon og to arrangementskort i seks stiler. Alle er klikkbare mockups, ikke live.</p>
+  <div class="warn">Ingen ekte bilder av arrangementer: de ligger hos billettselgerne, og vi har ikke tillatelse til å vise dem. Illustrasjonene er laget av oss (tegnet i SVG). Arrangementene er hentet fra programmet i dag.</div>
+</div>
+<div class="grid">
+
+<!-- A -->
+<div class="col"><h2>A. Dagens, pusset</h2>
+<p class="cap">Samme uttrykk som nå, men litt større logo, tydeligere linje under navnet og luftigere kort. Minst risiko.</p>
+<div class="phone"><div class="pg A">
+  <svg class="logo" viewBox="0 0 48 52"><circle cx="24" cy="6" r="3.5" fill="none" stroke="#c8432b" stroke-width="2.5"/><path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="#c8432b"/><circle cx="15" cy="30" r="2" fill="#eef3f2"/><circle cx="33" cy="30" r="2" fill="#eef3f2"/><path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="#eef3f2"/><path d="M4 49c3.5-2.5 6.5-2.5 10 0s6.5 2.5 10 0 6.5-2.5 10 0 6.5 2.5 10 0" fill="none" stroke="#1f6f78" stroke-width="2.5" stroke-linecap="round"/></svg>
+  <h1>Skjer i <span>Ålesund</span></h1><div class="tag">Konserter, standup, show og quiz, samlet på ett sted.</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Konsert</span><span class="chip">Standup</span><span class="chip">Quiz</span></div>
+  <div class="day">Man 26. okt · i dag</div>
+  <div class="ev" style="--c:#2f8a4c"><span class="p">200–300 kr</span><b>Peter Pan</b><span class="m">Parken kulturhus · kl. 18:00</span></div>
+  <div class="day">Tor 29. okt</div>
+  <div class="ev" style="--c:#7a4fb0"><span class="p">50 kr</span><b>Pubquiz</b><span class="m">O'Connor's · kl. 19:00</span></div>
+</div></div></div>
+
+<!-- B -->
+<div class="col"><h2>B. Byen i toppen</h2>
+<p class="cap">En tegnet silhuett av Ålesund (jugendgavler, Aksla, fjorden) som toppbilde med solnedgang. Gir stedsfølelse med én illustrasjon.</p>
+<div class="phone"><div class="pg B">
+  <div class="hero"><div class="sun"></div><h1>Skjer i<br><span>Ålesund</span></h1><div class="sub">Hva skjer i byen på fjorden?</div>
+  <svg class="sky" viewBox="0 0 390 120" preserveAspectRatio="none"><path d="M0 70 L40 55 L80 62 L130 38 L170 58 L210 48 L260 64 L390 52 V120H0Z" fill="#a9c9cc"/>
+   <g fill="#c8432b"><path d="M20 120V84h18V120Z"/><path d="M42 120V74l12-12 12 12v46Z"/><path d="M70 120V90h16v30Z"/><path d="M92 120V70l9-14 9 14v50Z"/><path d="M118 120V88h20v32Z"/><path d="M144 120V78l11-13 11 13v42Z"/><path d="M172 120V92h18v28Z"/><path d="M196 120V72l10-12 10 12v48Z"/><path d="M222 120V86h22v34Z"/><path d="M250 120V76l12-14 12 14v44Z"/><path d="M280 120V92h18v28Z"/></g>
+   <g fill="#10282f" opacity=".85"><rect x="40" y="94" width="5" height="7"/><rect x="92" y="88" width="5" height="7"/><rect x="146" y="92" width="5" height="7"/><rect x="198" y="90" width="5" height="7"/><rect x="252" y="90" width="5" height="7"/></g>
+   <path d="M0 108 Q30 100 60 108 T120 108 T180 108 T240 108 T300 108 T360 108 T420 108 V120H0Z" fill="#1f6f78"/></svg></div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Konsert</span><span class="chip">Standup</span><span class="chip">Quiz</span></div>
+  <div class="ev" style="--c:#2f8a4c"><span class="p">200–300 kr</span><b>Peter Pan</b><span class="m">Parken kulturhus · i dag kl. 18:00</span></div>
+  <div class="ev" style="--c:#7a4fb0"><span class="p">50 kr</span><b>Pubquiz</b><span class="m">O'Connor's · tor 29. okt</span></div>
+</div></div></div>
+
+<!-- C -->
+<div class="col"><h2>C. Plakat</h2>
+<p class="cap">Rød bakgrunn, enorm tittel og blokkbokstaver som en konsertplakat. Veldig tydelig og sosiale-medier-vennlig, men mer høylytt.</p>
+<div class="phone"><div class="pg C">
+  <h1>Ka<br>skjer<br><em>da?</em></h1><div class="tag">Alt som skjer i Ålesund. Oppdatert hver morgen og kveld.</div>
+  <div class="ticker">Konsert ★ Standup ★ Show ★ Quiz ★ Klubb ★ Konsert ★ Standup ★ Show</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Konsert</span><span class="chip">Quiz</span><span class="chip">I dag</span></div>
+  <div class="day">I dag</div>
+  <div class="ev" style="--c:#2f8a4c"><span class="p">200–300 kr</span><b>Peter Pan</b><span class="m">Parken kulturhus · 18:00</span></div>
+  <div class="day">Torsdag</div>
+  <div class="ev" style="--c:#7a4fb0"><span class="p">50 kr</span><b>Pubquiz</b><span class="m">O'Connor's · 19:00</span></div>
+</div></div></div>
+
+<!-- D -->
+<div class="col"><h2>D. Kveldsstemning (mørk)</h2>
+<p class="cap">Mørk fjordnatt med gullglød og kort som får en fargetone etter kategori. «Nå»-merke på det som skjer akkurat nå. Passer for en kveldsside.</p>
+<div class="phone"><div class="pg D">
+  <svg width="46" viewBox="0 0 48 52"><circle cx="24" cy="6" r="3.5" fill="none" stroke="#ff8a6b" stroke-width="2.5"/><path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="#ff8a6b"/><circle cx="15" cy="30" r="2" fill="#0a171b"/><circle cx="33" cy="30" r="2" fill="#0a171b"/><path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="#0a171b"/><path d="M4 49c3.5-2.5 6.5-2.5 10 0s6.5 2.5 10 0 6.5-2.5 10 0 6.5 2.5 10 0" fill="none" stroke="#5ab7bf" stroke-width="2.5" stroke-linecap="round"/></svg>
+  <h1>Skjer i <span>Ålesund</span></h1><div class="tag">I kveld og de neste dagene.</div>
+  <div class="chips"><span class="chip on">I kveld</span><span class="chip">Helgen</span><span class="chip">Quiz</span><span class="chip">Gratis</span></div>
+  <div class="day">I dag</div>
+  <div class="ev" style="--c:#2f8a4c"><span class="now"><i></i> Starter 18:00</span><span class="p">200–300 kr</span><b>Peter Pan</b><span class="m">Parken kulturhus</span></div>
+  <div class="day">Torsdag</div>
+  <div class="ev" style="--c:#b497e0"><span class="p">50 kr</span><b>Pubquiz</b><span class="m">O'Connor's · 19:00</span></div>
+  <div class="ev" style="--c:#f08a4b"><span class="p">450 kr</span><b>Stein Torleif Bjella</b><span class="m">Terminalen Byscene · 20:00</span></div>
+</div></div></div>
+
+<!-- E -->
+<div class="col"><h2>E. Kort med bilde</h2>
+<p class="cap">Hvert kort får en bildeflate øverst. Siden vi ikke har arrangementsbilder, brukes en tegnet motiv per kategori (mikrofon, noter, quiz-spørsmålstegn). Lettere å skanne.</p>
+<div class="phone"><div class="pg E">
+  <h1>Skjer i <span>Ålesund</span></h1>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Konsert</span><span class="chip">Standup</span><span class="chip">Quiz</span></div>
+  <div class="ec"><div class="img" style="background:linear-gradient(135deg,#2f8a4c,#7bc88f)"><svg viewBox="0 0 300 120"><g fill="none" stroke="#ffffff55" stroke-width="3"><circle cx="230" cy="40" r="28"/><circle cx="262" cy="70" r="18"/><path d="M20 90 q40 -50 80 0 t80 0"/></g></svg><span>Barn &amp; familie</span></div>
+   <div class="bd"><b>Peter Pan</b><span class="m">Parken kulturhus · i dag kl. 18:00</span><div class="row"><b style="font:700 15px var(--m)">200–300 kr</b><span class="btn">Billetter</span></div></div></div>
+  <div class="ec"><div class="img" style="background:linear-gradient(135deg,#7a4fb0,#b497e0)"><svg viewBox="0 0 300 120"><text x="190" y="105" font-size="120" font-family="Bricolage Grotesque" font-weight="800" fill="#ffffff33">?</text><text x="250" y="50" font-size="60" font-family="Bricolage Grotesque" font-weight="800" fill="#ffffff22">?</text></svg><span>Quiz</span></div>
+   <div class="bd"><b>Pubquiz</b><span class="m">O'Connor's · tor 29. okt kl. 19:00</span><div class="row"><b style="font:700 15px var(--m)">50 kr</b><span class="btn">Se mer</span></div></div></div>
+</div></div></div>
+
+<!-- F -->
+<div class="col"><h2>F. Jugendstil</h2>
+<p class="cap">Krem papir, serif-skrift og dekorlinje som henter fra byens jugendstil. Varm, nesten som et gammelt teaterprogram. Mest særpreg, mest endring.</p>
+<div class="phone"><div class="pg F">
+  <svg class="orn" viewBox="0 0 200 30"><path d="M0 15H72M128 15H200" stroke="#a8321f" stroke-width="1.5"/><path d="M80 15c6-14 14-14 20 0 6-14 14-14 20 0-6 14-14 14-20 0-6 14-14 14-20 0Z" fill="none" stroke="#a8321f" stroke-width="1.8"/></svg>
+  <h1>Skjer i <span>Ålesund</span></h1><div class="tag">Program for byen mellom fjell og fjord</div>
+  <svg class="orn" viewBox="0 0 200 30"><path d="M0 15H72M128 15H200" stroke="#a8321f" stroke-width="1.5"/><circle cx="100" cy="15" r="4" fill="#a8321f"/></svg>
+  <div class="chips" style="justify-content:center"><span class="chip on">Alle</span><span class="chip">Konsert</span><span class="chip">Standup</span><span class="chip">Quiz</span></div>
+  <div class="day">Mandag 26. oktober</div>
+  <div class="ev" style="--c:#2f8a4c"><span class="p">200–300 kr</span><b>Peter Pan</b><span class="m">Parken kulturhus · kl. 18:00</span></div>
+  <div class="day">Torsdag 29. oktober</div>
+  <div class="ev" style="--c:#7a4fb0"><span class="p">50 kr</span><b>Pubquiz</b><span class="m">O'Connor's · kl. 19:00</span></div>
+</div></div></div>
+
+</div>
+</body>
+</html>
