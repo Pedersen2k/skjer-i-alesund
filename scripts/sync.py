@@ -285,7 +285,9 @@ def fetch_oconnors():
             continue
         price = re.search(r"(\d+)", text("Pris"))
         body = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html.unescape(page)))
-        raw.append({"name": re.sub(r"<[^>]+>", "", html.unescape(name.group(1))).strip(), "venue": OCONNORS_VENUE, "address": OCONNORS_ADDRESS,
+        title = re.sub(r"<[^>]+>", "", html.unescape(name.group(1))).strip().replace("’", "'")
+        title = re.sub(r"\s+(hos\s+)?O'Connor's( Ålesund)?\s*$", "", title).strip(" !") or title  # stedet står allerede ved siden av
+        raw.append({"name": title, "venue": OCONNORS_VENUE, "address": OCONNORS_ADDRESS,
                     "start": start, "url": url, "tickets": [], "soldOut": False, "noTime": not hm,
                     "group": "oconnors-" + start.date().isoformat() + "-" + slug(name.group(1))[:30],  # hver kveld har egen side og egen lenke
                     "price": (f"{price.group(1)} kr", int(price.group(1)), "") if price else None,
@@ -458,7 +460,7 @@ def main():
         for e in oconnors:
             if e["priceMin"] and any(r.get("gratis") for r in oc_raw) and "quiz" in e["title"].lower():
                 e["uncertain"] = True
-                e["note"] = (e["note"] + " " if e["note"] else "") + "Sidene til O'Connor's er uenige: oversikten sier quiz hver annen torsdag kl. 20 og gratis, arrangementssiden sier " + f"{e['time']} og {e['price']}. Sjekk hos O'Connor's."
+                e["note"] = (e["note"] + " " if e["note"] else "") + f"Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. {e['time']} og {e['price']}. Sjekk hos O'Connor's."
     # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
     seen = {(e["date"], norm_key(e["title"])) for e in events}
     events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
