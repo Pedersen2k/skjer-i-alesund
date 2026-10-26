@@ -100,6 +100,9 @@ Both are also published as private Claude artifacts (owner has the links in the 
 ## Jul i Ålesund page (26 Oct, built; on branch until merged)
 Owner chose the card on the front page (design 2) and wants it shown from 1 Nov; the page itself can be live earlier so Google finds it. `jul_page()` in `pages.py` builds `jul-i-alesund/` (gift-box advent calendar, filtered list, static HTML for SEO, JS enhancements; CSS in `SUB_CSS` as `.jul ...`), found by `is_jul()` (prefix rule + `data/jul.json` include/exclude). Front page card `#julcard` is in `index.html` and shown by JS from 1 Nov to 26 Dec (`?jul=1` forces it). `links_nav` gets a "Jul i Ålesund" chip from 1 Nov (`JUL_NAV`). A reminder for 1 Nov is scheduled (trigger `trig_01M4pGjdgNWkPnNm81NtUJgy`). To do each week in Nov/Dec: ask Claude to check for Christmas events that the keyword rule misses (Lucia, julemarkeder, small shops via `manual.json`).
 
+## Dampsentralen as a source (26 Oct)
+Owner asked that events from dampsentralen.no are always included. `fetch_dampsentralen()` in `sync.py` reads `https://www.dampsentralen.no/kalender?format=json` (Squarespace; `upcoming` list), venue `Dampsentralen` (no address in the source), category from `guess_cat()` plus entries in `overrides.json` (`circus-damp`, `inkluderingskveld-2026`, `christmas-party`). Repeated "KLUBB DAMP" Saturdays are merged into one card with `moreShows`. If a description links to a Tikkio event, prices come from there; otherwise "Pris hos arrangør". If the page can't be read, the old Dampsentralen events are kept and a warning issue is opened. The domain `www.dampsentralen.no` had to be allowed in the environment's network settings (done by the owner). `christmas-party-dampsentralen` is in `data/jul.json` `include`.
+
 ## Preferences from the owner (24 Oct)
 - Dislikes sideways scrolling on mobile.
 - Wants to see several design options as interactive mockups before deciding (see `docs/`), then picks one.

@@ -35,6 +35,14 @@
     "title": "Bjørn & Bjarte",
     "note": "Flyttet fra 11. november."
   },
+  "christmas-party": {
+    "cat": "happening",
+    "note": "Julebord: kjøp bord hos Dampsentralen."
+  },
+  "circus-damp": {
+    "cat": "klubb",
+    "note": "Halloweenfest. Kostyme anbefales."
+  },
   "claudia-scott-og-torstein-flakne": {
     "cat": "konsert",
     "title": "Claudia Scott og Torstein Flakne"
@@ -78,6 +86,10 @@
   },
   "hvis-gud-vil": {
     "cat": "show"
+  },
+  "inkluderingskveld-2026": {
+    "cat": "happening",
+    "note": "Arrangert av Ålesund idrettsråd."
   },
   "iselin-guttormsen-kommer": {
     "cat": "standup"

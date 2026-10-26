@@ -30,6 +30,8 @@ PARKEN_ADDRESS = "Parkgata 3B, 6003 Ålesund"
 AAFK_TEAMS = [("https://www.aafk.no/terminliste", "Aalesund"),
               ("https://www.aafk.no/lag/aalesund-fk-kvinner-senior-a/terminliste", "AaFK Kvinner")]
 AAFK_VENUE = "Color Line Stadion"
+DAMP = "https://www.dampsentralen.no"
+DAMP_VENUE = "Dampsentralen"
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
 
 ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
@@ -214,6 +216,36 @@ def fetch_parken():
     return raw
 
 
+def fetch_dampsentralen():
+    """Kalenderen til Dampsentralen (Squarespace; ?format=json gir kommende arrangementer). Når beskrivelsen lenker til et
+    Tikkio-arrangement, hentes billettprisene derfra. Ellers vises «Pris hos arrangør». Gir None hvis siden ikke kunne leses."""
+    today = datetime.datetime.now(TZ).date()
+    try:
+        data = json.loads(get(DAMP + "/kalender?format=json"))
+    except Exception as e:
+        warn(f"Klarte ikke å hente kalenderen til Dampsentralen: {e}")
+        return None
+    items = data.get("upcoming")
+    if not isinstance(items, list):
+        warn("Fant ikke «upcoming» i kalenderen til Dampsentralen. Sjekk om dampsentralen.no har endret siden.")
+        return None
+    raw = []
+    for it in items:
+        if not it.get("startDate") or not it.get("title"):
+            continue
+        start = datetime.datetime.fromtimestamp(it["startDate"] / 1000, TZ).replace(second=0, microsecond=0)
+        if start.date() < today:
+            continue
+        name = re.sub(r"^[^\wÆØÅæøå]+|[^\wÆØÅæøå.!?]+$", "", html.unescape(it["title"]).strip())
+        text = (it.get("excerpt") or "") + (it.get("body") or "")
+        ticket = re.search(r'https://tikkio\.com/events/\d+[^"\'<\s]*', text)
+        url = ticket.group(0) if ticket else DAMP + (it.get("fullUrl") or "/kalender")
+        raw.append({"name": name, "venue": DAMP_VENUE, "start": start, "address": "", "url": url,
+                    "tickets": fetch_tickets(url) if ticket else [], "soldOut": False})
+    print(f"Dampsentralen: {len(raw)} arrangementer", file=sys.stderr)
+    return raw
+
+
 def price_info(tickets):
     real = [(n, p) for n, p in tickets if not NOISE.search(n)]
     paid = [(n, p) for n, p in real if p > 0]
@@ -362,9 +394,15 @@ def main():
         warn("Fikk ingen arrangementer fra Parken kulturhus. Siden viser reserven i data/manual.json, som kan være utdatert.")
     aafk = fetch_aafk()
     events += aafk
+    damp_raw = fetch_dampsentralen()
+    if damp_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
+        damp = [e for e in old["events"] if e["venue"] == DAMP_VENUE and e["date"] >= today]
+    else:
+        damp = build_events(damp_raw, overrides)
     # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
     seen = {(e["date"], norm_key(e["title"])) for e in events}
     events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
+    events += [e for e in damp if (e["date"], norm_key(e["title"])) not in seen]
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
     events += [e for e in manual if e["date"] >= today and e["id"] not in parken_ids]
@@ -380,6 +418,10 @@ def main():
     fresh_source = {e["id"] for e in parken} if parken and "parken" not in sources else set()
     if aafk and "aafk" not in sources:
         fresh_source |= {e["id"] for e in aafk}
+    if damp and "dampsentralen" not in sources:
+        fresh_source |= {e["id"] for e in damp}
+    if damp:
+        sources.add("dampsentralen")
     if parken:
         sources.add("parken")
     if aafk:
