@@ -37,7 +37,7 @@ OCONNORS_VENUE = "O'Connor's"
 OCONNORS_ADDRESS = "Brunholmgata 10, 6004 Ålesund"
 VITI = "https://www.vitimusea.no"
 # Viti har museer i flere kommuner. Bare de i Ålesund er med: (navn hos Viti) -> (navn på siden, adresse)
-VITI_MUSEUMS = {"Jugendstilsenteret og KUBE": ("Jugendstilsenteret", "Apotekergata 16, Ålesund"),
+VITI_MUSEUMS = {"Jugendstilsenteret og KUBE": ("Jugendstilsenteret og KUBE", "Apotekergata 16, Ålesund"),
                 "Sunnmøre museum": ("Sunnmøre museum", "Museumsvegen 12, 6015 Ålesund")}
 MONTHS = ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "des"]
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
@@ -336,7 +336,7 @@ def fetch_viti():
             page = get(url)
             time.sleep(0.5)
             flight = "".join(json.loads('"' + c + '"') for c in re.findall(r'self\.__next_f\.push\(\[1,"(.*?)"\]\)</script>', page, re.S))
-            name = re.search(r'"name":"([^"]+)","openingHours"', flight)
+            name = re.search(r"<h1[^>]*>(.*?)</h1>", page, re.S)
             city = re.search(r'"selectCity":\{"cityName":"([^"]*)"', flight)
             museums = re.findall(r'"address":"[^"]*","mapLink":"[^"]*","name":"([^"]*)"', flight[flight.find('"selectCity"'):])
             dates = re.findall(r'"endDate":"([^"]+)","startDate":"([^"]+)"', flight)
