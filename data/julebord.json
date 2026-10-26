@@ -40,6 +40,14 @@
       "price": "fra 440 kr",
       "note": "Kjedens julemeny: ribbetallerken 440 kr, pinnekjøtt 549 kr, julekombo med begge 529 kr og julelunsj 290 kr (til kl. 15). Bestill bord på nett.",
       "url": "https://egon.no/julebord"
+    },
+    {
+      "name": "Julemeny à la carte",
+      "venue": "Quality Hotel Ålesund",
+      "period": "Førjulen",
+      "price": "",
+      "note": "Egen julemeny ved siden av buffeten, blant annet klassisk juletallerken. For mindre selskap og en roligere julekveld.",
+      "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/"
     }
   ]
 }
