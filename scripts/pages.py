@@ -179,7 +179,7 @@ def page(path, title, description, body, ld=None, up=None, image=None, raw=False
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="{up}stil.css">
-<script>try{{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld"||q==="standard")localStorage.setItem("skjer-tema",q);if(q==="standard")localStorage.setItem("skjer-theme",'"light"');if(localStorage.getItem("skjer-tema")!=="standard"){{document.documentElement.dataset.tema="kveld";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#0a171b";document.write('<link rel="stylesheet" href="{up}tema-kveld.css">')}}}}catch{{}}</script>
+<script>try{{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld"||q==="standard")localStorage.setItem("skjer-tema",q);if(q==="standard")localStorage.setItem("skjer-theme",'"light"');if(q){{const u=new URL(location.href);u.searchParams.delete("tema");history.replaceState(null,"",u)}}if(localStorage.getItem("skjer-tema")!=="standard"){{document.documentElement.dataset.tema="kveld";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#0a171b";document.write('<link rel="stylesheet" href="{up}tema-kveld.css">')}}}}catch{{}}</script>
 <script>try {{ const t = JSON.parse(localStorage.getItem("skjer-theme")); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch {{}}</script>
 {ld_script(ld) if ld else ""}
 {head_extra}
