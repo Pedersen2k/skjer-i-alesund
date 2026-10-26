@@ -1,10 +1,11 @@
 {
  "meta": {
-  "updatedAt": "2026-10-26T07:33:33Z",
+  "updatedAt": "2026-10-26T09:03:54Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
    "aafk",
+   "dampsentralen",
    "parken",
    "tikkio"
   ]
@@ -222,6 +223,22 @@
    "moreShows": [
     "2026-10-31T21:00"
    ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "circus-damp-dampsentralen",
+   "date": "2026-10-31",
+   "time": "22:00",
+   "title": "CIRCUS DAMP",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "klubb",
+   "price": "200 kr",
+   "priceMin": 200,
+   "soldOut": false,
+   "note": "Halloweenfest. Kostyme anbefales.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/66178",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -469,6 +486,29 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "klubb-damp-dampsentralen",
+   "date": "2026-11-07",
+   "time": "23:00",
+   "title": "KLUBB DAMP",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "klubb",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Flere forestillinger: 21. nov, 28. nov, 5. des, 12. des, 19. des.",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk",
+   "moreShows": [
+    "2026-11-21T23:00",
+    "2026-11-28T23:00",
+    "2026-12-05T23:00",
+    "2026-12-12T23:00",
+    "2026-12-19T23:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-49587-parken-kulturhus",
    "date": "2026-11-08",
    "time": "15:00",
@@ -702,6 +742,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "musikkbingo-dampsentralen",
+   "date": "2026-11-20",
+   "time": "19:00",
+   "title": "MUSIKKBINGO",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk-lcmek",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "valkyrien-allstars-terminalen-byscene",
    "date": "2026-11-20",
    "time": "20:00",
@@ -766,6 +822,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66682-erlend-gunstveit-my-nashville-christmas-to-you",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "inkluderingskveld-2026-dampsentralen",
+   "date": "2026-11-26",
+   "time": "18:00",
+   "title": "INKLUDERINGSKVELD 2026",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Arrangert av Ålesund idrettsråd.",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -917,6 +989,22 @@
    "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
    "uncertain": false,
    "url": "https://aafk.ticketco.events/no/nb",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "christmas-party-dampsentralen",
+   "date": "2026-12-05",
+   "time": "18:00",
+   "title": "CHRISTMAS PARTY",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "happening",
+   "price": "999 kr",
+   "priceMin": 999,
+   "soldOut": false,
+   "note": "Julebord: kjøp bord hos Dampsentralen.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/66419",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1131,6 +1219,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "quiz-pa-damp-dampsentralen",
+   "date": "2026-12-18",
+   "time": "19:00",
+   "title": "QUIZ PÅ DAMP",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "happening",
+   "price": "400 kr",
+   "priceMin": 400,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67015",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "darling-west-juleturne-26-lovenvold-theater",
    "date": "2026-12-19",
    "time": "16:00",
@@ -1195,6 +1299,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66898-romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "klubb-damp-2-juledag-dampsentralen",
+   "date": "2026-12-26",
+   "time": "23:00",
+   "title": "KLUBB DAMP 2.JULEDAG",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "klubb",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dato: 2. juledag, 26. desember.",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-bp7tw-r3emt-78w9k-w27fw",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
