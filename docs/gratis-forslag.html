@@ -1,0 +1,151 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Gratis i Ålesund-forslag</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Layout: fem forslag til siden «Gratis og billig i Ålesund», hvert i en mobilramme, med ekte data fra programmet 27. okt */
+:root {
+  --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a;
+  --accent:#ff8a6b; --accent-ink:#1a0b07; --sea:#5ab7bf; --gold:#f7c873; --free:#6cc98a; --free-bg:#12301f;
+  --display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif; --body:"Figtree",system-ui,sans-serif;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--fg); font:15px/1.45 var(--body); margin:0; padding-block:24px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)); }
+.wrap { max-width:1100px; margin:0 auto; }
+h1 { font:800 28px/1.1 var(--display); margin:0 0 6px; text-wrap:balance; }
+.lead { color:var(--muted); margin:0 0 26px; max-width:68ch; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,350px),1fr)); gap:30px 24px; align-items:start; }
+.opt { min-width:0; }
+.opt > h2 { font:700 12px var(--body); letter-spacing:.14em; text-transform:uppercase; color:var(--sea); margin:0 0 4px; }
+.opt > p { color:var(--muted); font-size:13px; margin:0 0 10px; }
+.frame { border:1px solid var(--line); border-radius:18px; padding:16px; background:#0c1d23; max-width:390px; }
+a { color:inherit; text-decoration:none; }
+.pg-h { font:800 26px/1.05 var(--display); margin:0 0 4px; text-wrap:balance; }
+.pg-s { color:var(--muted); font-size:13.5px; margin:0 0 14px; }
+.tag { display:inline-block; font:700 11px var(--body); letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:99px; background:var(--free-bg); color:var(--free); }
+.tag.cheap { background:#2a2410; color:var(--gold); }
+.sec { font:700 11.5px var(--body); letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:18px 0 8px; }
+.meta { color:var(--muted); font-size:12.5px; }
+.pr { font:800 16px var(--display); color:var(--gold); white-space:nowrap; }
+.pr.free { color:var(--free); }
+
+/* A rent liste */
+.A .row { display:grid; grid-template-columns:44px 1fr auto; gap:10px; padding:10px 0; border-top:1px solid var(--line); align-items:center; }
+.A .dt { text-align:center; line-height:1; } .A .dt b { display:block; font:800 20px var(--display); } .A .dt span { font-size:10.5px; text-transform:uppercase; color:var(--accent); letter-spacing:.08em; }
+.A .ti { font-weight:700; font-size:14.5px; line-height:1.2; }
+
+/* B prisstige */
+.B .chips { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+.B .chips a { font-size:12.5px; font-weight:600; padding:5px 10px; border-radius:99px; border:1px solid var(--line); }
+.B .chips a.on { background:var(--free); color:#06210f; border-color:var(--free); }
+.B .band { display:flex; align-items:baseline; justify-content:space-between; margin:16px 0 6px; padding-bottom:4px; border-bottom:2px solid var(--free); }
+.B .band.g2 { border-color:var(--gold); } .B .band.g3 { border-color:var(--sea); }
+.B .band b { font:800 20px var(--display); } .B .band span { font-size:12px; color:var(--muted); }
+.B .it { display:flex; justify-content:space-between; gap:10px; padding:7px 0; font-size:14px; }
+.B .it small { display:block; color:var(--muted); font-size:12px; }
+
+/* C lapper */
+.C .lap { position:relative; display:flex; background:var(--surface); border:1px solid var(--line); border-radius:12px; margin-bottom:10px; overflow:hidden; }
+.C .lap .zero { width:86px; flex:none; background:var(--free); color:#06210f; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; border-right:2px dashed #06210f66; }
+.C .lap.cheap .zero { background:var(--gold); color:#2a1b00; border-color:#2a1b0066; }
+.C .zero b { font:800 30px/1 var(--display); } .C .zero span { font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+.C .lap .bd { padding:10px 12px; min-width:0; }
+.C .lap .bd b { display:block; font-size:14.5px; line-height:1.2; margin-bottom:2px; }
+
+/* D uke for uke */
+.D .wk { margin-top:16px; }
+.D .wk > h3 { font:700 12px var(--body); letter-spacing:.12em; text-transform:uppercase; color:var(--sea); margin:0 0 6px; display:flex; justify-content:space-between; }
+.D .best { background:var(--free-bg); border:1px solid #1f5a37; border-radius:12px; padding:10px 12px; margin-bottom:6px; }
+.D .best small { font:700 10.5px var(--body); letter-spacing:.12em; text-transform:uppercase; color:var(--free); }
+.D .best b { display:block; font:800 17px/1.15 var(--display); margin:2px 0; }
+.D .more { display:flex; justify-content:space-between; gap:10px; font-size:13.5px; padding:5px 2px; color:var(--fg); }
+.D .more span:first-child { color:var(--muted); }
+
+/* E filter */
+.E .tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+.E button { font:600 13px var(--body); color:var(--fg); background:transparent; border:1px solid var(--line); border-radius:99px; padding:6px 12px; cursor:pointer; }
+.E button[aria-pressed="true"] { background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+.E .tiles { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.E .tile { background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 11px; display:flex; flex-direction:column; gap:3px; min-height:106px; }
+.E .tile b { font-size:14px; line-height:1.2; } .E .tile .pr { margin-top:auto; }
+.E .count { font-size:12px; color:var(--muted); margin:0 0 8px; }
+.note { margin-top:14px; font-size:12px; color:var(--muted); border-top:1px solid var(--line); padding-top:10px; }
+</style>
+
+<div class="wrap">
+  <h1>Gratis og billig i Ålesund: fem forslag</h1>
+  <p class="lead">Slik ser dataene ut i dag (27. okt): bare to arrangementer er oppgitt som helt gratis, og 24 koster 150 kr eller mindre. Derfor heter alle forslagene «Gratis og billig». Det som står her er ekte og kommer fra programmet, men er et utvalg på 13 av dem, så tallene i rammene er ikke endelige. Julemarkedet i sentrum mangler pris og er ikke regnet som gratis.</p>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+var D = [
+ {d:"2026-11-08",t:"Sans – Piero Issa og Ole Petter Knarvik",v:"Parken kulturhus",c:"Barn",p:0,l:"Gratis",n:"Også kl. 16:00."},
+ {d:"2026-11-15",t:"Sparebanken Møre | Tonje Glimmerdal",v:"Parken kulturhus",c:"Konsert",p:0,l:"Gratis",n:""},
+ {d:"2026-10-28",t:"Om Anders Svors liv og reiser",v:"Jugendstilsenteret",c:"Happening",p:60,l:"60 kr",n:""},
+ {d:"2026-10-28",t:"Musikklinjekonsert",v:"Parken kulturhus",c:"Konsert",p:100,l:"100–250 kr",n:""},
+ {d:"2026-10-29",t:"Pubquiz",v:"O'Connor's",c:"Quiz",p:50,l:"50 kr",n:""},
+ {d:"2026-10-30",t:"Skumle Oktoberquiz med Martin",v:"O'Connor's",c:"Quiz",p:50,l:"50 kr",n:""},
+ {d:"2026-10-31",t:"Familiedag: Halloween",v:"Jugendstilsenteret",c:"Barn",p:120,l:"120 kr",n:"Barn gratis med betalende voksen.",kid:1},
+ {d:"2026-11-01",t:"Pelsdyr i ord og folkesong",v:"Sunnmøre museum",c:"Happening",p:120,l:"120 kr",n:""},
+ {d:"2026-11-02",t:"Påfyll",v:"Parken kulturhus",c:"Konsert",p:100,l:"100 kr",n:""},
+ {d:"2026-11-07",t:"Musikkbingo med Martin",v:"O'Connor's",c:"Quiz",p:50,l:"50 kr",n:""},
+ {d:"2026-11-11",t:"Innblikk i Vitis tekstilsamlinger",v:"Jugendstilsenteret",c:"Happening",p:60,l:"60 kr",n:""},
+ {d:"2026-11-11",t:"Filmvisning: How to live on earth",v:"Pir Cowork",c:"Happening",p:100,l:"100 kr",n:""},
+ {d:"2026-11-21",t:"Familiedag: Design din egen jugendplakat",v:"Jugendstilsenteret",c:"Barn",p:120,l:"120 kr",n:"Barn gratis med betalende voksen.",kid:1}
+].sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:a.p-b.p;});
+var MO=["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"], WD=["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"];
+function dd(x){var t=new Date(x.d+"T12:00");return t;}
+function day(x){return dd(x).getDate();} function mo(x){return MO[dd(x).getMonth()];}
+function long(x){var t=dd(x);return WD[t.getDay()].slice(0,3)+" "+t.getDate()+". "+MO[t.getMonth()];}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+var FREE=D.filter(function(x){return x.p===0;}), CHEAP=D.filter(function(x){return x.p>0;});
+function pr(x){return '<span class="pr'+(x.p===0?' free':'')+'">'+esc(x.l)+'</span>';}
+function head(){return '<h3 class="pg-h">Gratis og billig i Ålesund</h3><p class="pg-s">2 helt gratis og mange under 150 kr de neste ukene. Prisen er det billigste billettalternativet.</p>';}
+function wrap(k,title,desc,body){return '<section class="opt"><h2>'+k+' · '+title+'</h2><p>'+desc+'</p><div class="frame '+k+'">'+body+'</div></section>';}
+
+// A
+var A = head()+'<div class="sec">Gratis</div>'+FREE.map(function(x){return '<a class="row" href="#"><div class="dt"><b>'+day(x)+'</b><span>'+mo(x)+'</span></div><div><div class="ti">'+esc(x.t)+'</div><div class="meta">'+esc(x.v)+' · '+esc(x.c)+(x.n?' · '+esc(x.n):'')+'</div></div>'+pr(x)+'</a>';}).join('')
+ +'<div class="sec">Under 150 kr</div>'+CHEAP.slice(0,6).map(function(x){return '<a class="row" href="#"><div class="dt"><b>'+day(x)+'</b><span>'+mo(x)+'</span></div><div><div class="ti">'+esc(x.t)+'</div><div class="meta">'+esc(x.v)+'</div></div>'+pr(x)+'</a>';}).join('')
+ +'<div class="meta" style="padding-top:10px">… og 5 til</div>';
+
+// B
+function band(cls,title,sub,list){return '<div class="band '+cls+'"><b>'+title+'</b><span>'+sub+'</span></div>'+list.map(function(x){return '<a class="it" href="#"><span>'+esc(x.t)+'<small>'+long(x)+' · '+esc(x.v)+'</small></span>'+pr(x)+'</a>';}).join('');}
+var B = head()+'<div class="chips"><a class="on" href="#">Alle</a><a href="#">Gratis</a><a href="#">Under 100</a><a href="#">Under 150</a></div>'
+ +band('','Gratis',FREE.length+' arrangementer',FREE)
+ +band('g2','Under 100 kr',CHEAP.filter(function(x){return x.p<100;}).length+' arrangementer',CHEAP.filter(function(x){return x.p<100;}))
+ +band('g3','100–150 kr',CHEAP.filter(function(x){return x.p>=100;}).length+' arrangementer',CHEAP.filter(function(x){return x.p>=100;}));
+
+// C
+function lap(x){var c=x.p===0;return '<a class="lap'+(c?'':' cheap')+'" href="#" style="display:flex"><div class="zero"><b>'+(c?'0':x.p)+'</b><span>'+(c?'kroner':'kr')+'</span></div><div class="bd"><b>'+esc(x.t)+'</b><span class="meta">'+long(x)+' · '+esc(x.v)+(x.n?'<br>'+esc(x.n):'')+'</span></div></a>';}
+var C = head()+D.slice(0,7).map(lap).join('')+'<div class="meta">… og 6 til</div>';
+
+// D
+function week(t){var s=new Date(t);s.setHours(0,0,0,0);var w=(s.getDay()+6)%7;s.setDate(s.getDate()-w);return s;}
+var weeks={}; D.forEach(function(x){var k=+week(dd(x));(weeks[k]=weeks[k]||[]).push(x);});
+function wnum(d){var t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));var n=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-n);var y=new Date(Date.UTC(t.getUTCFullYear(),0,1));return Math.ceil(((t-y)/864e5+1)/7);}
+var Dh = head()+Object.keys(weeks).sort().slice(0,3).map(function(k){var l=weeks[k].slice().sort(function(a,b){return a.p-b.p;}),b=l[0],rest=l.slice(1,4);
+  return '<div class="wk"><h3><span>Uke '+wnum(new Date(+k))+'</span><span>'+l.length+' billige</span></h3><a class="best" href="#" style="display:block"><small>'+(b.p===0?'Gratis denne uka':'Billigst denne uka')+'</small><b>'+esc(b.t)+'</b><span class="meta">'+long(b)+' · '+esc(b.v)+' · </span>'+pr(b)+'</a>'
+  +rest.map(function(x){return '<a class="more" href="#"><span>'+long(x)+'</span><span style="flex:1">'+esc(x.t)+'</span>'+pr(x)+'</a>';}).join('')+'</div>';}).join('');
+
+// E
+var E = head()+'<div class="tabs" role="group" aria-label="Filter"><button type="button" aria-pressed="true" data-f="alle">Alle</button><button type="button" aria-pressed="false" data-f="gratis">Gratis</button><button type="button" aria-pressed="false" data-f="100">Under 100 kr</button><button type="button" aria-pressed="false" data-f="barn">Barn</button></div><p class="count" id="ecount"></p><div class="tiles" id="etiles"></div>';
+
+var G=document.getElementById("grid");
+G.innerHTML = wrap("A","Rent og enkelt","Gratis øverst, så under 150 kr. Samme rader som resten av siden.",A)
+ +wrap("B","Prisstige","Tre prisbånd med snarveier øverst. Lett å se hvor billig man vil.",B)
+ +wrap("C","Lapper","Hvert kort er en lapp med prisen stor til venstre.",C)
+ +wrap("D","Uke for uke","Billigste arrangement hver uke løftes frem, resten under.",Dh)
+ +wrap("E","Filter og fliser","Trykk på filtrene, de virker.",E);
+
+function drawE(f){
+  var l=D.filter(function(x){return f==="alle"||(f==="gratis"&&x.p===0)||(f==="100"&&x.p<100)||(f==="barn"&&(x.c==="Barn"));});
+  document.getElementById("ecount").textContent=l.length+" arrangementer";
+  document.getElementById("etiles").innerHTML=l.map(function(x){return '<a class="tile" href="#"><span class="'+(x.p===0?'tag':'tag cheap')+'" style="align-self:flex-start">'+(x.p===0?'Gratis':long(x))+'</span><b>'+esc(x.t)+'</b><span class="meta">'+(x.p===0?long(x)+' · ':'')+esc(x.v)+'</span>'+(x.p===0?'':pr(x))+'</a>';}).join('');
+}
+drawE("alle");
+document.querySelectorAll(".E button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".E button").forEach(function(o){o.setAttribute("aria-pressed",o===b);});drawE(b.dataset.f);});});
+</script>
