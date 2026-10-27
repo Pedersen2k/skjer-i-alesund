@@ -1,0 +1,450 @@
+<title>Del Mine og helgevær</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: forklaring øverst, to grupper (Del Mine A–D, Været E–G) med telefoner side om side som stables på mobil. Bevisst ett mørkt tema: slik ser siden ut for de fleste. */
+:root {
+  --bg: #0a171b; --surface: #12232a; --surface2: #183039; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
+  --gold: #f5c46e; --sea: #5ab7bf; --coral: #ec6a4f; --rain: #7fb2e8; --rain-soft: #16283a; --ok: #6cc98a;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-sport: #7aa7e6;
+  --messenger: #0a7cff;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; }
+.wrap { max-width: 1480px; margin: 0 auto; display: grid; gap: 34px; }
+header h1 { font: 800 clamp(28px, 4vw, 42px)/1.05 var(--font-display); margin: 0 0 10px; text-wrap: balance; }
+header p { margin: 0; max-width: 72ch; color: var(--muted); }
+header p + p { margin-top: 8px; }
+header b, .why b { color: var(--fg); font-weight: 600; }
+.group h2 { font: 800 26px/1.1 var(--font-display); margin: 0 0 4px; }
+.group > p { margin: 0 0 18px; color: var(--muted); max-width: 72ch; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 30px 22px; align-items: start; }
+.opt { display: grid; gap: 12px; min-width: 0; }
+.opt h3 { margin: 0; font: 800 21px/1.1 var(--font-display); display: flex; gap: 10px; align-items: baseline; }
+.opt h3 span { font: 700 13px var(--font-mono); color: var(--bg); background: var(--gold); border-radius: 6px; padding: 2px 7px; }
+.opt h3 em { font: 600 11px var(--font-body); font-style: normal; color: var(--bg); background: var(--sea); border-radius: 99px; padding: 2px 8px; letter-spacing: .04em; }
+.why { margin: 0; color: var(--muted); font-size: 14px; min-height: 4.6em; }
+.pros { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.pros li::before { content: "+ "; color: var(--sea); font-weight: 700; }
+.pros li.minus::before { content: "– "; color: var(--coral); }
+.try { font: 600 12px var(--font-mono); color: var(--gold); }
+
+/* telefon */
+.phone { width: 100%; max-width: 360px; justify-self: center; border: 1px solid var(--line); border-radius: 30px; padding: 11px; background: #050d10; box-shadow: 0 20px 50px #0008; }
+.screen { position: relative; border-radius: 20px; overflow: hidden; height: 660px; background: radial-gradient(120% 50% at 50% 0%, #163238, var(--bg) 60%); font-size: 13px; }
+.scroll { position: absolute; inset: 0; overflow-y: auto; padding: 14px 13px 90px; display: flex; flex-direction: column; gap: 9px; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.top { display: flex; justify-content: space-between; align-items: center; font: 500 10px var(--font-mono); color: var(--gold); }
+.logo { font: 800 24px/1 var(--font-display); letter-spacing: -.02em; }
+.logo em { font-style: normal; background: linear-gradient(90deg, var(--coral), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.row { display: flex; gap: 6px; }
+.in { flex: 1; border: 1px solid var(--line); border-radius: 12px; padding: 7px 10px; color: var(--muted); background: var(--surface); }
+.pill { border: 1px solid var(--line); border-radius: 99px; padding: 7px 11px; background: var(--surface); font-weight: 600; white-space: nowrap; color: var(--fg); font: 600 12.5px var(--font-body); cursor: pointer; }
+.pill.on { background: var(--gold); color: #1a1205; border-color: var(--gold); }
+.sec { font: 700 9.5px var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+.day { display: grid; grid-template-columns: 40px 1fr; gap: 8px; }
+.day .d { font: 600 9px var(--font-mono); color: var(--muted); line-height: 1.2; }
+.day .d b { display: block; font: 800 23px/1 var(--font-display); color: var(--fg); }
+.day .d i { font-style: normal; color: var(--coral); }
+.day .d .wx { margin-top: 6px; display: grid; gap: 1px; color: var(--rain); font: 700 10px var(--font-mono); }
+.cards { display: grid; gap: 7px; min-width: 0; }
+.ev { position: relative; border: 1px solid var(--line); border-left: 3px solid var(--c); border-radius: 12px; padding: 8px 34px 8px 10px; background: var(--surface); display: grid; gap: 1px; }
+.ev h4 { margin: 0; font: 800 14px/1.15 var(--font-display); }
+.ev .t { font: 700 9px var(--font-body); letter-spacing: .1em; color: var(--c); }
+.ev .v { color: var(--muted); font-size: 11.5px; }
+.ev .p { font: 700 11px var(--font-mono); }
+.star { position: absolute; right: 7px; top: 6px; width: 26px; height: 26px; border: 0; background: none; color: var(--muted); font-size: 18px; line-height: 1; cursor: pointer; border-radius: 8px; }
+.star[aria-pressed="true"] { color: var(--gold); }
+.star:focus-visible, .pill:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.chk { position: absolute; right: 8px; top: 8px; width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--muted); background: none; cursor: pointer; color: transparent; font-size: 13px; display: grid; place-items: center; }
+.chk[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: #1a1205; }
+
+/* A: delelinje + ark */
+.bar { position: absolute; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 9px 9px 14px; border-radius: 16px; background: #1d2f36ee; border: 1px solid #335058; box-shadow: 0 10px 30px #000a; backdrop-filter: blur(8px); transform: translateY(130%); transition: transform .28s ease; }
+.bar.show { transform: none; }
+.bar b { font: 800 14px var(--font-display); color: var(--gold); }
+.bar small { display: block; color: var(--muted); font-size: 11px; }
+.btn { border: 0; border-radius: 99px; padding: 9px 14px; font: 800 12.5px var(--font-body); background: var(--gold); color: #1a1205; cursor: pointer; white-space: nowrap; }
+.btn.ghost { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 1px var(--line); }
+.btn.blue { background: var(--messenger); color: #fff; }
+.sheet { position: absolute; inset: 0; background: #0009; display: flex; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.sheet.open { opacity: 1; pointer-events: auto; }
+.sheet .in2 { width: 100%; background: var(--surface); border-radius: 20px 20px 0 0; padding: 10px 14px 16px; display: grid; gap: 10px; transform: translateY(40px); transition: transform .25s; border-top: 1px solid #335058; }
+.sheet.open .in2 { transform: none; }
+.grab { width: 38px; height: 4px; border-radius: 9px; background: #3a5560; justify-self: center; }
+.sheet h5 { margin: 0; font: 800 17px var(--font-display); }
+.link { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 10px; background: var(--bg); border: 1px dashed #3a5560; font: 600 11px var(--font-mono); color: var(--sea); overflow: hidden; }
+.link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex: 1; }
+.mini { display: grid; gap: 4px; font-size: 12px; }
+.mini div { display: grid; grid-template-columns: 62px 1fr; gap: 6px; }
+.mini b { font: 700 10.5px var(--font-mono); color: var(--gold); }
+.acts { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.toast { position: absolute; left: 50%; bottom: 84px; transform: translate(-50%, 20px); background: var(--fg); color: var(--bg); font: 700 12px var(--font-body); padding: 7px 12px; border-radius: 99px; opacity: 0; transition: .2s; pointer-events: none; white-space: nowrap; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* B: helgeplan */
+.plan { border-radius: 16px; padding: 12px; background: linear-gradient(160deg, #1b3a40, #12232a 70%); border: 1px solid #2b4a52; display: grid; gap: 8px; }
+.plan h5 { margin: 0; font: 800 19px/1.05 var(--font-display); }
+.plan .sub { color: var(--muted); font-size: 11.5px; margin-top: -4px; }
+.tl { display: grid; gap: 0; }
+.tl .dh { font: 700 10px var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin: 6px 0 2px; }
+.tl .it { display: grid; grid-template-columns: 44px 10px 1fr; gap: 7px; align-items: start; padding: 3px 0; }
+.tl .it .tm { font: 700 11px var(--font-mono); color: var(--fg); text-align: right; padding-top: 1px; }
+.tl .it .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-top: 3px; box-shadow: 0 0 0 3px #12232a; position: relative; }
+.tl .it .tt { font: 700 12.5px/1.25 var(--font-body); }
+.tl .it .tt small { display: block; font: 400 11px var(--font-body); color: var(--muted); }
+.empty { color: var(--muted); font-size: 12px; padding: 6px 0; }
+
+/* C: mottaker */
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
+.seg button { border: 0; border-radius: 9px; padding: 7px; background: none; color: var(--muted); font: 700 12px var(--font-body); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--gold); color: #1a1205; }
+.gift { border-radius: 16px; padding: 12px; border: 1px solid #3c5a3e; background: linear-gradient(160deg, #1d3a2a, #12232a 75%); display: grid; gap: 8px; }
+.gift .who { display: flex; gap: 9px; align-items: center; }
+.gift .av { width: 34px; height: 34px; border-radius: 50%; background: var(--gold); color: #1a1205; display: grid; place-items: center; font: 800 15px var(--font-display); flex: none; }
+.gift h5 { margin: 0; font: 800 16px/1.15 var(--font-display); }
+.gift p { margin: 0; color: var(--muted); font-size: 11.5px; }
+
+/* D: velg flere + Messenger */
+.selbar { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.chat { position: absolute; inset: 0; background: #0b0b0d; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.chat.open { opacity: 1; pointer-events: auto; }
+.chat .hd { display: flex; align-items: center; gap: 9px; padding: 14px 12px 10px; border-bottom: 1px solid #222; }
+.chat .hd .av { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #f08a4b, #ec78ab); display: grid; place-items: center; font: 800 12px var(--font-body); color: #fff; }
+.chat .hd b { font: 700 14px var(--font-body); }
+.chat .hd small { display: block; color: #8a8a8f; font-size: 11px; }
+.chat .body { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; justify-content: flex-end; }
+.msg { align-self: flex-end; max-width: 82%; background: var(--messenger); color: #fff; border-radius: 18px 18px 4px 18px; padding: 8px 12px; font-size: 13px; }
+.og { align-self: flex-end; width: 82%; border-radius: 16px; overflow: hidden; background: #242526; border: 1px solid #333; }
+.og .img { aspect-ratio: 1.91; background: radial-gradient(120% 90% at 30% 0%, #1f4a50, #0a171b 70%); padding: 10px 12px; display: grid; align-content: space-between; }
+.og .img .k { font: 800 10px var(--font-mono); color: var(--gold); letter-spacing: .08em; }
+.og .img .h { font: 800 16px/1.05 var(--font-display); color: #fff; }
+.og .img .l { display: grid; gap: 2px; font-size: 10px; color: #cfe0de; }
+.og .img .l i { font-style: normal; color: var(--gold); font-family: var(--font-mono); }
+.og .tx { padding: 7px 10px 9px; }
+.og .tx b { display: block; font: 700 12px var(--font-body); color: #e4e6eb; }
+.og .tx small { color: #b0b3b8; font-size: 11px; }
+.reply { align-self: flex-start; background: #303030; color: #fff; border-radius: 18px 18px 18px 4px; padding: 8px 12px; font-size: 13px; max-width: 80%; }
+.chat .close { margin: 0 12px 12px; }
+
+/* Vær */
+.wxstrip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.wxd { border-radius: 12px; padding: 8px 6px 7px; background: var(--rain-soft); border: 1px solid #24405a; text-align: center; display: grid; gap: 1px; cursor: pointer; color: var(--fg); font: inherit; }
+.wxd[aria-pressed="true"] { border-color: var(--rain); box-shadow: 0 0 0 1px var(--rain) inset; }
+.wxd small { font: 700 9.5px var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.wxd svg { width: 30px; height: 30px; justify-self: center; }
+.wxd b { font: 800 15px var(--font-display); }
+.wxd span { font: 700 10px var(--font-mono); color: var(--rain); }
+.wxnote { display: flex; gap: 8px; align-items: flex-start; padding: 8px 10px; border-radius: 12px; background: var(--rain-soft); border: 1px solid #24405a; font-size: 12px; }
+.wxnote svg { width: 22px; height: 22px; flex: none; }
+.src { font: 500 9.5px var(--font-mono); color: var(--muted); }
+.ute { display: flex; gap: 6px; align-items: center; margin-top: 4px; padding: 5px 8px; border-radius: 9px; background: #1a2c40; color: #cfe3fb; font-size: 11.5px; }
+.ute svg { width: 18px; height: 18px; flex: none; }
+.ute b { color: #fff; }
+.tag-ute { font: 800 9px var(--font-body); letter-spacing: .1em; color: var(--rain); border: 1px solid #2c4a6a; border-radius: 99px; padding: 1px 6px; margin-left: 6px; }
+
+footer.note { color: var(--muted); font-size: 14px; max-width: 78ch; border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 8px; }
+footer.note b { color: var(--fg); }
+@media (prefers-reduced-motion: reduce) { .bar, .sheet, .sheet .in2, .toast, .chat { transition: none; } }
+@media (max-width: 420px) { .screen { height: 620px; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cloud" viewBox="0 0 32 32"><path d="M10 24h13a6 6 0 0 0 .6-12A8 8 0 0 0 8.3 14.4 5 5 0 0 0 10 24z" fill="#a9bcc4"/></symbol>
+  <symbol id="i-rain" viewBox="0 0 32 32"><path d="M10 19h13a6 6 0 0 0 .6-12A8 8 0 0 0 8.3 9.4 5 5 0 0 0 10 19z" fill="#a9bcc4"/><path d="M11 22l-1.5 4M16 22l-1.5 4M21 22l-1.5 4" stroke="#7fb2e8" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-heavy" viewBox="0 0 32 32"><path d="M10 18h13a6 6 0 0 0 .6-12A8 8 0 0 0 8.3 8.4 5 5 0 0 0 10 18z" fill="#8ea3ad"/><path d="M9.5 21l-2 5M14 21l-2 5M18.5 21l-2 5M23 21l-2 5" stroke="#7fb2e8" stroke-width="2.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<div class="wrap">
+<header>
+  <h1>Del Mine og helgevær: sju forslag</h1>
+  <p>Telefonene viser kaskjerda.no med <b>ekte arrangementer denne helgen (30. okt – 1. nov)</b> og <b>ekte værmelding fra MET/Yr</b> hentet 27. oktober. Alt er klikkbart: trykk på stjernene, delknappene og værdagene.</p>
+  <p>Del Mine trenger verken innlogging eller database: lista ligger i selve lenken (for eksempel <b>kaskjerda.no/?mine=…</b>). Været hentes fra MET to ganger i døgnet sammen med programmet, med «Værdata: MET Norge» som kilde.</p>
+</header>
+
+<section class="group">
+  <h2>Del Mine</h2>
+  <p>Fire måter å dele lista di på. A og C hører sammen: A er hvordan du deler, C er hva vennen din ser.</p>
+  <div class="grid">
+
+  <section class="opt" id="A">
+    <h3><span>A</span>Delelinje nederst <em>anbefalt</em></h3>
+    <p class="why">Så snart du stjerner noe, glir en liten linje opp nederst: <b>«★ 3 lagret · Del»</b>. Trykk, og du får lenken, en forhåndsvisning og knapper for Messenger, SMS og kopier.</p>
+    <div class="phone"><div class="screen">
+      <div class="scroll">
+        <div class="top">62,47° N · 6,15° Ø<span class="try">Prøv: trykk ☆</span></div>
+        <div class="logo">Skjer i <em>Ålesund</em></div>
+        <div class="row"><div class="in">Søk …</div><div class="pill">★ Mine</div></div>
+        <div class="sec">Denne helgen</div>
+        <div data-list="A"></div>
+      </div>
+      <div class="bar" data-bar="A"><div><b data-count="A">0 lagret</b><small>Del lista med venner</small></div><button class="btn" data-open="A">Del ↗</button></div>
+      <div class="sheet" data-sheet="A"><div class="in2">
+        <div class="grab"></div>
+        <h5>Del helgeplanen din</h5>
+        <div class="link"><span data-url="A">kaskjerda.no/?mine=…</span></div>
+        <div class="mini" data-mini="A"></div>
+        <div class="acts"><button class="btn blue" data-toast="A" data-msg="Åpner Messenger …">Messenger</button><button class="btn ghost" data-toast="A" data-msg="Åpner Meldinger …">SMS</button><button class="btn ghost" data-toast="A" data-msg="Lenken er kopiert">Kopier lenke</button><button class="btn ghost" data-close="A">Lukk</button></div>
+      </div></div>
+      <div class="toast" data-toastel="A"></div>
+    </div></div>
+    <ul class="pros"><li>Synlig akkurat når det er aktuelt, borte ellers</li><li>Bruker telefonens egen delemeny (Messenger, Snap, SMS)</li><li class="minus">Dekker litt av lista nederst mens den vises</li></ul>
+  </section>
+
+  <section class="opt" id="B">
+    <h3><span>B</span>Min helgeplan</h3>
+    <p class="why">Under <b>«★ Mine»</b> blir stjernene til en <b>tidslinje</b> per dag, som et kjøreprogram for helga. Planen kan deles som den er.</p>
+    <div class="phone"><div class="screen">
+      <div class="scroll">
+        <div class="top">62,47° N · 6,15° Ø<span class="try">Prøv: trykk ☆</span></div>
+        <div class="row"><div class="in">Søk …</div><div class="pill on">★ Mine</div></div>
+        <div class="plan">
+          <h5>Min helg i Ålesund</h5>
+          <div class="sub" data-sub="B">Ingen valgt ennå</div>
+          <div class="tl" data-tl="B"></div>
+          <div class="row"><button class="btn" data-toast="B" data-msg="Delemenyen åpnes …">Del planen ↗</button><button class="btn ghost" data-toast="B" data-msg="Lagt i kalenderen">Legg i kalender</button></div>
+        </div>
+        <div class="sec">Velg fra programmet</div>
+        <div data-list="B"></div>
+      </div>
+      <div class="toast" data-toastel="B"></div>
+    </div></div>
+    <ul class="pros"><li>Gjør «Mine» nyttig også for deg selv: oversikt over kvelden</li><li>Fin å dele: ser ut som en plan, ikke en liste</li><li class="minus">Mer å bygge enn A</li></ul>
+  </section>
+
+  <section class="opt" id="C">
+    <h3><span>C</span>Det vennen ser <em>anbefalt</em></h3>
+    <p class="why">Når vennen åpner lenken, kommer et <b>kort øverst</b>: «Lista til en venn: 4 arrangementer». Ett trykk lagrer alle i vennens egne «Mine», eller enkeltvis.</p>
+    <div class="phone"><div class="screen">
+      <div class="scroll">
+        <div class="seg"><button aria-pressed="false" data-view="C" data-v="send">Du deler</button><button aria-pressed="true" data-view="C" data-v="recv">Vennen åpner</button></div>
+        <div class="logo">Skjer i <em>Ålesund</em></div>
+        <div data-recv="C">
+          <div class="gift">
+            <div class="who"><div class="av">★</div><div><h5>En venn har delt 4 arrangementer med deg</h5><p>Fra lista deres på kaskjerda.no</p></div></div>
+            <div data-list="Cg"></div>
+            <div class="row"><button class="btn" data-saveall="C">★ Lagre alle i Mine</button><button class="btn ghost" data-toast="C" data-msg="Viser hele programmet">Se alt</button></div>
+          </div>
+        </div>
+        <div data-send="C" hidden>
+          <div class="wxnote"><span>Du har stjernet fire arrangementer og trykket «Del». Lenken som sendes:</span></div>
+          <div class="link"><span>kaskjerda.no/?mine=claudia-scott…,viggo…,kristian-valen,circus-damp</span></div>
+          <div class="empty">Den inneholder bare hvilke arrangementer det gjelder. Ingen navn, ingen innlogging, ingenting lagres hos oss.</div>
+        </div>
+        <div class="sec">Resten av helgen</div>
+        <div data-list="Cr"></div>
+      </div>
+      <div class="toast" data-toastel="C"></div>
+    </div></div>
+    <ul class="pros"><li>Vennen trenger ikke vite noe om siden fra før</li><li>Hver delt lenke blir en ny besøkende</li><li class="minus">Viser ikke hvem som delte (vi vet ikke navnet)</li></ul>
+  </section>
+
+  <section class="opt" id="D">
+    <h3><span>D</span>Velg flere og send</h3>
+    <p class="why">Knappen <b>«Velg flere»</b> gir avkrysningsbokser. Kryss av og trykk «Send». Lenken får et eget <b>delebilde</b> med lista, slik det ser ut i Messenger.</p>
+    <div class="phone"><div class="screen">
+      <div class="scroll">
+        <div class="selbar"><div class="logo" style="font-size:20px">Skjer i <em>Ålesund</em></div><button class="pill" data-selmode="D">Velg flere</button></div>
+        <div class="sec" data-selhint="D">Denne helgen</div>
+        <div data-list="D"></div>
+      </div>
+      <div class="bar" data-bar="D"><div><b data-count="D">0 valgt</b><small>Send som én lenke</small></div><button class="btn blue" data-chat="D">Send ↗</button></div>
+      <div class="chat" data-chatel="D">
+        <div class="hd"><div class="av">VG</div><div><b>Vennegjengen</b><small>Messenger</small></div></div>
+        <div class="body">
+          <div class="msg">Blir dere med på noe av dette i helga? 👀</div>
+          <div class="og"><div class="img"><div class="k">KASKJERDA.NO · DELT LISTE</div><div class="h" data-ogh="D">3 ting i Ålesund i helga</div><div class="l" data-ogl="D"></div></div><div class="tx"><b>Lista til en venn – Skjer i Ålesund</b><small>kaskjerda.no</small></div></div>
+          <div class="reply">Kristian Valen! Jeg er med 🙌</div>
+        </div>
+        <button class="btn ghost close" data-closechat="D">Tilbake til siden</button>
+      </div>
+    </div></div>
+    <ul class="pros"><li>Raskest når du vet hva du vil sende med en gang</li><li>Delebildet gjør lenken mye mer klikkbar i chatten</li><li class="minus">Én modus til å forstå; stjernene blir ikke brukt</li></ul>
+  </section>
+
+  </div>
+</section>
+
+<section class="group">
+  <h2>Været</h2>
+  <p>Tre måter å vise været på. Ekte tall fra MET for helgen: fredag 12–13° og regn om kvelden, lørdag regn fra ettermiddagen, søndag regn og byger.</p>
+  <div class="grid">
+
+  <section class="opt" id="E">
+    <h3><span>E</span>Helgevær øverst <em>anbefalt</em></h3>
+    <p class="why">Tre små dagbokser under kinostripen på forsiden og øverst på «Denne helgen». <b>Trykk på en dag</b> for å se bare den dagens arrangementer.</p>
+    <div class="phone"><div class="screen">
+      <div class="scroll">
+        <div class="top">62,47° N · 6,15° Ø<span class="try">Prøv: trykk en dag</span></div>
+        <div class="logo">Skjer i <em>Ålesund</em></div>
+        <div class="sec">Helgeværet i Ålesund</div>
+        <div class="wxstrip" data-wx="E"></div>
+        <div class="src">Værdata: MET Norge · oppdatert 27. okt kl. 08:31</div>
+        <div data-list="E"></div>
+      </div>
+    </div></div>
+    <ul class="pros"><li>Svarer på «hva skal vi i helga?» og «hva blir været?» på ett sted</li><li>Dagboksene blir også en rask datovelger</li><li class="minus">Tar en linje til øverst på forsiden</li></ul>
+  </section>
+
+  <section class="opt" id="F">
+    <h3><span>F</span>Vær ved datoen</h3>
+    <p class="why">Ingen ny boks. Under hver dato i lista står <b>været den dagen</b>, lite og stille. Bare for de neste dagene som har værmelding.</p>
+    <div class="phone"><div class="screen">
+      <div class="scroll">
+        <div class="top">62,47° N · 6,15° Ø<span></span></div>
+        <div class="logo">Skjer i <em>Ålesund</em></div>
+        <div class="row"><div class="in">Søk …</div><div class="pill">★ Mine</div></div>
+        <div data-list="F"></div>
+        <div class="src">Værdata: MET Norge</div>
+      </div>
+    </div></div>
+    <ul class="pros"><li>Tar ingen ekstra plass</li><li>Passer inn i designet som er der i dag</li><li class="minus">Lett å overse; gir ikke helgeoversikten E gir</li></ul>
+  </section>
+
+  <section class="opt" id="G">
+    <h3><span>G</span>Bare når det betyr noe</h3>
+    <p class="why">Været vises <b>bare på arrangementer som er ute</b>, som AaFK-kamper, julemarked og fakkeltog: «Ute · regn 2,5 mm og 11° ved avspark». Resten av lista er som før.</p>
+    <div class="phone"><div class="screen">
+      <div class="scroll">
+        <div class="top">62,47° N · 6,15° Ø<span></span></div>
+        <div class="logo">Skjer i <em>Ålesund</em></div>
+        <div class="wxnote"><svg><use href="#i-rain"/></svg><span><b>Regn lørdag kveld og søndag.</b> Alt annet i lista er innendørs.</span></div>
+        <div data-list="G"></div>
+        <div class="src">Værdata: MET Norge</div>
+      </div>
+    </div></div>
+    <ul class="pros"><li>Mest nyttig per piksel: varsler der det faktisk spiller en rolle</li><li>Kan kombineres med E</li><li class="minus">Vi må merke hvilke steder som er ute (få: stadion, Korsatunnelen, torget)</li></ul>
+  </section>
+
+  </div>
+</section>
+
+<footer class="note">
+  <p><b>Min anbefaling: A + C for deling, og E + G for været.</b> A og C er én og samme funksjon sett fra to sider: du deler med linjen nederst, vennen får kortet øverst. B kan komme senere som en ekstra visning av «Mine». For været gir E helgeoversikten folk leter etter, og G legger til et varsel bare der det trengs.</p>
+  <p>Ingen av forslagene trenger innlogging eller lagrer noe om den som deler. Værmeldingen hentes fra MET (gratis, krever bare at vi oppgir kilden).</p>
+</footer>
+</div>
+
+<script>
+const EV = [
+  { id: "claudia", d: "2026-10-30", t: "18:00", title: "Claudia Scott og Torstein Flakne", venue: "Løvenvold Theater", cat: "konsert", p: "499 kr" },
+  { id: "treretters", d: "2026-10-30", t: "19:00", title: "Treretters: En lattergalla", venue: "Parken kulturhus", cat: "standup", p: "530–625 kr" },
+  { id: "golf", d: "2026-10-30", t: "20:30", title: "GOLF", venue: "Terminalen Byscene", cat: "konsert", p: "420 kr" },
+  { id: "halloween-barn", d: "2026-10-31", t: "12:00", title: "Familiedag: Halloween på Jugendstilsenteret", venue: "Jugendstilsenteret og KUBE", cat: "barn", p: "120 kr" },
+  { id: "aafk", d: "2026-10-31", t: "18:00", title: "Aalesund – Sandefjord Fotball", venue: "Color Line Stadion", cat: "sport", p: "Pris hos arr.", ute: true },
+  { id: "viggo", d: "2026-10-31", t: "19:00", title: "Viggo Venneløs", venue: "Løvenvold Theater", cat: "standup", p: "350 kr" },
+  { id: "valen", d: "2026-10-31", t: "19:00", title: "Kristian Valen", venue: "Parken kulturhus", cat: "konsert", p: "625 kr" },
+  { id: "circus", d: "2026-10-31", t: "22:00", title: "CIRCUS DAMP", venue: "Dampsentralen", cat: "klubb", p: "200 kr" },
+  { id: "pelsdyr", d: "2026-11-01", t: "13:00", title: "Pelsdyr i ord og folkesong", venue: "Sunnmøre museum", cat: "happening", p: "120 kr" },
+];
+// MET Norge, hentet 27. okt 07:31 UTC (6-timersperioder summert)
+const WX = {
+  "2026-10-30": { dag: "Fre", lo: 12, hi: 13, mm: 1.7, ic: "i-rain", txt: "Overskyet, regn i kveld" },
+  "2026-10-31": { dag: "Lør", lo: 11, hi: 13, mm: 4.3, ic: "i-rain", txt: "Regn fra ettermiddagen" },
+  "2026-11-01": { dag: "Søn", lo: 10, hi: 11, mm: 9.0, ic: "i-heavy", txt: "Regn og byger" },
+};
+const WD = { "2026-10-30": ["FRE", "30", "OKT"], "2026-10-31": ["LØR", "31", "OKT"], "2026-11-01": ["SØN", "1", "NOV"] };
+const CATN = { konsert: "KONSERT", standup: "STANDUP", barn: "BARN & FAMILIE", sport: "SPORT", klubb: "KLUBB", happening: "HAPPENING" };
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const mm = n => String(n).replace(".", ",");
+const short = d => WD[d][0].charAt(0) + WD[d][0].slice(1).toLowerCase() + " " + WD[d][1] + ".";
+
+function card(e, opt = {}) {
+  const ctl = opt.check ? `<button class="chk" aria-pressed="${!!opt.on}" data-k="${opt.key}" data-id="${e.id}" aria-label="Velg ${e.title}">✓</button>`
+    : opt.nostar ? "" : `<button class="star" aria-pressed="${!!opt.on}" data-k="${opt.key}" data-id="${e.id}" aria-label="Lagre ${e.title}">${opt.on ? "★" : "☆"}</button>`;
+  const ute = opt.ute && e.ute ? `<div class="ute"><svg><use href="#i-rain"/></svg><span><b>Ute:</b> regn 2,5 mm og 11° ved avspark. Ta med regntøy.</span></div>` : "";
+  return `<article class="ev" style="--c:var(--c-${e.cat})"><h4>${e.title}</h4><div class="t">${CATN[e.cat]}${opt.ute && e.ute ? '<span class="tag-ute">UTE</span>' : ""}</div><div class="v">${e.venue} · kl. ${e.t}</div><div class="p">${e.p}</div>${ute}${ctl}</article>`;
+}
+function list(evs, opt = {}) {
+  const days = {};
+  evs.forEach(e => (days[e.d] = days[e.d] || []).push(e));
+  return Object.entries(days).map(([d, es]) => {
+    const w = WX[d], wx = opt.wxdate ? `<div class="wx"><svg width="18" height="18"><use href="#${w.ic}"/></svg><span>${w.lo}–${w.hi}°</span><span>${mm(w.mm)} mm</span></div>` : "";
+    return `<div class="day"><div class="d">${WD[d][0]}<b>${WD[d][1]}</b><i>${WD[d][2]}</i>${wx}</div><div class="cards">${es.map(e => card(e, { ...opt, on: opt.sel && opt.sel.has(e.id) })).join("")}</div></div>`;
+  }).join("");
+}
+function toast(k, msg) { const t = $(`[data-toastel="${k}"]`); t.textContent = msg; t.classList.add("show"); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 1600); }
+document.addEventListener("click", e => { const b = e.target.closest("[data-toast]"); if (b) toast(b.dataset.toast, b.dataset.msg); });
+
+/* A */
+const selA = new Set(["valen", "viggo"]);
+function drawA() {
+  $('[data-list="A"]').innerHTML = list(EV, { key: "A", sel: selA });
+  const n = selA.size; $('[data-bar="A"]').classList.toggle("show", n > 0);
+  $('[data-count="A"]').textContent = `★ ${n} lagret`;
+  const ids = EV.filter(e => selA.has(e.id));
+  $('[data-url="A"]').textContent = "kaskjerda.no/?mine=" + ids.map(e => e.id).join(",");
+  $('[data-mini="A"]').innerHTML = ids.map(e => `<div><b>${short(e.d)} ${e.t}</b><span>${e.title}</span></div>`).join("");
+}
+$('[data-list="A"]').addEventListener("click", e => { const s = e.target.closest(".star"); if (!s) return; selA.has(s.dataset.id) ? selA.delete(s.dataset.id) : selA.add(s.dataset.id); drawA(); });
+$('[data-open="A"]').onclick = () => $('[data-sheet="A"]').classList.add("open");
+$('[data-close="A"]').onclick = () => $('[data-sheet="A"]').classList.remove("open");
+$('[data-sheet="A"]').addEventListener("click", e => { if (e.target.dataset.sheet) e.target.classList.remove("open"); });
+drawA();
+
+/* B */
+const selB = new Set(["claudia", "aafk", "valen", "pelsdyr"]);
+function drawB() {
+  const ids = EV.filter(e => selB.has(e.id)), days = {};
+  ids.forEach(e => (days[e.d] = days[e.d] || []).push(e));
+  $('[data-sub="B"]').textContent = ids.length ? `${ids.length} ting · ${Object.keys(days).length} dager · fra 120 kr` : "Ingen valgt ennå: trykk ☆ under";
+  $('[data-tl="B"]').innerHTML = Object.entries(days).map(([d, es]) => `<div class="dh">${WD[d][0].toLowerCase().replace(/^./, c => c.toUpperCase())} ${WD[d][1]}. ${WD[d][2].toLowerCase()}</div>` +
+    es.map(e => `<div class="it" style="--c:var(--c-${e.cat})"><span class="tm">${e.t}</span><span class="dot"></span><span class="tt">${e.title}<small>${e.venue} · ${e.p}</small></span></div>`).join("")).join("") || "";
+  $('[data-list="B"]').innerHTML = list(EV, { key: "B", sel: selB });
+}
+$('[data-list="B"]').addEventListener("click", e => { const s = e.target.closest(".star"); if (!s) return; selB.has(s.dataset.id) ? selB.delete(s.dataset.id) : selB.add(s.dataset.id); drawB(); });
+drawB();
+
+/* C */
+const giftIds = ["claudia", "viggo", "valen", "circus"], selC = new Set();
+function drawC() {
+  $('[data-list="Cg"]').innerHTML = list(EV.filter(e => giftIds.includes(e.id)), { key: "C", sel: selC });
+  $('[data-list="Cr"]').innerHTML = list(EV.filter(e => !giftIds.includes(e.id)).slice(0, 4), { key: "C", sel: selC });
+  $('[data-saveall="C"]').textContent = giftIds.every(i => selC.has(i)) ? "★ Lagret i Mine" : "★ Lagre alle i Mine";
+}
+document.getElementById("C").addEventListener("click", e => {
+  const s = e.target.closest(".star"); if (s) { selC.has(s.dataset.id) ? selC.delete(s.dataset.id) : selC.add(s.dataset.id); drawC(); }
+  if (e.target.closest("[data-saveall]")) { giftIds.forEach(i => selC.add(i)); drawC(); toast("C", "4 arrangementer lagt i Mine"); }
+  const v = e.target.closest("[data-view]"); if (v) { $$('[data-view="C"]').forEach(x => x.setAttribute("aria-pressed", x === v)); $('[data-recv="C"]').hidden = v.dataset.v !== "recv"; $('[data-send="C"]').hidden = v.dataset.v !== "send"; }
+});
+drawC();
+
+/* D */
+let selMode = false; const selD = new Set(["claudia", "valen", "circus"]);
+function drawD() {
+  $('[data-list="D"]').innerHTML = list(EV, selMode ? { key: "D", sel: selD, check: true } : { key: "D", sel: new Set() });
+  $('[data-selmode="D"]').textContent = selMode ? "Ferdig" : "Velg flere";
+  $('[data-selmode="D"]').classList.toggle("on", selMode);
+  $('[data-selhint="D"]').textContent = selMode ? "Kryss av det du vil sende" : "Denne helgen";
+  $('[data-bar="D"]').classList.toggle("show", selMode && selD.size > 0);
+  $('[data-count="D"]').textContent = `${selD.size} valgt`;
+  const ids = EV.filter(e => selD.has(e.id));
+  $('[data-ogh="D"]').textContent = `${ids.length} ${ids.length === 1 ? "ting" : "ting"} i Ålesund i helga`;
+  $('[data-ogl="D"]').innerHTML = ids.slice(0, 4).map(e => `<span><i>${short(e.d)} ${e.t}</i> ${e.title}</span>`).join("");
+}
+$('[data-selmode="D"]').onclick = () => { selMode = !selMode; drawD(); };
+$('[data-list="D"]').addEventListener("click", e => { const s = e.target.closest(".chk"); if (!s) return; selD.has(s.dataset.id) ? selD.delete(s.dataset.id) : selD.add(s.dataset.id); drawD(); });
+$('[data-chat="D"]').onclick = () => $('[data-chatel="D"]').classList.add("open");
+$('[data-closechat="D"]').onclick = () => $('[data-chatel="D"]').classList.remove("open");
+drawD();
+
+/* E */
+let dayE = null;
+function drawE() {
+  $('[data-wx="E"]').innerHTML = Object.entries(WX).map(([d, w]) => `<button class="wxd" aria-pressed="${dayE === d}" data-d="${d}"><small>${w.dag}</small><svg><use href="#${w.ic}"/></svg><b>${w.lo}–${w.hi}°</b><span>${mm(w.mm)} mm</span></button>`).join("");
+  $('[data-list="E"]').innerHTML = (dayE ? `<div class="wxnote"><svg><use href="#${WX[dayE].ic}"/></svg><span><b>${WX[dayE].dag}dag:</b> ${WX[dayE].txt}. ${EV.filter(e => e.d === dayE).length} arrangementer.</span></div>` : "")
+    + list(EV.filter(e => !dayE || e.d === dayE), { nostar: true });
+}
+$('[data-wx="E"]').addEventListener("click", e => { const b = e.target.closest(".wxd"); if (!b) return; dayE = dayE === b.dataset.d ? null : b.dataset.d; drawE(); });
+drawE();
+
+/* F, G */
+$('[data-list="F"]').innerHTML = list(EV, { nostar: true, wxdate: true });
+$('[data-list="G"]').innerHTML = list(EV, { nostar: true, ute: true });
+</script>
