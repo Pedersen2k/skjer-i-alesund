@@ -1,0 +1,251 @@
+<title>Del Mine: plassering</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: forklaring øverst, fire telefoner side om side (stables på mobil). Bevisst ett mørkt tema, som siden har for de fleste. */
+:root {
+  --bg: #0a171b; --surface: #12232a; --fg: #e3eeec; --muted: #8fa6a9; --line: #22383f;
+  --gold: #f5c46e; --sea: #5ab7bf; --coral: #ec6a4f;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-sport: #7aa7e6;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; }
+.wrap { max-width: 1480px; margin: 0 auto; display: grid; gap: 30px; }
+header h1 { font: 800 clamp(28px, 4vw, 42px)/1.05 var(--font-display); margin: 0 0 10px; text-wrap: balance; }
+header p { margin: 0; max-width: 74ch; color: var(--muted); }
+header p + p { margin-top: 8px; }
+header b, .why b { color: var(--fg); font-weight: 600; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 30px 22px; align-items: start; }
+.opt { display: grid; gap: 12px; min-width: 0; }
+.opt h2 { margin: 0; font: 800 21px/1.1 var(--font-display); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.opt h2 span { font: 700 13px var(--font-mono); color: var(--bg); background: var(--gold); border-radius: 6px; padding: 2px 7px; }
+.opt h2 em { font: 600 11px var(--font-body); font-style: normal; color: var(--bg); background: var(--sea); border-radius: 99px; padding: 2px 8px; }
+.why { margin: 0; color: var(--muted); font-size: 14px; min-height: 4.6em; }
+.pros { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.pros li::before { content: "+ "; color: var(--sea); font-weight: 700; }
+.pros li.minus::before { content: "– "; color: var(--coral); }
+.try { font: 600 11px var(--font-mono); color: var(--gold); }
+
+.phone { width: 100%; max-width: 360px; justify-self: center; border: 1px solid var(--line); border-radius: 30px; padding: 11px; background: #050d10; box-shadow: 0 20px 50px #0008; }
+.screen { position: relative; border-radius: 20px; overflow: hidden; height: 660px; background: radial-gradient(120% 50% at 50% 0%, #163238, var(--bg) 60%); font-size: 13px; }
+.scroll { position: absolute; inset: 0; overflow-y: auto; padding: 14px 13px 30px; display: flex; flex-direction: column; gap: 9px; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.top { display: flex; justify-content: space-between; align-items: center; font: 500 10px var(--font-mono); color: var(--gold); }
+.logo { font: 800 24px/1 var(--font-display); letter-spacing: -.02em; }
+.logo em { font-style: normal; background: linear-gradient(90deg, var(--coral), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.row { display: flex; gap: 6px; align-items: stretch; }
+.in { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 12px; padding: 7px 10px; color: var(--muted); background: var(--surface); }
+.pill { border: 1px solid var(--line); border-radius: 99px; padding: 7px 11px; background: var(--surface); color: var(--fg); font: 700 12.5px var(--font-body); white-space: nowrap; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+.pill[aria-pressed="true"] { background: var(--gold); color: #1a1205; border-color: var(--gold); }
+.pill .n { font: 800 10.5px var(--font-mono); background: var(--coral); color: #fff; border-radius: 99px; padding: 1px 6px; }
+.pill[aria-pressed="true"] .n { background: #1a1205; color: var(--gold); }
+.pill.del { background: transparent; border-color: color-mix(in srgb, var(--coral) 60%, var(--line)); color: var(--coral); }
+.sel { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.sel div { border: 1px solid var(--line); border-radius: 99px; padding: 6px 10px; background: var(--surface); display: flex; justify-content: space-between; }
+.sel div::after { content: "▾"; color: var(--muted); }
+.sec { font: 700 9.5px var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.day { display: grid; grid-template-columns: 40px 1fr; gap: 8px; }
+.day .d { font: 600 9px var(--font-mono); color: var(--muted); line-height: 1.2; }
+.day .d b { display: block; font: 800 23px/1 var(--font-display); color: var(--fg); }
+.day .d i { font-style: normal; color: var(--coral); }
+.cards { display: grid; gap: 7px; min-width: 0; }
+.ev { position: relative; border: 1px solid var(--line); border-left: 3px solid var(--c); border-radius: 12px; padding: 8px 34px 8px 10px; background: var(--surface); display: grid; gap: 1px; }
+.ev h4 { margin: 0; font: 800 14px/1.15 var(--font-display); }
+.ev .t { font: 700 9px var(--font-body); letter-spacing: .1em; color: var(--c); }
+.ev .v { color: var(--muted); font-size: 11.5px; }
+.ev .p { font: 700 11px var(--font-mono); }
+.star { position: absolute; right: 7px; top: 6px; width: 26px; height: 26px; border: 0; background: none; color: var(--muted); font-size: 18px; line-height: 1; cursor: pointer; }
+.star[aria-pressed="true"] { color: var(--coral); }
+button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.empty { color: var(--muted); font-size: 12.5px; padding: 18px 4px; text-align: center; }
+
+/* C: hode i Mine */
+.minehd { border-radius: 14px; padding: 11px 12px; border: 1px solid color-mix(in srgb, var(--coral) 45%, var(--line)); background: color-mix(in srgb, var(--coral) 8%, var(--surface)); display: grid; gap: 8px; }
+.minehd b { font: 800 16px var(--font-display); }
+.minehd small { display: block; color: var(--muted); font-size: 11.5px; }
+.btn { border: 0; border-radius: 99px; padding: 9px 14px; font: 800 12.5px var(--font-body); background: var(--coral); color: #fff; cursor: pointer; white-space: nowrap; }
+.btn.ghost { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* B: meny fra Mine */
+.pop { position: absolute; left: 12px; right: 12px; top: 128px; z-index: 5; border-radius: 16px; background: var(--surface); border: 1px solid #335058; box-shadow: 0 16px 40px #000c; padding: 12px; display: grid; gap: 9px; }
+.pop h5 { margin: 0; font: 800 16px var(--font-display); display: flex; justify-content: space-between; }
+.pop .rows { display: grid; gap: 3px; font-size: 12.5px; max-height: 170px; overflow: auto; }
+.pop .rows div { display: grid; grid-template-columns: 70px 1fr; gap: 6px; }
+.pop .rows b { font: 700 10.5px var(--font-mono); color: var(--coral); }
+.pop .acts { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.pop .x { border: 0; background: none; color: var(--muted); font-size: 18px; cursor: pointer; }
+
+/* D: kort hint etter stjerne */
+.hint { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 9px 9px 14px; border-radius: 14px; background: var(--fg); color: var(--bg); font: 700 12.5px var(--font-body); opacity: 0; transform: translateY(14px); transition: .25s; pointer-events: none; }
+.hint.show { opacity: 1; transform: none; pointer-events: auto; }
+.hint button { border: 0; border-radius: 99px; padding: 7px 12px; background: var(--coral); color: #fff; font: 800 12px var(--font-body); cursor: pointer; }
+.hint .bar { position: absolute; left: 10px; right: 10px; bottom: 4px; height: 2px; border-radius: 2px; background: #0002; overflow: hidden; }
+.hint .bar i { display: block; height: 100%; width: 100%; background: var(--coral); transform-origin: left; }
+.hint.show .bar i { animation: shrink 4s linear forwards; }
+@keyframes shrink { to { transform: scaleX(0); } }
+
+/* Ark (felles) */
+.sheet { position: absolute; inset: 0; background: #0009; display: flex; align-items: flex-end; z-index: 9; }
+.sheet[hidden] { display: none; }
+.sheet .in2 { width: 100%; background: var(--surface); border-radius: 20px 20px 0 0; padding: 14px 14px 16px; display: grid; gap: 9px; border-top: 1px solid #335058; }
+.sheet h5 { margin: 0; font: 800 17px var(--font-display); }
+.link { padding: 8px 10px; border-radius: 10px; background: var(--bg); border: 1px dashed #3a5560; font: 600 11px var(--font-mono); color: var(--sea); overflow-wrap: anywhere; }
+.mini { display: grid; gap: 3px; font-size: 12px; }
+.mini div { display: grid; grid-template-columns: 70px 1fr; gap: 6px; }
+.mini b { font: 700 10.5px var(--font-mono); color: var(--coral); }
+.acts { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+footer.note { color: var(--muted); font-size: 14px; max-width: 78ch; border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 8px; }
+footer.note b { color: var(--fg); }
+@media (prefers-reduced-motion: reduce) { .hint { transition: none; } .hint.show .bar i { animation: none; } }
+@media (max-width: 420px) { .screen { height: 620px; } }
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Hvor skal «Del» bo?</h1>
+  <p>Problemet med dagens løsning: delingen finnes bare i en linje som dukker opp og kan forsvinne. Her er fire forslag der delingen har <b>et fast sted</b> og aldri kan skjules ved et uhell. Kortet vennen ser når lenken åpnes, blir som i dag.</p>
+  <p>Alt er klikkbart: trykk ☆ på arrangementene, «★ Mine» og «Del». Telefonene starter med to lagrede, slik at du ser hvordan det ser ut med noe lagret.</p>
+</header>
+
+<div class="grid">
+
+<section class="opt" id="A">
+  <h2><span>A</span>Del-knapp ved Mine <em>anbefalt</em></h2>
+  <p class="why">«★ Mine» viser hvor mange du har lagret, og <b>«↗ Del» står fast ved siden av</b> så snart du har noe lagret. Den forsvinner bare når lista er tom.</p>
+  <div class="phone"><div class="screen">
+    <div class="scroll">
+      <div class="top">62,47° N · 6,15° Ø<span class="try">Prøv: ☆ og Del</span></div>
+      <div class="logo">Skjer i <em>Ålesund</em></div>
+      <div class="row"><div class="in">Søk …</div><button class="pill" data-mine aria-pressed="false">★ Mine <span class="n" data-n></span></button><button class="pill del" data-del>↗ Del</button></div>
+      <div class="sel"><div>Alle datoer</div><div>Alle kategorier</div></div>
+      <div data-list></div>
+    </div>
+    <div class="sheet" hidden></div>
+  </div></div>
+  <ul class="pros"><li>Alltid på samme sted, ved siden av lista den deler</li><li>Telleren viser at noe er lagret, også når du scroller</li><li class="minus">Søkefeltet blir litt smalere på telefon når Del vises</li></ul>
+</section>
+
+<section class="opt" id="B">
+  <h2><span>B</span>Mine åpner en meny</h2>
+  <p class="why">«★ Mine (2)» åpner et lite panel med <b>det du har lagret</b>, og tre valg: «Vis bare disse», «Del lista» og «Legg i kalender». Én knapp for alt.</p>
+  <div class="phone"><div class="screen">
+    <div class="scroll">
+      <div class="top">62,47° N · 6,15° Ø<span class="try">Prøv: trykk ★ Mine</span></div>
+      <div class="logo">Skjer i <em>Ålesund</em></div>
+      <div class="row"><div class="in">Søk …</div><button class="pill" data-menu>★ Mine <span class="n" data-n></span></button></div>
+      <div class="sel"><div>Alle datoer</div><div>Alle kategorier</div></div>
+      <div data-list></div>
+    </div>
+    <div class="pop" hidden data-pop>
+      <h5>Dine lagrede <button class="x" data-popx aria-label="Lukk">×</button></h5>
+      <div class="rows" data-poprows></div>
+      <div class="acts"><button class="btn" data-del>↗ Del lista</button><button class="btn ghost" data-only>Vis bare disse</button></div>
+    </div>
+    <div class="sheet" hidden></div>
+  </div></div>
+  <ul class="pros"><li>Ryddigst: ingen ekstra knapper i menyen</li><li>Du ser lista uten å forlate det du holder på med</li><li class="minus">Ett trykk ekstra for å dele; Mine oppfører seg annerledes enn i dag</li></ul>
+</section>
+
+<section class="opt" id="C">
+  <h2><span>C</span>Del øverst i Mine <em>anbefalt</em></h2>
+  <p class="why">Som i dag, men når <b>«★ Mine» er slått på</b>, står det et fast hode øverst: «2 lagrede arrangementer · ↗ Del lista». Mine-knappen viser antallet.</p>
+  <div class="phone"><div class="screen">
+    <div class="scroll">
+      <div class="top">62,47° N · 6,15° Ø<span class="try">Prøv: trykk ★ Mine</span></div>
+      <div class="logo">Skjer i <em>Ålesund</em></div>
+      <div class="row"><div class="in">Søk …</div><button class="pill" data-mine aria-pressed="false">★ Mine <span class="n" data-n></span></button></div>
+      <div class="sel"><div>Alle datoer</div><div>Alle kategorier</div></div>
+      <div data-head></div>
+      <div data-list></div>
+    </div>
+    <div class="sheet" hidden></div>
+  </div></div>
+  <ul class="pros"><li>Delingen står akkurat der du ser lista du deler</li><li>Ingen nye knapper i filterlinjen</li><li class="minus">Du må slå på Mine for å finne Del (A + C løser det)</li></ul>
+</section>
+
+<section class="opt" id="D">
+  <h2><span>D</span>Kort tips etter stjerne</h2>
+  <p class="why">Når du stjerner noe, kommer et lite tips i <b>fire sekunder</b>: «Lagret · 3 i Mine · Del». Etterpå ligger Del fast der A eller C har den. Tipset forsvinner av seg selv.</p>
+  <div class="phone"><div class="screen">
+    <div class="scroll">
+      <div class="top">62,47° N · 6,15° Ø<span class="try">Prøv: trykk ☆</span></div>
+      <div class="logo">Skjer i <em>Ålesund</em></div>
+      <div class="row"><div class="in">Søk …</div><button class="pill" data-mine aria-pressed="false">★ Mine <span class="n" data-n></span></button><button class="pill del" data-del>↗ Del</button></div>
+      <div class="sel"><div>Alle datoer</div><div>Alle kategorier</div></div>
+      <div data-list></div>
+    </div>
+    <div class="hint" data-hint><span data-hinttxt>Lagret</span><button data-del>Del ↗</button><div class="bar"><i></i></div></div>
+    <div class="sheet" hidden></div>
+  </div></div>
+  <ul class="pros"><li>Folk oppdager at de kan dele, akkurat når det er aktuelt</li><li>Forsvinner av seg selv, ingen × å trykke på</li><li class="minus">Et tillegg til A eller C, ikke en løsning alene</li></ul>
+</section>
+
+</div>
+
+<footer class="note">
+  <p><b>Min anbefaling: A + C.</b> Del-knappen står fast ved «★ Mine» (A), og når du ser lista di, står «Del lista» øverst (C). Da finnes delingen alltid på to naturlige steder, og ingenting kan skjules ved et uhell. D kan legges på senere hvis statistikken viser at få oppdager delingen.</p>
+  <p>Den flytende linjen nederst fjernes. Arket med lenken, SMS og «Kopier lenke», og kortet vennen ser, blir som i dag.</p>
+</footer>
+</div>
+
+<script>
+const EV = [
+  { id: "claudia", d: "FRE|30|OKT", t: "18:00", title: "Claudia Scott og Torstein Flakne", venue: "Løvenvold Theater", cat: "konsert", p: "499 kr" },
+  { id: "treretters", d: "FRE|30|OKT", t: "19:00", title: "Treretters: En lattergalla", venue: "Parken kulturhus", cat: "standup", p: "530–625 kr" },
+  { id: "golf", d: "FRE|30|OKT", t: "20:30", title: "GOLF", venue: "Terminalen Byscene", cat: "konsert", p: "420 kr" },
+  { id: "halloween", d: "LØR|31|OKT", t: "12:00", title: "Familiedag: Halloween på Jugendstilsenteret", venue: "Jugendstilsenteret og KUBE", cat: "barn", p: "120 kr" },
+  { id: "viggo", d: "LØR|31|OKT", t: "19:00", title: "Viggo Venneløs", venue: "Løvenvold Theater", cat: "standup", p: "350 kr" },
+  { id: "valen", d: "LØR|31|OKT", t: "19:00", title: "Kristian Valen", venue: "Parken kulturhus", cat: "konsert", p: "625 kr" },
+  { id: "circus", d: "LØR|31|OKT", t: "22:00", title: "CIRCUS DAMP", venue: "Dampsentralen", cat: "klubb", p: "200 kr" },
+  { id: "pelsdyr", d: "SØN|1|NOV", t: "13:00", title: "Pelsdyr i ord og folkesong", venue: "Sunnmøre museum", cat: "happening", p: "120 kr" },
+];
+const CATN = { konsert: "KONSERT", standup: "STANDUP", barn: "BARN & FAMILIE", klubb: "KLUBB", happening: "HAPPENING" };
+const short = e => { const [w, n, m] = e.d.split("|"); return `${w.charAt(0) + w.slice(1).toLowerCase()} ${n}.`; };
+
+function phone(root) {
+  const S = { favs: new Set(["valen", "viggo"]), only: false };
+  const q = s => root.querySelector(s), qa = s => [...root.querySelectorAll(s)];
+  function list() {
+    const evs = EV.filter(e => !S.only || S.favs.has(e.id));
+    if (!evs.length) return `<div class="empty">Du har ikke lagret noe ennå. Trykk ☆ på et arrangement.</div>`;
+    const days = {}; evs.forEach(e => (days[e.d] = days[e.d] || []).push(e));
+    return Object.entries(days).map(([d, es]) => { const [w, n, m] = d.split("|"); return `<div class="day"><div class="d">${w}<b>${n}</b><i>${m}</i></div><div class="cards">${es.map(e => `<article class="ev" style="--c:var(--c-${e.cat})"><h4>${e.title}</h4><div class="t">${CATN[e.cat]}</div><div class="v">${e.venue} · kl. ${e.t}</div><div class="p">${e.p}</div><button class="star" data-id="${e.id}" aria-pressed="${S.favs.has(e.id)}" aria-label="Lagre">${S.favs.has(e.id) ? "★" : "☆"}</button></article>`).join("")}</div></div>`; }).join("");
+  }
+  function draw() {
+    const n = S.favs.size;
+    qa("[data-n]").forEach(x => { x.textContent = n; x.hidden = !n; });
+    qa(".row [data-del]").forEach(x => x.hidden = !n);
+    qa("[data-mine]").forEach(x => x.setAttribute("aria-pressed", S.only));
+    const head = q("[data-head]");
+    if (head) head.innerHTML = S.only && n ? `<div class="minehd"><div><b>${n} lagrede arrangementer</b><small>Del lista med venner, eller legg alt i kalenderen</small></div><div class="row"><button class="btn" data-del>↗ Del lista</button><button class="btn ghost" data-fake="Lagt i kalenderen">Legg i kalender</button></div></div>` : "";
+    q("[data-list]").innerHTML = list();
+    const pr = q("[data-poprows]"); if (pr) pr.innerHTML = n ? EV.filter(e => S.favs.has(e.id)).map(e => `<div><b>${short(e)} ${e.t}</b><span>${e.title}</span></div>`).join("") : `<div><span style="grid-column:1/-1;color:var(--muted)">Ingen lagret ennå.</span></div>`;
+    const only = q("[data-only]"); if (only) only.textContent = S.only ? "Vis alle" : "Vis bare disse";
+  }
+  function sheet() {
+    const sh = q(".sheet"), ids = EV.filter(e => S.favs.has(e.id));
+    sh.innerHTML = `<div class="in2"><h5>Del lista di</h5><div class="link">kaskjerda.no/?mine=${ids.map(e => e.id).join(",")}</div><div class="mini">${ids.map(e => `<div><b>${short(e)} ${e.t}</b><span>${e.title}</span></div>`).join("")}</div><div class="acts"><button class="btn">Del …</button><button class="btn ghost">SMS</button><button class="btn ghost">Kopier lenke</button><button class="btn ghost" data-close>Lukk</button></div></div>`;
+    sh.hidden = false;
+  }
+  let hintT;
+  root.addEventListener("click", e => {
+    const s = e.target.closest(".star");
+    if (s) { const id = s.dataset.id, add = !S.favs.has(id); add ? S.favs.add(id) : S.favs.delete(id); draw();
+      const h = q("[data-hint]"); if (h && add) { q("[data-hinttxt]").textContent = `Lagret · ${S.favs.size} i Mine`; h.classList.remove("show"); void h.offsetWidth; h.classList.add("show"); clearTimeout(hintT); hintT = setTimeout(() => h.classList.remove("show"), 4000); }
+      return; }
+    if (e.target.closest("[data-mine]")) { S.only = !S.only; draw(); return; }
+    if (e.target.closest("[data-menu]")) { q("[data-pop]").hidden = !q("[data-pop]").hidden; return; }
+    if (e.target.closest("[data-popx]")) { q("[data-pop]").hidden = true; return; }
+    if (e.target.closest("[data-only]")) { S.only = !S.only; q("[data-pop]").hidden = true; draw(); return; }
+    if (e.target.closest("[data-del]")) { if (S.favs.size) { const p = q("[data-pop]"); if (p) p.hidden = true; const h = q("[data-hint]"); if (h) h.classList.remove("show"); sheet(); } return; }
+    if (e.target.closest("[data-close]") || e.target.classList.contains("sheet")) { q(".sheet").hidden = true; return; }
+  });
+  draw();
+}
+document.querySelectorAll(".opt").forEach(phone);
+</script>

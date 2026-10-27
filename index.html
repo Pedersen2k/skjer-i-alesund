@@ -225,13 +225,13 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .delt-btns button, .sheet-btns button, .sheet-btns a { font: 700 14px var(--font-body); padding: 10px 16px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; text-decoration: none; }
 .delt-btns .delt-save, .sheet-btns .primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 /* Del Mine: linje nederst når noe er lagret, og arket med lenken */
-.sharebar { position: fixed; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); width: min(560px, calc(100% - 24px)); z-index: 40; display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 16px; border-radius: 16px; background: color-mix(in srgb, var(--surface) 92%, transparent); border: 1px solid var(--line); box-shadow: 0 10px 30px #0006; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-.sharebar > div { flex: 1; min-width: 0; display: grid; line-height: 1.2; }
-.sharebar b { font: 800 15px var(--font-display); color: var(--accent); }
-.sharebar span { font-size: 12.5px; color: var(--muted); }
-.sb-del { font: 800 14px var(--font-body); padding: 10px 16px; border-radius: 99px; border: 0; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
-.sb-x { width: 34px; height: 34px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); font-size: 20px; cursor: pointer; }
-body.has-sharebar { padding-bottom: 84px; }
+/* Del Mine: hode øverst i lista når «★ Mine» er slått på, og antallet på Mine-knappen */
+.minehd { margin: 4px 0 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.minehd b { font: 800 16px var(--font-display); }
+.minehd span { display: block; font-size: 12.5px; color: var(--muted); }
+.minehd button { font: 800 14px var(--font-body); padding: 10px 16px; border-radius: 99px; border: 0; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.fav-n { font: 800 11px var(--font-mono); margin-left: 5px; padding: 1px 6px; border-radius: 99px; background: var(--accent); color: var(--accent-ink); }
+#favonly[aria-pressed="true"] .fav-n { background: var(--accent-ink); color: var(--accent); }
 .sheet { position: fixed; inset: 0; z-index: 50; background: #0008; display: flex; align-items: flex-end; justify-content: center; }
 .sheet-in { width: min(560px, 100%); max-height: 85vh; overflow: auto; background: var(--surface); color: var(--fg); border-radius: 20px 20px 0 0; border: 1px solid var(--line); border-bottom: 0; padding: 18px max(16px, env(safe-area-inset-left, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; }
 .sheet-in h2 { margin: 0; font: 800 20px var(--font-display); }
@@ -280,7 +280,7 @@ footer a { color: var(--sea); }
       <select id="price" class="chip" aria-label="Velg pris">
         <option value="">Alle priser</option><option value="0">Gratis</option><option value="300">Under 300 kr</option><option value="500">Under 500 kr</option>
       </select>
-      <button id="favonly" class="chip" aria-pressed="false">★ Mine</button>
+      <button id="favonly" class="chip" aria-pressed="false">★ Mine<span class="fav-n" id="favn" hidden></span></button>
       <span class="count" id="count"></span>
     </div>
   </div>
@@ -324,12 +324,12 @@ footer a { color: var(--sea); }
     </div>
   </div>
 
-  <main id="list"></main>
-  <div class="sharebar" id="sharebar" hidden>
-    <div><b id="sharecount"></b><span>Del lista med venner</span></div>
-    <button type="button" class="sb-del" id="sharebtn">Del ↗</button>
-    <button type="button" class="sb-x" id="sharehide" aria-label="Skjul">×</button>
+  <div class="minehd" id="minehd" hidden>
+    <div><b id="minecount"></b><span>Del lista med venner. Den som åpner lenken, kan lagre alt selv.</span></div>
+    <button type="button" id="sharebtn">↗ Del lista</button>
   </div>
+
+  <main id="list"></main>
   <div class="sheet" id="sheet" hidden>
     <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
       <h2 id="sheet-h">Del lista di</h2>
@@ -592,16 +592,13 @@ $("delt-close").onclick = () => {
   const u = new URL(location.href); u.searchParams.delete("mine"); history.replaceState(null, "", u);
 };
 
-// Linjen nederst når noe er lagret, og arket med lenken
-let shareHidden = false;
-try { shareHidden = sessionStorage.getItem("skjer-delelinje") === "skjult"; } catch {}
-function updateShareBar() {
-  const n = mineEvents().length, show = n > 0 && !shareHidden;
-  $("sharebar").hidden = !show;
-  document.body.classList.toggle("has-sharebar", show);
-  if (show) $("sharecount").textContent = `★ ${n} lagret`;
+// Antallet på «★ Mine», og «Del lista» øverst når Mine er slått på (arket med lenken under)
+function updateMine() {
+  const n = mineEvents().length;
+  Object.assign($("favn"), { textContent: n, hidden: !n });
+  $("minehd").hidden = !(state.favOnly && n);
+  if (n) $("minecount").textContent = (n === 1 ? "1 lagret arrangement" : `${n} lagrede arrangementer`);
 }
-$("sharehide").onclick = () => { shareHidden = true; try { sessionStorage.setItem("skjer-delelinje", "skjult"); } catch {} updateShareBar(); };
 let sheetUrl = "";
 const SHARE_TEXT = "Lista mi fra Skjer i Ålesund";
 function closeSheet() { $("sheet").hidden = true; $("sharebtn").focus(); }
@@ -684,7 +681,7 @@ function quizHtml(c) {
 function render() {
   const items = E.filter(e => e.d >= TODAY && WHEN[state.when][1](e.d) && matchesBase(e)).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
   updateSubscribe();
-  updateShareBar();
+  updateMine();
   document.querySelector(".controls").classList.toggle("kalmode", state.view === "kal");
   document.querySelectorAll("#viewseg [data-view]").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === state.view));
   if (state.view === "kal") return renderCal();
