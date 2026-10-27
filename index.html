@@ -230,7 +230,7 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .sharebar b { font: 800 15px var(--font-display); color: var(--accent); }
 .sharebar span { font-size: 12.5px; color: var(--muted); }
 .sb-del { font: 800 14px var(--font-body); padding: 10px 16px; border-radius: 99px; border: 0; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
-.sb-x { width: 34px; height: 34px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); font-size: 20px; cursor: pointer; }
+.sb-x { margin-left: 6px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); font-size: 20px; cursor: pointer; }
 body.has-sharebar { padding-bottom: 84px; }
 .sheet { position: fixed; inset: 0; z-index: 50; background: #0008; display: flex; align-items: flex-end; justify-content: center; }
 .sheet-in { width: min(560px, 100%); max-height: 85vh; overflow: auto; background: var(--surface); color: var(--fg); border-radius: 20px 20px 0 0; border: 1px solid var(--line); border-bottom: 0; padding: 18px max(16px, env(safe-area-inset-left, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; }
@@ -435,7 +435,7 @@ $("list").onclick = e => {
   const sh = e.target.closest(".share");
   if (sh) { const ev = E.find(x => x.id === sh.dataset.share); if (ev) shareEvent(ev, sh); track("del/" + sh.dataset.share); return; }
   const b = e.target.closest(".fav"); if (!b) return;
-  const id = b.dataset.id; favs.has(id) ? favs.delete(id) : (favs.add(id), track("lagre/" + id));
+  const id = b.dataset.id; favs.has(id) ? favs.delete(id) : (favs.add(id), shareHidden = false, track("lagre/" + id));
   store.set("skjer-favs", [...favs]); render();
 };
 
@@ -593,15 +593,14 @@ $("delt-close").onclick = () => {
 };
 
 // Linjen nederst når noe er lagret, og arket med lenken
-let shareHidden = false;
-try { shareHidden = sessionStorage.getItem("skjer-delelinje") === "skjult"; } catch {}
+let shareHidden = false; // × skjuler linjen til neste gang noe stjernes (eller siden åpnes på nytt)
 function updateShareBar() {
   const n = mineEvents().length, show = n > 0 && !shareHidden;
   $("sharebar").hidden = !show;
   document.body.classList.toggle("has-sharebar", show);
   if (show) $("sharecount").textContent = `★ ${n} lagret`;
 }
-$("sharehide").onclick = () => { shareHidden = true; try { sessionStorage.setItem("skjer-delelinje", "skjult"); } catch {} updateShareBar(); };
+$("sharehide").onclick = () => { shareHidden = true; updateShareBar(); track("delt/skjult"); };
 let sheetUrl = "";
 const SHARE_TEXT = "Lista mi fra Skjer i Ålesund";
 function closeSheet() { $("sheet").hidden = true; $("sharebtn").focus(); }
