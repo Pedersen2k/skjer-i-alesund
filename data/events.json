@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-27T14:03:34Z",
+  "updatedAt": "2026-10-27T15:57:13Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -181,6 +181,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "golf-terminalen-byscene",
+   "date": "2026-10-30",
+   "time": "20:00",
+   "title": "GOLF",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "420 kr",
+   "priceMin": 420,
+   "soldOut": false,
+   "note": "Rabatt: ÅSS / Studentbillett 320 kr, DNB-kunde 366 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/65455-golf-terminalen-byscene",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "oconnors-2026-10-30-skumle-oktoberquiz-med-martin-o-connor-s",
    "date": "2026-10-30",
    "time": "20:00",
@@ -195,22 +211,6 @@
    "uncertain": true,
    "url": "https://oconnors.no/alesund/event/skumle-oktoberquiz-med-martin-%f0%9f%91%bb%f0%9f%8e%83-neay7ozxiw/",
    "addedAt": "2026-10-27T09:47:51Z"
-  },
-  {
-   "id": "golf-terminalen-byscene",
-   "date": "2026-10-30",
-   "time": "20:30",
-   "title": "GOLF",
-   "venue": "Terminalen Byscene",
-   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "420 kr",
-   "priceMin": 420,
-   "soldOut": false,
-   "note": "Rabatt: ÅSS / Studentbillett 320 kr, DNB-kunde 366 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/65455-golf-terminalen-byscene",
-   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "van-halen-tribute-avskjedskonsert-fabrikken-kulturscene",
