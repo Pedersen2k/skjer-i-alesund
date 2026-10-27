@@ -1,8 +1,8 @@
 {
  "meta": {
-  "updatedAt": "2026-10-27T08:06:24Z",
+  "updatedAt": "2026-10-27T09:47:51Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -173,6 +173,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47586-treretters-en-lattergalla/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "oconnors-2026-10-30-skumle-oktoberquiz-med-martin-o-connor-s",
+   "date": "2026-10-30",
+   "time": "20:00",
+   "title": "Skumle Oktoberquiz med Martin 👻🎃",
+   "venue": "O'Connor's",
+   "address": "Brunholmgata 10, 6004 Ålesund",
+   "cat": "quiz",
+   "price": "50 kr",
+   "priceMin": 50,
+   "soldOut": false,
+   "note": "Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. 20:00 og 50 kr. Sjekk hos O'Connor's.",
+   "uncertain": true,
+   "url": "https://oconnors.no/alesund/event/skumle-oktoberquiz-med-martin-%f0%9f%91%bb%f0%9f%8e%83-neay7ozxiw/",
+   "addedAt": "2026-10-27T09:47:51Z"
   },
   {
    "id": "golf-terminalen-byscene",
