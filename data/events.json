@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-27T19:57:21Z",
+  "updatedAt": "2026-10-27T20:08:23Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -399,7 +399,7 @@
    "title": "Påfyll",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "show",
    "price": "100 kr",
    "priceMin": 100,
    "soldOut": false,
@@ -2222,7 +2222,7 @@
    "title": "John Hammersmark",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "show",
    "price": "445–545 kr",
    "priceMin": 445,
    "soldOut": false,
@@ -2639,7 +2639,7 @@
    "title": "Balletak på bransjen",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "standup",
    "price": "550 kr",
    "priceMin": 550,
    "soldOut": false,
@@ -2691,7 +2691,7 @@
    "title": "UFO-klarlig",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "show",
    "price": "499 kr",
    "priceMin": 499,
    "soldOut": false,
