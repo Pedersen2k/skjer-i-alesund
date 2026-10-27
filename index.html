@@ -59,6 +59,16 @@ body { margin: 0; font-size: 14px; }
   --few: #ffb547; --few-bg: #3a2a10; --few-line: #6b4c17;
   color-scheme: dark; }
 
+.newstrip { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; margin: 4px 0 12px; padding: 10px 6px 10px 14px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--c-barn) 50%, var(--line)); background: color-mix(in srgb, var(--c-barn) 13%, var(--surface)); }
+.newstrip .ns-main { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; text-align: left; background: none; border: 0; padding: 0; color: var(--fg); font: inherit; cursor: pointer; min-width: 0; }
+.newstrip .ns-n { font: 800 26px/1 var(--font-display); color: var(--c-barn); font-variant-numeric: tabular-nums; }
+.newstrip .ns-t b { display: block; font: 700 14.5px/1.25 var(--font-body); }
+.newstrip .ns-t small { display: block; color: var(--muted); font-size: 12.5px; }
+.newstrip .ns-go { color: var(--c-barn); font: 700 13px var(--font-body); white-space: nowrap; }
+.newstrip .ns-x { color: var(--muted); font-size: 20px; line-height: 1; padding: 6px 10px; background: none; border: 0; cursor: pointer; }
+.newstrip .ns-jb { grid-column: 1 / -1; padding-top: 4px; font-size: 13px; font-weight: 600; color: var(--c-julebord); text-decoration: none; }
+@media (max-width: 520px) { .newstrip .ns-t small + small { display: none; } }
+.newer { font: 700 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; background: var(--c-barn); color: #072014; padding: 3px 6px; border-radius: 4px; }
 .kinostrip { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin: 4px 0 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--kino-soft); color: var(--fg); text-decoration: none; font-size: 14px; }
 .kinostrip b { font-family: var(--font-display); }
 .kinostrip span { margin-left: auto; color: var(--kino); font-weight: 600; }
@@ -327,6 +337,12 @@ footer a { color: var(--sea); }
     <div class="julbtns"><a class="julbtn" href="jul-i-alesund/">Se alt som skjer i jula →</a><a class="julbtn jb" id="jbbtn" href="julebord/" hidden></a></div>
   </div>
 
+  <div class="newstrip" id="newstrip" role="region" aria-label="Nytt siden du var innom sist" hidden>
+    <button type="button" class="ns-main" id="nsmain" aria-pressed="false"></button>
+    <button type="button" class="ns-x" id="nsx" aria-label="Skjul til neste gang">×</button>
+    <a class="ns-jb" id="nsjb" href="julebord/" hidden></a>
+  </div>
+
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
   <a class="kinostrip jbstrip" id="jbstrip" href="julebord/" hidden></a>
 
@@ -399,11 +415,19 @@ const store = {
 };
 const favs = new Set(store.get("skjer-favs", []));
 
+// Nytt siden sist: nettleseren husker når du var innom sist. «Sist» leses én gang ved start og står stille mens du er her;
+// den nye tiden lagres når du forlater siden (eller bytter fane). Første besøk: ingen teller.
+const LAST = store.get("skjer-sist", null);
+const stampVisit = () => store.set("skjer-sist", new Date().toISOString());
+if (!LAST) stampVisit();
+addEventListener("pagehide", stampVisit);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") stampVisit(); });
+
 // Lys/mørk modus: lagres per nettleser, ellers følger siden systemet
 const root = document.documentElement;
 const savedTheme = store.get("skjer-theme", null);
 if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
-const state = { q: "", when: "alt", cats: new Set(), venue: "", price: "", favOnly: false, view: store.get("skjer-view", "liste") === "kal" ? "kal" : "liste" };
+const state = { newOnly: false, q: "", when: "alt", cats: new Set(), venue: "", price: "", favOnly: false, view: store.get("skjer-view", "liste") === "kal" ? "kal" : "liste" };
 
 const dayMs = 864e5;
 const diffDays = d => Math.floor((d - TODAY) / dayMs);
@@ -467,6 +491,8 @@ const safeUrl = u => /^https:\/\//.test(u || "") ? u : "";
 const WD = ["søn", "man", "tir", "ons", "tor", "fre", "lør"];
 const rel = d => { const n = diffDays(d); return n === 0 ? "I dag" : n === 1 ? "I morgen" : n < 7 ? `Om ${n} dager` : ""; };
 const isNew = e => meta.seededAt && e.addedAt && e.addedAt > meta.seededAt && (now - new Date(e.addedAt)) < 14 * dayMs;
+const newSince = e => !!(LAST && meta.seededAt && e.addedAt && e.addedAt > meta.seededAt && e.addedAt > LAST);
+const newBadge = e => newSince(e) ? `<span class="newer">Ny siden sist</span>` : isNew(e) ? `<span class="new">Nytt</span>` : "";
 const priceOk = e => state.price === "" || (typeof e.priceMin === "number" && e.priceMin <= Number(state.price) && (state.price !== "0" || e.priceMin === 0));
 
 // Kalenderfil (.ics) for ett arrangement. Uten klokkeslett blir det en heldagshendelse, ellers 2 timer.
@@ -531,6 +557,22 @@ $("subcopy").onclick = async () => {
 
 // Jul i Ålesund: kortet vises bare fra 1. november til 26. desember (?jul=1 eller #jul viser det utenom sesongen, til test)
 const JULSEASON = (() => { const t = new Date(), m = t.getMonth(), d = t.getDate(); return m === 10 || (m === 11 && d <= 26) || location.search.includes("jul=1") || location.hash === "#jul"; })();
+// Stripe «nye siden du var innom sist». Trykk for å se bare de nye, trykk igjen for alt, × skjuler den til neste besøk.
+let nsHidden = false;
+function newEntry() {
+  const el = $("newstrip"), fresh = E.filter(e => e.d >= TODAY && newSince(e)), jbNew = JB.filter(newSince);
+  if (!LAST || nsHidden || !fresh.length) { el.hidden = true; if (state.newOnly) { state.newOnly = false; render(); } return; }
+  const n = fresh.length, when = new Date(LAST), day = when.toLocaleDateString("nb-NO", { weekday: "long" }) + " " + when.getDate() + ". " + MO[when.getMonth()];
+  const titles = fresh.slice().sort((a, b) => a.addedAt < b.addedAt ? 1 : -1).slice(0, 3).map(e => esc(e.title)).join(" · ");
+  $("nsmain").setAttribute("aria-pressed", state.newOnly);
+  $("nsmain").innerHTML = `<span class="ns-n">${n}</span><span class="ns-t"><b>${state.newOnly ? `Viser ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist` : `${n === 1 ? "ny" : "nye"} siden du var innom sist`}</b><small>Du var sist her ${esc(day)}</small>${state.newOnly ? "" : `<small>${titles}${n > 3 ? " …" : ""}</small>`}</span><span class="ns-go">${state.newOnly ? "Vis alt" : "Se dem →"}</span>`;
+  Object.assign($("nsjb"), { textContent: `🎄 + ${jbNew.length} ${jbNew.length === 1 ? "nytt julebord" : "nye julebord"} →`, hidden: !jbNew.length });
+  el.hidden = false;
+}
+$("nsmain").addEventListener("click", () => { state.newOnly = !state.newOnly; track(state.newOnly ? "nytt/vis" : "nytt/vis-alt"); newEntry(); render(); if (state.newOnly) $("newstrip").scrollIntoView({ behavior: "smooth", block: "start" }); });
+$("nsx").addEventListener("click", () => { nsHidden = true; track("nytt/skjult"); newEntry(); });
+$("nsjb").addEventListener("click", () => track("nytt/julebord"));
+
 // Julebord: en knapp i julekortet i sesongen, ellers (oktober) en stripe under kinostripen
 function julebordEntry() {
   if (!JB.length) return;
@@ -677,7 +719,7 @@ function priceHtml(e) {
 function matchHtml(e, u) {
   const fav = favs.has(e.id);
   return `<article class="ev match" id="ev-${esc(e.id)}" style="--c:var(--c-sport)">
-    <div class="mtop"><span class="lg">${esc(e.league || CATS.sport)}</span><span class="r">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a><button class="fav" data-id="${esc(e.id)}" aria-pressed="${fav}" aria-label="${fav ? "Fjern fra mine" : "Lagre"}">${fav ? "★" : "☆"}</button></span></div>
+    <div class="mtop"><span class="lg">${esc(e.league || CATS.sport)}</span><span class="r">${newBadge(e)}<a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a><button class="fav" data-id="${esc(e.id)}" aria-pressed="${fav}" aria-label="${fav ? "Fjern fra mine" : "Lagre"}">${fav ? "★" : "☆"}</button></span></div>
     <div class="versus"><div class="team">${esc(e.home)}</div><div class="ko">${esc(e.time || "–")}</div><div class="team away">${esc(e.away)}</div></div>
     <div class="mfoot"><div class="row1">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Billetter hos AaFK →</a>` : ""}${priceHtml(e)}</div>
       <div class="actions"><button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div></div>
@@ -689,12 +731,13 @@ const matchesBase = e =>
   (!state.venue || e.venue === state.venue) &&
   priceOk(e) &&
   (!state.favOnly || favs.has(e.id)) &&
+  (!state.newOnly || newSince(e)) &&
   (!state.q || (e.title + " " + e.venue + " " + (CATS[e.cat] || "")).toLowerCase().includes(state.q));
 
 function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
         <h3>${esc(e.title)}</h3>
         <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}${fewHtml(e)}</div>
-        <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${CATS[c]}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
+        <div class="meta">${newBadge(e)}<span class="tag">${CATS[c]}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
         ${showsHtml(e)}
         ${e.note ? `<div class="note ${e.uncertain ? "warn" : ""}">${esc(e.note)}</div>` : ""}
         <div class="actions">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}<button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div>
@@ -844,7 +887,7 @@ fetch("data/events.json", { cache: "no-cache" })
     const all = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
     JB = all.filter(e => e.cat === "julebord" && e.d >= TODAY);
     E = all.filter(e => e.cat !== "julebord");
-    fillVenues(); julebordEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
+    fillVenues(); julebordEntry(); newEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
 // Kino: én stripe under filtrene (filmene ligger ikke i hovedlista)
