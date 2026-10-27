@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nytt siden sist: plassering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Seks plasseringer for «Nytt siden sist» på forsiden, i mobil- og PC-visning. Ekte arrangementer fra events.json 27. okt. Ett mørkt tema, som siden har for de fleste. */
+:root {
+  --bg: #0a171b; --surface: #13252d; --fg: #e8f1ef; --muted: #8fa8ab; --line: #25414a;
+  --gold: #f7c873; --sea: #5ab7bf; --accent: #ff8a6b; --new: #8fe3a8; --new-bg: #15362a; --new-line: #2f6b4d;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-julebord: #ef7a7f;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding: 28px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px)); }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1480px; margin: 0 auto; display: grid; gap: 28px; }
+header h1 { font: 800 clamp(28px, 4vw, 42px)/1.05 var(--font-display); margin: 0 0 10px; text-wrap: balance; }
+header p { margin: 0; max-width: 78ch; color: var(--muted); }
+header p + p { margin-top: 8px; }
+header b { color: var(--fg); font-weight: 600; }
+.ctl { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.ctl > span { font-size: 13px; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 99px; padding: 2px; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; color: var(--muted); font: 600 13px var(--font-body); padding: 6px 12px; border-radius: 99px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--gold); color: #1a1405; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px 22px; align-items: start; }
+.opt { display: grid; gap: 12px; min-width: 0; }
+.opt h2 { margin: 0; font: 800 21px/1.1 var(--font-display); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.opt h2 span { font: 700 13px var(--font-mono); color: var(--bg); background: var(--gold); border-radius: 6px; padding: 2px 7px; }
+.why { margin: 0; color: var(--muted); font-size: 14px; min-height: 4.6em; }
+.pros { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.pros li::before { content: "+ "; color: var(--sea); font-weight: 700; }
+.pros li.minus::before { content: "– "; color: var(--accent); }
+.phone { position: relative; border: 1px solid var(--line); border-radius: 26px; background: #081316; height: 640px; overflow: hidden; }
+.screen { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 0 12px 18px; }
+
+/* Toppen av forsiden, forenklet */
+.top { position: sticky; top: 0; z-index: 3; background: #081316; padding: 12px 0 10px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.brand { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.brand b { font: 800 19px var(--font-display); }
+.brand small { color: var(--muted); font-size: 12px; }
+.bar { display: flex; gap: 8px; align-items: center; }
+.search { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; color: var(--muted); font-size: 13px; background: var(--surface); }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 99px; padding: 7px 11px; font: 600 13px var(--font-body); white-space: nowrap; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent); color: #1a0b07; border-color: var(--accent); }
+.dd { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+.dd span { border: 1px solid var(--line); border-radius: 8px; padding: 6px 9px; font-size: 12.5px; color: var(--muted); background: var(--surface); display: flex; justify-content: space-between; }
+.dd span::after { content: "▾"; }
+
+.day { font: 800 15px/1 var(--font-display); margin: 16px 2px 8px; }
+.day small { font: 500 12px var(--font-body); color: var(--muted); margin-left: 6px; }
+.events { display: grid; gap: 8px; }
+.ev { position: relative; background: linear-gradient(135deg, color-mix(in srgb, var(--c) 20%, #13252d), #13252d 62%); border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 12px; padding: 12px 14px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; box-shadow: 0 8px 24px #0006; scroll-margin-top: 150px; }
+.ev h3 { margin: 0; font: 700 16.5px/1.25 var(--font-display); text-wrap: balance; }
+.meta { grid-column: 1; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; color: var(--muted); align-items: center; }
+.meta .t { font-family: var(--font-mono); color: var(--fg); }
+.tag { font: 600 11px/1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--c); }
+.side { grid-row: 1 / span 2; grid-column: 2; display: flex; flex-direction: column; gap: 6px; align-items: end; }
+.fav { color: var(--muted); font-size: 19px; line-height: 1; }
+.price { font: 600 13px/1.2 var(--font-mono); white-space: nowrap; }
+.price.unk { font: 500 12px var(--font-body); color: var(--muted); }
+.new { font: 700 10px/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; background: var(--accent); color: #1a0b07; padding: 3px 6px; border-radius: 4px; }
+.newer { font: 700 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; background: var(--new); color: #072014; padding: 3px 6px; border-radius: 4px; }
+.ev.glow { border-color: var(--new-line); box-shadow: 0 0 0 1px var(--new-line), 0 8px 24px #0006; }
+
+/* A: teller ved Mine */
+.cnt { display: inline-flex; gap: 5px; align-items: center; }
+.cnt i { font-style: normal; font: 700 11px/1 var(--font-mono); background: var(--new); color: #072014; border-radius: 99px; padding: 3px 6px; }
+.chip.newchip[aria-pressed="true"] { background: var(--new); color: #072014; border-color: var(--new); }
+.chip.newchip[aria-pressed="true"] i { background: #072014; color: var(--new); }
+.hint { font-size: 12.5px; color: var(--muted); margin: 10px 2px 0; }
+/* B: stripe som kinostripa */
+.strip { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; border: 1px solid var(--new-line); background: linear-gradient(100deg, var(--new-bg), #13252d 80%); border-radius: 12px; padding: 10px 12px; margin: 10px 0 2px; cursor: pointer; }
+.strip .n { font: 800 22px/1 var(--font-display); color: var(--new); }
+.strip b { display: block; font: 700 14px/1.2 var(--font-body); }
+.strip small { color: var(--muted); font-size: 12px; display: block; }
+.strip .x { color: var(--muted); font-size: 18px; padding: 2px 6px; background: none; border: 0; cursor: pointer; }
+.strip .go { color: var(--gold); font: 600 13px var(--font-body); }
+/* C: «Når»-valg */
+.dd span.on { border-color: var(--new); color: var(--new); }
+/* D: egen boks */
+.box { border: 1px solid var(--new-line); background: linear-gradient(160deg, var(--new-bg), #13252d 70%); border-radius: 14px; padding: 12px 14px; margin: 10px 0 4px; }
+.box h4 { margin: 0; font: 800 16px/1.2 var(--font-display); display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.box h4 small { font: 500 12px var(--font-body); color: var(--muted); }
+.box p { margin: 2px 0 6px; font-size: 12.5px; color: var(--muted); }
+.box a { display: grid; grid-template-columns: 54px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 0; border-top: 1px solid #ffffff12; color: var(--fg); text-decoration: none; font-size: 13.5px; cursor: pointer; }
+.box a b { font: 600 12px var(--font-mono); color: var(--muted); }
+.box a small { color: var(--muted); font-size: 12px; display: block; }
+.box a em { font: 600 12px var(--font-mono); font-style: normal; color: var(--new); white-space: nowrap; }
+.box .more { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid #ffffff12; padding-top: 8px; font: 600 13px var(--font-body); }
+.box .more button { background: none; border: 0; padding: 0; cursor: pointer; color: var(--gold); }
+.box .more button.mute { color: var(--muted); }
+/* E: flytende knapp som hopper */
+.fab { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 4; border: 0; border-radius: 99px; background: var(--new); color: #072014; font: 700 13.5px var(--font-body); padding: 10px 16px; box-shadow: 0 8px 24px #000a; cursor: pointer; white-space: nowrap; display: flex; gap: 8px; align-items: center; }
+.fab small { font: 600 11px var(--font-mono); opacity: .75; }
+.first { border: 1px dashed var(--line); border-radius: 12px; padding: 10px 12px; margin: 10px 0 2px; font-size: 12.5px; color: var(--muted); }
+footer { color: var(--muted); font-size: 13px; max-width: 78ch; }
+footer b { color: var(--fg); font-weight: 600; }
+
+/* Plasseringsforslag */
+.phone.pc { height: 700px; border-radius: 16px; }
+.phone.pc .screen { padding: 0 22px 18px; }
+.grid.pcmode { grid-template-columns: repeat(auto-fit, minmax(560px, 1fr)); }
+.intro { color: var(--muted); font-size: 12.5px; margin: 0 0 10px; }
+.intro .sist { font-family: var(--font-mono); font-size: 11.5px; display: block; margin-top: 2px; }
+.lead { margin: 8px 0 0; font-size: 13px; color: var(--new); font-weight: 600; cursor: pointer; }
+.lead u { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.when { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.when span { border: 1px solid var(--line); border-radius: 99px; padding: 5px 11px; font-size: 12.5px; color: var(--fg); background: var(--surface); white-space: nowrap; }
+.when span.on { background: var(--gold); color: #1a1405; border-color: var(--gold); }
+.when span.nw { border-color: var(--new-line); color: var(--new); background: var(--new-bg); cursor: pointer; font-weight: 600; }
+.when span.nw[aria-pressed="true"] { background: var(--new); color: #072014; border-color: var(--new); }
+.pill { display: inline-flex; gap: 5px; align-items: center; border: 1px solid var(--new-line); background: var(--new-bg); color: var(--new); border-radius: 99px; padding: 6px 10px; font: 700 12.5px var(--font-body); cursor: pointer; white-space: nowrap; }
+.pill[aria-pressed="true"] { background: var(--new); color: #072014; border-color: var(--new); }
+.toast { position: absolute; left: 12px; right: 12px; bottom: 14px; z-index: 5; display: grid; grid-template-columns: 1fr auto auto; gap: 6px 10px; align-items: center; background: #0e2a22; border: 1px solid var(--new-line); border-radius: 14px; padding: 10px 12px; box-shadow: 0 10px 30px #000b; }
+.toast b { font: 700 13.5px/1.25 var(--font-body); }
+.toast small { display: block; color: var(--muted); font-size: 12px; }
+.toast .go { background: var(--new); color: #072014; border: 0; border-radius: 99px; padding: 7px 12px; font: 700 12.5px var(--font-body); cursor: pointer; }
+.toast .x { background: none; border: 0; color: var(--muted); font-size: 18px; cursor: pointer; padding: 2px 4px; }
+.replay { margin: 10px 0 0; font-size: 12.5px; }
+.replay button { background: none; border: 1px solid var(--line); border-radius: 99px; padding: 5px 10px; cursor: pointer; color: var(--gold); font: 600 12.5px var(--font-body); }
+.accrow { margin: 10px 0 4px; border: 1px solid var(--new-line); border-left: 4px solid var(--new); border-radius: 12px; background: linear-gradient(135deg, var(--new-bg), #13252d 70%); }
+.accrow > button { width: 100%; display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; text-align: left; background: none; border: 0; padding: 11px 14px; cursor: pointer; }
+.accrow b { font: 700 15px/1.2 var(--font-display); }
+.accrow small { color: var(--muted); font-size: 12.5px; grid-column: 1; }
+.accrow .chev { grid-column: 2; grid-row: 1 / span 2; color: var(--new); font-size: 18px; transition: transform .15s; }
+.accrow[open-state="1"] .chev { transform: rotate(90deg); }
+.accrow .rows a { display: grid; grid-template-columns: 54px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 14px; border-top: 1px solid #ffffff12; color: var(--fg); text-decoration: none; font-size: 13.5px; }
+.accrow .rows a b { font: 600 12px var(--font-mono); color: var(--muted); }
+.accrow .rows a small { display: block; font-size: 12px; }
+.accrow .rows a em { font: 600 12px var(--font-mono); font-style: normal; color: var(--new); }
+.accrow .rows .foot { display: flex; justify-content: space-between; padding: 9px 14px; border-top: 1px solid #ffffff12; font: 600 13px var(--font-body); }
+.accrow .rows .foot span { color: var(--gold); cursor: pointer; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chips span { border: 1px solid var(--line); border-radius: 99px; padding: 4px 10px; font-size: 12px; color: var(--muted); background: var(--surface); }
+.bar .pc-grow { flex: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>«Nytt siden sist»: hvor skal det stå?</h1>
+  <p>Stripen sto mellom «Liste | Kalender» og lista, og ble for mye sammen med kino- og julebordstripene. Her er seks andre plasseringer, i <b>mobil</b> og <b>PC</b>. Teksten er den samme overalt: «siden du var innom sist». Eksempelet er ekte: hvis du sist var innom <b>lørdag 24. oktober</b>, er det kommet <b>10 nye arrangementer</b> og <b>10 nye julebord</b>. Trykk på det grønne i hvert forslag.</p>
+</header>
+<div class="ctl">
+  <span>Visning:</span>
+  <div class="seg" id="dev"><button aria-pressed="true" data-d="mobil">Mobil</button><button aria-pressed="false" data-d="pc">PC</button></div>
+  <span>Besøk:</span>
+  <div class="seg" id="mode"><button aria-pressed="true" data-m="back">Har vært her før</button><button aria-pressed="false" data-m="first">Første besøk</button></div>
+</div>
+<div class="grid" id="grid"></div>
+<footer><b>Felles for alle:</b> ved første besøk vises ingenting. Julebord telles for seg og lenker til julebordsida. Det røde «Nytt»-merket blir grønt «Ny siden sist» for det du ikke har sett.</footer>
+</div>
+<script>
+// Ekte data fra events.json 27. okt. n = lagt til etter 24. okt.
+const EV = [
+  { d: "2026-10-28", day: "Onsdag 28. okt", t: "Salmer på pøbb", v: "Terminalen Byscene", c: "konsert", time: "18:30", p: "420 kr" },
+  { d: "2026-10-29", day: "Torsdag 29. okt", t: "Stein Torleif Bjella", v: "Terminalen Byscene", c: "konsert", time: "20:00", p: "450 kr" },
+  { d: "2026-10-30", day: "Fredag 30. okt", t: "Skumle Oktoberquiz med Martin", v: "O'Connor's", c: "quiz", time: "20:00", p: "50 kr", n: 1 },
+  { d: "2026-10-30", day: "Fredag 30. okt", t: "GOLF", v: "Terminalen Byscene", c: "konsert", time: "20:30", p: "420 kr" },
+  { d: "2026-10-31", day: "Lørdag 31. okt", t: "Viggo Venneløs", v: "Løvenvold Theater", c: "standup", time: "19:00", p: "350 kr" },
+  { d: "2026-10-31", day: "Lørdag 31. okt", t: "CIRCUS DAMP", v: "Dampsentralen", c: "klubb", time: "22:00", p: "200 kr" },
+  { d: "2026-12-01", day: "Tirsdag 1. des", t: "Deilig er jorden", v: "Ålesund kirke", c: "konsert", time: "18:00", p: "", n: 1 },
+  { d: "2026-12-04", day: "Fredag 4. des", t: "SKRUK – Medan vi ventar", v: "Ålesund kirke", c: "konsert", time: "21:00", p: "490 kr", n: 1 },
+  { d: "2026-12-05", day: "Lørdag 5. des", t: "Julemarked på Hatlane skole", v: "Hatlane skole", c: "happening", time: "11:00", p: "", n: 1 },
+  { d: "2026-12-05", day: "Lørdag 5. des", t: "Julemarked i Spjelkavika", v: "Spjelkavikhallen", c: "happening", time: "", p: "", n: 1 },
+  { d: "2026-12-12", day: "Lørdag 12. des", t: "Julemarkedet i Ålesund sentrum", v: "Korsatunnelen", c: "happening", time: "11:00", p: "", n: 1 },
+  { d: "2026-12-18", day: "Fredag 18. des", t: "Hjem til jul", v: "Ålesund kirke", c: "konsert", time: "19:00", p: "150 kr", n: 1 },
+];
+const NEW = EV.filter(e => e.n), N = 10, JB = 10;
+const TAG = { konsert: "Konsert", standup: "Standup", klubb: "Klubb", happening: "Happening", quiz: "Quiz" };
+const short = e => e.day.split(" ").slice(1).join(" ");
+const WHEN = "lørdag 24. okt";
+let FIRST = false, DEV = "mobil";
+const st = {};
+
+function card(e) {
+  const badge = e.n && !FIRST ? `<span class="newer">Ny siden sist</span>` : e.n ? `<span class="new">Nytt</span>` : "";
+  return `<article class="ev ${e.n && !FIRST ? "glow" : ""}" data-new="${e.n ? 1 : ""}" style="--c:var(--c-${e.c})">
+    <h3>${e.t}</h3><div class="side"><span class="fav">☆</span><span class="price ${e.p ? "" : "unk"}">${e.p || "Pris hos arrangør"}</span></div>
+    <div class="meta">${badge}<span class="tag">${TAG[e.c]}</span><span>${e.v}</span>${e.time ? `<span class="t">kl. ${e.time}</span>` : ""}</div></article>`;
+}
+function list(evs) {
+  const days = []; evs.forEach(e => { const g = days.find(x => x[0] === e.day); g ? g[1].push(e) : days.push([e.day, [e]]); });
+  return days.map(([d, es]) => `<div class="day">${d}</div><div class="events">${es.map(card).join("")}</div>`).join("");
+}
+const INTRO = `Konserter, standup, show og happenings i byen, samlet på ett sted.<span class="sist">Sist sjekket 27. okt kl. 20:15</span>`;
+function topBar(o = {}) {
+  const brand = `<div class="brand"><b>Skjer i Ålesund</b><small>Mørkt | Lyst</small></div>`;
+  const intro = `<p class="intro">${INTRO}${o.lead || ""}</p>`;
+  if (DEV === "pc") {
+    const base = ["Alt", "I kveld", "Neste 7 dager", "Helga", "Oktober", "November", "Desember"].map((x, i) => `<span class="${i ? "" : "on"}">${x}</span>`).join("");
+    return `<div class="top">${brand}${intro}<div class="bar"><span class="search">Søk etter artist, sted eller show …</span></div>
+      <div class="when">${o.when || ""}${base}</div>
+      <div class="chips"><span>● Konsert</span><span>● Standup</span><span>● Show</span><span>● Barn og familie</span><span>● Klubb</span><span>● Happening</span><span>● Quiz</span></div>
+      <div class="bar" style="margin-top:8px"><span class="search" style="flex:0 0 150px">Alle scener ▾</span><span class="search" style="flex:0 0 130px">Alle priser ▾</span><span class="pc-grow"></span>${o.bar || ""}<button class="chip">★ Mine</button></div></div>`;
+  }
+  return `<div class="top">${brand}${o.lead ? `<p class="intro">${o.lead}</p>` : ""}<div class="bar"><span class="search">Søk etter artist, sted …</span>${o.bar || ""}<button class="chip">★ Mine</button></div>
+    <div class="dd"><span>Alle datoer</span><span>Alle kategorier</span><span>Alle scener</span><span>Alle priser</span></div>${o.when ? `<div class="when">${o.when}<span>I kveld</span><span>I helgen</span></div>` : ""}</div>`;
+}
+const firstNote = `<div class="first">Første besøk: ingen teller. Kommer du tilbake, viser vi hva som er nytt siden du var innom.</div>`;
+const showing = (k) => `<p class="hint" data-act="toggle" style="cursor:pointer">Viser ${N} nye siden du var innom sist (${WHEN}). <span style="color:var(--gold)">Vis alt</span> · <span style="color:var(--c-julebord)">🎄 + ${JB} nye julebord →</span></p>`;
+
+const OPTS = [
+  ["A", "Tekstlinje i toppen", "Ingen boks. En grønn linje i teksten øverst på siden, under «Sist sjekket». Mindre enn alt annet vi har prøvd.",
+    ["Tar nesten ingen plass", "Ligger der folk allerede leser om at nye arrangementer merkes"], ["Kan overses hvis man hopper rett til filtrene"],
+    k => {
+      const on = st[k];
+      const lead = FIRST ? "" : `<span class="lead" data-act="toggle" style="display:block">${on ? `Viser ${N} nye siden du var innom sist · <u>Vis alt</u>` : `✦ ${N} nye siden du var innom sist (${WHEN}) · <u>Se dem</u>`}</span>`;
+      return topBar({ lead }) + (FIRST ? firstNote : "") + list(on ? NEW : EV);
+    }],
+  ["B", "Hurtigvalg under filtrene", "En grønn knapp først i raden med «I kveld», «Helga» osv. På PC står den først blant tidsvalgene.",
+    ["Hører med til tidsvalgene", "Samme måte som andre filtre"], ["Ser ut som et filter, ikke som en nyhet", "Må ha plass til en rad til på mobil"],
+    k => {
+      const on = st[k];
+      const when = FIRST ? "" : `<span class="nw" data-act="toggle" aria-pressed="${!!on}">✦ Nytt siden du var innom (${N})</span>`;
+      return topBar({ when }) + (FIRST ? firstNote : "") + (on ? showing(k) : "") + list(on ? NEW : EV);
+    }],
+  ["C", "Pille ved «Mine»", "En liten grønn pille «✦ 10 nye» ved siden av «★ Mine». Trykk, og lista viser bare det nye, med en linje som forklarer.",
+    ["Alltid på samme sted", "Små kostnader i plass"], ["Må forklares med en linje når man trykker", "Trangt i menylinja på mobil"],
+    k => {
+      const on = st[k];
+      const bar = FIRST ? "" : `<button class="pill" data-act="toggle" aria-pressed="${!!on}">✦ ${N} nye</button>`;
+      return topBar({ bar }) + (FIRST ? firstNote : "") + (on ? showing(k) : "") + list(on ? NEW : EV);
+    }],
+  ["D", "Flytende pille nederst", "En pille nederst på skjermen: «↓ 10 nye siden du var innom». Trykk, og lista hopper til det første nye kortet, så neste.",
+    ["Utenfor filtrene og stripene", "Hopper mellom nye kort i lista"], ["Kan dekke innhold nederst", "Må ikke kollidere med andre flytende ting"],
+    k => {
+      const i = st[k] || 0;
+      const fab = FIRST ? "" : `<button class="fab" data-act="next">↓ ${i ? "Neste nye" : `${N} nye siden du var innom`}<small>${i ? `${i}/${NEW.length}` : ""}</small></button>`;
+      return topBar() + (FIRST ? firstNote : "") + list(EV) + `<div style="height:80px"></div><!--fab-->` + fab;
+    }],
+  ["E", "Melding nederst ved åpning", "En liten melding nederst når siden åpnes: «Velkommen tilbake! 10 nye siden du var innom». Knapp for å se dem, × for å lukke. Forsvinner av seg selv.",
+    ["Blir sett, men tar ikke fast plass", "Forsvinner etter noen sekunder"], ["Kan forstyrre", "Ingenting igjen på siden etterpå"],
+    k => {
+      const s = st[k]; // true = bare nye, "x" = lukket
+      const toast = FIRST || s ? "" : `<div class="toast"><span><b>Velkommen tilbake!</b><small>${N} nye siden du var innom sist (${WHEN})</small></span><button class="go" data-act="toggle">Se dem</button><button class="x" data-act="x" aria-label="Lukk">×</button></div>`;
+      return topBar() + (FIRST ? firstNote : "") + (s === true ? showing(k) : "") + list(s === true ? NEW : EV) + `<!--fab-->` + toast;
+    }],
+  ["F", "Rad i lista", "Første «dag» i lista er en sammenleggbar rad: «Nytt siden du var innom sist». Åpne den for å se de nye som korte rader.",
+    ["Står i lista, ikke over den", "Lett å skumme de nye", "Ingen ny stripe over lista"], ["Skyver dagens arrangementer ned når den er åpen"],
+    k => {
+      const open = st[k];
+      const rows = NEW.slice(0, 5).map(e => `<a data-act="jump" data-t="${e.t}"><b>${short(e)}</b><span>${e.t}<small>${e.v}</small></span><em>${e.p || "–"}</em></a>`).join("");
+      const acc = FIRST ? "" : `<div class="accrow" open-state="${open ? 1 : 0}"><button data-act="open"><b>✦ Nytt siden du var innom sist</b><small>${N} nye arrangementer · ${WHEN}</small><span class="chev">›</span></button>${open ? `<div class="rows">${rows}<div class="foot"><span>Vis alle ${N} →</span><span style="color:var(--c-julebord)">🎄 + ${JB} nye julebord →</span></div></div>` : ""}</div>`;
+      return topBar() + (FIRST ? firstNote : "") + acc + list(EV);
+    }],
+];
+
+function render() {
+  const g = document.getElementById("grid"); g.className = "grid" + (DEV === "pc" ? " pcmode" : "");
+  g.innerHTML = OPTS.map(([k, h, why, plus, minus]) => `<section class="opt" data-k="${k}">
+    <h2><span>${k}</span>${h}</h2><p class="why">${why}</p>
+    <ul class="pros">${plus.map(x => `<li>${x}</li>`).join("")}${minus.map(x => `<li class="minus">${x}</li>`).join("")}</ul>
+    <div class="phone ${DEV === "pc" ? "pc" : ""}"></div>${k === "E" && !FIRST ? `<p class="replay"><button data-act="replay">Vis meldingen igjen</button></p>` : ""}</section>`).join("");
+  OPTS.forEach(o => draw(o[0]));
+}
+function draw(k) {
+  const o = OPTS.find(x => x[0] === k), ph = document.querySelector(`[data-k="${k}"] .phone`);
+  const [inner, over] = o[5](k).split("<!--fab-->");
+  ph.innerHTML = `<div class="screen">${inner}</div>${over || ""}`;
+}
+document.getElementById("grid").addEventListener("click", ev => {
+  const a = ev.target.closest("[data-act]"); if (!a) return;
+  const k = a.closest("[data-k]").dataset.k, act = a.dataset.act;
+  if (act === "toggle") st[k] = st[k] === true ? false : true;
+  if (act === "x") st[k] = "x";
+  if (act === "open") st[k] = !st[k];
+  if (act === "replay") delete st[k];
+  if (act === "jump") { const sc = a.closest(".phone").querySelector(".screen"); const el = [...sc.querySelectorAll(".ev")].find(x => x.querySelector("h3").textContent === a.dataset.t); el?.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+  if (act === "next") {
+    const sc = a.closest(".phone").querySelector(".screen"), news = [...sc.querySelectorAll('.ev[data-new="1"]')];
+    st[k] = ((st[k] || 0) % news.length) + 1; news[st[k] - 1].scrollIntoView({ behavior: "smooth", block: "start" });
+    a.innerHTML = `↓ Neste nye<small>${st[k]}/${news.length}</small>`; return;
+  }
+  draw(k);
+});
+document.getElementById("dev").onclick = ev => { const b = ev.target.closest("[data-d]"); if (!b) return; DEV = b.dataset.d; document.querySelectorAll("#dev button").forEach(x => x.setAttribute("aria-pressed", x === b)); render(); };
+document.getElementById("mode").onclick = ev => { const b = ev.target.closest("[data-m]"); if (!b) return; FIRST = b.dataset.m === "first"; document.querySelectorAll("#mode button").forEach(x => x.setAttribute("aria-pressed", x === b)); for (const k in st) delete st[k]; render(); };
+render();
+</script>
+</body>
+</html>
