@@ -59,14 +59,6 @@ body { margin: 0; font-size: 14px; }
   --few: #ffb547; --few-bg: #3a2a10; --few-line: #6b4c17;
   color-scheme: dark; }
 
-.livecard { display: block; margin: 8px 0 14px; padding: 18px 18px 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface, #fff); color: var(--fg); text-decoration: none; }
-.livecard .lv-n { font: 800 56px/1 var(--font-display); color: var(--gold, #b8791a); font-variant-numeric: tabular-nums; }
-.livecard .lv-l { font-size: 13px; color: var(--muted); margin: 2px 0 12px; }
-.livecard h3 { margin: 0; font: 800 22px/1.15 var(--font-display); }
-.livecard .lv-row { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; }
-.livecard .lv-row b { color: var(--gold, #b8791a); }
-.livecard .lv-btn { display: inline-block; margin-top: 12px; padding: 9px 14px; border-radius: 10px; background: var(--accent); color: var(--accent-ink, #fff); font: 700 14px var(--font-body); text-decoration: none; }
-@media (min-width: 760px) { .livecard { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 28px; align-items: center; } .livecard .lv-rows { grid-column: 2; grid-row: 1 / 3; } .livecard .lv-btn { margin: 0; grid-column: 3; grid-row: 1 / 3; } }
 .kinostrip { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin: 4px 0 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--kino-soft); color: var(--fg); text-decoration: none; font-size: 14px; }
 .kinostrip b { font-family: var(--font-display); }
 .kinostrip span { margin-left: auto; color: var(--kino); font-weight: 600; }
@@ -335,8 +327,6 @@ footer a { color: var(--sea); }
     <div class="julbtns"><a class="julbtn" href="jul-i-alesund/">Se alt som skjer i jula →</a><a class="julbtn jb" id="jbbtn" href="julebord/" hidden></a></div>
   </div>
 
-  <div class="livecard" id="livecard" hidden></div>
-
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
   <a class="kinostrip jbstrip" id="jbstrip" href="julebord/" hidden></a>
 
@@ -541,23 +531,6 @@ $("subcopy").onclick = async () => {
 
 // Jul i Ålesund: kortet vises bare fra 1. november til 26. desember (?jul=1 eller #jul viser det utenom sesongen, til test)
 const JULSEASON = (() => { const t = new Date(), m = t.getMonth(), d = t.getDate(); return m === 10 || (m === 11 && d <= 26) || location.search.includes("jul=1") || location.hash === "#jul"; })();
-// Ålesund Live: et kort med nedtelling fra festivalen settes inn i manual.json (id alesund-live-*), og forsvinner etter siste dag
-function liveEntry() {
-  const L = E.filter(e => e.id.startsWith("alesund-live-")).sort((a, b) => a.d - b.d);
-  const el = $("livecard");
-  if (!L.length || L[L.length - 1].d < TODAY) return;
-  const days = Math.max(Math.ceil((L[0].d - TODAY) / dayMs), 0);
-  const names = L.map(e => e.title.replace(/^Ålesund Live:\s*/, "")).join(" + ");
-  const two = (L.map(e => e.note).join(" ").match(/2-dagerspass[^.]*?(\d[\d ]*) kr/) || [])[1];
-  const when = L.length > 1 ? "18.–19. juni 2027" : "";
-  const rows = L.map(e => `<div class="lv-row"><span>${esc(e.d.toLocaleDateString("nb-NO", { weekday: "long" }).replace(/^./, c => c.toUpperCase()))}: ${esc(e.title.replace(/^Ålesund Live:\s*/, ""))}</span><b>${esc(e.price)}</b></div>`).join("")
-    + (two ? `<div class="lv-row"><span>2-dagerspass</span><b>${esc(two)} kr</b></div>` : "");
-  el.innerHTML = `<div><div class="lv-n">${days}</div><div class="lv-l">dager til Ålesund Live</div></div>`
-    + `<div class="lv-rows"><h3>${esc(names)}</h3><div class="lv-l" style="margin:2px 0 10px">${esc(L[0].venue)} · ${when}</div>${rows}</div>`
-    + `<a class="lv-btn" href="${esc(L[0].url)}" target="_blank" rel="noopener">Kjøp billett</a>`;
-  el.hidden = false;
-  el.querySelector(".lv-btn").addEventListener("click", () => track("alesund-live/forside"));
-}
 // Julebord: en knapp i julekortet i sesongen, ellers (oktober) en stripe under kinostripen
 function julebordEntry() {
   if (!JB.length) return;
@@ -871,7 +844,7 @@ fetch("data/events.json", { cache: "no-cache" })
     const all = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
     JB = all.filter(e => e.cat === "julebord" && e.d >= TODAY);
     E = all.filter(e => e.cat !== "julebord");
-    fillVenues(); julebordEntry(); liveEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
+    fillVenues(); julebordEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
 // Kino: én stripe under filtrene (filmene ligger ikke i hovedlista)
