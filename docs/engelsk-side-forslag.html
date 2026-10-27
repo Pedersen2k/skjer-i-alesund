@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engelsk side</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Fire forslag til en engelsk side (kaskjerda.no/en/). Ekte arrangementer 28. okt – 8. nov fra events.json. Ett mørkt tema, som siden har for de fleste. */
+:root {
+  --bg: #0a171b; --surface: #13252d; --fg: #e8f1ef; --muted: #8fa8ab; --line: #25414a;
+  --gold: #f7c873; --sea: #5ab7bf; --accent: #ff8a6b; --few: #ffb547; --few-bg: #3a2a10; --few-line: #6b4c17;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-sport: #7aa7e6;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding: 28px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px)); }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1480px; margin: 0 auto; display: grid; gap: 28px; }
+header h1 { font: 800 clamp(28px, 4vw, 42px)/1.05 var(--font-display); margin: 0 0 10px; text-wrap: balance; }
+header p { margin: 0; max-width: 80ch; color: var(--muted); }
+header p + p { margin-top: 8px; }
+header b { color: var(--fg); font-weight: 600; }
+.seo { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 14px 16px; display: grid; gap: 6px; font-size: 13.5px; color: var(--muted); }
+.seo h2 { margin: 0 0 2px; font: 800 16px var(--font-display); color: var(--fg); }
+.seo code { font: 500 12.5px var(--font-mono); color: var(--fg); background: #0a171b; border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+.seo .g { border-left: 3px solid var(--sea); padding: 4px 10px; margin: 2px 0; }
+.seo .g b { display: block; color: #8ab4f8; font: 500 16px/1.3 Arial, sans-serif; }
+.seo .g i { font-style: normal; color: #9bd28f; font: 400 12.5px Arial, sans-serif; }
+.seo .g span { display: block; color: #bdc1c6; font: 400 13px/1.4 Arial, sans-serif; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px 22px; align-items: start; }
+.opt { display: grid; gap: 12px; min-width: 0; }
+.opt h2 { margin: 0; font: 800 21px/1.1 var(--font-display); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.opt h2 span { font: 700 13px var(--font-mono); color: var(--bg); background: var(--gold); border-radius: 6px; padding: 2px 7px; }
+.why { margin: 0; color: var(--muted); font-size: 14px; min-height: 4.6em; }
+.pros { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.pros li::before { content: "+ "; color: var(--sea); font-weight: 700; }
+.pros li.minus::before { content: "– "; color: var(--accent); }
+.phone { border: 1px solid var(--line); border-radius: 26px; background: #081316; height: 700px; overflow: hidden; }
+.screen { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 0 14px 22px; }
+
+/* Felles for sidene */
+.nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 8px; }
+.nav b { font: 800 17px var(--font-display); }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 99px; font: 600 11.5px var(--font-body); }
+.lang span { padding: 3px 9px; border-radius: 99px; color: var(--muted); }
+.lang span.on { background: var(--gold); color: #1a1405; }
+.h1 { font: 800 25px/1.1 var(--font-display); margin: 6px 0 6px; text-wrap: balance; }
+.lead { color: var(--muted); font-size: 13.5px; margin: 0 0 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 99px; padding: 6px 11px; font: 600 12.5px var(--font-body); cursor: pointer; white-space: nowrap; }
+.chip[aria-pressed="true"] { background: var(--accent); color: #1a0b07; border-color: var(--accent); }
+.day { font: 800 15px/1 var(--font-display); margin: 16px 2px 8px; }
+.day small { font: 500 12px var(--font-body); color: var(--muted); margin-left: 6px; }
+.events { display: grid; gap: 8px; }
+.ev { background: linear-gradient(135deg, color-mix(in srgb, var(--c) 20%, #13252d), #13252d 62%); border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 12px; padding: 11px 13px; display: grid; grid-template-columns: 1fr auto; gap: 3px 10px; }
+.ev h3 { margin: 0; font: 700 16px/1.25 var(--font-display); text-wrap: balance; }
+.meta { grid-column: 1; display: flex; flex-wrap: wrap; gap: 3px 10px; font-size: 12.5px; color: var(--muted); align-items: center; }
+.meta .t { font-family: var(--font-mono); color: var(--fg); }
+.tag { font: 600 10.5px/1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--c); }
+.side { grid-row: 1 / span 2; grid-column: 2; display: flex; flex-direction: column; gap: 5px; align-items: end; }
+.price { font: 600 12.5px/1.2 var(--font-mono); white-space: nowrap; }
+.price.unk { font: 500 11.5px var(--font-body); color: var(--muted); }
+.price.sold { color: var(--accent); }
+.few { font: 700 10px/1 var(--font-body); color: var(--few); background: var(--few-bg); border: 1px solid var(--few-line); border-radius: 99px; padding: 3px 6px; white-space: nowrap; }
+.lng { font: 600 10.5px/1 var(--font-body); color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 2px 5px; }
+.link { grid-column: 1 / -1; font: 600 12.5px var(--font-body); color: var(--gold); }
+.note { font-size: 11.5px; color: var(--muted); margin: 14px 0 0; border-top: 1px solid var(--line); padding-top: 10px; }
+/* B */
+.tonight { border: 1px solid #3c5a63; background: linear-gradient(160deg, #1d3a44, #13252d 70%); border-radius: 16px; padding: 12px 14px; margin: 8px 0 4px; }
+.tonight h4 { margin: 0 0 8px; font: 800 19px var(--font-display); display: flex; justify-content: space-between; align-items: baseline; }
+.tonight h4 small { font: 500 12px var(--font-body); color: var(--muted); }
+.row { display: grid; grid-template-columns: 46px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 0; border-top: 1px solid #ffffff12; font-size: 13.5px; }
+.row b { font: 600 12px var(--font-mono); color: var(--gold); }
+.row small { color: var(--muted); font-size: 11.5px; display: block; }
+.row em { font: 600 12px var(--font-mono); font-style: normal; white-space: nowrap; }
+.row em.unk { font: 500 11px var(--font-body); color: var(--muted); }
+.sec { font: 800 17px var(--font-display); margin: 18px 0 6px; display: flex; justify-content: space-between; align-items: baseline; }
+.sec a { font: 600 12.5px var(--font-body); color: var(--gold); }
+.day-tip { border: 1px dashed var(--line); border-radius: 12px; padding: 10px 12px; margin-top: 14px; }
+.day-tip h5 { margin: 0 0 2px; font: 800 15px var(--font-display); }
+.day-tip p { margin: 0 0 4px; font-size: 12.5px; color: var(--muted); }
+/* C */
+.toc { display: flex; flex-wrap: wrap; gap: 4px 10px; font: 600 12.5px var(--font-body); color: var(--gold); margin: 4px 0 8px; }
+.wk { margin: 14px 0 2px; font: 800 15px var(--font-display); border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.wrow { display: grid; grid-template-columns: 44px 1fr auto; gap: 8px; padding: 6px 0; font-size: 13.5px; align-items: baseline; }
+.wrow b { font: 600 12px var(--font-mono); color: var(--muted); }
+.wrow i { font-style: normal; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--c); margin-right: 6px; }
+.wrow small { display: block; color: var(--muted); font-size: 11.5px; }
+.wrow em { font: 600 12px var(--font-mono); font-style: normal; white-space: nowrap; }
+.wrow em.unk { font: 500 11px var(--font-body); color: var(--muted); }
+.faq { margin-top: 16px; }
+.faq details { border-top: 1px solid var(--line); padding: 8px 0; }
+.faq summary { font: 700 13.5px var(--font-body); cursor: pointer; }
+.faq p { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); }
+/* D */
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+.tile { border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: linear-gradient(150deg, color-mix(in srgb, var(--c) 28%, #13252d), #13252d 75%); cursor: pointer; min-height: 78px; display: grid; align-content: space-between; }
+.tile b { font: 800 16px/1.1 var(--font-display); }
+.tile small { color: var(--muted); font-size: 11.5px; }
+.tile span { font: 700 20px var(--font-display); color: var(--c); }
+.tile[aria-pressed="true"] { outline: 2px solid var(--c); }
+footer { color: var(--muted); font-size: 13px; max-width: 80ch; }
+footer b { color: var(--fg); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Engelsk side: fire forslag</h1>
+  <p>En egen side for turister, cruisegjester, studenter og andre som søker på engelsk: <b>kaskjerda.no/en/</b>. Den lages automatisk av de samme dataene og oppdateres hver andre time. Titlene står som hos arrangøren (på norsk). Det som oversettes er datoer, kategorier, priser og forklaringstekst.</p>
+  <p>Eksempelet bruker ekte arrangementer fra 28. oktober til 8. november, og later som om det er <b>onsdag 28. oktober</b>.</p>
+</header>
+<section class="seo">
+  <h2>Slik kan den se ut i Google (felles for alle forslagene)</h2>
+  <div class="g"><i>kaskjerda.no › en</i><b>What's on in Ålesund this week: concerts, comedy &amp; events</b><span>40 events in Ålesund from 28 Oct: concerts at Parken and Terminalen, comedy, family events and AaFK football. Ticket prices and links, updated every two hours.</span></div>
+  <div>Teknisk: <code>&lt;html lang="en"&gt;</code>, <code>hreflang</code> mellom norsk og engelsk forside, egen <code>sitemap</code>-oppføring, JSON-LD med <code>inLanguage: "en"</code>, og «Norsk | English» øverst på begge. Senere kan det komme flere engelske sider (<code>/en/this-weekend/</code>, <code>/en/christmas/</code>).</div>
+</section>
+<div class="grid" id="grid"></div>
+<footer><b>Å bestemme:</b> skal standup og show merkes «Mostly in Norwegian»? Det er nyttig for turister, men det er en generell regel, ikke noe kilden sier per arrangement. I skissene står det bare som en forklaring på kategorien, ikke på hvert kort. Billettsidene er på norsk; det står i en kort tekst nederst.</footer>
+</div>
+<script>
+const EV = [{"d": "2026-10-28", "time": "12:00", "t": "På dagtid: Om Anders Svors liv og reiser", "v": "Jugendstilsenteret og KUBE", "c": "happening", "p": "60 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-28", "time": "18:00", "t": "Musikklinjekonsert", "v": "Parken kulturhus", "c": "konsert", "p": "100–250 kr", "free": false, "sold": false, "few": true}, {"d": "2026-10-28", "time": "18:30", "t": "Salmer på pøbb", "v": "Terminalen Byscene", "c": "konsert", "p": "420 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-28", "time": "20:00", "t": "Operapub", "v": "Fabrikken Kulturscene", "c": "konsert", "p": "", "free": false, "sold": false, "few": false}, {"d": "2026-10-29", "time": "17:30", "t": "Skifilmfestival – TGR & Friends", "v": "Løvenvold Theater", "c": "happening", "p": "280 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-29", "time": "19:00", "t": "Ingebjørg Bratland", "v": "Parken kulturhus", "c": "konsert", "p": "630 kr", "free": false, "sold": false, "few": true}, {"d": "2026-10-29", "time": "19:00", "t": "Pubquiz", "v": "O'Connor's", "c": "quiz", "p": "50 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-29", "time": "20:00", "t": "Stein Torleif Bjella", "v": "Terminalen Byscene", "c": "konsert", "p": "450 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-30", "time": "18:00", "t": "Claudia Scott og Torstein Flakne", "v": "Løvenvold Theater", "c": "konsert", "p": "499 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-30", "time": "19:00", "t": "Treretters: En lattergalla", "v": "Parken kulturhus", "c": "standup", "p": "530–625 kr", "free": false, "sold": false, "few": true}, {"d": "2026-10-30", "time": "20:00", "t": "Skumle Oktoberquiz med Martin", "v": "O'Connor's", "c": "quiz", "p": "50 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-30", "time": "20:30", "t": "GOLF", "v": "Terminalen Byscene", "c": "konsert", "p": "420 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-30", "time": "20:30", "t": "Van Halen-tribute – avskjedskonsert", "v": "Fabrikken Kulturscene", "c": "konsert", "p": "", "free": false, "sold": false, "few": false}, {"d": "2026-10-31", "time": "12:00", "t": "Familiedag: Halloween på Jugendstilsenteret", "v": "Jugendstilsenteret og KUBE", "c": "barn", "p": "120 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-31", "time": "14:00", "t": "Jazzkafe: Vegard Holum sings– ein hyllest til Chet", "v": "Parken kulturhus", "c": "konsert", "p": "150–250 kr", "free": false, "sold": false, "few": true}, {"d": "2026-10-31", "time": "18:00", "t": "Aalesund – Sandefjord Fotball", "v": "Color Line Stadion", "c": "sport", "p": "", "free": false, "sold": false, "few": false}, {"d": "2026-10-31", "time": "19:00", "t": "Viggo Venneløs", "v": "Løvenvold Theater", "c": "standup", "p": "350 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-31", "time": "19:00", "t": "Kristian Valen", "v": "Parken kulturhus", "c": "konsert", "p": "625 kr", "free": false, "sold": false, "few": true}, {"d": "2026-10-31", "time": "20:30", "t": "Autumn Nights – Nordvest Big Band med solister", "v": "Fabrikken Kulturscene", "c": "konsert", "p": "", "free": false, "sold": false, "few": false}, {"d": "2026-10-31", "time": "22:00", "t": "CIRCUS DAMP", "v": "Dampsentralen", "c": "klubb", "p": "200 kr", "free": false, "sold": false, "few": false}, {"d": "2026-10-31", "time": "23:00", "t": "Halloween-klubb med MENTUM", "v": "Terminalen Byscene", "c": "klubb", "p": "200 kr", "free": false, "sold": true, "few": false}, {"d": "2026-11-01", "time": "13:00", "t": "Pelsdyr i ord og folkesong", "v": "Sunnmøre museum", "c": "happening", "p": "120 kr", "free": false, "sold": false, "few": false}, {"d": "2026-11-02", "time": "19:00", "t": "Påfyll", "v": "Parken kulturhus", "c": "konsert", "p": "100 kr", "free": false, "sold": false, "few": false}, {"d": "2026-11-03", "time": "19:00", "t": "Tuva & Ronny følger drømmen", "v": "Parken kulturhus", "c": "show", "p": "480 kr", "free": false, "sold": false, "few": false}, {"d": "2026-11-04", "time": "19:00", "t": "Marianne Heske – fra Tafjord til verdens kunstscene", "v": "Parken kulturhus", "c": "happening", "p": "130–230 kr", "free": false, "sold": false, "few": false}, {"d": "2026-11-05", "time": "18:00", "t": "Storefri", "v": "Parken kulturhus", "c": "konsert", "p": "580 kr", "free": false, "sold": false, "few": true}, {"d": "2026-11-05", "time": "18:30", "t": "Schuberts Testamente", "v": "Sobra Scene", "c": "konsert", "p": "250 kr", "free": false, "sold": false, "few": false}, {"d": "2026-11-05", "time": "18:30", "t": "Juleshow på Løvenvold Vol. 4", "v": "Løvenvold Theater", "c": "standup", "p": "699 kr", "free": false, "sold": false, "few": false}, {"d": "2026-11-06", "time": "17:30", "t": "The best of Ghibli Studio", "v": "Parken kulturhus", "c": "konsert", "p": "400–450 kr", "free": false, "sold": false, "few": true}, {"d": "2026-11-06", "time": "19:30", "t": "The music of Hans Zimmer vs John Williams", "v": "Parken kulturhus", "c": "konsert", "p": "400–450 kr", "free": false, "sold": false, "few": true}, {"d": "2026-11-06", "time": "20:00", "t": "Maria Mena", "v": "Terminalen Byscene", "c": "konsert", "p": "699 kr", "free": false, "sold": false, "few": true}, {"d": "2026-11-06", "time": "20:30", "t": "Heibergs Mandskor – «Vid min flaska vil jag somna, vid min flicka vakna opp»", "v": "Fabrikken Kulturscene", "c": "konsert", "p": "", "free": false, "sold": false, "few": false}, {"d": "2026-11-06", "time": "21:00", "t": "Hanna Paulsberg: Belonging", "v": "Parken kulturhus", "c": "konsert", "p": "350 kr", "free": false, "sold": false, "few": true}, {"d": "2026-11-07", "time": "13:00", "t": "AaFK Kvinner – Vålerenga Fotball", "v": "Color Line Stadion", "c": "sport", "p": "", "free": false, "sold": false, "few": false}, {"d": "2026-11-07", "time": "13:00", "t": "Dyrene i Hakkebakkeskogen", "v": "Parken kulturhus", "c": "barn", "p": "465 kr", "free": false, "sold": false, "few": true}, {"d": "2026-11-07", "time": "18:00", "t": "Musikkbingo med Martin", "v": "O'Connor's", "c": "quiz", "p": "50 kr", "free": false, "sold": false, "few": false}, {"d": "2026-11-07", "time": "19:00", "t": "Karsten Blomvik – «Lykkelig deprimert»", "v": "Fabrikken Kulturscene", "c": "standup", "p": "", "free": false, "sold": false, "few": false}, {"d": "2026-11-07", "time": "23:00", "t": "KLUBB DAMP", "v": "Dampsentralen", "c": "klubb", "p": "", "free": false, "sold": false, "few": false}, {"d": "2026-11-08", "time": "15:00", "t": "Sans – Piero Issa og Ole Petter Knarvik", "v": "Parken kulturhus", "c": "barn", "p": "Gratis", "free": true, "sold": false, "few": false}, {"d": "2026-11-08", "time": "19:00", "t": "Susanne Sundfør", "v": "Terminalen Byscene", "c": "konsert", "p": "700 kr", "free": false, "sold": false, "few": true}];
+const TODAY = "2026-10-28";
+const CAT = { konsert: "Concert", standup: "Comedy", show: "Show", barn: "Kids & family", klubb: "Club night", happening: "Culture & talks", quiz: "Quiz & bingo", sport: "Football" };
+const CATS = { konsert: "Concerts", standup: "Comedy", show: "Shows", barn: "Kids & family", klubb: "Nightlife", happening: "Culture & talks", quiz: "Quiz nights", sport: "Football" };
+const WD = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], WDL = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], MO = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const dt = s => new Date(s + "T12:00"), dshort = s => { const d = dt(s); return `${WD[d.getDay()]} ${d.getDate()} ${MO[d.getMonth()]}`; }, dlong = s => { const d = dt(s); return `${WDL[d.getDay()]} ${d.getDate()} ${MO[d.getMonth()]}`; };
+const rel = s => s === TODAY ? "Today" : s === "2026-10-29" ? "Tomorrow" : dlong(s);
+const price = e => e.sold ? `<span class="price sold">Sold out</span>` : e.free ? `<span class="price">Free</span>` : e.p ? `<span class="price">${e.p.replace(/^(.*) kr$/, "NOK $1")}</span>` : `<span class="price unk">Price at venue</span>`;
+const pTxt = e => e.sold ? "Sold out" : e.free ? "Free" : e.p ? e.p.replace(/^(.*) kr$/, "NOK $1") : "";
+const card = e => `<article class="ev" style="--c:var(--c-${e.c})"><h3>${e.t}</h3><div class="side">${price(e)}${e.few && !e.sold ? `<span class="few">Few tickets left</span>` : ""}</div>
+  <div class="meta"><span class="tag">${CAT[e.c]}</span><span>${e.v}</span>${e.time ? `<span class="t">${e.time}</span>` : ""}</div><span class="link">Tickets &amp; info →</span></article>`;
+const byDay = evs => { const g = []; evs.forEach(e => { const x = g.find(y => y[0] === e.d); x ? x[1].push(e) : g.push([e.d, [e]]); }); return g; };
+const nav = `<div class="nav"><b>Skjer i Ålesund</b><span class="lang"><span>Norsk</span><span class="on">English</span></span></div>`;
+const note = `<p class="note">Prices and dates come from the organisers' own ticket pages (mostly in Norwegian) and can change. Always check with the organiser before you buy.</p>`;
+const st = {};
+const isWeekend = s => ["2026-10-30", "2026-10-31", "2026-11-01"].includes(s);
+
+const OPTS = [
+  ["A", "Forsiden på engelsk", "Samme oppbygging som den norske forsiden: tidsvalg, kategorier og lista dag for dag. Kjent og enkel.",
+    ["Minst å lære for oss og brukerne", "Alt er med"], ["Ikke tilpasset turister spesielt", "Lang liste"],
+    k => {
+      const w = st[k + "w"] || "all", c = st[k + "c"] || "";
+      const evs = EV.filter(e => (w === "all" || (w === "today" && e.d === TODAY) || (w === "weekend" && isWeekend(e.d))) && (!c || e.c === c));
+      return nav + `<h1 class="h1">What's on in Ålesund</h1><p class="lead">Concerts, comedy, family events and more in Ålesund, with ticket prices. Updated every two hours.</p>
+        <div class="chips">${[["all", "All dates"], ["today", "Today"], ["weekend", "This weekend"]].map(([v, l]) => `<button class="chip" data-w="${v}" aria-pressed="${w === v}">${l}</button>`).join("")}</div>
+        <div class="chips">${Object.keys(CATS).map(x => `<button class="chip" data-c="${x}" aria-pressed="${c === x}">${CATS[x]}</button>`).join("")}</div>`
+        + byDay(evs).map(([d, es]) => `<div class="day">${rel(d)}${d === TODAY || d === "2026-10-29" ? `<small>${dshort(d)}</small>` : ""}</div><div class="events">${es.map(card).join("")}</div>`).join("") + note;
+    }],
+  ["B", "For besøkende: i kveld først", "Det turister lurer på: «Hva skjer i kveld?» øverst, så i morgen og helgen. En egen boks for dem som er i byen på dagtid (cruise).",
+    ["Svarer på det de fleste lurer på", "Kort og lett å skumme på mobil"], ["Mindre oversikt lenger fram", "Dagtid-boksen er tom noen dager"],
+    k => {
+      const tonight = EV.filter(e => e.d === TODAY), tomorrow = EV.filter(e => e.d === "2026-10-29"), wk = EV.filter(e => isWeekend(e.d));
+      const day = EV.filter(e => e.time && e.time < "17:00" && e.d <= "2026-11-01");
+      const row = e => `<div class="row"><b>${e.time || "–"}</b><span>${e.t}<small>${CAT[e.c]} · ${e.v}</small></span>${pTxt(e) ? `<em>${pTxt(e)}</em>` : `<em class="unk">at venue</em>`}</div>`;
+      return nav + `<h1 class="h1">What's on in Ålesund tonight</h1><p class="lead">Wednesday 28 October. Live music, comedy and more, with ticket prices.</p>
+        <div class="tonight"><h4>Today &amp; tonight <small>${tonight.length} events</small></h4>${tonight.map(row).join("")}</div>
+        <div class="sec">Tomorrow <a>Thu 29 Oct</a></div>${tomorrow.map(row).join("")}
+        <div class="sec">This weekend <a>Fri 30 Oct – Sun 1 Nov →</a></div>${wk.slice(0, st[k] ? 99 : 6).map(e => row(e).replace("<b>", `<b title="${dshort(e.d)}">`).replace(/<b([^>]*)>([^<]*)<\/b>/, `<b$1>${dshort(e.d).slice(0, 3)}<br>$2</b>`)).join("")}${!st[k] && wk.length > 6 ? `<button class="chip" data-more="1" style="margin-top:6px">Show all ${wk.length}</button>` : ""}
+        <div class="day-tip"><h5>In town for the day?</h5><p>Daytime events this week (before 5 pm):</p>${day.map(e => row(e).replace(/<b>([^<]*)<\/b>/, `<b>${dshort(e.d).slice(0, 3)}<br>$1</b>`)).join("")}</div>` + note;
+    }],
+  ["C", "Ukeguide med spørsmål og svar", "En rolig guide: «This week in Ålesund», dag for dag i korte rader med fargeprikk, og spørsmål og svar nederst (bra for Google).",
+    ["Mest tekst for Google å lese", "Spørsmålene svarer på det turister lurer på"], ["Ser mer ut som en artikkel enn en app", "Spørsmålene må holdes korrekte"],
+    k => {
+      const days = byDay(EV.filter(e => e.d <= "2026-11-03"));
+      return nav + `<h1 class="h1">This week in Ålesund</h1><p class="lead">40 events from 28 Oct to 8 Nov: 20 concerts, 4 comedy shows, family events, club nights and AaFK football at Color Line Stadion.</p>
+        <div class="toc">${days.map(([d]) => `<span>${dshort(d).slice(0, 3)} ${dt(d).getDate()}</span>`).join(" · ")}</div>`
+        + days.map(([d, es]) => `<div class="wk">${dlong(d)}</div>${es.map(e => `<div class="wrow" style="--c:var(--c-${e.c})"><b>${e.time || "–"}</b><span><i></i>${e.t}<small>${CAT[e.c]} · ${e.v}</small></span>${pTxt(e) ? `<em>${pTxt(e)}</em>` : `<em class="unk">at venue</em>`}</div>`).join("")}`).join("")
+        + `<div class="faq"><div class="wk">Good to know</div>
+          <details open><summary>Where do I buy tickets?</summary><p>Each event links to the organiser's own ticket page (Tikkio, Parken, Billetto and others). The pages are mostly in Norwegian; look for «Kjøp billett» (buy ticket).</p></details>
+          <details><summary>Are the shows in English?</summary><p>Concerts need no translation. Comedy and theatre are mostly in Norwegian.</p></details>
+          <details><summary>Is there anything free?</summary><p>Some events are free. They are marked «Free».</p></details>
+          <details><summary>How often is this updated?</summary><p>Every two hours, from the organisers' own pages.</p></details></div>` + note;
+    }],
+  ["D", "Kategorier som fliser", "Store fliser først: Concerts (20), Comedy (4), Kids & family … Trykk på en flis for å se den kategorien. Under: neste dager.",
+    ["Raskt for den som vet hva den vil", "Tallene viser hvor mye som skjer"], ["Ett trykk ekstra før man ser arrangementer", "Flisene tar mye plass"],
+    k => {
+      const c = st[k + "c"] || "";
+      const counts = {}; EV.forEach(e => counts[e.c] = (counts[e.c] || 0) + 1);
+      const sub = { konsert: "Rock, jazz, classical", standup: "Mostly in Norwegian", show: "Theatre & musicals", barn: "Museums, theatre", klubb: "DJs, club nights", happening: "Talks, film, exhibitions", quiz: "Pub quiz & bingo", sport: "AaFK home games" };
+      const evs = EV.filter(e => !c || e.c === c).slice(0, c ? 99 : 8);
+      return nav + `<h1 class="h1">Things to do in Ålesund</h1><p class="lead">${EV.length} events in the next 12 days. Pick a category:</p>
+        <div class="tiles">${Object.keys(CATS).filter(x => counts[x]).map(x => `<div class="tile" data-c="${x}" aria-pressed="${c === x}" style="--c:var(--c-${x})"><b>${CATS[x]}</b><span>${counts[x]}</span><small>${sub[x]}</small></div>`).join("")}</div>
+        <div class="sec">${c ? CATS[c] : "Coming up"} ${c ? `<a data-c="">All →</a>` : ""}</div>`
+        + byDay(evs).map(([d, es]) => `<div class="day">${rel(d)}</div><div class="events">${es.map(card).join("")}</div>`).join("") + note;
+    }],
+];
+
+function render() {
+  document.getElementById("grid").innerHTML = OPTS.map(([k, h, why, plus, minus]) => `<section class="opt" data-k="${k}">
+    <h2><span>${k}</span>${h}</h2><p class="why">${why}</p>
+    <ul class="pros">${plus.map(x => `<li>${x}</li>`).join("")}${minus.map(x => `<li class="minus">${x}</li>`).join("")}</ul>
+    <div class="phone"><div class="screen"></div></div></section>`).join("");
+  OPTS.forEach(o => draw(o[0]));
+}
+const draw = k => { document.querySelector(`[data-k="${k}"] .screen`).innerHTML = OPTS.find(x => x[0] === k)[5](k); };
+document.getElementById("grid").addEventListener("click", ev => {
+  const s = ev.target.closest("[data-k]"); if (!s) return; const k = s.dataset.k, b = ev.target.closest("[data-w],[data-c],[data-more]"); if (!b) return;
+  if (b.dataset.w) st[k + "w"] = b.dataset.w;
+  if (b.dataset.c !== undefined) st[k + "c"] = st[k + "c"] === b.dataset.c ? "" : b.dataset.c;
+  if (b.dataset.more) st[k] = true;
+  draw(k);
+});
+render();
+</script>
+</body>
+</html>
