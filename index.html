@@ -59,6 +59,12 @@ body { margin: 0; font-size: 14px; }
   --few: #ffb547; --few-bg: #3a2a10; --few-line: #6b4c17;
   color-scheme: dark; }
 
+.newlead { margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; font-size: 13.5px; font-weight: 600; color: var(--c-barn); }
+.newlead button, .newlead a { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.newlead .nl-seen { color: var(--muted); font-weight: 500; }
+.newlead .nl-jb { color: var(--c-julebord); }
+.newpill { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 30; display: flex; gap: 8px; align-items: center; border: 0; border-radius: 99px; background: var(--c-barn); color: #072014; font: 700 13.5px var(--font-body); padding: 10px 16px; box-shadow: 0 8px 24px #000a; cursor: pointer; white-space: nowrap; }
+.newer { font: 700 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; background: var(--c-barn); color: #072014; padding: 3px 6px; border-radius: 4px; }
 .kinostrip { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin: 4px 0 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--kino-soft); color: var(--fg); text-decoration: none; font-size: 14px; }
 .kinostrip b { font-family: var(--font-display); }
 .kinostrip span { margin-left: auto; color: var(--kino); font-weight: 600; }
@@ -289,6 +295,11 @@ footer a { color: var(--sea); }
     </div>
     <p class="lede">Konserter, standup, show og happenings i byen, samlet på ett sted. Programmet sjekkes hver morgen og kveld, og nye arrangementer merkes med NYTT. Trykk ☆ for å lagre det du vil på.</p>
     <div class="status" id="status">Henter programmet …</div>
+    <div class="newlead" id="newlead" role="region" aria-label="Nytt siden du var innom sist" hidden>
+      <button type="button" id="nlmain"></button>
+      <button type="button" class="nl-seen" id="nlseen">Merk som sett</button>
+      <a class="nl-jb" id="nljb" href="julebord/" hidden></a>
+    </div>
   </header>
 
   <div class="controls">
@@ -352,6 +363,7 @@ footer a { color: var(--sea); }
   </div>
 
   <main id="list"></main>
+  <button type="button" class="newpill" id="newpill" hidden></button>
   <div class="sheet" id="sheet" hidden>
     <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
       <h2 id="sheet-h">Del lista di</h2>
@@ -399,11 +411,33 @@ const store = {
 };
 const favs = new Set(store.get("skjer-favs", []));
 
+// Prøvefunksjon: «Nytt siden sist» er skjult for alle andre enn den som slår den på. ?nytt=1 slår på (husket i nettleseren),
+// ?nytt=0 slår av. ?nytt=1&sist=2026-10-24 later som om du sist var innom den datoen, så du kan se hvordan det ser ut.
+const NYTT = (() => {
+  try {
+    const u = new URL(location.href), q = u.searchParams.get("nytt"), sist = u.searchParams.get("sist");
+    if (q === "1") localStorage.setItem("skjer-nytt", "1");
+    if (q === "0") { localStorage.removeItem("skjer-nytt"); localStorage.removeItem("skjer-sist"); }
+    const on = localStorage.getItem("skjer-nytt") === "1";
+    if (on && /^\d{4}-\d\d-\d\d$/.test(sist || "")) localStorage.setItem("skjer-sist", JSON.stringify(new Date(sist + "T12:00:00").toISOString()));
+    if (q !== null || sist !== null) { u.searchParams.delete("nytt"); u.searchParams.delete("sist"); history.replaceState(null, "", u); }
+    return on;
+  } catch { return false; }
+})();
+// Nytt siden sist: nettleseren husker når du var innom sist. «Sist» leses én gang ved start og står stille mens du er her;
+// den nye tiden lagres når du forlater siden (eller bytter fane). Første besøk: ingen teller.
+let LAST = NYTT ? store.get("skjer-sist", null) : null;
+const seen = new Set(); // nye arrangementer du har sett (rullet forbi) i dette besøket
+const stampVisit = () => { if (NYTT) store.set("skjer-sist", new Date().toISOString()); };
+if (NYTT && !LAST) stampVisit();
+addEventListener("pagehide", stampVisit);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") stampVisit(); });
+
 // Lys/mørk modus: lagres per nettleser, ellers følger siden systemet
 const root = document.documentElement;
 const savedTheme = store.get("skjer-theme", null);
 if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
-const state = { q: "", when: "alt", cats: new Set(), venue: "", price: "", favOnly: false, view: store.get("skjer-view", "liste") === "kal" ? "kal" : "liste" };
+const state = { newOnly: false, q: "", when: "alt", cats: new Set(), venue: "", price: "", favOnly: false, view: store.get("skjer-view", "liste") === "kal" ? "kal" : "liste" };
 
 const dayMs = 864e5;
 const diffDays = d => Math.floor((d - TODAY) / dayMs);
@@ -467,6 +501,8 @@ const safeUrl = u => /^https:\/\//.test(u || "") ? u : "";
 const WD = ["søn", "man", "tir", "ons", "tor", "fre", "lør"];
 const rel = d => { const n = diffDays(d); return n === 0 ? "I dag" : n === 1 ? "I morgen" : n < 7 ? `Om ${n} dager` : ""; };
 const isNew = e => meta.seededAt && e.addedAt && e.addedAt > meta.seededAt && (now - new Date(e.addedAt)) < 14 * dayMs;
+const newSince = e => !!(LAST && meta.seededAt && e.addedAt && e.addedAt > meta.seededAt && e.addedAt > LAST && !seen.has(e.id));
+const newBadge = e => newSince(e) ? `<span class="newer">Ny siden sist</span>` : isNew(e) ? `<span class="new">Nytt</span>` : "";
 const priceOk = e => state.price === "" || (typeof e.priceMin === "number" && e.priceMin <= Number(state.price) && (state.price !== "0" || e.priceMin === 0));
 
 // Kalenderfil (.ics) for ett arrangement. Uten klokkeslett blir det en heldagshendelse, ellers 2 timer.
@@ -531,6 +567,61 @@ $("subcopy").onclick = async () => {
 
 // Jul i Ålesund: kortet vises bare fra 1. november til 26. desember (?jul=1 eller #jul viser det utenom sesongen, til test)
 const JULSEASON = (() => { const t = new Date(), m = t.getMonth(), d = t.getDate(); return m === 10 || (m === 11 && d <= 26) || location.search.includes("jul=1") || location.hash === "#jul"; })();
+// «Nye siden du var innom sist»: en grønn linje under «Sist sjekket». «Se dem» viser bare de nye, «Vis alt» går tilbake,
+// «Merk som sett» lagrer nå som siste besøk, så linjen og de grønne merkene forsvinner til det kommer noe nytt.
+function newEntry() {
+  const el = $("newlead"), fresh = E.filter(e => e.d >= TODAY && newSince(e)), jbNew = JB.filter(newSince);
+  if (!LAST) { el.hidden = true; return; }
+  const n = fresh.length;
+  if (!n && !state.newOnly) { el.hidden = true; return; }
+  const when = new Date(LAST), day = when.toLocaleDateString("nb-NO", { weekday: "long" }) + " " + when.getDate() + ". " + MO[when.getMonth()];
+  $("nlmain").innerHTML = state.newOnly
+    ? (n ? `Viser ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist · <u>Vis alt</u>` : `Du har sett alle de nye · <u>Vis alt</u>`)
+    : `✦ ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist (${esc(day)}) · <u>Se ${n === 1 ? "den" : "dem"}</u>`;
+  $("nlmain").setAttribute("aria-pressed", state.newOnly);
+  $("nlseen").hidden = !n;
+  updatePill(n);
+  Object.assign($("nljb"), { textContent: `🎄 + ${jbNew.length} ${jbNew.length === 1 ? "nytt julebord" : "nye julebord"} →`, hidden: !jbNew.length });
+  el.hidden = false;
+}
+// Fast pille nederst: vises når linjen øverst er rullet ut av syne og det fortsatt er nye igjen. Trykk for å hoppe til neste nye kort.
+let leadVisible = true;
+function updatePill(n) {
+  n ??= E.filter(e => e.d >= TODAY && newSince(e)).length;
+  const pill = $("newpill");
+  pill.hidden = !(LAST && n > 0 && !leadVisible);
+  if (!pill.hidden) pill.innerHTML = `↓ ${n} ${n === 1 ? "ny" : "nye"} igjen`;
+}
+new IntersectionObserver(([en]) => { leadVisible = en.isIntersecting; updatePill(); }).observe($("newlead"));
+$("newpill").addEventListener("click", () => {
+  track("nytt/pille");
+  const cards = [...document.querySelectorAll("#list [data-ns], #list [data-ns-ids]")];
+  const next = cards.find(c => c.getBoundingClientRect().top > innerHeight * 0.6) || cards[0];
+  next?.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+// Telle ned mens man ruller: et nytt arrangement regnes som sett når det har stått mest synlig i 1,2 sekunder.
+// Kortet mister det grønne merket og tallet i linjen går ned. Lista endres ikke mens man ser på den.
+let nsObs = null; const nsTimers = new Map();
+function markSeen(el) {
+  nsObs?.unobserve(el); nsTimers.delete(el);
+  (el.dataset.nsIds ? el.dataset.nsIds.split(",") : [el.id.slice(3)]).forEach(id => seen.add(id));
+  el.removeAttribute("data-ns"); el.removeAttribute("data-ns-ids");
+  el.querySelectorAll(".newer").forEach(b => b.remove());
+  newEntry();
+}
+function watchNew() {
+  nsObs?.disconnect(); nsTimers.forEach(clearTimeout); nsTimers.clear();
+  if (!LAST || !("IntersectionObserver" in window)) return;
+  nsObs = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) nsTimers.set(en.target, setTimeout(() => markSeen(en.target), 1200));
+    else { clearTimeout(nsTimers.get(en.target)); nsTimers.delete(en.target); }
+  }), { threshold: 0.6 });
+  document.querySelectorAll("#list [data-ns], #list [data-ns-ids]").forEach(el => nsObs.observe(el));
+}
+$("nlmain").addEventListener("click", () => { state.newOnly = !state.newOnly; track(state.newOnly ? "nytt/vis" : "nytt/vis-alt"); render(); newEntry(); });
+$("nlseen").addEventListener("click", () => { LAST = new Date().toISOString(); stampVisit(); state.newOnly = false; track("nytt/merk-som-sett"); newEntry(); render(); });
+$("nljb").addEventListener("click", () => track("nytt/julebord"));
+
 // Julebord: en knapp i julekortet i sesongen, ellers (oktober) en stripe under kinostripen
 function julebordEntry() {
   if (!JB.length) return;
@@ -676,8 +767,8 @@ function priceHtml(e) {
 
 function matchHtml(e, u) {
   const fav = favs.has(e.id);
-  return `<article class="ev match" id="ev-${esc(e.id)}" style="--c:var(--c-sport)">
-    <div class="mtop"><span class="lg">${esc(e.league || CATS.sport)}</span><span class="r">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a><button class="fav" data-id="${esc(e.id)}" aria-pressed="${fav}" aria-label="${fav ? "Fjern fra mine" : "Lagre"}">${fav ? "★" : "☆"}</button></span></div>
+  return `<article class="ev match"${newSince(e) ? " data-ns=\"1\"" : ""} id="ev-${esc(e.id)}" style="--c:var(--c-sport)">
+    <div class="mtop"><span class="lg">${esc(e.league || CATS.sport)}</span><span class="r">${newBadge(e)}<a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a><button class="fav" data-id="${esc(e.id)}" aria-pressed="${fav}" aria-label="${fav ? "Fjern fra mine" : "Lagre"}">${fav ? "★" : "☆"}</button></span></div>
     <div class="versus"><div class="team">${esc(e.home)}</div><div class="ko">${esc(e.time || "–")}</div><div class="team away">${esc(e.away)}</div></div>
     <div class="mfoot"><div class="row1">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Billetter hos AaFK →</a>` : ""}${priceHtml(e)}</div>
       <div class="actions"><button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div></div>
@@ -689,12 +780,13 @@ const matchesBase = e =>
   (!state.venue || e.venue === state.venue) &&
   priceOk(e) &&
   (!state.favOnly || favs.has(e.id)) &&
+  (!state.newOnly || newSince(e)) &&
   (!state.q || (e.title + " " + e.venue + " " + (CATS[e.cat] || "")).toLowerCase().includes(state.q));
 
-function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
+function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev"${newSince(e) ? " data-ns=\"1\"" : ""} id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
         <h3>${esc(e.title)}</h3>
         <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}${fewHtml(e)}</div>
-        <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${CATS[c]}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
+        <div class="meta">${newBadge(e)}<span class="tag">${CATS[c]}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
         ${showsHtml(e)}
         ${e.note ? `<div class="note ${e.uncertain ? "warn" : ""}">${esc(e.note)}</div>` : ""}
         <div class="actions">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}<button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div>
@@ -710,7 +802,7 @@ function collapseQuiz(items) {
 function quizHtml(c) {
   const q = c.items, places = new Set(q.map(e => e.venue)).size, prices = q.map(e => e.priceMin).filter(p => p > 0), min = prices.length ? Math.min(...prices) : 0;
   const rows = q.slice(0, 3).map(e => { const u = safeUrl(e.url); return `<${u ? `a href="${esc(u)}" target="_blank" rel="noopener"` : "div"} class="qrow"><b>${e.d.getDate()}. ${MO[e.d.getMonth()]}</b><span>${esc(e.title)} <small>${esc(e.venue)}</small></span><small>${esc(e.priceMin === 0 ? "Gratis" : e.price || "")}</small></${u ? "a" : "div"}>`; }).join("");
-  return `<article class="ev quizcard" style="--c:var(--c-quiz)">
+  return `<article class="ev quizcard"${c.items.some(newSince) ? ` data-ns-ids="${c.items.filter(newSince).map(e => esc(e.id)).join(",")}"` : ""} style="--c:var(--c-quiz)">
         <h3><a class="title" href="quiz/">Quiz i Ålesund</a></h3>
         <div class="side">${min ? `<span class="price">fra ${min} kr</span>` : ""}</div>
         <div class="meta"><span class="tag">Quiz</span><span>${places} ${places === 1 ? "sted" : "steder"}</span><span class="t">${q.length} ${q.length === 1 ? "kveld" : "kvelder"}</span></div>
@@ -735,6 +827,7 @@ function render() {
     return `<section class="day"><div class="date"><div class="wd">${WD[d.getDay()]}</div><div class="num">${d.getDate()}</div><div class="mo">${MO[d.getMonth()]}</div>${rel(d) ? `<div class="rel">${rel(d)}</div>` : ""}</div>
       <div class="events">${g.map(eventHtml).join("")}</div></section>`;
   }).join("");
+  watchNew();
 }
 
 // Kalendervisning: måned med én prikk per arrangement, og dagens arrangementer under.
@@ -844,7 +937,7 @@ fetch("data/events.json", { cache: "no-cache" })
     const all = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
     JB = all.filter(e => e.cat === "julebord" && e.d >= TODAY);
     E = all.filter(e => e.cat !== "julebord");
-    fillVenues(); julebordEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
+    fillVenues(); julebordEntry(); newEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
 // Kino: én stripe under filtrene (filmene ligger ikke i hovedlista)

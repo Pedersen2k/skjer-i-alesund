@@ -109,12 +109,14 @@ footer b { color: var(--fg); font-weight: 600; }
 <div class="wrap">
 <header>
   <h1>«Nytt siden sist» på forsiden</h1>
-  <p>Fem forslag. Siden husker når du var innom sist (bare i nettleseren din, som «Mine»), og teller det som er lagt til siden da. Eksempelet er ekte: hvis du sist var innom <b>fredag 24. oktober</b>, er det kommet <b>7 nye arrangementer</b> (julemarkeder, kirkekonserter, en quiz) og <b>10 nye julebord</b>.</p>
+  <p>Fem forslag, og fire måter å formulere det på (velg under «Ordlyd»). Siden husker når du var innom sist (bare i nettleseren din, som «Mine»), og teller det som er lagt til siden da. Eksempelet er ekte: hvis du sist var innom <b>fredag 24. oktober</b>, er det kommet <b>7 nye arrangementer</b> (julemarkeder, kirkekonserter, en quiz) og <b>10 nye julebord</b>.</p>
   <p>Poenget: det nye ligger mest i desember, langt nede i lista. Uten en teller ser du det ikke. Det røde «Nytt»-merket på kortene i dag betyr «lagt til de siste 14 dagene», uansett om du har sett det før.</p>
 </header>
 <div class="ctl">
   <span>Vis som:</span>
   <div class="seg" id="mode"><button aria-pressed="true" data-m="back">Har vært her før</button><button aria-pressed="false" data-m="first">Første besøk</button></div>
+  <span>Ordlyd:</span>
+  <div class="seg" id="words"></div>
   <span>Trykk gjerne på telleren i hvert forslag.</span>
 </div>
 <div class="grid" id="grid"></div>
@@ -140,10 +142,32 @@ const NEW = EV.filter(e => e.n), JB = 10;
 const TAG = { konsert: "Konsert", standup: "Standup", klubb: "Klubb", happening: "Happening", quiz: "Quiz" };
 const short = e => e.day.split(" ").slice(1).join(" ");
 let FIRST = false;
+const WHEN = "fredag 24. okt";
+// Fire ordlyder. n = antall nye, jb = nye julebord. Teksten byttes i alle fem forslag.
+const WORDS = [
+  { name: "Siden du var innom", btn: "nye siden sist", strip: "nye siden du var innom sist", sub: `Du var sist her ${WHEN}`,
+    hint: n => `Viser de ${n} arrangementene som er lagt til siden du var innom sist (${WHEN}).`, copt: n => `Nytt siden du var innom (${n})`,
+    boxH: "Nytt siden du var innom", boxP: (n, jb) => `Du var sist her ${WHEN}. Siden da er det kommet ${n} nye arrangementer og ${jb} nye julebord.`,
+    fab: n => `${n} nye siden du var innom`, first: "Første besøk: ingen teller. Kommer du tilbake, viser vi hva som er nytt siden du var innom.", badge: "Ny siden sist" },
+  { name: "Velkommen tilbake", btn: "nye for deg", strip: "Velkommen tilbake! Se hva som er nytt", sub: `${"{n}"} nye arrangementer siden ${WHEN}`,
+    hint: n => `Velkommen tilbake! Her er de ${n} nye siden ${WHEN}.`, copt: n => `Nytt for deg (${n})`,
+    boxH: "Velkommen tilbake", boxP: (n, jb) => `Siden ${WHEN} er det kommet ${n} nye arrangementer og ${jb} nye julebord.`,
+    fab: n => `${n} nye for deg`, first: "Første besøk: ingen teller. Neste gang du kommer tilbake, sier vi hva som er nytt.", badge: "Nytt for deg" },
+  { name: "Kort og direkte", btn: "nye", strip: "nye siden sist", sub: "Siden du var her sist",
+    hint: n => `${n} nye siden sist.`, copt: n => `Nytt siden sist (${n})`,
+    boxH: "Nytt siden sist", boxP: (n, jb) => `${n} nye arrangementer og ${jb} nye julebord.`,
+    fab: n => `${n} nye siden sist`, first: "Første besøk: ingen teller. Neste gang ser du hva som er nytt siden sist.", badge: "Ny" },
+  { name: "Som spørsmål", btn: "hva er nytt?", strip: "Hva er nytt siden sist du var her?", sub: `${"{n}"} nye arrangementer siden ${WHEN}`,
+    hint: n => `Nytt siden sist du var her: ${n} arrangementer.`, copt: n => `Hva er nytt? (${n})`,
+    boxH: "Hva er nytt siden sist?", boxP: (n, jb) => `Du var her ${WHEN}. Siden da: ${n} arrangementer og ${jb} julebord.`,
+    fab: n => `${n} nye, se hva`, first: "Første besøk: ingen teller. Kommer du igjen, viser vi hva som er nytt.", badge: "Nytt siden sist" },
+];
+let WI = 0;
+const W = () => WORDS[WI];
 const st = {}; // tilstand per forslag
 
 function card(e, o = {}) {
-  const badge = e.n && !FIRST ? (o.green ? `<span class="newer">Ny siden sist</span>` : `<span class="new">Nytt</span>`) : e.n ? `<span class="new">Nytt</span>` : "";
+  const badge = e.n && !FIRST ? (o.green ? `<span class="newer">${W().badge}</span>` : `<span class="new">Nytt</span>`) : e.n ? `<span class="new">Nytt</span>` : "";
   return `<article class="ev ${o.glow && e.n && !FIRST ? "glow" : ""}" data-new="${e.n ? 1 : ""}" style="--c:var(--c-${e.c})">
     <h3>${e.t}</h3><div class="side"><span class="fav">☆</span><span class="price ${e.p ? "" : "unk"}">${e.p || "Pris hos arrangør"}</span></div>
     <div class="meta">${badge}<span class="tag">${TAG[e.c]}</span><span>${e.v}</span>${e.time ? `<span class="t">kl. ${e.time}</span>` : ""}</div></article>`;
@@ -154,45 +178,45 @@ function list(evs, o) {
 }
 const topBar = (extra = "", dd = ["Alle datoer", "Alle kategorier"]) => `<div class="top"><div class="brand"><b>Skjer i Ålesund</b><small>Mørkt | Lyst</small></div>
   <div class="bar"><span class="search">Søk etter artist, sted …</span>${extra}<button class="chip">★ Mine</button></div>
-  <div class="dd">${dd.map(x => `<span class="${x.startsWith("Nytt") ? "on" : ""}">${x}</span>`).join("")}<span>Alle scener</span><span>Alle priser</span></div></div>`;
-const firstNote = `<div class="first">Første besøk: ingen teller. Neste gang du kommer, ser du hva som er nytt siden i dag.</div>`;
+  <div class="dd">${dd.map(x => `<span class="${(x.startsWith("Nytt") || x.startsWith("Hva er")) ? "on" : ""}">${x}</span>`).join("")}<span>Alle scener</span><span>Alle priser</span></div></div>`;
+const firstNote = () => `<div class="first">${W().first}</div>`;
 
 const OPTS = [
   ["A", "Teller ved «Mine»", "En grønn knapp «✦ 7 nye» ved siden av «★ Mine». Trykk, og lista viser bare det nye. Trykk igjen for alt.",
     ["Liten, alltid på samme sted", "Bruker filtrene som finnes"], ["Lett å overse for dem som ikke ser opp", "Tar plass i den trange menylinja på mobil"],
     k => {
       const on = st[k];
-      const btn = FIRST ? "" : `<button class="chip newchip cnt" data-act="toggle" aria-pressed="${!!on}">✦ <i>${NEW.length}</i> nye</button>`;
-      return topBar(btn) + (on ? `<p class="hint">Viser ${NEW.length} nye siden fredag 24. okt. Pluss ${JB} nye julebord på julebordsida.</p>` + list(NEW) : (FIRST ? firstNote : "") + list(EV));
+      const btn = FIRST ? "" : `<button class="chip newchip cnt" data-act="toggle" aria-pressed="${!!on}">✦ <i>${NEW.length}</i> ${W().btn}</button>`;
+      return topBar(btn) + (on ? `<p class="hint">${W().hint(NEW.length)} Pluss ${JB} nye julebord på julebordsida.</p>` + list(NEW) : (FIRST ? firstNote() : "") + list(EV));
     }],
-  ["B", "Stripe øverst", "En stripe som kinostripa: «7 nye siden fredag» med de tre første titlene. Trykk for å se dem, × for å skjule til neste gang.",
+  ["B", "Stripe øverst", "En stripe som kinostripa: «7 nye siden du var innom sist» med de tre første titlene. Trykk for å se dem, × for å skjule til neste gang.",
     ["Synes godt, uten å ta over", "Kjent form fra kino- og julebordstripa"], ["Én stripe til øverst (kino + julebord + denne)"],
     k => {
       const s = st[k];
-      const strip = FIRST || s === "x" ? "" : `<div class="strip" data-act="toggle"><span class="n">${NEW.length}</span><span><b>nye siden fredag</b><small>${NEW.slice(1, 4).map(e => e.t).join(" · ")} …</small></span><button class="x" data-act="x" aria-label="Skjul">×</button></div>`;
-      return topBar() + (FIRST ? firstNote : "") + strip + (s === true ? `<p class="hint">${NEW.length} nye siden fredag 24. okt. <span style="color:var(--gold)">+ ${JB} nye julebord →</span></p>` + list(NEW, { green: true }) : list(EV, { green: true }));
+      const strip = FIRST || s === "x" ? "" : `<div class="strip" data-act="toggle"><span class="n">${NEW.length}</span><span><b>${W().strip.replace("{n}", NEW.length)}</b><small>${W().sub.replace("{n}", NEW.length)}</small><small>${NEW.slice(1, 4).map(e => e.t).join(" · ")} …</small></span><button class="x" data-act="x" aria-label="Skjul">×</button></div>`;
+      return topBar() + (FIRST ? firstNote() : "") + strip + (s === true ? `<p class="hint">${W().hint(NEW.length)} <span style="color:var(--gold)">+ ${JB} nye julebord →</span></p>` + list(NEW, { green: true }) : list(EV, { green: true }));
     }],
-  ["C", "Valg under «Når»", "«Nytt siden sist (7)» blir et valg i datomenyen, ved siden av I dag, I helgen osv. På PC blir det en egen chip.",
+  ["C", "Valg under «Når»", "«Nytt siden du var innom (7)» blir et valg i datomenyen, ved siden av I dag, I helgen osv. På PC blir det en egen chip.",
     ["Ingen nye elementer på siden", "Passer inn i menyen vi har"], ["Skjult til man åpner menyen", "Telleren synes ikke før man leter"],
     k => {
       const on = st[k];
-      const dd = FIRST ? ["Alle datoer", "Alle kategorier"] : [on ? `Nytt siden sist (${NEW.length})` : "Alle datoer", "Alle kategorier"];
-      return topBar("", dd) + (FIRST ? firstNote + list(EV) : `<p class="hint">Datomenyen: Alle datoer · I dag · I morgen · I helgen · <b data-act="toggle" style="color:var(--new);cursor:pointer">Nytt siden sist (${NEW.length})</b> · …</p>` + list(on ? NEW : EV, { green: true }));
+      const dd = FIRST ? ["Alle datoer", "Alle kategorier"] : [on ? W().copt(NEW.length) : "Alle datoer", "Alle kategorier"];
+      return topBar("", dd) + (FIRST ? firstNote() + list(EV) : `<p class="hint">Datomenyen: Alle datoer · I dag · I morgen · I helgen · <b data-act="toggle" style="color:var(--new);cursor:pointer">${W().copt(NEW.length)}</b> · …</p>` + list(on ? NEW : EV, { green: true }));
     }],
-  ["D", "Egen boks over lista", "En boks «Nytt siden sist» med de nye i en kort liste (dato, tittel, pris). Trykk på en rad for å hoppe til kortet. «Ferdig» skjuler boksen.",
+  ["D", "Egen boks over lista", "En boks «Nytt siden du var innom» med de nye i en kort liste (dato, tittel, pris). Trykk på en rad for å hoppe til kortet. «Ferdig» skjuler boksen.",
     ["Viser det nye med en gang, uten å filtrere", "Lett å skumme"], ["Tar mest plass", "Dytter dagens arrangementer nedover"],
     k => {
       const s = st[k];
       const rows = (s === "all" ? NEW : NEW.slice(0, 4)).map(e => `<a data-act="jump" data-t="${e.t}"><b>${short(e)}</b><span>${e.t}<small>${e.v}</small></span><em>${e.p || "–"}</em></a>`).join("");
-      const box = FIRST || s === "x" ? "" : `<div class="box"><h4>Nytt siden sist <small>fredag 24. okt</small></h4><p>${NEW.length} nye arrangementer og ${JB} nye julebord.</p>${rows}<div class="more">${s === "all" ? "<span></span>" : `<button data-act="all">Vis alle ${NEW.length} →</button>`}<button class="mute" data-act="x">Ferdig</button></div></div>`;
-      return topBar() + (FIRST ? firstNote : "") + box + list(EV, { green: true });
+      const box = FIRST || s === "x" ? "" : `<div class="box"><h4>${W().boxH} <small>sist her ${WHEN.split(" ").slice(1).join(" ")}</small></h4><p>${W().boxP(NEW.length, JB)}</p>${rows}<div class="more">${s === "all" ? "<span></span>" : `<button data-act="all">Vis alle ${NEW.length} →</button>`}<button class="mute" data-act="x">Ferdig</button></div></div>`;
+      return topBar() + (FIRST ? firstNote() : "") + box + list(EV, { green: true });
     }],
-  ["E", "Merket kort + hopp", "De nye kortene får grønn kant og «Ny siden sist». En flytende knapp «↓ 7 nye» hopper til neste nye kort i lista.",
+  ["E", "Merket kort + hopp", "De nye kortene får grønn kant og «Ny siden sist». En flytende knapp «↓ 7 nye siden du var innom» hopper til neste nye kort i lista.",
     ["Man ser det nye der det hører hjemme", "Lista er uendret"], ["Flytende knapp kan dekke innhold", "Mest å bygge"],
     k => {
       const i = st[k] || 0;
-      const fab = FIRST ? "" : `<button class="fab" data-act="next">↓ ${i ? `Neste nye` : `${NEW.length} nye siden fredag`}<small>${i ? `${i}/${NEW.length}` : ""}</small></button>`;
-      return topBar() + (FIRST ? firstNote : "") + list(EV, { green: true, glow: true }) + `<div style="height:80px"></div>` + `<!--fab-->` + fab;
+      const fab = FIRST ? "" : `<button class="fab" data-act="next">↓ ${i ? `Neste nye` : W().fab(NEW.length)}<small>${i ? `${i}/${NEW.length}` : ""}</small></button>`;
+      return topBar() + (FIRST ? firstNote() : "") + list(EV, { green: true, glow: true }) + `<div style="height:80px"></div>` + `<!--fab-->` + fab;
     }],
 ];
 
@@ -222,6 +246,10 @@ document.getElementById("grid").addEventListener("click", ev => {
   }
   draw(k);
 });
+const wordsEl = document.getElementById("words");
+function drawWords() { wordsEl.innerHTML = WORDS.map((w, i) => `<button aria-pressed="${i === WI}" data-w="${i}">${w.name}</button>`).join(""); }
+wordsEl.onclick = ev => { const b = ev.target.closest("[data-w]"); if (!b) return; WI = +b.dataset.w; drawWords(); for (const k in st) delete st[k]; render(); };
+drawWords();
 document.getElementById("mode").onclick = ev => {
   const b = ev.target.closest("[data-m]"); if (!b) return; FIRST = b.dataset.m === "first";
   document.querySelectorAll("#mode button").forEach(x => x.setAttribute("aria-pressed", x === b)); for (const k in st) delete st[k]; render();
