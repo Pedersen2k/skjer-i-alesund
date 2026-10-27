@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-27T05:48:23Z",
+  "updatedAt": "2026-10-27T07:33:23Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -172,6 +172,28 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/39abfbc7-adcd-4528-a046-1961bfb4853f",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20251675",
+   "title": "Ebenezer",
+   "age": 12,
+   "minutes": null,
+   "genres": [
+    "Drama",
+    "Fantasy",
+    "Sort komedie"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ece98fe1e9a1b24ef010288a35d3384c503d2f72-954x1350.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-11-13",
+   "shows": [
+    {
+     "start": "2026-11-13T17:45:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/db61a98c-0cd5-42e8-8288-6f11aea6ce9e",
      "club": false
     }
    ]
@@ -872,18 +894,18 @@
     },
     {
      "start": "2026-10-29T12:00:00",
+     "screen": "1 isense",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/aa2b04d7-8ac5-42c0-a938-56e878760074",
+     "club": false
+    },
+    {
+     "start": "2026-10-29T12:00:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/4ca3ef64-19eb-45c3-b0c9-e950a0260e2b",
-     "club": false
-    },
-    {
-     "start": "2026-10-29T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/aa2b04d7-8ac5-42c0-a938-56e878760074",
      "club": false
     },
     {
