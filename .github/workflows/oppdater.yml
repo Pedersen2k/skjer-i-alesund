@@ -2,14 +2,11 @@ name: Oppdater og publiser
 
 on:
   schedule:
-    # GitHub hopper av og til over planlagte kjøringer, særlig rett på hel/halv time.
-    # Derfor: hovedkjøring på et "rolig" minutt, og en reserve en time senere.
-    # Å kjøre to ganger er ufarlig: det committes bare hvis programmet er endret.
-    # UTC. Vintertid: ca. 06:17 og 20:43 (sommertid: en time senere).
-    - cron: "17 5 * * *"    # morgen
-    - cron: "43 6 * * *"    # morgen, reserve
-    - cron: "43 19 * * *"   # kveld
-    - cron: "17 21 * * *"   # kveld, reserve
+    # Hver andre time på dagtid, så «Utsolgt» og «Få billetter igjen» er ferske. Et "rolig" minutt, fordi GitHub
+    # av og til hopper over kjøringer rett på hel/halv time; en kjøring som faller bort, tas igjen to timer senere.
+    # Det committes og publiseres bare når programmet er endret.
+    # UTC. Vintertid: ca. 06:17, 08:17 … 22:17 (sommertid: en time senere).
+    - cron: "17 5-21/2 * * *"
   push:
     branches: [main]
   workflow_dispatch:
@@ -106,7 +103,7 @@ jobs:
         run: |
           {
             if [ "$FAILED" = "true" ]; then
-              echo "Den daglige oppdateringen feilet, så siden viser fortsatt programmet fra forrige vellykkede kjøring."
+              echo "Oppdateringen feilet, så siden viser fortsatt programmet fra forrige vellykkede kjøring."
               echo
             fi
             if [ -s "$SYNC_WARNINGS" ]; then cat "$SYNC_WARNINGS"; echo; fi
@@ -115,7 +112,13 @@ jobs:
           title="Programoppdateringen trenger tilsyn"
           num=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
           if [ -n "$num" ]; then
-            gh issue comment "$num" --repo "$GITHUB_REPOSITORY" --body-file body.md
+            # Kjører hver andre time: ikke ny kommentar (og e-post) når problemet er det samme som sist
+            last=$(gh issue view "$num" --repo "$GITHUB_REPOSITORY" --json body,comments --jq '(.comments | last | .body) // .body')
+            if [ "$(grep -v '^Logg:' body.md)" = "$(printf '%s\n' "$last" | grep -v '^Logg:')" ]; then
+              echo "Samme problem som sist, ingen ny kommentar."
+            else
+              gh issue comment "$num" --repo "$GITHUB_REPOSITORY" --body-file body.md
+            fi
           else
             # Tildeles eieren, så GitHub sender e-post (også om nye kommentarer) uten at repoet må følges
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file body.md --assignee "$GITHUB_REPOSITORY_OWNER"
@@ -128,5 +131,5 @@ jobs:
         run: |
           title="Programoppdateringen trenger tilsyn"
           for num in $(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"$title\" in:title" --json number --jq '.[].number'); do
-            gh issue close "$num" --repo "$GITHUB_REPOSITORY" --comment "Oppdateringen gikk fint i dag igjen, så jeg lukker dette."
+            gh issue close "$num" --repo "$GITHUB_REPOSITORY" --comment "Oppdateringen gikk fint igjen, så jeg lukker dette."
           done

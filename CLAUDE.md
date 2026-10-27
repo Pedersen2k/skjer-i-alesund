@@ -1,6 +1,6 @@
 # Skjer i Ålesund
 
-Offentlig nettside med konserter, standup, show og happenings i Ålesund, med billettpriser. Statisk side på GitHub Pages som oppdateres to ganger i døgnet av GitHub Actions. Brukeren snakker norsk: svar og skriv UI-tekst på norsk (bokmål).
+Offentlig nettside med konserter, standup, show og happenings i Ålesund, med billettpriser. Statisk side på GitHub Pages som oppdateres hver andre time på dagtid av GitHub Actions. Brukeren snakker norsk: svar og skriv UI-tekst på norsk (bokmål).
 
 Full oversikt over mål, beslutninger, filer, neste steg og fallgruver: @HANDOFF.md
 Brukerrettet dokumentasjon (manual.json, overrides.json, varsling): @README.md

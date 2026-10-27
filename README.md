@@ -10,7 +10,7 @@ Konserter, standup, show og happenings i Ålesund, samlet på ett sted, med bill
 - `scripts/sync.py` henter Ålesund-arrangementer og billettpriser fra Tikkio, programmet til Parken kulturhus kalenderen til Dampsentralen (`dampsentralen.no/kalender?format=json`) arrangementene til Viti (`vitimusea.no/arrangement`, bare de i Ålesund: Jugendstilsenteret og Sunnmøre museum) og programmet til Fabrikken Kulturscene (`fabrikkenkulturscene.no/program`), og skriver `data/events.json`. Dampsentralen har ikke priser på siden sin; er det en Tikkio-lenke i beskrivelsen, hentes prisen derfra. Fabrikken selger billetter på Billetto; prisen vises bare når den står på Fabrikkens egen side (foreløpig bare julebordet).
 - `scripts/pages.py` lager statiske undersider for søkemotorer og deling: «I dag», «Denne helgen», én side per kategori, per scene (med minst tre arrangementer) og per arrangement, pluss `sitemap.xml` og `404.html`. Alt legges i `_site/` (ikke i git) sammen med forsiden, og det er `_site/` som publiseres.
 - `scripts/kino.py` henter kinoprogrammet til ODEON Ålesund fra Filmweb (odeonkino.no blokkerer roboter) og skriver `data/kino.json`. Kino holdes utenfor `events.json`, og vises på `kino/` og som en stripe på forsiden. Fjern det ved å slette kino-delene i `pages.py`, `index.html`, `helgepost.py` og workflowen.
-- GitHub Actions (`.github/workflows/oppdater.yml`) kjører skriptet to ganger i døgnet (morgen og kveld), lagrer endringene og publiserer siden på GitHub Pages.
+- GitHub Actions (`.github/workflows/oppdater.yml`) kjører skriptet hver andre time fra ca. kl. 06 til 22, lagrer endringene og publiserer siden på GitHub Pages.
 
 ## Søkemotorer (SEO)
 
@@ -30,8 +30,12 @@ Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et iss
 
 ## Varsling og statistikk
 
-- **Varsling:** Feiler morgenoppdateringen, svarer ikke Parken, eller faller antall arrangementer kraftig, lager jobben et issue med tittelen «Programoppdateringen trenger tilsyn», og GitHub sender deg e-post. Nye problemer legges til som kommentarer i samme issue. Det lukkes automatisk neste morgen alt går fint. Siden viser også selv et varsel hvis programmet er mer enn tre dager gammelt.
+- **Varsling:** Feiler oppdateringen, svarer ikke Parken, eller faller antall arrangementer kraftig, lager jobben et issue med tittelen «Programoppdateringen trenger tilsyn», og GitHub sender deg e-post. Nye problemer legges til som kommentarer i samme issue (samme problem som sist gir ingen ny kommentar). Det lukkes automatisk neste gang alt går fint. Siden viser også selv et varsel hvis programmet er mer enn tre dager gammelt.
 - **Statistikk:** Siden teller besøk med [GoatCounter](https://www.goatcounter.com), som ikke bruker informasjonskapsler. Statistikken ligger på https://kaskjerda.goatcounter.com (eldre tall fra før domenet ligger på https://skjer-i-alesund.goatcounter.com), og koden står i `GOATCOUNTER` øverst i skriptet i `index.html`. I tillegg til sidevisninger telles trykk på billettlenker, kart, kalender, deling, lagring og filtre (aldri hva folk søker etter).
+
+## Utsolgt og «Få billetter igjen»
+
+`sync.py` leser merket på hver Tikkio-side («Utsolgt» / «Få billetter igjen») og statusen hos Parken (hele arrangementet og hver forestilling). Oversikten til Tikkio sier alltid «på lager», så det er merket på selve siden som teller. Kortet får et lite «Få billetter igjen»-merke, og har arrangementet 2–6 forestillinger, vises tidene som knapper med status («13:00 utsolgt», «18:00 få igjen»). Parken merker nesten alt, så deres merke vises bare de siste to ukene før forestillingen.
 
 ## Legge til eller rette arrangementer
 
