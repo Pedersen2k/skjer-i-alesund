@@ -412,6 +412,7 @@ const favs = new Set(store.get("skjer-favs", []));
 // Nytt siden sist: nettleseren husker når du var innom sist. «Sist» leses én gang ved start og står stille mens du er her;
 // den nye tiden lagres når du forlater siden (eller bytter fane). Første besøk: ingen teller.
 let LAST = store.get("skjer-sist", null);
+const seen = new Set(); // nye arrangementer du har sett (rullet forbi) i dette besøket
 const stampVisit = () => store.set("skjer-sist", new Date().toISOString());
 if (!LAST) stampVisit();
 addEventListener("pagehide", stampVisit);
@@ -485,7 +486,7 @@ const safeUrl = u => /^https:\/\//.test(u || "") ? u : "";
 const WD = ["søn", "man", "tir", "ons", "tor", "fre", "lør"];
 const rel = d => { const n = diffDays(d); return n === 0 ? "I dag" : n === 1 ? "I morgen" : n < 7 ? `Om ${n} dager` : ""; };
 const isNew = e => meta.seededAt && e.addedAt && e.addedAt > meta.seededAt && (now - new Date(e.addedAt)) < 14 * dayMs;
-const newSince = e => !!(LAST && meta.seededAt && e.addedAt && e.addedAt > meta.seededAt && e.addedAt > LAST);
+const newSince = e => !!(LAST && meta.seededAt && e.addedAt && e.addedAt > meta.seededAt && e.addedAt > LAST && !seen.has(e.id));
 const newBadge = e => newSince(e) ? `<span class="newer">Ny siden sist</span>` : isNew(e) ? `<span class="new">Nytt</span>` : "";
 const priceOk = e => state.price === "" || (typeof e.priceMin === "number" && e.priceMin <= Number(state.price) && (state.price !== "0" || e.priceMin === 0));
 
@@ -555,16 +556,38 @@ const JULSEASON = (() => { const t = new Date(), m = t.getMonth(), d = t.getDate
 // «Merk som sett» lagrer nå som siste besøk, så linjen og de grønne merkene forsvinner til det kommer noe nytt.
 function newEntry() {
   const el = $("newlead"), fresh = E.filter(e => e.d >= TODAY && newSince(e)), jbNew = JB.filter(newSince);
-  if (!LAST || !fresh.length) { el.hidden = true; if (state.newOnly) { state.newOnly = false; render(); } return; }
-  const n = fresh.length, when = new Date(LAST), day = when.toLocaleDateString("nb-NO", { weekday: "long" }) + " " + when.getDate() + ". " + MO[when.getMonth()];
+  if (!LAST) { el.hidden = true; return; }
+  const n = fresh.length;
+  if (!n && !state.newOnly) { el.hidden = true; return; }
+  const when = new Date(LAST), day = when.toLocaleDateString("nb-NO", { weekday: "long" }) + " " + when.getDate() + ". " + MO[when.getMonth()];
   $("nlmain").innerHTML = state.newOnly
-    ? `Viser ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist · <u>Vis alt</u>`
+    ? (n ? `Viser ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist · <u>Vis alt</u>` : `Du har sett alle de nye · <u>Vis alt</u>`)
     : `✦ ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist (${esc(day)}) · <u>Se ${n === 1 ? "den" : "dem"}</u>`;
   $("nlmain").setAttribute("aria-pressed", state.newOnly);
+  $("nlseen").hidden = !n;
   Object.assign($("nljb"), { textContent: `🎄 + ${jbNew.length} ${jbNew.length === 1 ? "nytt julebord" : "nye julebord"} →`, hidden: !jbNew.length });
   el.hidden = false;
 }
-$("nlmain").addEventListener("click", () => { state.newOnly = !state.newOnly; track(state.newOnly ? "nytt/vis" : "nytt/vis-alt"); newEntry(); render(); });
+// Telle ned mens man ruller: et nytt arrangement regnes som sett når det har stått mest synlig i 1,2 sekunder.
+// Kortet mister det grønne merket og tallet i linjen går ned. Lista endres ikke mens man ser på den.
+let nsObs = null; const nsTimers = new Map();
+function markSeen(el) {
+  nsObs?.unobserve(el); nsTimers.delete(el);
+  (el.dataset.nsIds ? el.dataset.nsIds.split(",") : [el.id.slice(3)]).forEach(id => seen.add(id));
+  el.removeAttribute("data-ns"); el.removeAttribute("data-ns-ids");
+  el.querySelectorAll(".newer").forEach(b => b.remove());
+  newEntry();
+}
+function watchNew() {
+  nsObs?.disconnect(); nsTimers.forEach(clearTimeout); nsTimers.clear();
+  if (!LAST || !("IntersectionObserver" in window)) return;
+  nsObs = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) nsTimers.set(en.target, setTimeout(() => markSeen(en.target), 1200));
+    else { clearTimeout(nsTimers.get(en.target)); nsTimers.delete(en.target); }
+  }), { threshold: 0.6 });
+  document.querySelectorAll("#list [data-ns], #list [data-ns-ids]").forEach(el => nsObs.observe(el));
+}
+$("nlmain").addEventListener("click", () => { state.newOnly = !state.newOnly; track(state.newOnly ? "nytt/vis" : "nytt/vis-alt"); render(); newEntry(); });
 $("nlseen").addEventListener("click", () => { LAST = new Date().toISOString(); stampVisit(); state.newOnly = false; track("nytt/merk-som-sett"); newEntry(); render(); });
 $("nljb").addEventListener("click", () => track("nytt/julebord"));
 
@@ -713,7 +736,7 @@ function priceHtml(e) {
 
 function matchHtml(e, u) {
   const fav = favs.has(e.id);
-  return `<article class="ev match" id="ev-${esc(e.id)}" style="--c:var(--c-sport)">
+  return `<article class="ev match"${newSince(e) ? " data-ns=\"1\"" : ""} id="ev-${esc(e.id)}" style="--c:var(--c-sport)">
     <div class="mtop"><span class="lg">${esc(e.league || CATS.sport)}</span><span class="r">${newBadge(e)}<a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a><button class="fav" data-id="${esc(e.id)}" aria-pressed="${fav}" aria-label="${fav ? "Fjern fra mine" : "Lagre"}">${fav ? "★" : "☆"}</button></span></div>
     <div class="versus"><div class="team">${esc(e.home)}</div><div class="ko">${esc(e.time || "–")}</div><div class="team away">${esc(e.away)}</div></div>
     <div class="mfoot"><div class="row1">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Billetter hos AaFK →</a>` : ""}${priceHtml(e)}</div>
@@ -729,7 +752,7 @@ const matchesBase = e =>
   (!state.newOnly || newSince(e)) &&
   (!state.q || (e.title + " " + e.venue + " " + (CATS[e.cat] || "")).toLowerCase().includes(state.q));
 
-function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
+function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev"${newSince(e) ? " data-ns=\"1\"" : ""} id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
         <h3>${esc(e.title)}</h3>
         <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}${fewHtml(e)}</div>
         <div class="meta">${newBadge(e)}<span class="tag">${CATS[c]}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
@@ -748,7 +771,7 @@ function collapseQuiz(items) {
 function quizHtml(c) {
   const q = c.items, places = new Set(q.map(e => e.venue)).size, prices = q.map(e => e.priceMin).filter(p => p > 0), min = prices.length ? Math.min(...prices) : 0;
   const rows = q.slice(0, 3).map(e => { const u = safeUrl(e.url); return `<${u ? `a href="${esc(u)}" target="_blank" rel="noopener"` : "div"} class="qrow"><b>${e.d.getDate()}. ${MO[e.d.getMonth()]}</b><span>${esc(e.title)} <small>${esc(e.venue)}</small></span><small>${esc(e.priceMin === 0 ? "Gratis" : e.price || "")}</small></${u ? "a" : "div"}>`; }).join("");
-  return `<article class="ev quizcard" style="--c:var(--c-quiz)">
+  return `<article class="ev quizcard"${c.items.some(newSince) ? ` data-ns-ids="${c.items.filter(newSince).map(e => esc(e.id)).join(",")}"` : ""} style="--c:var(--c-quiz)">
         <h3><a class="title" href="quiz/">Quiz i Ålesund</a></h3>
         <div class="side">${min ? `<span class="price">fra ${min} kr</span>` : ""}</div>
         <div class="meta"><span class="tag">Quiz</span><span>${places} ${places === 1 ? "sted" : "steder"}</span><span class="t">${q.length} ${q.length === 1 ? "kveld" : "kvelder"}</span></div>
@@ -773,6 +796,7 @@ function render() {
     return `<section class="day"><div class="date"><div class="wd">${WD[d.getDay()]}</div><div class="num">${d.getDate()}</div><div class="mo">${MO[d.getMonth()]}</div>${rel(d) ? `<div class="rel">${rel(d)}</div>` : ""}</div>
       <div class="events">${g.map(eventHtml).join("")}</div></section>`;
   }).join("");
+  watchNew();
 }
 
 // Kalendervisning: måned med én prikk per arrangement, og dagens arrangementer under.
