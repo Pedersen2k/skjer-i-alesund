@@ -39,7 +39,7 @@ Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et iss
 
 ## Engelsk side
 
-`en/` (bygget av `en_page()` i `scripts/pages.py`) er «What's on in Ålesund» for turister og andre som søker på engelsk: de neste 14 dagene dag for dag, «In town for the day?» og «Good to know». Titlene står som hos arrangøren; datoer, kategorier, priser og forklaringer er på engelsk. Norsk og engelsk forside peker på hverandre med `hreflang`, og «In English» står i snarveiene nederst på forsiden.
+`en/` (bygget av `en_page()` i `scripts/pages.py`) er «What's on in Ålesund» for turister og andre som søker på engelsk: de neste 14 dagene dag for dag, «In town for the day?» og «Good to know». Titlene står som hos arrangøren; datoer, kategorier, priser og forklaringer er på engelsk. Norsk og engelsk forside peker på hverandre med `hreflang`, og en knapp «English» (jordklode, «EN» på mobil) står ved «Mørkt | Lyst» øverst til høyre. På den engelske siden står «Norsk» på samme sted.
 
 ## Legge til eller rette arrangementer
 
