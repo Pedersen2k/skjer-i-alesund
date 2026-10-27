@@ -63,6 +63,7 @@ body { margin: 0; font-size: 14px; }
 .newlead button, .newlead a { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .newlead .nl-seen { color: var(--muted); font-weight: 500; }
 .newlead .nl-jb { color: var(--c-julebord); }
+.newpill { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 30; display: flex; gap: 8px; align-items: center; border: 0; border-radius: 99px; background: var(--c-barn); color: #072014; font: 700 13.5px var(--font-body); padding: 10px 16px; box-shadow: 0 8px 24px #000a; cursor: pointer; white-space: nowrap; }
 .newer { font: 700 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; background: var(--c-barn); color: #072014; padding: 3px 6px; border-radius: 4px; }
 .kinostrip { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin: 4px 0 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--kino-soft); color: var(--fg); text-decoration: none; font-size: 14px; }
 .kinostrip b { font-family: var(--font-display); }
@@ -362,6 +363,7 @@ footer a { color: var(--sea); }
   </div>
 
   <main id="list"></main>
+  <button type="button" class="newpill" id="newpill" hidden></button>
   <div class="sheet" id="sheet" hidden>
     <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
       <h2 id="sheet-h">Del lista di</h2>
@@ -409,12 +411,25 @@ const store = {
 };
 const favs = new Set(store.get("skjer-favs", []));
 
+// Prøvefunksjon: «Nytt siden sist» er skjult for alle andre enn den som slår den på. ?nytt=1 slår på (husket i nettleseren),
+// ?nytt=0 slår av. ?nytt=1&sist=2026-10-24 later som om du sist var innom den datoen, så du kan se hvordan det ser ut.
+const NYTT = (() => {
+  try {
+    const u = new URL(location.href), q = u.searchParams.get("nytt"), sist = u.searchParams.get("sist");
+    if (q === "1") localStorage.setItem("skjer-nytt", "1");
+    if (q === "0") { localStorage.removeItem("skjer-nytt"); localStorage.removeItem("skjer-sist"); }
+    const on = localStorage.getItem("skjer-nytt") === "1";
+    if (on && /^\d{4}-\d\d-\d\d$/.test(sist || "")) localStorage.setItem("skjer-sist", JSON.stringify(new Date(sist + "T12:00:00").toISOString()));
+    if (q !== null || sist !== null) { u.searchParams.delete("nytt"); u.searchParams.delete("sist"); history.replaceState(null, "", u); }
+    return on;
+  } catch { return false; }
+})();
 // Nytt siden sist: nettleseren husker når du var innom sist. «Sist» leses én gang ved start og står stille mens du er her;
 // den nye tiden lagres når du forlater siden (eller bytter fane). Første besøk: ingen teller.
-let LAST = store.get("skjer-sist", null);
+let LAST = NYTT ? store.get("skjer-sist", null) : null;
 const seen = new Set(); // nye arrangementer du har sett (rullet forbi) i dette besøket
-const stampVisit = () => store.set("skjer-sist", new Date().toISOString());
-if (!LAST) stampVisit();
+const stampVisit = () => { if (NYTT) store.set("skjer-sist", new Date().toISOString()); };
+if (NYTT && !LAST) stampVisit();
 addEventListener("pagehide", stampVisit);
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") stampVisit(); });
 
@@ -565,9 +580,25 @@ function newEntry() {
     : `✦ ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist (${esc(day)}) · <u>Se ${n === 1 ? "den" : "dem"}</u>`;
   $("nlmain").setAttribute("aria-pressed", state.newOnly);
   $("nlseen").hidden = !n;
+  updatePill(n);
   Object.assign($("nljb"), { textContent: `🎄 + ${jbNew.length} ${jbNew.length === 1 ? "nytt julebord" : "nye julebord"} →`, hidden: !jbNew.length });
   el.hidden = false;
 }
+// Fast pille nederst: vises når linjen øverst er rullet ut av syne og det fortsatt er nye igjen. Trykk for å hoppe til neste nye kort.
+let leadVisible = true;
+function updatePill(n) {
+  n ??= E.filter(e => e.d >= TODAY && newSince(e)).length;
+  const pill = $("newpill");
+  pill.hidden = !(LAST && n > 0 && !leadVisible);
+  if (!pill.hidden) pill.innerHTML = `↓ ${n} ${n === 1 ? "ny" : "nye"} igjen`;
+}
+new IntersectionObserver(([en]) => { leadVisible = en.isIntersecting; updatePill(); }).observe($("newlead"));
+$("newpill").addEventListener("click", () => {
+  track("nytt/pille");
+  const cards = [...document.querySelectorAll("#list [data-ns], #list [data-ns-ids]")];
+  const next = cards.find(c => c.getBoundingClientRect().top > innerHeight * 0.6) || cards[0];
+  next?.scrollIntoView({ behavior: "smooth", block: "center" });
+});
 // Telle ned mens man ruller: et nytt arrangement regnes som sett når det har stått mest synlig i 1,2 sekunder.
 // Kortet mister det grønne merket og tallet i linjen går ned. Lista endres ikke mens man ser på den.
 let nsObs = null; const nsTimers = new Map();
