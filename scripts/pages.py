@@ -943,7 +943,7 @@ def en_page(events, today, lang_mark=EN_LANG, path="en/"):
 
     up = "../"
     body = f"""<div class="wrap sub en">
-  <div class="topbar"><nav class="crumbs"><a href="{up}">Skjer i Ålesund</a></nav><div class="enr"><nav class="lsw" aria-label="Language"><a href="{up}" hreflang="nb" lang="nb">Norsk</a><a aria-current="page">English</a></nav><div class="tsw" role="group" aria-label="Theme"><button type="button" data-t="kveld">Dark</button><button type="button" data-t="standard">Light</button></div></div></div>
+  <div class="topbar"><nav class="crumbs"><a href="{up}">Skjer i Ålesund</a></nav><div class="topr"><a class="langbtn" href="{up}" hreflang="nb" lang="nb" aria-label="Norsk" id="langbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="ll">Norsk</span><span class="ls">NO</span></a><div class="tsw" role="group" aria-label="Theme"><button type="button" data-t="kveld" aria-label="Dark"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="tl">Dark</span></button><button type="button" data-t="standard" aria-label="Light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span class="tl">Light</span></button></div></div></div>
   <header class="top">
     <h1>What's on in Ålesund</h1>
     <p class="lede">Concerts, comedy, family events and nightlife in Ålesund, Norway, with ticket prices. Updated every two hours from the organisers' own pages.</p>
@@ -972,6 +972,7 @@ def en_page(events, today, lang_mark=EN_LANG, path="en/"):
     else if (s.dataset.weekend && !wk) {{ wk = true; s.insertAdjacentHTML("beforebegin", '<div class="wkd">This weekend</div>'); }}
   }});
   const dt = document.getElementById("daytime"); if (dt && !dt.querySelector("[data-date]")) dt.remove();
+  document.getElementById("langbtn").addEventListener("click", () => {{ try {{ window.goatcounter.count({{ path: "språk/no", title: "språk/no", event: true }}); }} catch {{}} }});
 }})();
 </script>"""
     graph = [
@@ -1180,10 +1181,6 @@ render();
 
 SUB_CSS = """
 /* Engelsk side (en/) */
-.en .enr { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: end; }
-.en .lsw { display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
-.en .lsw a { font: 600 13px/1 var(--font-body); padding: 7px 12px; border-radius: 999px; color: var(--muted); text-decoration: none; }
-.en .lsw a[aria-current] { background: var(--fg); color: var(--bg); }
 .en .jump { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font: 600 14px var(--font-body); }
 .en .jump a, .en .daytime a, .en .faq a { color: var(--sea); }
 .en .enday { margin-top: 22px; }
