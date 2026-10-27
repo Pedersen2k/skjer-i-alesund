@@ -1,0 +1,220 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Ålesund Live-kort</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Layout: sju forslag til Ålesund Live-kort, hvert i en mobilbredde-ramme på mørkt kveldstema */
+:root {
+  --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a;
+  --accent:#ff8a6b; --accent-ink:#1a0b07; --sea:#5ab7bf; --gold:#f7c873; --few:#ffb547;
+  --c-konsert:#5ab7bf; --night:#0b1f33; --sun:#ff6b4a;
+  --display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --body:"Figtree",system-ui,sans-serif;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--fg); font:15px/1.45 var(--body); margin:0;
+  padding-block:24px 48px; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)); }
+.wrap { max-width:1080px; margin:0 auto; }
+h1 { font:800 28px/1.1 var(--display); margin:0 0 6px; text-wrap:balance; }
+.lead { color:var(--muted); margin:0 0 24px; max-width:60ch; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr)); gap:28px 24px; align-items:start; }
+.opt { min-width:0; }
+.opt > h2 { font:700 12px var(--body); letter-spacing:.14em; text-transform:uppercase; color:var(--sea); margin:0 0 4px; }
+.opt > p { color:var(--muted); font-size:13px; margin:0 0 10px; }
+.frame { border:1px solid var(--line); border-radius:18px; padding:14px; background:#0c1d23; max-width:380px; }
+a { color:inherit; text-decoration:none; }
+.btn { display:inline-block; background:var(--accent); color:var(--accent-ink); font:700 14px var(--body); padding:9px 14px; border-radius:10px; }
+.pill { display:inline-block; font:700 11px var(--body); letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:99px; border:1px solid currentColor; }
+.cd { font-variant-numeric:tabular-nums; }
+
+/* A plakat */
+.a { background:linear-gradient(170deg,#ff6b4a 0%,#c2386b 55%,#2a1b4d 100%); border-radius:16px; padding:20px 18px 18px; color:#fff; overflow:hidden; }
+.a small { font:700 11px var(--body); letter-spacing:.2em; text-transform:uppercase; opacity:.85; }
+.a .t { font:800 54px/.9 var(--display); letter-spacing:-.02em; margin:8px 0 14px; }
+.a .days { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.a .d { background:#0006; border-radius:12px; padding:10px 12px; }
+.a .d b { display:block; font:800 20px var(--display); }
+.a .d span { font-size:12px; opacity:.85; }
+.a .foot { display:flex; justify-content:space-between; align-items:center; margin-top:14px; gap:10px; flex-wrap:wrap; }
+.a .foot .btn { background:#fff; color:#2a1b4d; }
+
+/* B nedtelling */
+.b { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:18px; }
+.b .n { font:800 64px/1 var(--display); color:var(--gold); }
+.b .l { font-size:13px; color:var(--muted); margin-bottom:12px; }
+.b h3 { font:800 22px/1.15 var(--display); margin:0 0 4px; }
+.b .row { display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-top:1px solid var(--line); font-size:14px; }
+.b .row b { color:var(--gold); }
+
+/* C stripe */
+.c { display:flex; align-items:center; gap:12px; background:linear-gradient(90deg,#1c2a52,#3a1f4f); border:1px solid #4a3a7a; border-radius:14px; padding:12px 14px; }
+.c .ic { font:800 22px var(--display); color:var(--sun); line-height:1; }
+.c .tx { flex:1; min-width:0; }
+.c .tx b { display:block; font:700 15px var(--body); }
+.c .tx span { font-size:12.5px; color:#c3bfe0; }
+.c .go { color:var(--gold); font-weight:700; white-space:nowrap; }
+
+/* D billett */
+.d { display:flex; background:var(--gold); color:#2a1b00; border-radius:14px; position:relative; }
+.d .main { flex:1; padding:16px 14px 16px 18px; min-width:0; }
+.d .main small { font:700 10.5px var(--body); letter-spacing:.18em; text-transform:uppercase; }
+.d .main h3 { font:800 24px/1 var(--display); margin:6px 0 6px; }
+.d .main p { margin:0; font-size:13px; }
+.d .stub { width:92px; border-left:2px dashed #2a1b0066; padding:16px 10px; text-align:center; display:flex; flex-direction:column; justify-content:center; gap:2px; }
+.d .stub b { font:800 24px var(--display); }
+.d .stub span { font-size:11px; text-transform:uppercase; letter-spacing:.08em; }
+.d::before,.d::after { content:""; position:absolute; right:80px; width:16px; height:16px; background:#0c1d23; border-radius:50%; }
+.d::before { top:-8px; } .d::after { bottom:-8px; }
+
+/* E dag for dag */
+.e h3 { font:800 22px var(--display); margin:0 0 8px; }
+.e .tiles { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.e .tile { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px; display:flex; flex-direction:column; gap:3px; }
+.e .tile .dd { font:700 11px var(--body); letter-spacing:.12em; text-transform:uppercase; color:var(--sea); }
+.e .tile .num { font:800 34px/1 var(--display); }
+.e .tile .art { font:700 16px var(--body); margin-top:4px; }
+.e .tile .pr { color:var(--gold); font-weight:700; font-size:14px; margin-top:auto; padding-top:6px; }
+.e .two { margin-top:10px; background:var(--accent); color:var(--accent-ink); border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; font-weight:700; }
+
+/* F liste */
+.f { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px; display:grid; grid-template-columns:56px 1fr; gap:12px; }
+.f .date { text-align:center; border-right:1px solid var(--line); padding-right:10px; }
+.f .date b { display:block; font:800 24px/1 var(--display); }
+.f .date span { font-size:11px; text-transform:uppercase; color:var(--muted); letter-spacing:.08em; }
+.f .cat { font:700 11px var(--body); letter-spacing:.1em; text-transform:uppercase; color:var(--c-konsert); }
+.f h3 { font:700 17px/1.2 var(--body); margin:2px 0 4px; }
+.f .meta { color:var(--muted); font-size:13px; }
+.f .price { margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.f .price b { font-size:14px; }
+.f .pill { color:var(--sun); }
+.f .times { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; }
+.f .times span { font-size:12.5px; padding:3px 9px; border:1px solid var(--line); border-radius:8px; }
+
+/* G havnebanner */
+.g { position:relative; border-radius:16px; overflow:hidden; background:linear-gradient(180deg,#0e2a4a 0%,#1d4a6b 55%,#f0a15a 100%); color:#fff; padding:20px 18px 70px; }
+.g small { font:700 11px var(--body); letter-spacing:.2em; text-transform:uppercase; color:#ffe2b8; }
+.g h3 { font:800 34px/1 var(--display); margin:6px 0 6px; }
+.g p { margin:0; font-size:14px; color:#e6eef6; max-width:28ch; }
+.g svg { position:absolute; left:0; right:0; bottom:0; width:100%; height:64px; display:block; }
+.g .btn { position:absolute; right:14px; bottom:14px; background:#fff; color:#0e2a4a; }
+.sun { position:absolute; right:22px; top:22px; width:46px; height:46px; border-radius:50%; background:#ffd48a; box-shadow:0 0 30px #ffd48a99; }
+</style>
+
+<div class="wrap">
+  <h1>Ålesund Live: sju forslag til kort</h1>
+  <p class="lead">Alle bygger på det som står på Tikkio-siden: Skutvika, fredag 18. juni (Tobias Sten) og lørdag 19. juni 2027 (Karpe), fredagspass 999 kr, lørdagspass 1399 kr, 2-dagerspass 1999 kr, dørene åpner 16:30. Nedtellingen er levende. Ingen av dem er bygget inn på siden ennå.</p>
+
+  <div class="grid">
+
+    <section class="opt">
+      <h2>A · Plakat</h2>
+      <p>Eget kort øverst i lista (som julekortet). Stor tittel, to dager side om side.</p>
+      <div class="frame"><a class="a" href="#" style="display:block">
+        <small>Skutvika · juni 2027</small>
+        <div class="t">ÅLESUND<br>LIVE</div>
+        <div class="days">
+          <div class="d"><span>Fre 18. juni</span><b>Tobias Sten</b><span>fra 999 kr</span></div>
+          <div class="d"><span>Lør 19. juni</span><b>Karpe</b><span>fra 1399 kr</span></div>
+        </div>
+        <div class="foot"><span>2-dagerspass 1999 kr</span><span class="btn">Kjøp billett</span></div>
+      </a></div>
+    </section>
+
+    <section class="opt">
+      <h2>B · Nedtelling</h2>
+      <p>Stort tall som teller ned. Passer fint så lenge det er lenge til.</p>
+      <div class="frame"><div class="b">
+        <div class="n cd" data-cd>234</div>
+        <div class="l">dager til Ålesund Live</div>
+        <h3>Tobias Sten + Karpe</h3>
+        <div class="l" style="margin:0 0 10px">Skutvika · 18.–19. juni 2027</div>
+        <div class="row"><span>Fredagspass</span><b>999 kr</b></div>
+        <div class="row"><span>Lørdagspass</span><b>1399 kr</b></div>
+        <div class="row"><span>2-dagerspass</span><b>1999 kr</b></div>
+        <p style="margin:12px 0 0"><a class="btn" href="#">Kjøp billett</a></p>
+      </div></div>
+    </section>
+
+    <section class="opt">
+      <h2>C · Stripe</h2>
+      <p>Smal stripe som kinostripa under filtrene. Tar minst plass.</p>
+      <div class="frame">
+        <a class="c" href="#"><span class="ic">♫</span><span class="tx"><b>Ålesund Live 18.–19. juni</b><span>Tobias Sten og Karpe i Skutvika · fra 999 kr</span></span><span class="go">Se →</span></a>
+        <div style="height:10px"></div>
+        <a class="c" href="#" style="padding:8px 12px"><span class="ic" style="font-size:18px">♫</span><span class="tx"><b style="font-size:14px">Ålesund Live om <span class="cd" data-cd>234</span> dager</b></span><span class="go">Se →</span></a>
+        <p style="color:var(--muted);font-size:12px;margin:8px 2px 0">Nederst: enda mindre variant med nedtelling.</p>
+      </div>
+    </section>
+
+    <section class="opt">
+      <h2>D · Billett</h2>
+      <p>Ser ut som en billett med avrivning. 2-dagerspasset er prisen som står i stubben.</p>
+      <div class="frame">
+        <a class="d" href="#">
+          <div class="main"><small>Festival · Skutvika</small><h3>Ålesund Live</h3><p>Fre 18. juni: Tobias Sten<br>Lør 19. juni: Karpe<br>Dørene åpner 16:30</p></div>
+          <div class="stub"><span>2 dager</span><b>1999</b><span>kr</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="opt">
+      <h2>E · Dag for dag</h2>
+      <p>To fliser, én per dag, med egen pris. 2-dagerspass som knapp under.</p>
+      <div class="frame e">
+        <h3>Ålesund Live</h3>
+        <div class="tiles">
+          <a class="tile" href="#"><span class="dd">Fredag</span><span class="num">18.</span><span class="dd" style="color:var(--muted)">juni</span><span class="art">Tobias Sten</span><span class="pr">999 kr</span></a>
+          <a class="tile" href="#"><span class="dd">Lørdag</span><span class="num">19.</span><span class="dd" style="color:var(--muted)">juni</span><span class="art">Karpe</span><span class="pr">1399 kr</span></a>
+        </div>
+        <a class="two" href="#"><span>2-dagerspass</span><span>1999 kr →</span></a>
+      </div>
+    </section>
+
+    <section class="opt">
+      <h2>F · Vanlig listekort</h2>
+      <p>Én rad i lista på første dato, som alle andre arrangementer. «Festival» som merke og begge dagene som tidsknapper (som i dag for Parken).</p>
+      <div class="frame">
+        <a class="f" href="#">
+          <div class="date"><b>18</b><span>juni</span></div>
+          <div>
+            <div class="cat">Konsert · festival</div>
+            <h3>Ålesund Live: Tobias Sten og Karpe</h3>
+            <div class="meta">Skutvika · dørene åpner 16:30</div>
+            <div class="price"><b>fra 999 kr</b><span class="pill">2 dager</span></div>
+            <div class="times"><span>Fre 18. Tobias Sten</span><span>Lør 19. Karpe</span></div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="opt">
+      <h2>G · Havnebanner</h2>
+      <p>Illustrert banner med kveldshimmel og bølger (som logoen). Mest stemning.</p>
+      <div class="frame"><div class="g">
+        <div class="sun"></div>
+        <small>Skutvika havn · 18.–19. juni</small>
+        <h3>Ålesund Live</h3>
+        <p>Tobias Sten fredag. Karpe lørdag. Fra 999 kr.</p>
+        <svg viewBox="0 0 400 64" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 30 Q50 6 100 30 T200 30 T300 30 T400 30 V64 H0Z" fill="#0c1d23" opacity=".55"/>
+          <path d="M0 42 Q50 20 100 42 T200 42 T300 42 T400 42 V64 H0Z" fill="#0c1d23"/>
+        </svg>
+        <a class="btn" href="#">Billetter</a>
+      </div></div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var t = new Date("2027-06-18T16:30:00+02:00");
+  function tick() {
+    var d = Math.max(0, Math.ceil((t - new Date()) / 864e5));
+    document.querySelectorAll("[data-cd]").forEach(function (el) { el.textContent = d; });
+  }
+  tick();
+})();
+</script>
