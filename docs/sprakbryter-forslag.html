@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Språkbryter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Fem måter å vise språkvalget øverst til høyre ved «Mørkt | Lyst». Toppen er tegnet etter forsiden i kveld-temaet. */
+:root {
+  --bg: #0a171b; --surface: #13252d; --fg: #e8f1ef; --muted: #8fa8ab; --line: #25414a;
+  --gold: #f7c873; --sea: #5ab7bf; --accent: #ff8a6b;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding: 28px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px)); }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1300px; margin: 0 auto; display: grid; gap: 34px; }
+header.intro h1 { font: 800 clamp(28px, 4vw, 42px)/1.05 var(--font-display); margin: 0 0 10px; }
+header.intro p { margin: 0; max-width: 80ch; color: var(--muted); }
+header.intro p + p { margin-top: 8px; }
+header.intro b { color: var(--fg); font-weight: 600; }
+.opt { display: grid; gap: 12px; }
+.opt h2 { margin: 0; font: 800 22px/1.1 var(--font-display); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.opt h2 span { font: 700 13px var(--font-mono); color: var(--bg); background: var(--gold); border-radius: 6px; padding: 2px 7px; }
+.why { margin: 0; color: var(--muted); font-size: 14px; max-width: 80ch; }
+.pros { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 13.5px; color: var(--muted); }
+.pros li::before { content: "+ "; color: var(--sea); font-weight: 700; }
+.pros li.minus::before { content: "– "; color: var(--accent); }
+.shots { display: grid; grid-template-columns: 360px 1fr; gap: 18px; align-items: start; }
+@media (max-width: 900px) { .shots { grid-template-columns: 1fr; } }
+.lbl { font: 700 11px var(--font-body); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 6px; }
+.dev { border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: linear-gradient(170deg, #17404a, #0a171b 60%); position: relative; }
+.dev.m { width: 100%; max-width: 360px; }
+.dev .in { padding: 22px 18px 18px; }
+.dev.p .in { padding: 22px 36px 18px; max-width: 760px; margin: 0 auto; }
+
+/* Forsidetoppen */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.eyebrow { font: 600 12px/1.3 var(--font-mono); color: var(--gold); letter-spacing: .04em; }
+.brand { display: flex; gap: 12px; align-items: center; margin: 12px 0 10px; }
+.brand svg { width: 52px; height: 56px; flex: none; }
+.brand h1 { margin: 0; font: 800 44px/0.95 var(--font-display); letter-spacing: -.03em; }
+.dev.p .brand h1 { font-size: 56px; }
+.brand h1 span { background: linear-gradient(90deg, var(--accent), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { margin: 0; color: var(--muted); font-size: 14.5px; }
+.tsw { display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); flex: none; }
+.tsw button { display: inline-flex; align-items: center; gap: 6px; font: 600 13px/1 var(--font-body); padding: 7px 11px; border-radius: 999px; border: 0; background: transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.tsw button svg { width: 15px; height: 15px; }
+.tsw button[aria-pressed="true"] { background: var(--gold); color: #1a1405; }
+.tsw.lang button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.right { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: end; }
+/* A: EN-knapp */
+.pill { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 7px 11px; font: 700 13px/1 var(--font-body); color: var(--fg); cursor: pointer; white-space: nowrap; text-decoration: none; }
+.pill svg { width: 15px; height: 15px; color: var(--sea); }
+/* C: tekstlenke i stedet for koordinatene */
+.langlink { display: inline-flex; gap: 6px; align-items: center; font: 600 13.5px var(--font-body); color: var(--sea); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.langlink svg { width: 15px; height: 15px; }
+/* D: ikon-bryter for tema */
+.icon { width: 36px; height: 36px; display: inline-grid; place-items: center; border: 1px solid var(--line); background: var(--surface); border-radius: 50%; cursor: pointer; padding: 0; }
+.icon svg { width: 17px; height: 17px; color: var(--gold); }
+/* E: meny */
+.menu { position: absolute; right: 16px; top: 62px; z-index: 5; background: #10222a; border: 1px solid var(--line); border-radius: 14px; padding: 10px; box-shadow: 0 14px 34px #000c; display: grid; gap: 8px; min-width: 200px; }
+.menu .lbl { margin: 2px 4px 0; }
+.menu .tsw { width: 100%; }
+.menu .tsw button { flex: 1; justify-content: center; }
+.dev.p .menu { right: calc(50% - 360px); }
+/* Toast: hva som skjer ved trykk */
+.toast { margin-top: 10px; font-size: 12.5px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 8px; min-height: 2.6em; }
+.toast b { color: var(--fg); }
+footer { color: var(--muted); font-size: 13.5px; max-width: 80ch; }
+footer b { color: var(--fg); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="intro">
+  <h1>Språkvalg øverst til høyre</h1>
+  <p>Fem forslag til hvordan «English» kan ligge ved «Mørkt | Lyst» på forsiden. Hvert forslag vises på mobil (smal skjerm, der plassen er trangest) og på PC. Trykk gjerne på knappene.</p>
+  <p>På den engelske siden blir det speilvendt: samme sted, men med <b>«Norsk»</b>. Valget huskes ikke: det er bare en lenke til den andre siden, så Google ser to vanlige sider. Den som kommer fra Google på engelsk, havner rett på den engelske.</p>
+</header>
+<div id="opts" class="wrap" style="gap:44px"></div>
+<footer><b>Felles:</b> lenken får <code>hreflang="en"</code>, så Google forstår at den peker til den engelske versjonen. GoatCounter kan telle trykk (<code>språk/en</code>), så vi ser om den brukes.</footer>
+</div>
+<script>
+const MOON = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>`;
+const SUN = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`;
+const GLOBE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>`;
+const GEAR = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>`;
+const LOGO = `<svg viewBox="0 0 48 52" aria-hidden="true"><circle cx="24" cy="6" r="3.5" fill="none" stroke="#ff8a6b" stroke-width="2.5"/><path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="#ff8a6b"/><circle cx="15" cy="30" r="2" fill="#0a171b"/><circle cx="33" cy="30" r="2" fill="#0a171b"/><path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="#0a171b"/><path d="M4 49c3.5-2.5 6.5-2.5 10 0s6.5 2.5 10 0 6.5-2.5 10 0 6.5 2.5 10 0" fill="none" stroke="#5ab7bf" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+const theme = (full = true) => `<div class="tsw" role="group" aria-label="Design"><button aria-pressed="true" data-x="tema">${MOON}${full ? "Mørkt" : ""}</button><button aria-pressed="false" data-x="tema">${SUN}${full ? "Lyst" : ""}</button></div>`;
+const head = (left, right, extra = "") => `<div class="top">${left}${right}</div>${extra}
+  <div class="brand">${LOGO}<h1>Skjer i <span>Ålesund</span></h1></div>
+  <p class="lede">Konserter, standup, show og happenings i byen, samlet på ett sted.</p>`;
+const eyebrow = `<div class="eyebrow">62,47° N · 6,15° Ø</div>`;
+const st = {};
+
+const OPTS = [
+  ["A", "«EN»-knapp ved siden av", "En liten egen knapp med jordklode og «EN» rett til venstre for «Mørkt | Lyst». På PC står det «English».",
+    ["Lett å se, kjent fra mange nettsider", "Passer også på smal mobil"], ["Én knapp til i toppen", "På mobil blir «Mørkt | Lyst» bare ikoner (måne og sol)"],
+    m => head(eyebrow, `<div class="right"><a class="pill" data-x="lang">${GLOBE}${m ? "EN" : "English"}</a>${theme(!m)}</div>`)],
+  ["B", "«NO | EN» som egen bryter", "Samme type bryter som «Mørkt | Lyst», med «NO» valgt. På mobil blir tema-bryteren bare ikoner (måne og sol), og koordinatene tas bort for å få plass.",
+    ["Ser ut som en del av samme sett", "Viser tydelig hvilket språk man er på"], ["Tema-knappene mister teksten på mobil", "Koordinatene forsvinner på mobil"],
+    m => head(m ? "<span></span>" : eyebrow, `<div class="right"><div class="tsw lang" role="group" aria-label="Språk"><button aria-pressed="true">NO</button><button aria-pressed="false" data-x="lang">EN</button></div>${theme(!m)}</div>`)],
+  ["C", "«English» i stedet for koordinatene", "Koordinatene øverst til venstre byttes med en lenke «🌐 English». Tema-bryteren står som før til høyre.",
+    ["Ingen ekstra knapp, enkelt og ryddig", "Mye plass, også på mobil"], ["Koordinatene (en liten pynt) forsvinner", "Står til venstre, ikke ved tema-bryteren"],
+    m => head(`<a class="langlink" data-x="lang">${GLOBE}English</a>`, theme(true))],
+  ["D", "Ikonknapper: jordklode og måne", "To runde ikonknapper: jordkloden går til engelsk, månen/solen bytter tema. Minst plass, men uten tekst.",
+    ["Tar minst plass", "Ryddig og moderne"], ["Uten tekst må man gjette hva knappene gjør", "Turister kjenner jordkloden, men ikke alle"],
+    m => head(eyebrow, `<div class="right"><button class="icon" data-x="lang" aria-label="English" title="English">${GLOBE.replace('stroke="currentColor"', 'stroke="#5ab7bf"')}</button><button class="icon" data-x="tema" aria-label="Bytt tema" title="Mørkt / lyst">${MOON}</button></div>`)],
+  ["E", "Én innstillingsknapp med meny", "En knapp åpner en liten meny med både «Design: Mørkt | Lyst» og «Språk: Norsk | English».",
+    ["Plass til flere valg senere", "Toppen blir helt ren"], ["Engelsk er skjult bak et trykk: turister finner det ikke like lett"],
+    (m, k) => head(eyebrow, `<button class="pill" data-x="menu">${GEAR}${m ? "" : "Innstillinger"}</button>`,
+      st[k + (m ? "m" : "p")] ? `<div class="menu"><div class="lbl">Design</div>${theme(true)}<div class="lbl">Språk</div><div class="tsw lang"><button aria-pressed="true">Norsk</button><button aria-pressed="false" data-x="lang">English</button></div></div>` : "")],
+];
+const MSG = { lang: "→ Går til <b>kaskjerda.no/en/</b>, der samme sted viser «Norsk».", tema: "→ Bytter mellom mørkt og lyst design (som i dag).", menu: "" };
+
+function draw() {
+  document.getElementById("opts").innerHTML = OPTS.map(([k, h, why, plus, minus, fn]) => `<section class="opt" data-k="${k}">
+    <h2><span>${k}</span>${h}</h2><p class="why">${why}</p>
+    <ul class="pros">${plus.map(x => `<li>${x}</li>`).join("")}${minus.map(x => `<li class="minus">${x}</li>`).join("")}</ul>
+    <div class="shots"><div><div class="lbl">Mobil</div><div class="dev m" data-d="m"><div class="in">${fn(true, k)}<div class="toast">${st[k + "tm"] || "Trykk på en knapp øverst."}</div></div></div></div>
+    <div><div class="lbl">PC</div><div class="dev p" data-d="p"><div class="in">${fn(false, k)}<div class="toast">${st[k + "tp"] || "Trykk på en knapp øverst."}</div></div></div></div></div></section>`).join("");
+}
+document.getElementById("opts").addEventListener("click", ev => {
+  const b = ev.target.closest("[data-x]"); if (!b) return; ev.preventDefault();
+  const k = b.closest("[data-k]").dataset.k, d = b.closest("[data-d]").dataset.d, x = b.dataset.x;
+  if (x === "menu") st[k + d] = !st[k + d]; else st[k + "t" + d] = MSG[x];
+  draw();
+});
+draw();
+</script>
+</body>
+</html>
