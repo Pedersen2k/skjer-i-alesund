@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-27T20:08:23Z",
+  "updatedAt": "2026-10-27T20:15:03Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -447,7 +447,7 @@
    "title": "Storefri",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "show",
    "price": "580 kr",
    "priceMin": 580,
    "soldOut": false,
