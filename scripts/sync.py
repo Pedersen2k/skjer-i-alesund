@@ -226,13 +226,14 @@ def fetch_parken():
             print("feil:", url, e, file=sys.stderr)
             continue
         title, shows, price = parse_parken(page, today)
+        genre = parken_genre(page)
         if not title or not shows or SKIP.search(title):
             continue
         for start, st in shows:
             if start.date() < today:
                 continue
             raw.append({"name": title, "venue": PARKEN_VENUE, "address": PARKEN_ADDRESS, "start": start, "url": url,
-                        "tickets": [], "price": price, "soldOut": st == "sold", "few": st == "few", "src": "parken", "group": "parken-" + pid,
+                        "tickets": [], "price": price, "soldOut": st == "sold", "few": st == "few", "src": "parken", "genre": genre, "group": "parken-" + pid,
                         "noTime": start.hour == 0 and start.minute == 0})  # dato uten klokkeslett
     print(f"Parken: {len(urls)} lenker, {len(raw)} forestillinger", file=sys.stderr)
     return raw
@@ -539,6 +540,16 @@ def build_events(raw, overrides):
             notes.append(f"Flere forestillinger: {listed}" + (" m.fl." if len(extra_days) > 5 else "."))
         if o.get("discountNote", True):
             notes.append(disc)
+        explicit = o.get("cat") or first.get("cat")
+        rule = None if explicit else cat_rule(first["title"])
+        cat = explicit or rule or "konsert"
+        chk = None
+        if not explicit:
+            want = genre_cats(first.get("genre", ""))
+            if want and cat not in want:
+                chk = f"Parken oppgir «{first['genre']}», men kategorien er {cat}"
+            elif rule is None and not want:
+                chk = f"ingen regel traff tittelen, gjettet {cat}"
         events.append({
             "id": slug(key + "-" + venue),
             # «date» i en overstyring retter en feil dato hos kilden, men bare så lenge kilden fortsatt har «fromDate»
@@ -547,7 +558,8 @@ def build_events(raw, overrides):
             "title": o.get("title") or first["title"],
             "venue": venue,
             "address": first.get("address", ""),
-            "cat": o.get("cat") or first.get("cat") or guess_cat(first["title"]),
+            "cat": cat,
+            **({"_chk": chk} if chk else {}),
             "price": price, "priceMin": price_min,
             "soldOut": all(s["soldOut"] for s in shows),
             **({"few": True} if few else {}),
@@ -563,11 +575,12 @@ def build_events(raw, overrides):
     return events
 
 
-def guess_cat(title):
+def cat_rule(title):
+    """Kategori ut fra ord i tittelen, eller None når ingen regel treffer (da gjettes «konsert» og eieren varsles)."""
     t = title.lower()
     if re.search(r"julebord|julebuffet|julegilde", t):
         return "julebord"
-    if re.search(r"standup|stand-up|komiker|humor", t):
+    if re.search(r"standup|stand-up|stand up|komiker|humor|komedie|comedy", t):
         return "standup"
     if re.search(r"quiz|bingo", t):
         return "quiz"
@@ -577,7 +590,26 @@ def guess_cat(title):
         return "klubb"
     if re.search(r"barn|familie", t):
         return "barn"
-    return "konsert"
+    return None
+
+
+def guess_cat(title):
+    return cat_rule(title) or "konsert"
+
+
+# Sjangeren Parken oppgir på arrangementssiden (fbq_content_category). Den er bare et hint: den er ikke alltid riktig
+# (f.eks. «Komedie» på en konsert), så den setter ikke kategorien, men gir et varsel når kategorien ikke stemmer.
+GENRE_CAT = {"humor": "standup", "komedie": "standup", "foredrag": "happening", "barn": "barn", "teater": "show", "dans": "show",
+             "konsert": "konsert", "musikk": "konsert", "klassisk": "konsert", "folkemusikk": "konsert", "julekonsert": "konsert"}
+
+
+def genre_cats(genre):
+    return {GENRE_CAT[g.strip().lower()] for g in genre.split(",") if g.strip().lower() in GENRE_CAT}
+
+
+def parken_genre(page):
+    m = re.search(r'fbq_content_category" content="([^"]*)"', page)
+    return html.unescape(m.group(1)).strip() if m else ""
 
 
 def roll_forward(e):
@@ -689,10 +721,16 @@ def main():
     if aafk:
         sources.add("aafk")
     added = 0
+    check = []
     for e in events:
         is_new = e["id"] not in first_seen and e["id"] not in fresh_source and not e.get("addedAt")
         e["addedAt"] = first_seen.get(e["id"]) or e.get("addedAt") or (now if is_new else seeded_at)
         added += is_new
+        why = e.pop("_chk", None)
+        if why and is_new and first_seen:
+            check.append(f"{e['title']} ({e['venue']}, {e['date']}): {why}")
+    if check:
+        warn("Sjekk kategorien på nye arrangementer (rett den i data/overrides.json hvis den er feil): " + "; ".join(check))
     meta = {
         "updatedAt": now,
         "seededAt": seeded_at,
