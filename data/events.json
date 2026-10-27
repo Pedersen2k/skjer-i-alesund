@@ -1,8 +1,8 @@
 {
  "meta": {
-  "updatedAt": "2026-10-27T15:57:13Z",
+  "updatedAt": "2026-10-27T16:49:40Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -2749,6 +2749,38 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45656-pulse-of-floyd/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "alesund-live-tobias-sten",
+   "date": "2027-06-18",
+   "title": "Ålesund Live: Tobias Sten",
+   "price": "999 kr",
+   "priceMin": 999,
+   "note": "Dørene åpner kl. 16:30. Fredagspass 999 kr, 2-dagerspass (med Karpe lørdag) 1999 kr. Flere artister annonseres.",
+   "time": "",
+   "venue": "Skutvika",
+   "address": "Skutvika, Ålesund",
+   "cat": "konsert",
+   "soldOut": false,
+   "uncertain": false,
+   "url": "https://tikkio.com/events/66161-karpe-alesund-live",
+   "addedAt": "2026-10-27T16:49:40Z"
+  },
+  {
+   "id": "alesund-live-karpe",
+   "date": "2027-06-19",
+   "title": "Ålesund Live: Karpe",
+   "price": "1399 kr",
+   "priceMin": 1399,
+   "note": "Lørdagspass 1399 kr, 2-dagerspass (med Tobias Sten fredag) 1999 kr. Flere artister annonseres.",
+   "time": "",
+   "venue": "Skutvika",
+   "address": "Skutvika, Ålesund",
+   "cat": "konsert",
+   "soldOut": false,
+   "uncertain": false,
+   "url": "https://tikkio.com/events/66161-karpe-alesund-live",
+   "addedAt": "2026-10-27T16:49:40Z"
   }
  ]
 }
