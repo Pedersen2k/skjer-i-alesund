@@ -59,15 +59,10 @@ body { margin: 0; font-size: 14px; }
   --few: #ffb547; --few-bg: #3a2a10; --few-line: #6b4c17;
   color-scheme: dark; }
 
-.newstrip { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; margin: 4px 0 12px; padding: 10px 6px 10px 14px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--c-barn) 50%, var(--line)); background: color-mix(in srgb, var(--c-barn) 13%, var(--surface)); }
-.newstrip .ns-main { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; text-align: left; background: none; border: 0; padding: 0; color: var(--fg); font: inherit; cursor: pointer; min-width: 0; }
-.newstrip .ns-n { font: 800 26px/1 var(--font-display); color: var(--c-barn); font-variant-numeric: tabular-nums; }
-.newstrip .ns-t b { display: block; font: 700 14.5px/1.25 var(--font-body); }
-.newstrip .ns-t small { display: block; color: var(--muted); font-size: 12.5px; }
-.newstrip .ns-go { color: var(--c-barn); font: 700 13px var(--font-body); white-space: nowrap; }
-.newstrip .ns-x { color: var(--muted); font-size: 20px; line-height: 1; padding: 6px 10px; background: none; border: 0; cursor: pointer; }
-.newstrip .ns-jb { grid-column: 1 / -1; padding-top: 4px; font-size: 13px; font-weight: 600; color: var(--c-julebord); text-decoration: none; }
-@media (max-width: 520px) { .newstrip .ns-t small + small { display: none; } }
+.newlead { margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; font-size: 13.5px; font-weight: 600; color: var(--c-barn); }
+.newlead button, .newlead a { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.newlead .nl-seen { color: var(--muted); font-weight: 500; }
+.newlead .nl-jb { color: var(--c-julebord); }
 .newer { font: 700 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; background: var(--c-barn); color: #072014; padding: 3px 6px; border-radius: 4px; }
 .kinostrip { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin: 4px 0 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--kino-soft); color: var(--fg); text-decoration: none; font-size: 14px; }
 .kinostrip b { font-family: var(--font-display); }
@@ -299,6 +294,11 @@ footer a { color: var(--sea); }
     </div>
     <p class="lede">Konserter, standup, show og happenings i byen, samlet på ett sted. Programmet sjekkes hver morgen og kveld, og nye arrangementer merkes med NYTT. Trykk ☆ for å lagre det du vil på.</p>
     <div class="status" id="status">Henter programmet …</div>
+    <div class="newlead" id="newlead" role="region" aria-label="Nytt siden du var innom sist" hidden>
+      <button type="button" id="nlmain"></button>
+      <button type="button" class="nl-seen" id="nlseen">Merk som sett</button>
+      <a class="nl-jb" id="nljb" href="julebord/" hidden></a>
+    </div>
   </header>
 
   <div class="controls">
@@ -335,12 +335,6 @@ footer a { color: var(--sea); }
       <p><b id="julcd"></b> dager til julaften. Julekonserter, juleshow og julemarked samlet på ett sted.</p>
     </a>
     <div class="julbtns"><a class="julbtn" href="jul-i-alesund/">Se alt som skjer i jula →</a><a class="julbtn jb" id="jbbtn" href="julebord/" hidden></a></div>
-  </div>
-
-  <div class="newstrip" id="newstrip" role="region" aria-label="Nytt siden du var innom sist" hidden>
-    <button type="button" class="ns-main" id="nsmain" aria-pressed="false"></button>
-    <button type="button" class="ns-x" id="nsx" aria-label="Skjul til neste gang">×</button>
-    <a class="ns-jb" id="nsjb" href="julebord/" hidden></a>
   </div>
 
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
@@ -417,7 +411,7 @@ const favs = new Set(store.get("skjer-favs", []));
 
 // Nytt siden sist: nettleseren husker når du var innom sist. «Sist» leses én gang ved start og står stille mens du er her;
 // den nye tiden lagres når du forlater siden (eller bytter fane). Første besøk: ingen teller.
-const LAST = store.get("skjer-sist", null);
+let LAST = store.get("skjer-sist", null);
 const stampVisit = () => store.set("skjer-sist", new Date().toISOString());
 if (!LAST) stampVisit();
 addEventListener("pagehide", stampVisit);
@@ -557,21 +551,22 @@ $("subcopy").onclick = async () => {
 
 // Jul i Ålesund: kortet vises bare fra 1. november til 26. desember (?jul=1 eller #jul viser det utenom sesongen, til test)
 const JULSEASON = (() => { const t = new Date(), m = t.getMonth(), d = t.getDate(); return m === 10 || (m === 11 && d <= 26) || location.search.includes("jul=1") || location.hash === "#jul"; })();
-// Stripe «nye siden du var innom sist». Trykk for å se bare de nye, trykk igjen for alt, × skjuler den til neste besøk.
-let nsHidden = false;
+// «Nye siden du var innom sist»: en grønn linje under «Sist sjekket». «Se dem» viser bare de nye, «Vis alt» går tilbake,
+// «Merk som sett» lagrer nå som siste besøk, så linjen og de grønne merkene forsvinner til det kommer noe nytt.
 function newEntry() {
-  const el = $("newstrip"), fresh = E.filter(e => e.d >= TODAY && newSince(e)), jbNew = JB.filter(newSince);
-  if (!LAST || nsHidden || !fresh.length) { el.hidden = true; if (state.newOnly) { state.newOnly = false; render(); } return; }
+  const el = $("newlead"), fresh = E.filter(e => e.d >= TODAY && newSince(e)), jbNew = JB.filter(newSince);
+  if (!LAST || !fresh.length) { el.hidden = true; if (state.newOnly) { state.newOnly = false; render(); } return; }
   const n = fresh.length, when = new Date(LAST), day = when.toLocaleDateString("nb-NO", { weekday: "long" }) + " " + when.getDate() + ". " + MO[when.getMonth()];
-  const titles = fresh.slice().sort((a, b) => a.addedAt < b.addedAt ? 1 : -1).slice(0, 3).map(e => esc(e.title)).join(" · ");
-  $("nsmain").setAttribute("aria-pressed", state.newOnly);
-  $("nsmain").innerHTML = `<span class="ns-n">${n}</span><span class="ns-t"><b>${state.newOnly ? `Viser ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist` : `${n === 1 ? "ny" : "nye"} siden du var innom sist`}</b><small>Du var sist her ${esc(day)}</small>${state.newOnly ? "" : `<small>${titles}${n > 3 ? " …" : ""}</small>`}</span><span class="ns-go">${state.newOnly ? "Vis alt" : "Se dem →"}</span>`;
-  Object.assign($("nsjb"), { textContent: `🎄 + ${jbNew.length} ${jbNew.length === 1 ? "nytt julebord" : "nye julebord"} →`, hidden: !jbNew.length });
+  $("nlmain").innerHTML = state.newOnly
+    ? `Viser ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist · <u>Vis alt</u>`
+    : `✦ ${n} ${n === 1 ? "ny" : "nye"} siden du var innom sist (${esc(day)}) · <u>Se ${n === 1 ? "den" : "dem"}</u>`;
+  $("nlmain").setAttribute("aria-pressed", state.newOnly);
+  Object.assign($("nljb"), { textContent: `🎄 + ${jbNew.length} ${jbNew.length === 1 ? "nytt julebord" : "nye julebord"} →`, hidden: !jbNew.length });
   el.hidden = false;
 }
-$("nsmain").addEventListener("click", () => { state.newOnly = !state.newOnly; track(state.newOnly ? "nytt/vis" : "nytt/vis-alt"); newEntry(); render(); if (state.newOnly) $("newstrip").scrollIntoView({ behavior: "smooth", block: "start" }); });
-$("nsx").addEventListener("click", () => { nsHidden = true; track("nytt/skjult"); newEntry(); });
-$("nsjb").addEventListener("click", () => track("nytt/julebord"));
+$("nlmain").addEventListener("click", () => { state.newOnly = !state.newOnly; track(state.newOnly ? "nytt/vis" : "nytt/vis-alt"); newEntry(); render(); });
+$("nlseen").addEventListener("click", () => { LAST = new Date().toISOString(); stampVisit(); state.newOnly = false; track("nytt/merk-som-sett"); newEntry(); render(); });
+$("nljb").addEventListener("click", () => track("nytt/julebord"));
 
 // Julebord: en knapp i julekortet i sesongen, ellers (oktober) en stripe under kinostripen
 function julebordEntry() {
