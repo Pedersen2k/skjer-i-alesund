@@ -1,8 +1,8 @@
 {
  "meta": {
-  "updatedAt": "2026-10-27T10:18:32Z",
+  "updatedAt": "2026-10-27T11:21:11Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -41,6 +41,8 @@
    "price": "100–250 kr",
    "priceMin": 100,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48884-musikklinjekonsert/",
@@ -105,6 +107,8 @@
    "price": "630 kr",
    "priceMin": 630,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47138-ingebjorg-bratland/",
@@ -169,6 +173,8 @@
    "price": "530–625 kr",
    "priceMin": 530,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "Kevin Vågenes, Cess og Rasmus Wold.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47586-treretters-en-lattergalla/",
@@ -249,6 +255,8 @@
    "price": "150–250 kr",
    "priceMin": 150,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48033-jazzkafe-vegard-holum-sings-ein-hyllest-til-chet/",
@@ -300,7 +308,19 @@
    "price": "625 kr",
    "priceMin": 625,
    "soldOut": false,
-   "note": "Også kl. 21:00.",
+   "few": true,
+   "shows": [
+    [
+     "2026-10-31T19:00",
+     "few"
+    ],
+    [
+     "2026-10-31T21:00",
+     "few"
+    ]
+   ],
+   "statusSrc": "parken",
+   "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45111-kristian-valen/",
    "moreShows": [
@@ -341,20 +361,20 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "utsolgt-halloween-klubb-med-mentum-terminalen-byscene",
+   "id": "halloween-klubb-med-mentum-terminalen-byscene",
    "date": "2026-10-31",
    "time": "23:00",
-   "title": "UTSOLGT! Halloween Klubb med MENTUM",
+   "title": "Halloween-klubb med MENTUM",
    "venue": "Terminalen Byscene",
    "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
    "cat": "klubb",
    "price": "200 kr",
    "priceMin": 200,
-   "soldOut": false,
+   "soldOut": true,
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66489-halloween-klubb-med-mentum-terminalen",
-   "addedAt": "2026-10-26T20:01:46Z"
+   "addedAt": "2026-10-27T11:21:11Z"
   },
   {
    "id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus",
@@ -431,7 +451,19 @@
    "price": "580 kr",
    "priceMin": 580,
    "soldOut": false,
-   "note": "Også kl. 21:00.",
+   "few": true,
+   "shows": [
+    [
+     "2026-11-05T18:00",
+     "few"
+    ],
+    [
+     "2026-11-05T21:00",
+     "few"
+    ]
+   ],
+   "statusSrc": "parken",
+   "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/46413-storefri/",
    "moreShows": [
@@ -466,7 +498,7 @@
    "price": "699 kr",
    "priceMin": 699,
    "soldOut": false,
-   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.",
+   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 6. nov, 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/62677-juleshow-pa-lovenvold-vol-4-511",
    "moreShows": [
@@ -508,6 +540,8 @@
    "price": "400–450 kr",
    "priceMin": 400,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/46661-the-best-of-ghibli-studio/",
@@ -555,6 +589,8 @@
    "price": "400–450 kr",
    "priceMin": 400,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47866-the-music-of-hans-zimmer-vs-john-williams/",
@@ -571,6 +607,7 @@
    "price": "699 kr",
    "priceMin": 699,
    "soldOut": false,
+   "few": true,
    "note": "40-årsturné og 25 år som artist. Rabatt: DNB-kunde 559 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/60302-maria-mena-terminalen",
@@ -603,6 +640,8 @@
    "price": "350 kr",
    "priceMin": 350,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47822-hanna-paulsberg-belonging/",
@@ -657,7 +696,23 @@
    "price": "465 kr",
    "priceMin": 465,
    "soldOut": false,
-   "note": "Også kl. 15:30 og 18:00. Utsolgt: 13:00, 15:30.",
+   "few": true,
+   "shows": [
+    [
+     "2026-11-07T13:00",
+     "sold"
+    ],
+    [
+     "2026-11-07T15:30",
+     "sold"
+    ],
+    [
+     "2026-11-07T18:00",
+     "few"
+    ]
+   ],
+   "statusSrc": "parken",
+   "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45583-dyrene-i-hakkebakkeskogen/",
    "moreShows": [
@@ -751,6 +806,7 @@
    "price": "700 kr",
    "priceMin": 700,
    "soldOut": false,
+   "few": true,
    "note": "Rabatt: DNB-kunde 560 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/64656-susanne-sundfor-terminalen-byscene",
@@ -850,6 +906,7 @@
    "price": "699 kr",
    "priceMin": 699,
    "soldOut": false,
+   "few": true,
    "note": "Flyttet fra 11. november.",
    "uncertain": false,
    "url": "https://tikkio.com/events/62711-bjorn-bjarte-lovenvold-theater",
@@ -866,6 +923,8 @@
    "price": "450 kr",
    "priceMin": 450,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47679-anders-jektvik/",
@@ -914,6 +973,8 @@
    "price": "450 kr",
    "priceMin": 450,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47677-christine-koht/",
@@ -1023,6 +1084,8 @@
    "price": "320 kr",
    "priceMin": 320,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "Med Dennis Siva og Stian Sandø.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49079-vitenshitshow/",
@@ -1055,7 +1118,18 @@
    "price": "Gratis",
    "priceMin": 0,
    "soldOut": true,
-   "note": "Flere forestillinger: 16. nov.",
+   "shows": [
+    [
+     "2026-11-15T18:00",
+     "sold"
+    ],
+    [
+     "2026-11-16T18:00",
+     "sold"
+    ]
+   ],
+   "statusSrc": "parken",
+   "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/50876-sparebanken-more-tonje-glimmerdal/",
    "moreShows": [
@@ -1370,8 +1444,18 @@
    "cat": "konsert",
    "price": "449 kr",
    "priceMin": 449,
-   "soldOut": false,
-   "note": "Også kl. 19:30.",
+   "soldOut": true,
+   "shows": [
+    [
+     "2026-11-29T17:00",
+     "sold"
+    ],
+    [
+     "2026-11-29T19:30",
+     "sold"
+    ]
+   ],
+   "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66251-ekstra-zimmermann-julekonsert",
    "moreShows": [
@@ -1406,7 +1490,26 @@
    "price": "299 kr",
    "priceMin": 299,
    "soldOut": false,
-   "note": "Premiere 1. desember. Flere forestillinger: 2. des, 3. des, 4. des.",
+   "few": true,
+   "shows": [
+    [
+     "2026-12-01T17:30",
+     "sold"
+    ],
+    [
+     "2026-12-02T17:30",
+     "sold"
+    ],
+    [
+     "2026-12-03T17:30",
+     "few"
+    ],
+    [
+     "2026-12-04T17:30",
+     "few"
+    ]
+   ],
+   "note": "Premiere 1. desember.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66795-notteknekkeren-premiere-gr1",
    "moreShows": [
@@ -1612,7 +1715,19 @@
    "price": "680 kr",
    "priceMin": 680,
    "soldOut": false,
-   "note": "Også kl. 21:00.",
+   "few": true,
+   "shows": [
+    [
+     "2026-12-08T19:00",
+     "few"
+    ],
+    [
+     "2026-12-08T21:00",
+     "few"
+    ]
+   ],
+   "statusSrc": "parken",
+   "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48003-ylvis-calle/",
    "moreShows": [
@@ -1663,6 +1778,8 @@
    "price": "650 kr",
    "priceMin": 650,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/44479-alexandra-rotan-venner/",
@@ -1762,6 +1879,8 @@
    "price": "205–380 kr",
    "priceMin": 205,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49425-velvet-christmas/",
@@ -1794,6 +1913,8 @@
    "price": "670 kr",
    "priceMin": 670,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/44202-christel-alsos/",
@@ -1826,6 +1947,8 @@
    "price": "670 kr",
    "priceMin": 670,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/44201-adam-douglas/",
@@ -1906,6 +2029,8 @@
    "price": "655 kr",
    "priceMin": 655,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/46011-eva-weel-skram/",
@@ -1974,7 +2099,17 @@
    "price": "520 kr",
    "priceMin": 520,
    "soldOut": false,
-   "note": "Også kl. 19:00.",
+   "shows": [
+    [
+     "2026-12-19T16:00",
+     ""
+    ],
+    [
+     "2026-12-19T19:00",
+     "sold"
+    ]
+   ],
+   "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/66944-ekstrakonsert-darling-west-juleturne-26",
    "moreShows": [
@@ -1993,6 +2128,8 @@
    "price": "450 kr",
    "priceMin": 450,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48634-anita-valderhaug-m-gjester/",
@@ -2121,6 +2258,8 @@
    "price": "595 kr",
    "priceMin": 595,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49424-the-show-must-go-on/",
@@ -2233,6 +2372,8 @@
    "price": "500–590 kr",
    "priceMin": 500,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49087-finn-tre-feil/",
@@ -2300,6 +2441,8 @@
    "price": "585–625 kr",
    "priceMin": 585,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49633-hvis-gud-vil/",
@@ -2348,6 +2491,8 @@
    "price": "175–375 kr",
    "priceMin": 175,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49672-gospelfest/",
@@ -2412,6 +2557,8 @@
    "price": "261–320 kr",
    "priceMin": 261,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47488-kakejazz/",
@@ -2428,6 +2575,8 @@
    "price": "585 kr",
    "priceMin": 585,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48873-iselin-guttormsen-kommer/",
@@ -2460,6 +2609,8 @@
    "price": "350–450 kr",
    "priceMin": 350,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/51055-halvor-johansson/",
@@ -2492,6 +2643,8 @@
    "price": "550 kr",
    "priceMin": 550,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48778-balletak-pa-bransjen/",
@@ -2508,6 +2661,8 @@
    "price": "480 kr",
    "priceMin": 480,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48269-jorn-hoel-steinar-albrigtsen/",
@@ -2588,6 +2743,8 @@
    "price": "580 kr",
    "priceMin": 580,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45656-pulse-of-floyd/",
