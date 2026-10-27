@@ -91,6 +91,37 @@ def price_text(e):
     return e.get("price") or "Pris hos arrangør"
 
 
+# «Få billetter igjen» der kilden sier det (som few/fewHtml/showsHtml i index.html). Parken merker nesten alt,
+# så deres merke vises bare de siste to ukene før forestillingen.
+def few_ok(e, d):
+    return e.get("statusSrc") != "parken" or (d - datetime.datetime.now(TZ).date()).days <= 14
+
+
+def few_html(e):
+    d = datetime.date.fromisoformat(e["date"])
+    return '<span class="few">Få billetter igjen</span>' if e.get("few") and not e.get("soldOut") and not e.get("shows") and few_ok(e, d) else ""
+
+
+def shows_html(e):
+    today = datetime.datetime.now(TZ).date()
+    rows = [(iso, st, datetime.date.fromisoformat(iso[:10])) for iso, st in e.get("shows") or []]
+    rows = [r for r in rows if r[2] >= today]
+    if len(rows) < 2:
+        return ""
+    one_day = len({r[2] for r in rows}) == 1
+    out = []
+    for iso, st, d in rows:
+        t = iso[11:16]
+        lab = escape(t if one_day else f"{d.day}. {MO[d.month - 1][:3]}" + (f" {t}" if t and t != e.get("time") else ""))
+        if st == "sold":
+            out.append(f'<span class="sold"><b>{lab}</b><small>utsolgt</small></span>')
+        elif st == "few" and few_ok(e, d):
+            out.append(f'<span class="fewt">{lab}<small>få igjen</small></span>')
+        else:
+            out.append(f"<span>{lab}</span>")
+    return f'<div class="times">{"".join(out)}</div>'
+
+
 def map_url(e):
     return "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f"{e['venue']}, {e.get('address') or 'Ålesund'}")
 
@@ -117,7 +148,7 @@ def event_ld(e):
     o["description"] = e.get("note") or f"{e['title']} på {e['venue']} i Ålesund {day_text(d, year=True)}" + (f" kl. {e['time']}." if e.get("time") else ".")
     if isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] >= 0:
         o["offers"] = {"@type": "Offer", "url": safe_url(e.get("url")) or o["url"], "price": str(e["priceMin"]), "priceCurrency": "NOK",
-                       "availability": "https://schema.org/SoldOut" if e.get("soldOut") else "https://schema.org/InStock"}
+                       "availability": "https://schema.org/SoldOut" if e.get("soldOut") else "https://schema.org/LimitedAvailability" if e.get("few") else "https://schema.org/InStock"}
         if e["priceMin"] == 0:
             o["isAccessibleForFree"] = True
     return o
@@ -210,8 +241,9 @@ def card(e, up):
     price_cls = "price sold" if e.get("soldOut") else "price" if (e.get("price") or e.get("priceMin") == 0) else "price unk"
     return f"""<article class="ev" style="--c:var(--c-{c})">
         <h3><a class="title" href="{up}arrangement/{e['id']}/">{escape(e['title'])}</a></h3>
-        <div class="side"><span class="{price_cls}">{escape(price_text(e))}</span></div>
+        <div class="side"><span class="{price_cls}">{escape(price_text(e))}</span>{few_html(e)}</div>
         <div class="meta"><span class="tag">{CAT_LABEL[c]}</span>{f'<a class="venue" href="{up}{venue_path(e["venue"])}">' if venue_path(e["venue"]) else '<span>'}{escape(e['venue'])}{'</a>' if venue_path(e["venue"]) else '</span>'}{f'<span class="t">kl. {escape(e["time"])}</span>' if e.get("time") else ""}</div>
+        {shows_html(e)}
         {f'<div class="note{" warn" if e.get("uncertain") else ""}">{escape(e["note"])}</div>' if e.get("note") else ""}
         {f'<div class="actions"><a class="link" href="{escape(u)}" target="_blank" rel="noopener">Billetter →</a></div>' if u else ""}
       </article>"""
@@ -843,7 +875,8 @@ def event_page(e, events, path):
     <dl>
       <dt>Når</dt><dd>{escape(when[0].upper() + when[1:])}</dd>
       <dt>Hvor</dt><dd>{venue_html}{f', {escape(e["address"])}' if e.get("address") else ", Ålesund"} · <a href="{escape(map_url(e))}" target="_blank" rel="noopener">Kart</a></dd>
-      <dt>Pris</dt><dd class="{'sold' if e.get('soldOut') else ''}">{escape(pt)}</dd>
+      <dt>Pris</dt><dd class="{'sold' if e.get('soldOut') else ''}">{escape(pt)} {few_html(e)}</dd>
+      {f'<dt>Tider</dt><dd>{shows_html(e)}</dd>' if shows_html(e) else ""}
     </dl>
     {f'<p class="note{" warn" if e.get("uncertain") else ""}">{escape(e["note"])}</p>' if e.get("note") else ""}
     <div class="cta">{f'<a class="btn" href="{escape(u)}" target="_blank" rel="noopener">Billetter og info hos arrangør →</a>' if u else ""}{f'<a class="link" href="{up}julebord/">Alle julebord</a>' if e["cat"] in SEPARATE else f'<a class="link" href="{up}#ev-{e["id"]}">Se i hele programmet</a>'}</div>

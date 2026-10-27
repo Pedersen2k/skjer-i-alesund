@@ -67,7 +67,7 @@ def slug(text):
 
 def clean_title(name):
     t = html.unescape(name).strip()
-    t = re.sub(r"^(ekstrashow!|ekstrakonsert!|få bill!)\s*", "", t, flags=re.I)
+    t = re.sub(r"^(ekstrashow!|ekstrakonsert!|få bill!|utsolgt!)\s*", "", t, flags=re.I)
     t = re.sub(r"\s*//.*$", "", t)                      # « // Terminalen Byscene»
     t = re.sub(r"\s*/\s*\d{1,2}\.\d{1,2}\s*$", "", t)   # « / 5.11»
     t = re.sub(r"\s*\|\s*Support:.*$", "", t, flags=re.I)
@@ -115,20 +115,26 @@ def fetch_tikkio():
             venue = spelling.setdefault(venue.casefold(), VENUE_NAMES.get(venue, venue))
             raw.append({"name": name, "venue": venue, "start": start,
                         "address": clean_address(addr.get("streetAddress"), venue),
-                        "url": url, "tickets": fetch_tickets(url),
-                        "soldOut": "SoldOut" in json.dumps(offer.get("availability"))})
+                        "url": url, **tikkio_event(url, "SoldOut" in json.dumps(offer.get("availability")))})
     return raw
 
 
-def fetch_tickets(url):
-    if not url:
-        return []
-    try:
-        page = get(url)
-        time.sleep(0.5)
-    except Exception as e:  # en enkelt side som feiler skal ikke stoppe hele kjøringen
-        print("feil:", url, e, file=sys.stderr)
-        return []
+def tikkio_event(url, sold=False):
+    """Billettypene og statusen fra én Tikkio-side. Oversikten sier alltid «InStock»; bare merket på
+    selve siden («Utsolgt» / «Få billetter igjen», over bildet) sier om det er utsolgt eller nesten."""
+    page = ""
+    if url:
+        try:
+            page = get(url)
+            time.sleep(0.5)
+        except Exception as e:  # en enkelt side som feiler skal ikke stoppe hele kjøringen
+            print("feil:", url, e, file=sys.stderr)
+    badge = re.search(r'whitespace-nowrap">\s*(Utsolgt|Få billetter igjen)\s*<', page)
+    return {"tickets": tikkio_tickets(page), "soldOut": sold or bool(badge and badge.group(1) == "Utsolgt"),
+            "few": bool(badge and badge.group(1) == "Få billetter igjen")}
+
+
+def tikkio_tickets(page):
     tickets = []
     pat = r'"item_name":"((?:[^"\\]|\\.)*)","item_brand":"[^"]*","item_category":\d+,"affiliation":"(?:[^"\\]|\\.)*","price":"([\d.]+)"'
     for t in re.finditer(pat, page):
@@ -154,7 +160,8 @@ def guess_year(day, month, today):
 
 
 def parse_parken(page, today):
-    """Leser ett arrangement fra Parken. Returnerer (tittel, [(start, utsolgt)], pris-tuple)."""
+    """Leser ett arrangement fra Parken. Returnerer (tittel, [(start, status)], pris-tuple), der status er
+    «sold», «few» («Få billetter igjen») eller tom."""
     h1 = re.search(r"<h1[^>]*>(.*?)</h1>", page, re.S | re.I)
     title = clean_title(re.sub(r"<[^>]+>", " ", h1.group(1))) if h1 else ""
     title = re.sub(r"\s+", " ", title).strip()
@@ -163,14 +170,15 @@ def parse_parken(page, today):
     text = re.split(r"\n(?:Se også|Andre arrangementer|Du vil kanskje også like|Relaterte arrangementer)\n", text)[0]
 
     shows = []
-    for m in re.finditer(r"\b(\d{1,2})\.(\d{1,2})\s*-\s*kl\.\s*(\d{1,2})[:.](\d{2})(?:\s*-\s*\d{1,2}[:.]\d{2})?\s*(Utsolgt)?", text):
+    status = {"Utsolgt": "sold", "Få billetter igjen": "few"}
+    for m in re.finditer(r"\b(\d{1,2})\.(\d{1,2})\s*-\s*kl\.\s*(\d{1,2})[:.](\d{2})(?:\s*-\s*\d{1,2}[:.]\d{2})?\s*(Utsolgt|Få billetter igjen)?", text):
         d, mo, hh, mm = (int(x) for x in m.group(1, 2, 3, 4))
         try:
             start = datetime.datetime(guess_year(d, mo, today), mo, d, hh, mm, tzinfo=TZ)
         except ValueError:
             continue
         if all(s != start for s, _ in shows):
-            shows.append((start, bool(m.group(5))))
+            shows.append((start, status.get(m.group(5), "")))
     if not shows:
         m = re.search(r"\b(\d{1,2})\.\s*(" + "|".join(MONTHS) + r")[a-zæøå]*\.?\s*(\d{4})(?:\s*kl\.\s*(\d{1,2})[:.](\d{2}))?", text, re.I)
         if m:
@@ -178,9 +186,13 @@ def parse_parken(page, today):
             hh, mm = (int(m.group(4)), int(m.group(5))) if m.group(4) else (0, 0)
             try:
                 start = datetime.datetime(y, mo, d, hh, mm, tzinfo=TZ)
-                shows.append((start, False))
+                shows.append((start, ""))
             except ValueError:
                 pass
+    # Merket over bildet gjelder hele arrangementet; bruk det når det bare er én forestilling uten egen status
+    hero = re.search(r'class="sale-status sale-status-\d">\s*<p>\s*([^<]*?)\s*</p>', page)
+    if len(shows) == 1 and not shows[0][1] and hero:
+        shows[0] = (shows[0][0], status.get(hero.group(1), ""))
 
     price = None
     m = re.search(r"Pris:\s*(?:\n\s*)?(?:fra\s*)?(\d[\d .]*?)\s*kr(?:\s*til\s*(\d[\d .]*?)\s*kr)?", text, re.I)
@@ -216,11 +228,11 @@ def fetch_parken():
         title, shows, price = parse_parken(page, today)
         if not title or not shows or SKIP.search(title):
             continue
-        for start, sold in shows:
+        for start, st in shows:
             if start.date() < today:
                 continue
             raw.append({"name": title, "venue": PARKEN_VENUE, "address": PARKEN_ADDRESS, "start": start, "url": url,
-                        "tickets": [], "price": price, "soldOut": sold, "group": "parken-" + pid,
+                        "tickets": [], "price": price, "soldOut": st == "sold", "few": st == "few", "src": "parken", "group": "parken-" + pid,
                         "noTime": start.hour == 0 and start.minute == 0})  # dato uten klokkeslett
     print(f"Parken: {len(urls)} lenker, {len(raw)} forestillinger", file=sys.stderr)
     return raw
@@ -251,7 +263,7 @@ def fetch_dampsentralen():
         ticket = re.search(r'https://tikkio\.com/events/\d+[^"\'<\s]*', text)
         url = ticket.group(0) if ticket else DAMP + (it.get("fullUrl") or "/kalender")
         raw.append({"name": name, "venue": DAMP_VENUE, "start": start, "address": "", "url": url,
-                    "tickets": fetch_tickets(url) if ticket else [], "soldOut": False})
+                    **(tikkio_event(url) if ticket else {"tickets": [], "soldOut": False})})
     print(f"Dampsentralen: {len(raw)} arrangementer", file=sys.stderr)
     return raw
 
@@ -508,15 +520,21 @@ def build_events(raw, overrides):
         o = overrides.get(key) or overrides.get(title_key, {})
         price, price_min, disc = first.get("price") or price_info(first["tickets"])
         notes = [o.get("note", ""), first.get("note", "")]
+        # Status per forestilling. Med 2–6 forestillinger og minst én status vises tidene som knapper med status på kortet
+        # (i stedet for «Også kl.», «Utsolgt:» og «Flere forestillinger» i notatet)
+        status = ["sold" if s["soldOut"] else "few" if s.get("few") else "" for s in shows]
+        live = [x for x in status if x != "sold"]
+        few = bool(live) and all(x == "few" for x in live)
+        chips = 2 <= len(shows) <= 6 and any(status)
         extra_days = sorted({s["start"].date() for s in shows[1:]} - {first["start"].date()})
         same_day = [s["start"].strftime("%H:%M") for s in shows[1:] if s["start"].date() == first["start"].date()]
-        if same_day:
+        if same_day and not chips:
             notes.append("Også kl. " + " og ".join(same_day) + ".")
         sold = [s for s in shows if s["soldOut"]]
-        if sold and len(sold) < len(shows):
+        if sold and len(sold) < len(shows) and not chips:
             when = [s["start"].strftime("%H:%M") if s["start"].date() == first["start"].date() else fmt_day(s["start"].date()) for s in sold]
-            notes.append("Utsolgt: " + ", ".join(when) + ".")
-        if extra_days:
+            notes.append("Utsolgt: " + ", ".join(dict.fromkeys(when)) + ".")
+        if extra_days and not chips:
             listed = ", ".join(fmt_day(d) for d in extra_days[:5])
             notes.append(f"Flere forestillinger: {listed}" + (" m.fl." if len(extra_days) > 5 else "."))
         if o.get("discountNote", True):
@@ -532,6 +550,10 @@ def build_events(raw, overrides):
             "cat": o.get("cat") or first.get("cat") or guess_cat(first["title"]),
             "price": price, "priceMin": price_min,
             "soldOut": all(s["soldOut"] for s in shows),
+            **({"few": True} if few else {}),
+            **({"shows": [[s["start"].strftime("%Y-%m-%d" if s.get("noTime") else "%Y-%m-%dT%H:%M"), x] for s, x in zip(shows, status)]} if chips else {}),
+            # Parken merker nesten alt med «Få billetter igjen»; siden viser det derfor bare de siste to ukene
+            **({"statusSrc": "parken"} if first.get("src") == "parken" and (few or chips) else {}),
             "note": " ".join(n for n in notes if n),
             "uncertain": bool(o.get("uncertain", False)),
             "url": first["url"],

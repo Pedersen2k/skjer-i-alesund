@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Få billetter igjen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Seks måter å vise «Få billetter igjen» på kortene. Ekte arrangementer og ekte status fra kildene 27. okt. Ett mørkt tema, som siden har for de fleste. */
+:root {
+  --bg: #0a171b; --surface: #13252d; --fg: #e8f1ef; --muted: #8fa8ab; --line: #25414a;
+  --gold: #f7c873; --sea: #5ab7bf; --accent: #ff8a6b; --amber: #ffb547; --amber-bg: #3a2a10;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding: 28px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px)); }
+.wrap { max-width: 1480px; margin: 0 auto; display: grid; gap: 28px; }
+header h1 { font: 800 clamp(28px, 4vw, 42px)/1.05 var(--font-display); margin: 0 0 10px; text-wrap: balance; }
+header p { margin: 0; max-width: 78ch; color: var(--muted); }
+header p + p { margin-top: 8px; }
+header b { color: var(--fg); font-weight: 600; }
+.ctl { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.ctl > span { font-size: 13px; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 99px; padding: 2px; }
+.seg button { border: 0; background: transparent; color: var(--muted); font: 600 13px var(--font-body); padding: 6px 12px; border-radius: 99px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--gold); color: #1a1405; }
+.ctl output { font: 600 13px var(--font-mono); color: var(--fg); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px 22px; align-items: start; }
+.opt { display: grid; gap: 12px; min-width: 0; }
+.opt h2 { margin: 0; font: 800 21px/1.1 var(--font-display); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.opt h2 span { font: 700 13px var(--font-mono); color: var(--bg); background: var(--gold); border-radius: 6px; padding: 2px 7px; }
+.why { margin: 0; color: var(--muted); font-size: 14px; min-height: 4.6em; }
+.pros { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.pros li::before { content: "+ "; color: var(--sea); font-weight: 700; }
+.pros li.minus::before { content: "– "; color: var(--accent); }
+.phone { border: 1px solid var(--line); border-radius: 26px; padding: 14px 12px 18px; background: #081316; max-height: 640px; overflow-y: auto; overscroll-behavior: contain; }
+.day { font: 800 15px/1 var(--font-display); margin: 14px 2px 8px; color: var(--fg); }
+.day:first-child { margin-top: 2px; }
+.day small { font: 500 12px var(--font-body); color: var(--muted); margin-left: 6px; }
+.events { display: grid; gap: 8px; }
+
+/* Kortet, som på forsiden (kveld-temaet) */
+.ev { position: relative; overflow: hidden; background: linear-gradient(135deg, color-mix(in srgb, var(--c) 20%, #13252d), #13252d 62%); border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 12px; padding: 12px 14px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; box-shadow: 0 8px 24px #0006; }
+.ev h3 { margin: 0; font: 700 17px/1.25 var(--font-display); letter-spacing: -0.01em; text-wrap: balance; min-width: 0; }
+.meta { grid-column: 1; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; color: var(--muted); align-items: center; }
+.meta .t { font-family: var(--font-mono); color: var(--fg); }
+.tag { font: 600 11px/1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--c); }
+.side { grid-row: 1 / span 2; grid-column: 2; display: flex; flex-direction: column; gap: 6px; align-items: end; }
+.fav { color: var(--muted); font-size: 20px; line-height: 1; padding: 4px; }
+.price { font: 600 13px/1.2 var(--font-mono); color: var(--fg); white-space: nowrap; }
+.price.sold { color: var(--accent); }
+.note { grid-column: 1 / -1; font-size: 12.5px; color: var(--muted); }
+.actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 16px; font: 600 13px/1.4 var(--font-body); }
+.actions a { color: var(--gold); text-decoration: none; }
+.actions span { color: var(--sea); }
+
+/* A: pille under prisen */
+.pillA { font: 700 10.5px/1 var(--font-body); color: var(--amber); background: var(--amber-bg); border: 1px solid #6b4c17; border-radius: 99px; padding: 4px 7px; white-space: nowrap; }
+/* B: merke i infolinja, med prikk som puster */
+.badgeB { display: inline-flex; gap: 5px; align-items: center; font: 700 11px/1 var(--font-body); color: var(--amber); }
+.badgeB i { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 0 #ffb54799; }
+@media (prefers-reduced-motion: no-preference) { .badgeB i { animation: pulse 1.8s ease-out infinite; } }
+@keyframes pulse { 70% { box-shadow: 0 0 0 6px #ffb54700; } 100% { box-shadow: 0 0 0 0 #ffb54700; } }
+/* C: prisen i rav, kort tekst under */
+.price.few { color: var(--amber); }
+.fewC { font: 600 11px/1 var(--font-body); color: var(--amber); white-space: nowrap; }
+/* D: linje øverst i kortet */
+.ev.topD { padding-top: 0; }
+.ev.topD .side { grid-row: 2 / span 2; }
+.bandD { grid-column: 1 / -1; grid-row: 1; margin: 0 -14px 6px; padding: 5px 14px; background: linear-gradient(90deg, #5a3d0e, #3a2a1000); color: var(--amber); font: 700 11px/1.2 var(--font-body); text-transform: uppercase; letter-spacing: .07em; }
+.bandD.sold { background: linear-gradient(90deg, #5a2416, #3a160d00); color: var(--accent); }
+/* E: per forestilling */
+.times { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.times span { font: 600 12px/1 var(--font-mono); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; color: var(--fg); display: inline-flex; gap: 6px; align-items: center; }
+.times span small { font: 600 11px var(--font-body); }
+.times .few { border-color: #6b4c17; background: var(--amber-bg); }
+.times .few small { color: var(--amber); }
+.times .sold { color: var(--muted); }
+.times .sold b { text-decoration: line-through; font-weight: 600; }
+.times .sold small { color: var(--accent); }
+/* F: egen boks øverst */
+.boxF { border: 1px solid #6b4c17; background: linear-gradient(160deg, #2c2110, #13252d 70%); border-radius: 14px; padding: 12px 14px; margin-bottom: 4px; }
+.boxF h4 { margin: 0 0 2px; font: 800 16px/1.2 var(--font-display); color: var(--amber); }
+.boxF p { margin: 0 0 8px; font-size: 12.5px; color: var(--muted); }
+.boxF a { display: grid; grid-template-columns: 58px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 0; border-top: 1px solid #ffffff12; color: var(--fg); text-decoration: none; font-size: 13.5px; }
+.boxF a b { font: 600 12px var(--font-mono); color: var(--muted); }
+.boxF a small { color: var(--muted); font-size: 12px; display: block; }
+.boxF a em { font: 600 12px var(--font-mono); font-style: normal; color: var(--amber); white-space: nowrap; }
+.src { font-size: 11px; color: var(--muted); grid-column: 1 / -1; }
+footer { color: var(--muted); font-size: 13px; max-width: 78ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>«Få billetter igjen» på kortene</h1>
+  <p>Seks forslag, med ekte arrangementer og ekte status fra kildene 27. oktober. Merket kommer bare der kilden sier det, og teksten er kildens egen, <b>«Få billetter igjen»</b>. Utsolgt vises allerede i dag.</p>
+  <p><b>Ting å vite først:</b> Tikkio merker få arrangementer (4 av 50), så der betyr merket noe. Parken merker nesten alt (31 av 48, også konserter i mai 2027), og da blir merket støy. Bryteren under viser forskjellen. Et mellomvalg er å vise Parkens merke bare de siste to ukene før arrangementet.</p>
+  <p>Jeg fant også noe som må fikses uansett: Tikkio skriver «Utsolgt» på Halloween Klubb med MENTUM, Zimmermann og Nøtteknekkeren, men siden vår får ikke det med seg i dag.</p>
+</header>
+<div class="ctl">
+  <span>Merker fra:</span>
+  <div class="seg" id="src"><button aria-pressed="true" data-s="all">Tikkio + Parken</button><button aria-pressed="false" data-s="tikkio">Bare Tikkio</button></div>
+  <output id="count"></output>
+</div>
+<div class="grid" id="grid"></div>
+<footer>Parken viser status per forestilling også (for eksempel Dyrene i Hakkebakkeskogen: 13:00 og 15:30 utsolgt, 18:00 få igjen). Forslag E bruker det.</footer>
+</div>
+<script>
+// Ekte data fra events.json og kildesidene 27. okt. few = «Få billetter igjen», sold = «Utsolgt».
+const DAYS = [
+  ["Fredag 30. okt", [
+    { t: "Treretters: En lattergalla", v: "Parken kulturhus", c: "standup", time: "19:00", p: "530–625 kr", s: "few", src: "parken", note: "Kevin Vågenes, Cess og Rasmus Wold." },
+    { t: "GOLF", v: "Terminalen Byscene", c: "konsert", time: "20:30", p: "420 kr", note: "Rabatt: ÅSS / Studentbillett 320 kr, DNB-kunde 366 kr." }]],
+  ["Lørdag 31. okt", [
+    { t: "Kristian Valen", v: "Parken kulturhus", c: "konsert", time: "19:00", p: "625 kr", s: "few", src: "parken", shows: [["19:00", "few"], ["21:00", "few"]] },
+    { t: "Viggo Venneløs", v: "Løvenvold Theater", c: "standup", time: "19:00", p: "350 kr", note: "Dører 18:00 · 15 år." },
+    { t: "Halloween Klubb med MENTUM", v: "Terminalen Byscene", c: "klubb", time: "23:00", p: "200 kr", s: "sold", src: "tikkio" }]],
+  ["Fredag 6. nov", [
+    { t: "Maria Mena", v: "Terminalen Byscene", c: "konsert", time: "20:00", p: "699 kr", s: "few", src: "tikkio", note: "40-årsturné og 25 år som artist." }]],
+  ["Lørdag 7. nov", [
+    { t: "Dyrene i Hakkebakkeskogen", v: "Parken kulturhus", c: "barn", time: "13:00", p: "465 kr", s: "few", src: "parken", shows: [["13:00", "sold"], ["15:30", "sold"], ["18:00", "few"]] }]],
+  ["Søndag 8. nov", [
+    { t: "Susanne Sundfør", v: "Terminalen Byscene", c: "konsert", time: "19:00", p: "700 kr", s: "few", src: "tikkio", note: "Rabatt: DNB-kunde 560 kr." }]],
+];
+let SRC = "all";
+const few = e => e.s === "few" && (SRC === "all" || e.src === "tikkio");
+const sold = e => e.s === "sold";
+const PIN = `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#5ab7bf" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>`;
+const TAG = { konsert: "Konsert", standup: "Standup", barn: "Barn og familie", klubb: "Klubb" };
+
+function card(e, o = {}) {
+  const price = sold(e) ? `<span class="price sold">Utsolgt</span>` : `<span class="price ${o.priceCls?.(e) || ""}">${e.p}</span>`;
+  return `<article class="ev ${o.cls?.(e) || ""}" style="--c:var(--c-${e.c})">
+    ${o.top?.(e) || ""}
+    <h3>${e.t}</h3>
+    <div class="side"><span class="fav">☆</span>${price}${o.side?.(e) || ""}</div>
+    <div class="meta">${o.meta?.(e) || ""}<span class="tag">${TAG[e.c]}</span><span style="display:inline-flex;gap:3px;align-items:center">${PIN}${e.v}</span><span class="t">kl. ${e.time}</span></div>
+    ${o.below?.(e) || ""}
+    ${(o.note ? o.note(e) : e.note) ? `<div class="note">${o.note ? o.note(e) : e.note}</div>` : ""}
+    <div class="actions"><a href="#">Se program og billetter →</a><span>Legg i kalender</span><span>Del</span></div>
+  </article>`;
+}
+const list = (o, pre = "") => pre + DAYS.map(([d, es]) => `<div class="day">${d}</div><div class="events">${es.map(e => card(e, o)).join("")}</div>`).join("");
+
+const OPTS = [
+  ["A", "Pille under prisen", "Et lite rav-merke rett under prisen, der øyet allerede ser etter hva det koster.",
+    ["Rolig, tar nesten ingen plass", "Står der man ser på pris"], ["Lett å overse på et travelt kort"],
+    () => list({ side: e => few(e) ? `<span class="pillA">Få billetter igjen</span>` : "" })],
+  ["B", "Merke i infolinja", "Som «Nytt»-merket: først i linja med kategori og sted, med en liten prikk som puster.",
+    ["Kjent mønster fra «Nytt»", "Prikken gir litt fart uten å rope"], ["Bevegelse kan bli mye når mange kort har den (slås av for dem som har valgt mindre bevegelse)"],
+    () => list({ meta: e => few(e) ? `<span class="badgeB"><i></i>Få billetter igjen</span>` : "" })],
+  ["C", "Prisen skifter farge", "Prisen blir rav, med «få igjen» i liten skrift under. Ingen nye elementer.",
+    ["Det mest diskré", "Ingen ekstra linje på mobil"], ["Krever at man ser på prisen", "Fargen alene sier lite for fargeblinde, derfor teksten under"],
+    () => list({ priceCls: e => few(e) ? "few" : "", side: e => few(e) ? `<span class="fewC">få igjen</span>` : "" })],
+  ["D", "Linje øverst i kortet", "En tynn rav-linje over tittelen. Utsolgt får samme linje i korall.",
+    ["Synes best av alle", "Utsolgt og få igjen ser like ut, bare i ulik farge"], ["Mye når Parken merker nesten alt", "Kortet blir litt høyere"],
+    () => list({ cls: e => few(e) || sold(e) ? "topD" : "", top: e => few(e) ? `<div class="bandD">Få billetter igjen</div>` : sold(e) ? `<div class="bandD sold">Utsolgt</div>` : "" })],
+  ["E", "Per forestilling", "Når det er flere tider, får hver tid sin egen knapp med status. Ett show: pille som A.",
+    ["Mest nyttig: man ser hvilken tid som fortsatt har plass", "Erstatter «Også kl. … Utsolgt: …» i notatet"], ["Bare Parken gir status per tid", "Litt mer å bygge"],
+    () => list({
+      side: e => few(e) && !e.shows ? `<span class="pillA">Få billetter igjen</span>` : "",
+      below: e => e.shows ? `<div class="times">${e.shows.map(([t, s]) => s === "sold" ? `<span class="sold"><b>${t}</b><small>utsolgt</small></span>` : few({ s, src: e.src }) ? `<span class="few">${t}<small>få igjen</small></span>` : `<span>${t}</span>`).join("")}</div>` : "",
+      note: e => e.shows ? "" : e.note })],
+  ["F", "Egen boks øverst", "En boks over lista med det som har få billetter igjen de neste to ukene, pluss merket fra B på kortene.",
+    ["Gir fart: «sikre deg billett nå»", "Fin i Helgeposten også"], ["Tar plass øverst på forsiden", "Med Parkens merker blir boksen lang"],
+    () => {
+      const all = DAYS.flatMap(([d, es]) => es.map(e => [d, e])).filter(([, e]) => few(e)).slice(0, 4);
+      const box = all.length ? `<div class="boxF"><h4>Få billetter igjen</h4><p>Neste to uker, ifølge billettsidene.</p>${all.map(([d, e]) => `<a href="#"><b>${d.split(" ").slice(1).join(" ")}</b><span>${e.t}<small>${e.v} · kl. ${e.time}</small></span><em>${e.p}</em></a>`).join("")}</div>` : "";
+      return list({ meta: e => few(e) ? `<span class="badgeB"><i></i>Få billetter igjen</span>` : "" }, box);
+    }],
+];
+
+function render() {
+  document.getElementById("grid").innerHTML = OPTS.map(([k, h, why, plus, minus, fn]) => `<section class="opt">
+    <h2><span>${k}</span>${h}</h2><p class="why">${why}</p>
+    <ul class="pros">${plus.map(x => `<li>${x}</li>`).join("")}${minus.map(x => `<li class="minus">${x}</li>`).join("")}</ul>
+    <div class="phone">${fn()}</div></section>`).join("");
+  const n = DAYS.flatMap(d => d[1]), f = n.filter(few).length;
+  document.getElementById("count").textContent = `${f} av ${n.length} kort får merket`;
+}
+document.getElementById("src").onclick = ev => {
+  const b = ev.target.closest("[data-s]"); if (!b) return; SRC = b.dataset.s;
+  document.querySelectorAll("#src button").forEach(x => x.setAttribute("aria-pressed", x === b)); render();
+};
+render();
+</script>
+</body>
+</html>
