@@ -1,8 +1,8 @@
 {
  "meta": {
-  "updatedAt": "2026-10-27T07:29:42Z",
+  "updatedAt": "2026-10-27T07:56:21Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 6,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -348,8 +348,8 @@
    "venue": "Sunnmøre museum",
    "address": "Museumsvegen 12, 6015 Ålesund",
    "cat": "happening",
-   "price": "80 kr",
-   "priceMin": 80,
+   "price": "120 kr",
+   "priceMin": 120,
    "soldOut": false,
    "note": "",
    "uncertain": false,
@@ -1345,22 +1345,6 @@
    "addedAt": "2026-10-26T20:53:51Z"
   },
   {
-   "id": "julemarkedet",
-   "date": "2026-11-28",
-   "time": "",
-   "title": "Julemarkedet åpner",
-   "venue": "Sentrum",
-   "address": "",
-   "cat": "happening",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Ikke bekreftet av arrangør ennå.",
-   "uncertain": true,
-   "url": "https://bypatrioten.com/kalender/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
    "id": "zimmermann-julekonsert-lovenvold-theater",
    "date": "2026-11-29",
    "time": "17:00",
@@ -1417,6 +1401,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "deilig-er-jorden-alesund-kirke-2026",
+   "date": "2026-12-01",
+   "time": "18:00",
+   "title": "Deilig er jorden",
+   "price": "",
+   "priceMin": null,
+   "venue": "Ålesund kirke",
+   "address": "",
+   "cat": "konsert",
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Førjulskonsert med kjente julesanger; 10-årsjubileum. Rein Alexander med Elisabeth Andreassen og Kim Rysstad. Billetter på Eventim.",
+   "url": "https://www.eventim.no/event/deilig-er-jorden-aalesund-kirke-21549755/",
+   "addedAt": "2026-10-27T07:56:21Z"
+  },
+  {
    "id": "julekonsert-spjelkavik-kyrkje-spjelkavik-kyrkje",
    "date": "2026-12-04",
    "time": "18:30",
@@ -1431,6 +1431,38 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66724-julekonsert-spjelkavik-kyrkje",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "skruk-medan-vi-ventar-alesund-kirke-2026",
+   "date": "2026-12-04",
+   "time": "21:00",
+   "title": "SKRUK – Medan vi ventar",
+   "price": "490 kr",
+   "priceMin": 490,
+   "venue": "Ålesund kirke",
+   "address": "",
+   "cat": "konsert",
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Rabatt: Student 250 kr. Barn under 12 år gratis.",
+   "url": "https://ebillett.no/skruk",
+   "addedAt": "2026-10-27T07:56:21Z"
+  },
+  {
+   "id": "julemarked-hatlane-skole-2026",
+   "date": "2026-12-05",
+   "time": "11:00",
+   "title": "Julemarked på Hatlane skole",
+   "venue": "Hatlane skole",
+   "address": "Smedgarden 5, 6016 Ålesund",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Kl. 11–16. Lokalt håndverk, kunst, design og lokalmat, kafé med julekaker. Arrangert av Hatlane skolekorps.",
+   "url": "https://bypatrioten.com/event/julemarked-pa-hatlane-skole-3/",
+   "addedAt": "2026-10-27T07:56:21Z"
   },
   {
    "id": "aafk-2026-12-05-aalesund-bodo-glimt",
@@ -1498,6 +1530,25 @@
    "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026",
    "note": "Beatles-tributeband i Bankettsalen. Prisen inkluderer underholdning, stor varm julematbuffet, kaldtbord med blant annet spekemat og sjømat, kake- og dessertbord og kaffe. Pris og klokkeslett står ikke på hotellets side; bestilling på e-post til Scandic Parken.",
    "addedAt": "2026-10-26T20:53:51Z"
+  },
+  {
+   "id": "julemarked-spjelkavikhallen-2026",
+   "date": "2026-12-05",
+   "time": "",
+   "title": "Julemarked i Spjelkavika",
+   "venue": "Spjelkavikhallen",
+   "address": "",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "«Jul i Spjelkavika»: julemarked med over 40 utstillere i fjor, i Spjelkavikhallen ved Spjelkavik ungdomsskole, med Spjelkavik Røde Kors. Også søndag 6. des. Åpningstider står ikke i kunngjøringen.",
+   "url": "https://spjelkavika.no/2026/08/31/inviterer-til-julemarked-2026/",
+   "moreShows": [
+    "2026-12-06"
+   ],
+   "addedAt": "2026-10-27T07:56:21Z"
   },
   {
    "id": "familiejulebord-quality-hotel-alesund",
@@ -1648,6 +1699,25 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/64795-leprous-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "julemarkedet-i-alesund-sentrum-2026",
+   "date": "2026-12-12",
+   "time": "11:00",
+   "title": "Julemarkedet i Ålesund sentrum",
+   "venue": "Korsatunnelen",
+   "address": "6003 Ålesund",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Bypatriotens store julemarked med lokal mat, håndverk og aktiviteter for store og små, og gratis bytog. Lørdag kl. 11–16, søndag 13. des kl. 13–16.",
+   "url": "https://bypatrioten.com/event/julemarkedet-i-alesund-sentrum-2026/",
+   "moreShows": [
+    "2026-12-13T13:00"
+   ],
+   "addedAt": "2026-10-27T07:56:21Z"
   },
   {
    "id": "viti-familiedag-jul-i-apotekergaarden-jugendstilsenteret-og-",
@@ -1840,6 +1910,26 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67015",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "hjem-til-jul-alesund-kirke-2026",
+   "date": "2026-12-18",
+   "time": "19:00",
+   "title": "Hjem til jul",
+   "price": "150 kr",
+   "priceMin": 150,
+   "venue": "Ålesund kirke",
+   "address": "",
+   "cat": "konsert",
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Julekonsert med lokale sangere og musikere, i samarbeid med Kirkens Bymisjon. Også lørdag 19. des kl. 16:00 og 19:00. Pris 150 kr pluss avgift. Dørene åpner ca. 60 min før.",
+   "url": "https://billetto.no/e/hjem-til-jul-alesund-kirke-billetter-1988046",
+   "moreShows": [
+    "2026-12-19T16:00",
+    "2026-12-19T19:00"
+   ],
+   "addedAt": "2026-10-27T07:56:21Z"
   },
   {
    "id": "haakons-julequiz-fabrikken-kulturscene",
