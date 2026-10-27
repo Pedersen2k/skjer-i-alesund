@@ -225,7 +225,8 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .delt-btns button, .sheet-btns button, .sheet-btns a { font: 700 14px var(--font-body); padding: 10px 16px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; text-decoration: none; }
 .delt-btns .delt-save, .sheet-btns .primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 /* Del Mine: linje nederst når noe er lagret, og arket med lenken */
-.sharebar { position: fixed; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); width: min(560px, calc(100% - 24px)); z-index: 40; display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 16px; border-radius: 16px; background: color-mix(in srgb, var(--surface) 92%, transparent); border: 1px solid var(--line); box-shadow: 0 10px 30px #0006; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+/* Tett bakgrunn og ingen transform: Safari på iPhone tegner ikke alltid faste elementer med backdrop-filter på nytt når de vises igjen */
+.sharebar { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); max-width: 560px; margin: 0 auto; z-index: 40; display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 16px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 10px 30px #0006; }
 .sharebar > div { flex: 1; min-width: 0; display: grid; line-height: 1.2; }
 .sharebar b { font: 800 15px var(--font-display); color: var(--accent); }
 .sharebar span { font-size: 12.5px; color: var(--muted); }
