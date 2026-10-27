@@ -182,7 +182,7 @@ def ld_script(obj):
     return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False).replace("</", "<\\/") + "</script>"
 
 
-def page(path, title, description, body, ld=None, up=None, image=None, raw=False, head_extra="", body_class=""):
+def page(path, title, description, body, ld=None, up=None, image=None, raw=False, head_extra="", body_class="", lang="nb"):
     """Hele HTML-dokumentet. path er relativ adresse, f.eks. «konserter/».
     up er veien tilbake til roten; 404-siden vises på vilkårlige adresser og bruker derfor full adresse.
     image er (adresse, bredde, høyde) for forhåndsvisningsbildet, ellers brukes logoen."""
@@ -190,7 +190,7 @@ def page(path, title, description, body, ld=None, up=None, image=None, raw=False
     img, img_w, img_h = image or (BASE + "og-image.png", 1200, 630)
     url = BASE + path
     return f"""<!doctype html>
-<html lang="nb">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -199,7 +199,7 @@ def page(path, title, description, body, ld=None, up=None, image=None, raw=False
 {'<meta name="robots" content="noindex">' if path == "404.html" else f'<meta name="robots" content="{ROBOTS_META}">' + chr(10) + f'<link rel="canonical" href="{url}">'}
 {ICON_LINKS.format(up=up)}
 <meta property="og:type" content="website">
-<meta property="og:locale" content="nb_NO">
+<meta property="og:locale" content="{"en_GB" if lang == "en" else "nb_NO"}">
 <meta property="og:site_name" content="{SITE}">
 <meta property="og:title" content="{escape(title)}">
 <meta property="og:description" content="{escape(description)}">
@@ -837,6 +837,9 @@ def main():
                         kino_page(kino_films, kino_meta, today)))
     pages.append(("kino/", (kino_meta.get("updatedAt") or updated)[:10]))
 
+    write("en/", en_page(events, today))
+    pages.append(("en/", updated))
+
     write("kontakt/", page("kontakt/", f"Kontakt og om siden | {SITE}", "Kontakt Skjer i Ålesund: foreslå et arrangement, rapporter en feil eller si hei. Om siden og personvern.", kontakt_page()))
     pages.append(("kontakt/", updated[:10]))
 
@@ -851,6 +854,132 @@ def main():
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                      + "".join(f"  <url><loc>{BASE}{p}</loc><lastmod>{m}</lastmod></url>\n" for p, m in urls) + "</urlset>\n")
     print(f"Skrev {len(urls)} sider til {OUT.relative_to(ROOT)}/", file=sys.stderr)
+
+
+# Engelsk side (en/) for turister, cruisegjester og andre som søker på engelsk. Titler står som hos arrangøren;
+# datoer, kategorier, priser og forklaringer er på engelsk. Siden er statisk HTML for søkemotorer, og et lite
+# script setter «Today & tonight» / «Tomorrow» og skjuler dager som er over, så den stemmer selv om den ikke er bygget i dag.
+EN_LANG = "faq"  # Eieren valgte «faq» 27. okt. «Mostly in Norwegian» for standup og show: "card" (på kortet), "faq" (bare under Good to know), "none"
+EN_DAYS = 14
+EN_CAT = {"konsert": "Concert", "standup": "Comedy", "show": "Show & theatre", "barn": "Kids & family", "klubb": "Club night",
+          "happening": "Culture & events", "quiz": "Quiz & bingo", "sport": "Football", "julebord": "Christmas party"}
+EN_CATS = {"konsert": ("concert", "concerts"), "standup": ("comedy show", "comedy shows"), "show": ("show", "shows"), "barn": ("family event", "family events"),
+           "klubb": ("club night", "club nights"), "happening": ("culture event", "culture events"), "quiz": ("quiz night", "quiz nights"), "sport": ("football match", "football matches")}
+EN_NORWEGIAN = {"standup", "show"}
+EN_WD = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+EN_MO = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+HREFLANG = (f'<link rel="alternate" hreflang="nb" href="{BASE}">\n<link rel="alternate" hreflang="en" href="{BASE}en/">\n'
+            f'<link rel="alternate" hreflang="x-default" href="{BASE}">')
+
+
+def en_day(d, weekday=True):
+    return (f"{EN_WD[d.weekday()]} " if weekday else "") + f"{d.day} {EN_MO[d.month - 1]}"
+
+
+def en_price(e):
+    if e.get("soldOut"):
+        return "Sold out"
+    if e.get("priceMin") == 0:
+        return "Free"
+    if e.get("price"):
+        return "NOK " + re.sub(r"\s*kr\b", "", e["price"]).strip()
+    return ""
+
+
+def en_row(e, lang_mark, day=None):
+    u = safe_url(e.get("url"))
+    c = e["cat"] if e["cat"] in EN_CAT else "happening"
+    pr = en_price(e)
+    d = datetime.date.fromisoformat(e["date"])
+    few = e.get("few") and not e.get("soldOut") and few_ok(e, d)
+    times = (e.get("time") or "").replace(" og ", " & ")
+    title = f'<a href="{escape(u)}" target="_blank" rel="noopener">{escape(e["title"])}</a>' if u else escape(e["title"])
+    no = '<span class="nob">Mostly in Norwegian</span>' if lang_mark == "card" and c in EN_NORWEGIAN else ""
+    return f"""<div class="enrow" style="--c:var(--c-{c})"><b class="tm">{escape(day or times or "–").replace(" &amp; ", "<br>")}</b>
+      <span><span class="tt">{title}</span><small>{EN_CAT[c]} · {escape(e["venue"])}{f" · {escape(times)}" if day and times else ""}</small>{no}</span>
+      <span class="pr">{f'<em class="{"sold" if e.get("soldOut") else ""}">{escape(pr)}</em>' if pr else '<em class="unk">See organiser</em>'}{'<span class="few">Few tickets left</span>' if few else ""}</span></div>"""
+
+
+def en_page(events, today, lang_mark=EN_LANG, path="en/"):
+    end = today + datetime.timedelta(days=EN_DAYS - 1)
+    occ = [e for e in occurrences(events, today, end)]
+    days = {}
+    for e in occ:
+        days.setdefault(e["date"], []).append(e)
+    n = len(occ)
+    counts = {}
+    for e in occ:
+        counts[e["cat"]] = counts.get(e["cat"], 0) + 1
+    parts = [f"{c} {EN_CATS[k][c != 1]}" for k, c in sorted(counts.items(), key=lambda t: -t[1]) if k in EN_CATS][:4]
+    prices = [e["priceMin"] for e in occ if isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] > 0]
+    venues = {}
+    for e in occ:
+        venues[e["venue"]] = venues.get(e["venue"], 0) + 1
+    top_venues = [v for v, _ in sorted(venues.items(), key=lambda t: -t[1])[:2]]
+    facts = (f"{n} events in the next two weeks: {', '.join(parts[:-1])} and {parts[-1]}." if len(parts) > 1 else f"{n} events in the next two weeks.") \
+        + (f" Tickets from NOK {min(prices)}." if prices else "") + (f" Most at {' and '.join(top_venues)}." if top_venues else "")
+    title = "What's on in Ålesund this week: concerts, comedy & events"
+    desc = f"{n} events in Ålesund, Norway in the next two weeks: concerts, comedy, family events and nightlife" \
+        + (f" at {' and '.join(top_venues)}" if top_venues else "") + ". Ticket prices and links, updated every two hours."
+
+    wk_start, wk_end = weekend_range(today)
+    blocks = []
+    for date, evs in days.items():
+        d = datetime.date.fromisoformat(date)
+        wk = ' data-weekend="1"' if wk_start <= d <= wk_end else ""
+        blocks.append(f"""<section class="enday" data-date="{date}"{wk}><h2><span class="rel"></span>{en_day(d)}</h2>
+      {"".join(en_row(e, lang_mark) for e in evs)}</section>""")
+    daytime = [e for e in occurrences(events, today, today + datetime.timedelta(days=6)) if re.match(r"\d{2}:\d{2}", e.get("time") or "") and e["time"] < "17:00"]
+    day_html = "".join(f'<div data-date="{e["date"]}">{en_row(e, lang_mark, day=f"{EN_WD[datetime.date.fromisoformat(e["date"]).weekday()][:3]} {datetime.date.fromisoformat(e["date"]).day}")}</div>' for e in daytime)
+
+    faq = [("Where do I buy tickets?", "Each event links to the organiser's own ticket page (Tikkio, Parken, Billetto and others). The pages are mostly in Norwegian: look for «Kjøp billett» (buy ticket) or «Billetter» (tickets)."),
+           ("What does «Few tickets left» mean?", "The ticket page says there are only a few tickets left («Få billetter igjen»). «Sold out» means the organiser has marked it as sold out («Utsolgt»).")]
+    if lang_mark != "none":
+        faq.insert(1, ("Are the events in English?", "Concerts need no translation. Comedy and theatre are mostly in Norwegian. Check the organiser's page if you are unsure."))
+    faq += [("Is anything free?", "Some events are free. They are marked «Free». Others show the ordinary ticket price in Norwegian kroner (NOK)."),
+            ("How up to date is this?", "The list is updated every two hours from the organisers' own pages. Dates and prices can change, so always check with the organiser before you buy."),
+            ("Is there a cinema in Ålesund?", "Yes, ODEON Ålesund at Amfi Moa. The programme is under «Cinema» below (page in Norwegian).")]
+    faq_html = "".join(f'<details{" open" if i == 0 else ""}><summary>{escape(q)}</summary><p>{escape(a)}</p></details>' for i, (q, a) in enumerate(faq))
+
+    up = "../"
+    body = f"""<div class="wrap sub en">
+  <div class="topbar"><nav class="crumbs"><a href="{up}">Skjer i Ålesund</a></nav><div class="enr"><nav class="lsw" aria-label="Language"><a href="{up}" hreflang="nb" lang="nb">Norsk</a><a aria-current="page">English</a></nav><div class="tsw" role="group" aria-label="Theme"><button type="button" data-t="kveld">Dark</button><button type="button" data-t="standard">Light</button></div></div></div>
+  <header class="top">
+    <h1>What's on in Ålesund</h1>
+    <p class="lede">Concerts, comedy, family events and nightlife in Ålesund, Norway, with ticket prices. Updated every two hours from the organisers' own pages.</p>
+    <p class="facts">{escape(facts)}</p>
+    <nav class="jump"><a href="#days">This week</a><a href="#daytime">In town for the day?</a><a href="#faq">Good to know</a></nav>
+  </header>
+  <main id="days">
+{chr(10).join(blocks) if blocks else '<p class="empty">No events listed for the next two weeks yet. Check back soon.</p>'}
+  </main>
+  {f'<section class="daytime" id="daytime"><h2>In town for the day?</h2><p>Daytime events in the next week (before 5 pm):</p>{day_html}</section>' if daytime else ""}
+  <section class="faq" id="faq"><h2>Good to know</h2>{faq_html}</section>
+  <nav class="more"><h2>More (pages in Norwegian)</h2><div class="row"><a class="chip" href="{up}kino/">Cinema</a><a class="chip" href="{up}jul-i-alesund/">Christmas in Ålesund</a><a class="chip" href="{up}julebord/">Christmas parties (julebord)</a><a class="chip" href="{up}denne-helgen/">This weekend</a><a class="chip" href="{up}">Full programme</a></div></nav>
+  <footer><div>Dates and prices come from the organisers' own ticket pages and can change. Always check with the organiser before you buy. <a href="{up}kontakt/">Contact</a></div></footer>
+</div>
+<script>
+// Dagene får «Today & tonight» / «Tomorrow», og dager som er over skjules (siden bygges bare når programmet endres)
+(() => {{
+  const p = n => String(n).padStart(2, "0"), now = new Date(), iso = d => `${{d.getFullYear()}}-${{p(d.getMonth() + 1)}}-${{p(d.getDate())}}`;
+  const today = iso(now), tom = iso(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
+  document.querySelectorAll("[data-date]").forEach(el => {{ if (el.dataset.date < today) el.remove(); }});
+  let wk = false;
+  document.querySelectorAll(".enday").forEach(s => {{
+    const r = s.querySelector(".rel");
+    if (s.dataset.date === today) {{ s.classList.add("today"); r.textContent = "Today & tonight · "; }}
+    else if (s.dataset.date === tom) r.textContent = "Tomorrow · ";
+    else if (s.dataset.weekend && !wk) {{ wk = true; s.insertAdjacentHTML("beforebegin", '<div class="wkd">This weekend</div>'); }}
+  }});
+  const dt = document.getElementById("daytime"); if (dt && !dt.querySelector("[data-date]")) dt.remove();
+}})();
+</script>"""
+    graph = [
+        {"@type": "CollectionPage", "@id": BASE + path, "url": BASE + path, "name": title, "description": desc, "inLanguage": "en",
+         "isPartOf": {"@id": BASE + "#website"}, "about": {"@type": "City", "name": "Ålesund", "address": {"@type": "PostalAddress", "addressCountry": "NO"}}},
+        breadcrumb_ld([(SITE, BASE), ("What's on in Ålesund", BASE + path)]),
+    ]
+    return page(path, title, desc, body, {"@context": "https://schema.org", "@graph": graph}, raw=True, lang="en", head_extra=HREFLANG)
 
 
 def event_page(e, events, path):
@@ -1050,6 +1179,40 @@ render();
 
 
 SUB_CSS = """
+/* Engelsk side (en/) */
+.en .enr { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: end; }
+.en .lsw { display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.en .lsw a { font: 600 13px/1 var(--font-body); padding: 7px 12px; border-radius: 999px; color: var(--muted); text-decoration: none; }
+.en .lsw a[aria-current] { background: var(--fg); color: var(--bg); }
+.en .jump { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font: 600 14px var(--font-body); }
+.en .jump a, .en .daytime a, .en .faq a { color: var(--sea); }
+.en .enday { margin-top: 22px; }
+.en .enday h2, .en .daytime h2, .en .faq h2 { font: 800 19px/1.2 var(--font-display); margin: 0 0 4px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.en .enday.today { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.en .enday.today h2 { border: 0; }
+.en .rel { color: var(--accent); }
+.en .wkd { margin: 30px 0 -8px; font: 800 13px var(--font-body); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.en .enrow { display: grid; grid-template-columns: 58px 1fr auto; gap: 10px; align-items: baseline; padding: 9px 0; border-top: 1px solid var(--line); }
+.en .enday h2 + .enrow { border-top: 0; }
+.en .enrow .tm { font: 600 13px var(--font-mono); color: var(--fg); }
+.en .enrow .tt { font: 600 15.5px/1.3 var(--font-body); }
+.en .enrow .tt a { color: inherit; text-decoration: none; }
+.en .enrow .tt a:hover { text-decoration: underline; }
+.en .enrow small { display: block; font-size: 13px; color: var(--muted); }
+.en .enrow small::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c); margin-right: 6px; }
+.en .nob { display: inline-block; margin-top: 4px; font: 600 11px/1 var(--font-body); color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 3px 6px; }
+.en .enrow .pr { display: flex; flex-direction: column; align-items: end; gap: 5px; }
+.en .enrow em { font: 600 13px var(--font-mono); font-style: normal; white-space: nowrap; }
+.en .enrow em.sold { color: var(--accent); }
+.en .enrow em.unk { font: 500 12px var(--font-body); color: var(--muted); }
+.en .daytime { margin-top: 30px; border: 1px dashed var(--line); border-radius: 14px; padding: 12px 14px; }
+.en .daytime p { margin: 0 0 4px; font-size: 14px; color: var(--muted); }
+.en .faq { margin-top: 30px; }
+.en .faq details { border-bottom: 1px solid var(--line); padding: 10px 0; }
+.en .faq summary { font: 700 15px var(--font-body); cursor: pointer; }
+.en .faq p { margin: 6px 0 0; color: var(--muted); font-size: 14.5px; max-width: 70ch; }
+@media (max-width: 420px) { .en .enrow { grid-template-columns: 48px 1fr auto; gap: 8px; } }
+
 /* Undersider (lages av scripts/pages.py) */
 .sub .topbar { padding-bottom: 14px; }
 .sub .crumbs { font: 500 13px/1.4 var(--font-body); }
