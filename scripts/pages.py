@@ -859,7 +859,7 @@ def main():
 # Engelsk side (en/) for turister, cruisegjester og andre som søker på engelsk. Titler står som hos arrangøren;
 # datoer, kategorier, priser og forklaringer er på engelsk. Siden er statisk HTML for søkemotorer, og et lite
 # script setter «Today & tonight» / «Tomorrow» og skjuler dager som er over, så den stemmer selv om den ikke er bygget i dag.
-EN_LANG = "card"  # «Mostly in Norwegian» for standup og show: "card" (på kortet), "faq" (bare under Good to know), "none"
+EN_LANG = "faq"  # Eieren valgte «faq» 27. okt. «Mostly in Norwegian» for standup og show: "card" (på kortet), "faq" (bare under Good to know), "none"
 EN_DAYS = 14
 EN_CAT = {"konsert": "Concert", "standup": "Comedy", "show": "Show & theatre", "barn": "Kids & family", "klubb": "Club night",
           "happening": "Culture & events", "quiz": "Quiz & bingo", "sport": "Football", "julebord": "Christmas party"}

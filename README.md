@@ -37,6 +37,10 @@ Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et iss
 
 `sync.py` leser merket på hver Tikkio-side («Utsolgt» / «Få billetter igjen») og statusen hos Parken (hele arrangementet og hver forestilling). Oversikten til Tikkio sier alltid «på lager», så det er merket på selve siden som teller. Kortet får et lite «Få billetter igjen»-merke, og har arrangementet 2–6 forestillinger, vises tidene som knapper med status («13:00 utsolgt», «18:00 få igjen»). Parken merker nesten alt, så deres merke vises bare de siste to ukene før forestillingen.
 
+## Engelsk side
+
+`en/` (bygget av `en_page()` i `scripts/pages.py`) er «What's on in Ålesund» for turister og andre som søker på engelsk: de neste 14 dagene dag for dag, «In town for the day?» og «Good to know». Titlene står som hos arrangøren; datoer, kategorier, priser og forklaringer er på engelsk. Norsk og engelsk forside peker på hverandre med `hreflang`, og «In English» står i snarveiene nederst på forsiden.
+
 ## Legge til eller rette arrangementer
 
 - **Arrangementer som ikke ligger på Tikkio eller hos Parken**: legg dem til i `data/manual.json`.
