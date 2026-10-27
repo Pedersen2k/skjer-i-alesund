@@ -203,11 +203,6 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .julcard small { font: 700 10px var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: #e8b04a; }
 .julcard h3 { margin: 2px 0 0; font: italic 700 30px/1 Georgia, "Times New Roman", serif; }
 .julcard p { margin: 4px 0 12px; font-size: 13px; color: #e9e2cf; }
-.julmini { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
-.julmini i { position: relative; aspect-ratio: 1; border-radius: 7px; overflow: hidden; display: grid; place-items: center; font-style: normal; }
-.julmini i::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 15%; transform: translateX(-50%); background: #e8b04a; }
-.julmini i::after { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 15%; transform: translateY(-50%); background: #e8b04a; }
-.julmini b { position: relative; z-index: 2; background: #fffaf0; color: #2a2a22; border-radius: 50%; width: 20px; height: 20px; display: grid; place-items: center; font: 700 11px var(--font-body); }
 .julcard a { color: inherit; text-decoration: none; }
 .julmain { display: block; }
 .julbtns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
@@ -267,10 +262,9 @@ footer a { color: var(--sea); }
   <div class="julcard" id="julcard" hidden>
     <a class="julmain" id="julmain" href="jul-i-alesund/">
       <small id="julyear">Ålesund · julen</small><h3>Jul i Ålesund</h3>
-      <p><b id="julcd"></b> dager til julaften. Åpne en pakke og se hva som skjer.</p>
-      <div class="julmini" id="julmini"></div>
+      <p><b id="julcd"></b> dager til julaften. Julekonserter, juleshow og julemarked samlet på ett sted.</p>
     </a>
-    <div class="julbtns"><a class="julbtn" href="jul-i-alesund/">Åpne adventskalenderen →</a><a class="julbtn jb" id="jbbtn" href="julebord/" hidden></a></div>
+    <div class="julbtns"><a class="julbtn" href="jul-i-alesund/">Se alt som skjer i jula →</a><a class="julbtn jb" id="jbbtn" href="julebord/" hidden></a></div>
   </div>
 
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
@@ -481,8 +475,6 @@ function julebordEntry() {
   $("julyear").textContent = "Ålesund · julen " + t.getFullYear();
   $("julcd").textContent = Math.max(days, 0);
   if (days <= 0) $("julcd").parentElement.textContent = "God jul! Se hva som skjer i romjulen.";
-  const first = m === 11 ? Math.min(Math.max(d, 1), 19) : 1, cols = ["#b3262d", "#1b6a4d", "#2c5aa0", "#8a3a7a"];
-  $("julmini").innerHTML = [...Array(6)].map((_, i) => `<i style="background:${cols[(first + i - 1) % 4]}"><b>${first + i}</b></i>`).join("");
   $("julcard").hidden = false;
   $("julmain").addEventListener("click", () => track("jul/forside"));
   $("julcard").querySelector(".julbtn").addEventListener("click", () => track("jul/forside"));

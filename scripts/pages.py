@@ -522,17 +522,20 @@ def julebord_facts(evs, year):
             f'fordelt på {venues} steder. Prisen står på hvert julebord; der den mangler, får du den hos hotellet eller restauranten.</p>')
 
 
-def jul_card(e, up):
+def jul_card(e, up, more=()):
+    """Ett kort per arrangement; flere forestillinger står som «Flere datoer» i stedet for egne kort."""
     c = e["cat"] if e["cat"] in CAT_LABEL else "happening"
     pm = e.get("priceMin")
+    dates = [f"{int(x['date'][8:])}. {MO[int(x['date'][5:7]) - 1][:3]}" for x in more]
+    more_html = (f'<div class="jmore">Flere datoer: {", ".join(dates[:4])}' + (f" og {len(dates) - 4} til" if len(dates) > 4 else "") + "</div>") if dates else ""
     return (f'<article class="jc" style="--c:var(--c-{c})" data-cat="{c}" data-min="{pm if isinstance(pm, (int, float)) else ""}">'
             f'<h3><a href="{up}arrangement/{e["id"]}/">{escape(e["title"])}</a></h3>'
             f'<div class="jm">{escape(e["venue"])}{" · kl. " + e["time"] if e.get("time") else ""}</div>'
-            f'<div class="jp">{escape(price_text(e))}</div></article>')
+            f'<div class="jp">{escape(price_text(e))}</div>{more_html}</article>')
 
 
 def jul_page(events, today, themes=None):
-    """jul-i-alesund/: adventskalender og liste med julearrangementene. Returnerer (html, antall) eller None uten arrangementer."""
+    """jul-i-alesund/: liste med julearrangementene, med filter. Returnerer (html, antall) eller None uten arrangementer."""
     cfg = jul_config()
     year = today.year
     up = "../"
@@ -544,42 +547,28 @@ def jul_page(events, today, themes=None):
                if jb else "")
     if not occ:
         return None
-    by_day = {}
+    by_id = {}
     for e in occ:
-        by_day.setdefault(e["date"], []).append(e)
-    colors = ["#b3262d", "#1b6a4d", "#2c5aa0", "#8a3a7a"]
-    doors = ""
-    for d in range(1, 25):
-        key = f"{year}-12-{d:02d}"
-        n = len(by_day.get(key, []))
-        past = key < today.isoformat()
-        cls = "door has" if n and not past else "door no"
-        label = f"{d}. desember: {n} arrangement{'er' if n != 1 else ''}"
-        badge = f'<i class="n">{n}</i>' if n and not past else ""
-        tag = "a" if n and not past else "span"
-        href = f' href="#r-{key}" data-day="{key}"' if tag == "a" else ""
-        doors += f'<{tag} class="{cls}" style="background:{colors[(d - 1) % 4]}"{href} aria-label="{label}"><b>{d}</b>{badge}</{tag}>'
-    before = [e for e in {x["title"]: x for x in occ if x["date"] < f"{year}-12-01"}.values()]
-    before_html = ""
-    if before:
-        before_html = '<p class="jul-nov"><b>Allerede i november:</b> ' + " · ".join(f"{escape(e['title'])} ({day_text(datetime.date.fromisoformat(e['date']))})" for e in before) + "</p>"
+        by_id.setdefault(e["id"], []).append(e)
+    by_day = {}
+    for shows in by_id.values():  # første dato for hvert arrangement, resten som «Flere datoer»
+        by_day.setdefault(shows[0]["date"], []).append(shows)
+    by_day = dict(sorted(by_day.items()))
     rows = ""
     for date, evs in by_day.items():
         d = datetime.date.fromisoformat(date)
         rows += (f'<div class="jrow" id="r-{date}" data-date="{date}"><div class="jdt"><small>{WD[d.weekday()][:3]}</small><b>{d.day}</b><small>{MO[d.month - 1][:3]}</small></div>'
-                 f'<div class="jcards">{"".join(jul_card(e, up) for e in evs)}</div></div>')
+                 f'<div class="jcards">{"".join(jul_card(shows[0], up, shows[1:]) for shows in evs)}</div></div>')
     cd = (datetime.date(year, 12, 24) - today).days
     cd_html = f'<div class="jcd"><b id="jul-days">{cd}</b><span>dager til<br>julaften</span></div>' if cd > 0 else ""
     garland = '<div class="jgar" aria-hidden="true"><i class="w"></i><i class="a"></i><i class="b"></i></div>'
-    n_ev = len(occ)
+    n_ev = len(by_id)
     body = f"""<div class="jul-hero"><div class="snow"></div><div class="snow2"></div>{garland}
   <a class="jul-back" href="{up}">← {SITE}</a>
   <small>Ålesund · julen {year}</small><h1>Jul i Ålesund</h1>
   <p>Julekonserter, juleshow, adventskonserter og julemarked i Ålesund, samlet på ett sted med datoer og billettpriser.</p>{cd_html}</div>
 <main class="jul-main">
   {jb_html}
-  <section><h2>Adventskalender</h2><p class="jul-sub">Pakkene med bånd har noe på programmet. Trykk for å se hva som skjer den dagen.</p><div class="jcal">{doors}</div>
-  <div class="jday" id="jday" hidden></div>{before_html}</section>
   <section class="jlist"><div class="jhd"><h2>Alle julearrangementer</h2><div class="jchips" id="jchips">
     <button type="button" class="chip" data-c="konsert" aria-pressed="false">Konsert</button><button type="button" class="chip" data-c="standup,show" aria-pressed="false">Standup og show</button><button type="button" class="chip" data-c="happening" aria-pressed="false">Marked og verksted</button><button type="button" class="chip" data-p="350" aria-pressed="false">Under 350 kr</button></div></div>
   <div class="jcnt" id="jcnt">{n_ev} arrangementer</div>{rows}</section>
@@ -590,19 +579,9 @@ def jul_page(events, today, themes=None):
 <script>
 (function () {{
   document.documentElement.classList.add("js");
-  var day = document.getElementById("jday"), cnt = document.getElementById("jcnt"), rows = [].slice.call(document.querySelectorAll(".jrow"));
+  var cnt = document.getElementById("jcnt"), rows = [].slice.call(document.querySelectorAll(".jrow"));
   var cd = document.getElementById("jul-days");
   if (cd) {{ var t = new Date(), n = Math.ceil((new Date(t.getFullYear(), 11, 24) - new Date(t.getFullYear(), t.getMonth(), t.getDate())) / 864e5); if (n > 0) cd.textContent = n; }}
-  function open(key) {{
-    var r = document.getElementById("r-" + key); if (!r) return;
-    day.innerHTML = "<h3>" + [].map.call(r.querySelectorAll(".jdt > *"), function (x) {{ return x.textContent; }}).join(" ") + "</h3>" + r.querySelector(".jcards").innerHTML; day.hidden = false;
-    [].forEach.call(document.querySelectorAll(".door"), function (d) {{ d.classList.toggle("sel", d.dataset.day === key); }});
-  }}
-  document.querySelector(".jcal").addEventListener("click", function (e) {{
-    var a = e.target.closest("[data-day]"); if (!a) return; e.preventDefault(); open(a.dataset.day);
-    if (window.goatcounter && goatcounter.count) goatcounter.count({{ path: "jul/luke", title: "jul/luke", event: true }});
-  }});
-  var first = document.querySelector(".door.has"); if (first) open(first.dataset.day);
   var on = {{ c: null, p: null }};
   document.getElementById("jchips").addEventListener("click", function (e) {{
     var b = e.target.closest("button"); if (!b) return; var was = b.getAttribute("aria-pressed") === "true";
@@ -1178,23 +1157,11 @@ body.jul { background: #f6efe0; color: #2a2a22; font-family: "Figtree", system-u
 .jul .jul-main { max-width: 760px; margin: 0 auto; padding: 0 16px 40px; }
 .jul .jul-main h2 { margin: 26px 0 2px; font: italic 700 28px/1.1 "Fraunces", Georgia, serif; color: #0d3327; }
 .jul .jul-sub { margin: 2px 0 14px; font-size: 13px; color: #6b6455; }
-.jul .jcal { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; }
-@media (min-width: 640px) { .jul .jcal { grid-template-columns: repeat(6, 1fr); } }
-.jul .door { position: relative; aspect-ratio: 1; border-radius: 12px; color: #fff; display: grid; place-items: center; box-shadow: 0 4px 0 #0003, 0 8px 14px #0002; overflow: hidden; text-decoration: none; transition: transform .18s; }
-.jul .door b { position: relative; z-index: 2; font: 700 19px/1 "Fraunces", serif; background: #fffaf0; color: #2a2a22; border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center; box-shadow: 0 2px 4px #0003; }
-.jul .door.has::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 15%; transform: translateX(-50%); background: linear-gradient(#f3cd7a, #d39a2a); }
-.jul .door.has::after { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 15%; transform: translateY(-50%); background: linear-gradient(90deg, #f3cd7a, #d39a2a); }
-.jul .door.no { background: #e4dac3 !important; box-shadow: none; opacity: .8; } .jul .door.no b { background: none; box-shadow: none; color: #a79f89; font-size: 24px; }
-.jul .door .n { position: absolute; right: 5px; top: 5px; z-index: 3; background: #b3262d; color: #fff; font: 800 11px/1 "Figtree", sans-serif; padding: 3px 6px; border-radius: 99px; font-style: normal; box-shadow: 0 1px 3px #0004; }
-.jul .door.sel { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 0 3px #e8b04a, 0 0 22px #e8b04aaa; }
-.jul .jday { margin: 18px 0 6px; padding: 14px; background: #fffaf0; border-radius: 16px; border: 1px solid #e6dab8; box-shadow: 0 6px 16px #0001; position: relative; }
-.jul .jday::before { content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 6px; border-radius: 16px 16px 0 0; background: repeating-linear-gradient(45deg, #b3262d 0 10px, #fffaf0 10px 20px); }
-.jul .jday h3 { margin: 6px 0 8px; font: italic 700 20px/1.1 "Fraunces", serif; color: #0d3327; }
 .jul .jc { background: #fff; border: 1px solid #eadfc4; border-left: 5px solid var(--c); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; box-shadow: 0 2px 0 #0000000d; }
 .jul .jc[hidden], .jul .jrow[hidden] { display: none; }
 .jul .jc h3 { margin: 0; font: 700 16px/1.2 "Fraunces", Georgia, serif; } .jul .jc h3 a { color: #1d2a24; text-decoration: none; } .jul .jc h3 a:hover { text-decoration: underline; }
+.jul .jmore { font-size: 12px; color: #6b6455; margin-top: 3px; }
 .jul .jm { font-size: 12.5px; color: #6b6455; margin-top: 2px; } .jul .jp { font: 700 12.5px "Figtree", sans-serif; color: #b3262d; margin-top: 2px; }
-.jul .jul-nov { margin: 14px 0 0; padding: 10px 12px; border: 1.5px dashed #b3262d; border-radius: 12px; font-size: 13px; background: #fffaf0aa; }
 .jul .jlist .jhd { position: sticky; top: 0; z-index: 5; background: #f6efe0; padding: 12px 0 10px; border-bottom: 1px solid #e6dab8; margin-top: 24px; }
 .jul .jlist .jhd h2 { margin: 0 0 8px; }
 .jul .jchips { display: flex; flex-wrap: wrap; gap: 7px; }
