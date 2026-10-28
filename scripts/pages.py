@@ -30,7 +30,7 @@ VENUE_MIN = 3
 INDEXNOW_KEY = "7c1e5b0a9d3f4a62b8e0c4d71f2a9e65"
 ROBOTS_META = "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
 FRONT_TITLE = "Hva skjer i Ålesund? Konserter, standup og show | Skjer i Ålesund"
-FRONT_DESC = "Hva skjer i Ålesund i dag og i helgen? Konserter, standup, show, barn og klubb med billettpriser. Oppdatert hver morgen og kveld. Ka skjer da?"
+FRONT_DESC = "Hva skjer i Ålesund i dag og i helgen? Konserter, standup, show, barn og klubb med billettpriser. Oppdatert hver andre time. Ka skjer da?"
 ICON_LINKS = ('<link rel="icon" href="{up}favicon.svg" type="image/svg+xml">\n<link rel="icon" href="{up}favicon-48.png" type="image/png" sizes="48x48">\n'
               '<link rel="apple-touch-icon" href="{up}apple-touch-icon.png">\n<link rel="manifest" href="{up}manifest.webmanifest">')
 CAT_TEXT = {
@@ -315,7 +315,7 @@ def listing(path, h1, lede, events, empty, cats_present, about="", lead=""):
 {day_list(events, up) if events else f'<p class="empty">{escape(empty)}</p>'}
   </main>
   {links_nav(up, path, cats_present)}
-  <footer><div>Programmet hentes automatisk morgen og kveld fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a></div></footer>"""
+  <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a></div></footer>"""
     return body
 
 
@@ -370,13 +370,13 @@ def kontakt_page():
   </script>
   <section class="about">
     <h2>Om siden</h2>
-    <p>Skjer i Ålesund samler konserter, standup, show, barnearrangementer, klubbkvelder og AaFK-hjemmekamper i Ålesund på ett sted, med billettpriser. Programmet hentes automatisk morgen og kveld fra Tikkio, Parken kulturhus, Dampsentralen, Fabrikken Kulturscene og AaFK, og enkelte arrangementer legges inn for hånd. Vi finner ikke på noe: alt kommer fra arrangørenes egne sider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</p>
+    <p>Skjer i Ålesund samler konserter, standup, show, barnearrangementer, klubbkvelder og AaFK-hjemmekamper i Ålesund på ett sted, med billettpriser. Programmet hentes automatisk flere ganger om dagen fra Tikkio, Parken kulturhus, Dampsentralen, Fabrikken Kulturscene og AaFK, og enkelte arrangementer legges inn for hånd. Vi finner ikke på noe: alt kommer fra arrangørenes egne sider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</p>
     <p>Er du arrangør og mangler på siden? Send oss en lenke til arrangementet, så legger vi det inn.</p>
     <h2>Personvern</h2>
     <p>Skjemaet sender bare det du skriver til oss, via tjenesten Web3Forms, og vi bruker det kun til å svare deg eller rette opp i programmet. E-post og navn er valgfritt. Siden teller besøk med GoatCounter, som ikke bruker informasjonskapsler og ikke lagrer personopplysninger.</p>
   </section>
   </main>
-  <footer><div>Programmet hentes automatisk morgen og kveld fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div></footer>"""
+  <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div></footer>"""
 
 
 def quiz_week(evs, today):
@@ -604,7 +604,7 @@ def jul_page(events, today, themes=None):
   <section class="jlist"><div class="jhd"><h2>Alle julearrangementer</h2><div class="jchips" id="jchips">
     <button type="button" class="chip" data-c="konsert" aria-pressed="false">Konsert</button><button type="button" class="chip" data-c="standup,show" aria-pressed="false">Standup og show</button><button type="button" class="chip" data-c="happening" aria-pressed="false">Marked og verksted</button><button type="button" class="chip" data-p="350" aria-pressed="false">Under 350 kr</button></div></div>
   <div class="jcnt" id="jcnt">{n_ev} arrangementer</div>{rows}</section>
-  <p class="jul-note">Programmet hentes automatisk fra arrangørenes billettsider og oppdateres morgen og kveld. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. Savner du et julearrangement? <a href="{up}kontakt/">Gi beskjed</a>.</p>
+  <p class="jul-note">Programmet hentes automatisk fra arrangørenes billettsider og oppdateres flere ganger om dagen. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. Savner du et julearrangement? <a href="{up}kontakt/">Gi beskjed</a>.</p>
   {jul_links(up, "jul-i-alesund/", themes or {})}
   {links_nav(up, "jul-i-alesund/", {e["cat"] for e in events})}
 </main>
@@ -644,10 +644,10 @@ def jul_page(events, today, themes=None):
 def describe(events, what):
     n = len(events)
     if not n:
-        return f"{what}. Oversikt med billettpriser, oppdatert morgen og kveld."
+        return f"{what}. Oversikt med billettpriser, oppdatert flere ganger om dagen."
     uniq = list(dict.fromkeys(e["title"] for e in events))
     names = ", ".join(uniq[:3])
-    return f"{n} {'arrangement' if n == 1 else 'arrangementer'}: {names}{' med flere' if len(uniq) > 3 else ''}. {what}, med billettpriser, oppdatert morgen og kveld."[:300]
+    return f"{n} {'arrangement' if n == 1 else 'arrangementer'}: {names}{' med flere' if len(uniq) > 3 else ''}. {what}, med billettpriser, oppdatert flere ganger om dagen."[:300]
 
 
 def front_html(src, events, today, extra_links=()):
@@ -823,7 +823,7 @@ def main():
     for p, (h1, about, evs) in themes.items():
         year = today.year
         listing_page(p, f"{h1} {year}: datoer og billetter | {SITE}", f"{h1} {year}",
-                     f"{len(evs)} {'arrangement' if len(evs) == 1 else 'arrangementer'} med datoer og billettpriser, oppdatert morgen og kveld.",
+                     f"{len(evs)} {'arrangement' if len(evs) == 1 else 'arrangementer'} med datoer og billettpriser, oppdatert flere ganger om dagen.",
                      evs, "", f"{h1} {year}", about=about, lead=jul_links("../", p, themes))
     jp = jul_page(all_events, today, themes)
     if jp:
@@ -1106,7 +1106,7 @@ def kino_page(films, meta, today):
   <script>
 {KINO_JS}
   </script>
-  <footer><div>Kinoprogrammet er adskilt fra resten av programmet. Det oppdateres morgen og kveld.</div></footer>"""
+  <footer><div>Kinoprogrammet er adskilt fra resten av programmet. Det oppdateres flere ganger om dagen.</div></footer>"""
     return body
 
 
