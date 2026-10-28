@@ -1,8 +1,9 @@
 {
  "meta": {
-  "updatedAt": "2026-10-28T08:09:48Z",
+  "tikkioChecked": [],
+  "updatedAt": "2026-10-28T09:59:36Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1269,6 +1270,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66594-kristiansen-vemoy",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "white-rave-stisema-terminalen-byscene",
+   "date": "2026-11-21",
+   "time": "23:00",
+   "title": "White Rave | Stisema",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "150 kr",
+   "priceMin": 150,
+   "soldOut": false,
+   "note": "Rabatt: Early Bird 50 kr, ÅSS / Student-billett 100 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67209-white-rave-stisema-terminalen",
+   "addedAt": "2026-10-28T09:59:36Z"
   },
   {
    "id": "julebuffet-quality-hotel-alesund",
@@ -2640,8 +2657,8 @@
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "standup",
-   "price": "550 kr",
-   "priceMin": 550,
+   "price": "425 kr",
+   "priceMin": 425,
    "soldOut": false,
    "few": true,
    "statusSrc": "parken",
