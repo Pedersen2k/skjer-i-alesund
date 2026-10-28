@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Forslag: arrangementssiden</title>
+<style>
+:root{--bg:#0f1417;--sf:#182025;--sf2:#1f2a30;--line:#2c3a42;--tx:#e8eef0;--mut:#93a4ab;--ac:#f08a4b;--sea:#6fc3c9;--ok:#7fd18b;--few:#e9b949;--sold:#e46a6a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 80px}
+h1.pg{font-size:26px;margin:0 0 6px}.lead{color:var(--mut);margin:0 0 16px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{background:none;border:0;color:var(--mut);padding:7px 13px;font:inherit;font-size:14px;cursor:pointer}
+.seg button.on{background:var(--ac);color:#1a1209;font-weight:600}
+.bar small{color:var(--mut)}
+section.opt{margin:34px 0}
+section.opt>h2{font-size:20px;margin:0}section.opt>p{color:var(--mut);margin:4px 0 12px;max-width:68ch}
+.pros{font-size:14px;color:var(--mut);margin:0 0 12px}.pros b{color:var(--tx)}
+.frame{margin:0 auto;container-type:inline-size;border:1px dashed var(--line);border-radius:14px;padding:12px;background:#0b1013}
+.serp{background:#fff;color:#202124;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-family:Arial,sans-serif}
+.serp .u{font-size:12px;color:#4d5156}.serp .t{font-size:19px;color:#1a0dab;line-height:1.25;margin:2px 0}.serp .d{font-size:13.5px;color:#4d5156}.serp .n{font-size:11px;color:#b3261e;margin-top:4px}
+.det{background:var(--sf);border:1px solid var(--line);border-left:4px solid var(--c,var(--ac));border-radius:12px;padding:16px 18px}
+.tag{font:500 12px/1.6 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--c,var(--ac))}
+.det h1{font-size:clamp(26px,7cqw,42px);line-height:1.05;margin:4px 0 12px}
+.det h2{font-size:17px;margin:18px 0 6px}
+.btn{display:inline-block;background:var(--ac);color:#1a1209;font-weight:700;padding:10px 16px;border-radius:10px;text-decoration:none}
+a{color:var(--sea)}.mut{color:var(--mut)}
+.pill{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;border:1px solid}
+.pill.few{color:var(--few);border-color:var(--few)}.pill.sold{color:var(--sold);border-color:var(--sold)}.pill.ok{color:var(--ok);border-color:var(--ok)}
+dl.k{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0 0 10px}dl.k dt{font:500 12px/1.7 ui-monospace,monospace;text-transform:uppercase;color:var(--mut)}dl.k dd{margin:0}
+.intro{font-size:17px;margin:0 0 12px}
+details{border-top:1px solid var(--line);padding:9px 0}details:last-child{border-bottom:1px solid var(--line)}summary{cursor:pointer;font-weight:600}details p{margin:6px 0 0;color:var(--mut)}
+table.tl{width:100%;border-collapse:collapse;margin:6px 0 10px}table.tl td{padding:9px 6px;border-top:1px solid var(--line);vertical-align:middle}table.tl tr:first-child td{border-top:0}
+table.tl .d{white-space:nowrap}.tl .go{text-align:right}.tl a.mini{font-size:14px}
+.mini-btn{border:1px solid var(--sea);border-radius:8px;padding:4px 10px;text-decoration:none;font-size:14px;white-space:nowrap}
+.mini-btn.dis{border-color:var(--line);color:var(--mut);pointer-events:none}
+.rel{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin:6px 0}
+.rel a{display:block;background:var(--sf2);border:1px solid var(--line);border-radius:10px;padding:9px 11px;text-decoration:none;color:var(--tx)}
+.rel a small{display:block;color:var(--mut)}
+.hero{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:end;justify-content:space-between;background:var(--sf2);border-radius:10px;padding:12px 14px;margin:0 0 12px}
+.hero .big{font-size:32px;font-weight:800;line-height:1}.hero .big small{font-size:14px;font-weight:500;color:var(--mut)}
+.sticky{position:sticky;bottom:0;margin:14px -18px -16px;padding:10px 18px;background:#182025f2;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;border-radius:0 0 10px 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chips span{background:var(--sf2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:14px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 12px}
+@container (max-width:560px){.cmp{grid-template-columns:1fr}}
+.cmp div{background:var(--sf);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px}.cmp b{display:block;font-size:12px;text-transform:uppercase;color:var(--mut)}
+.rec{border:1px solid var(--ac);border-radius:6px;padding:0 7px;color:var(--ac);font-size:12px;margin-left:6px;vertical-align:middle}
+</style></head><body><div class="wrap">
+<h1 class="pg">Arrangementssiden: 6 forslag</h1>
+<p class="lead">Hver arrangementsside (<code>arrangement/&lt;id&gt;/</code>) er den siden Google møter når noen søker «Nøtteknekkeren Ålesund» eller «Ylvis Calle billetter». Forslagene under bygges <b>bare av data vi allerede har</b> (tittel, sted, adresse, datoer, tider, pris, status, notat, lenke). Ingenting er diktet opp. Bytt eksempel og bredde øverst; Google-forhåndsvisningen står over hver design.</p>
+<div class="bar">
+  <span class="seg" id="evseg"></span>
+  <span class="seg" id="wseg"><button data-w="390">Mobil</button><button data-w="900" class="on">PC</button></span>
+  <small>Eksemplene er ekte data fra <code>events.json</code> (28. okt).</small>
+</div>
+
+<section class="opt"><h2>Slik er det i dag</h2><p>Tittelen er «Tittel – sted, dato | Skjer i Ålesund», beskrivelsen er setningen «X på sted i Ålesund dato. Billett: pris. + notat», og siden har en tabell med Når/Hvor/Pris, et notat og en knapp. Nesten ingen løpende tekst, og alle datoer for flere forestillinger står bare i notatet.</p><div class="frame" data-d="0"></div></section>
+
+<section class="opt"><h2>A · Ingress som svarer på spørsmålet <span class="rec">anbefalt sammen med C</span></h2>
+<p>Ny tittel med «i Ålesund» og «billetter fra …», og en datadrevet ingress rett under overskriften som sier det folk søker etter: hvor, når (alle datoer), hva det koster og om det er utsolgt.</p>
+<p class="pros"><b>Fordel:</b> minst endring, treffer søkeord direkte, bra for «utdrag» i Google. <b>Ulempe:</b> lite nytt visuelt.</p><div class="frame" data-d="1"></div></section>
+
+<section class="opt"><h2>B · Spørsmål og svar</h2>
+<p>Fem faste spørsmål som alle besvares fra data: Når, Hva koster, Hvor, Er det utsolgt, Hvor kjøper jeg billetter. Kan også merkes med <code>FAQPage</code> i JSON-LD.</p>
+<p class="pros"><b>Fordel:</b> mange søk er formulert som spørsmål; gir mye relevant tekst. <b>Ulempe:</b> Google viser sjelden FAQ-utvidelser lenger, så effekten er mest tekst og talesøk, ikke utvidet resultat. Kan bli repeterende.</p><div class="frame" data-d="2"></div></section>
+
+<section class="opt"><h2>C · Datotabell med status per forestilling <span class="rec">anbefalt sammen med A</span></h2>
+<p>Alle forestillinger som rader: ukedag og dato, klokkeslett, status (ledig, få igjen, utsolgt) og en billettknapp. Erstatter «Flere forestillinger: …» i notatet. Gir egen tekst for «Nøtteknekkeren 3. desember».</p>
+<p class="pros"><b>Fordel:</b> ryddigst for besøkende, og hver dato blir søkbar. <b>Ulempe:</b> for arrangementer med bare én dato blir det en tabell med én rad (da vises den ikke).</p><div class="frame" data-d="3"></div></section>
+
+<section class="opt"><h2>D · Billettboks med pris og status øverst</h2>
+<p>Pris og status først, i en stor boks, og en fast «Kjøp billett»-linje nederst på mobil. Fokus på å få folk videre til billettsalg.</p>
+<p class="pros"><b>Fordel:</b> raskest vei til billett, og flere klikk til arrangøren. <b>Ulempe:</b> gir lite ekstra tekst for Google; mest nytte for besøkende.</p><div class="frame" data-d="4"></div></section>
+
+<section class="opt"><h2>E · Flere lenker videre (intern lenking)</h2>
+<p>Under siden: «Flere {kategori} i Ålesund», «Samme sted» og «Samme dag», som lenker til sider med samme tema. Hjelper Google å forstå strukturen og holder besøkende på siden.</p>
+<p class="pros"><b>Fordel:</b> styrker kategori- og scenesidene, som har mer å rangere på. <b>Ulempe:</b> lenker ut av siden før kjøp (kan bøtes med D).</p><div class="frame" data-d="5"></div></section>
+
+<section class="opt"><h2>F · Alt i ett: A + C + B(kort) + E</h2>
+<p>Ingress, datotabell, tre korte spørsmål (Hva koster, Hvor, Utsolgt?) og lenker videre. Den fullstendige varianten, men fortsatt bare fra data.</p>
+<p class="pros"><b>Fordel:</b> mest innhold og best dekning. <b>Ulempe:</b> lengst side; på mobil blir den flere skjermer.</p><div class="frame" data-d="6"></div></section>
+</div>
+
+<script>
+const MO=["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"],WD=["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"],CAT={konsert:"Konsert",show:"Show",standup:"Standup",barn:"Barn og familie"},CATP={konsert:"konserter",show:"show",standup:"standup",barn:"barn og familie"};
+const EV=[
+{k:"Nøtteknekkeren (flere datoer, få igjen)",title:"Nøtteknekkeren",cat:"show",venue:"Arbeideren kulturhus",addr:"Lorkenesgata 2, 6002 Ålesund",price:"299 kr",min:299,note:"Premiere 1. desember.",url:"tikkio.com",shows:[["2026-12-01T17:30","sold"],["2026-12-02T17:30","sold"],["2026-12-03T17:30","few"],["2026-12-04T17:30","few"]]},
+{k:"Zimmermann (utsolgt)",title:"Zimmermann – julekonsert",cat:"konsert",venue:"Løvenvold Theater",addr:"Løvenvoldgata, Storgata 11, 6002 Ålesund",price:"449 kr",min:449,note:"",url:"tikkio.com",shows:[["2026-11-29T17:00","sold"],["2026-11-29T19:30","sold"]]},
+{k:"Ylvis & Calle (Parken, 2 forestillinger)",title:"Ylvis & Calle",cat:"show",venue:"Parken kulturhus",addr:"Parkgata 3B, 6003 Ålesund",price:"680 kr",min:680,note:"",url:"parkenkulturhus.no",shows:[["2026-12-08T19:00","few"],["2026-12-08T21:00","few"]]},
+{k:"Odd Nordstoga (én dato, ingen status)",title:"Odd Nordstoga",cat:"konsert",venue:"Parken kulturhus",addr:"Parkgata 3B, 6003 Ålesund",price:"655 kr",min:655,note:"",url:"parkenkulturhus.no",shows:[["2027-01-14T19:00",""]]},
+{k:"Humorgalla (rabatt i notat)",title:"Humorgalla på Løvenvold Theater",cat:"standup",venue:"Løvenvold Theater",addr:"Løvenvoldgata, Storgata 11, 6002 Ålesund",price:"435 kr",min:435,note:"Rabatt: Early Bird 395 kr.",url:"tikkio.com",shows:[["2027-01-30T17:30",""]]}];
+const POOL=[["Darling West – juleturné","konsert","Løvenvold Theater","19. des"],["Hjem til jul","konsert","Ålesund kirke","18. des"],["Zimmermann – julekonsert","konsert","Løvenvold Theater","29. nov"],["Odd Nordstoga","konsert","Parken kulturhus","14. jan"],["Ylvis & Calle","show","Parken kulturhus","8. des"],["Nøtteknekkeren","show","Arbeideren kulturhus","1. des"],["Storefri","show","Parken kulturhus","5. nov"],["Humorgalla på Løvenvold Theater","standup","Løvenvold Theater","30. jan"]];
+const $=s=>document.querySelector(s);let cur=0,W=900;
+const dt=s=>new Date(s.slice(0,10)+"T12:00");
+const dshort=s=>{const d=dt(s);return d.getDate()+". "+MO[d.getMonth()]};
+const dlong=s=>{const d=dt(s);return WD[d.getDay()]+" "+dshort(s)};
+const tm=s=>s.slice(11,16);
+const st={sold:["Utsolgt","sold"],few:["Få billetter igjen","few"],"":["Ledig","ok"]};
+const pill=x=>`<span class="pill ${st[x][1]}">${st[x][0]}</span>`;
+function uniqDays(e){return [...new Set(e.shows.map(s=>s[0].slice(0,10)))]}
+function dateRange(e){const ds=uniqDays(e);if(ds.length==1)return `${WD[dt(ds[0]).getDay()]} ${dshort(ds[0])}`;
+ const a=dt(ds[0]),b=dt(ds[ds.length-1]);const contiguous=(b-a)/864e5==ds.length-1;
+ if(contiguous&&a.getMonth()==b.getMonth())return `${a.getDate()}.–${b.getDate()}. ${MO[a.getMonth()]}`;
+ return ds.map(dshort).join(", ").replace(/, ([^,]*)$/," og $1")}
+function times(e){return [...new Set(e.shows.map(s=>tm(s[0])))].join(" og ")}
+function soldInfo(e){const n=e.shows.length,s=e.shows.filter(x=>x[1]=="sold").length,f=e.shows.filter(x=>x[1]=="few").length;
+ if(s==n)return n==1?"Utsolgt.":"Alle forestillingene er utsolgt.";
+ const p=[];if(s)p.push(`${s} av ${n} forestillinger er utsolgt`);if(f)p.push(`${f==n-s&&!s?"Få billetter igjen":f+" har få billetter igjen"}`);return p.length?p.join("; ")+".":""}
+function titleNew(e){const all=e.shows.every(x=>x[1]=="sold");
+ return `${e.title} i Ålesund – ${all?"utsolgt":e.min!=null?"billetter fra "+e.price:"billetter"} | Skjer i Ålesund`}
+function descNew(e){return `${e.title} på ${e.venue}, Ålesund: ${dateRange(e)} kl. ${times(e)}. ${e.min!=null?`Billetter fra ${e.price}. `:""}${soldInfo(e)}`.trim()}
+function titleOld(e){const d=dt(e.shows[0][0]);return `${e.title} – ${e.venue}, ${d.getDate()}. ${MO[d.getMonth()]} | Skjer i Ålesund`}
+function descOld(e){const d=dt(e.shows[0][0]);return `${e.title} på ${e.venue} i Ålesund ${WD[d.getDay()]} ${dshort(e.shows[0][0])} ${d.getFullYear()} kl. ${tm(e.shows[0][0])}. Billett: ${e.price}. ${e.note}`.trim()}
+function serp(e,old){const t=old?titleOld(e):titleNew(e),d=old?descOld(e):descNew(e);
+ return `<div class="serp"><div class="u">kaskjerda.no › arrangement</div><div class="t">${t.length>62?t.slice(0,60)+"…":t}</div><div class="d">${d.length>158?d.slice(0,155)+"…":d}</div><div class="n">${t.length} tegn i tittel${t.length>62?" (Google klipper)":""} · ${d.length} tegn i beskrivelse</div></div>`}
+function head(e){return `<div class="tag">${CAT[e.cat]}</div><h1>${e.title}</h1>`}
+function kv(e,showTimes){const first=e.shows[0][0];return `<dl class="k"><dt>Når</dt><dd>${showTimes?dateRange(e)+" kl. "+times(e):WD[dt(first).getDay()]+" "+dshort(first)+" "+dt(first).getFullYear()+" kl. "+tm(first)}</dd><dt>Hvor</dt><dd><a href="#">${e.venue}</a>, ${e.addr.split(",").slice(-2).join(",").trim()} · <a href="#">Kart</a></dd><dt>Pris</dt><dd>${e.price}</dd></dl>`}
+const cta=e=>`<a class="btn" href="#">Billetter og info hos arrangør →</a> <a href="#" style="margin-left:10px">Se i hele programmet</a>`;
+function table(e){if(e.shows.length<2)return"";return `<h2>Alle forestillinger</h2><table class="tl">${e.shows.map(s=>`<tr><td class="d"><b>${WD[dt(s[0]).getDay()].slice(0,3)}. ${dshort(s[0])}</b></td><td>kl. ${tm(s[0])}</td><td>${pill(s[1])}</td><td class="go"><a class="mini-btn ${s[1]=="sold"?"dis":""}" href="#">${s[1]=="sold"?"Utsolgt":"Kjøp"}</a></td></tr>`).join("")}</table>`}
+function faq(e,short){const qs=[
+ [`Når er ${e.title} i Ålesund?`,`${e.title} spilles ${dateRange(e)} kl. ${times(e)} på ${e.venue}.`],
+ [`Hva koster billetter til ${e.title}?`,e.min!=null?`Billettene koster fra ${e.price}.${e.note?" "+e.note:""} Prisen kan endres, sjekk hos arrangøren.`:"Prisen står ikke hos kilden. Sjekk hos arrangøren."],
+ [`Hvor er ${e.title}?`,`På ${e.venue}, ${e.addr}.`],
+ [`Er det utsolgt?`,soldInfo(e)||"Ikke utsolgt per siste sjekk. Programmet oppdateres hver andre time."],
+ [`Hvor kjøper jeg billetter?`,`Hos arrangøren (${e.url}). Vi selger ikke billetter selv; knappen over tar deg dit.`]];
+ return `<h2>Spørsmål og svar</h2>`+(short?[1,3,2]:[0,1,2,3,4]).map(i=>`<details ${i<2&&!short?"open":""}><summary>${qs[i][0]}</summary><p>${qs[i][1]}</p></details>`).join("")}
+function intro(e){const s=soldInfo(e);return `<p class="intro"><b>${e.title}</b> spilles på ${e.venue} i Ålesund ${dateRange(e)} kl. ${times(e)}. ${e.min!=null?`Billettene koster fra ${e.price}. `:""}${s}</p>`}
+function related(e){const same=POOL.filter(p=>p[1]==e.cat&&p[0]!=e.title).slice(0,4),sv=POOL.filter(p=>p[2]==e.venue&&p[0]!=e.title).slice(0,4);
+ const box=(h,arr)=>arr.length?`<h2>${h}</h2><div class="rel">${arr.map(p=>`<a href="#">${p[0]}<small>${p[3]} · ${p[2]}</small></a>`).join("")}</div>`:"";
+ return box(`Flere ${CATP[e.cat]} i Ålesund`,same)+box(`Mer på ${e.venue}`,sv)+`<div class="chips"><span>Denne helgen</span><span>Alle ${CATP[e.cat]}</span><span>Hele programmet</span></div>`}
+const wrap=(e,inner,extra="")=>`<article class="det" style="--c:var(--${e.cat=="show"?"ac":"sea"})">${inner}${extra}</article>`;
+const D=[
+ e=>serp(e,1)+wrap(e,head(e)+kv(e,0)+(e.note?`<p>${e.note}</p>`:"")+(e.shows.length>1?`<p class="mut">Flere forestillinger: ${uniqDays(e).slice(1).map(dshort).join(", ")}.</p>`:"")+`<div>${cta(e)}</div>`),
+ e=>serp(e)+wrap(e,head(e)+intro(e)+kv(e,1)+(e.note?`<p>${e.note}</p>`:"")+`<div>${cta(e)}</div>`),
+ e=>serp(e)+wrap(e,head(e)+kv(e,1)+`<div>${cta(e)}</div>`+faq(e)),
+ e=>serp(e)+wrap(e,head(e)+kv(e,0)+(e.note?`<p>${e.note}</p>`:"")+table(e)+`<div>${cta(e)}</div>`),
+ e=>serp(e)+wrap(e,head(e)+`<div class="hero"><div class="big">${e.min!=null?`<small>fra</small> ${e.price}`:"Pris hos arrangør"}</div><div>${pill(e.shows.every(s=>s[1]=="sold")?"sold":e.shows.some(s=>s[1]=="few")?"few":"")}<div class="mut" style="font-size:14px;margin-top:3px">${dateRange(e)} · kl. ${times(e)}</div></div></div>`+kv(e,0)+(e.note?`<p>${e.note}</p>`:""),
+   `<div class="sticky"><span><b>${e.title}</b><br><span class="mut" style="font-size:13px">${e.price}</span></span><a class="btn" href="#">Kjøp billett →</a></div>`),
+ e=>serp(e)+wrap(e,head(e)+kv(e,1)+(e.note?`<p>${e.note}</p>`:"")+`<div>${cta(e)}</div>`+related(e)),
+ e=>serp(e)+wrap(e,head(e)+intro(e)+kv(e,1)+(e.note?`<p>${e.note}</p>`:"")+`<div>${cta(e)}</div>`+table(e)+faq(e,1)+related(e))
+];
+function draw(){document.querySelectorAll(".frame").forEach(f=>{f.style.width=Math.min(W,f.parentElement.clientWidth)+"px";f.innerHTML=D[+f.dataset.d](EV[cur])})}
+$("#evseg").innerHTML=EV.map((e,i)=>`<button data-i="${i}" class="${i?"":"on"}">${e.k}</button>`).join("");
+$("#evseg").onclick=ev=>{const b=ev.target.closest("button");if(!b)return;cur=+b.dataset.i;[...$("#evseg").children].forEach(x=>x.classList.toggle("on",x==b));draw()};
+$("#wseg").onclick=ev=>{const b=ev.target.closest("button");if(!b)return;W=+b.dataset.w;[...$("#wseg").children].forEach(x=>x.classList.toggle("on",x==b));draw()};
+addEventListener("resize",draw);draw();
+</script></body></html>
