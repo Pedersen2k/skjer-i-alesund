@@ -248,7 +248,16 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .minehd { margin: 4px 0 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 .minehd b { font: 800 16px var(--font-display); }
 .minehd span { display: block; font-size: 12.5px; color: var(--muted); }
-.status .since { color: var(--accent); font-weight: 600; }
+.status .since { color: var(--accent); font: inherit; font-weight: 700; background: none; border: 0; padding: 4px 0; cursor: pointer; text-align: left; text-decoration: underline dotted; text-underline-offset: 3px; }
+.status .since::after { content: " ▸"; }
+/* Arket «Nytt siden sist»: hele kortene, lista under er uberørt */
+.newsheet-in { padding: 0; display: flex; flex-direction: column; height: min(85vh, 760px); overscroll-behavior: contain; }
+.newhd { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 16px max(16px, env(safe-area-inset-left, 0px)) 10px; border-bottom: 1px solid var(--line); }
+.newhd button { flex: none; width: 44px; height: 44px; border-radius: 99px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); font-size: 18px; cursor: pointer; }
+.newbody { overflow-y: auto; overscroll-behavior: contain; padding: 4px max(14px, env(safe-area-inset-left, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; align-content: start; }
+.newbody .nday { font: 800 15px var(--font-display); margin: 12px 2px 0; }
+.newbody .nwhen { font: 700 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; background: color-mix(in srgb, var(--c-barn) 85%, var(--bg)); color: #06180d; padding: 3px 6px; border-radius: 4px; }
+@media (min-width: 900px) { .sheet.center { align-items: center; } .sheet.center .sheet-in { border-radius: 20px; border-bottom: 1px solid var(--line); } }
 .minehd button { font: 800 14px var(--font-body); padding: 10px 16px; min-height: 44px; border-radius: 99px; border: 0; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
 .minehd .minebtns { display: flex; gap: 8px; flex-wrap: wrap; }
 .minehd button.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
@@ -368,6 +377,12 @@ footer a { color: var(--sea); }
   </div>
 
   <main id="list"></main>
+  <div class="sheet center" id="newsheet" hidden>
+    <div class="sheet-in newsheet-in" role="dialog" aria-modal="true" aria-labelledby="new-h">
+      <header class="newhd"><div><h2 id="new-h"></h2><p id="new-sub"></p></div><button type="button" id="new-close" aria-label="Lukk">✕</button></header>
+      <div class="newbody" id="newbody"></div>
+    </div>
+  </div>
   <div class="toast" id="toast" role="status" hidden><span id="toast-msg"></span><button type="button" id="toast-undo">Angre</button><i></i></div>
   <div class="sheet" id="sheet" hidden>
     <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
@@ -467,8 +482,8 @@ $("price").onchange = e => { state.price = e.target.value; render(); };
 $("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
 const setFavOnly = on => { state.favOnly = on; $("favonly").setAttribute("aria-pressed", on); };
 $("favonly").onclick = () => { setFavOnly(!state.favOnly); render(); };
-$("list").onclick = e => {
-  const art = e.target.closest(".ev"), evId = art ? art.id.slice(3) : "";
+function cardClick(e) {
+  const art = e.target.closest(".ev"), evId = art ? art.id.replace(/^n?ev-/, "") : "";
   if (e.target.closest(".link")) { track("billett/" + evId); return; }
   if (e.target.closest(".venue")) { track("kart/" + evId); return; }
   const c = e.target.closest(".cal");
@@ -479,8 +494,10 @@ $("list").onclick = e => {
   const id = b.dataset.id, snap = [...favs];
   favs.has(id) ? favs.delete(id) : (favs.add(id), track("lagre/" + id));
   store.set("skjer-favs", [...favs]); render();
+  if (!$("newsheet").hidden) fillNew(true);
   if (state.favOnly && !favs.has(id)) showUndo("Fjernet fra Mine", snap, leaveMineIfEmpty());
-};
+}
+$("list").onclick = cardClick;
 
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const safeUrl = u => /^https:\/\//.test(u || "") ? u : "";
@@ -893,7 +910,11 @@ function showStatus() {
     + (age >= 3 ? ` · Programmet er ${age} dager gammelt, så sjekk hos arrangøren` : "");
   $("status").classList.toggle("stale", age >= 3);
   const since = newSinceText();
-  if (since) { const sp = document.createElement("span"); sp.className = "since"; sp.textContent = since; $("status").append(" · ", sp); }
+  if (since) {
+    const sp = document.createElement(newSinceList().length ? "button" : "span"); sp.className = "since"; sp.textContent = since;
+    if (sp.tagName === "BUTTON") { sp.type = "button"; sp.id = "sincebtn"; sp.onclick = openNew; } else sp.classList.add("zero");
+    $("status").append(" · ", sp);
+  }
 }
 
 // «N nye siden du var her sist»: ren tekst ved «Sist sjekket», uten knapper eller filter. Husker bare tidspunktet i nettleseren.
@@ -912,14 +933,43 @@ const stampVisit = () => { try { localStorage.setItem("skjer-sist", new Date().t
 addEventListener("pagehide", stampVisit);
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") stampVisit(); });
 let baseline;
-function newSinceText() {
+function newSinceList() {
   if (baseline === undefined) baseline = visitBaseline();
-  if (!baseline) return "";  // første besøk, eller du var her for under en halvtime siden
-  const n = E.filter(e => e.d >= TODAY && e.addedAt && e.addedAt > (meta.seededAt || "") && new Date(e.addedAt) > baseline).length;
+  if (!baseline) return [];  // første besøk, eller du var her for under en halvtime siden
+  return E.filter(e => e.d >= TODAY && e.addedAt && e.addedAt > (meta.seededAt || "") && new Date(e.addedAt) > baseline).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
+}
+function newSinceText() {
+  newSinceList();
+  if (!baseline) return "";
+  const n = newSinceList().length;
   const dayDiff = Math.round((TODAY - new Date(baseline.getFullYear(), baseline.getMonth(), baseline.getDate())) / dayMs);
   const when = dayDiff === 0 ? "tidligere i dag" : dayDiff === 1 ? "i går" : `${DAYS_NO[baseline.getDay()]} ${baseline.getDate()}. ${MO[baseline.getMonth()]}`;
   return n ? `${n} ${n === 1 ? "nytt arrangement" : "nye arrangementer"} siden du var her sist (${when})` : `Ingenting nytt siden du var her sist (${when})`;
 }
+
+// Trykk på «N nye ...» åpner et ark med hele kortene. Lukk med ✕, utenfor arket eller Esc; lista under er som den var.
+const whenAdded = e => {
+  const d = new Date(e.addedAt), days = Math.round((TODAY - new Date(d.getFullYear(), d.getMonth(), d.getDate())) / dayMs);
+  return days <= 0 ? "Ny i dag" : days === 1 ? "Ny i går" : `Ny ${DAYS_NO[d.getDay()]}`;
+};
+function fillNew(keep) {
+  const list = newSinceList(), body = $("newbody"), top = keep ? body.scrollTop : 0;
+  if (!baseline) return;
+  const dayWord = Math.round((TODAY - new Date(baseline.getFullYear(), baseline.getMonth(), baseline.getDate())) / dayMs);
+  $("new-h").textContent = "Nytt siden " + (dayWord === 0 ? "tidligere i dag" : dayWord === 1 ? "i går" : `${DAYS_NO[baseline.getDay()]} ${baseline.getDate()}. ${MO[baseline.getMonth()]}`);
+  $("new-sub").textContent = `${list.length} arrangement${list.length === 1 ? "" : "er"}`;
+  let last = "", h = "";
+  for (const e of list) { const k = e.d.toDateString(); if (k !== last) { h += `<div class="nday">${DAYS_NO[e.d.getDay()][0].toUpperCase() + DAYS_NO[e.d.getDay()].slice(1)} ${e.d.getDate()}. ${MO[e.d.getMonth()]}</div>`; last = k; } h += eventHtml(e).replace('id="ev-', 'id="nev-'); }
+  body.innerHTML = h || `<div class="empty">Ingenting nytt.</div>`;
+  body.querySelectorAll(".ev").forEach((a, i) => { const m = a.querySelector(".meta"); if (m && list[i]) m.insertAdjacentHTML("beforeend", `<span class="nwhen">${whenAdded(list[i])}</span>`); });
+  body.scrollTop = top;
+}
+function openNew() { fillNew(); $("newsheet").hidden = false; $("new-close").focus(); track("nytt/åpnet"); }
+function closeNew() { $("newsheet").hidden = true; ($("sincebtn") || document.body).focus?.(); }
+$("new-close").onclick = closeNew;
+$("newsheet").addEventListener("click", e => { if (e.target === $("newsheet")) closeNew(); });
+$("newbody").addEventListener("click", cardClick);
+addEventListener("keydown", e => { if (e.key === "Escape" && !$("newsheet").hidden) closeNew(); });
 
 // schema.org/Event for søkemotorer (Google kjører JavaScript og leser dette). Kun felt vi har fra kilden.
 function addStructuredData() {
