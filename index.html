@@ -464,7 +464,8 @@ $("cats").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) retur
 $("venue").onchange = e => { state.venue = e.target.value; render(); };
 $("price").onchange = e => { state.price = e.target.value; render(); };
 $("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
-$("favonly").onclick = e => { state.favOnly = !state.favOnly; e.currentTarget.setAttribute("aria-pressed", state.favOnly); render(); };
+const setFavOnly = on => { state.favOnly = on; $("favonly").setAttribute("aria-pressed", on); };
+$("favonly").onclick = () => { setFavOnly(!state.favOnly); render(); };
 $("list").onclick = e => {
   const art = e.target.closest(".ev"), evId = art ? art.id.slice(3) : "";
   if (e.target.closest(".link")) { track("billett/" + evId); return; }
@@ -477,7 +478,7 @@ $("list").onclick = e => {
   const id = b.dataset.id, snap = [...favs];
   favs.has(id) ? favs.delete(id) : (favs.add(id), track("lagre/" + id));
   store.set("skjer-favs", [...favs]); render();
-  if (state.favOnly && !favs.has(id)) showUndo("Fjernet fra Mine", snap);
+  if (state.favOnly && !favs.has(id)) showUndo("Fjernet fra Mine", snap, leaveMineIfEmpty());
 };
 
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -653,16 +654,22 @@ function updateMine() {
 // Tøm Mine og fjern ett arrangement med sveip, begge med «Angre» i 8 sekunder
 let undoTimer;
 function hideUndo() { clearTimeout(undoTimer); $("toast").hidden = true; }
-function showUndo(msg, snap) {
+// Er Mine blitt tom, går siden tilbake til alle arrangementene. Svarer om vi forlot Mine (så «Angre» kan åpne den igjen).
+function leaveMineIfEmpty() {
+  if (!state.favOnly || mineEvents().length) return false;
+  setFavOnly(false); render(); window.scrollTo({ top: 0 });
+  return true;
+}
+function showUndo(msg, snap, reopen) {
   clearTimeout(undoTimer);
   const t = $("toast"); $("toast-msg").textContent = msg;
   t.hidden = true; void t.offsetWidth; t.hidden = false;  // starter nedtellingsstreken på nytt
-  $("toast-undo").onclick = () => { snap.forEach(id => favs.add(id)); store.set("skjer-favs", [...favs]); hideUndo(); render(); track("mine/angre"); };
+  $("toast-undo").onclick = () => { snap.forEach(id => favs.add(id)); store.set("skjer-favs", [...favs]); if (reopen) setFavOnly(true); hideUndo(); render(); track("mine/angre"); };
   undoTimer = setTimeout(hideUndo, 8000);
 }
 $("clearbtn").onclick = () => {
   const snap = [...favs]; if (!snap.length) return;
-  favs.clear(); store.set("skjer-favs", []); render(); showUndo("Lista er tømt", snap); track("mine/tom");
+  favs.clear(); store.set("skjer-favs", []); render(); showUndo("Lista er tømt", snap, leaveMineIfEmpty()); track("mine/tom");
 };
 (() => {
   const list = $("list"); let d = null, dragged = false;
@@ -692,7 +699,7 @@ $("clearbtn").onclick = () => {
     if (e.type !== "pointercancel" && dx < -Math.min(110, c.offsetWidth * .3)) {
       const snap = [...favs]; favs.delete(id); store.set("skjer-favs", [...favs]);
       c.style.transform = ""; c.style.opacity = ""; c.classList.add("leaving");
-      setTimeout(() => { render(); showUndo("Fjernet fra Mine", snap); }, 160);
+      setTimeout(() => { render(); showUndo("Fjernet fra Mine", snap, leaveMineIfEmpty()); }, 160);
       track("mine/sveip");
     } else { c.style.transform = ""; c.style.opacity = ""; }
   };
