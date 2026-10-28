@@ -252,7 +252,10 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .ntabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; border-radius: 8px; }
 .ntabs .ndot { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font: 800 12px/20px var(--font-body); text-align: center; }
 .ncap { margin: 8px 2px 12px; font-size: 13px; color: var(--muted); }
-.nyonly #kinostrip, .nyonly #jbstrip, .nyonly #julcard { display: none; }
+.nyonly #gbstrip, .nyonly #kinostrip, .nyonly #jbstrip, .nyonly #julcard { display: none; }
+.gbstrip { background: color-mix(in srgb, var(--c-barn) 10%, var(--surface)); border-color: color-mix(in srgb, var(--c-barn) 45%, var(--line)); }
+.gbstrip span { color: var(--c-barn); }
+@media (max-width: 640px) { #gbstrip { display: none; } }  /* mobil: inngangen ligger i prisfilteret */
 .minehd { margin: 4px 0 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 .minehd b { font: 800 16px var(--font-display); }
 .minehd span { display: block; font-size: 12.5px; color: var(--muted); }
@@ -322,7 +325,7 @@ footer a { color: var(--sea); }
       <select id="mcat" class="chip msel" aria-label="Velg kategori"></select>
       <select id="venue" class="chip" aria-label="Velg scene"></select>
       <select id="price" class="chip" aria-label="Velg pris">
-        <option value="">Alle priser</option><option value="0">Gratis</option><option value="300">Under 300 kr</option><option value="500">Under 500 kr</option>
+        <option value="">Alle priser</option><option value="gb" id="gbopt" hidden>Gratis og billig, oversikt →</option><option value="0">Gratis</option><option value="300">Under 300 kr</option><option value="500">Under 500 kr</option>
       </select>
       <button id="favonly" class="chip" aria-pressed="false">★ Mine<span class="fav-n" id="favn" hidden></span></button>
       <span class="count" id="count"></span>
@@ -357,6 +360,7 @@ footer a { color: var(--sea); }
 
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
   <a class="kinostrip jbstrip" id="jbstrip" href="julebord/" hidden></a>
+  <a class="kinostrip gbstrip" id="gbstrip" href="gratis-og-billig/" hidden></a>
 
   <div class="subscribe" id="subscribe" hidden>
     <div class="sub-top">
@@ -476,7 +480,11 @@ function fillVenues() {
 $("when").onclick = e => { const b = e.target.closest("[data-w]"); if (!b) return; state.when = b.dataset.w; track("filter/" + (b.dataset.w.startsWith("m") ? "måned" : b.dataset.w)); $("when").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); syncFilters(); render(); };
 $("cats").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return; const c = b.dataset.c; state.cats.has(c) ? state.cats.delete(c) : (state.cats.add(c), track("filter/" + c)); b.setAttribute("aria-pressed", state.cats.has(c)); syncFilters(); render(); };
 $("venue").onchange = e => { state.venue = e.target.value; render(); };
-$("price").onchange = e => { state.price = e.target.value; render(); };
+$("price").onchange = e => {
+  if (e.target.value === "gb") { e.target.value = state.price; track("gratis/filter"); location.href = "gratis-og-billig/"; return; }  // «Gratis og billig» er en egen side
+  state.price = e.target.value; render();
+};
+addEventListener("pageshow", () => { $("price").value = state.price; });  // tilbake-knappen skal ikke vise valget «Gratis og billig»
 $("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
 const setFavOnly = on => { state.favOnly = on; $("favonly").setAttribute("aria-pressed", on); };
 $("favonly").onclick = () => { setFavOnly(!state.favOnly); render(); };
@@ -566,6 +574,14 @@ $("subcopy").onclick = async () => {
 // Jul i Ålesund: kortet vises bare fra 1. november til 26. desember (?jul=1 eller #jul viser det utenom sesongen, til test)
 const JULSEASON = (() => { const t = new Date(), m = t.getMonth(), d = t.getDate(); return m === 10 || (m === 11 && d <= 26) || location.search.includes("jul=1") || location.hash === "#jul"; })();
 // Julebord: en knapp i julekortet i sesongen, ellers (oktober) en stripe under kinostripen
+// «Gratis og billig»: stripe på PC (skjult på mobil) og et valg i prisfilteret. Antall regnes av dataene, grense 150 kr som på siden.
+function gratisEntry() {
+  const up = E.filter(e => e.d >= TODAY && typeof e.priceMin === "number" && e.priceMin <= 150), free = up.filter(e => e.priceMin === 0).length;
+  if (!up.length) return;
+  Object.assign($("gbstrip"), { innerHTML: `<div>🏷️ ${free ? `<b>${free} gratis</b> · ` : ""}<b>${up.length - free} under 150 kr</b></div><span>Se alle →</span>`, hidden: false });
+  $("gbstrip").addEventListener("click", () => track("gratis/stripe"));
+  $("gbopt").hidden = false;
+}
 function julebordEntry() {
   if (!JB.length) return;
   const prices = JB.map(e => e.priceMin).filter(p => p > 0), from = prices.length ? `, fra ${Math.min(...prices)} kr` : "";
@@ -989,7 +1005,7 @@ fetch("data/events.json", { cache: "no-cache" })
     const all = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
     JB = all.filter(e => e.cat === "julebord" && e.d >= TODAY);
     E = all.filter(e => e.cat !== "julebord");
-    fillVenues(); julebordEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
+    fillVenues(); julebordEntry(); gratisEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
 // Kino: én stripe under filtrene (filmene ligger ikke i hovedlista)
