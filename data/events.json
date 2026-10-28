@@ -1,7 +1,7 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-28T16:21:40Z",
+  "updatedAt": "2026-10-28T17:09:40Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -804,7 +804,7 @@
    "title": "Bak lukkede dører",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "show",
    "price": "417–460 kr",
    "priceMin": 417,
    "soldOut": false,
@@ -836,7 +836,7 @@
    "title": "Filmvisning: How to live on earth",
    "venue": "Pir Cowork",
    "address": "Keiser Wilhelms g. 22, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "show",
    "price": "100 kr",
    "priceMin": 100,
    "soldOut": false,
