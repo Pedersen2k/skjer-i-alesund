@@ -28,6 +28,9 @@
     "cat": "standup",
     "title": "«Bærre Bjarne» – musikalsk standupshow"
   },
+  "bak-lukkede-dorer": {
+    "cat": "show"
+  },
   "ballinciaga": {
     "cat": "konsert",
     "title": "Ballinciaga"
@@ -70,6 +73,9 @@
   "erlend-gunstveit-my-nashville-christmas-to-you": {
     "cat": "konsert",
     "title": "Erlend Gunstveit – My Nashville Christmas To You"
+  },
+  "filmvisning-how-to-live-on-earth": {
+    "cat": "show"
   },
   "finn-tre-feil": {
     "cat": "show"
