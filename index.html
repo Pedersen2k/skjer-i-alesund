@@ -248,6 +248,7 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .minehd { margin: 4px 0 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 .minehd b { font: 800 16px var(--font-display); }
 .minehd span { display: block; font-size: 12.5px; color: var(--muted); }
+.status .since { color: var(--accent); font-weight: 600; }
 .minehd button { font: 800 14px var(--font-body); padding: 10px 16px; min-height: 44px; border-radius: 99px; border: 0; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
 .minehd .minebtns { display: flex; gap: 8px; flex-wrap: wrap; }
 .minehd button.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
@@ -888,9 +889,36 @@ function showStatus() {
   if (!meta.updatedAt) { $("status").textContent = ""; return; }
   const t = new Date(meta.updatedAt);
   const age = Math.floor((now - t) / dayMs);
-  $("status").textContent = `Sist sjekket ${t.getDate()}. ${MO[t.getMonth()]} kl. ${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}` + (meta.lastAdded ? ` · ${meta.lastAdded} nye sist` : "")
+  $("status").textContent = `Sist sjekket ${t.getDate()}. ${MO[t.getMonth()]} kl. ${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}`
     + (age >= 3 ? ` · Programmet er ${age} dager gammelt, så sjekk hos arrangøren` : "");
   $("status").classList.toggle("stale", age >= 3);
+  const since = newSinceText();
+  if (since) { const sp = document.createElement("span"); sp.className = "since"; sp.textContent = since; $("status").append(" · ", sp); }
+}
+
+// «N nye siden du var her sist»: ren tekst ved «Sist sjekket», uten knapper eller filter. Husker bare tidspunktet i nettleseren.
+// Et nytt besøk er en visning mer enn 30 minutter etter forrige; oppdatering av siden midt i et besøk nullstiller ikke tallet.
+const DAYS_NO = ["søndag", "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag"];
+function visitBaseline() {
+  try {
+    const sist = localStorage.getItem("skjer-sist");
+    let forrige = localStorage.getItem("skjer-forrige") || "";
+    if (sist && Date.now() - new Date(sist) > 30 * 60 * 1000) { forrige = sist; localStorage.setItem("skjer-forrige", forrige); }
+    localStorage.setItem("skjer-sist", new Date().toISOString());
+    return forrige ? new Date(forrige) : null;
+  } catch { return null; }
+}
+const stampVisit = () => { try { localStorage.setItem("skjer-sist", new Date().toISOString()); } catch {} };
+addEventListener("pagehide", stampVisit);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") stampVisit(); });
+let baseline;
+function newSinceText() {
+  if (baseline === undefined) baseline = visitBaseline();
+  if (!baseline) return "";  // første besøk, eller du var her for under en halvtime siden
+  const n = E.filter(e => e.d >= TODAY && e.addedAt && e.addedAt > (meta.seededAt || "") && new Date(e.addedAt) > baseline).length;
+  const dayDiff = Math.round((TODAY - new Date(baseline.getFullYear(), baseline.getMonth(), baseline.getDate())) / dayMs);
+  const when = dayDiff === 0 ? "tidligere i dag" : dayDiff === 1 ? "i går" : `${DAYS_NO[baseline.getDay()]} ${baseline.getDate()}. ${MO[baseline.getMonth()]}`;
+  return n ? `${n} ${n === 1 ? "nytt arrangement" : "nye arrangementer"} siden du var her sist (${when})` : `Ingenting nytt siden du var her sist (${when})`;
 }
 
 // schema.org/Event for søkemotorer (Google kjører JavaScript og leser dette). Kun felt vi har fra kilden.
