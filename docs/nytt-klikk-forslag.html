@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klikk på nye siden sist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Fem måter å vise «Nytt siden sist» på forsiden. Ekte arrangementer fra events.json 27. okt. Ett mørkt tema, som siden har for de fleste. */
+:root {
+  --bg: #0a171b; --surface: #13252d; --fg: #e8f1ef; --muted: #8fa8ab; --line: #25414a;
+  --gold: #f7c873; --sea: #5ab7bf; --accent: #ff8a6b; --new: #8fe3a8; --new-bg: #15362a; --new-line: #2f6b4d;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-happening: #d9b84a; --c-quiz: #b497e0; --c-julebord: #ef7a7f;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding: 28px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px)); }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1480px; margin: 0 auto; display: grid; gap: 28px; }
+header h1 { font: 800 clamp(28px, 4vw, 42px)/1.05 var(--font-display); margin: 0 0 10px; text-wrap: balance; }
+header p { margin: 0; max-width: 78ch; color: var(--muted); }
+header p + p { margin-top: 8px; }
+header b { color: var(--fg); font-weight: 600; }
+.ctl { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.ctl > span { font-size: 13px; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 99px; padding: 2px; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; color: var(--muted); font: 600 13px var(--font-body); padding: 6px 12px; border-radius: 99px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--gold); color: #1a1405; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px 22px; align-items: start; }
+.opt { display: grid; gap: 12px; min-width: 0; }
+.opt h2 { margin: 0; font: 800 21px/1.1 var(--font-display); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.opt h2 span { font: 700 13px var(--font-mono); color: var(--bg); background: var(--gold); border-radius: 6px; padding: 2px 7px; }
+.why { margin: 0; color: var(--muted); font-size: 14px; min-height: 4.6em; }
+.pros { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.pros li::before { content: "+ "; color: var(--sea); font-weight: 700; }
+.pros li.minus::before { content: "– "; color: var(--accent); }
+.phone { position: relative; border: 1px solid var(--line); border-radius: 26px; background: #081316; height: 640px; overflow: hidden; }
+.screen { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 0 12px 18px; }
+
+/* Toppen av forsiden, forenklet */
+.top { position: sticky; top: 0; z-index: 3; background: #081316; padding: 12px 0 10px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.brand { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.brand b { font: 800 19px var(--font-display); }
+.brand small { color: var(--muted); font-size: 12px; }
+.bar { display: flex; gap: 8px; align-items: center; }
+.search { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; color: var(--muted); font-size: 13px; background: var(--surface); }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 99px; padding: 7px 11px; font: 600 13px var(--font-body); white-space: nowrap; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent); color: #1a0b07; border-color: var(--accent); }
+.dd { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+.dd span { border: 1px solid var(--line); border-radius: 8px; padding: 6px 9px; font-size: 12.5px; color: var(--muted); background: var(--surface); display: flex; justify-content: space-between; }
+.dd span::after { content: "▾"; }
+
+.day { font: 800 15px/1 var(--font-display); margin: 16px 2px 8px; }
+.day small { font: 500 12px var(--font-body); color: var(--muted); margin-left: 6px; }
+.events { display: grid; gap: 8px; }
+.ev { position: relative; background: linear-gradient(135deg, color-mix(in srgb, var(--c) 20%, #13252d), #13252d 62%); border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 12px; padding: 12px 14px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; box-shadow: 0 8px 24px #0006; scroll-margin-top: 150px; }
+.ev h3 { margin: 0; font: 700 16.5px/1.25 var(--font-display); text-wrap: balance; }
+.meta { grid-column: 1; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; color: var(--muted); align-items: center; }
+.meta .t { font-family: var(--font-mono); color: var(--fg); }
+.tag { font: 600 11px/1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--c); }
+.side { grid-row: 1 / span 2; grid-column: 2; display: flex; flex-direction: column; gap: 6px; align-items: end; }
+.fav { color: var(--muted); font-size: 19px; line-height: 1; }
+.price { font: 600 13px/1.2 var(--font-mono); white-space: nowrap; }
+.price.unk { font: 500 12px var(--font-body); color: var(--muted); }
+.new { font: 700 10px/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; background: var(--accent); color: #1a0b07; padding: 3px 6px; border-radius: 4px; }
+.newer { font: 700 10px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; background: var(--new); color: #072014; padding: 3px 6px; border-radius: 4px; }
+.ev.glow { border-color: var(--new-line); box-shadow: 0 0 0 1px var(--new-line), 0 8px 24px #0006; }
+
+/* A: teller ved Mine */
+.cnt { display: inline-flex; gap: 5px; align-items: center; }
+.cnt i { font-style: normal; font: 700 11px/1 var(--font-mono); background: var(--new); color: #072014; border-radius: 99px; padding: 3px 6px; }
+.chip.newchip[aria-pressed="true"] { background: var(--new); color: #072014; border-color: var(--new); }
+.chip.newchip[aria-pressed="true"] i { background: #072014; color: var(--new); }
+.hint { font-size: 12.5px; color: var(--muted); margin: 10px 2px 0; }
+/* B: stripe som kinostripa */
+.strip { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; border: 1px solid var(--new-line); background: linear-gradient(100deg, var(--new-bg), #13252d 80%); border-radius: 12px; padding: 10px 12px; margin: 10px 0 2px; cursor: pointer; }
+.strip .n { font: 800 22px/1 var(--font-display); color: var(--new); }
+.strip b { display: block; font: 700 14px/1.2 var(--font-body); }
+.strip small { color: var(--muted); font-size: 12px; display: block; }
+.strip .x { color: var(--muted); font-size: 18px; padding: 2px 6px; background: none; border: 0; cursor: pointer; }
+.strip .go { color: var(--gold); font: 600 13px var(--font-body); }
+/* C: «Når»-valg */
+.dd span.on { border-color: var(--new); color: var(--new); }
+/* D: egen boks */
+.box { border: 1px solid var(--new-line); background: linear-gradient(160deg, var(--new-bg), #13252d 70%); border-radius: 14px; padding: 12px 14px; margin: 10px 0 4px; }
+.box h4 { margin: 0; font: 800 16px/1.2 var(--font-display); display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.box h4 small { font: 500 12px var(--font-body); color: var(--muted); }
+.box p { margin: 2px 0 6px; font-size: 12.5px; color: var(--muted); }
+.box a { display: grid; grid-template-columns: 54px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 0; border-top: 1px solid #ffffff12; color: var(--fg); text-decoration: none; font-size: 13.5px; cursor: pointer; }
+.box a b { font: 600 12px var(--font-mono); color: var(--muted); }
+.box a small { color: var(--muted); font-size: 12px; display: block; }
+.box a em { font: 600 12px var(--font-mono); font-style: normal; color: var(--new); white-space: nowrap; }
+.box .more { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid #ffffff12; padding-top: 8px; font: 600 13px var(--font-body); }
+.box .more button { background: none; border: 0; padding: 0; cursor: pointer; color: var(--gold); }
+.box .more button.mute { color: var(--muted); }
+/* E: flytende knapp som hopper */
+.fab { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 4; border: 0; border-radius: 99px; background: var(--new); color: #072014; font: 700 13.5px var(--font-body); padding: 10px 16px; box-shadow: 0 8px 24px #000a; cursor: pointer; white-space: nowrap; display: flex; gap: 8px; align-items: center; }
+.fab small { font: 600 11px var(--font-mono); opacity: .75; }
+.first { border: 1px dashed var(--line); border-radius: 12px; padding: 10px 12px; margin: 10px 0 2px; font-size: 12.5px; color: var(--muted); }
+footer { color: var(--muted); font-size: 13px; max-width: 78ch; }
+footer b { color: var(--fg); font-weight: 600; }
+.status { font: 500 12px/1.45 var(--font-mono); color: var(--muted); margin: 2px 0 8px; }
+.status .since { color: var(--accent); font-weight: 700; background: none; border: 0; padding: 0; font: inherit; font-weight: 700; cursor: pointer; text-align: left; }
+.status .since.link { text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+.status .since::after { content: " ▾"; }
+.status .since[aria-expanded="true"]::after { content: " ▴"; }
+.size { display: flex; gap: 8px; align-items: center; }
+.opt .phone.pc { max-width: none; }
+.grid.pcmode { grid-template-columns: repeat(auto-fit, minmax(560px, 1fr)); }
+.grid.pcmode .phone { height: 620px; }
+.hl { animation: hl 1.6s ease-out; }
+@keyframes hl { 0% { box-shadow: 0 0 0 3px var(--new); } 100% { box-shadow: 0 0 0 0 transparent; } }
+/* A: panel under linja */
+.pop { position: absolute; left: 10px; right: 10px; z-index: 6; background: #0d1f25; border: 1px solid var(--new-line); border-radius: 14px; box-shadow: 0 16px 40px #000c; padding: 10px 12px 6px; max-height: 70%; overflow-y: auto; }
+.pop h4 { margin: 0 0 4px; font: 800 15px var(--font-display); display: flex; justify-content: space-between; align-items: baseline; }
+.pop h4 small { font: 500 12px var(--font-body); color: var(--muted); }
+.pop a { display: grid; grid-template-columns: 64px 1fr auto; gap: 8px; align-items: baseline; padding: 9px 0; border-top: 1px solid #ffffff12; color: var(--fg); cursor: pointer; font-size: 13.5px; min-height: 44px; }
+.pop a b { font: 600 12px var(--font-mono); color: var(--muted); }
+.pop a small { display: block; color: var(--muted); font-size: 12px; }
+.pop a em { font: 600 12px var(--font-mono); font-style: normal; color: var(--new); white-space: nowrap; }
+.pop .foot { text-align: center; padding: 8px 0 6px; border-top: 1px solid #ffffff12; font-size: 12px; color: var(--muted); }
+/* B: bunnark */
+.back { position: absolute; inset: 0; background: #0009; z-index: 7; }
+.sheetb { position: absolute; left: 0; right: 0; bottom: 0; height: 78%; background: #0b1a1f; border-top: 1px solid var(--new-line); border-radius: 20px 20px 0 0; z-index: 8; display: flex; flex-direction: column; animation: up .22s ease-out; }
+@keyframes up { from { transform: translateY(100%); } to { transform: none; } }
+.sheetb .grab { width: 44px; height: 4px; border-radius: 4px; background: var(--line); margin: 8px auto 0; }
+.sheetb header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px 8px; }
+.sheetb header b { font: 800 17px var(--font-display); }
+.sheetb header small { display: block; font: 500 12px var(--font-body); color: var(--muted); }
+.sheetb header button { border: 0; background: #ffffff14; color: var(--fg); width: 44px; height: 44px; border-radius: 99px; font-size: 18px; cursor: pointer; }
+.sheetb .body { overflow-y: auto; padding: 0 12px 14px; display: grid; gap: 8px; }
+/* C: filter med bånd */
+.band { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 8px; background: var(--new-bg); border: 1px solid var(--new-line); border-radius: 12px; padding: 6px 6px 6px 12px; margin: 8px 0; font-size: 13px; }
+.band b { color: var(--new); }
+.band button { border: 0; border-radius: 99px; background: var(--new); color: #072014; font: 700 13px var(--font-body); padding: 0 14px; min-height: 40px; cursor: pointer; }
+/* D: egen del i lista */
+.newsec { border: 1px solid var(--new-line); background: linear-gradient(170deg, var(--new-bg), #0c1b20 70%); border-radius: 16px; padding: 10px 10px 12px; margin: 8px 0 14px; display: grid; gap: 8px; }
+.newsec h4 { margin: 4px 4px 0; font: 800 16px var(--font-display); display: flex; justify-content: space-between; align-items: center; }
+.newsec h4 button { border: 0; background: none; color: var(--gold); font: 600 13px var(--font-body); min-height: 44px; padding: 0 6px; cursor: pointer; }
+.newsec .sub { font: 700 11px var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--new); margin: 4px 4px 0; }
+.alle { font: 800 15px var(--font-display); margin: 4px 2px 0; }
+.ev.isnew { box-shadow: inset 4px 0 0 0 var(--new); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Klikk på «N nye siden sist»: fire forslag</h1>
+  <p>Teksten ved «Sist sjekket» blir en lenke. Trykk på den i hver telefon for å se hva som skjer. Alle bruker <b>ekte arrangementer</b> fra <code>events.json</code>; vi later som du var her sist <b>mandag 26. oktober</b>, så 11 er nye.</p>
+  <p><b>Regler fra forrige runde:</b> ingen «Merk som sett», du skal alltid kunne komme tilbake til hele lista med ett trykk, og lista skal ikke bli låst i en modus. Det nye regnes som sett når du forlater siden.</p>
+</header>
+<div class="ctl"><span>Vis som:</span><div class="seg" id="sz"><button aria-pressed="true" data-z="m">Telefon</button><button aria-pressed="false" data-z="pc">PC</button></div><span>Trykk på den oransje teksten under «Skjer i Ålesund».</span></div>
+<div class="grid" id="grid"></div>
+<footer><b>Min anbefaling:</b> D (egen del øverst i lista) på telefon og PC. Du ser det nye med full kortvisning, lista fortsetter rett under, og «Skjul» tar det bort. A (rask oversikt) er fin som tillegg på PC. C (filter) er nærmest det du prøvde sist, og er det som er lettest å komme borti som en felle, selv med «Vis alle»-knappen.</footer>
+</div>
+<script>
+const R = [{"id": "viti-paa-dagtid-om-anders-svors-liv-og-reiser-jugendstilsent", "d": "2026-10-28", "t": "På dagtid: Om Anders Svors liv og reiser", "v": "Jugendstilsenteret og KUBE", "c": "happening", "time": "12:00", "p": "60 kr", "add": ""}, {"id": "parken-48884-parken-kulturhus", "d": "2026-10-28", "t": "Musikklinjekonsert", "v": "Parken kulturhus", "c": "konsert", "time": "18:00", "p": "100–250 kr", "add": ""}, {"id": "salmer-pa-pobb-terminalen-byscene", "d": "2026-10-28", "t": "Salmer på pøbb", "v": "Terminalen Byscene", "c": "konsert", "time": "18:30", "p": "420 kr", "add": ""}, {"id": "operapub-fabrikken-kulturscene", "d": "2026-10-28", "t": "Operapub", "v": "Fabrikken Kulturscene", "c": "konsert", "time": "20:00", "p": "", "add": ""}, {"id": "skifilm-festival-tgr-friends-lovenvold-theater", "d": "2026-10-29", "t": "Skifilmfestival – TGR & Friends", "v": "Løvenvold Theater", "c": "happening", "time": "17:30", "p": "280 kr", "add": ""}, {"id": "parken-47138-parken-kulturhus", "d": "2026-10-29", "t": "Ingebjørg Bratland", "v": "Parken kulturhus", "c": "konsert", "time": "19:00", "p": "630 kr", "add": ""}, {"id": "oconnors-2026-10-29-pubquiz-hos-o-8217-connor-8217-o-connor-", "d": "2026-10-29", "t": "Pubquiz", "v": "O'Connor's", "c": "quiz", "time": "19:00", "p": "50 kr", "add": ""}, {"id": "stein-torleif-bjella-terminalen-byscene", "d": "2026-10-29", "t": "Stein Torleif Bjella", "v": "Terminalen Byscene", "c": "konsert", "time": "20:00", "p": "450 kr", "add": ""}, {"id": "claudia-scott-og-torstein-flakne-lovenvold-theater", "d": "2026-10-30", "t": "Claudia Scott og Torstein Flakne", "v": "Løvenvold Theater", "c": "konsert", "time": "18:00", "p": "499 kr", "add": ""}, {"id": "parken-47586-parken-kulturhus", "d": "2026-10-30", "t": "Treretters: En lattergalla", "v": "Parken kulturhus", "c": "standup", "time": "19:00", "p": "530–625 kr", "add": ""}, {"id": "oconnors-2026-10-30-skumle-oktoberquiz-med-martin-o-connor-s", "d": "2026-10-30", "t": "Skumle Oktoberquiz med Martin 👻🎃", "v": "O'Connor's", "c": "quiz", "time": "20:00", "p": "50 kr", "add": "2026-10-27T09:47"}, {"id": "golf-terminalen-byscene", "d": "2026-10-30", "t": "GOLF", "v": "Terminalen Byscene", "c": "konsert", "time": "20:00", "p": "420 kr", "add": ""}, {"id": "van-halen-tribute-avskjedskonsert-fabrikken-kulturscene", "d": "2026-10-30", "t": "Van Halen-tribute – avskjedskonsert", "v": "Fabrikken Kulturscene", "c": "konsert", "time": "20:30", "p": "", "add": ""}, {"id": "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug", "d": "2026-10-31", "t": "Familiedag: Halloween på Jugendstilsenteret", "v": "Jugendstilsenteret og KUBE", "c": "barn", "time": "12:00", "p": "120 kr", "add": ""}, {"id": "parken-48033-parken-kulturhus", "d": "2026-10-31", "t": "Jazzkafe: Vegard Holum sings– ein hyllest til Chet", "v": "Parken kulturhus", "c": "konsert", "time": "14:00", "p": "150–250 kr", "add": ""}, {"id": "aafk-2026-10-31-aalesund-sandefjord-fotball", "d": "2026-10-31", "t": "Aalesund – Sandefjord Fotball", "v": "Color Line Stadion", "c": "sport", "time": "18:00", "p": "", "add": ""}, {"id": "viggo-vennelos-lovenvold-theater", "d": "2026-10-31", "t": "Viggo Venneløs", "v": "Løvenvold Theater", "c": "standup", "time": "19:00", "p": "350 kr", "add": ""}, {"id": "parken-45111-parken-kulturhus", "d": "2026-10-31", "t": "Kristian Valen", "v": "Parken kulturhus", "c": "konsert", "time": "19:00", "p": "625 kr", "add": ""}, {"id": "autumn-nights-nordvest-big-band-med-solister-fabrikken-kultu", "d": "2026-10-31", "t": "Autumn Nights – Nordvest Big Band med solister", "v": "Fabrikken Kulturscene", "c": "konsert", "time": "20:30", "p": "", "add": ""}, {"id": "circus-damp-dampsentralen", "d": "2026-10-31", "t": "CIRCUS DAMP", "v": "Dampsentralen", "c": "klubb", "time": "22:00", "p": "200 kr", "add": ""}, {"id": "halloween-klubb-med-mentum-terminalen-byscene", "d": "2026-10-31", "t": "Halloween-klubb med MENTUM", "v": "Terminalen Byscene", "c": "klubb", "time": "23:00", "p": "200 kr", "add": "2026-10-27T11:21"}, {"id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus", "d": "2026-11-01", "t": "Pelsdyr i ord og folkesong", "v": "Sunnmøre museum", "c": "happening", "time": "13:00", "p": "120 kr", "add": ""}, {"id": "white-rave-stisema-terminalen-byscene", "d": "2026-11-21", "t": "White Rave | Stisema", "v": "Terminalen Byscene", "c": "konsert", "time": "23:00", "p": "150 kr", "add": "2026-10-28T09:59"}, {"id": "deilig-er-jorden-alesund-kirke-2026", "d": "2026-12-01", "t": "Deilig er jorden", "v": "Ålesund kirke", "c": "konsert", "time": "18:00", "p": "", "add": "2026-10-27T07:56"}, {"id": "skruk-medan-vi-ventar-alesund-kirke-2026", "d": "2026-12-04", "t": "SKRUK – Medan vi ventar", "v": "Ålesund kirke", "c": "konsert", "time": "21:00", "p": "490 kr", "add": "2026-10-27T07:56"}, {"id": "julemarked-hatlane-skole-2026", "d": "2026-12-05", "t": "Julemarked på Hatlane skole", "v": "Hatlane skole", "c": "happening", "time": "11:00", "p": "Gratis", "add": "2026-10-27T07:56"}, {"id": "julemarked-spjelkavikhallen-2026", "d": "2026-12-05", "t": "Julemarked i Spjelkavika", "v": "Spjelkavikhallen", "c": "happening", "time": "", "p": "Gratis", "add": "2026-10-27T07:56"}, {"id": "julemarkedet-i-alesund-sentrum-2026", "d": "2026-12-12", "t": "Julemarkedet i Ålesund sentrum", "v": "Korsatunnelen", "c": "happening", "time": "11:00", "p": "Gratis", "add": "2026-10-27T07:56"}, {"id": "hjem-til-jul-alesund-kirke-2026", "d": "2026-12-18", "t": "Hjem til jul", "v": "Ålesund kirke", "c": "konsert", "time": "19:00", "p": "150 kr", "add": "2026-10-27T07:56"}, {"id": "alesund-live-tobias-sten", "d": "2027-06-18", "t": "Ålesund Live: Tobias Sten", "v": "Skutvika", "c": "konsert", "time": "", "p": "999 kr", "add": "2026-10-27T16:49"}, {"id": "alesund-live-karpe", "d": "2027-06-19", "t": "Ålesund Live: Karpe", "v": "Skutvika", "c": "konsert", "time": "", "p": "1399 kr", "add": "2026-10-27T16:49"}];
+const CAT = { konsert:"Konsert", standup:"Standup", show:"Show", barn:"Barn & familie", klubb:"Klubb", happening:"Happening", quiz:"Quiz", sport:"Sport" };
+const MON = ["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"], WD = ["søn","man","tir","ons","tor","fre","lør"];
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const fmt = d => { const t = new Date(d+"T12:00"); return `${WD[t.getDay()]} ${t.getDate()}. ${MON[t.getMonth()]}`; };
+const NEW = R.filter(r => r.add);
+const when = r => r.add.startsWith("2026-10-28") ? "i dag" : r.add.startsWith("2026-10-27") ? "i går" : "mandag";
+const price = p => p ? `<span class="price">${esc(p)}</span>` : `<span class="price unk">Pris hos arrangør</span>`;
+function card(r, o={}) { return `<article class="ev ${r.add && o.mark ? "isnew" : ""}" id="${o.pre||""}c${r.id}" data-id="${r.id}" style="--c:var(--c-${r.c})"><div><span class="tag">${CAT[r.c]||r.c}</span><h3>${esc(r.t)}</h3></div><div class="side"><span class="fav">☆</span>${price(r.p)}</div><div class="meta"><span class="t">${r.time||"—"}</span><span>${fmt(r.d)}</span><span>${esc(r.v)}</span>${r.add && o.mark ? `<span class="newer">Ny ${when(r)}</span>` : ""}</div></article>`; }
+function list(arr, o={}) { let h="", last=""; for (const r of arr) { if (r.d!==last) { h+=`<div class="day">${fmt(r.d)}</div>`; last=r.d; } h+=card(r,o); } return h; }
+const lineHtml = id => `<div class="status">Sist sjekket 28. okt kl. 09:59 · <button class="since link" id="${id}" aria-expanded="false">${NEW.length} nye arrangementer siden du var her sist (mandag 26. okt)</button></div>`;
+const topHtml = id => `<div class="top"><div class="brand"><b>Skjer i Ålesund</b><small>Mørkt | Lyst</small></div>${lineHtml(id)}<div class="bar"><div class="search">Søk …</div><button class="chip">★ Mine</button></div></div>`;
+const jump = (el, root, pre) => { const t = root.querySelector("#"+pre+"c"+el); if (!t) return; const sc = root.querySelector(".screen"); sc.scrollTo({ top: t.offsetTop - 130, behavior: "smooth" }); t.classList.remove("hl"); void t.offsetWidth; t.classList.add("hl"); };
+
+const D = [
+ { k:"A", t:"Rask oversikt som folder seg ut", why:"Trykk på teksten, så åpner det seg en liten liste rett under, over resten. Korte rader: dato, tittel, sted, pris og hvor lenge siden den kom. Trykk på en rad for å hoppe til kortet i lista (det blinker grønt). Trykk på teksten igjen eller utenfor for å lukke.", pros:["Raskest: du ser alt nytt uten å forlate lista","Lista under blir aldri endret","Passer best på PC (liten, kompakt)"], cons:["Liten tekst på telefon","Du må trykke på rad for å se hele kortet"],
+   screen:()=>topHtml("tA")+`<div id="lA">${list(R)}</div>`,
+   wire(root){ const b=root.querySelector("#tA"), sc=root.querySelector(".screen"); let pop=null; const close=()=>{ pop?.remove(); pop=null; b.setAttribute("aria-expanded","false"); }; b.onclick=e=>{ e.stopPropagation(); if(pop){ close(); return; } pop=document.createElement("div"); pop.className="pop"; const topPx=b.getBoundingClientRect().bottom-root.querySelector(".phone").getBoundingClientRect().top+6; pop.style.top=topPx+"px"; pop.innerHTML=`<h4>Nytt siden mandag 26. okt <small>${NEW.length} arrangementer</small></h4>`+NEW.map(r=>`<a data-id="${r.id}"><b>${fmt(r.d)}</b><span>${esc(r.t)}<small>${esc(r.v)} · ny ${when(r)}</small></span><em>${r.p?esc(r.p):""}</em></a>`).join("")+`<div class="foot">Trykk på en rad for å hoppe til den</div>`; root.querySelector(".phone").appendChild(pop); b.setAttribute("aria-expanded","true"); pop.onclick=ev=>{ const a=ev.target.closest("a"); if(!a) return; close(); jump(a.dataset.id,root,"A"); }; }; root.querySelector(".phone").addEventListener("click",e=>{ if(pop && !e.target.closest(".pop") && e.target!==b) close(); }); sc.addEventListener("scroll",()=>{}); root.querySelectorAll("#lA .ev").forEach(c=>c.id="Ac"+c.dataset.id); } },
+ { k:"B", t:"Bunnark med hele kortene", why:"Et ark glir opp fra bunnen med de nye arrangementene som vanlige kort (stjerne, pris, alt). Dra ned, trykk på × eller utenfor for å lukke, og lista under er som den var.", pros:["Kjent mønster på telefon","Hele kortene, ikke bare rader","Ingenting i lista endres"], cons:["Dekker lista mens det er åpent","Du må lukke for å scrolle i lista","Ark på PC føles mer som en pop-up"],
+   screen:()=>topHtml("tB")+`<div id="lB">${list(R)}</div>`,
+   wire(root){ const b=root.querySelector("#tB"), ph=root.querySelector(".phone"); let open=false, bk, sh; const close=()=>{ bk?.remove(); sh?.remove(); open=false; b.setAttribute("aria-expanded","false"); }; b.onclick=()=>{ if(open){ close(); return; } open=true; b.setAttribute("aria-expanded","true"); bk=document.createElement("div"); bk.className="back"; bk.onclick=close; sh=document.createElement("div"); sh.className="sheetb"; sh.innerHTML=`<div class="grab"></div><header><div><b>Nytt siden mandag 26. okt</b><small>${NEW.length} arrangementer</small></div><button aria-label="Lukk">✕</button></header><div class="body">${list(NEW,{mark:true,pre:"B"})}</div>`; sh.querySelector("button").onclick=close; ph.append(bk,sh); }; } },
+ { k:"C", t:"Filter med «Vis alle»-bånd", why:"Trykk på teksten, så viser lista bare de nye. Et bånd øverst sier «Viser 11 nye» og har en stor «Vis alle»-knapp. Det er nærmest det du prøvde sist, men uten «Merk som sett», og det nullstilles når du oppdaterer siden.", pros:["Enklest å bygge og forstå","Du bruker vanlig liste og alle filtre","Båndet følger deg ned"], cons:["Du er i en modus (men med tydelig utgang)","Du kan glemme at du har filtrert","Mest lik det du ikke likte sist"],
+   screen:()=>topHtml("tC")+`<div id="bC"></div><div id="lC">${list(R)}</div>`,
+   wire(root){ const b=root.querySelector("#tC"), l=root.querySelector("#lC"), bd=root.querySelector("#bC"); let on=false; const paint=()=>{ b.setAttribute("aria-expanded",on); l.innerHTML=list(on?NEW:R,{mark:on}); bd.innerHTML=on?`<div class="band"><span>Viser <b>${NEW.length} nye</b> siden mandag</span><button>Vis alle</button></div>`:""; if(on) bd.querySelector("button").onclick=()=>{ on=false; paint(); }; root.querySelector(".screen").scrollTo({top:0}); }; b.onclick=()=>{ on=!on; paint(); }; } },
+ { k:"D", t:"Egen del øverst i lista (anbefalt)", why:"Trykk på teksten, så åpner det seg en grønn del øverst i lista med de nye som hele kort, sortert etter når de kom («Lagt til i dag», «i går»). Under den fortsetter «Alle arrangementer» som vanlig. «Skjul» lukker den igjen.", pros:["Hele kortene, i selve lista","Ingen modus: lista fortsetter rett under","Sortert etter når de kom, ikke bare dato"], cons:["Skyver resten av lista nedover mens den er åpen","Samme arrangement står to ganger (her og på sin dato)"],
+   screen:()=>topHtml("tD")+`<div id="sD"></div><div class="alle" id="aD" hidden>Alle arrangementer</div><div id="lD">${list(R,{mark:true})}</div>`,
+   wire(root){ const b=root.querySelector("#tD"), s=root.querySelector("#sD"), a=root.querySelector("#aD"); let on=false; const paint=()=>{ b.setAttribute("aria-expanded",on); a.hidden=!on; if(!on){ s.innerHTML=""; return; } const g=k=>NEW.filter(r=>when(r)===k).sort((x,y)=>y.add.localeCompare(x.add)); const sec=(lbl,arr)=>arr.length?`<div class="sub">${lbl}</div>`+arr.map(r=>card(r,{mark:true,pre:"D"})).join(""):""; s.innerHTML=`<div class="newsec"><h4>Nytt siden mandag 26. okt <button>Skjul</button></h4>${sec("Lagt til i dag",g("i dag"))}${sec("Lagt til i går",g("i går"))}<button class="chip" style="justify-self:center;min-height:44px">Skjul</button></div>`; s.querySelectorAll("button").forEach(x=>{ if(!x.classList.contains("since")) x.onclick=()=>{ on=false; paint(); }; }); root.querySelector(".screen").scrollTo({top:0,behavior:"smooth"}); }; b.onclick=()=>{ on=!on; paint(); }; } },
+];
+const grid=document.getElementById("grid");
+grid.innerHTML=D.map(d=>`<div class="opt" id="o-${d.k}"><h2><span>${d.k}</span>${d.t}</h2><p class="why">${d.why}</p><div class="phone"><div class="screen">${d.screen()}</div></div><ul class="pros">${d.pros.map(p=>`<li>${p}</li>`).join("")}${d.cons.map(p=>`<li class="minus">${p}</li>`).join("")}</ul></div>`).join("");
+D.forEach(d=>d.wire(document.getElementById("o-"+d.k)));
+document.getElementById("sz").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; document.querySelectorAll("#sz button").forEach(x=>x.setAttribute("aria-pressed",x===b)); grid.classList.toggle("pcmode",b.dataset.z==="pc"); };
+</script>
+</body>
+</html>
