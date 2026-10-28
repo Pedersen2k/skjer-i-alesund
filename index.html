@@ -248,7 +248,20 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 .minehd { margin: 4px 0 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 .minehd b { font: 800 16px var(--font-display); }
 .minehd span { display: block; font-size: 12.5px; color: var(--muted); }
-.minehd button { font: 800 14px var(--font-body); padding: 10px 16px; border-radius: 99px; border: 0; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.minehd button { font: 800 14px var(--font-body); padding: 10px 16px; min-height: 44px; border-radius: 99px; border: 0; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.minehd .minebtns { display: flex; gap: 8px; flex-wrap: wrap; }
+.minehd button.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+.minehd .swipehint { flex-basis: 100%; margin: -2px 0 0; font-size: 12.5px; color: var(--muted); }
+/* Sveip et lagret arrangement mot venstre for å fjerne det (bare i «Mine») */
+#list.mine-on article.ev { touch-action: pan-y; }
+.ev.dragging { transition: none; user-select: none; -webkit-user-select: none; cursor: grabbing; }
+.ev.leaving { transition: transform .16s ease-in, opacity .16s ease-in; transform: translateX(-110%); opacity: 0; }
+.toast { position: fixed; left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 60; margin: 0 auto; max-width: 420px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 6px 4px 16px; border-radius: 12px; background: var(--fg); color: var(--bg); font: 600 14px var(--font-body); box-shadow: 0 8px 24px #0006; overflow: hidden; }
+.toast[hidden] { display: none; }
+.toast button { border: 0; background: none; color: inherit; font: 800 14px var(--font-body); text-decoration: underline; min-height: 44px; padding: 0 12px; cursor: pointer; }
+.toast i { position: absolute; left: 0; bottom: 0; height: 3px; background: currentColor; opacity: .5; width: 100%; animation: toastbar 8s linear forwards; }
+@keyframes toastbar { to { width: 0; } }
+@media (prefers-reduced-motion: reduce) { .toast i { animation: none; width: 0; } }
 .fav-n { font: 800 11px var(--font-mono); margin-left: 5px; padding: 1px 6px; border-radius: 99px; background: var(--accent); color: var(--accent-ink); }
 #favonly[aria-pressed="true"] .fav-n { background: var(--accent-ink); color: var(--accent); }
 .sheet { position: fixed; inset: 0; z-index: 50; background: #0008; display: flex; align-items: flex-end; justify-content: center; }
@@ -349,10 +362,12 @@ footer a { color: var(--sea); }
 
   <div class="minehd" id="minehd" hidden>
     <div><b id="minecount"></b><span>Del lista med venner. Den som åpner lenken, kan lagre alt selv.</span></div>
-    <button type="button" id="sharebtn">↗ Del lista</button>
+    <div class="minebtns"><button type="button" id="sharebtn">↗ Del lista</button><button type="button" class="ghost" id="clearbtn">Tøm</button></div>
+    <p class="swipehint" id="swipehint" hidden>← Sveip et arrangement mot venstre for å fjerne det</p>
   </div>
 
   <main id="list"></main>
+  <div class="toast" id="toast" role="status" hidden><span id="toast-msg"></span><button type="button" id="toast-undo">Angre</button><i></i></div>
   <div class="sheet" id="sheet" hidden>
     <div class="sheet-in" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
       <h2 id="sheet-h">Del lista di</h2>
@@ -459,8 +474,10 @@ $("list").onclick = e => {
   const sh = e.target.closest(".share");
   if (sh) { const ev = E.find(x => x.id === sh.dataset.share); if (ev) shareEvent(ev, sh); track("del/" + sh.dataset.share); return; }
   const b = e.target.closest(".fav"); if (!b) return;
-  const id = b.dataset.id; favs.has(id) ? favs.delete(id) : (favs.add(id), track("lagre/" + id));
+  const id = b.dataset.id, snap = [...favs];
+  favs.has(id) ? favs.delete(id) : (favs.add(id), track("lagre/" + id));
   store.set("skjer-favs", [...favs]); render();
+  if (state.favOnly && !favs.has(id)) showUndo("Fjernet fra Mine", snap);
 };
 
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -622,7 +639,66 @@ function updateMine() {
   Object.assign($("favn"), { textContent: n, hidden: !n });
   $("minehd").hidden = !(state.favOnly && n);
   if (n) $("minecount").textContent = (n === 1 ? "1 lagret arrangement" : `${n} lagrede arrangementer`);
+  $("list").classList.toggle("mine-on", state.favOnly);
+  // Sveipetipset vises på berøringsskjerm de første tre gangene «Mine» åpnes
+  const hint = $("swipehint");
+  if (state.favOnly && n && !updateMine.counted && matchMedia("(pointer: coarse)").matches) {
+    const seen = store.get("skjer-sveip", 0);
+    if (seen < 3) { hint.hidden = false; store.set("skjer-sveip", seen + 1); }
+    updateMine.counted = true;
+  }
+  if (!(state.favOnly && n)) hint.hidden = true;
 }
+
+// Tøm Mine og fjern ett arrangement med sveip, begge med «Angre» i 8 sekunder
+let undoTimer;
+function hideUndo() { clearTimeout(undoTimer); $("toast").hidden = true; }
+function showUndo(msg, snap) {
+  clearTimeout(undoTimer);
+  const t = $("toast"); $("toast-msg").textContent = msg;
+  t.hidden = true; void t.offsetWidth; t.hidden = false;  // starter nedtellingsstreken på nytt
+  $("toast-undo").onclick = () => { snap.forEach(id => favs.add(id)); store.set("skjer-favs", [...favs]); hideUndo(); render(); track("mine/angre"); };
+  undoTimer = setTimeout(hideUndo, 8000);
+}
+$("clearbtn").onclick = () => {
+  const snap = [...favs]; if (!snap.length) return;
+  favs.clear(); store.set("skjer-favs", []); render(); showUndo("Lista er tømt", snap); track("mine/tom");
+};
+(() => {
+  const list = $("list"); let d = null, dragged = false;
+  list.addEventListener("pointerdown", e => {
+    if (!state.favOnly || (e.pointerType === "mouse" && e.button !== 0) || e.target.closest("a, button, input, select, summary")) return;
+    const c = e.target.closest("article.ev"), b = c && c.querySelector(".fav[data-id]");
+    if (b) d = { c, id: b.dataset.id, x: e.clientX, y: e.clientY, dx: 0, on: false, pid: e.pointerId };
+  });
+  list.addEventListener("pointermove", e => {
+    if (!d || e.pointerId !== d.pid) return;
+    const dx = e.clientX - d.x, dy = e.clientY - d.y;
+    if (!d.on) {
+      if (Math.abs(dy) > 10 && Math.abs(dy) >= Math.abs(dx)) { d = null; return; }  // rullet lista
+      if (!(dx < -10 && Math.abs(dx) > Math.abs(dy) * 1.5)) return;
+      d.on = true; d.c.classList.add("dragging");
+    }
+    d.dx = Math.min(0, dx);
+    d.c.style.transform = `translateX(${d.dx}px)`;
+    d.c.style.opacity = String(Math.max(.35, 1 - Math.abs(d.dx) / (d.c.offsetWidth * 1.2)));
+  });
+  const end = e => {
+    if (!d || e.pointerId !== d.pid) return;
+    const { c, id, on, dx } = d; d = null;
+    if (!on) return;
+    dragged = true; setTimeout(() => dragged = false, 0);
+    c.classList.remove("dragging");
+    if (e.type !== "pointercancel" && dx < -Math.min(110, c.offsetWidth * .3)) {
+      const snap = [...favs]; favs.delete(id); store.set("skjer-favs", [...favs]);
+      c.style.transform = ""; c.style.opacity = ""; c.classList.add("leaving");
+      setTimeout(() => { render(); showUndo("Fjernet fra Mine", snap); }, 160);
+      track("mine/sveip");
+    } else { c.style.transform = ""; c.style.opacity = ""; }
+  };
+  list.addEventListener("pointerup", end); list.addEventListener("pointercancel", end);
+  list.addEventListener("click", e => { if (dragged) { e.stopPropagation(); e.preventDefault(); } }, true);
+})();
 let sheetUrl = "";
 const SHARE_TEXT = "Lista mi fra Skjer i Ålesund";
 function closeSheet() { $("sheet").hidden = true; $("sharebtn").focus(); }
