@@ -48,6 +48,9 @@ ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
 VENUE_NAMES = {"Terminalen": "Terminalen Byscene"}
 # Kurs, medlemskap og ungdomsforestillinger som ikke hører hjemme i kalenderen
 SKIP = re.compile(r"medlemsskap|gruppe, høst|day pass|cowork|festivalpass|SPIRE|foredrag|påmelding|^FUND$", re.I)
+# Steder rundt Ålesund: Tikkio-arrangementer som siles bort, men nevner et av dem eller mangler sted, gir varsel
+NEAR_ALESUND = re.compile(r"Ålesund|Aalesund|Spjelkavik|Moa\b|Borgund|Vigra|Giske|Hessa|Valderøy|Ellingsøy|Nørvasundet|Volsdalen", re.I)
+UNSURE = []  # (url, tekst) fra siste fetch_tikkio()
 # Billettyper som ikke er reelle priser
 NOISE = re.compile(r"ledsager|rullestol|gjest|faktura|flyttet|uttak|copy|gratisbillett", re.I)
 REGULAR = re.compile(r"ordin|^billett$|^standard|^voksen|^kinobillett|^parkett", re.I)
@@ -101,17 +104,21 @@ def fetch_tikkio():
             city = (addr.get("addressLocality") or "").strip()
             # Bynavnet mangler av og til (Dampsentralen), men gateadressen sier «6003 Ålesund»
             in_alesund = city == "Ålesund" or "Ålesund" in (addr.get("streetAddress") or "")
-            if not (in_alesund or any(v in venue for v in ALESUND_VENUES)):
-                continue
             name = html.unescape(it.get("name") or "").strip()
-            if SKIP.search(name):
-                continue
             start = datetime.datetime.fromisoformat(it["startDate"]).astimezone(TZ)
-            if start.date() < today:
-                continue
             offer = it.get("offers") or {}
             offer = offer[0] if isinstance(offer, list) else offer
             url = offer.get("url") or ""
+            if not (in_alesund or any(v in venue for v in ALESUND_VENUES)):
+                where = " ".join([venue, city, addr.get("streetAddress") or ""]).strip()
+                if start.date() >= today and not SKIP.search(name) and (
+                        NEAR_ALESUND.search(where) or not (city or addr.get("streetAddress"))):
+                    UNSURE.append((url, f"{name} ({where or 'ingen sted'}, {start.date().isoformat()})"))
+                continue
+            if SKIP.search(name):
+                continue
+            if start.date() < today:
+                continue
             venue = spelling.setdefault(venue.casefold(), VENUE_NAMES.get(venue, venue))
             raw.append({"name": name, "venue": venue, "start": start,
                         "address": clean_address(addr.get("streetAddress"), venue),
@@ -734,7 +741,14 @@ def main():
             check.append(f"{e['title']} ({e['venue']}, {e['date']}): {why}")
     if check:
         warn("Sjekk kategorien på nye arrangementer (rett den i data/overrides.json hvis den er feil): " + "; ".join(check))
+    # Tikkio-arrangementer vi siler bort, men som kan være i Ålesund: varsle én gang per lenke
+    checked = set(old["meta"].get("tikkioChecked", []))
+    unsure = [(u, t) for u, t in UNSURE if u not in checked]
+    if unsure and "tikkioChecked" in old["meta"]:
+        warn("Tikkio har arrangementer som ikke er tatt med, men som kan være i Ålesund (legg inn sted i ALESUND_VENUES i sync.py eller i manual.json hvis de skal med): "
+             + "; ".join(f"{t} {u}" for u, t in unsure))
     meta = {
+        "tikkioChecked": sorted(checked | {u for u, _ in UNSURE}),
         "updatedAt": now,
         "seededAt": seeded_at,
         "lastAdded": added if first_seen else 0,
