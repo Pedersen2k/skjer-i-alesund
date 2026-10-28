@@ -1,9 +1,9 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-28T09:59:36Z",
+  "updatedAt": "2026-10-28T11:55:09Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -15,22 +15,6 @@
   ]
  },
  "events": [
-  {
-   "id": "viti-paa-dagtid-om-anders-svors-liv-og-reiser-jugendstilsent",
-   "date": "2026-10-28",
-   "time": "12:00",
-   "title": "På dagtid: Om Anders Svors liv og reiser",
-   "venue": "Jugendstilsenteret og KUBE",
-   "address": "Apotekergata 16, Ålesund",
-   "cat": "happening",
-   "price": "60 kr",
-   "priceMin": 60,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.vitimusea.no/arrangement/paa-dagtid-om-anders-svors-liv-og-reiser",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "parken-48884-parken-kulturhus",
    "date": "2026-10-28",
@@ -1328,10 +1312,10 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "erlend-gunstveit-my-nashville-christmas-to-you-lovenvold-the",
+   "id": "erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate",
    "date": "2026-11-24",
    "time": "18:00",
-   "title": "Erlend Gunstveit – My Nashville Christmas To You",
+   "title": "Erlend Gunstveit - A Very Nashville Christmas",
    "venue": "Løvenvold Theater",
    "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
    "cat": "konsert",
@@ -1920,6 +1904,22 @@
    "addedAt": "2026-10-26T20:53:51Z"
   },
   {
+   "id": "julekonsert-med-velledalskoret-og-posh-trio-lovenvold-theate",
+   "date": "2026-12-13",
+   "time": "17:00",
+   "title": "Julekonsert med Velledalskoret og Posh trio",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "300 kr",
+   "priceMin": 300,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67191-julekonsert-med-velledalskoret-og-posh-trio",
+   "addedAt": "2026-10-28T11:55:09Z"
+  },
+  {
    "id": "parken-44202-parken-kulturhus",
    "date": "2026-12-13",
    "time": "19:00",
@@ -2167,6 +2167,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/46386-snowing-on-my-piano/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "egil-olsen-lovenvold-theater",
+   "date": "2026-12-20",
+   "time": "19:00",
+   "title": "Egil Olsen",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "399 kr",
+   "priceMin": 399,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67162-egil-olsen-julekonsert",
+   "addedAt": "2026-10-28T11:55:09Z"
   },
   {
    "id": "romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby",
