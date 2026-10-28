@@ -1,7 +1,7 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-28T14:09:45Z",
+  "updatedAt": "2026-10-28T16:02:24Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 1,
   "sources": [
@@ -1153,6 +1153,25 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/65879-nar-barokken-moter-nord",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-51238-parken-kulturhus",
+   "date": "2026-11-20",
+   "time": "18:00",
+   "title": "Ålesund ballettskole",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "130–230 kr",
+   "priceMin": 130,
+   "soldOut": false,
+   "note": "Flere forestillinger: 21. nov.",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51238-alesund-ballettskole/",
+   "moreShows": [
+    "2026-11-21T17:00"
+   ],
+   "addedAt": "2026-10-28T16:02:24Z"
   },
   {
    "id": "musikkbingo-dampsentralen",
