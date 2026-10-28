@@ -1,9 +1,9 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-28T16:02:24Z",
+  "updatedAt": "2026-10-28T16:21:40Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1161,7 +1161,7 @@
    "title": "Ålesund ballettskole",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "show",
    "price": "130–230 kr",
    "priceMin": 130,
    "soldOut": false,
