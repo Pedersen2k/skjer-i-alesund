@@ -1,7 +1,7 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-28T17:56:26Z",
+  "updatedAt": "2026-10-28T19:56:55Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -15,24 +15,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-48884-parken-kulturhus",
-   "date": "2026-10-28",
-   "time": "18:00",
-   "title": "Musikklinjekonsert",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "100–250 kr",
-   "priceMin": 100,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48884-musikklinjekonsert/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "salmer-pa-pobb-terminalen-byscene",
    "date": "2026-10-28",
