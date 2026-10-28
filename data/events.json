@@ -1,7 +1,7 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-28T19:56:55Z",
+  "updatedAt": "2026-10-28T21:53:10Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -15,22 +15,6 @@
   ]
  },
  "events": [
-  {
-   "id": "salmer-pa-pobb-terminalen-byscene",
-   "date": "2026-10-28",
-   "time": "18:30",
-   "title": "Salmer på pøbb",
-   "venue": "Terminalen Byscene",
-   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "420 kr",
-   "priceMin": 420,
-   "soldOut": false,
-   "note": "Rabatt: Student / U25 340 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/63714-salmer-pa-pobb-terminalen",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "operapub-fabrikken-kulturscene",
    "date": "2026-10-28",
