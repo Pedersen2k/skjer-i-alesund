@@ -45,6 +45,7 @@ CAT_TEXT = {
     "sport": "Hjemmekamper for Aalesunds FK på Color Line Stadion, for både herrer og damer, med avspark og lenke til billetter.",
 }
 MONTH_PAGES = {}
+GB_NAV = False  # settes i main(): «Gratis og billig» vises i snarveiene når siden finnes
 JUL_NAV = False  # settes i main(): Jul i Ålesund vises i snarveiene fra 1. november
 
 WD = ["mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag", "søndag"]
@@ -296,6 +297,8 @@ def links_nav(up, current, extra):
     items = [("i-dag/", "I dag"), ("i-morgen/", "I morgen"), ("denne-helgen/", "Denne helgen"), ("denne-uka/", "Neste 7 dager"), ("kino/", "Kino")] + [(p + "/", CAT_LABEL[k] if k != "sport" else "AaFK") for k, (p, _, _) in CATS.items() if k in extra]
     if JUL_NAV:
         items.insert(5, ("jul-i-alesund/", "Jul i Ålesund"))
+    if GB_NAV:
+        items.insert(5, ("gratis-og-billig/", "Gratis og billig"))
     items += [(p, l) for l, p in MONTH_PAGES.items()]
     items += [(p, v) for v, p in VENUE_PAGES.items()]
     return '<nav class="more"><h2>Mer fra programmet</h2><div class="row">' + "".join(
@@ -641,6 +644,81 @@ def jul_page(events, today, themes=None):
     return page("jul-i-alesund/", title, desc, body, ld, raw=True, head_extra=head_extra, body_class="jul"), n_ev
 
 
+GB_MAX = 150  # grensen for «billig»: billigste billett, kr
+GB_BANDS = [("gratis", "Gratis", "g0", lambda p: p == 0), ("under-100", "Under 100 kr", "g1", lambda p: 0 < p < 100), ("100-150", "100–150 kr", "g2", lambda p: 100 <= p <= GB_MAX)]
+
+
+def gb_items(events, today):
+    """Arrangementer med kjent billigste billett på GB_MAX kr eller mindre, én rad per arrangement (første dato).
+    Ukjent pris er ikke med. Quizkvelder samles til én rad. Utsolgte kommer sist i sitt prisbånd."""
+    cheap = [e for e in events if e["date"] >= today.isoformat() and isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] <= GB_MAX]
+    quiz = [e for e in cheap if e["cat"] == "quiz"]
+    rows = [e for e in cheap if not (e["cat"] == "quiz" and len(quiz) > 1)]
+    if len(quiz) > 1:
+        q = sorted(quiz, key=lambda e: e["date"])
+        rows.append({"id": "quiz", "quiz": q, "title": "Quiz i Ålesund", "cat": "quiz", "date": q[0]["date"], "time": "",
+                     "venue": ", ".join(dict.fromkeys(e["venue"] for e in q)), "priceMin": min(e["priceMin"] for e in q),
+                     "price": f"fra {min(e['priceMin'] for e in q)} kr", "soldOut": False, "uncertain": any(e.get("uncertain") for e in q)})
+    return rows
+
+
+def gb_row(e, up):
+    d = datetime.date.fromisoformat(e["date"])
+    c = e["cat"] if e["cat"] in CAT_LABEL else "happening"
+    if e.get("quiz"):
+        n = len(e["quiz"])
+        href, extra = f"{up}quiz/", ""
+        when = f"{n} kvelder, neste {d.day}. {MO[d.month - 1][:3]}"
+    else:
+        href = f"{up}arrangement/{e['id']}/"
+        more = len({m[:10] for m in (e.get("moreShows") or [])} - {e["date"]})
+        extra = f"+ {more} {'dato' if more == 1 else 'datoer'} til" if more else ""
+        when = f"{WD[d.weekday()][:3]} {d.day}. {MO[d.month - 1][:3]}" + (f" kl. {e['time']}" if e.get("time") else "")
+    sold = '<span class="gb-sold">Utsolgt</span>' if e.get("soldOut") else ""
+    unsure = " · sjekk prisen hos arrangøren" if e.get("uncertain") else ""
+    return (f'<a class="gb-it{" soldout" if e.get("soldOut") else ""}" href="{href}" style="--c:var(--c-{c})"><span class="gb-t"><b>{escape(e["title"])}</b>'
+            f'<small>{escape(when)} · {escape(e["venue"])}{escape(" · " + extra if extra else "")}{escape(unsure)}</small></span>'
+            f'<span class="gb-p{" free" if e["priceMin"] == 0 else ""}">{escape("Gratis" if e["priceMin"] == 0 else e.get("price") or price_text(e))}{sold}</span></a>')
+
+
+def gb_page(events, today):
+    """gratis-og-billig/: prisbånd Gratis / Under 100 kr / 100–150 kr. Returnerer (html, antall) eller None uten arrangementer."""
+    rows = gb_items(events, today)
+    if not rows:
+        return None
+    up = "../"
+    nfree = sum(1 for e in rows if e["priceMin"] == 0)
+    nsingle = sum(len(e["quiz"]) if e.get("quiz") else 1 for e in rows)
+    chips, bands = "", ""
+    for anchor, label, cls, test in GB_BANDS:
+        grp = sorted([e for e in rows if test(e["priceMin"])], key=lambda e: (bool(e.get("soldOut")), e["date"], e.get("time") or ""))
+        if not grp:
+            continue
+        n = sum(len(e["quiz"]) if e.get("quiz") else 1 for e in grp)
+        chips += f'<a class="chip" href="#{anchor}">{label} <span>{n}</span></a>'
+        bands += (f'<section class="gb-band {cls}" id="{anchor}"><div class="gb-bh"><h2>{label}</h2><span>{n} {"arrangement" if n == 1 else "arrangementer"}</span></div>'
+                  f'{"".join(gb_row(e, up) for e in grp)}</section>')
+    free_names = [e["title"] for e in rows if e["priceMin"] == 0][:3]
+    year = today.year
+    title = f"Gratis og billig i Ålesund: arrangementer til under {GB_MAX} kr | {SITE}"
+    desc = (f"{nfree} gratis og {nsingle - nfree} billige arrangementer i Ålesund, alle til {GB_MAX} kr eller mindre"
+            + (f": {', '.join(free_names)}" if free_names else "") + ". Datoer og priser fra arrangørene, oppdatert flere ganger om dagen.")[:300]
+    body = f"""  <header class="top">
+    <h1>Gratis og billig i Ålesund</h1>
+    <p class="lede">Konserter, markeder, quiz og familiearrangementer i Ålesund til {GB_MAX} kr eller mindre. Sortert etter laveste billettpris, så du ser hva du kan gjøre for lite penger.</p>
+  </header>
+  <nav class="gb-chips" aria-label="Prisbånd">{chips}</nav>
+  <main class="gb">
+    {bands}
+    <p class="gb-note">Prisen er den billigste billetten. Noen arrangementer har dyrere billetter også, og det står på arrangementets side. Arrangementer uten kjent pris er ikke med. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. Savner du et gratis eller billig arrangement? <a href="{up}kontakt/">Gi beskjed</a>.</p>
+  </main>
+  {links_nav(up, "gratis-og-billig/", {e["cat"] for e in events})}
+  <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. <a href="{up}kontakt/">Kontakt og om siden</a></div></footer>"""
+    evs = [x for e in rows for x in (e["quiz"] if e.get("quiz") else [e])]
+    ld = {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), ("Gratis og billig i Ålesund", BASE + "gratis-og-billig/")])] + [event_ld(e) for e in evs]}
+    return page("gratis-og-billig/", title, desc, body, ld), nsingle
+
+
 def describe(events, what):
     n = len(events)
     if not n:
@@ -709,7 +787,9 @@ def main():
     cfg = jul_config()
     themes = jul_theme_events(all_events, today, cfg)
     has_jul = any(is_jul(e, cfg) for e in all_events)
-    extra = ([("jul-i-alesund/", "Jul i Ålesund")] if has_jul else []) + ([("julebord/", "Julebord")] if any(e["cat"] == "julebord" for e in all_events) else []) \
+    global GB_NAV
+    GB_NAV = bool(gb_items(events, today))
+    extra = ([("gratis-og-billig/", "Gratis og billig")] if GB_NAV else []) + ([("jul-i-alesund/", "Jul i Ålesund")] if has_jul else []) + ([("julebord/", "Julebord")] if any(e["cat"] == "julebord" for e in all_events) else []) \
         + [(p, h1.replace(" i Ålesund", "")) for p, (h1, _, _) in themes.items()]
     index = (ROOT / "index.html").read_text()
     (OUT / "index.html").write_text(front_html(index, events, today, extra))
@@ -830,6 +910,12 @@ def main():
         write("jul-i-alesund/", jp[0])
         pages.append(("jul-i-alesund/", updated))
         print(f"Jul i Ålesund: {jp[1]} arrangementer", file=sys.stderr)
+
+    gp = gb_page(events, today)
+    if gp:
+        write("gratis-og-billig/", gp[0])
+        pages.append(("gratis-og-billig/", updated))
+        print(f"Gratis og billig: {gp[1]} arrangementer", file=sys.stderr)
 
     # Kino ligger på egen side og er ikke med i lister, kategorier eller helgeposten på bildet
     kino_meta, kino_films = load_kino(today)
@@ -1180,6 +1266,26 @@ render();
 
 
 SUB_CSS = """
+/* Gratis og billig (gratis-og-billig/) */
+.gb-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 6px; }
+.gb-chips .chip span { margin-left: 4px; font-weight: 800; }
+.gb-band { margin-top: 22px; --b: var(--c-barn); }
+.gb-band.g1 { --b: var(--c-standup); } .gb-band.g2 { --b: var(--sea); }
+.gb-bh { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-bottom: 6px; border-bottom: 3px solid var(--b); }
+.gb-bh h2 { font: 800 22px/1.1 var(--font-display); margin: 0; }
+.gb-bh span { font-size: 13px; color: var(--muted); }
+.gb-it { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 12px 2px; border-bottom: 1px solid var(--line); color: var(--fg); text-decoration: none; }
+.gb-it:hover .gb-t b { text-decoration: underline; }
+.gb-t { min-width: 0; }
+.gb-t b { display: block; font: 700 16px/1.25 var(--font-body); overflow-wrap: anywhere; }
+.gb-t small { display: block; margin-top: 2px; font-size: 13px; color: var(--muted); }
+.gb-t small::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c); margin-right: 6px; }
+.gb-p { flex: none; text-align: right; font: 800 16px var(--font-display); color: var(--fg); white-space: nowrap; }
+.gb-p.free { color: var(--b); }
+.gb-sold { display: block; margin-top: 3px; font: 700 11px var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.gb-it.soldout .gb-t b { color: var(--muted); }
+.gb-note { margin-top: 26px; font-size: 13px; color: var(--muted); max-width: 70ch; }
+.gb-note a { color: var(--sea); }
 /* Engelsk side (en/) */
 .en .jump { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font: 600 14px var(--font-body); }
 .en .jump a, .en .daytime a, .en .faq a { color: var(--sea); }
