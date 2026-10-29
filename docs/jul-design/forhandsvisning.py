@@ -14,8 +14,10 @@ ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 OUT = ROOT / "preview" / "jul"
 
-NAMES = [("", "Dagens"), ("peis", "Peiskos"), ("sno", "Snøfall"), ("lys", "Julelys"), ("kofte", "Lusekofte"),
-         ("pepperkake", "Pepperkakebyen"), ("advent", "Adventstid")]
+GROUPS = [("Lunt og tradisjonelt", [("vinterkveld", "Vinterkveld"), ("juletre", "Juletre"), ("frost", "Frostrose")]),
+          ("Enkelt og stilrent", [("hvit", "Hvit jul"), ("gran", "Granbånd"), ("rodtrad", "Rød tråd")]),
+          ("Første runde", [("peis", "Peiskos"), ("sno", "Snøfall"), ("lys", "Julelys"), ("kofte", "Lusekofte"), ("pepperkake", "Pepperkakebyen"), ("advent", "Adventstid")])]
+NISSE = [("meny", "Over menyen"), ("kort", "Over julekortet"), ("side", "Fra siden"), ("", "Ingen nisse")]
 
 page = (ROOT / "_site" / "index.html").read_text()
 page = re.sub(r"<!doctype html>\s*|</?html[^>]*>\s*|</?head>\s*|</?body>\s*", "", page, flags=re.I)
@@ -27,29 +29,42 @@ page = page.replace("const JULSEASON = (() => {", "const JULSEASON = true || (()
 # Ingen besøkstelling fra forhåndsvisningen
 page = page.replace('const GOATCOUNTER = "kaskjerda";', 'const GOATCOUNTER = "";', 1)
 
-buttons = "".join(f'<button type="button" data-jd="{n}">{label}</button>' for n, label in NAMES)
+options = '<option value="">Dagens design</option>' + "".join(
+    f'<optgroup label="{g}">' + "".join(f'<option value="{n}">{label}</option>' for n, label in items) + "</optgroup>" for g, items in GROUPS)
+nisse = "".join(f'<option value="{n}">{label}</option>' for n, label in NISSE)
 picker = f"""
 <link rel="stylesheet" href="jul-design.css">
 <style>
-.jdpick {{ position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; padding: 8px max(10px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px));
-  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; background: #000c; backdrop-filter: blur(10px); font: 600 13px/1 "Figtree", system-ui, sans-serif; }}
-.jdpick b {{ width: 100%; text-align: center; color: #fff9; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }}
-.jdpick button {{ font: inherit; padding: 8px 11px; border-radius: 99px; border: 1px solid #fff4; background: transparent; color: #fff; cursor: pointer; }}
-.jdpick button[aria-pressed="true"] {{ background: #fff; color: #111; }}
-.jdpick button:focus-visible {{ outline: 2px solid #ffd27a; outline-offset: 2px; }}
-body {{ padding-bottom: 96px; }}
+.jdpick {{ position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; background: #000d; backdrop-filter: blur(10px); font: 600 13px/1 "Figtree", system-ui, sans-serif; color: #fff; }}
+.jdpick label {{ display: flex; flex-direction: column; gap: 4px; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #fffa; flex: 1 1 150px; max-width: 260px; }}
+.jdpick select {{ font: 600 15px/1.2 "Figtree", system-ui, sans-serif; letter-spacing: 0; text-transform: none; padding: 9px 10px; border-radius: 10px; border: 1px solid #fff5; background: #222; color: #fff; }}
+.jdpick select:focus-visible {{ outline: 2px solid #ffd27a; outline-offset: 2px; }}
+.jdpick .nav {{ display: flex; gap: 6px; align-self: end; }}
+.jdpick .nav button {{ font: 700 18px/1 system-ui, sans-serif; width: 42px; height: 40px; border-radius: 10px; border: 1px solid #fff5; background: #222; color: #fff; cursor: pointer; }}
+body {{ padding-bottom: 90px; }}
 </style>
-<nav class="jdpick" aria-label="Velg juledesign"><b>Juledesign · forslag</b>{buttons}</nav>
+<nav class="jdpick" aria-label="Velg juledesign">
+  <label for="jdsel">Juledesign<select id="jdsel">{options}</select></label>
+  <label for="jdnisse">Nisse<select id="jdnisse">{nisse}</select></label>
+  <div class="nav"><button type="button" id="jdprev" aria-label="Forrige design">‹</button><button type="button" id="jdnext" aria-label="Neste design">›</button></div>
+</nav>
 <script src="jul-design.js"></script>
 <script>
 (() => {{
+  const sel = document.getElementById("jdsel"), ns = document.getElementById("jdnisse"), all = [...sel.options].map(o => o.value);
   const pick = () => {{ const n = location.hash.slice(1); const name = JULDESIGN.names.includes(n) ? n : "";
-    JULDESIGN.apply(name); document.querySelectorAll(".jdpick button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.jd === name))); }};
-  document.querySelectorAll(".jdpick button").forEach(b => b.onclick = () => {{ location.hash = b.dataset.jd; if (!b.dataset.jd) pick(); scrollTo(0, 0); }});
+    sel.value = name; JULDESIGN.apply(name); JULDESIGN.nisse(ns.value); }};
+  const go = v => {{ if (v) location.hash = v; else {{ history.replaceState(null, "", location.pathname + location.search); pick(); }} scrollTo(0, 0); }};
+  sel.onchange = () => go(sel.value);
+  ns.onchange = () => JULDESIGN.nisse(ns.value);
+  const step = d => go(all[(all.indexOf(sel.value) + d + all.length) % all.length]);
+  document.getElementById("jdprev").onclick = () => step(-1);
+  document.getElementById("jdnext").onclick = () => step(1);
   addEventListener("hashchange", pick);
   // Forsiden bytter ut listen når programmet er hentet; vent på det før pynten legges på
-  const go = () => setTimeout(pick, 50);
-  document.readyState === "complete" ? go() : addEventListener("load", go);
+  const start = () => setTimeout(() => {{ if (!location.hash) location.hash = "vinterkveld"; else pick(); }}, 50);
+  document.readyState === "complete" ? start() : addEventListener("load", start);
 }})();
 </script>
 """
@@ -59,7 +74,7 @@ if OUT.exists():
     shutil.rmtree(OUT)
 (OUT / "data").mkdir(parents=True)
 (OUT / "index.html").write_text(page)
-for f in ("events.json", "kino.json"):
+for f in ("events.json",):  # kino.json er stor og trengs ikke for designet
     if (ROOT / "data" / f).exists():
         shutil.copy(ROOT / "data" / f, OUT / "data" / f)
 shutil.copy(ROOT / "tema-kveld.css", OUT / "tema-kveld.css")

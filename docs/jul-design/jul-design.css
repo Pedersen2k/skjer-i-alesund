@@ -172,3 +172,166 @@ html[data-jul="advent"] .jd-flame { animation: jd-flicker 1.6s ease-in-out infin
   html[data-jul="advent"] .jd-wreath { position: relative; right: auto; top: auto; display: block; width: 120px; height: 120px; margin: 4px auto -4px; }
   html[data-jul="advent"] .jd-wreath-note { position: static; width: auto; margin: 0 0 10px; }
 }
+
+/* ═════════════ Runde 2 · Lunt og tradisjonelt (snø og lys) ═════════════ */
+
+/* 7. Vinterkveld: lysslynge over byen, snø og varme vinduer */
+html[data-jul="vinterkveld"]:root { --bg:#141428; --surface:#1f1f3a; --fg:#f5efe6; --muted:#b6afc4; --line:#33335a; --accent:#ffc56b; --accent-ink:#221404; --sea:#ffd9a0;
+  --few:#ffd27a; --few-bg:#3a2f22; --few-line:#6e5634; --kino-soft:#22224a; --font-display:"Fraunces", Georgia, serif; color-scheme:dark; }
+html[data-jul="vinterkveld"] body { background: linear-gradient(180deg, #0b0b20 0, #1d1a3c 380px, #141428 820px), #141428; }
+html[data-jul="vinterkveld"] .top { padding-top: 50px; padding-bottom: 100px; }
+html[data-jul="vinterkveld"] h1 { font-weight: 700; font-variation-settings: "SOFT" 100; }
+html[data-jul="vinterkveld"] h1 span { color:#ffc56b; text-shadow: 0 0 26px #ffb34a77; }
+html[data-jul="vinterkveld"] .eyebrow { color:#ffd9a0; }
+html[data-jul="vinterkveld"] .controls { background:#141428ee; backdrop-filter: blur(10px); }
+html[data-jul="vinterkveld"] .chip { background:#ffffff0d; border-color:#ffffff22; }
+html[data-jul="vinterkveld"] .chip[aria-pressed="true"], html[data-jul="vinterkveld"] .viewseg [aria-pressed="true"] { background:#ffc56b; color:#221404; border-color:#ffc56b; }
+html[data-jul="vinterkveld"] .ev { background: linear-gradient(180deg, #24244a, #1c1c38); border-color:#33335a; border-left-color: var(--c); box-shadow: 0 10px 28px #0007; }
+html[data-jul="vinterkveld"] .ev h3 { font-weight: 600; font-size: 18px; }
+html[data-jul="vinterkveld"] .date .num { color:#fff; font-weight: 600; }
+html[data-jul="vinterkveld"] .date .mo { color:#ffc56b; }
+html[data-jul="vinterkveld"] .day { border-bottom-color:#ffffff12; }
+html[data-jul="vinterkveld"] .julcard { background: linear-gradient(170deg, #7d1d24, #3d0f18); box-shadow: 0 0 0 1px #ffc56b55, 0 20px 50px #0008; padding-top: 48px; }
+html[data-jul="vinterkveld"] .julcard h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; }
+html[data-jul="vinterkveld"] .julcard::before { opacity: .2; }
+html[data-jul="vinterkveld"] .missing { background:#1f1f3a; border-color:#33335a; border-left-color:#ffc56b; }
+html[data-jul="vinterkveld"] .jd-skyline { position:absolute; left:0; right:0; bottom:0; width:100%; height:120px; }
+html[data-jul="vinterkveld"] .jd-garland { position:absolute; left:0; right:0; top:0; width:100%; height:62px; }
+html[data-jul="vinterkveld"] .jd-garland.small { height: 34px; }
+html[data-jul="vinterkveld"] .jd-bulb, html[data-jul="juletre"] .jd-bulb { animation: jd-twinkle 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center top; }
+
+/* 8. Juletre: pyntet tre med lys og stjerne, kort som julekort på kremhvitt papir */
+html[data-jul="juletre"]:root { --bg:#0e1f17; --surface:#f8f1e4; --fg:#f6efe2; --muted:#b8c4b4; --line:#244234; --accent:#d8343a; --accent-ink:#fff; --sea:#f2c55c;
+  --few:#8a4b00; --few-bg:#fbecd2; --few-line:#e3c08a; --kino-soft:#163126; --font-display:"Playfair Display", Georgia, serif; color-scheme:dark; }
+html[data-jul="juletre"] body { background: radial-gradient(100% 420px at 80% 0, #1f4733, rgba(14,31,23,0)), #0e1f17; }
+html[data-jul="juletre"] .top { min-height: 230px; }
+html[data-jul="juletre"] .brand, html[data-jul="juletre"] .lede, html[data-jul="juletre"] .status { margin-right: 120px; }
+html[data-jul="juletre"] h1 { font-weight: 800; letter-spacing: -0.01em; }
+html[data-jul="juletre"] h1 span { color:#f2c55c; font-style: italic; }
+html[data-jul="juletre"] .eyebrow { color:#f2c55c; }
+html[data-jul="juletre"] .controls { background:#0e1f17ee; backdrop-filter: blur(8px); }
+html[data-jul="juletre"] .chip, html[data-jul="juletre"] .search, html[data-jul="juletre"] .tsw, html[data-jul="juletre"] .langbtn, html[data-jul="juletre"] .viewseg { background:#163126; border-color:#244234; color:#f6efe2; }
+html[data-jul="juletre"] .chip[aria-pressed="true"], html[data-jul="juletre"] .viewseg [aria-pressed="true"], html[data-jul="juletre"] .tsw button[aria-pressed="true"] { background:#f2c55c; color:#1d1505; border-color:#f2c55c; }
+html[data-jul="juletre"] .viewseg button { color:#b8c4b4; }
+html[data-jul="juletre"] .ev { --fg:#2b1d14; --muted:#6d5a4a; --sea:#1f5c3a; --accent:#b3242c; color:#2b1d14; background:#f8f1e4; border: 0; border-top: 4px solid var(--c); border-radius: 4px; box-shadow: 0 1px 0 #d9ccb4, 0 12px 26px #0006; }
+html[data-jul="juletre"] .ev h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: 18px; }
+html[data-jul="juletre"] .ev .tag { filter: brightness(.6) saturate(1.3); }
+html[data-jul="juletre"] .date .num { color:#f6efe2; font-family: "Playfair Display", Georgia, serif; }
+html[data-jul="juletre"] .date .mo { color:#f2c55c; }
+html[data-jul="juletre"] .date .rel { color:#f2c55c; }
+html[data-jul="juletre"] .day { border-bottom-color:#244234; }
+html[data-jul="juletre"] .julcard { background: linear-gradient(165deg, #b3242c, #6d1016); box-shadow: 0 20px 50px #0008; }
+html[data-jul="juletre"] .julcard h3 { font-family: "Playfair Display", Georgia, serif; font-style: italic; }
+html[data-jul="juletre"] .kinostrip, html[data-jul="juletre"] .missing { background:#163126; border-color:#244234; color:#f6efe2; }
+html[data-jul="juletre"] .jd-tree { position:absolute; right:-4px; top:20px; width:132px; height:200px; z-index: 0; }
+@media (max-width: 520px) { html[data-jul="juletre"] .brand, html[data-jul="juletre"] .lede, html[data-jul="juletre"] .status { margin-right: 92px; } html[data-jul="juletre"] .jd-tree { width: 104px; height: 158px; top: 44px; } }
+
+/* 9. Frostrose: rim i hjørnene av skjermen, stearinlys og varmt lys inne */
+html[data-jul="frost"]:root { --bg:#1b1512; --surface:#261d18; --fg:#f7ede2; --muted:#c1ae9f; --line:#3d2f27; --accent:#ffb562; --accent-ink:#1d1005; --sea:#bfe3ff;
+  --few:#ffd27a; --few-bg:#3a2a18; --few-line:#6e5030; --kino-soft:#2a201b; --font-display:"Fraunces", Georgia, serif; color-scheme:dark; }
+html[data-jul="frost"] body { background: radial-gradient(70% 420px at 50% 120px, #4a2c18, rgba(27,21,18,0) 70%), #1b1512; }
+html[data-jul="frost"] .top { padding-top: 10px; }
+html[data-jul="frost"] h1 { font-weight: 600; font-style: italic; font-variation-settings: "SOFT" 100; }
+html[data-jul="frost"] h1 span { color:#ffb562; text-shadow: 0 0 30px #ff9a3a88; }
+html[data-jul="frost"] .eyebrow { color:#bfe3ff; }
+html[data-jul="frost"] .controls { background:#1b1512ee; backdrop-filter: blur(8px); }
+html[data-jul="frost"] .chip { background:#ffffff0a; border-color:#ffffff1f; }
+html[data-jul="frost"] .chip[aria-pressed="true"], html[data-jul="frost"] .viewseg [aria-pressed="true"] { background:#ffb562; color:#1d1005; border-color:#ffb562; }
+html[data-jul="frost"] .ev { background:#261d18; border-color:#3d2f27; border-left-color: var(--c); box-shadow: 0 10px 26px #0007; }
+html[data-jul="frost"] .date .num { color:#fff3e6; }
+html[data-jul="frost"] .date .mo { color:#ffb562; }
+html[data-jul="frost"] .day { border-bottom-color:#3d2f27; }
+html[data-jul="frost"] .julcard { background: linear-gradient(180deg, #23364a, #14202d); box-shadow: inset 0 0 40px #bfe3ff33, 0 20px 50px #0008; }
+html[data-jul="frost"] .julcard h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; }
+html[data-jul="frost"] .missing { background:#261d18; border-color:#3d2f27; border-left-color:#ffb562; }
+html[data-jul="frost"] .jd-frost { position: fixed; inset: 0; z-index: 4; width: 100%; height: 100%; }
+html[data-jul="frost"] .jd-candle { display:block; width: 64px; height: 84px; margin: 6px 0 -6px; }
+
+/* ═════════════ Runde 2 · Enkelt og stilrent (litt rødt og grønt) ═════════════ */
+
+/* 10. Hvit jul: lyst og luftig, en kvist kristtorn og røde detaljer */
+html[data-jul="hvit"]:root { --bg:#fbfaf6; --surface:#ffffff; --fg:#1c2320; --muted:#6b726d; --line:#e7e4dc; --accent:#c4161c; --accent-ink:#fff; --sea:#1f5c3a;
+  --few:#8a4b00; --few-bg:#fbefdc; --few-line:#e8c99a; --kino-soft:#f3f1ea; color-scheme:light; }
+html[data-jul="hvit"] body { background:#fbfaf6; color:#1c2320; }
+html[data-jul="hvit"] h1 span { color:#c4161c; }
+html[data-jul="hvit"] .eyebrow { color:#1f5c3a; }
+html[data-jul="hvit"] .controls { background:#fbfaf6f2; }
+html[data-jul="hvit"] .chip, html[data-jul="hvit"] .search, html[data-jul="hvit"] .tsw, html[data-jul="hvit"] .langbtn, html[data-jul="hvit"] .viewseg { background:#fff; border-color:#e7e4dc; color:#1c2320; }
+html[data-jul="hvit"] .chip[aria-pressed="true"], html[data-jul="hvit"] .viewseg [aria-pressed="true"], html[data-jul="hvit"] .tsw button[aria-pressed="true"] { background:#1f5c3a; color:#fff; border-color:#1f5c3a; }
+html[data-jul="hvit"] .viewseg button { color:#6b726d; }
+html[data-jul="hvit"] .ev { background:#fff; border:1px solid #e7e4dc; border-left: 3px solid var(--c); box-shadow: none; }
+html[data-jul="hvit"] .date .num { color:#1c2320; }
+html[data-jul="hvit"] .date .mo { color:#c4161c; }
+html[data-jul="hvit"] .date .rel { color:#1f5c3a; }
+html[data-jul="hvit"] .day { border-bottom-color:#ece9e1; }
+html[data-jul="hvit"] .julcard { background:#fff; color:#1c2320; border: 1px solid #e7e4dc; border-top: 4px solid #c4161c; box-shadow: none; }
+html[data-jul="hvit"] .julcard::before { opacity: 0; }
+html[data-jul="hvit"] .julcard small { color:#1f5c3a; }
+html[data-jul="hvit"] .julcard p { color:#4a524d; }
+html[data-jul="hvit"] .julcard h3 { font-family: var(--font-display); font-style: normal; font-weight: 800; }
+html[data-jul="hvit"] .julcard a.julbtn { background:#c4161c; color:#fff; }
+html[data-jul="hvit"] .julcard a.julbtn.jb { background:#fff; color:#1f5c3a; box-shadow: inset 0 0 0 1.5px #1f5c3a; }
+html[data-jul="hvit"] .kinostrip, html[data-jul="hvit"] .missing { background:#fff; border-color:#e7e4dc; color:#1c2320; }
+html[data-jul="hvit"] .jd-holly { width: .62em; height: .62em; margin-left: .08em; vertical-align: .55em; }
+
+/* 11. Granbånd: dypt grønt toppfelt med en rød stripe, resten lyst */
+html[data-jul="gran"]:root { --bg:#f3f5f1; --surface:#ffffff; --fg:#17251d; --muted:#5f6d64; --line:#dfe5dd; --accent:#c7252b; --accent-ink:#fff; --sea:#1a5a3b;
+  --few:#8a4b00; --few-bg:#fbefdc; --few-line:#e8c99a; --kino-soft:#e8eee6; color-scheme:light; }
+html[data-jul="gran"] body { background:#f3f5f1; color:#17251d; }
+html[data-jul="gran"] .top { color:#f3f5f1; padding-block: 26px 22px; }
+html[data-jul="gran"] .top::before { content:""; position:absolute; z-index:0; top:-28px; bottom:0; left:-100vw; right:-100vw; background:#123d2a; box-shadow: 0 6px 0 #c7252b; }
+html[data-jul="gran"] .top .lede, html[data-jul="gran"] .top .status { color:#c9dacd; }
+html[data-jul="gran"] .top .eyebrow { color:#f3f5f1; opacity:.8; }
+html[data-jul="gran"] h1 span { color:#fff; text-decoration: underline; text-decoration-color:#c7252b; text-decoration-thickness: .08em; text-underline-offset: .12em; }
+html[data-jul="gran"] .logo path[fill="var(--accent)"] { fill:#fff; }
+html[data-jul="gran"] .tsw, html[data-jul="gran"] .langbtn { background:#ffffff14; border-color:#ffffff33; color:#fff; }
+html[data-jul="gran"] .tsw button { color:#c9dacd; }
+html[data-jul="gran"] .tsw button[aria-pressed="true"] { background:#fff; color:#123d2a; }
+html[data-jul="gran"] .controls { background:#f3f5f1f2; margin-top: 18px; }
+html[data-jul="gran"] .chip, html[data-jul="gran"] .search, html[data-jul="gran"] .viewseg { background:#fff; border-color:#dfe5dd; color:#17251d; }
+html[data-jul="gran"] .chip[aria-pressed="true"], html[data-jul="gran"] .viewseg [aria-pressed="true"] { background:#123d2a; color:#fff; border-color:#123d2a; }
+html[data-jul="gran"] .viewseg button { color:#5f6d64; }
+html[data-jul="gran"] .ev { background:#fff; border:1px solid #dfe5dd; border-left:4px solid var(--c); box-shadow: 0 1px 2px #0000000d; }
+html[data-jul="gran"] .date .num { color:#123d2a; }
+html[data-jul="gran"] .date .mo { color:#c7252b; }
+html[data-jul="gran"] .date .rel { color:#1a5a3b; }
+html[data-jul="gran"] .day { border-bottom-color:#dfe5dd; }
+html[data-jul="gran"] .julcard { background:#c7252b; box-shadow: 0 10px 24px #c7252b33; }
+html[data-jul="gran"] .julcard::before { opacity:.15; }
+html[data-jul="gran"] .julcard h3 { font-family: var(--font-display); font-style: normal; font-weight: 800; }
+html[data-jul="gran"] .julcard a.julbtn { background:#fff; color:#c7252b; }
+html[data-jul="gran"] .julcard a.julbtn.jb { background:#ffffff1f; color:#fff; box-shadow: inset 0 0 0 1px #fff9; }
+html[data-jul="gran"] .kinostrip, html[data-jul="gran"] .missing { background:#fff; border-color:#dfe5dd; color:#17251d; }
+
+/* 12. Rød tråd: dagens mørke design, med en rød tråd gjennom datoene og grønne blader */
+html[data-jul="rodtrad"]:root { --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a; --accent:#e5484d; --accent-ink:#fff; --sea:#6cc98a;
+  --few:#ffb547; --few-bg:#3a2a10; --few-line:#6b4c17; --kino-soft:#1c2748; color-scheme:dark; }
+html[data-jul="rodtrad"] body { background: radial-gradient(130% 480px at 50% 0, #17434d 0%, rgba(10,23,27,0) 100%), #0a171b; }
+html[data-jul="rodtrad"] h1 span { color:#e5484d; }
+html[data-jul="rodtrad"] .eyebrow { color:#6cc98a; }
+html[data-jul="rodtrad"] .controls { background:#0a171bee; backdrop-filter: blur(8px); }
+html[data-jul="rodtrad"] .chip[aria-pressed="true"], html[data-jul="rodtrad"] .viewseg [aria-pressed="true"] { background:#e8f1ef; color:#0a171b; border-color:#e8f1ef; }
+html[data-jul="rodtrad"] .ev { background:#13252d; border-color:#25414a; border-left-color: var(--c); }
+html[data-jul="rodtrad"] .day { position: relative; border-bottom: 0; }
+html[data-jul="rodtrad"] .day::before { content:""; position:absolute; left:-9px; top:0; bottom:0; width:2px; background:#e5484d; opacity:.8; }
+html[data-jul="rodtrad"] .day::after { content:""; position:absolute; left:-15px; top:22px; width:14px; height:14px; border-radius:50%; background: radial-gradient(circle at 35% 35%, #ff8a8d, #c4161c 60%); box-shadow: 9px -7px 0 -3px #2f8a52, -7px -8px 0 -3px #2f8a52; }
+html[data-jul="rodtrad"] .date .mo { color:#e5484d; }
+html[data-jul="rodtrad"] .date .rel { color:#6cc98a; }
+html[data-jul="rodtrad"] .julcard { background: radial-gradient(120% 100% at 50% 0%, #1d5c47, #0d3327 75%); }
+html[data-jul="rodtrad"] .julcard::after { content:""; position:absolute; top:0; bottom:0; right:28px; width:12px; background:#c4161c; box-shadow: inset 3px 0 0 #ff6a6e55; }
+html[data-jul="rodtrad"] .jd-bow { position:absolute; right:6px; top:-6px; width:56px; height:44px; z-index: 2; }
+
+/* ═════════════ Nissen som lurer (virker med alle designene) ═════════════ */
+.jd-peek { position: absolute; bottom: 100%; width: 92px; height: 78px; overflow: hidden; pointer-events: none; z-index: 6; }
+.jd-peek svg { position: absolute; left: 0; bottom: 0; width: 92px; height: 77px; transform: translateY(0); }
+.jd-peek.anim svg { animation: jd-peek 9s ease-in-out infinite; }
+.jd-peek .jd-eyes { animation: jd-blink 4.5s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes jd-peek { 0%, 8% { transform: translateY(58%); } 16%, 62% { transform: translateY(0); } 66%, 70% { transform: translateY(6%) rotate(-3deg); } 74%, 86% { transform: translateY(0); } 94%, 100% { transform: translateY(58%); } }
+@keyframes jd-blink { 0%, 46%, 50%, 100% { transform: scaleY(1); } 48% { transform: scaleY(.1); } }
+.jd-peek-wrap { position: relative; height: 0; margin-top: 64px; }
+.jd-peek.side { position: fixed; bottom: auto; top: 44%; right: 0; width: 77px; height: 92px; z-index: 40; }
+.jd-peek.side svg { left: -7.5px; bottom: auto; top: 7.5px; transform: translateX(0) rotate(-90deg); transform-origin: center; }
+.jd-peek.side.anim svg { animation: jd-peek-side 11s ease-in-out infinite; }
+@keyframes jd-peek-side { 0%, 10% { transform: translateX(62px) rotate(-90deg); } 18%, 70% { transform: translateX(8px) rotate(-90deg); } 74%, 78% { transform: translateX(14px) rotate(-84deg); } 82%, 88% { transform: translateX(8px) rotate(-90deg); } 96%, 100% { transform: translateX(62px) rotate(-90deg); } }
+@media (prefers-reduced-motion: reduce) { .jd-peek.anim svg, .jd-peek .jd-eyes { animation: none; } .jd-peek.side svg { transform: translateX(8px) rotate(-90deg); } }
+html[data-jul="frost"] .jd-flame { animation: jd-flicker 1.6s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center bottom; }
