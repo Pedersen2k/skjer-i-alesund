@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-29T21:19:33Z",
+  "updatedAt": "2026-10-29T21:59:20Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -1498,17 +1498,17 @@
    "shows": [
     {
      "start": "2026-10-29T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
+     "screen": "1 isense",
+     "tags": [],
      "url": "",
      "club": false
     },
     {
      "start": "2026-10-29T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
      "url": "",
      "club": false
     },
