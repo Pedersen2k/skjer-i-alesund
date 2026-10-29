@@ -32,7 +32,7 @@ ROBOTS_META = "index,follow,max-image-preview:large,max-snippet:-1,max-video-pre
 FRONT_TITLE = "Hva skjer i Ålesund? Konserter, standup og show | Skjer i Ålesund"
 FRONT_DESC = "Hva skjer i Ålesund i dag og i helgen? Konserter, standup, show, barn og klubb med billettpriser. Oppdatert hver andre time. Ka skjer da?"
 ICON_LINKS = ('<link rel="icon" href="{up}favicon.svg" type="image/svg+xml">\n<link rel="icon" href="{up}favicon-48.png" type="image/png" sizes="48x48">\n'
-              '<link rel="apple-touch-icon" href="{up}apple-touch-icon.png">\n<link rel="manifest" href="{up}manifest.webmanifest">')
+              '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">\n<link rel="manifest" href="{up}manifest.webmanifest">')
 CAT_TEXT = {
     "konsert": "Konserter i Ålesund spenner fra symfoniorkester og kor til band, visesang og jazz. Oversikten henter dato, scene og billettpris fra arrangørenes egne billettsider, så du slipper å lete på flere steder.",
     "standup": "Standup og humor i Ålesund: turnerende komikere og lokale kvelder. Her ser du hvor og når det er show, og hva billettene koster.",
