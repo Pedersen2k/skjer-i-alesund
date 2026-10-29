@@ -1,5 +1,5 @@
 /* Tema «Jul» (Adventstid): mørk fløyelsrød med gull, adventskrans med lys som tennes søndagene i advent, datoer som kalenderluker
-   og en nisse som titter over julekortet. Slås på med ?tema=jul (huskes i nettleseren), tilbake med ?tema=kveld. Bare på forsiden;
+   og en nisse som titter over julekortet. Brukes for alle fra 1. november til 27. desember (lasteren i index.html), utenom sesongen med ?tema=jul i samme fane. «Lyst» slår det av. Bare på forsiden;
    pynten (krans og nisse) lages av skriptet nederst i index.html. Alt er avgrenset til html[data-tema="jul"]. */
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&display=swap");
 html[data-tema="jul"] .top { position: relative; }

@@ -43,7 +43,7 @@ En knapp «Lagre» øverst (bokmerkeikon) og en melding etter første ★ ber fo
 
 ## Juletema
 
-`tema-jul.css` er et juletema for forsiden: mørk fløyelsrød med gull, en adventskrans der lysene tennes søndagene i advent, og en nisse som titter over julekortet. Slå det på med `?tema=jul` (huskes i nettleseren) og av med `?tema=kveld`. Undersidene beholder kveldstemaet. Forslagene det ble valgt fra ligger i `docs/jul-design/`.
+`tema-jul.css` er et juletema for forsiden: mørk fløyelsrød med gull, en adventskrans der lysene tennes søndagene i advent, og en nisse som titter over julekortet. Det brukes for alle fra 1. november til 27. desember og slår seg av av seg selv etterpå. «Lyst» gjelder hele året. Utenom sesongen kan du se det med `?tema=jul` (bare i den fanen). Undersidene beholder kveldstemaet. Vil du fjerne det før tiden, endre datoene i temalasteren øverst i `index.html`. Forslagene det ble valgt fra ligger i `docs/jul-design/`.
 
 ## Engelsk side
 
