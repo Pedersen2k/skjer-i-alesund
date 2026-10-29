@@ -305,7 +305,8 @@ footer a { color: var(--sea); }
 @media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
 @media (prefers-reduced-motion: no-preference) { .ev { transition: transform .15s ease; } .ev:hover { transform: translateX(2px); } }
 </style>
-<script>try{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld"||q==="standard")localStorage.setItem("skjer-tema",q);if(q==="standard")localStorage.setItem("skjer-theme",'"light"');if(q){const u=new URL(location.href);u.searchParams.delete("tema");history.replaceState(null,"",u)}if(localStorage.getItem("skjer-tema")!=="standard"){document.documentElement.dataset.tema="kveld";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#0a171b";document.write('<link rel="stylesheet" href="tema-kveld.css">')}}catch{}</script>
+<!-- Tema: «Jul» (tema-jul.css) for alle fra 1. november til 27. desember, ellers «Kveld». «Lyst» (skjer-tema=standard) gjelder hele året. ?tema=jul viser juletemaet utenom sesongen i denne fanen, til test. -->
+<script>try{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld"||q==="standard")localStorage.setItem("skjer-tema",q);if(q==="standard")localStorage.setItem("skjer-theme",'"light"');if(q==="jul")sessionStorage.setItem("skjer-jultest","1");if(q){const u=new URL(location.href);u.searchParams.delete("tema");history.replaceState(null,"",u)}var d=new Date(),mo=d.getMonth(),jul=mo===10||(mo===11&&d.getDate()<=27)||sessionStorage.getItem("skjer-jultest")==="1";var t=localStorage.getItem("skjer-tema");if(jul&&t!=="standard"){document.documentElement.dataset.tema="jul";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#3a0b12";document.write('<link rel="stylesheet" href="tema-jul.css">')}else if(t!=="standard"){document.documentElement.dataset.tema="kveld";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#0a171b";document.write('<link rel="stylesheet" href="tema-kveld.css">')}}catch{}</script>
 <link rel="alternate" hreflang="nb" href="https://kaskjerda.no/">
 <link rel="alternate" hreflang="en" href="https://kaskjerda.no/en/">
 <link rel="alternate" hreflang="x-default" href="https://kaskjerda.no/">
@@ -1123,6 +1124,42 @@ fetch("data/kino.json", { cache: "no-cache" })
 })();
 </script>
 
-<script>document.querySelectorAll(".tsw button").forEach(b=>{b.setAttribute("aria-pressed",String((b.dataset.t==="kveld")===(document.documentElement.dataset.tema==="kveld")));b.onclick=()=>{try{localStorage.setItem("skjer-tema",b.dataset.t);if(b.dataset.t==="standard")localStorage.setItem("skjer-theme",'"light"')}catch{}location.reload()}})</script>
+<script>
+// Tema «Jul» (?tema=jul, se tema-jul.css): adventskrans der lysene tennes søndagene i advent, og en nisse som titter over julekortet
+if (document.documentElement.dataset.tema === "jul") (() => {
+  const NS = "http://www.w3.org/2000/svg", el = (tag, a) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); return e; };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // 1. søndag i advent er fire søndager før juledag
+  const now = new Date(), xmas = new Date(now.getFullYear(), 11, 25), first = new Date(xmas); first.setDate(25 - (xmas.getDay() || 7) - 21);
+  const lit = now < first ? 0 : Math.min(4, 1 + Math.floor((now - first) / 6048e5));
+  const w = el("svg", { class: "jd-wreath", viewBox: "0 0 150 150", role: "img", "aria-label": `Adventskrans med ${lit} av 4 lys tent` });
+  for (let i = 0; i < 46; i++) { const a = i / 46 * 6.283, r = 52 + (i % 3) * 5, cx = 75 + Math.cos(a) * r, cy = 104 + Math.sin(a) * r * .32;
+    w.append(el("ellipse", { cx, cy, rx: 10, ry: 4.5, transform: `rotate(${a * 57.3 + 30} ${cx} ${cy})`, fill: i % 2 ? "#1f5a3c" : "#2d7a4f" })); }
+  [[34, 102], [62, 92], [90, 92], [118, 102]].forEach(([cx, base], i) => { const ty = base - 46;
+    w.append(el("rect", { x: cx - 7, y: ty, width: 14, height: 46, rx: 2, fill: "#f6ead6" }), el("rect", { x: cx - 7, y: ty, width: 4, height: 46, fill: "#fff8ec" }), el("line", { x1: cx, y1: ty, x2: cx, y2: ty - 5, stroke: "#3a2a20", "stroke-width": 1.4 }));
+    if (i < lit) w.append(el("ellipse", { cx, cy: ty - 12, rx: 12, ry: 16, fill: "#ffcf6a", opacity: .25 }), el("path", { class: "jd-flame", d: `M${cx} ${ty - 22} C${cx + 6} ${ty - 13} ${cx + 4} ${ty - 5} ${cx} ${ty - 5} C${cx - 4} ${ty - 5} ${cx - 6} ${ty - 13} ${cx} ${ty - 22} Z`, fill: "#ffcf6a" })); });
+  for (let i = 0; i < 9; i++) { const a = i / 9 * 6.283 + .3; w.append(el("circle", { cx: 75 + Math.cos(a) * 58, cy: 106 + Math.sin(a) * 18, r: 3.4, fill: "#c8202f" })); }
+  const note = Object.assign(document.createElement("div"), { className: "jd-wreath-note" });
+  note.textContent = lit === 0 ? `Første lys tennes søndag ${first.getDate()}. ${["november", "desember"][first.getMonth() - 10]}` : lit < 4 ? `${lit}. søndag i advent` : "God jul!";
+  document.querySelector(".brand").after(w, note);
+  // Nissen lages når julekortet vises (fra 1. november, eller med ?jul=1)
+  const peek = () => {
+    const jc = document.getElementById("julcard"); if (!jc || jc.hidden || document.querySelector(".jd-peek-wrap")) return;
+    const s = el("svg", { viewBox: "0 0 120 100", role: "img", "aria-label": "Nisse som titter fram" });
+    s.append(el("path", { d: "M30 54 Q40 10 92 18 Q108 22 106 40 Q92 30 86 54 Z", fill: "#d42a2f" }), el("path", { d: "M44 30 Q60 18 82 22", fill: "none", stroke: "#ffffff33", "stroke-width": 3, "stroke-linecap": "round" }),
+      el("circle", { cx: 105, cy: 43, r: 7.5, fill: "#fff" }), el("ellipse", { cx: 60, cy: 72, rx: 25, ry: 21, fill: "#f6c9a4" }), el("rect", { x: 26, y: 47, width: 70, height: 13, rx: 6.5, fill: "#fff" }));
+    const eyes = el("g", { class: "jd-eyes" }); eyes.append(el("circle", { cx: 51, cy: 68, r: 2.8, fill: "#2a1a14" }), el("circle", { cx: 69, cy: 68, r: 2.8, fill: "#2a1a14" })); s.append(eyes);
+    s.append(el("circle", { cx: 44, cy: 76, r: 4.5, fill: "#f29a94", opacity: .6 }), el("circle", { cx: 76, cy: 76, r: 4.5, fill: "#f29a94", opacity: .6 }),
+      el("path", { d: "M34 78 Q38 100 60 100 Q82 100 86 78 Q76 88 60 86 Q44 88 34 78 Z", fill: "#fff" }), el("ellipse", { cx: 53, cy: 82, rx: 8, ry: 4, fill: "#f4f4f4" }), el("ellipse", { cx: 67, cy: 82, rx: 8, ry: 4, fill: "#f4f4f4" }),
+      el("circle", { cx: 60, cy: 76, r: 4.2, fill: "#e88f7c" }), el("ellipse", { cx: 24, cy: 94, rx: 11, ry: 8, fill: "#2f7a50" }), el("rect", { x: 14, y: 96, width: 20, height: 5, rx: 2.5, fill: "#fff" }),
+      el("ellipse", { cx: 96, cy: 94, rx: 11, ry: 8, fill: "#2f7a50" }), el("rect", { x: 86, y: 96, width: 20, height: 5, rx: 2.5, fill: "#fff" }));
+    const box = Object.assign(document.createElement("div"), { className: "jd-peek" + (reduce ? "" : " anim") }), wrap = Object.assign(document.createElement("div"), { className: "jd-peek-wrap" });
+    box.style.left = "22px"; box.append(s); wrap.append(box); jc.before(wrap);
+  };
+  const jc = document.getElementById("julcard");
+  if (jc) { peek(); new MutationObserver(peek).observe(jc, { attributes: true, attributeFilter: ["hidden"] }); }
+})();
+</script>
+<script>document.querySelectorAll(".tsw button").forEach(b=>{b.setAttribute("aria-pressed",String((b.dataset.t==="kveld")===(document.documentElement.dataset.tema!==undefined)));b.onclick=()=>{try{localStorage.setItem("skjer-tema",b.dataset.t);if(b.dataset.t==="standard")localStorage.setItem("skjer-theme",'"light"')}catch{}location.reload()}})</script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+/* Tema «Jul» (Adventstid): mørk fløyelsrød med gull, adventskrans med lys som tennes søndagene i advent, datoer som kalenderluker
+   og en nisse som titter over julekortet. Brukes for alle fra 1. november til 27. desember (lasteren i index.html), utenom sesongen med ?tema=jul i samme fane. «Lyst» slår det av. Bare på forsiden;
+   pynten (krans og nisse) lages av skriptet nederst i index.html. Alt er avgrenset til html[data-tema="jul"]. */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&display=swap");
+html[data-tema="jul"] .top { position: relative; }
+html[data-tema="jul"] .top > * { position: relative; z-index: 1; }
+html[data-tema="jul"]:root, html[data-tema="jul"]:root[data-theme] { --bg:#3a0b12; --surface:#4c121b; --fg:#fbeedd; --muted:#d6b3a6; --line:#6b2530; --accent:#e9c06a; --accent-ink:#2a1405; --sea:#e9c06a;
+  --few:#ffe2a3; --few-bg:#5c2a14; --few-line:#8c5a24; --kino-soft:#4a1520; --font-display:"Cormorant Garamond", Georgia, serif; color-scheme:dark; }
+html[data-tema="jul"] body { background: radial-gradient(140% 600px at 50% -100px, #6b1520, #3a0b12 70%), #3a0b12; }
+html[data-tema="jul"] .brand, html[data-tema="jul"] .lede, html[data-tema="jul"] .status { margin-right: 150px; }
+html[data-tema="jul"] h1 { font-weight: 700; font-style: italic; letter-spacing: -0.01em; font-size: clamp(44px, 10vw, 74px); }
+html[data-tema="jul"] h1 span { color:#e9c06a; }
+html[data-tema="jul"] .eyebrow { color:#e9c06a; }
+html[data-tema="jul"] .controls { background:#3a0b12ee; backdrop-filter: blur(8px); }
+html[data-tema="jul"] .chip { background:#ffffff0d; border-color:#ffffff22; }
+html[data-tema="jul"] .chip[aria-pressed="true"], html[data-tema="jul"] .viewseg [aria-pressed="true"] { background:#e9c06a; color:#2a1405; border-color:#e9c06a; }
+html[data-tema="jul"] .ev { background:#4c121b; border:1px solid #6b2530; border-left:4px solid var(--c); }
+html[data-tema="jul"] .ev h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 21px; }
+html[data-tema="jul"] .date { align-self: start; text-align: center; padding: 8px 4px 9px; border: 1.5px solid #e9c06a; border-radius: 6px; background: linear-gradient(180deg, #5a1620, #451018); box-shadow: inset 0 0 0 3px #451018, inset 0 0 0 4px #e9c06a55, 0 6px 16px #0006; position: relative; }
+html[data-tema="jul"] .date .num { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; color:#fbeedd; font-size: 36px; }
+html[data-tema="jul"] .date .mo, html[data-tema="jul"] .date .wd { color:#e9c06a; }
+html[data-tema="jul"] .date .rel { color:#fbeedd; }
+html[data-tema="jul"] .day { border-bottom-color:#6b2530; }
+html[data-tema="jul"] .julcard { background: linear-gradient(160deg, #1f4a37, #0f2a1f); box-shadow: 0 0 0 1px #e9c06a66, 0 20px 50px #0008; }
+html[data-tema="jul"] .julcard h3 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 34px; }
+html[data-tema="jul"] .missing { background:#4c121b; border-color:#6b2530; border-left-color:#e9c06a; }
+html[data-tema="jul"] .jd-wreath { position:absolute; right:-6px; top:34px; width:150px; height:150px; }
+html[data-tema="jul"] .jd-wreath-note { position:absolute; right:0; top:182px; width:140px; text-align:center; font: 600 11px/1.3 var(--font-body); color:#e9c06a; }
+html[data-tema="jul"] .jd-flame { animation: jd-flicker 1.6s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center bottom; }
+@keyframes jd-flicker { 0% { transform: scale(1, 1) rotate(-2deg); } 50% { transform: scale(.92, 1.08) rotate(2deg); } 100% { transform: scale(1.04, .95) rotate(-1deg); } }
+@media (max-width: 520px) {
+  html[data-tema="jul"] .brand, html[data-tema="jul"] .lede, html[data-tema="jul"] .status { margin-right: 0; }
+  html[data-tema="jul"] .jd-wreath { position: relative; right: auto; top: auto; display: block; width: 120px; height: 120px; margin: 4px auto -4px; }
+  html[data-tema="jul"] .jd-wreath-note { position: static; width: auto; margin: 0 0 10px; }
+}
+html[data-tema="jul"] .jd-peek { position: absolute; bottom: 100%; width: 92px; height: 78px; overflow: hidden; pointer-events: none; z-index: 6; }
+html[data-tema="jul"] .jd-peek svg { position: absolute; left: 0; bottom: 0; width: 92px; height: 77px; transform: translateY(0); }
+html[data-tema="jul"] .jd-peek.anim svg { animation: jd-peek 9s ease-in-out infinite; }
+html[data-tema="jul"] .jd-peek .jd-eyes { animation: jd-blink 4.5s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes jd-peek { 0%, 8% { transform: translateY(58%); } 16%, 62% { transform: translateY(0); } 66%, 70% { transform: translateY(6%) rotate(-3deg); } 74%, 86% { transform: translateY(0); } 94%, 100% { transform: translateY(58%); } }
+@keyframes jd-blink { 0%, 46%, 50%, 100% { transform: scaleY(1); } 48% { transform: scaleY(.1); } }
+html[data-tema="jul"] .jd-peek-wrap { position: relative; height: 0; margin-top: 64px; }
+@media (prefers-reduced-motion: reduce) { html[data-tema="jul"] .jd-peek.anim svg, html[data-tema="jul"] .jd-peek .jd-eyes, html[data-tema="jul"] .jd-flame { animation: none; } }
+html[data-tema="jul"] body.nyonly .jd-peek-wrap { display: none; }
