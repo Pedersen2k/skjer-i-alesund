@@ -1,9 +1,9 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-29T14:14:15Z",
+  "updatedAt": "2026-10-29T16:05:46Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -320,22 +320,6 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/50918-pafyll/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "parken-47759-parken-kulturhus",
-   "date": "2026-11-03",
-   "time": "19:00",
-   "title": "Tuva & Ronny følger drømmen",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "show",
-   "price": "480 kr",
-   "priceMin": 480,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47759-tuva-ronny-folger-drommen/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -817,6 +801,25 @@
     "2026-12-15T18:00"
    ],
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "viti-fagsamling-og-nettverkstreff-for-handverkarar-2026-sunn",
+   "date": "2026-11-12",
+   "time": "12:00",
+   "title": "Fagsamling og Nettverkstreff for handverkarar 2026",
+   "venue": "Sunnmøre museum",
+   "address": "Museumsvegen 12, 6015 Ålesund",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Flere forestillinger: 13. nov.",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/fagsamling-og-nettverkstreff-for-handverkarar-2026",
+   "moreShows": [
+    "2026-11-13T09:00"
+   ],
+   "addedAt": "2026-10-29T16:05:46Z"
   },
   {
    "id": "juleverksted-alesund-cupcakekrans-thon-hotel-baronen",
@@ -2243,6 +2246,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45587-john-hammersmark/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-47759-parken-kulturhus",
+   "date": "2027-01-13",
+   "time": "19:00",
+   "title": "Tuva & Ronny følger drømmen",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "show",
+   "price": "480 kr",
+   "priceMin": 480,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/47759-tuva-ronny-folger-drommen/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {

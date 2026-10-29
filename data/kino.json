@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-29T14:18:54Z",
+  "updatedAt": "2026-10-29T16:09:29Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -155,7 +155,7 @@
       "Norsk tale",
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/86cf7363-174a-44fe-b291-97335bcda238",
+     "url": "",
      "club": false
     },
     {
@@ -282,7 +282,7 @@
      "start": "2026-10-29T15:45:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/2dcdd6d8-ee45-4ace-b49a-03b8282f33da",
+     "url": "",
      "club": true
     },
     {
@@ -1498,17 +1498,17 @@
    "shows": [
     {
      "start": "2026-10-29T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
      "url": "",
      "club": false
     },
     {
      "start": "2026-10-29T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
+     "screen": "1 isense",
+     "tags": [],
      "url": "",
      "club": false
     },
@@ -1518,7 +1518,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/65cb82c3-8b3e-44c7-abf6-dcb2eab07580",
+     "url": "",
      "club": false
     },
     {
@@ -1752,18 +1752,18 @@
     },
     {
      "start": "2026-11-05T12:00:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
+     "club": false
+    },
+    {
+     "start": "2026-11-05T12:00:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/35e194ce-408a-43f4-94fb-aaa7a1e15bc4",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
      "club": false
     },
     {
