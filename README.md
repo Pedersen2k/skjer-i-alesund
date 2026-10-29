@@ -33,6 +33,10 @@ Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et iss
 - **Varsling:** Feiler oppdateringen, svarer ikke Parken, eller faller antall arrangementer kraftig, lager jobben et issue med tittelen «Programoppdateringen trenger tilsyn», og GitHub sender deg e-post. Nye problemer legges til som kommentarer i samme issue (samme problem som sist gir ingen ny kommentar). Det lukkes automatisk neste gang alt går fint. Siden viser også selv et varsel hvis programmet er mer enn tre dager gammelt.
 - **Statistikk:** Siden teller besøk med [GoatCounter](https://www.goatcounter.com), som ikke bruker informasjonskapsler. Statistikken ligger på https://kaskjerda.goatcounter.com (eldre tall fra før domenet ligger på https://skjer-i-alesund.goatcounter.com), og koden står i `GOATCOUNTER` øverst i skriptet i `index.html`. I tillegg til sidevisninger telles trykk på billettlenker, kart, kalender, deling, lagring og filtre (aldri hva folk søker etter).
 
+## Lagre siden
+
+En knapp «Lagre» øverst (bokmerkeikon) og en melding etter første ★ ber folk ta siden med seg. Android og Chrome/Edge på PC får en ekte «Installer»-knapp, iPhone får veiledning (Del, Legg til på Hjem-skjerm), andre PC-nettlesere får Ctrl/Cmd+D. Koden heter `SAVE` i `index.html`. Boksen og meldingen skjules når siden er åpnet som app, og «Nei takk» huskes i nettleseren.
+
 ## Utsolgt og «Få billetter igjen»
 
 `sync.py` leser merket på hver Tikkio-side («Utsolgt» / «Få billetter igjen») og statusen hos Parken (hele arrangementet og hver forestilling). Oversikten til Tikkio sier alltid «på lager», så det er merket på selve siden som teller. Kortet får et lite «Få billetter igjen»-merke, og har arrangementet 2–6 forestillinger, vises tidene som knapper med status («13:00 utsolgt», «18:00 få igjen»). Parken merker nesten alt, så deres merke vises bare de siste to ukene før forestillingen.

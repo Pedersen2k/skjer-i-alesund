@@ -1,0 +1,38 @@
+/* Forslag A «Trygg og tydelig»: forsiden på mobil, samme oppbygging som i dag men større. Legges oppå index.html for forhåndsvisning. */
+@media (max-width: 640px) {
+html[data-tema] .search { min-height: 48px; font-size: 16px; }
+html[data-tema] .controls select.chip, html[data-tema] #favonly { min-height: 48px; font-size: 16px; font-weight: 600; }
+html[data-tema] .controls .count { font-size: 13px; }
+html[data-tema] #viewseg button, html[data-tema] #ntabs button { min-height: 48px; font-size: 16px; font-weight: 600; }
+html[data-tema] .day { grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding-block: 20px; }
+html[data-tema] .date .wd { font-size: 13px; font-weight: 700; }
+html[data-tema] .date .num { font-size: 46px; margin-block: 2px; }
+html[data-tema] .date .mo { font-size: 14px; font-weight: 700; }
+html[data-tema] .date .rel { font-size: 12px; }
+html[data-tema] .events { gap: 16px; }
+html[data-tema] .ev { position: relative; grid-template-columns: minmax(0, 1fr); padding: 16px; gap: 8px 10px; border-left-width: 6px !important; border-radius: 14px; }
+html[data-tema] .ev h3 { font-size: 21px; line-height: 1.2; font-weight: 800; }
+html[data-tema] .ev .meta { padding-right: 44px; font-size: 16px; gap: 6px 12px; align-items: center; }
+html[data-tema] .ev .meta .t { font-size: 17px; font-weight: 700; }
+html[data-tema] .ev .tag { background: var(--c); color: #10282f; font-size: 12px; font-weight: 700; padding: 5px 8px; border-radius: 6px; }
+html[data-tema] .ev .new { font-size: 12px; padding: 5px 8px; }
+html[data-tema] .ev h3 { order: 2; padding-right: 40px; }
+html[data-tema] .ev .meta { order: 1; }
+html[data-tema] .ev .side { order: 3; grid-row: auto; grid-column: 1; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 8px; }
+html[data-tema] .ev .fav { position: absolute; top: 10px; right: 8px; margin: 0; min-width: 48px; min-height: 48px; font-size: 26px; }
+html[data-tema] .ev .times { order: 4; } html[data-tema] .ev .note { order: 5; } html[data-tema] .ev .actions { order: 6; }
+html[data-tema] .price { font-size: 17px; font-weight: 700; }
+html[data-tema] .price.sold { background: #ff6a5a; color: #2a0500; font: 800 14px/1 var(--font-body); padding: 8px 11px; border-radius: 8px; }
+html[data-tema] .few { background: var(--few); color: #2a1a00; border: 0; font: 800 14px/1 var(--font-body); padding: 8px 11px; border-radius: 8px; }
+html[data-tema] .times span { font-size: 15px; padding: 9px 11px; border-radius: 10px; }
+html[data-tema] .times small { font-size: 13px; }
+html[data-tema] .ev .note { font-size: 15px; }
+html[data-tema] .ev .actions { gap: 10px; margin-top: 4px; }
+html[data-tema] .ev .actions .link { flex: 1 1 100%; min-height: 48px; border-radius: 12px; background: var(--gold, #f7c873); color: #10282f !important; font: 800 16px var(--font-body); display: flex; align-items: center; justify-content: center; text-decoration: none; }
+html[data-tema] .ev .actions .cal, html[data-tema] .ev .actions .share { min-height: 48px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; justify-content: center; font-size: 14.5px; white-space: nowrap; color: var(--fg); }
+html[data-tema] .ev .actions .cal { flex: 2; }
+html[data-tema] .ev .actions .share { flex: 1; }
+html[data-tema] .ev .actions svg { width: 18px; height: 18px; }
+html[data-tema] .ev .qrows { order: 4; }
+html[data-tema] .ev.quizcard h3 { padding-right: 0; }
+}
