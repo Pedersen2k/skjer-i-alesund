@@ -1,7 +1,7 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-28T21:53:10Z",
+  "updatedAt": "2026-10-29T05:55:35Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -15,22 +15,6 @@
   ]
  },
  "events": [
-  {
-   "id": "operapub-fabrikken-kulturscene",
-   "date": "2026-10-28",
-   "time": "20:00",
-   "title": "Operapub",
-   "venue": "Fabrikken Kulturscene",
-   "address": "",
-   "cat": "konsert",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Dørene åpner 19.00.",
-   "uncertain": false,
-   "url": "https://billetto.no/e/operapub-pa-fabrikken-onsdag-28-oktober-billetter-1993416",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "skifilm-festival-tgr-friends-lovenvold-theater",
    "date": "2026-10-29",
@@ -211,25 +195,6 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48033-jazzkafe-vegard-holum-sings-ein-hyllest-til-chet/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "aafk-2026-10-31-aalesund-sandefjord-fotball",
-   "date": "2026-10-31",
-   "time": "18:00",
-   "title": "Aalesund – Sandefjord Fotball",
-   "home": "Aalesund",
-   "away": "Sandefjord Fotball",
-   "league": "Eliteserien",
-   "venue": "Color Line Stadion",
-   "address": "",
-   "cat": "sport",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
-   "uncertain": false,
-   "url": "https://aafk.ticketco.events/no/nb",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
