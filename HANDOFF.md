@@ -184,6 +184,7 @@ Not done: Bypatrioten quizzes (`bypatrioten.com/kalender/`, reachable, not parse
 - `www.` domains must be allowlisted separately in the environment's network settings.
 - Hosts such as `aafk.ticketco.events` must be allowed in the environment's network settings; a change may need a new session to apply.
 - The bot commits up to nine times a day (every two hours), so run `git pull` before pushing.
+- 29 Oct: run 173 (scheduled) failed at "Lagre endringer" because it queued behind a manual run (concurrency group `pages`) but checked out `main` as it was when the run was created, so its push was rejected (issue #93, closed itself later). Fixed by `git pull --rebase -X theirs origin main` before `git push` in `oppdater.yml` (tested locally with two clones; not yet seen in Actions).
 - Merging to `main` triggers the deploy workflow. If its last step ("deploy-pages") fails with a Pages error, it is usually transient: re-run the failed job once (Actions → Re-run failed jobs).
 - Playwright is not installed in the environment. A working local check: `npm i playwright-core` in a scratch folder and launch `executablePath: '/opt/pw-browsers/chromium'` against `python3 -m http.server -d _site`. Rebuilding `_site/` deletes the folder, so restart the server afterwards.
 
