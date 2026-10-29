@@ -115,7 +115,7 @@ h1 { font: 800 clamp(40px, 9vw, 68px)/0.92 var(--font-display); letter-spacing: 
 h1 span { color: var(--accent); }
 .lede { margin: 6px 0 0; color: var(--muted); max-width: 52ch; }
 
-.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); transition: transform .22s ease; }
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); transition: transform .28s ease; will-change: transform; }
 .controls.gone { transform: translateY(-101%); }
 @media (prefers-reduced-motion: reduce) { .controls { transition: none; } }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
@@ -1106,21 +1106,30 @@ fetch("data/kino.json", { cache: "no-cache" })
   })
   .catch(() => {});
 { const q = $("q"), long = q.placeholder, mqs = matchMedia("(max-width: 640px)"); const ph = () => { q.placeholder = mqs.matches ? "Søk …" : long; }; ph(); mqs.addEventListener("change", ph); }
-// Mobil: menyen skjules når man scroller ned og kommer tilbake når man scroller opp
+// Mobil: menyen skjules når man scroller ned og kommer tilbake når man scroller opp.
+// Rolig oppførsel: tar bare hensyn til scroll innenfor siden (ikke iOS-strekk), krever lengre sammenhengende
+// bevegelse før den skifter, og skifter høyst én gang per 350 ms, så treghetsscrolling ikke får den til å hoppe.
 (() => {
   const ctl = document.querySelector(".controls"), mq = matchMedia("(max-width: 640px)");
-  let last = scrollY, acc = 0;
+  let last = scrollY, acc = 0, lastToggle = 0, ticking = false;
   const stuck = () => ctl.classList.toggle("stuck", ctl.getBoundingClientRect().top <= 1);  // fast bakgrunn bare når menyen ligger over lista
-  stuck(); addEventListener("resize", stuck);
-  addEventListener("scroll", () => {
-    stuck();
-    const y = scrollY, d = y - last; last = y;
-    if (!mq.matches) { ctl.classList.remove("gone"); return; }
+  const set = gone => { if (ctl.classList.contains("gone") === gone) return; ctl.classList.toggle("gone", gone); lastToggle = performance.now(); };
+  const update = () => {
+    ticking = false; stuck();
+    const max = document.documentElement.scrollHeight - innerHeight, y = scrollY;
+    if (!mq.matches) { set(false); last = y; return; }
+    if (y < 0 || y > max) return;                       // gummibånd øverst/nederst på iOS: ignorer
+    const d = y - last; last = y;
+    if (!d) return;
     acc = Math.sign(d) === Math.sign(acc) ? acc + d : d;
-    if (y < 160 || acc < -8) ctl.classList.remove("gone");
-    else if (acc > 14 && !ctl.contains(document.activeElement)) ctl.classList.add("gone");
-  }, { passive: true });
-  ctl.addEventListener("focusin", () => ctl.classList.remove("gone"));
+    if (y < 160) { set(false); return; }
+    if (performance.now() - lastToggle < 350) return;
+    if (acc < -30) set(false);
+    else if (acc > 60 && !ctl.contains(document.activeElement)) set(true);
+  };
+  stuck(); addEventListener("resize", stuck);
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  ctl.addEventListener("focusin", () => set(false));
 })();
 </script>
 
