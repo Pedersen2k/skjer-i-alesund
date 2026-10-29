@@ -35,6 +35,9 @@ DAMP_VENUE = "Dampsentralen"
 OCONNORS = "https://oconnors.no/alesund"
 OCONNORS_VENUE = "O'Connor's"
 OCONNORS_ADDRESS = "Brunholmgata 10, 6004 Ålesund"
+LIVRORE = "https://livrore.no"
+LIVRORE_VENUE = "Liv & Røre Moa"
+LIVRORE_ADDRESS = "Langelandsvegen 35, 6010 Ålesund"
 FABRIKKEN = "https://www.fabrikkenkulturscene.no"
 FABRIKKEN_VENUE = "Fabrikken Kulturscene"
 VITI = "https://www.vitimusea.no"
@@ -322,6 +325,86 @@ def fetch_oconnors():
     return raw
 
 
+def fetch_livrore():
+    """Liv & Røre på Amfi Moa (livrore.no, samme Thon-løsning som O'Connor's). Arrangementslista kommer fra WordPress-API-et
+    (resthon_event); dato, tid og pris står på hver arrangementsside. DJ-planen for helgene (en tekstliste på
+    /dj-hver-helg-pa-liv-rore/) blir ett samlekort. Gir None hvis siden ikke kunne leses."""
+    today = datetime.datetime.now(TZ).date()
+    try:
+        items = json.loads(get(LIVRORE + "/wp-json/wp/v2/resthon_event?per_page=100"))
+    except Exception as e:
+        warn(f"Klarte ikke å hente arrangementene til Liv & Røre: {e}")
+        return None
+    if not isinstance(items, list):
+        warn("Fant ikke arrangementlista hos Liv & Røre. Sjekk om livrore.no har endret siden.")
+        return None
+    raw = []
+    for it in items:
+        url = it.get("link") or ""
+        try:
+            page = get(url)
+            time.sleep(0.5)
+        except Exception as e:
+            print("feil:", url, e, file=sys.stderr)
+            continue
+        text = lambda label: (html.unescape(m.group(1)).strip() if (m := re.search(rf'<p class="label">{label}</p>\s*<p class="value">([^<]*)</p>', page)) else "")
+        day = re.search(r"(\d{1,2})\.\s*([a-zæøå]{3})", text("Dato").lower())
+        hm = re.search(r"(\d{1,2}):(\d{2})", text("Tid"))
+        if not (day and day.group(2) in MONTHS):
+            print("Hopper over arrangement hos Liv & Røre (uventet side):", url, file=sys.stderr)
+            continue
+        month = MONTHS.index(day.group(2)) + 1
+        year = today.year + (1 if month < today.month - 1 else 0)
+        start = datetime.datetime(year, month, int(day.group(1)), int(hm.group(1)) if hm else 0, int(hm.group(2)) if hm else 0, tzinfo=TZ)
+        if start.date() < today:
+            continue
+        title = html.unescape(it["title"]["rendered"]).strip()
+        title = re.sub(r"\s+(på|hos)\s+Liv\s*(&|og)\s*Røre(\s*(–|-)?\s*Moa)?\b", "", title)
+        title = re.sub(r"[^\w.!?)]+$", "", title).strip() or title  # emojier til slutt
+        pris = text("Pris")
+        price = re.search(r"(\d+)", pris)
+        price = (f"{price.group(1)} kr", int(price.group(1)), "") if price else ("Gratis", 0, "") if re.search(r"free|gratis", pris, re.I) else None
+        notes = []
+        if (age := re.search(r"(\d{2})\+", text("Alder"))):
+            notes.append(f"Aldersgrense {age.group(1)} år.")
+        # Fritekstenen sier iblant et annet klokkeslett enn feltet «Tid»; da er det usikkert hva som gjelder
+        body = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html.unescape(it.get("content", {}).get("rendered", ""))))
+        other = re.search(r"Tid:\s*(\d{1,2})[:.](\d{2})", body)
+        uncertain = bool(hm and other and (int(other.group(1)), other.group(2)) != (int(hm.group(1)), hm.group(2)))
+        if uncertain:
+            notes.append(f"Arrangementssiden sier kl. {hm.group(1)}:{hm.group(2)}, men teksten under sier kl. {int(other.group(1)):02d}:{other.group(2)}. Sjekk hos Liv & Røre.")
+        raw.append({"name": title, "venue": LIVRORE_VENUE, "address": LIVRORE_ADDRESS, "start": start, "url": url,
+                    "tickets": [], "soldOut": False, "noTime": not hm, "price": price,
+                    # Quiz har egen side per kveld (som hos O'Connor's), så hver kveld blir et eget arrangement på quiz/
+                    **({"group": "livrore-" + start.date().isoformat() + "-" + slug(title)[:30]} if guess_cat(title) == "quiz" else {}),
+                    "note": " ".join(notes), "uncertain": uncertain})
+    # DJ hver helg: «Fredag 06.11 DJ Hamy 23:00». Kvelder som allerede har et eget klubbarrangement (f.eks. Halloween) er ikke med
+    try:
+        dj = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", get(LIVRORE + "/dj-hver-helg-pa-liv-rore/"))))
+    except Exception as e:
+        warn(f"Klarte ikke å hente DJ-planen til Liv & Røre: {e}")
+        dj = ""
+    own = {r["start"].date() for r in raw if guess_cat(r["name"]) == "klubb"}
+    nights = []
+    for d, m, who, h, mi in re.findall(r"(?:Fredag|Lørdag|Søndag|Torsdag)\s+(\d{1,2})\.(\d{1,2})\s+(DJ\s+[^\d]+?)\s+(\d{1,2})[:.](\d{2})", dj):
+        month = int(m)
+        year = today.year + (1 if month < today.month - 1 else 0)
+        start = datetime.datetime(year, month, int(d), int(h), int(mi), tzinfo=TZ)
+        if start.date() >= today and start.date() not in own:
+            nights.append((start, who.strip()))
+    if dj and not nights and "DJ" not in dj:
+        warn("Fant ikke DJ-planen hos Liv & Røre. Sjekk om livrore.no har endret siden.")
+    names = list(dict.fromkeys(re.sub(r"^DJ\s+", "", w) for _, w in nights))
+    for start, who in nights:
+        raw.append({"name": "DJ hver helg", "venue": LIVRORE_VENUE, "address": LIVRORE_ADDRESS, "start": start,
+                    "url": LIVRORE + "/dj-hver-helg-pa-liv-rore/", "tickets": [], "soldOut": False, "cat": "klubb",
+                    "price": ("", None, ""), "group": "livrore-dj", "noDates": True,
+                    "note": f"Nattklubb fredag og lørdag kl. 23–03, hver helg til {fmt_day(nights[-1][0].date())}. DJ-er: "
+                            + (", ".join(names[:-1]) + " og " + names[-1] if len(names) > 1 else names[0]) + "."})
+    print(f"Liv & Røre: {len(raw)} arrangementer", file=sys.stderr)
+    return raw
+
+
 FAB_DATE = re.compile(r"\d{1,2}\.\s*(januar|februar|mars|april|mai|juni|juli|august|september|oktober|november|desember)|^(mandag|tirsdag|onsdag|torsdag|fredag|lørdag|søndag)\b", re.I)
 
 
@@ -542,7 +625,7 @@ def build_events(raw, overrides):
         if sold and len(sold) < len(shows) and not chips:
             when = [s["start"].strftime("%H:%M") if s["start"].date() == first["start"].date() else fmt_day(s["start"].date()) for s in sold]
             notes.append("Utsolgt: " + ", ".join(dict.fromkeys(when)) + ".")
-        if extra_days and not chips:
+        if extra_days and not chips and not first.get("noDates"):
             listed = ", ".join(fmt_day(d) for d in extra_days[:5])
             notes.append(f"Flere forestillinger: {listed}" + (" m.fl." if len(extra_days) > 5 else "."))
         if o.get("discountNote", True):
@@ -574,7 +657,7 @@ def build_events(raw, overrides):
             # Parken merker nesten alt med «Få billetter igjen»; siden viser det derfor bare de siste to ukene
             **({"statusSrc": "parken"} if first.get("src") == "parken" and (few or chips) else {}),
             "note": " ".join(n for n in notes if n),
-            "uncertain": bool(o.get("uncertain", False)),
+            "uncertain": bool(o.get("uncertain", first.get("uncertain", False))),
             "url": first["url"],
             # Senere forestillinger, så helgelister o.l. finner dem selv om første dato er tidligere
             **({"moreShows": [s["start"].strftime("%Y-%m-%d" if s.get("noTime") else "%Y-%m-%dT%H:%M") for s in shows[1:]]} if len(shows) > 1 else {}),
@@ -682,6 +765,11 @@ def main():
         viti = [e for e in old["events"] if e["venue"] in {v for v, _ in VITI_MUSEUMS.values()} and e["date"] >= today]
     else:
         viti = build_events(viti_raw, overrides)
+    lr_raw = fetch_livrore()
+    if lr_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
+        livrore = [e for e in old["events"] if e["venue"] == LIVRORE_VENUE and e["date"] >= today]
+    else:
+        livrore = build_events(lr_raw, overrides)
     fab_raw = fetch_fabrikken()
     if fab_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         fabrikken = [e for e in old["events"] if e["venue"] == FABRIKKEN_VENUE and e["date"] >= today]
@@ -694,6 +782,7 @@ def main():
     events += [e for e in oconnors if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in viti if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in fabrikken if (e["date"], norm_key(e["title"])) not in seen]
+    events += [e for e in livrore if (e["date"], norm_key(e["title"])) not in seen]
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
     events += [e for e in map(roll_forward, manual) if e["date"] >= today and e["id"] not in parken_ids]
@@ -717,6 +806,10 @@ def main():
         fresh_source |= {e["id"] for e in viti}
     if fabrikken and "fabrikken" not in sources:
         fresh_source |= {e["id"] for e in fabrikken}
+    if livrore and "livrore" not in sources:
+        fresh_source |= {e["id"] for e in livrore}
+    if livrore:
+        sources.add("livrore")
     if fabrikken:
         sources.add("fabrikken")
     if viti:
