@@ -1,0 +1,40 @@
+<style>
+/* Fast: menyen skjules aldri */
+html[data-meny="fast"] .controls { transform: none !important; }
+/* Kompakt: søk + Mine + Filter på én linje; nedtrekkene åpnes under */
+#fbtn { display: none; }
+@media (max-width: 640px) {
+  html[data-meny="kompakt"] .controls { transform: none !important; }
+  html[data-meny="kompakt"] .search { grid-column: span 2; }
+  html[data-meny="kompakt"] #favonly { grid-column: span 1; }
+  html[data-meny="kompakt"] #fbtn { display: inline-flex; grid-column: span 1; order: 2; align-items: center; justify-content: center; gap: 5px; padding: 9px 4px; font: inherit; }
+  html[data-meny="kompakt"] #favonly { order: 2; }
+  html[data-meny="kompakt"] #fbtn { order: 3; }
+  html[data-meny="kompakt"] .controls select.chip, html[data-meny="kompakt"] .controls .count { display: none; }
+  html[data-meny="kompakt"] .controls.fopen select.chip { display: inline-flex; }
+  html[data-meny="kompakt"] #mwhen { order: 10; } html[data-meny="kompakt"] #mcat { order: 11; } html[data-meny="kompakt"] #venue { order: 12; } html[data-meny="kompakt"] #price { order: 13; }
+  html[data-meny="kompakt"] .controls .count { order: 14; }
+  html[data-meny="kompakt"] #fbtn[aria-expanded="true"] { background: var(--accent); color: var(--accent-ink); }
+  html[data-meny="kompakt"] .controls.fopen .count { display: block; }
+  #fbtn .n { background: var(--accent); color: var(--accent-ink); border-radius: 99px; font-size: 11px; line-height: 1; padding: 3px 6px; }
+  #fbtn .n:empty { display: none; }
+}
+#menyvelger { position: fixed; left: 50%; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 50; display: flex; gap: 2px; padding: 3px; border-radius: 99px; background: #000d; backdrop-filter: blur(8px); font: 600 13px system-ui, sans-serif; }
+#menyvelger button { all: unset; padding: 8px 14px; border-radius: 99px; color: #fff; cursor: pointer; }
+#menyvelger button[aria-pressed="true"] { background: #ffb547; color: #1a0b07; }
+</style>
+<script>
+(() => {
+  const root = document.documentElement, ctl = document.querySelector(".controls");
+  const b = document.createElement("button"); b.id = "fbtn"; b.type = "button"; b.className = "chip"; b.innerHTML = 'Filter <span class="n"></span>';
+  document.getElementById("favonly").after(b);
+  const sels = ["mwhen", "mcat", "venue", "price"].map(id => document.getElementById(id));
+  const count = () => { const n = sels.filter(s => s && s.value && s.selectedIndex > 0).length; b.querySelector(".n").textContent = n || ""; };
+  b.onclick = () => b.setAttribute("aria-expanded", ctl.classList.toggle("fopen"));
+  sels.forEach(s => s && s.addEventListener("change", count)); count();
+  const v = document.createElement("div"); v.id = "menyvelger";
+  const set = m => { root.dataset.meny = m; ctl.classList.remove("fopen", "gone"); v.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.dataset.m === m)); };
+  [["na", "Nå"], ["fast", "Fast"], ["kompakt", "Kompakt"]].forEach(([m, t]) => { const x = document.createElement("button"); x.dataset.m = m; x.textContent = t; x.onclick = () => set(m); v.append(x); });
+  document.body.append(v); set("fast");
+})();
+</script>
