@@ -115,9 +115,9 @@ h1 { font: 800 clamp(40px, 9vw, 68px)/0.92 var(--font-display); letter-spacing: 
 h1 span { color: var(--accent); }
 .lede { margin: 6px 0 0; color: var(--muted); max-width: 52ch; }
 
-.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); transition: transform .28s ease; will-change: transform; }
-.controls.gone { transform: translateY(-101%); }
-@media (prefers-reduced-motion: reduce) { .controls { transition: none; } }
+.controls { --off: 0px; transform: translate3d(0, calc(var(--off) * -1), 0); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); will-change: transform; }
+.controls.snap { transition: transform .22s cubic-bezier(.2,.8,.2,1); }
+@media (prefers-reduced-motion: reduce) { .controls.snap { transition: none; } }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .search { width: 100%; font: inherit; padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--fg); }
 .search:focus-visible, button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -1106,30 +1106,34 @@ fetch("data/kino.json", { cache: "no-cache" })
   })
   .catch(() => {});
 { const q = $("q"), long = q.placeholder, mqs = matchMedia("(max-width: 640px)"); const ph = () => { q.placeholder = mqs.matches ? "Søk …" : long; }; ph(); mqs.addEventListener("change", ph); }
-// Mobil: menyen skjules når man scroller ned og kommer tilbake når man scroller opp.
-// Rolig oppførsel: tar bare hensyn til scroll innenfor siden (ikke iOS-strekk), krever lengre sammenhengende
-// bevegelse før den skifter, og skifter høyst én gang per 350 ms, så treghetsscrolling ikke får den til å hoppe.
+// Mobil: menyen følger scrollingen (som verktøylinjen i Safari): glir opp når du scroller ned, tilbake når du scroller opp,
+// og legger seg helt inn eller ut når du slipper. Ingen av/på-bytte, så ingenting hopper.
 (() => {
   const ctl = document.querySelector(".controls"), mq = matchMedia("(max-width: 640px)");
-  let last = scrollY, acc = 0, lastToggle = 0, ticking = false;
+  let last = scrollY, off = 0, ticking = false, idle = 0;
+  const apply = () => ctl.style.setProperty("--off", off + "px");
   const stuck = () => ctl.classList.toggle("stuck", ctl.getBoundingClientRect().top <= 1);  // fast bakgrunn bare når menyen ligger over lista
-  const set = gone => { if (ctl.classList.contains("gone") === gone) return; ctl.classList.toggle("gone", gone); lastToggle = performance.now(); };
-  const update = () => {
-    ticking = false; stuck();
-    const max = document.documentElement.scrollHeight - innerHeight, y = scrollY;
-    if (!mq.matches) { set(false); last = y; return; }
-    if (y < 0 || y > max) return;                       // gummibånd øverst/nederst på iOS: ignorer
-    const d = y - last; last = y;
-    if (!d) return;
-    acc = Math.sign(d) === Math.sign(acc) ? acc + d : d;
-    if (y < 160) { set(false); return; }
-    if (performance.now() - lastToggle < 350) return;
-    if (acc < -30) set(false);
-    else if (acc > 60 && !ctl.contains(document.activeElement)) set(true);
+  const snap = () => {
+    if (!off || off >= ctl.offsetHeight) return;
+    ctl.classList.add("snap"); off = off > ctl.offsetHeight / 2 ? ctl.offsetHeight : 0; apply();
+    setTimeout(() => ctl.classList.remove("snap"), 260);
   };
-  stuck(); addEventListener("resize", stuck);
+  const update = () => {
+    ticking = false;
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight, d = y - last;
+    if (y < 0 || y > max) { last = Math.min(Math.max(y, 0), max); return; }   // iOS-strekk: ignorer
+    last = y;
+    if (!mq.matches) { if (off) { off = 0; apply(); } stuck(); return; }
+    const top = ctl.getBoundingClientRect().top + off;                        // der menyen ville ligget uten forskyvning
+    const h = ctl.offsetHeight;
+    if (top > 1 || ctl.contains(document.activeElement)) off = 0;
+    else off = Math.min(h, Math.max(0, off + d));
+    ctl.classList.remove("snap"); apply(); stuck();
+    clearTimeout(idle); idle = setTimeout(snap, 140);
+  };
+  stuck(); addEventListener("resize", () => { off = 0; apply(); stuck(); });
   addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  ctl.addEventListener("focusin", () => set(false));
+  ctl.addEventListener("focusin", () => { off = 0; ctl.classList.add("snap"); apply(); });
 })();
 </script>
 
