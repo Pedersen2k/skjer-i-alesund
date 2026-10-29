@@ -1,7 +1,7 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-29T17:11:04Z",
+  "updatedAt": "2026-10-29T17:58:27Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -616,8 +616,8 @@
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "konsert",
-   "price": "350 kr",
-   "priceMin": 350,
+   "price": "300–350 kr",
+   "priceMin": 300,
    "soldOut": false,
    "note": "",
    "uncertain": false,
