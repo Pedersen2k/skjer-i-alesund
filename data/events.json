@@ -1,9 +1,9 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-29T11:55:20Z",
+  "updatedAt": "2026-10-29T14:14:15Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -715,7 +715,18 @@
    "price": "Gratis",
    "priceMin": 0,
    "soldOut": false,
-   "note": "Også kl. 16:00.",
+   "shows": [
+    [
+     "2026-11-08T15:00",
+     "few"
+    ],
+    [
+     "2026-11-08T16:00",
+     ""
+    ]
+   ],
+   "statusSrc": "parken",
+   "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49587-sans/",
    "moreShows": [
