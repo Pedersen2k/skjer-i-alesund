@@ -1027,8 +1027,10 @@ let newIds = null;
 function updateTabs() {
   newIds = null;
   const n = newSinceList().length, t = $("ntabs");
-  if (!baseline || state.view === "kal") state.nyOnly = false;
-  t.hidden = !baseline || state.view === "kal";
+  // Fanene vises bare når det faktisk er noe nytt siden forrige besøk (og ikke på første besøk eller i kalendervisning)
+  const show = !!baseline && n > 0 && state.view !== "kal";
+  if (!show) state.nyOnly = false;
+  t.hidden = !show;
   $("ndot").textContent = n; $("ndot").hidden = !n;
   t.querySelectorAll("[data-nt]").forEach(b => b.setAttribute("aria-selected", (b.dataset.nt === "nytt") === state.nyOnly));
   document.body.classList.toggle("nyonly", state.nyOnly);
