@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Større knapper og tekst</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Fire forslag til større knapper, tekst, datoer, fargekoder, filtre og merker, ved siden av slik forsiden ser ut nå. Ekte arrangementer fra events.json (29.–31. okt). Mørkt tema, 390 px bredde som en mobil. */
+:root {
+  --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a;
+  --gold:#f7c873; --sea:#5ab7bf; --accent:#ff8a6b; --few:#ffb547; --few-bg:#3a2a10; --few-line:#6b4c17;
+  --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-klubb:#ec78ab; --c-happening:#d9b84a; --c-quiz:#b497e0;
+  --font-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 15px/1.5 var(--font-body); padding:28px 16px 64px; }
+.wrap { max-width:1700px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr); gap:26px; }
+h1 { font:800 clamp(28px,4vw,40px)/1.05 var(--font-display); margin:0 0 10px; }
+header p { margin:0 0 8px; max-width:80ch; color:var(--muted); }
+header b { color:var(--fg); }
+.grid { display:flex; flex-wrap:wrap; gap:34px 26px; align-items:flex-start; }
+.opt { width:390px; max-width:100%; min-width:0; display:grid; gap:10px; }
+.opt h2 { font:800 22px/1.1 var(--font-display); margin:0; }
+.opt h2 small { display:block; font:500 13px/1.4 var(--font-body); color:var(--muted); margin-top:4px; }
+.opt .spec { font:500 12px/1.5 var(--font-mono); color:var(--muted); border:1px dashed var(--line); border-radius:10px; padding:8px 10px; }
+.phone { border:1px solid var(--line); border-radius:22px; padding:14px 12px 18px; background:radial-gradient(130% 300px at 50% 0,#17434d 0%,rgba(10,23,27,0) 100%),#0a171b; }
+.verdict { font-size:13.5px; color:var(--muted); }
+.verdict b { color:var(--gold); }
+button, a { font-family:inherit; }
+a { color:inherit; text-decoration:none; }
+
+/* ---------- Felles: kategorifarge ---------- */
+.ev { --c:var(--sea); }
+.ev.konsert { --c:var(--c-konsert); } .ev.standup { --c:var(--c-standup); } .ev.klubb { --c:var(--c-klubb); } .ev.happening { --c:var(--c-happening); } .ev.quiz { --c:var(--c-quiz); }
+
+/* ================= NÅ ================= */
+.now .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.now .chip { font:500 13px/1 var(--font-body); padding:8px 12px; border-radius:99px; border:1px solid var(--line); background:var(--surface); color:var(--fg); }
+.now .chip.on { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.now .day { display:grid; grid-template-columns:64px 1fr; gap:14px; padding-block:14px; border-bottom:1px solid var(--line); }
+.now .wd { font:500 11px/1 var(--font-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+.now .num { font:800 38px/1 var(--font-display); color:#fff; }
+.now .mo { font:500 12px/1 var(--font-mono); text-transform:uppercase; color:var(--accent); }
+.now .events { display:grid; gap:10px; min-width:0; }
+.now .ev { background:linear-gradient(135deg,color-mix(in srgb,var(--c) 20%,#13252d),#13252d 62%); border:1px solid var(--line); border-left:4px solid var(--c); border-radius:12px; padding:12px 14px; display:grid; gap:4px; }
+.now h3 { margin:0; font:700 17px/1.25 var(--font-display); }
+.now .meta { font-size:13px; color:var(--muted); display:flex; flex-wrap:wrap; gap:4px 12px; }
+.now .meta .t { font-family:var(--font-mono); color:var(--fg); }
+.now .tag { font:600 11px/1 var(--font-body); text-transform:uppercase; letter-spacing:.06em; color:var(--c); }
+.now .price { font:600 13px var(--font-mono); }
+.now .few { font:700 10.5px/1 var(--font-body); color:var(--few); background:var(--few-bg); border:1px solid var(--few-line); border-radius:99px; padding:4px 7px; width:max-content; }
+.now .sold { color:var(--accent); font:600 13px var(--font-mono); }
+.now .actions { display:flex; gap:16px; font:600 13px/1.4 var(--font-body); color:var(--gold); margin-top:2px; }
+
+/* ================= A: Trygg og tydelig ================= */
+.A .chips { display:flex; gap:8px; overflow-x:visible; flex-wrap:wrap; margin-bottom:14px; }
+.A .chip { font:600 15px/1 var(--font-body); min-height:44px; padding:0 16px; border-radius:99px; border:1px solid var(--line); background:var(--surface); color:var(--fg); display:inline-flex; align-items:center; }
+.A .chip.on { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.A .day { padding-block:16px; border-bottom:1px solid var(--line); display:grid; grid-template-columns:76px 1fr; gap:14px; }
+.A .wd { font:700 13px/1 var(--font-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+.A .num { font:800 52px/1 var(--font-display); color:#fff; margin:2px 0; }
+.A .mo { font:700 14px/1 var(--font-mono); text-transform:uppercase; color:var(--accent); }
+.A .events { display:grid; gap:16px; min-width:0; }
+.A .ev { background:linear-gradient(135deg,color-mix(in srgb,var(--c) 22%,#13252d),#13252d 62%); border:1px solid var(--line); border-left:6px solid var(--c); border-radius:14px; padding:16px; display:grid; gap:8px; }
+.A h3 { margin:0; font:800 21px/1.2 var(--font-display); }
+.A .tag { display:inline-block; width:max-content; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.06em; color:#10282f; background:var(--c); padding:5px 8px; border-radius:6px; }
+.A .meta { font-size:16px; color:var(--muted); display:flex; flex-wrap:wrap; gap:2px 12px; }
+.A .meta .t { font:700 17px var(--font-mono); color:var(--fg); }
+.A .badge { width:max-content; font:800 14px/1 var(--font-body); padding:8px 11px; border-radius:8px; display:inline-flex; gap:6px; align-items:center; }
+.A .badge.few { background:var(--few); color:#2a1a00; }
+.A .badge.sold { background:#ff6a5a; color:#2a0500; }
+.A .row { display:flex; gap:10px; align-items:center; margin-top:4px; }
+.A .buy { flex:1; white-space:nowrap; min-height:48px; border-radius:12px; background:var(--gold); color:#10282f; font:800 16px var(--font-body); display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; }
+.A .buy.off { background:transparent; border:2px solid var(--line); color:var(--muted); }
+.A .ghost { min-height:48px; padding:0 14px; border-radius:12px; border:1px solid var(--line); background:transparent; color:var(--fg); font:600 15px var(--font-body); display:inline-flex; align-items:center; gap:6px; }
+
+/* ================= B: Pris i knappen ================= */
+.B .chips { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:14px; }
+.B .chip { font:700 15px/1.1 var(--font-body); min-height:48px; padding:0 8px; border-radius:12px; border:1px solid var(--line); background:var(--surface); color:var(--fg); display:flex; align-items:center; justify-content:center; text-align:center; }
+.B .chip.on { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.B .daybar { position:sticky; top:0; display:flex; align-items:baseline; gap:10px; background:color-mix(in srgb,#0a171b 92%,transparent); backdrop-filter:blur(8px); padding:12px 2px 8px; margin-top:6px; border-bottom:2px solid var(--accent); }
+.B .daybar b { font:800 34px/1 var(--font-display); color:#fff; }
+.B .daybar span { font:700 15px var(--font-mono); text-transform:uppercase; color:var(--accent); letter-spacing:.06em; }
+.B .daybar em { margin-left:auto; font:500 13px var(--font-mono); color:var(--muted); font-style:normal; }
+.B .events { display:grid; gap:18px; padding-block:14px 8px; }
+.B .ev { position:relative; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px 16px 16px; display:grid; gap:8px; overflow:hidden; }
+.B .ev::before { content:""; position:absolute; inset:0 0 auto 0; height:6px; background:var(--c); }
+.B .top { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.B .tag { font:800 13px/1 var(--font-body); text-transform:uppercase; letter-spacing:.05em; color:var(--c); display:inline-flex; gap:7px; align-items:center; }
+.B .tag::before { content:""; width:12px; height:12px; border-radius:50%; background:var(--c); }
+.B .time { font:800 22px/1 var(--font-mono); color:#fff; }
+.B h3 { margin:2px 0 0; font:800 24px/1.15 var(--font-display); }
+.B .venue { font-size:16px; color:var(--muted); }
+.B .badge { width:max-content; font:800 14px/1 var(--font-body); padding:8px 12px; border-radius:99px; }
+.B .badge.few { background:var(--few-bg); color:var(--few); border:2px solid var(--few); }
+.B .badge.sold { background:#4a1410; color:#ff9a8c; border:2px solid #ff6a5a; }
+.B .buy { margin-top:6px; min-height:52px; border-radius:14px; background:var(--accent); color:#1a0b07; font:800 17px var(--font-body); display:flex; align-items:center; justify-content:space-between; padding:0 18px; border:0; }
+.B .buy.off { background:#22383f; color:#8fa8ab; }
+.B .sec { display:grid; grid-template-columns:1fr 1fr 52px; gap:8px; }
+.B .sec button { white-space:nowrap; display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:48px; border-radius:12px; border:1px solid var(--line); background:transparent; color:var(--fg); font:600 15px var(--font-body); }
+
+/* ================= C: Dagsbånd og fargeband ================= */
+.C .chips { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+.C .chip { font:600 16px/1 var(--font-body); min-height:48px; padding:0 18px; border-radius:99px; border:2px solid var(--line); background:transparent; color:var(--fg); display:inline-flex; align-items:center; gap:8px; }
+.C .chip.on { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.C .chip i { font-style:normal; font-size:18px; }
+.C .daybar { margin:14px -12px 12px; padding:14px 16px; background:linear-gradient(90deg,var(--accent),#c8432b); color:#1a0b07; display:flex; align-items:baseline; gap:12px; border-radius:0; }
+.C .daybar b { font:800 44px/1 var(--font-display); }
+.C .daybar span { font:800 18px var(--font-body); text-transform:uppercase; letter-spacing:.04em; }
+.C .events { display:grid; gap:14px; }
+.C .ev { background:var(--surface); border-radius:16px; overflow:hidden; border:1px solid var(--line); display:grid; }
+.C .band { background:var(--c); color:#10282f; padding:9px 16px; display:flex; justify-content:space-between; align-items:center; font:800 14px/1 var(--font-body); text-transform:uppercase; letter-spacing:.06em; }
+.C .band b { font:800 20px var(--font-mono); letter-spacing:0; }
+.C .body { padding:16px; display:grid; gap:8px; }
+.C h3 { margin:0; font:800 23px/1.15 var(--font-display); }
+.C .venue { font-size:16px; color:var(--muted); }
+.C .priceline { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.C .price { font:800 22px var(--font-mono); }
+.C .price small { font:500 14px var(--font-body); color:var(--muted); }
+.C .badge { font:800 14px/1 var(--font-body); padding:9px 12px; border-radius:8px; transform:rotate(-2deg); }
+.C .badge.few { background:var(--few); color:#2a1a00; }
+.C .badge.sold { background:#ff6a5a; color:#2a0500; letter-spacing:.06em; text-transform:uppercase; }
+.C .acts { display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--line); }
+.C .acts a, .C .acts button { min-height:52px; display:flex; align-items:center; justify-content:center; gap:8px; font:700 16px var(--font-body); background:transparent; border:0; color:var(--gold); }
+.C .acts a + button, .C .acts button + button { border-left:1px solid var(--line); color:var(--fg); }
+.C .acts .off { color:var(--muted); }
+
+/* ================= D: Stor tommel (hele kortet er knapp) ================= */
+.D .chips { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.D .chip { font:700 16px/1.1 var(--font-body); min-height:56px; padding:0 14px; border-radius:14px; border:1px solid var(--line); background:var(--surface); color:var(--fg); display:flex; align-items:center; justify-content:space-between; }
+.D .chip.on { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.D .chip small { font:600 13px var(--font-mono); opacity:.75; }
+.D .day { display:grid; grid-template-columns:92px 1fr; gap:12px; padding-block:14px; }
+.D .dtile { position:sticky; top:8px; align-self:start; background:var(--surface); border:1px solid var(--line); border-radius:16px; text-align:center; padding:10px 4px 12px; }
+.D .dtile .wd { font:800 14px/1 var(--font-mono); text-transform:uppercase; color:var(--accent); letter-spacing:.06em; }
+.D .dtile .num { font:800 56px/1 var(--font-display); color:#fff; margin:4px 0 2px; }
+.D .dtile .mo { font:700 14px/1 var(--font-mono); text-transform:uppercase; color:var(--muted); }
+.D .events { display:grid; gap:14px; min-width:0; }
+.D .ev { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px 16px 14px 20px; position:relative; display:grid; gap:8px; }
+.D .ev::before { content:""; position:absolute; left:0; top:12px; bottom:12px; width:8px; border-radius:0 6px 6px 0; background:var(--c); }
+.D .tag { font:800 13px/1 var(--font-body); text-transform:uppercase; letter-spacing:.05em; color:var(--c); }
+.D h3 { margin:0; font:800 20px/1.2 var(--font-display); }
+.D .meta { font-size:16px; color:var(--muted); }
+.D .meta b { color:var(--fg); font:700 17px var(--font-mono); }
+.D .badges { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.D .badge { font:800 14px/1 var(--font-body); padding:8px 11px; border-radius:8px; display:inline-flex; gap:6px; align-items:center; }
+.D .badge.price { background:#22383f; color:#fff; font:800 16px var(--font-mono); }
+.D .badge.few { background:var(--few); color:#2a1a00; }
+.D .badge.sold { background:#ff6a5a; color:#2a0500; }
+.D .ico { display:grid; grid-template-columns:1.35fr 1fr .8fr; gap:8px; margin-top:4px; }
+.D .ico a, .D .ico button { min-height:56px; border-radius:14px; border:1px solid var(--line); background:transparent; color:var(--fg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font:700 13px var(--font-body); }
+.D .ico .go { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.D .ico .off { color:var(--muted); background:#0f1f26; }
+.D .ico svg { width:22px; height:22px; }
+.sw { width:16px; height:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Større knapper og tekst</h1>
+  <p>Fire forslag til punktene Google tok opp, ved siden av slik forsiden ser ut <b>nå</b>. Alle bruker <b>ekte arrangementer</b> fra <code>events.json</code> (29.–31. okt) i det mørke temaet, med 390 px bredde som en mobil. Knappene er ordentlige trykkflater på 44–56 px, brødtekst er minst 16 px, og «Få billetter igjen» og «Utsolgt» er <b>merker</b> med full farge, ikke liten tekst.</p>
+  <p>Trykk på ting for å føle på størrelsene. Under hvert forslag står hva det koster i plass (målt på de samme fire arrangementene): større kort betyr at færre synes uten å skrolle.</p>
+</header>
+<div class="grid" id="grid"></div>
+</div>
+
+<script>
+const CAL='<svg class="sw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>';
+const SHR='<svg class="sw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 002 2h10a2 2 0 002-2v-6"/></svg>';
+const TIC='<svg class="sw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 002-2V6h14v1a2 2 0 002 2v2a2 2 0 00-2 2v5H5v-5a2 2 0 00-2-2z"/></svg>';
+const DAYS=[
+ {wd:'Tor',n:'29',mo:'okt',ev:[
+  {t:'Ingebjørg Bratland',time:'19:00',cat:'konsert',catl:'Konsert',v:'Parken kulturhus',p:'630 kr',pn:'fra',s:'few'},
+  {t:'Stein Torleif Bjella',time:'20:00',cat:'konsert',catl:'Konsert',v:'Terminalen Byscene',p:'450 kr',pn:'',s:''}]},
+ {wd:'Fre',n:'30',mo:'okt',ev:[
+  {t:'Treretters: En lattergalla',time:'19:00',cat:'standup',catl:'Standup',v:'Parken kulturhus',p:'530–625 kr',s:'few'}]},
+ {wd:'Lør',n:'31',mo:'okt',ev:[
+  {t:'Halloween-klubb med MENTUM',time:'23:00',cat:'klubb',catl:'Klubb',v:'Terminalen Byscene',p:'200 kr',s:'sold'}]}
+];
+const CH=['Alle','I dag','Gratis','Under 300 kr'];
+const chips=(c)=>CH.map((x,i)=>`<span class="chip ${i==0?'on':''}">${x}</span>`).join('');
+const up=s=>s;
+
+const R={
+now:()=>`<div class="now"><div class="chips">${CH.map((x,i)=>`<span class="chip ${i==0?'on':''}">${x}</span>`).join('')}</div>`+DAYS.map(d=>`<div class="day"><div><div class="wd">${d.wd}</div><div class="num">${d.n}</div><div class="mo">${d.mo}</div></div><div class="events">`+d.ev.map(e=>`<div class="ev ${e.cat}"><span class="tag">${e.catl}</span><h3>${e.t}</h3><div class="meta"><span class="t">${e.time}</span><span>${e.v}</span></div><div>${e.s==='sold'?'<span class="sold">Utsolgt</span>':`<span class="price">${e.p}</span>`}</div>${e.s==='few'?'<span class="few">Få billetter igjen</span>':''}<div class="actions"><span>${e.s==='sold'?'Se program →':'Billetter →'}</span><span>Legg i kalender</span><span>Del</span></div></div>`).join('')+`</div></div>`).join('')+`</div>`,
+
+A:()=>`<div class="A"><div class="chips">${chips()}</div>`+DAYS.map(d=>`<div class="day"><div><div class="wd">${d.wd}</div><div class="num">${d.n}</div><div class="mo">${d.mo}</div></div><div class="events">`+d.ev.map(e=>`<div class="ev ${e.cat}"><span class="tag">${e.catl}</span><h3>${e.t}</h3><div class="meta"><span class="t">${e.time}</span><span>${e.v}</span><span>${e.s==='sold'?'':e.p}</span></div>${e.s==='few'?'<span class="badge few">⚡ Få billetter igjen</span>':''}${e.s==='sold'?'<span class="badge sold">✕ Utsolgt</span>':''}<div class="row"><button class="buy ${e.s==='sold'?'off':''}">${e.s==='sold'?'Program':'Billetter'} →</button><button class="ghost" aria-label="Legg i kalender">${CAL}</button><button class="ghost" aria-label="Del">${SHR}</button></div></div>`).join('')+`</div></div>`).join('')+`</div>`,
+
+B:()=>`<div class="B"><div class="chips">${CH.map((x,i)=>`<span class="chip ${i==0?'on':''}">${x}</span>`).join('')}</div>`+DAYS.map(d=>`<div class="daybar"><b>${d.n}.</b><span>${({Tor:'Torsdag',Fre:'Fredag',Lør:'Lørdag'})[d.wd]} ${d.mo}</span><em>${d.ev.length} ${d.ev.length==1?'arrangement':'arrangementer'}</em></div><div class="events">`+d.ev.map(e=>`<div class="ev ${e.cat}"><div class="top"><span class="tag">${e.catl}</span><span class="time">${e.time}</span></div><h3>${e.t}</h3><div class="venue">${e.v}</div>${e.s==='few'?'<span class="badge few">Få billetter igjen</span>':''}${e.s==='sold'?'<span class="badge sold">Utsolgt</span>':''}<button class="buy ${e.s==='sold'?'off':''}"><span>${e.s==='sold'?'Se program':'Billetter'}</span><span>${e.s==='sold'?'':e.p+' →'}</span></button><div class="sec"><button>${CAL} Kalender</button><button>${SHR} Del</button><button aria-label="Lagre">☆</button></div></div>`).join('')+`</div>`).join('')+`</div>`,
+
+C:()=>`<div class="C"><div class="chips">${CH.map((x,i)=>`<span class="chip ${i==0?'on':''}">${x}</span>`).join('')}</div>`+DAYS.map(d=>`<div class="daybar"><b>${d.wd} ${d.n}. ${d.mo}</b></div><div class="events">`+d.ev.map(e=>`<div class="ev ${e.cat}"><div class="band"><span>${e.catl}</span><b>${e.time}</b></div><div class="body"><h3>${e.t}</h3><div class="venue">${e.v}</div><div class="priceline"><span class="price">${e.s==='sold'?'<small>Ingen billetter</small>':e.p}</span>${e.s==='few'?'<span class="badge few">Få billetter igjen</span>':''}${e.s==='sold'?'<span class="badge sold">Utsolgt</span>':''}</div></div><div class="acts"><a class="${e.s==='sold'?'off':''}">${TIC} ${e.s==='sold'?'Program':'Billetter'}</a><button>${CAL} Kalender</button></div></div>`).join('')+`</div>`).join('')+`</div>`,
+
+D:()=>`<div class="D"><div class="chips"><span class="chip on">Alle <small>46</small></span><span class="chip">I dag <small>4</small></span><span class="chip">Gratis <small>5</small></span><span class="chip">Under 300 kr <small>24</small></span></div>`+DAYS.map(d=>`<div class="day"><div class="dtile"><div class="wd">${d.wd}</div><div class="num">${d.n}</div><div class="mo">${d.mo}</div></div><div class="events">`+d.ev.map(e=>`<div class="ev ${e.cat}"><span class="tag">${e.catl}</span><h3>${e.t}</h3><div class="meta"><b>${e.time}</b> · ${e.v}</div><div class="badges">${e.s==='sold'?'<span class="badge sold">Utsolgt</span>':`<span class="badge price">${e.p}</span>`}${e.s==='few'?'<span class="badge few">Få billetter igjen</span>':''}</div><div class="ico"><a class="${e.s==='sold'?'off':'go'}">${TIC}${e.s==='sold'?'Program':'Billetter'}</a><button>${CAL}Kalender</button><button>${SHR}Del</button></div></div>`).join('')+`</div></div>`).join('')+`</div>`
+};
+const INFO=[
+ ['now','Slik er det nå','Referanse','Knapper: tekstlenker 13 px (ca. 18 px høye) · tittel 17 px · dato 38 px · filterknapper 30 px høye · merke 10,5 px.','Det du ser på siden i dag: rask å skanne, men alt trykkbart er lite.'],
+ ['A','A · Trygg og tydelig','Samme oppbygging som i dag, bare større. Minst risiko.','Knapper 48 px (Billetter fyller bredden, kalender og del som ikon) · filter 44 px · tittel 21 px · brødtekst 16–17 px · dato 52 px · kategori som fylt merke · «Få billetter»/«Utsolgt» som fylte merker.','<b>Plass:</b> hele lista blir ca. 55 % lengre. Beholder datoen i margen, så listen er like lett å skanne.'],
+ ['B','B · Pris i knappen','Selve knappen sier hva det koster: «Billetter  630 kr →». Dato som klistret stripe over hver dag.','Hovedknapp 52 px · to knapper 48 px under · filter 48 px i 2×2 · tittel 24 px · tid 22 px · dagsstripe med 34 px dato · fargelinje øverst på kortet.','<b>Plass:</b> høyest kort (ca. 2× i dag). Best for å få folk til å trykke på billetter, men lengst å skrolle.'],
+ ['C','C · Dagsbånd og fargeband','Hver dag er et stort farget bånd, hvert kort har et bånd i kategorifargen med klokkeslettet.','Dagsbånd 44 px · fargeband med kategori og tid · tittel 23 px · pris 22 px · to knapper på 52 px nederst på kortet · filter 48 px · merket «Få billetter igjen» som lappen på kortet.','<b>Plass:</b> ca. 1,7× i dag. Tydeligste kategorifarger og datoer, mest «billettaktig» uttrykk.'],
+ ['D','D · Stor tommel','Datoen blir en egen flis som følger med når du skroller. Tre like store knapper med ikon og tekst. Filtrene i 2×2 med antall.','Dato 56 px i flis · filter 56 px · tre knapper 56 px (Billetter er gull) · tittel 20 px · pris og status som merker i én rad · tykk fargekant i venstre kant.','<b>Plass:</b> ca. 1,6× i dag. Mest «app», lettest å treffe med tommelen. Datoflisen tar litt bredde fra kortene.']
+];
+document.getElementById('grid').innerHTML=INFO.map(([k,h,s,spec,v])=>`<section class="opt"><h2>${h}<small>${s}</small></h2><div class="phone">${R[k]()}</div><div class="spec">${spec}</div><div class="verdict">${v}</div></section>`).join('');
+</script>
+</body>
+</html>
