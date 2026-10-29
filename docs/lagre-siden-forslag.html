@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lagre siden</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Fem forslag til en liten invitasjon om å lagre siden (hjemskjerm / app / bokmerke), tilpasset enheten. Velg enhet øverst. Bruker kveldstemaet. */
+:root {
+  --bg:#0a171b; --surface:#13252d; --surface2:#1a323b; --fg:#e8f1ef; --muted:#93acaf; --line:#25414a;
+  --gold:#f7c873; --ink:#10282f; --accent:#ff8a6b; --sea:#5ab7bf; --c-konsert:#5ab7bf;
+  --font-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 16px/1.45 var(--font-body); padding-block:28px 80px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width:1500px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr); gap:28px; }
+h1 { font:800 clamp(28px,4vw,40px)/1.05 var(--font-display); margin:0 0 10px; }
+.intro p { margin:0 0 8px; max-width:78ch; color:var(--muted); } .intro b { color:var(--fg); }
+.seg { display:inline-flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.seg button { min-height:44px; padding:0 16px; border-radius:99px; border:1px solid var(--line); background:var(--surface); font:700 15px var(--font-body); cursor:pointer; color:var(--fg); }
+.seg button[aria-pressed="true"] { background:var(--gold); color:var(--ink); border-color:var(--gold); }
+button, a { font-family:inherit; } :focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+.list { display:flex; flex-wrap:wrap; gap:36px 28px; align-items:flex-start; }
+.con { min-width:0; max-width:100%; display:grid; gap:10px; }
+.con.m { width:390px; } .con.pc { width:min(100%, 760px); }
+.con h2 { margin:0; font:800 22px/1.15 var(--font-display); } .con h2 small { display:block; margin-top:4px; font:500 14px/1.4 var(--font-body); color:var(--muted); }
+.con .for { font-size:14px; color:var(--muted); } .con .for b { color:var(--gold); }
+.frame { position:relative; border:1px solid var(--line); border-radius:22px; overflow:hidden; background:radial-gradient(130% 320px at 50% 0,#17434d 0%,rgba(10,23,27,0) 100%),#0a171b; min-height:560px; padding:14px 12px 18px; }
+.pc .frame { border-radius:12px; padding:0; }
+.bar { display:none; align-items:center; gap:10px; background:#10222a; border-bottom:1px solid var(--line); padding:8px 12px; font:500 13px var(--font-mono); color:var(--muted); }
+.pc .bar { display:flex; } .bar i { width:10px; height:10px; border-radius:50%; background:#33505a; } .bar span { flex:1; background:#0a171b; border-radius:99px; padding:5px 12px; }
+.bar .bm { color:var(--gold); }
+.page { padding:14px 12px; } .pc .page { padding:18px 26px 24px; max-width:620px; margin:0 auto; }
+.top { display:flex; justify-content:space-between; align-items:center; font:600 12px var(--font-mono); color:var(--gold); }
+.top .pill { display:flex; gap:6px; } .top .pill span { white-space:nowrap; border:1px solid var(--line); border-radius:99px; padding:6px 10px; background:var(--surface); color:var(--fg); font:600 12px var(--font-body); }
+.page h3.t { margin:8px 0 6px; font:800 34px/1.05 var(--font-display); } .page h3.t em { font-style:normal; background:linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.page p.sub { margin:0 0 12px; color:var(--muted); font-size:15px; }
+.ctl { display:grid; grid-template-columns:1fr 90px; gap:8px; margin-bottom:12px; } .ctl div { border:1px solid var(--line); border-radius:12px; background:var(--surface); min-height:44px; display:flex; align-items:center; padding:0 12px; color:var(--muted); font-size:15px; } .ctl div + div { color:var(--fg); justify-content:center; font-weight:600; }
+.ev { background:linear-gradient(135deg,color-mix(in srgb,var(--c-konsert) 20%,#13252d),#13252d 62%); border:1px solid var(--line); border-left:5px solid var(--c-konsert); border-radius:12px; padding:12px 14px; margin-top:10px; display:grid; gap:4px; position:relative; }
+.ev b { font:800 18px/1.2 var(--font-display); } .ev span { color:var(--muted); font-size:14px; } .ev .st { position:absolute; right:6px; top:4px; width:44px; height:44px; border:0; background:transparent; font-size:24px; color:var(--muted); cursor:pointer; } .ev .st.on { color:var(--accent); }
+kbd { font:700 13px var(--font-mono); background:#0a171b; border:1px solid #3a5b66; border-bottom-width:2px; border-radius:6px; padding:2px 7px; color:var(--fg); }
+.ico { display:inline-block; width:1.15em; height:1.15em; vertical-align:-.2em; color:var(--gold); }
+.btn { min-height:48px; padding:0 18px; border-radius:12px; border:0; background:var(--gold); color:var(--ink); font:800 16px var(--font-body); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+.btn.ghost { background:transparent; border:1px solid var(--line); color:var(--fg); font-weight:700; }
+.x { width:44px; height:44px; border:0; background:transparent; color:var(--muted); font-size:22px; cursor:pointer; border-radius:10px; flex:none; }
+.logo { width:40px; height:40px; border-radius:10px; background:#17434d; display:grid; place-items:center; flex:none; } .logo svg { width:26px; height:26px; }
+/* A stripe */
+.A .strip { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px 12px; align-items:center; border:1px solid var(--line); background:var(--surface); border-radius:14px; padding:10px 6px 10px 12px; margin:6px 0 12px; }
+.A .strip p { margin:0; font-size:15px; line-height:1.35; } .A .strip p b { display:block; font:800 16px var(--font-display); }
+.A .more { grid-column:1/-1; display:none; border-top:1px dashed var(--line); padding:10px 4px 4px; font-size:15px; } .A .more.open { display:block; } .A .more ol { margin:0; padding-left:20px; display:grid; gap:6px; }
+.A .acts { grid-column:1/-1; display:flex; gap:8px; flex-wrap:wrap; }
+/* B ark */
+.B .back { position:absolute; inset:0; background:#000a; } .B .sheet { position:absolute; left:0; right:0; bottom:0; background:var(--surface2); border-top:1px solid #3a5b66; border-radius:22px 22px 0 0; padding:10px 18px 20px; display:grid; gap:10px; }
+.pc .B .sheet { left:auto; right:24px; bottom:24px; width:340px; border-radius:16px; border:1px solid #3a5b66; } .pc .B .back { background:transparent; pointer-events:none; }
+.B .grab { width:44px; height:5px; border-radius:3px; background:#4b6a74; margin:0 auto; } .pc .B .grab { display:none; }
+.B .hd { display:flex; gap:12px; align-items:center; } .B .hd > div { display:grid; gap:2px; min-width:0; } .B .hd b { font:800 20px/1.15 var(--font-display); } .B .hd span { color:var(--muted); font-size:14px; }
+.B ul { margin:0; padding:0; list-style:none; display:grid; gap:6px; color:var(--fg); font-size:15px; } .B ul li::before { content:"✓"; color:var(--gold); font-weight:800; margin-right:8px; }
+.B .row { display:grid; gap:8px; } .B .steps { background:#10222a; border-radius:12px; padding:10px 12px; font-size:15px; display:grid; gap:6px; }
+/* C knapp i toppen */
+.C .top > span:first-child { display:none; } .C .top { justify-content:flex-end; } .pc .C .top > span:first-child { display:inline; } .pc .C .top { justify-content:space-between; }
+.C .top .pill .sv { color:var(--gold); border-color:#6b5a30; background:#2a2412; cursor:pointer; font-weight:700; }
+.C .pop { position:absolute; z-index:3; right:12px; top:56px; width:min(330px, calc(100% - 24px)); background:var(--surface2); border:1px solid #3a5b66; border-radius:16px; padding:14px; box-shadow:0 16px 40px #000a; display:grid; gap:10px; }
+.pc .C .pop { right:calc(50% - 310px + 26px); top:112px; }
+.C .pop::before { content:""; position:absolute; top:-7px; right:46px; width:12px; height:12px; background:var(--surface2); border-left:1px solid #3a5b66; border-top:1px solid #3a5b66; transform:rotate(45deg); }
+.C .pop b { font:800 18px var(--font-display); } .C .pop p { margin:0; font-size:15px; color:var(--muted); }
+/* D etter lista */
+.D .end { margin-top:16px; border:1px solid #3a5b66; border-radius:18px; padding:16px; background:linear-gradient(150deg,#1c3b45,#13252d); display:grid; gap:10px; }
+.D .end h4 { margin:0; font:800 21px/1.15 var(--font-display); } .D .end p { margin:0; color:var(--muted); font-size:15px; }
+.D .tabs { display:flex; gap:6px; flex-wrap:wrap; } .D .tabs span { border:1px solid var(--line); border-radius:99px; padding:6px 12px; font-size:14px; color:var(--fg); background:var(--surface); } .D .tabs .on { border-color:var(--gold); color:var(--gold); }
+.D .fade { height:50px; margin:6px 0 0; background:linear-gradient(#0000,#0a171b); }
+/* E toast */
+.E .toast { position:absolute; left:12px; right:12px; bottom:14px; z-index:3; background:var(--surface2); border:1px solid #3a5b66; border-radius:16px; padding:12px 12px 12px 14px; display:grid; gap:8px; box-shadow:0 14px 34px #000b; }
+.pc .E .toast { left:auto; right:24px; width:360px; bottom:24px; }
+.E .toast p { margin:0; font-size:15px; line-height:1.35; } .E .toast p b { display:block; font:800 16px var(--font-display); }
+.E .hint { margin-top:10px; font-size:13.5px; color:var(--muted); }
+.E .toast .r { display:flex; gap:8px; align-items:center; }
+.note { font-size:13.5px; color:var(--muted); border-left:3px solid var(--line); padding-left:10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="intro">
+  <h1>Lagre siden</h1>
+  <p>Fem forslag til en liten invitasjon om å ha siden med seg. Teksten og knappen <b>tilpasser seg enheten</b>, for en nettleser kan ikke lagre en side av seg selv: Android og Chrome på PC kan installere siden med ett trykk, iPhone må gjøres for hånd (Del, så Legg til på Hjem-skjerm), og andre PC-nettlesere bruker bokmerke.</p>
+  <p>Velg enhet først. Alle forslag bør vises <b>tidligst ved andre besøk</b>, kunne lukkes, og ikke komme tilbake etter at de er lukket (husker valget i nettleseren).</p>
+  <div class="seg" role="group" aria-label="Enhet" id="dev"></div>
+</header>
+<div class="list" id="list"></div>
+</div>
+<script>
+const DEV = {
+  android: {label:"Android (Chrome)", m:true,  btn:"Legg på hjemskjermen", hint:"Åpnes som en app, uten adressefelt.", how:null},
+  iphone:  {label:"iPhone (Safari)",  m:true,  btn:"Vis meg hvordan", hint:"Trykk Del, så Legg til på Hjem-skjerm.", how:true},
+  pcc:     {label:"PC (Chrome / Edge)", m:false, btn:"Installer som app", hint:"Eller trykk Ctrl+D for å lage bokmerke.", how:null},
+  pco:     {label:"PC (Safari / Firefox)", m:false, btn:"Kopier adressen", hint:"Trykk Ctrl+D (Cmd+D på Mac) for å lage bokmerke.", how:null}
+};
+let dev = "android";
+const SH = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 002 2h10a2 2 0 002-2v-6"/></svg>';
+const PLUS = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
+const BM = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg>';
+const LOGO = '<span class="logo"><svg viewBox="0 0 48 48" fill="none"><path d="M8 40V24l16-14 16 14v16z" fill="#ff8a6b"/><path d="M20 40V30a4 4 0 018 0v10z" fill="#0a171b"/><path d="M4 44q5-4 10 0t10 0 10 0 10 0" stroke="#5ab7bf" stroke-width="2.5" stroke-linecap="round"/></svg></span>';
+const d = () => DEV[dev];
+const act = () => dev === "iphone" ? `<button class="btn" data-how>${SH} Vis meg hvordan</button>` : dev === "pco" ? `<button class="btn">Kopier adressen</button>` : `<button class="btn">${dev === "pcc" ? PLUS : PLUS} ${d().btn}</button>`;
+const steps = () => `<ol><li>Trykk på Del ${SH} nederst i Safari</li><li>Velg «Legg til på Hjem-skjerm»</li><li>Trykk «Legg til». Ferdig.</li></ol>`;
+const line = () => dev === "iphone" ? `Trykk på Del ${SH}, så «Legg til på Hjem-skjerm».` : dev === "android" ? "Åpnes som en app, uten adressefelt." : dev === "pcc" ? `Eller trykk <kbd>Ctrl</kbd> <kbd>D</kbd> for bokmerke.` : `Trykk <kbd>Ctrl</kbd> <kbd>D</kbd> (<kbd>Cmd</kbd> <kbd>D</kbd> på Mac) for bokmerke.`;
+const page = (before, after, extraTop) => `<div class="bar"><i></i><i></i><i></i><span>kaskjerda.no</span><b class="bm">${BM}</b></div><div class="page"><div class="top"><span>62,47° N · 6,15° Ø</span><span class="pill">${extraTop || ""}<span>EN</span><span>Mørkt | Lyst</span></span></div><h3 class="t">Skjer i <em>Ålesund</em></h3><p class="sub">Konserter, standup, show og happenings i byen, samlet på ett sted.</p>${before || ""}<div class="ctl"><div>Søk …</div><div>★ Mine</div></div><div class="ev" id="e1"><b>Ingebjørg Bratland</b><span>Parken kulturhus · kl. 19:00 · 630 kr</span><button class="st" aria-label="Lagre">☆</button></div><div class="ev"><b>Stein Torleif Bjella</b><span>Terminalen Byscene · kl. 20:00 · 450 kr</span><button class="st" aria-label="Lagre">☆</button></div>${after || ""}</div>`;
+const P = {
+ A: () => ({t:"A · Stripe over lista", s:"Stille, ligner kinostripen. Ligger i flyten og skyver ingenting ned når den lukkes.", f:"folk som kommer tilbake. Minst påtrengende, men lett å overse.",
+   h: page(`<div class="strip">${LOGO}<p><b>Ha siden med deg</b>${line()}</p><button class="x" aria-label="Lukk">×</button><div class="acts">${act()}</div><div class="more" id="more">${steps()}</div></div>`)}),
+ B: () => ({t:"B · Ark nedenfra", s:"Et lite kort som glir opp etter andre besøk. På PC står det nede i hjørnet.", f:"de som er klare for å velge. Tydeligst, men avbryter litt, så vis den bare én gang.",
+   h: page() + `<div class="B"><div class="back"></div><div class="sheet"><div class="grab"></div><div class="hd">${LOGO}<div><b>Ha Skjer i Ålesund lett tilgjengelig</b><span>kaskjerda.no</span></div></div><ul><li>Se hva som skjer, med ett trykk</li><li>Dine ★ Mine ligger klare</li></ul><div class="row">${act()}<button class="btn ghost">Ikke nå</button></div>${dev === "iphone" ? `<div class="steps">${steps()}</div>` : ""}</div></div>`}),
+ C: () => ({t:"C · Knapp øverst", s:"En liten «Lagre»-knapp ved siden av EN og Mørkt | Lyst. Alltid der, aldri påtrengende.", f:"alle, men ingen blir ropt til. Trykk på knappen for å se hva som skjer.",
+   h: `<div class="C" style="position:relative">${page("", "", `<span class="sv">${BM} Lagre</span>`)}<div class="pop"><b>Ha siden med deg</b><p>${line()}</p>${act()}${dev === "iphone" ? `<div class="steps note">${steps()}</div>` : ""}</div></div>`}),
+ D: () => ({t:"D · Etter lista", s:"En invitasjon under siste arrangement, der folk er ferdige med å bla.", f:"folk som faktisk har lest lista. Høy interesse, men mange skroller aldri så langt.",
+   h: page("", `<div class="fade"></div><div class="D"><div class="end"><h4>Likte du det du så?</h4><p>Ta siden med deg, så finner du den neste gang du lurer på hva du skal i kveld.</p><div class="tabs"><span class="${dev === "android" ? "on" : ""}">Android</span><span class="${dev === "iphone" ? "on" : ""}">iPhone</span><span class="${dev === "pcc" ? "on" : ""}">PC</span></div><p>${line()}</p>${act()}${dev === "iphone" ? `<div class="steps note">${steps()}</div>` : ""}</div></div>`)}),
+ E: () => ({t:"E · Etter første ★", s:"Dukker opp rett etter at noen lagrer et arrangement. Da har de en grunn til å komme tilbake.", f:"folk som har vist interesse. Mest treffsikkert, siden ★ betyr «jeg vil hit».",
+   h: page().replace('<button class="st" aria-label="Lagre">☆</button>', '<button class="st on" aria-label="Fjern">★</button>') + `<div class="E"><div class="toast"><p><b>Lagret i ★ Mine</b>Vil du ha siden på ${dev === "iphone" || dev === "android" ? "hjemskjermen" : "bokmerkene"}, så du finner det igjen?</p><div class="r">${act()}<button class="btn ghost">Nei takk</button></div>${dev === "iphone" ? `<div class="steps note">${steps()}</div>` : ""}</div></div>`})
+};
+function draw() {
+  const mob = d().m;
+  document.getElementById("dev").innerHTML = Object.entries(DEV).map(([k, v]) => `<button data-d="${k}" aria-pressed="${k === dev}">${v.label}</button>`).join("");
+  document.getElementById("list").innerHTML = Object.entries(P).map(([k, f]) => { const p = f(); return `<section class="con ${mob ? "m" : "pc"}"><h2>${p.t}<small>${p.s}</small></h2><div class="frame ${mob ? "" : "pc"} ${k}">${p.h}</div><div class="for"><b>Passer for:</b> ${p.f}</div></section>`; }).join("");
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-d]"); if (b) { dev = b.dataset.d; draw(); return; }
+  if (e.target.closest("[data-how]")) { const m = document.getElementById("more"); if (m) m.classList.toggle("open"); }
+  const x = e.target.closest(".A .x"); if (x) x.closest(".strip").style.display = "none";
+  const st = e.target.closest(".st"); if (st) { st.classList.toggle("on"); st.textContent = st.classList.contains("on") ? "★" : "☆"; }
+});
+draw();
+</script>
+</body>
+</html>
