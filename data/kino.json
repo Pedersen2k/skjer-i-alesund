@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-29T10:04:38Z",
+  "updatedAt": "2026-10-29T12:00:03Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -45,7 +45,7 @@
      "start": "2026-10-29T12:00:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/5783671a-adcf-4fc8-86a1-dfc2d4343b6b",
+     "url": "",
      "club": false
     }
    ]
@@ -379,7 +379,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/75cce7cd-2037-4898-8b14-36ace705bafe",
+     "url": "",
      "club": true
     }
    ]
@@ -1498,18 +1498,18 @@
    "shows": [
     {
      "start": "2026-10-29T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "https://www.odeonkino.no/booking/kjop/4ca3ef64-19eb-45c3-b0c9-e950a0260e2b",
+     "screen": "1 isense",
+     "tags": [],
+     "url": "",
      "club": false
     },
     {
      "start": "2026-10-29T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/aa2b04d7-8ac5-42c0-a938-56e878760074",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "",
      "club": false
     },
     {
@@ -2005,7 +2005,7 @@
      "start": "2026-10-29T12:00:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/a5596f02-2234-49ae-b34e-14fd1ce88dc9",
+     "url": "",
      "club": false
     },
     {
@@ -2339,7 +2339,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/2a909f73-ce3c-443a-9069-d2b26d772b4d",
+     "url": "",
      "club": false
     },
     {
@@ -2408,7 +2408,7 @@
   {
    "id": "BVI20220663",
    "title": "Whalefall",
-   "age": 12,
+   "age": 15,
    "minutes": 106,
    "genres": [
     "Thriller"
