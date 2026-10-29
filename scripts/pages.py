@@ -717,6 +717,7 @@ def main():
     css = re.search(r"<style>(.*?)</style>", index, re.S).group(1)
     (OUT / "stil.css").write_text(css + SUB_CSS)
     (OUT / "tema-kveld.css").write_text((ROOT / "tema-kveld.css").read_text())
+    (OUT / "tema-jul.css").write_text((ROOT / "tema-jul.css").read_text())
     icon = re.search(r'<link rel="icon" href="data:image/svg\+xml,([^"]+)"', index)
     if icon:
         from urllib.parse import unquote
