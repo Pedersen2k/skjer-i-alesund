@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nye mobilforslag</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Syv helt nye måter å bygge forsiden på mobil. Ekte arrangementer fra events.json (29. okt – 12. nov), klokka er satt til 29. okt 15:30. Ingen sideveis scrolling. */
+:root {
+  --bg:#0a171b; --surface:#13252d; --surface2:#1a323b; --fg:#e8f1ef; --muted:#93acaf; --line:#25414a;
+  --gold:#f7c873; --ink:#10282f; --accent:#ff8a6b; --sea:#5ab7bf; --few:#ffb547; --few-ink:#2a1a00; --sold:#ff6a5a; --sold-ink:#2a0500;
+  --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-show:#ab93e6; --c-barn:#6cc98a; --c-klubb:#ec78ab; --c-happening:#d9b84a; --c-quiz:#b497e0; --c-sport:#7aa7e6;
+  --font-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 16px/1.45 var(--font-body); padding-block:28px 80px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width:1500px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr); gap:34px; }
+h1 { font:800 clamp(28px,4vw,40px)/1.05 var(--font-display); margin:0 0 10px; }
+.intro p { margin:0 0 8px; max-width:78ch; color:var(--muted); }
+.intro b { color:var(--fg); }
+.toc { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.toc a { min-height:44px; padding:0 14px; border:1px solid var(--line); border-radius:99px; display:inline-flex; align-items:center; color:var(--fg); text-decoration:none; font-weight:600; font-size:15px; background:var(--surface); }
+.list { display:flex; flex-wrap:wrap; gap:34px 28px; align-items:flex-start; }
+.con { width:390px; max-width:100%; min-width:0; display:grid; gap:10px; }
+.con h2 { margin:0; font:800 23px/1.1 var(--font-display); }
+.con h2 small { display:block; margin-top:4px; font:500 14px/1.4 var(--font-body); color:var(--muted); }
+.con .for { font-size:14px; color:var(--muted); }
+.con .for b { color:var(--gold); font-weight:700; }
+.phone { border:1px solid var(--line); border-radius:24px; padding:14px 12px 18px; background:radial-gradient(130% 320px at 50% 0,#17434d 0%,rgba(10,23,27,0) 100%),#0a171b; min-width:0; overflow:hidden; }
+button, a { font-family:inherit; }
+button { color:inherit; }
+:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+.mono { font-family:var(--font-mono); }
+.e { --c:var(--sea); } .e.konsert{--c:var(--c-konsert)} .e.standup{--c:var(--c-standup)} .e.show{--c:var(--c-show)} .e.barn{--c:var(--c-barn)} .e.klubb{--c:var(--c-klubb)} .e.happening{--c:var(--c-happening)} .e.quiz{--c:var(--c-quiz)} .e.sport{--c:var(--c-sport)}
+.b { font:800 13px/1 var(--font-body); padding:7px 10px; border-radius:8px; font-style:normal; display:inline-block; }
+.b.few { background:var(--few); color:var(--few-ink); } .b.sold { background:var(--sold); color:var(--sold-ink); }
+.btn { min-height:56px; border-radius:14px; background:var(--gold); color:var(--ink); font:800 17px var(--font-body); display:flex; align-items:center; justify-content:center; text-decoration:none; border:0; padding:0 18px; cursor:pointer; }
+.btn.off { background:transparent; border:2px solid var(--line); color:var(--muted); }
+.btn.ghost { background:transparent; border:1px solid var(--line); color:var(--fg); font-weight:700; font-size:16px; }
+.sec { font:800 13px/1 var(--font-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:20px 0 8px; display:flex; justify-content:space-between; }
+.sec span:last-child { color:var(--muted); font-weight:500; }
+/* felles rad */
+.row { width:100%; display:grid; grid-template-columns:54px minmax(0,1fr) auto; gap:10px; align-items:center; text-align:left; background:var(--surface); border:1px solid var(--line); border-left:5px solid var(--c); border-radius:12px; padding:10px 12px; min-height:60px; cursor:pointer; }
+.row + .row { margin-top:8px; }
+.row .rt { font:700 15px var(--font-mono); } .row .rb { min-width:0; display:grid; } .row b { font:700 16px/1.25 var(--font-display); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; } .row i { font-style:normal; font-size:13.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; } .row .rp { font:700 14px var(--font-mono); text-align:right; }
+.row .rp.sold { color:var(--sold); }
+/* bunnark */
+#back { position:fixed; inset:0; background:#000a; opacity:0; pointer-events:none; transition:opacity .2s; z-index:40; }
+#sheet { position:fixed; left:0; right:0; bottom:0; z-index:41; max-width:560px; margin:0 auto; background:var(--surface2); border:1px solid #3a5b66; border-radius:22px 22px 0 0; padding:10px 18px calc(18px + env(safe-area-inset-bottom, 0px)); transform:translateY(105%); visibility:hidden; transition:transform .22s ease, visibility 0s .22s; max-height:82vh; overflow:auto; }
+body.sh #back { opacity:1; pointer-events:auto; } body.sh #sheet { transform:none; visibility:visible; transition:transform .22s ease; }
+#sheet .grab { width:44px; height:5px; border-radius:3px; background:#4b6a74; margin:0 auto 14px; }
+#sheet .tg { font:800 13px/1 var(--font-body); letter-spacing:.06em; text-transform:uppercase; color:var(--c); }
+#sheet h3 { margin:6px 0 8px; font:800 26px/1.15 var(--font-display); }
+#sheet dl { margin:0 0 12px; display:grid; grid-template-columns:70px 1fr; gap:6px 10px; font-size:16px; } #sheet dt { color:var(--muted); font:700 12px var(--font-mono); text-transform:uppercase; padding-top:4px; } #sheet dd { margin:0; }
+#sheet .act { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; } #sheet .act .btn:first-child { grid-column:1/-1; }
+/* K1 */
+.k1 .hello { font:600 14px var(--font-mono); color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+.k1 h3.q { font:800 36px/1.02 var(--font-display); margin:6px 0 16px; }
+.k1 .hero { background:linear-gradient(150deg,color-mix(in srgb,var(--c) 42%,#13252d),#13252d 70%); border:1px solid var(--line); border-radius:20px; padding:18px; display:grid; gap:8px; }
+.k1 .hero .cd { font:800 14px var(--font-mono); color:var(--gold); text-transform:uppercase; letter-spacing:.06em; }
+.k1 .hero h4 { margin:0; font:800 30px/1.08 var(--font-display); }
+.k1 .hero .w { color:var(--muted); font-size:16px; } .k1 .hero .pr { font:800 20px var(--font-mono); display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.k1 .more { display:flex; justify-content:center; min-height:48px; align-items:center; color:var(--gold); font-weight:700; text-decoration:none; }
+/* K2 */
+.k2 .dh { font:800 26px/1 var(--font-display); margin:18px 0 12px; display:flex; align-items:baseline; gap:10px; } .k2 .dh small { font:700 13px var(--font-mono); color:var(--accent); text-transform:uppercase; letter-spacing:.06em; }
+.k2 .rail { position:relative; padding-left:70px; display:grid; gap:12px; }
+.k2 .rail::before { content:""; position:absolute; left:58px; top:6px; bottom:6px; width:2px; background:var(--line); }
+.k2 .it { position:relative; }
+.k2 .it .tm { position:absolute; left:-70px; top:12px; width:46px; text-align:right; font:700 14px var(--font-mono); }
+.k2 .it::before { content:""; position:absolute; left:-17px; top:15px; width:12px; height:12px; border-radius:50%; background:var(--c); box-shadow:0 0 0 4px var(--bg); }
+.k2 .card { width:100%; text-align:left; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; cursor:pointer; display:grid; gap:4px; }
+.k2 .card .t { font:800 18px/1.2 var(--font-display); } .k2 .card .v { color:var(--muted); font-size:14.5px; display:flex; gap:6px 10px; flex-wrap:wrap; align-items:center; } .k2 .card .p { font:700 14px var(--font-mono); color:var(--fg); }
+.k2 .ex { display:none; gap:8px; margin-top:8px; grid-template-columns:1fr 52px; } .k2 .it.open .ex { display:grid; } .k2 .ex .btn { min-height:48px; font-size:16px; }
+.k2 .now { position:relative; margin:0; height:24px; } .k2 .now::before { content:""; position:absolute; left:-12px; right:0; top:11px; height:2px; background:var(--accent); } .k2 .now span { position:absolute; left:-70px; top:3px; background:var(--accent); color:#1a0b07; font:800 12px var(--font-mono); border-radius:6px; padding:3px 6px; }
+/* K3 */
+.k3 .g { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.k3 .tile { position:relative; text-align:left; min-height:236px; border-radius:18px; padding:14px; border:1px solid #ffffff22; background:linear-gradient(165deg,color-mix(in srgb,var(--c) 58%,#0a171b),color-mix(in srgb,var(--c) 16%,#0a171b)); display:grid; grid-template-rows:auto 1fr auto; cursor:pointer; color:#fff; overflow:hidden; }
+.k3 .tile .dt { font:800 13px var(--font-mono); letter-spacing:.06em; text-transform:uppercase; display:flex; justify-content:space-between; gap:6px; color:#ffffffcc; }
+.k3 .tile h4 { margin:10px 0; font:800 21px/1.08 var(--font-display); align-self:center; overflow-wrap:break-word; hyphens:auto; display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; }
+.k3 .tile .ft { display:grid; gap:6px; font-size:13.5px; color:#ffffffcc; } .k3 .tile .pill { justify-self:start; font:800 15px var(--font-mono); background:#0a171bd9; color:#fff; padding:6px 10px; border-radius:99px; }
+.k3 .tile .bd { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.k3 .vis { margin-top:12px; }
+/* K4 */
+.k4 .top { display:flex; justify-content:space-between; align-items:center; font:700 14px var(--font-mono); color:var(--muted); margin-bottom:10px; } .k4 .top b { color:var(--gold); }
+.k4 .stage { position:relative; height:430px; } .k4 .under { position:absolute; inset:14px 10px 0; border-radius:24px; background:var(--surface); border:1px solid var(--line); }
+.k4 .cardx { position:absolute; inset:0 0 14px; border-radius:24px; border:1px solid #ffffff2a; background:linear-gradient(170deg,color-mix(in srgb,var(--c) 52%,#0a171b),#10242b 75%); padding:20px; display:grid; grid-template-rows:auto 1fr auto; touch-action:pan-y; user-select:none; cursor:grab; }
+.k4 .cardx .d { display:flex; align-items:baseline; gap:10px; } .k4 .cardx .d b { font:800 64px/1 var(--font-display); } .k4 .cardx .d span { font:800 16px var(--font-mono); text-transform:uppercase; color:#ffffffcc; line-height:1.2; }
+.k4 .cardx h4 { margin:0; align-self:center; font:800 31px/1.08 var(--font-display); overflow-wrap:anywhere; }
+.k4 .cardx .inf { display:grid; gap:8px; font-size:17px; } .k4 .cardx .inf .pr { font:800 22px var(--font-mono); }
+.k4 .stamp { position:absolute; top:22px; padding:6px 12px; border:3px solid; border-radius:10px; font:800 20px var(--font-display); letter-spacing:.08em; opacity:0; transform:rotate(-8deg); } .k4 .stamp.l { left:20px; color:var(--c-barn); border-color:var(--c-barn); } .k4 .stamp.r { right:20px; color:var(--sold); border-color:var(--sold); transform:rotate(8deg); }
+.k4 .acts { display:grid; grid-template-columns:64px 1fr 64px; gap:10px; margin-top:14px; align-items:center; } .k4 .rnd { width:64px; height:64px; border-radius:50%; border:2px solid var(--line); background:var(--surface); font:800 26px var(--font-body); cursor:pointer; }
+.k4 .rnd.save { color:var(--gold); border-color:var(--gold); } .k4 .hint { text-align:center; font-size:13.5px; color:var(--muted); margin-top:10px; }
+.k4 .done { padding:24px 6px; text-align:center; } .k4 .done h4 { font:800 26px var(--font-display); margin:0 0 8px; }
+/* K5 */
+.k5 h3.q { font:800 30px/1.08 var(--font-display); margin:2px 0 14px; }
+.k5 .tiles { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.k5 .ti { min-height:84px; border-radius:16px; border:2px solid var(--line); background:var(--surface); padding:12px 14px; text-align:left; font:800 18px/1.15 var(--font-display); cursor:pointer; display:grid; align-content:space-between; gap:6px; }
+.k5 .ti small { font:600 13px var(--font-body); color:var(--muted); }
+.k5 .ti[aria-pressed="true"] { background:var(--gold); border-color:var(--gold); color:var(--ink); } .k5 .ti[aria-pressed="true"] small { color:#3b3115; }
+.k5 .res { margin-top:6px; } .k5 .row { grid-template-columns:66px minmax(0,1fr) auto; } .k5 .row .rt { font-size:13.5px; white-space:nowrap; }
+.k5 .none { padding:18px 4px; color:var(--muted); }
+/* K6 */
+.k6 .strip { position:sticky; top:0; z-index:5; display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:4px; background:var(--bg); padding:6px 0 10px; backdrop-filter:blur(8px); }
+.k6 .dy { min-height:78px; border-radius:14px; border:1px solid var(--line); background:var(--surface); display:grid; place-items:center; align-content:center; gap:2px; padding:6px 0; cursor:pointer; } .k6 .dy .w { font:700 12px var(--font-mono); text-transform:uppercase; color:var(--muted); } .k6 .dy .n { font:800 21px/1 var(--font-display); } .k6 .dy .dots { display:flex; gap:3px; height:6px; } .k6 .dy .dots i { width:6px; height:6px; border-radius:50%; background:var(--c); }
+.k6 .dy[aria-pressed="true"] { background:var(--gold); border-color:var(--gold); color:var(--ink); } .k6 .dy[aria-pressed="true"] .w { color:#4a3a14; }
+.k6 h3.dd { font:800 24px/1.1 var(--font-display); margin:12px 0 10px; } .k6 h3.dd small { display:block; font:500 14px var(--font-body); color:var(--muted); margin-top:3px; }
+/* K7 */
+.k7 .chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+.k7 .ch { min-height:44px; padding:0 14px; border-radius:99px; border:1px solid var(--line); background:var(--surface); font:700 15px var(--font-body); cursor:pointer; display:inline-flex; gap:8px; align-items:center; }
+.k7 .ch i { width:10px; height:10px; border-radius:50%; background:var(--c); } .k7 .ch[aria-pressed="true"] { background:var(--gold); color:var(--ink); border-color:var(--gold); }
+.k7 .dh { font:800 13px var(--font-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--accent); padding:14px 2px 6px; }
+.k7 .cr { width:100%; display:grid; grid-template-columns:48px minmax(0,1fr) auto; gap:8px; align-items:center; min-height:46px; padding:0 4px; border:0; border-bottom:1px solid var(--line); background:transparent; text-align:left; cursor:pointer; }
+.k7 .cr .t { font:700 14px var(--font-mono); color:var(--muted); } .k7 .cr b { font:700 16px var(--font-display); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:block; min-width:0; } .k7 .cr b::before { content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--c); margin-right:8px; vertical-align:1px; } .k7 .cr .p { font:700 13.5px var(--font-mono); } .k7 .cr .p.sold { color:var(--sold); } .k7 .cr .p.few { color:var(--few); }
+.k7 .cnt { font:500 13px var(--font-mono); color:var(--muted); text-align:right; margin-bottom:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="intro">
+  <h1>Nye mobilforslag</h1>
+  <p>Syv helt andre måter å bygge forsiden på, ikke varianter av dagens liste. Alle bruker <b>ekte arrangementer</b> og er laget for tommelen: store trykkflater, ingen sideveis scrolling. Klokka er satt til <b class="mono">torsdag 29. okt, 15:30</b>, så det som er over regnes ikke med.</p>
+  <p>Trykk og dra i dem. Under hvert forslag står hvem det passer for.</p>
+  <nav class="toc" aria-label="Forslag"><a href="#k1">1 Kveldsvakt</a><a href="#k2">2 Tidslinje</a><a href="#k3">3 Plakatvegg</a><a href="#k4">4 Sveip</a><a href="#k5">5 Lyst på</a><a href="#k6">6 Ukestripe</a><a href="#k7">7 Kompakt</a></nav>
+</header>
+<div class="list">
+  <section class="con" id="k1"><h2>1 · Kveldsvakt<small>Svaret på «hva skjer i kveld?» først</small></h2><div class="phone k1" id="p1"></div><div class="for"><b>Passer for:</b> folk som åpner siden samme dag og vil ha ett svar på to sekunder. Resten av programmet ligger under.</div></section>
+  <section class="con" id="k2"><h2>2 · Tidslinje<small>En kveld som en tråd av klokkeslett</small></h2><div class="phone k2" id="p2"></div><div class="for"><b>Passer for:</b> de som planlegger en kveld eller helg og vil se hva som overlapper. Trykk på et kort for å åpne det.</div></section>
+  <section class="con" id="k3"><h2>3 · Plakatvegg<small>Hvert arrangement som en liten plakat</small></h2><div class="phone k3" id="p3"></div><div class="for"><b>Passer for:</b> de som blar for å bli inspirert. Mest visuelt, færrest arrangementer per skjerm.</div></section>
+  <section class="con" id="k4"><h2>4 · Sveip<small>Ett arrangement om gangen, som en kortstokk</small></h2><div class="phone k4" id="p4"></div><div class="for"><b>Passer for:</b> de som ikke vet hva de vil. Dra kortet til høyre for å lagre, til venstre for å hoppe over.</div></section>
+  <section class="con" id="k5"><h2>5 · Hva har du lyst på?<small>Svar med fingeren i stedet for filtre</small></h2><div class="phone k5" id="p5"></div><div class="for"><b>Passer for:</b> nye besøkende og tilreisende som ikke vet hva som finnes. Erstatter nedtrekkslistene.</div></section>
+  <section class="con" id="k6"><h2>6 · Ukestripe<small>En uke på én linje, én dag om gangen</small></h2><div class="phone k6" id="p6"></div><div class="for"><b>Passer for:</b> de som har en bestemt dag i hodet. Prikkene viser hvor mye som skjer.</div></section>
+  <section class="con" id="k7"><h2>7 · Kompakt + bunnark<small>Mest mulig på skjermen, detaljer ved trykk</small></h2><div class="phone k7" id="p7"></div><div class="for"><b>Passer for:</b> de som skanner raskt og vet hva de leter etter. Opptil 12 arrangementer på én skjerm.</div></section>
+</div>
+</div>
+<div id="back"></div>
+<aside id="sheet" aria-live="polite"></aside>
+<script>
+const DATA = [{"id": "skifilm-festival-tgr-friends-lovenvold-theater", "title": "Skifilmfestival – TGR & Friends", "date": "2026-10-29", "time": "17:30", "cat": "happening", "venue": "Løvenvold Theater", "price": "280 kr", "priceMin": 280, "few": false, "soldOut": false, "url": "https://tikkio.com/events/66491-skifilm-festival-tgr-friends-lovenvold-theater"}, {"id": "parken-47138-parken-kulturhus", "title": "Ingebjørg Bratland", "date": "2026-10-29", "time": "19:00", "cat": "konsert", "venue": "Parken kulturhus", "price": "630 kr", "priceMin": 630, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/47138-ingebjorg-bratland/"}, {"id": "oconnors-2026-10-29-pubquiz-hos-o-8217-connor-8217-o-connor-", "title": "Pubquiz", "date": "2026-10-29", "time": "19:00", "cat": "quiz", "venue": "O'Connor's", "price": "50 kr", "priceMin": 50, "few": false, "soldOut": false, "url": "https://oconnors.no/alesund/event/pubquiz-hos-oconnors-alesund-7julsmwakb/"}, {"id": "stein-torleif-bjella-terminalen-byscene", "title": "Stein Torleif Bjella", "date": "2026-10-29", "time": "20:00", "cat": "konsert", "venue": "Terminalen Byscene", "price": "450 kr", "priceMin": 450, "few": false, "soldOut": false, "url": "https://tikkio.com/events/63517-stein-torleif-bjella-terminalen"}, {"id": "claudia-scott-og-torstein-flakne-lovenvold-theater", "title": "Claudia Scott og Torstein Flakne", "date": "2026-10-30", "time": "18:00", "cat": "konsert", "venue": "Løvenvold Theater", "price": "499 kr", "priceMin": 499, "few": false, "soldOut": false, "url": "https://tikkio.com/events/61783-torstein-flakne-og-claudia-scott"}, {"id": "parken-47586-parken-kulturhus", "title": "Treretters: En lattergalla", "date": "2026-10-30", "time": "19:00", "cat": "standup", "venue": "Parken kulturhus", "price": "530–625 kr", "priceMin": 530, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/47586-treretters-en-lattergalla/"}, {"id": "golf-terminalen-byscene", "title": "GOLF", "date": "2026-10-30", "time": "20:00", "cat": "konsert", "venue": "Terminalen Byscene", "price": "420 kr", "priceMin": 420, "few": false, "soldOut": false, "url": "https://tikkio.com/events/65455-golf-terminalen-byscene"}, {"id": "oconnors-2026-10-30-skumle-oktoberquiz-med-martin-o-connor-s", "title": "Skumle Oktoberquiz med Martin 👻🎃", "date": "2026-10-30", "time": "20:00", "cat": "quiz", "venue": "O'Connor's", "price": "50 kr", "priceMin": 50, "few": false, "soldOut": false, "url": "https://oconnors.no/alesund/event/skumle-oktoberquiz-med-martin-%f0%9f%91%bb%f0%9f%8e%83-neay7ozxiw/"}, {"id": "van-halen-tribute-avskjedskonsert-fabrikken-kulturscene", "title": "Van Halen-tribute – avskjedskonsert", "date": "2026-10-30", "time": "20:30", "cat": "konsert", "venue": "Fabrikken Kulturscene", "price": "", "priceMin": null, "few": false, "soldOut": false, "url": "https://billetto.no/e/van-halen-tribute-fabrikken-30-oktober-billetter-1994049"}, {"id": "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug", "title": "Familiedag: Halloween på Jugendstilsenteret", "date": "2026-10-31", "time": "12:00", "cat": "barn", "venue": "Jugendstilsenteret og KUBE", "price": "120 kr", "priceMin": 120, "few": false, "soldOut": false, "url": "https://www.vitimusea.no/arrangement/familiedag-halloween-paa-jugendstilsenteret-og-kube"}, {"id": "parken-48033-parken-kulturhus", "title": "Jazzkafe: Vegard Holum sings– ein hyllest til Chet", "date": "2026-10-31", "time": "14:00", "cat": "konsert", "venue": "Parken kulturhus", "price": "150–250 kr", "priceMin": 150, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/48033-jazzkafe-vegard-holum-sings-ein-hyllest-til-chet/"}, {"id": "viggo-vennelos-lovenvold-theater", "title": "Viggo Venneløs", "date": "2026-10-31", "time": "19:00", "cat": "standup", "venue": "Løvenvold Theater", "price": "350 kr", "priceMin": 350, "few": false, "soldOut": false, "url": "https://tikkio.com/events/60252-viggo-vennelos-lovenvold-theater"}, {"id": "parken-45111-parken-kulturhus", "title": "Kristian Valen", "date": "2026-10-31", "time": "19:00", "cat": "konsert", "venue": "Parken kulturhus", "price": "625 kr", "priceMin": 625, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/45111-kristian-valen/"}, {"id": "autumn-nights-nordvest-big-band-med-solister-fabrikken-kultu", "title": "Autumn Nights – Nordvest Big Band med solister", "date": "2026-10-31", "time": "20:30", "cat": "konsert", "venue": "Fabrikken Kulturscene", "price": "", "priceMin": null, "few": false, "soldOut": false, "url": "https://billetto.no/e/autumn-nights-nordvest-big-band-m-solister-31-oktober-billetter-2027014"}, {"id": "circus-damp-dampsentralen", "title": "CIRCUS DAMP", "date": "2026-10-31", "time": "22:00", "cat": "klubb", "venue": "Dampsentralen", "price": "200 kr", "priceMin": 200, "few": false, "soldOut": false, "url": "https://tikkio.com/events/66178"}, {"id": "halloween-klubb-med-mentum-terminalen-byscene", "title": "Halloween-klubb med MENTUM", "date": "2026-10-31", "time": "23:00", "cat": "klubb", "venue": "Terminalen Byscene", "price": "200 kr", "priceMin": 200, "few": false, "soldOut": true, "url": "https://tikkio.com/events/66489-halloween-klubb-med-mentum-terminalen"}, {"id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus", "title": "Pelsdyr i ord og folkesong", "date": "2026-11-01", "time": "13:00", "cat": "happening", "venue": "Sunnmøre museum", "price": "120 kr", "priceMin": 120, "few": false, "soldOut": false, "url": "https://www.vitimusea.no/arrangement/pelsdyr-i-ord-og-folkesong-sunnmore-museum"}, {"id": "parken-50918-parken-kulturhus", "title": "Påfyll", "date": "2026-11-02", "time": "19:00", "cat": "show", "venue": "Parken kulturhus", "price": "100 kr", "priceMin": 100, "few": false, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/50918-pafyll/"}, {"id": "parken-47759-parken-kulturhus", "title": "Tuva & Ronny følger drømmen", "date": "2026-11-03", "time": "19:00", "cat": "show", "venue": "Parken kulturhus", "price": "480 kr", "priceMin": 480, "few": false, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/47759-tuva-ronny-folger-drommen/"}, {"id": "parken-50888-parken-kulturhus", "title": "Marianne Heske – fra Tafjord til verdens kunstscene", "date": "2026-11-04", "time": "19:00", "cat": "happening", "venue": "Parken kulturhus", "price": "130–230 kr", "priceMin": 130, "few": false, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/50888-marianne-heske-fra-tafjord-til-verdens-kunstscene/"}, {"id": "parken-46413-parken-kulturhus", "title": "Storefri", "date": "2026-11-05", "time": "18:00", "cat": "show", "venue": "Parken kulturhus", "price": "580 kr", "priceMin": 580, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/46413-storefri/"}, {"id": "schuberts-testamente-sobra-scene", "title": "Schuberts Testamente", "date": "2026-11-05", "time": "18:30", "cat": "konsert", "venue": "Sobra Scene", "price": "250 kr", "priceMin": 250, "few": false, "soldOut": false, "url": "https://tikkio.com/events/65878-schuberts-testamente"}, {"id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater", "title": "Juleshow på Løvenvold Vol. 4", "date": "2026-11-05", "time": "18:30", "cat": "standup", "venue": "Løvenvold Theater", "price": "699 kr", "priceMin": 699, "few": false, "soldOut": false, "url": "https://tikkio.com/events/62677-juleshow-pa-lovenvold-vol-4-511"}, {"id": "parken-46661-parken-kulturhus", "title": "The best of Ghibli Studio", "date": "2026-11-06", "time": "17:30", "cat": "konsert", "venue": "Parken kulturhus", "price": "400–450 kr", "priceMin": 400, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/46661-the-best-of-ghibli-studio/"}, {"id": "parken-47866-parken-kulturhus", "title": "The music of Hans Zimmer vs John Williams", "date": "2026-11-06", "time": "19:30", "cat": "konsert", "venue": "Parken kulturhus", "price": "400–450 kr", "priceMin": 400, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/47866-the-music-of-hans-zimmer-vs-john-williams/"}, {"id": "maria-mena-terminalen-byscene", "title": "Maria Mena", "date": "2026-11-06", "time": "20:00", "cat": "konsert", "venue": "Terminalen Byscene", "price": "699 kr", "priceMin": 699, "few": true, "soldOut": false, "url": "https://tikkio.com/events/60302-maria-mena-terminalen"}, {"id": "heibergs-mandskor-vid-min-flaska-vil-jag-somna-vid-min-flick", "title": "Heibergs Mandskor – «Vid min flaska vil jag somna, vid min flicka vakna opp»", "date": "2026-11-06", "time": "20:30", "cat": "konsert", "venue": "Fabrikken Kulturscene", "price": "", "priceMin": null, "few": false, "soldOut": false, "url": "https://billetto.no/e/heibergs-mandskor-vid-min-flaska-vil-jag-sovna-vid-min-kvinne-vakna-opp-billetter-2024642"}, {"id": "parken-47822-parken-kulturhus", "title": "Hanna Paulsberg: Belonging", "date": "2026-11-06", "time": "21:00", "cat": "konsert", "venue": "Parken kulturhus", "price": "350 kr", "priceMin": 350, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/47822-hanna-paulsberg-belonging/"}, {"id": "aafk-2026-11-07-aafk-kvinner-valerenga-fotball", "title": "AaFK Kvinner – Vålerenga Fotball", "date": "2026-11-07", "time": "13:00", "cat": "sport", "venue": "Color Line Stadion", "price": "", "priceMin": null, "few": false, "soldOut": false, "url": "https://aafk.ticketco.events/no/nb"}, {"id": "parken-45583-parken-kulturhus", "title": "Dyrene i Hakkebakkeskogen", "date": "2026-11-07", "time": "13:00", "cat": "barn", "venue": "Parken kulturhus", "price": "465 kr", "priceMin": 465, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/45583-dyrene-i-hakkebakkeskogen/"}, {"id": "oconnors-2026-11-07-musikkbingo-med-martin-o-8217-o-connor-s", "title": "Musikkbingo med Martin", "date": "2026-11-07", "time": "18:00", "cat": "quiz", "venue": "O'Connor's", "price": "50 kr", "priceMin": 50, "few": false, "soldOut": false, "url": "https://oconnors.no/alesund/event/musikkbingo-med-martin-oconnors-alesund-lk0xb91hyc/"}, {"id": "karsten-blomvik-lykkelig-deprimert-fabrikken-kulturscene", "title": "Karsten Blomvik – «Lykkelig deprimert»", "date": "2026-11-07", "time": "19:00", "cat": "standup", "venue": "Fabrikken Kulturscene", "price": "", "priceMin": null, "few": false, "soldOut": false, "url": "https://billetto.no/e/karsten-blomvik-lykkelig-deprimert-lordag-7-november-billetter-1941304"}, {"id": "klubb-damp-dampsentralen", "title": "KLUBB DAMP", "date": "2026-11-07", "time": "23:00", "cat": "klubb", "venue": "Dampsentralen", "price": "", "priceMin": null, "few": false, "soldOut": false, "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk"}, {"id": "parken-49587-parken-kulturhus", "title": "Sans – Piero Issa og Ole Petter Knarvik", "date": "2026-11-08", "time": "15:00", "cat": "barn", "venue": "Parken kulturhus", "price": "Gratis", "priceMin": 0, "few": false, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/49587-sans/"}, {"id": "susanne-sundfor-terminalen-byscene", "title": "Susanne Sundfør", "date": "2026-11-08", "time": "19:00", "cat": "konsert", "venue": "Terminalen Byscene", "price": "700 kr", "priceMin": 700, "few": true, "soldOut": false, "url": "https://tikkio.com/events/64656-susanne-sundfor-terminalen-byscene"}, {"id": "parken-45760-parken-kulturhus", "title": "Bak lukkede dører", "date": "2026-11-10", "time": "19:00", "cat": "show", "venue": "Parken kulturhus", "price": "417–460 kr", "priceMin": 417, "few": false, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/45760-bak-lukkede-dorer/"}, {"id": "viti-paa-dagtid-innblikk-i-vitis-tekstilsamlinger-jugendstil", "title": "På dagtid: Innblikk i Vitis tekstilsamlinger", "date": "2026-11-11", "time": "12:00", "cat": "happening", "venue": "Jugendstilsenteret og KUBE", "price": "60 kr", "priceMin": 60, "few": false, "soldOut": false, "url": "https://www.vitimusea.no/arrangement/paa-dagtid-innblikk-i-vitis-tekstilsamlinger"}, {"id": "filmvisning-how-to-live-on-earth-pir-cowork", "title": "Filmvisning: How to live on earth", "date": "2026-11-11", "time": "17:30", "cat": "show", "venue": "Pir Cowork", "price": "100 kr", "priceMin": 100, "few": false, "soldOut": false, "url": "https://tikkio.com/events/67117-filmvisning-how-to-live-on-earth"}, {"id": "parken-41531-parken-kulturhus", "title": "Yoga Piano", "date": "2026-11-11", "time": "18:00", "cat": "konsert", "venue": "Parken kulturhus", "price": "115–230 kr", "priceMin": 115, "few": false, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/41531-yoga-piano/"}, {"id": "juleverksted-alesund-cupcakekrans-thon-hotel-baronen", "title": "Juleverksted – cupcakekrans", "date": "2026-11-12", "time": "17:45", "cat": "happening", "venue": "Thon Hotel Baronen", "price": "749 kr", "priceMin": 749, "few": false, "soldOut": false, "url": "https://tikkio.com/events/66657-juleverksted-cupcakekrans"}, {"id": "bjorn-bjarte-lovenvold-theater", "title": "Bjørn & Bjarte", "date": "2026-11-12", "time": "18:00", "cat": "show", "venue": "Løvenvold Theater", "price": "699 kr", "priceMin": 699, "few": true, "soldOut": false, "url": "https://tikkio.com/events/62711-bjorn-bjarte-lovenvold-theater"}, {"id": "parken-47679-parken-kulturhus", "title": "Anders Jektvik", "date": "2026-11-12", "time": "19:00", "cat": "konsert", "venue": "Parken kulturhus", "price": "450 kr", "priceMin": 450, "few": true, "soldOut": false, "url": "https://www.parkenkulturhus.no/program/47679-anders-jektvik/"}, {"id": "oconnors-2026-11-12-pubquiz-hos-o-8217-connor-8217-o-connor-", "title": "Pubquiz", "date": "2026-11-12", "time": "19:00", "cat": "quiz", "venue": "O'Connor's", "price": "50 kr", "priceMin": 50, "few": false, "soldOut": false, "url": "https://oconnors.no/alesund/event/pubquiz-hos-oconnors-alesund-g8ey3ii23t/"}];
+const NOW = new Date("2026-10-29T15:30:00");
+const WD = ["søn","man","tir","ons","tor","fre","lør"], WDL = ["Søndag","Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag"], MO = ["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"];
+const CAT = {konsert:"Konsert",standup:"Standup",show:"Show",barn:"Barn og familie",klubb:"Klubb",happening:"Happening",quiz:"Quiz",sport:"Sport"};
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const E = DATA.map(e => ({...e, d:new Date(e.date + "T" + (e.time || "12:00") + ":00")})).filter(e => e.d >= NOW).sort((a, b) => a.d - b.d);
+const byId = id => E.find(e => e.id === id);
+const key = d => d.toISOString().slice(0, 10).replace(/./g, c => c); // brukes ikke til tidssone
+const dkey = e => e.date;
+const todayK = "2026-10-29";
+const dayLabel = k => { const d = new Date(k + "T12:00:00"), diff = Math.round((d - new Date(todayK + "T12:00:00")) / 864e5); return diff === 0 ? "I dag" : diff === 1 ? "I morgen" : `${WDL[d.getDay()]} ${d.getDate()}. ${MO[d.getMonth()]}`; };
+const priceTxt = e => e.soldOut ? "Utsolgt" : e.priceMin === 0 ? "Gratis" : (e.price || "–");
+const badge = e => e.soldOut ? '<em class="b sold">Utsolgt</em>' : e.few ? '<em class="b few">Få billetter igjen</em>' : "";
+const groups = list => { const m = new Map(); list.forEach(e => { if (!m.has(e.date)) m.set(e.date, []); m.get(e.date).push(e); }); return [...m]; };
+const row = e => `<button class="row e ${e.cat}" data-open="${esc(e.id)}"><span class="rt">${esc(e.time || "–")}</span><span class="rb"><b>${esc(e.title)}</b><i>${esc(e.venue)}${e.few && !e.soldOut ? " · få igjen" : ""}</i></span><span class="rp ${e.soldOut ? "sold" : ""}">${esc(priceTxt(e))}</span></button>`;
+const saved = new Set();
+
+/* ----- bunnark ----- */
+const sheet = document.getElementById("sheet");
+function openSheet(id) {
+  const e = byId(id); if (!e) return;
+  const d = new Date(e.date + "T12:00:00");
+  sheet.className = "e " + e.cat;
+  sheet.innerHTML = `<div class="grab"></div><div class="tg">${CAT[e.cat] || ""}</div><h3>${esc(e.title)}</h3><dl><dt>Når</dt><dd>${WDL[d.getDay()]} ${d.getDate()}. ${MO[d.getMonth()]}${e.time ? " kl. " + esc(e.time) : ""}</dd><dt>Hvor</dt><dd>${esc(e.venue)}</dd><dt>Pris</dt><dd>${esc(priceTxt(e))} ${badge(e)}</dd></dl><div class="act">${e.soldOut ? `<a class="btn off" href="${esc(e.url)}" target="_blank" rel="noopener">Se program hos arrangør</a>` : `<a class="btn" href="${esc(e.url)}" target="_blank" rel="noopener">Billetter →</a>`}<button class="btn ghost" data-fav="${esc(e.id)}">${saved.has(e.id) ? "★ Lagret" : "☆ Lagre"}</button><button class="btn ghost" data-close>Lukk</button></div>`;
+  document.body.classList.add("sh");
+}
+const closeSheet = () => document.body.classList.remove("sh");
+document.getElementById("back").onclick = closeSheet;
+document.addEventListener("keydown", ev => { if (ev.key === "Escape") closeSheet(); });
+sheet.addEventListener("click", ev => {
+  if (ev.target.closest("[data-close]")) closeSheet();
+  const f = ev.target.closest("[data-fav]"); if (f) { const id = f.dataset.fav; saved.has(id) ? saved.delete(id) : saved.add(id); f.textContent = saved.has(id) ? "★ Lagret" : "☆ Lagre"; }
+});
+document.addEventListener("click", ev => { const o = ev.target.closest("[data-open]"); if (o) openSheet(o.dataset.open); });
+
+/* ----- 1 Kveldsvakt ----- */
+(function () {
+  const today = E.filter(e => e.date === todayK && !e.soldOut), first = today[0], rest = today.slice(1);
+  const tom = E.filter(e => e.date === "2026-10-30").slice(0, 3);
+  const mins = first ? Math.round((first.d - NOW) / 6e4) : 0, cd = mins >= 60 ? `Om ${Math.floor(mins / 60)} t ${mins % 60 ? (mins % 60) + " min" : ""}` : `Om ${mins} min`;
+  document.getElementById("p1").innerHTML = `<div class="hello">Torsdag 29. oktober</div><h3 class="q">Hva skjer i kveld?</h3>` +
+    (first ? `<div class="hero e ${first.cat}" style="--c:var(--c-${first.cat})"><div class="cd">Neste: ${cd.trim()}</div><h4>${esc(first.title)}</h4><div class="w">kl. ${esc(first.time)} · ${esc(first.venue)}</div><div class="pr">${esc(priceTxt(first))} ${badge(first)}</div><a class="btn" href="${esc(first.url)}" target="_blank" rel="noopener">Billetter →</a><button class="btn ghost" data-open="${esc(first.id)}">Mer om kvelden</button></div>` : "") +
+    `<div class="sec"><span>Senere i kveld</span><span>${rest.length}</span></div>${rest.map(row).join("")}<div class="sec"><span>I morgen</span><span>${E.filter(e => e.date === "2026-10-30").length}</span></div>${tom.map(row).join("")}<a class="more" href="#k6">Se hele uka →</a>`;
+})();
+
+/* ----- 2 Tidslinje ----- */
+(function () {
+  const days = groups(E).slice(0, 3);
+  let h = "";
+  days.forEach(([k, list], di) => {
+    const d = new Date(k + "T12:00:00");
+    h += `<div class="dh">${dayLabel(k)}<small>${d.getDate()}. ${MO[d.getMonth()]}</small></div><div class="rail">`;
+    let nowDone = di !== 0;
+    list.forEach(e => {
+      if (!nowDone && e.d >= NOW) { h += `<div class="now"><span>NÅ 15:30</span></div>`; nowDone = true; }
+      h += `<div class="it e ${e.cat}" data-it><span class="tm">${esc(e.time || "–")}</span><button class="card" aria-expanded="false"><span class="t">${esc(e.title)}</span><span class="v">${esc(e.venue)} <span class="p">${esc(priceTxt(e))}</span> ${badge(e)}</span></button><div class="ex">${e.soldOut ? `<a class="btn off" href="${esc(e.url)}" target="_blank" rel="noopener">Se program</a>` : `<a class="btn" href="${esc(e.url)}" target="_blank" rel="noopener">Billetter →</a>`}<button class="btn ghost" data-star="${esc(e.id)}" aria-label="Lagre">${saved.has(e.id) ? "★" : "☆"}</button></div></div>`;
+    });
+    h += `</div>`;
+  });
+  const p = document.getElementById("p2"); p.innerHTML = h;
+  p.addEventListener("click", ev => {
+    const s = ev.target.closest("[data-star]"); if (s) { const id = s.dataset.star; saved.has(id) ? saved.delete(id) : saved.add(id); s.textContent = saved.has(id) ? "★" : "☆"; return; }
+    const c = ev.target.closest(".card"); if (c) { const it = c.parentElement, o = it.classList.toggle("open"); c.setAttribute("aria-expanded", o); }
+  });
+})();
+
+/* ----- 3 Plakatvegg ----- */
+(function () {
+  const list = E.filter(e => e.cat !== "quiz"), p = document.getElementById("p3"); let n = 8;
+  const tile = e => { const d = new Date(e.date + "T12:00:00"); return `<button class="tile e ${e.cat}" data-open="${esc(e.id)}"><span class="dt"><span>${WD[d.getDay()]} ${d.getDate()}.</span><span>${esc(e.time || "")}</span></span><h4>${esc(e.title)}</h4><span class="ft"><span>${esc(e.venue)}</span><span class="bd"><span class="pill">${e.priceMin === undefined || e.priceMin === null ? "Se pris" : esc(priceTxt(e))}</span>${e.soldOut ? '<em class="b sold">Utsolgt</em>' : e.few ? '<em class="b few">Få igjen</em>' : ""}</span></span></button>`; };
+  const r = () => { p.innerHTML = `<div class="g">${list.slice(0, n).map(tile).join("")}</div>${n < list.length ? `<button class="btn ghost vis" style="width:100%" id="more3">Vis ${Math.min(8, list.length - n)} til</button>` : ""}`; const m = p.querySelector("#more3"); if (m) m.onclick = () => { n += 8; r(); }; };
+  r();
+})();
+
+/* ----- 4 Sveip ----- */
+(function () {
+  const list = E.filter(e => !e.soldOut && e.cat !== "quiz").slice(0, 16), p = document.getElementById("p4"); let i = 0; const keep = [];
+  function r() {
+    if (i >= list.length) { p.innerHTML = `<div class="done"><h4>Det var alt for nå</h4><p>Du lagret ${keep.length} ${keep.length === 1 ? "arrangement" : "arrangementer"}.</p>${keep.map(id => row(byId(id))).join("")}<button class="btn" id="again4" style="width:100%;margin-top:14px">Start på nytt</button></div>`; p.querySelector("#again4").onclick = () => { i = 0; keep.length = 0; r(); }; return; }
+    const e = list[i], d = new Date(e.date + "T12:00:00");
+    p.innerHTML = `<div class="top"><span>${i + 1} av ${list.length}</span><span><b>★ ${keep.length}</b> lagret</span></div><div class="stage"><div class="under"></div><div class="cardx e ${e.cat}" id="cx"><span class="stamp l">LAGRET</span><span class="stamp r">NESTE</span><div class="d"><b>${d.getDate()}</b><span>${WD[d.getDay()]}<br>${MO[d.getMonth()]}</span></div><h4>${esc(e.title)}</h4><div class="inf"><div>${e.time ? "kl. " + esc(e.time) + " · " : ""}${esc(e.venue)}</div><div class="pr">${esc(priceTxt(e))} ${badge(e)}</div></div></div></div><div class="acts"><button class="rnd" id="skip" aria-label="Hopp over">✕</button><a class="btn" href="${esc(e.url)}" target="_blank" rel="noopener">Billetter →</a><button class="rnd save" id="save" aria-label="Lagre">★</button></div><div class="hint">Dra kortet til høyre for å lagre, til venstre for å hoppe over</div>`;
+    const c = p.querySelector("#cx"), sl = c.querySelector(".stamp.l"), sr = c.querySelector(".stamp.r"); let x0 = null, dx = 0;
+    const out = dir => { c.style.transition = "transform .22s ease, opacity .22s"; c.style.transform = `translateX(${dir * 520}px) rotate(${dir * 20}deg)`; c.style.opacity = 0; if (dir > 0) keep.push(e.id); setTimeout(() => { i++; r(); }, 210); };
+    c.onpointerdown = ev => { x0 = ev.clientX; c.setPointerCapture(ev.pointerId); c.style.transition = "none"; };
+    c.onpointermove = ev => { if (x0 === null) return; dx = ev.clientX - x0; c.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`; sl.style.opacity = Math.max(0, dx / 90); sr.style.opacity = Math.max(0, -dx / 90); };
+    c.onpointerup = () => { if (x0 === null) return; x0 = null; if (dx > 90) out(1); else if (dx < -90) out(-1); else { c.style.transition = "transform .18s"; c.style.transform = ""; sl.style.opacity = sr.style.opacity = 0; } dx = 0; };
+    p.querySelector("#skip").onclick = () => out(-1); p.querySelector("#save").onclick = () => out(1);
+  }
+  r();
+})();
+
+/* ----- 5 Hva har du lyst på ----- */
+(function () {
+  const T = [
+    ["music", "Høre live musikk", "Konserter", e => e.cat === "konsert"],
+    ["laugh", "Le litt", "Standup og show", e => e.cat === "standup" || e.cat === "show"],
+    ["kids", "Med barna", "Barn og familie", e => e.cat === "barn"],
+    ["dance", "Gå ut og danse", "Klubb", e => e.cat === "klubb"],
+    ["cheap", "Billig kveld", "Under 200 kr", e => e.priceMin !== null && e.priceMin !== undefined && e.priceMin <= 200 && e.price !== ""],
+    ["today", "Bare i dag", "Fra nå og ut dagen", e => e.date === todayK]
+  ];
+  const on = new Set(["music"]), p = document.getElementById("p5");
+  function r() {
+    const res = on.size ? E.filter(e => [...on].every(k => T.find(t => t[0] === k)[3](e))) : [];
+    p.innerHTML = `<h3 class="q">Hva har du lyst på?</h3><div class="tiles">${T.map(t => `<button class="ti" data-t="${t[0]}" aria-pressed="${on.has(t[0])}">${t[1]}<small>${t[2]}</small></button>`).join("")}</div><div class="sec"><span>${on.size ? "Forslag" : "Velg noe over"}</span><span>${on.size ? res.length : ""}</span></div><div class="res">${on.size ? (res.length ? res.slice(0, 8).map(e => { const d = new Date(e.date + "T12:00:00"); return row({...e, time: WD[d.getDay()] + " " + d.getDate() + "."}); }).join("") : '<div class="none">Ingenting passer akkurat nå. Prøv å fjerne ett av valgene.</div>') : '<div class="none">Trykk på en eller flere flis for å se hva som skjer.</div>'}</div>`;
+    p.querySelectorAll(".ti").forEach(b => b.onclick = () => { const k = b.dataset.t; on.has(k) ? on.delete(k) : on.add(k); r(); });
+  }
+  r();
+})();
+
+/* ----- 6 Ukestripe ----- */
+(function () {
+  const ks = []; for (let i = 0; i < 7; i++) { const d = new Date("2026-10-29T12:00:00"); d.setDate(d.getDate() + i); ks.push(d.toISOString().slice(0, 10)); }
+  let sel = todayK; const p = document.getElementById("p6");
+  function r() {
+    const strip = ks.map(k => { const d = new Date(k + "T12:00:00"), n = E.filter(e => e.date === k), cats = [...new Set(n.map(e => e.cat))].slice(0, 3); return `<button class="dy" data-k="${k}" aria-pressed="${k === sel}" aria-label="${dayLabel(k)}, ${n.length} arrangementer"><span class="w">${WD[d.getDay()]}</span><span class="n">${d.getDate()}</span><span class="dots">${cats.map(c => `<i style="--c:var(--c-${c})"></i>`).join("")}</span></button>`; }).join("");
+    const list = E.filter(e => e.date === sel);
+    p.innerHTML = `<div class="strip">${strip}</div><h3 class="dd">${dayLabel(sel)}<small>${list.length ? list.length + (list.length === 1 ? " arrangement" : " arrangementer") : "Rolig dag"}</small></h3>${list.length ? list.map(row).join("") : '<div class="row e" style="grid-template-columns:1fr;cursor:default;--c:var(--line)"><span class="rb"><b>Ingenting på programmet denne dagen</b><i>Prøv dagen etter</i></span></div>'}`;
+    p.querySelectorAll(".dy").forEach(b => b.onclick = () => { sel = b.dataset.k; r(); });
+  }
+  r();
+})();
+
+/* ----- 7 Kompakt + bunnark ----- */
+(function () {
+  const p = document.getElementById("p7"), cats = [["alle", "Alle"], ["konsert", "Konsert"], ["standup", "Standup"], ["show", "Show"], ["klubb", "Klubb"], ["barn", "Barn"]]; let sel = "alle";
+  function r() {
+    const list = E.filter(e => sel === "alle" || e.cat === sel);
+    p.innerHTML = `<div class="chips">${cats.map(c => `<button class="ch" data-c="${c[0]}" aria-pressed="${sel === c[0]}">${c[0] !== "alle" ? `<i style="--c:var(--c-${c[0]})"></i>` : ""}${c[1]}</button>`).join("")}</div><div class="cnt">${list.length} arrangementer</div>` +
+      groups(list).map(([k, l]) => `<div class="dh">${dayLabel(k)}</div>${l.map(e => `<button class="cr e ${e.cat}" data-open="${esc(e.id)}"><span class="t">${esc(e.time || "–")}</span><b>${esc(e.title)}</b><span class="p ${e.soldOut ? "sold" : e.few ? "few" : ""}">${e.soldOut ? "Utsolgt" : e.few ? "Få igjen" : esc(priceTxt(e))}</span></button>`).join("")}`).join("");
+    p.querySelectorAll(".ch").forEach(b => b.onclick = () => { sel = b.dataset.c; r(); });
+  }
+  r();
+})();
+</script>
+</body>
+</html>
