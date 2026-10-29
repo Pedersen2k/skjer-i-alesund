@@ -1,13 +1,14 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-29T16:05:46Z",
+  "updatedAt": "2026-10-29T17:11:04Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
    "fabrikken",
+   "livrore",
    "oconnors",
    "parken",
    "tikkio",
@@ -63,6 +64,22 @@
    "note": "Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. 19:00 og 50 kr. Sjekk hos O'Connor's.",
    "uncertain": true,
    "url": "https://oconnors.no/alesund/event/pubquiz-hos-oconnors-alesund-7julsmwakb/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "livrore-2026-10-29-torsdagers-quiz-med-oystein-ok-liv-rore-m",
+   "date": "2026-10-29",
+   "time": "19:00",
+   "title": "Torsdager Quiz med Øystein Oksnes",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "50 kr",
+   "priceMin": 50,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år.",
+   "uncertain": false,
+   "url": "https://livrore.no/event/torsdagers-quiz-med-oystein-oksnes-xotbkapxum/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -164,6 +181,38 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "livrore-dj-liv-rore-moa",
+   "date": "2026-10-30",
+   "time": "23:00",
+   "title": "DJ hver helg",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "klubb",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Nattklubb fredag og lørdag kl. 23–03, hver helg til 19. des. DJ-er: Raymond, Hamy, Sierra, Nic og Bigs.",
+   "uncertain": false,
+   "url": "https://livrore.no/dj-hver-helg-pa-liv-rore/",
+   "moreShows": [
+    "2026-11-06T23:00",
+    "2026-11-07T23:00",
+    "2026-11-13T23:00",
+    "2026-11-14T23:00",
+    "2026-11-20T23:00",
+    "2026-11-21T23:00",
+    "2026-11-27T23:00",
+    "2026-11-28T23:00",
+    "2026-12-04T23:00",
+    "2026-12-05T23:00",
+    "2026-12-11T23:00",
+    "2026-12-12T23:00",
+    "2026-12-18T23:00",
+    "2026-12-19T23:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug",
    "date": "2026-10-31",
    "time": "12:00",
@@ -240,6 +289,22 @@
    "moreShows": [
     "2026-10-31T21:00"
    ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "halloweenfest-liv-rore-moa",
+   "date": "2026-10-31",
+   "time": "20:00",
+   "title": "Halloweenfest",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "klubb",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år.",
+   "uncertain": false,
+   "url": "https://livrore.no/event/halloweenfest-hos-liv-rore-%f0%9f%8e%83%f0%9f%91%bb-lez3ywi481/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -367,6 +432,22 @@
    "moreShows": [
     "2026-11-05T21:00"
    ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "livrore-2026-11-05-musikkquiz-med-oystein-liv-rore-moa",
+   "date": "2026-11-05",
+   "time": "18:00",
+   "title": "Musikkquiz med Øystein",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "75 kr",
+   "priceMin": 75,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.",
+   "uncertain": true,
+   "url": "https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-pu7pckqtjt/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -889,6 +970,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "livrore-2026-11-12-torsdagers-quiz-med-oystein-ok-liv-rore-m",
+   "date": "2026-11-12",
+   "time": "19:00",
+   "title": "Torsdager Quiz med Øystein Oksnes",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "50 kr",
+   "priceMin": 50,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år.",
+   "uncertain": false,
+   "url": "https://livrore.no/event/torsdagers-quiz-med-oystein-oksnes-aemmm0arto/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "sofia-emelia-robert-botn-drape-alesund-kaffehus",
    "date": "2026-11-13",
    "time": "18:30",
@@ -1093,6 +1190,22 @@
    "note": "Dørene åpner 19.00.",
    "uncertain": false,
    "url": "https://billetto.no/e/visekveld-pa-fabrikken-onsdag-18-november-billetter-1993424",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "livrore-2026-11-19-musikkquiz-med-oystein-liv-rore-moa",
+   "date": "2026-11-19",
+   "time": "18:00",
+   "title": "Musikkquiz med Øystein",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "75 kr",
+   "priceMin": 75,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.",
+   "uncertain": true,
+   "url": "https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-whdzpxt35o/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1352,6 +1465,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "livrore-2026-11-26-torsdagers-quiz-med-oystein-ok-liv-rore-m",
+   "date": "2026-11-26",
+   "time": "19:00",
+   "title": "Torsdager Quiz med Øystein Oksnes",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "50 kr",
+   "priceMin": 50,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år.",
+   "uncertain": false,
+   "url": "https://livrore.no/event/torsdagers-quiz-med-oystein-oksnes-neynxwdqrh/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-49740-parken-kulturhus",
    "date": "2026-11-27",
    "time": "18:00",
@@ -1527,6 +1656,22 @@
    "note": "Førjulskonsert med kjente julesanger; 10-årsjubileum. Rein Alexander med Elisabeth Andreassen og Kim Rysstad. Billetter på Eventim.",
    "url": "https://www.eventim.no/event/deilig-er-jorden-aalesund-kirke-21549755/",
    "addedAt": "2026-10-27T07:56:21Z"
+  },
+  {
+   "id": "livrore-2026-12-03-musikkquiz-med-oystein-liv-rore-moa",
+   "date": "2026-12-03",
+   "time": "18:00",
+   "title": "Musikkquiz med Øystein",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "75 kr",
+   "priceMin": 75,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.",
+   "uncertain": true,
+   "url": "https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-xtcn6lg85c/",
+   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "julekonsert-spjelkavik-kyrkje-spjelkavik-kyrkje",
@@ -1793,6 +1938,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "livrore-2026-12-10-torsdagers-quiz-med-oystein-ok-liv-rore-m",
+   "date": "2026-12-10",
+   "time": "19:00",
+   "title": "Torsdager Quiz med Øystein Oksnes",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "50 kr",
+   "priceMin": 50,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år.",
+   "uncertain": false,
+   "url": "https://livrore.no/event/torsdagers-quiz-med-oystein-oksnes-wdeywo3ne8/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-49005-parken-kulturhus",
    "date": "2026-12-11",
    "time": "19:00",
@@ -1987,6 +2148,22 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/43586-christmas-with-nordic-tenors-2026/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "livrore-2026-12-17-musikkquiz-med-oystein-liv-rore-moa",
+   "date": "2026-12-17",
+   "time": "18:00",
+   "title": "Musikkquiz med Øystein",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "75 kr",
+   "priceMin": 75,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.",
+   "uncertain": true,
+   "url": "https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-pm20s7yfwv/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {

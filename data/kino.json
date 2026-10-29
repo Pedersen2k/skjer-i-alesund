@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-29T16:09:29Z",
+  "updatedAt": "2026-10-29T17:15:17Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -291,7 +291,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/4b444b44-24b9-44cb-a0ac-be02671af527",
+     "url": "",
      "club": true
     },
     {
@@ -1527,7 +1527,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/6ee74b9e-deb5-471a-ac09-276b810344ca",
+     "url": "",
      "club": false
     },
     {
@@ -2348,7 +2348,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/59556024-4ae9-4434-9480-9bcd985720de",
+     "url": "",
      "club": false
     },
     {
