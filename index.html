@@ -144,6 +144,9 @@ select.chip { appearance: none; padding-right: 28px; background-image: linear-gr
 
 .day { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding-block: 18px; border-bottom: 1px solid var(--line); }
 .date { text-align: left; }
+/* Datoen blir liggende øverst (under filterlinja når den vises) til neste dag skyver den bort. --top settes av scriptet under menyen. */
+.day > .date { position: sticky; top: calc(var(--top, env(safe-area-inset-top, 0px)) + 12px); align-self: start; transition: top .22s ease; }
+@media (prefers-reduced-motion: reduce) { .day > .date { transition: none; } }
 .date .wd { font: 500 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .date .num { font: 800 38px/1 var(--font-display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .date .mo { font: 500 12px/1 var(--font-mono); text-transform: uppercase; color: var(--accent); letter-spacing: .06em; }
@@ -1150,9 +1153,12 @@ fetch("data/kino.json", { cache: "no-cache" })
   const ctl = document.querySelector(".controls"), mq = matchMedia("(max-width: 640px)");
   let last = scrollY, acc = 0;
   const stuck = () => ctl.classList.toggle("stuck", ctl.getBoundingClientRect().top <= 1);  // fast bakgrunn bare når menyen ligger over lista
-  stuck(); addEventListener("resize", stuck);
+  // Hvor langt ned datoene skal ligge: under menyen når den vises, ellers helt øverst (se .day > .date)
+  const top = () => requestAnimationFrame(() => { const r = ctl.getBoundingClientRect(); document.documentElement.style.setProperty("--top", `${Math.max(0, Math.round(r.bottom))}px`); });
+  stuck(); top(); addEventListener("resize", () => { stuck(); top(); });
+  new MutationObserver(() => setTimeout(top, 230)).observe(ctl, { attributes: true, attributeFilter: ["class"] });  // etter at menyen har glidd bort eller tilbake
   addEventListener("scroll", () => {
-    stuck();
+    stuck(); top();
     const y = scrollY, d = y - last; last = y;
     if (!mq.matches) { ctl.classList.remove("gone"); return; }
     acc = Math.sign(d) === Math.sign(acc) ? acc + d : d;
