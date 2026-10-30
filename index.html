@@ -1024,8 +1024,10 @@ function emptyHtml() {
   if (state.price !== "") o.push(["Alle priser", { price: "" }]);
   const best = o.map(([l, p]) => [l, p, collapseQuiz(emptyMatches(p)).length]).filter(x => x[2]).sort((a, b) => b[2] - a[2])[0];
   emptyFix = best ? best[1] : null;
+  // «Nullstill alt» bare når mer enn ett filter er på; ellers gjør den det samme som knappen
+  const reset = o.length > 1 ? `<div class="links"><button type="button" data-fix="reset">Nullstill alt</button></div>` : "";
   const art = EMPTY_ART[state.favOnly ? "mine" : state.q ? "sok" : "scene"];
-  return `<div class="tomt"><svg class="art" viewBox="0 0 132 96" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${art}</svg><h3>${head}</h3>${best ? `<button type="button" class="go" data-fix="best">${esc(best[0])} → <span class="n">${best[2]}</span></button><div class="links"><button type="button" data-fix="reset">Nullstill alt</button></div>` : `<button type="button" class="go" data-fix="reset">Se hele programmet →</button>`}</div>`;
+  return `<div class="tomt"><svg class="art" viewBox="0 0 132 96" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${art}</svg><h3>${head}</h3>${best ? `<button type="button" class="go" data-fix="best">${esc(best[0])} → <span class="n">${best[2]}</span></button>${reset}` : `<button type="button" class="go" data-fix="reset">Se hele programmet →</button>`}</div>`;
 }
 function emptyApply(patch) {
   Object.assign(state, patch);
