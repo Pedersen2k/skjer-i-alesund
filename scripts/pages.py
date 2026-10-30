@@ -650,10 +650,6 @@ def describe(events, what):
     return f"{n} {'arrangement' if n == 1 else 'arrangementer'}: {names}{' med flere' if len(uniq) > 3 else ''}. {what}, med billettpriser, oppdatert flere ganger om dagen."[:300]
 
 
-VENUE_CAT_WORD = {"konsert": "konserter", "standup": "standup", "show": "show", "barn": "barn og familie", "klubb": "klubbkvelder",
-                  "happening": "happenings", "quiz": "quiz", "sport": "kamper"}
-
-
 def short_name(title, limit=34):
     """Tittelen kuttet ved et ord, uten tankestrek-halen («Heibergs Mandskor – …» blir «Heibergs Mandskor»)."""
     t = re.split(r"\s[–—-]\s|\s//\s|:\s", title)[0].strip()
@@ -665,15 +661,8 @@ def short_name(title, limit=34):
 
 
 def venue_meta(v, evs, today):
-    """Tittel og beskrivelse for scene-sidene: «[sted] program [år]» først, så hva som går og hvor langt frem programmet strekker seg."""
-    counts = {}
-    for e in evs:
-        counts[e["cat"]] = counts.get(e["cat"], 0) + 1
-    words = [VENUE_CAT_WORD[c] for c, _ in sorted(counts.items(), key=lambda x: -x[1]) if c in VENUE_CAT_WORD][:2]
-    what = (" og ".join(words) if not any(" og " in w for w in words) else ", ".join(words)) if words else "arrangementer"
-    title = f"{v} program {today.year}: {what} | {SITE}"
-    if len(title) > 75 and words:  # Google kutter rundt 60 tegn: da bare den største kategorien
-        title = f"{v} program {today.year}: {words[0]} | {SITE}"
+    """Tittel og beskrivelse for scene-sidene: kort tittel «[sted] program [år]», beskrivelse med antall, datospenn og eksempler."""
+    title = f"{v} program {today.year} | {SITE}"
     days = []
     for e in evs:
         days.append(e["date"][:10])
