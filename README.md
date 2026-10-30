@@ -47,7 +47,7 @@ En knapp «Lagre» øverst (bokmerkeikon) og en melding etter første ★ ber fo
 
 ## Delingsbilde per arrangement
 
-Hver arrangementsside får sitt eget forhåndsbilde (1200 × 630, `arrangement/<id>/deling.jpg`), som vises når lenken deles på Messenger, Facebook, SMS, WhatsApp osv. Bildet har kategori, tittel, dato, sted, pris eller status (utsolgt, få igjen, gratis) og Ålesund-silhuetten med snø. Det lages av `scripts/delingsbilde.py` ved hver publisering (trenger Pillow og skriftene, som helgebildet). Adressen har `?v=` som endres når innholdet endres, så Facebook henter nytt bilde når for eksempel et arrangement blir utsolgt. Mangler Pillow, brukes logoen som før.
+Hver arrangementsside får sitt eget forhåndsbilde (1200 × 630, `arrangement/<id>/deling.jpg`), som vises når lenken deles på Messenger, Facebook, SMS, WhatsApp osv. Bildet har kategori, tittel, dato, sted, pris eller status (utsolgt, få igjen, gratis) og Ålesund-silhuetten, med snø og hvit måne fra 30. oktober til og med februar og uten snø (gyllen måne) resten av året (`winter()`). Det lages av `scripts/delingsbilde.py` ved hver publisering (trenger Pillow og skriftene, som helgebildet). Adressen har `?v=` som endres når innholdet endres, så Facebook henter nytt bilde når for eksempel et arrangement blir utsolgt. Mangler Pillow, brukes logoen som før.
 
 ## Engelsk side
 

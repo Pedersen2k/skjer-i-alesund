@@ -1,6 +1,6 @@
 """Delingsbilde per arrangement (1200 × 630), forhåndsvisningen når en arrangementsside deles på Messenger, Facebook, SMS osv.
 
-Design 5 «vinterutgave» fra docs/delingsbilde-AE-forslag.html: mørk himmel, måne, snøfall, kategori, stor tittel,
+Design 5 «vinterutgave» fra docs/delingsbilde-AE-forslag.html: mørk himmel, måne, snøfall (30. okt – feb, ellers uten snø), kategori, stor tittel,
 dato og sted, status/pris og jugendgavler med snø på takene foran Aksla nederst. Byen tegnes av en enkel generator
 med fast frø, samme som i mockupen, så alle bildene får samme by.
 
@@ -147,18 +147,26 @@ def when_parts(e):
 
 def version(e):
     """Kort kode for innholdet i bildet, til ?v= i adressen, så Facebook m.fl. henter nytt bilde når noe endres."""
-    key = "|".join(str(x) for x in (e["title"], e["date"], e.get("time"), e["venue"], e["cat"], status(e), len(e.get("moreShows") or []), "v1"))
+    key = "|".join(str(x) for x in (e["title"], e["date"], e.get("time"), e["venue"], e["cat"], status(e), len(e.get("moreShows") or []), winter(), "v1"))
     return hashlib.sha1(key.encode()).hexdigest()[:8]
+
+
+def winter(today=None):
+    """Snø fra 30. oktober til og med februar (eierens valg). Resten av året samme by uten snø, med gyllen måne."""
+    d = today or datetime.datetime.now(pages.TZ).date()
+    return d.month in (11, 12, 1, 2) or (d.month == 10 and d.day >= 30)
 
 
 _BG = None
 
 
 def background():
-    """Himmel, måne, by og snø. Lik for alle arrangementene, så den tegnes bare én gang."""
+    """Himmel, måne, by og (om vinteren) snø. Lik for alle arrangementene, så den tegnes bare én gang."""
     global _BG
     if _BG is not None:
         return _BG.copy()
+    snowy = winter()
+    moon = "#f4f1e6" if snowy else GOLD
     from PIL import Image, ImageDraw, ImageFilter
     img = Image.new("RGBA", (W * S, H * S))
     dr = ImageDraw.Draw(img)
@@ -173,9 +181,9 @@ def background():
     glow = Image.new("RGBA", img.size)
     gd = ImageDraw.Draw(glow)
     cx, cy, rad = 1044 * S, 112 * S, 46 * S
-    gd.ellipse((cx - rad * 1.6, cy - rad * 1.6, cx + rad * 1.6, cy + rad * 1.6), fill=hexrgb("#f4f1e6", 90))
+    gd.ellipse((cx - rad * 1.6, cy - rad * 1.6, cx + rad * 1.6, cy + rad * 1.6), fill=hexrgb(moon, 90))
     img.alpha_composite(glow.filter(ImageFilter.GaussianBlur(45 * S)))
-    dr.ellipse((cx - rad, cy - rad, cx + rad, cy + rad), fill="#f4f1e6")
+    dr.ellipse((cx - rad, cy - rad, cx + rad, cy + rad), fill=moon)
 
     # Byen nederst (lag for vinduer, så de kan være litt gjennomsiktige)
     oy = H - 210
@@ -183,7 +191,7 @@ def background():
     caps = skyline(dr, lights, oy)
     img.alpha_composite(lights)
     dr = ImageDraw.Draw(img)
-    for c in caps:
+    for c in caps if snowy else []:
         dr.line([(x * S, (y + oy) * S) for x, y in c], fill=SNOW, width=7 * S, joint="curve")
     wave = [(0, H - 14)]
     for i in range(0, W, 120):
@@ -194,7 +202,7 @@ def background():
     snow = Image.new("RGBA", img.size)
     sd = ImageDraw.Draw(snow)
     r = rng(42)
-    for _ in range(90):
+    for _ in range(90 if snowy else 0):
         x, y, s, o = r() * W, r() * H, 1.5 + r() * 3, .25 + r() * .45
         sd.ellipse(((x - s) * S, (y - s) * S, (x + s) * S, (y + s) * S), fill=(255, 255, 255, round(o * 255)))
     img.alpha_composite(snow)
