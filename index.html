@@ -1202,7 +1202,7 @@ function searchHint() {
   const q = $("q"), hits = $("qhits"), mqs = matchMedia("(max-width: 640px)"), narrow = matchMedia("(max-width: 379px)");
   if (!q.dataset.long) { q.dataset.long = q.placeholder; mqs.addEventListener("change", searchHint); narrow.addEventListener("change", searchHint); }
   const n = parseInt(($("count").textContent.match(/\d+/) || [""])[0], 10), typed = q.value.trim() !== "";
-  q.placeholder = !mqs.matches ? q.dataset.long : Number.isNaN(n) ? "Søk …" : narrow.matches ? `Søk i ${n} …` : `Søk i ${n} arrangementer …`;
+  q.placeholder = !mqs.matches ? q.dataset.long : Number.isNaN(n) || n === 0 ? "Søk …" : narrow.matches ? `Søk i ${n} …` : `Søk i ${n} arrangementer …`;
   hits.textContent = mqs.matches && typed && !Number.isNaN(n) ? `${n} treff` : "";
   hits.classList.toggle("zero", typed && n === 0);
   q.parentElement.classList.toggle("typed", mqs.matches && typed);
