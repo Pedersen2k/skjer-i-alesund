@@ -5,7 +5,7 @@
 html[data-tema="jul"] .top { position: relative; }
 html[data-tema="jul"] .top > * { position: relative; z-index: 1; }
 html[data-tema="jul"]:root, html[data-tema="jul"]:root[data-theme] { --bg:#3a0b12; --surface:#4c121b; --fg:#fbeedd; --muted:#d6b3a6; --line:#6b2530; --accent:#e9c06a; --accent-ink:#2a1405; --sea:#e9c06a;
-  --few:#ffe2a3; --few-bg:#5c2a14; --few-line:#8c5a24; --kino-soft:#4a1520; --font-display:"Cormorant Garamond", Georgia, serif; color-scheme:dark; }
+  --few:#ffe2a3; --few-bg:#5c2a14; --few-line:#8c5a24; --kino-soft:#4a1520; --kino:#e9c06a; --font-display:"Cormorant Garamond", Georgia, serif; color-scheme:dark; }
 html[data-tema="jul"] body { background: radial-gradient(140% 600px at 50% -100px, #6b1520, #3a0b12 70%), #3a0b12; }
 html[data-tema="jul"] .brand, html[data-tema="jul"] .lede, html[data-tema="jul"] .status { margin-right: 150px; }
 html[data-tema="jul"] h1 { font-weight: 700; font-style: italic; letter-spacing: -0.01em; font-size: clamp(44px, 10vw, 74px); }
@@ -19,7 +19,7 @@ html[data-tema="jul"] .ev h3 { font-family: "Cormorant Garamond", Georgia, serif
 html[data-tema="jul"] .date { align-self: start; text-align: center; padding: 8px 4px 9px; border: 1.5px solid #e9c06a; border-radius: 6px; background: linear-gradient(180deg, #5a1620, #451018); box-shadow: inset 0 0 0 3px #451018, inset 0 0 0 4px #e9c06a55, 0 6px 16px #0006; position: sticky; top: calc(var(--top, env(safe-area-inset-top, 0px)) + 12px); transition: top .22s ease; }
 html[data-tema="jul"] .date .num { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; color:#fbeedd; font-size: 36px; }
 html[data-tema="jul"] .date .mo, html[data-tema="jul"] .date .wd { color:#e9c06a; }
-html[data-tema="jul"] .date .rel { color:#fbeedd; }
+html[data-tema="jul"] .date .rel { color:#fbeedd; font-size:10.5px; letter-spacing:-.01em; text-wrap:balance; }
 html[data-tema="jul"] .day { border-bottom-color:#6b2530; }
 html[data-tema="jul"] .julcard { background: linear-gradient(160deg, #1f4a37, #0f2a1f); box-shadow: 0 0 0 1px #e9c06a66, 0 20px 50px #0008; }
 html[data-tema="jul"] .julcard h3 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 34px; }
