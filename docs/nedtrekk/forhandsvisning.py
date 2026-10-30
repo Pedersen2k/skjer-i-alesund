@@ -1,7 +1,7 @@
 """Forhåndsvisning av større nedtrekksmenyer i filterlinja på mobil (Claude-artefakt, flere filer).
 
 «Nå» er slik det er i dag (rundt 35 px). M1 bare høyere (44 px), M2 44 px uten den ekstra tellelinja (antallet står i
-søkefeltet), M3 44 px med symbol i hver meny, M4 48 px og større tekst, M5 én «Filtre»-knapp som folder ut menyene, M6 = M3 med antallet i søkefeltet (som M2).
+søkefeltet), M3 44 px med symbol i hver meny, M4 48 px og større tekst, M5 én «Filtre»-knapp som folder ut menyene, M6 = M3 med antallet i søkefeltet (som M2), M7 = Claudes råd (M6 med tallet som følger filtrene, «N treff» mens man skriver og mindre symboler).
 
 Forsiden vises i en mobilramme (390 px) inne i artefakten, så mobiloppsettet gjelder også på PC. Velgeren nederst i
 rammen bytter variant og tema, og viser hvor høy filterlinja blir.
@@ -52,6 +52,16 @@ body { padding-bottom: 170px; }
   /* M4 48 px og større tekst */
   body.mm-m4 .controls select.chip, body.mm-m4 .search, body.mm-m4 #favonly { min-height: 48px; font-size: 15px; }
   body.mm-m4 .controls { gap: 8px; }
+  /* Innpakningen av søkefeltet tar samme plass som feltet gjorde */
+  .mmq { position: relative; grid-column: span 3; order: 1; min-width: 0; }
+  .mmq .search { width: 100%; }
+  body.mm-m5 .mmq { grid-column: span 2; }
+  .mmhits { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font: 600 11.5px/1 var(--font-mono); color: var(--muted); pointer-events: none; }
+  .mmhits.zero { color: var(--accent); }
+  /* M7 = M6, men tallet bor fortsatt i en skjult linje for skjermlesere, og symbolene er mindre */
+  body.mm-m7 .controls .count { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  body.mm-m7 .mmq.typed .search { padding-right: 74px; }
+  body.mm-m7 .controls select.chip { padding-left: 29px; padding-right: 22px; background-position: 9px 50%, calc(100% - 13px) 50%, calc(100% - 8px) 50% !important; background-size: 14px 14px, 5px 5px, 5px 5px !important; }
   /* M5 Filtre-knapp som folder ut menyene */
   body.mm-m5 .search { grid-column: span 2; min-height: 44px; }
   body.mm-m5 #favonly { min-height: 44px; }
@@ -65,7 +75,7 @@ body { padding-bottom: 170px; }
 }
 </style>
 <nav class="mmpick" aria-label="Velg variant og tema">
-  <div class="seg" role="group" aria-label="Variant"><button type="button" data-v="na">Nå</button><button type="button" data-v="m1">M1</button><button type="button" data-v="m2">M2</button><button type="button" data-v="m3">M3</button><button type="button" data-v="m4">M4</button><button type="button" data-v="m5">M5</button><button type="button" data-v="m6">M6</button></div>
+  <div class="seg" role="group" aria-label="Variant"><button type="button" data-v="na">Nå</button><button type="button" data-v="m1">M1</button><button type="button" data-v="m2">M2</button><button type="button" data-v="m3">M3</button><button type="button" data-v="m4">M4</button><button type="button" data-v="m5">M5</button><button type="button" data-v="m6">M6</button><button type="button" data-v="m7">M7 ★</button></div>
   <div class="seg" role="group" aria-label="Tema"><button type="button" data-t="kveld">Mørkt</button><button type="button" data-t="jul">Jul</button><button type="button" data-t="lys">Lyst</button></div>
   <p id="mmtxt"></p>
 </nav>
@@ -78,6 +88,7 @@ body { padding-bottom: 170px; }
     m3: "M3 Med symbol: 44 px og et lite symbol foran hver meny (kalender, merkelapp, sted, pris).",
     m4: "M4 Store: 48 px og større tekst. Lettest å treffe, men filterlinja blir høyest.",
     m6: "M6 = M3 + M2: 44 px med symbol i hver meny, og antallet står i søkefeltet i stedet for på egen linje.",
+    m7: "M7 Mitt råd: som M6, men tallet følger filtrene, «12 treff» står i feltet mens du skriver, og symbolene er mindre så lange valg får plass.",
     m5: "M5 Filtre-knapp: søk, «Filtre» og Mine på én linje. «Filtre» folder ut de fire menyene (48 px). Lavest filterlinje.",
   };
   const ctl = document.querySelector(".controls"), q = document.getElementById("q");
@@ -86,7 +97,23 @@ body { padding-bottom: 170px; }
   const active = () => [state.when !== "alt", state.cats.size > 0, !!state.venue, state.price !== ""].filter(Boolean).length;
   const label = () => { const n = active(); btn.innerHTML = `Filtre${n ? ` <b>${n}</b>` : ""}`; };
   btn.addEventListener("click", () => { const o = !document.body.classList.contains("mm-open"); document.body.classList.toggle("mm-open", o); btn.setAttribute("aria-expanded", o); measure(); });
-  const parts = () => (location.hash.slice(1) || "m1-kveld").split("-");
+  // Søkefeltet pakkes inn, så «12 treff» kan stå inne i feltet til høyre (samme plass i rutenettet som før)
+  const qw = document.createElement("div"); qw.className = "mmq"; q.before(qw); qw.appendChild(q);
+  const hit = document.createElement("span"); hit.className = "mmhits"; hit.setAttribute("aria-hidden", "true"); qw.appendChild(hit);
+  const shown = () => parseInt((document.getElementById("count").textContent.match(/\\d+/) || [E.length])[0], 10);
+  function hits() {
+    const n = shown(), narrow = matchMedia("(max-width: 379px)").matches, typed = q.value.trim() !== "";
+    if (v() === "m7") {
+      q.placeholder = narrow ? `Søk i ${n} …` : `Søk i ${n} arrangementer …`;
+      hit.textContent = typed ? `${n} treff` : ""; hit.classList.toggle("zero", typed && n === 0); qw.classList.toggle("typed", typed);
+    } else {
+      qw.classList.remove("typed");
+      q.placeholder = ["m2", "m6"].includes(v()) ? `Søk i ${E.length} arrangementer …` : "Søk …"; hit.textContent = "";
+    }
+  }
+  q.addEventListener("input", () => setTimeout(hits, 0));
+  addEventListener("resize", hits);
+  const parts = () => (location.hash.slice(1) || "m7-kveld").split("-");
   const v = () => (TXT[parts()[0]] ? parts()[0] : "m1"), t = () => (["kveld", "jul", "lys"].includes(parts()[1]) ? parts()[1] : "kveld");
   function measure() {
     requestAnimationFrame(() => { const sel = document.getElementById("mwhen"), shown = getComputedStyle(sel).display !== "none";
@@ -99,18 +126,18 @@ body { padding-bottom: 170px; }
     else { root.dataset.tema = x; delete root.dataset.theme; document.head.insertAdjacentHTML("beforeend", `<link rel="stylesheet" href="tema-${x}.css">`); }
   }
   function apply() {
-    document.body.className = document.body.className.replace(/\\bmm-\\w+/g, "").trim() + (v() === "m6" ? " mm-m6 mm-m3 mm-m2" : " mm-" + v());
+    document.body.className = document.body.className.replace(/\\bmm-\\w+/g, "").trim() + ({ m6: " mm-m6 mm-m3 mm-m2", m7: " mm-m7 mm-m3 mm-m2" }[v()] || " mm-" + v());
     document.body.classList.remove("mm-open"); btn.setAttribute("aria-expanded", "false");
     setTema(t());
     document.querySelectorAll(".mmpick [data-v]").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === v()));
     document.querySelectorAll(".mmpick [data-t]").forEach(b => b.setAttribute("aria-pressed", b.dataset.t === t()));
-    q.placeholder = ["m2", "m6"].includes(v()) ? `Søk i ${E.length} arrangementer …` : "Søk …";
+    hits();
     label(); measure();
   }
   document.querySelectorAll(".mmpick [data-v]").forEach(b => b.addEventListener("click", () => { location.hash = b.dataset.v + "-" + t(); }));
   document.querySelectorAll(".mmpick [data-t]").forEach(b => b.addEventListener("click", () => { location.hash = v() + "-" + b.dataset.t; }));
   addEventListener("hashchange", apply);
-  const orig = render; render = function () { orig(); label(); };
+  const orig = render; render = function () { orig(); label(); hits(); };
   const wait = setInterval(() => { if (typeof E !== "undefined" && E.length) { clearInterval(wait); apply(); } }, 100);
 })();
 </script>
@@ -125,12 +152,22 @@ body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system
 .wrap { max-width: 900px; margin: 0 auto; display: grid; gap: 14px; justify-items: center; }
 h1 { font: 800 26px/1.15 system-ui, sans-serif; margin: 0; text-align: center; }
 p { margin: 0; color: var(--muted); max-width: 60ch; text-align: center; }
+.w { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.w button { font: 600 13px system-ui, sans-serif; color: var(--fg); background: #13252d; border: 0; padding: 0 12px; min-height: 40px; cursor: pointer; }
+.w button[aria-pressed="true"] { background: #f7c873; color: #10282f; }
 iframe { width: 390px; max-width: 100%; height: min(860px, 86vh); border: 1px solid var(--line); border-radius: 28px; background: var(--bg); }
 </style>
 <div class="wrap">
   <h1>Større nedtrekk på mobil</h1>
-  <p>Forsiden vises i en mobilramme (390 px). Velg variant og tema nederst i rammen. Under velgeren står hvor høy filterlinja blir.</p>
-  <iframe src="side.html#m1-kveld" title="Forsiden på mobil"></iframe>
+  <p>Forsiden vises i en mobilramme. Velg variant og tema nederst i rammen. Under velgeren står hvor høy filterlinja blir. Bytt bredde for å se om lange valg får plass på mindre telefoner.</p>
+  <div class="w" role="group" aria-label="Telefonbredde"><button type="button" data-w="390" aria-pressed="true">iPhone 390 px</button><button type="button" data-w="360" aria-pressed="false">Android 360 px</button><button type="button" data-w="320" aria-pressed="false">Liten 320 px</button></div>
+  <iframe id="fr" src="side.html#m7-kveld" title="Forsiden på mobil"></iframe>
+<script>
+document.querySelectorAll(".w button").forEach(b => b.addEventListener("click", () => {
+  document.getElementById("fr").style.width = b.dataset.w + "px";
+  document.querySelectorAll(".w button").forEach(x => x.setAttribute("aria-pressed", x === b));
+}));
+</script>
 </div>
 """
 
