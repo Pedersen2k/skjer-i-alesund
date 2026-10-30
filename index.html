@@ -335,6 +335,25 @@ html[data-tema="kveld"] .kvnow, html[data-tema="jul"] .kvnow { border-color: #7e
 html[data-tema="kveld"] .kvnow span, html[data-tema="jul"] .kvnow span { background: #7ee0a1; color: #0b2a17; }
 html[data-tema="kveld"] .kvrel.soon, html[data-tema="jul"] .kvrel.soon { color: #7ee0a1; background: #1c3b2a; border-color: #7ee0a1; }
 @media (prefers-color-scheme: dark) { html:not([data-tema]):not([data-theme="light"]) .kvnow { border-color: #7ee0a1; } html:not([data-tema]):not([data-theme="light"]) .kvnow span { background: #7ee0a1; color: #0b2a17; } html:not([data-tema]):not([data-theme="light"]) .kvrel.soon { color: #7ee0a1; background: #1c3b2a; border-color: #7ee0a1; } }
+/* Tom liste (prøves til søndag 1. nov, se emptyHtml()) */
+.tomt { display: grid; justify-items: center; text-align: center; gap: 10px; padding: 26px 16px 30px; margin: 10px 0; border: 1px dashed var(--line); border-radius: 18px; background: color-mix(in srgb, var(--surface) 55%, transparent); }
+.tomt .art { width: 132px; height: 96px; color: var(--muted); }
+.tomt h3 { margin: 0; font: 800 19px/1.2 var(--font-display); color: var(--fg); text-wrap: balance; max-width: 30ch; }
+.tomt p { margin: 0; color: var(--muted); font-size: 14px; max-width: 42ch; }
+.tomt .go { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 12px; border: 0; background: var(--accent); color: var(--accent-ink); font: 700 16px var(--font-body); cursor: pointer; }
+.tomt .go .n { font: 700 12.5px/1 var(--font-mono); padding: 4px 7px; border-radius: 999px; background: color-mix(in srgb, var(--accent-ink) 18%, transparent); }
+.tomt .near { width: 100%; max-width: 520px; display: grid; gap: 8px; text-align: left; }
+.tomt .near a { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 10px; align-items: center; min-height: 56px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); border-left: 4px solid var(--c); background: var(--surface); color: var(--fg); text-decoration: none; }
+.tomt .near a small { color: var(--muted); display: block; font-size: 12.5px; }
+.tomt .near a .d { font: 700 12.5px/1.2 var(--font-mono); color: var(--accent); }
+.tomt .near a .pr { font: 600 12.5px var(--font-mono); white-space: nowrap; }
+.tomt .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; font-size: 14.5px; font-weight: 600; }
+.tomt .links button { min-height: 32px; color: var(--sea); background: none; border: 0; padding: 0; font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+html[data-tema="kveld"] .tomt .links button, html[data-tema="jul"] .tomt .links button { color: var(--gold, var(--sea)); }
+@keyframes tomtspot { 50% { opacity: .55; } }
+.tomt .art .spot { animation: tomtspot 3s ease-in-out infinite; }
+.ev.tomt-hit { outline: 2px solid var(--accent); outline-offset: 3px; transition: outline-color 1.6s; }
+@media (prefers-reduced-motion: reduce) { .tomt .art .spot { animation: none; } }
 /* ★ og overgang (prøves helgen 31. okt – 1. nov, se starFx() og #viewseg) */
 @keyframes fxpop { 0% { transform: scale(1); } 35% { transform: scale(1.5) rotate(-12deg); } 65% { transform: scale(.88) rotate(4deg); } 100% { transform: scale(1); } }
 @keyframes fxunpop { 0% { transform: scale(1); } 40% { transform: scale(.7); } 100% { transform: scale(1); } }
@@ -961,7 +980,8 @@ function render() {
   if (state.view === "kal") return renderCal();
   $("count").textContent = `${items.length} arrangement${items.length === 1 ? "" : "er"}`;
   searchHint();
-  if (!items.length) { $("list").innerHTML = `<div class="empty">${!E.length ? "Ingen arrangementer er lagt inn ennå. De dukker opp her når programmet er hentet." : state.nyOnly && !state.favOnly && !state.q && !state.cats.size && !state.venue && state.price === "" && state.when === "alt" ? "Ingenting nytt siden sist. Trykk «Alle» for å se hele programmet." : state.favOnly ? "Du har ikke lagret noe som passer filteret. Trykk ☆ på et arrangement for å lagre det." : "Ingenting passer søket. Prøv et annet filter."}</div>`; return; }
+  if (!items.length) { const onlyNew = state.nyOnly && !state.favOnly && !state.q && !state.cats.size && !state.venue && state.price === "" && state.when === "alt";
+    $("list").innerHTML = E.length && !onlyNew ? emptyHtml() : `<div class="empty">${!E.length ? "Ingen arrangementer er lagt inn ennå. De dukker opp her når programmet er hentet." : "Ingenting nytt siden sist. Trykk «Alle» for å se hele programmet."}</div>`; return; }
   const groups = new Map();
   collapseQuiz(items).forEach(e => { const k = e.d.toDateString(); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(e); });
   $("list").innerHTML = [...groups.values()].map(g => {
@@ -971,6 +991,62 @@ function render() {
   }).join("");
   if (state.when === "ikveld") markTonight();
 }
+
+// Tom liste (prøves til søndag 1. nov): finnes det treff på andre datoer, vises de tre nærmeste og «Se alle N →»;
+// ellers én knapp med det valget som gir flest treff, og «Nullstill alt». Antallene regnes med matchesBase().
+const EMPTY_ART = {
+  scene: `<path class="spot" d="M66 6 L40 78 H92 Z" fill="var(--accent)" opacity=".18" stroke="none"/><path d="M10 78 H122"/><path d="M14 8 C30 30 30 60 16 78 M118 8 C102 30 102 60 116 78"/><path d="M10 8 H122"/><circle cx="66" cy="6" r="3" fill="var(--accent)" stroke="var(--accent)"/><path d="M52 88 h28" opacity=".5"/>`,
+  sok: `<circle cx="58" cy="42" r="24"/><path d="M76 60 L98 82"/><path d="M50 36 q8 -8 16 0" stroke="var(--accent)"/><circle cx="58" cy="50" r="1.6" fill="currentColor"/><path d="M22 84 h8 M104 18 l4 4 m0 -4 l-4 4 M18 22 h6" opacity=".5"/>`,
+  mine: `<path d="M66 14 l9 19 21 3 -15 15 4 21 -19 -10 -19 10 4 -21 -15 -15 21 -3 Z" stroke-dasharray="5 5"/><path class="spot" d="M66 30 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1 Z" fill="var(--accent)" stroke="none" opacity=".5"/>`
+};
+const emptyMatches = patch => {
+  const s = { when: state.when, cats: new Set(state.cats), venue: state.venue, price: state.price, q: state.q, favOnly: state.favOnly, nyOnly: state.nyOnly };
+  Object.assign(state, patch);
+  const r = E.filter(e => e.d >= TODAY && WHEN[state.when][1](e.d) && matchesBase(e)).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
+  Object.assign(state, s); return r;
+};
+let emptyFix = null;
+function emptyHtml() {
+  const head = state.favOnly ? "Ingen lagrede arrangementer passer her" : state.q ? `Fant ingenting på «${esc(state.q)}»` : state.when === "ikveld" ? "Ingenting som passer i kveld" : "Ingenting passer filtrene dine";
+  const near = state.when !== "alt" ? emptyMatches({ when: "alt" }) : [];
+  if (near.length) {
+    const all = collapseQuiz(near).length;
+    return `<div class="tomt"><h3>${head}</h3><p>Men dette kommer snart:</p><div class="near">${near.slice(0, 3).map(e => `<a href="#ev-${esc(e.id)}" data-ev="${esc(e.id)}" style="--c:var(--c-${CATS[e.cat] ? e.cat : "happening"})"><span class="d">${WD[e.d.getDay()]} ${e.d.getDate()}. ${MO[e.d.getMonth()]}${e.time ? "<br>" + esc(e.time) : ""}</span><span>${esc(e.title)}<small>${esc(e.venue)}</small></span><span class="pr">${esc(e.priceMin === 0 ? "Gratis" : e.price || "")}</span></a>`).join("")}</div>${all > 3 ? `<div class="links"><button type="button" data-fix="alt">Se alle ${all} →</button></div>` : ""}</div>`;
+  }
+  // Fjern ett filter om gangen; valget med flest treff blir knappen
+  const o = [];
+  if (state.favOnly) o.push(["Vis alle, ikke bare ★ Mine", { favOnly: false }]);
+  if (state.nyOnly) o.push(["Vis alle, ikke bare nytt", { nyOnly: false }]);
+  if (state.q) o.push([`Tøm søket «${state.q}»`, { q: "" }]);
+  if (state.when !== "alt") o.push(["Alle datoer", { when: "alt" }]);
+  if (state.cats.size) o.push(["Alle kategorier", { cats: new Set() }]);
+  if (state.venue) o.push(["Alle scener", { venue: "" }]);
+  if (state.price !== "") o.push(["Alle priser", { price: "" }]);
+  const best = o.map(([l, p]) => [l, p, collapseQuiz(emptyMatches(p)).length]).filter(x => x[2]).sort((a, b) => b[2] - a[2])[0];
+  emptyFix = best ? best[1] : null;
+  const art = EMPTY_ART[state.favOnly ? "mine" : state.q ? "sok" : "scene"];
+  return `<div class="tomt"><svg class="art" viewBox="0 0 132 96" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${art}</svg><h3>${head}</h3>${best ? `<button type="button" class="go" data-fix="best">${esc(best[0])} → <span class="n">${best[2]}</span></button><div class="links"><button type="button" data-fix="reset">Nullstill alt</button></div>` : `<button type="button" class="go" data-fix="reset">Se hele programmet →</button>`}</div>`;
+}
+function emptyApply(patch) {
+  Object.assign(state, patch);
+  $("when").querySelectorAll("[data-w]").forEach(x => x.setAttribute("aria-pressed", x.dataset.w === state.when));
+  $("cats").querySelectorAll("[data-c]").forEach(x => x.setAttribute("aria-pressed", state.cats.has(x.dataset.c)));
+  $("venue").value = state.venue; $("price").value = state.price; $("q").value = state.q; setFavOnly(state.favOnly); syncFilters(); render();
+}
+$("list").addEventListener("click", ev => {
+  const b = ev.target.closest(".tomt [data-fix], .tomt [data-ev]"); if (!b) return;
+  ev.preventDefault();
+  if (b.dataset.ev) {
+    track("tom/kort"); emptyApply({ when: "alt" });
+    const el = $("ev-" + b.dataset.ev);
+    if (el) { el.scrollIntoView({ block: "center", behavior: REDUCE.matches ? "auto" : "smooth" }); el.classList.add("tomt-hit"); setTimeout(() => el.classList.remove("tomt-hit"), 1800); }
+    return;
+  }
+  const f = b.dataset.fix; track("tom/" + f);
+  if (f === "alt") emptyApply({ when: "alt" });
+  else if (f === "best" && emptyFix) emptyApply(emptyFix);
+  else emptyApply({ when: "alt", cats: new Set(), venue: "", price: "", q: "", favOnly: false, nyOnly: false });
+});
 
 // «I kveld»: Nå-strek mellom det som har startet og det som kommer, «om 20 min» de neste 90 minuttene,
 // og grått kort med «startet 18:00» for det som har startet. Kildene har ikke sluttid, så vi skriver aldri «pågår».
