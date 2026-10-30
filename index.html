@@ -529,7 +529,7 @@ const WHEN = {
   alt: ["Alt", () => true],
   ikveld: ["I kveld", d => diffDays(d) === 0],
   uke: ["Neste 7 dager", d => diffDays(d) <= 7],
-  helg: ["Helga", d => { const n = diffDays(d), wd = d.getDay(); return n <= 7 && (wd === 5 || wd === 6 || wd === 0); }]
+  helg: ["Denne helgen", d => { const n = diffDays(d), wd = d.getDay(); return n <= (7 - TODAY.getDay()) % 7 && (wd === 5 || wd === 6 || wd === 0); }] // fredag–søndag; fra mandag til torsdag den som kommer, som denne-helgen/
 };
 // Månedsknapper for de neste seks månedene
 const MO = ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "des"];
