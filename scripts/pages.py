@@ -870,9 +870,22 @@ def main():
                      about=f"{v} er en av scenene i Ålesund. Oversikten viser kommende arrangementer med dato, klokkeslett og billettpris, hentet fra arrangørens egne sider.",
                      desc=vdesc)
 
+    # Eget delingsbilde per arrangement (scripts/delingsbilde.py). Krever Pillow; uten det brukes logoen som før.
+    try:
+        import delingsbilde
+    except Exception as err:
+        delingsbilde = None
+        print(f"Lager ikke delingsbilder ({err!r})", file=sys.stderr)
     for e in all_events:
         path = f"arrangement/{e['id']}/"
-        write(path, event_page(e, all_events if e["cat"] in SEPARATE else events, path))
+        image = None
+        if delingsbilde:
+            try:
+                delingsbilde.render(e, OUT / path / "deling.jpg")
+                image = (f"{BASE}{path}deling.jpg?v={delingsbilde.version(e)}", delingsbilde.W, delingsbilde.H)
+            except Exception as err:  # bildet skal aldri stoppe publiseringen
+                print(f"Delingsbilde for {e['id']} feilet ({err!r})", file=sys.stderr)
+        write(path, event_page(e, all_events if e["cat"] in SEPARATE else events, path, image))
         (OUT / path / "kalender.ics").write_text(build_ics(e["title"], [e], today))
         pages.append((path, (e.get("addedAt") or updated)[:10]))
 
@@ -1051,7 +1064,7 @@ CAL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 SHARE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>'
 
 
-def event_page(e, events, path):
+def event_page(e, events, path, image=None):
     up = "../../"
     d = datetime.date.fromisoformat(e["date"])
     c = e["cat"] if e["cat"] in CAT_LABEL else "happening"
@@ -1102,7 +1115,7 @@ def event_page(e, events, path):
   </main>
   <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a><a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
     trail = [(SITE, BASE), (CATS.get(c, CATS["happening"])[1], BASE + cat_path), (e["title"], BASE + path)]
-    return page(path, title, desc[:300], body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail), event_ld(e)]})
+    return page(path, title, desc[:300], body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail), event_ld(e)]}, image=image)
 
 
 # Det undersidene trenger i tillegg til forsidens stil

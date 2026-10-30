@@ -64,7 +64,7 @@ jobs:
           git diff --cached --quiet || (git commit -m "Oppdater program" && git pull --rebase -X theirs origin main && git push)
 
       # Undersider (kategorier, i dag, helgen, scener, hvert arrangement) og sitemap lages på nytt ved hver publisering
-      # Helgebildet (denne-helgen/helgen.png) trenger Pillow og sidens skrifter. Uten dem brukes DejaVu, eller bildet hoppes over.
+      # Helgebildet (denne-helgen/helgen.png) og delingsbildene (arrangement/<id>/deling.jpg) trenger Pillow og sidens skrifter. Uten dem brukes DejaVu, eller bildet hoppes over.
       - name: Hent Pillow og skrifter til helgebildet
         continue-on-error: true
         run: |
@@ -72,6 +72,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/fonts"
           curl -fsSL -o "$RUNNER_TEMP/fonts/BricolageGrotesque.ttf" "https://raw.githubusercontent.com/google/fonts/main/ofl/bricolagegrotesque/BricolageGrotesque%5Bopsz%2Cwdth%2Cwght%5D.ttf"
           curl -fsSL -o "$RUNNER_TEMP/fonts/Figtree.ttf" "https://raw.githubusercontent.com/google/fonts/main/ofl/figtree/Figtree%5Bwght%5D.ttf"
+          curl -fsSL -o "$RUNNER_TEMP/fonts/JetBrainsMono.ttf" "https://raw.githubusercontent.com/google/fonts/main/ofl/jetbrainsmono/JetBrainsMono%5Bwght%5D.ttf"
 
       - name: Lag undersider
         env:
