@@ -1,7 +1,7 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-29T21:55:23Z",
+  "updatedAt": "2026-10-30T05:56:22Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -16,38 +16,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-47138-parken-kulturhus",
-   "date": "2026-10-29",
-   "time": "19:00",
-   "title": "Ingebjørg Bratland",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "630 kr",
-   "priceMin": 630,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47138-ingebjorg-bratland/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "stein-torleif-bjella-terminalen-byscene",
-   "date": "2026-10-29",
-   "time": "20:00",
-   "title": "Stein Torleif Bjella",
-   "venue": "Terminalen Byscene",
-   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "450 kr",
-   "priceMin": 450,
-   "soldOut": false,
-   "note": "Rabatt: DNB-kunde 360 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/63517-stein-torleif-bjella-terminalen",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "claudia-scott-og-torstein-flakne-lovenvold-theater",
    "date": "2026-10-30",
@@ -2725,24 +2693,6 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "parken-48873-parken-kulturhus",
-   "date": "2027-03-05",
-   "time": "18:30",
-   "title": "Iselin Guttormsen kommer!",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "standup",
-   "price": "585 kr",
-   "priceMin": 585,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48873-iselin-guttormsen-kommer/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
    "id": "motorpsycho-terminalen-byscene",
    "date": "2027-03-05",
    "time": "20:00",
@@ -2757,24 +2707,6 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66896-motorpsycho-terminalen",
    "addedAt": "2026-10-21T12:45:40Z"
-  },
-  {
-   "id": "parken-51055-parken-kulturhus",
-   "date": "2027-03-13",
-   "time": "19:00",
-   "title": "Halvor Johansson",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "standup",
-   "price": "350–450 kr",
-   "priceMin": 350,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51055-halvor-johansson/",
-   "addedAt": "2026-10-29T21:15:21Z"
   },
   {
    "id": "synne-vo-her-vil-e-vaer-norgesturne-terminalen-byscene",
@@ -2793,40 +2725,6 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "parken-48778-parken-kulturhus",
-   "date": "2027-04-02",
-   "time": "19:00",
-   "title": "Balletak på bransjen",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "standup",
-   "price": "425 kr",
-   "priceMin": 425,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48778-balletak-pa-bransjen/",
-   "addedAt": "2026-10-29T21:15:21Z"
-  },
-  {
-   "id": "parken-48269-parken-kulturhus",
-   "date": "2027-04-03",
-   "time": "19:00",
-   "title": "Jørn Hoel & Steinar Albrigtsen",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "480 kr",
-   "priceMin": 480,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48269-jorn-hoel-steinar-albrigtsen/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
    "id": "hans-magne-skard-skruball-lovenvold-theater",
    "date": "2027-04-09",
    "time": "17:30",
@@ -2841,54 +2739,6 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67120-hans-magne-skard-skruball",
    "addedAt": "2026-10-23T20:01:48Z"
-  },
-  {
-   "id": "parken-50848-parken-kulturhus",
-   "date": "2027-04-29",
-   "time": "19:00",
-   "title": "UFO-klarlig",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "show",
-   "price": "499 kr",
-   "priceMin": 499,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/50848-ufo-klarlig/",
-   "addedAt": "2026-10-29T21:15:21Z"
-  },
-  {
-   "id": "parken-48673-parken-kulturhus",
-   "date": "2027-05-13",
-   "time": "19:00",
-   "title": "Chopin – klaverets poet",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "150–390 kr",
-   "priceMin": 150,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48673-chopin-klaverets-poet/",
-   "addedAt": "2026-10-29T21:15:21Z"
-  },
-  {
-   "id": "parken-47917-parken-kulturhus",
-   "date": "2027-05-20",
-   "time": "19:00",
-   "title": "Russland – vår dystre nåtid",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "happening",
-   "price": "450 kr",
-   "priceMin": 450,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47917-russland-var-dystre-natid/",
-   "addedAt": "2026-10-29T21:15:21Z"
   },
   {
    "id": "alesund-live-tobias-sten",

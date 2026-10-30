@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-29T21:59:20Z",
+  "updatedAt": "2026-10-30T06:00:05Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -31,26 +31,6 @@
    ]
   },
   {
-   "id": "MER20240096",
-   "title": "Butterfly",
-   "age": 12,
-   "minutes": 117,
-   "genres": [
-    "Drama"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/d17fc9757f9f8959c40a6392d1f0a8e7848289f9-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-09-25",
-   "shows": [
-    {
-     "start": "2026-10-29T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "WAB20240262",
    "title": "Clayface",
    "age": 15,
@@ -64,20 +44,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/22ed50ebf0c5bc8143fe7606704caead1ff02875-1500x2223.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-23",
    "shows": [
-    {
-     "start": "2026-10-29T18:15:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-29T21:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-30T21:30:00",
      "screen": "1 isense",
@@ -134,6 +100,15 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/51d03381-2ef5-4924-9cdd-5b5db1f524e6",
      "club": false
+    },
+    {
+     "start": "2026-11-07T21:30:00",
+     "screen": "1 isense",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/d9bb3833-0c3e-4b2c-8b96-61b125beccc5",
+     "club": false
     }
    ]
   },
@@ -148,16 +123,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/eb4b617f94d0ff88352912d08252a7d22ada253a-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-02",
    "shows": [
-    {
-     "start": "2026-10-29T17:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-30T12:45:00",
      "screen": "Sal 6",
@@ -214,6 +179,15 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/593cbb7e-6a30-4728-9588-077118870cb8",
+     "club": false
+    },
+    {
+     "start": "2026-11-07T21:35:00",
+     "screen": "3",
+     "tags": [
+      "Norsk tale"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/4b3b816b-76fd-4cfe-9949-61c7c51dacf1",
      "club": false
     }
    ]
@@ -279,22 +253,6 @@
    "premiere": "2026-09-11",
    "shows": [
     {
-     "start": "2026-10-29T15:45:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-10-29T18:10:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
      "start": "2026-10-31T15:30:00",
      "screen": "Sal 6",
      "tags": [
@@ -359,27 +317,14 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/f80282bf-79f4-45ab-9049-893c7cdbf18c",
      "club": true
-    }
-   ]
-  },
-  {
-   "id": "EDI20260087",
-   "title": "Fjord",
-   "age": 9,
-   "minutes": 145,
-   "genres": [
-    "Drama"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ab687f2b76b25c9f2b13449a4ca2b85e4a5d129a-1500x2143.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-09-04",
-   "shows": [
+    },
     {
-     "start": "2026-10-29T12:00:00",
-     "screen": "Sal 2",
+     "start": "2026-11-07T17:30:00",
+     "screen": "Sal 5",
      "tags": [
       "LUXE"
      ],
-     "url": "",
+     "url": "https://www.odeonkino.no/booking/kjop/2bbea83a-41f1-4022-a08f-cd41794eb79b",
      "club": true
     }
    ]
@@ -420,16 +365,6 @@
    "premiere": "2026-09-25",
    "shows": [
     {
-     "start": "2026-10-29T15:10:00",
-     "screen": "Sal 2",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-10-31T12:45:00",
      "screen": "Sal 2",
      "tags": [
@@ -457,6 +392,16 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/60c1dd91-bdc2-4571-95bc-e0ace3dc386c",
      "club": false
+    },
+    {
+     "start": "2026-11-07T14:45:00",
+     "screen": "Sal 5",
+     "tags": [
+      "Norsk tale",
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/c0ed0d6f-e9f3-43c9-a0bb-2f1259254bf4",
+     "club": false
     }
    ]
   },
@@ -481,6 +426,15 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/3734c816-1432-4f80-9efd-2049de85906c",
      "club": false
+    },
+    {
+     "start": "2026-11-07T22:30:00",
+     "screen": "Sal 2",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/ff0f491a-3638-4d04-a251-e195de1ebe57",
+     "club": false
     }
    ]
   },
@@ -495,13 +449,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f73aa5f1d8a24cb412b69b828e2f56dcd502c171-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-09-25",
    "shows": [
-    {
-     "start": "2026-10-29T18:55:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-30T12:30:00",
      "screen": "Sal 5",
@@ -545,6 +492,15 @@
      "tags": [],
      "url": "https://www.odeonkino.no/booking/kjop/e9926bef-0f85-4a44-a7e6-de58ee12a957",
      "club": false
+    },
+    {
+     "start": "2026-11-07T21:10:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/64472b50-a2e2-4751-8b5f-f90c8a96d73f",
+     "club": false
     }
    ]
   },
@@ -562,6 +518,27 @@
      "screen": "1 isense",
      "tags": [],
      "url": "https://www.odeonkino.no/booking/kjop/ff665639-e753-4aac-a83b-5bbf5912a7d2",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "SFN20241757",
+   "title": "Insidious: Out of the Further",
+   "age": 15,
+   "minutes": 106,
+   "genres": [
+    "Horror",
+    "Thriller"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/a4f7d1a1d66bb11b4481cc8b70c91af769057693-1500x2104.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-08-21",
+   "shows": [
+    {
+     "start": "2026-11-07T23:50:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/11b46504-429e-4073-9771-ecd855c60b43",
      "club": false
     }
    ]
@@ -611,6 +588,16 @@
    "premiere": "2026-11-06",
    "shows": [
     {
+     "start": "2026-11-07T08:30:00",
+     "screen": "Sal 6",
+     "tags": [
+      "Norsk tale",
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/63d293b7-acba-47b9-951a-294e4a4abd47",
+     "club": false
+    },
+    {
      "start": "2026-11-07T11:00:00",
      "screen": "1 isense",
      "tags": [
@@ -626,6 +613,15 @@
       "Norsk tale"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/466a2509-942c-4aa7-a05f-6272a28fa2cc",
+     "club": false
+    },
+    {
+     "start": "2026-11-07T14:15:00",
+     "screen": "4",
+     "tags": [
+      "Norsk tale"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/dc9939dd-73f8-49d1-b283-409d9c23289c",
      "club": false
     },
     {
@@ -757,6 +753,33 @@
    ]
   },
   {
+   "id": "WAB20240223",
+   "title": "Katten med hatten",
+   "age": 6,
+   "minutes": 107,
+   "genres": [
+    "Animasjon",
+    "Barnefilm",
+    "Familiefilm",
+    "Komedie"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/051358c6db07b7d5eb86cc8bc9374ff3715237ec-1500x2223.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-12-04",
+   "shows": [
+    {
+     "start": "2026-11-07T12:45:00",
+     "screen": "Sal 6",
+     "tags": [
+      "Norsk tale",
+      "Utekstet",
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/a14d7f4a-88de-4daa-9c23-73a2d935324b",
+     "club": false
+    }
+   ]
+  },
+  {
    "id": "EDI20260975",
    "title": "Lille spøkelset Laban skøyer igjen",
    "age": 0,
@@ -799,6 +822,26 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/43aa6cdc-9387-4add-8da9-2a2a2790e777",
+     "club": false
+    },
+    {
+     "start": "2026-11-07T10:15:00",
+     "screen": "4",
+     "tags": [
+      "Norsk tale",
+      "Utekstet"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/034acd28-c17f-4463-a807-5cd703ece4f2",
+     "club": false
+    },
+    {
+     "start": "2026-11-07T11:45:00",
+     "screen": "3",
+     "tags": [
+      "Norsk tale",
+      "Utekstet"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/d8bdd4c0-4b51-4287-8502-395b042b06d5",
      "club": false
     }
    ]
@@ -1064,6 +1107,16 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/76d4a499-f3dc-4eea-9e0f-801cb38ee676",
      "club": false
+    },
+    {
+     "start": "2026-11-07T10:30:00",
+     "screen": "Sal 6",
+     "tags": [
+      "Norsk tale",
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/f0294b25-8fe7-483d-8727-4a18a816c4cd",
+     "club": false
     }
    ]
   },
@@ -1144,15 +1197,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/e796551111af9fba503fffcbd45d77f4a13d0521-1080x1527.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-10-29T14:45:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-30T15:00:00",
      "screen": "4",
@@ -1270,6 +1314,15 @@
      "club": false
     },
     {
+     "start": "2026-11-07T09:45:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/0a58d389-6fdb-4a6e-a921-67abf4c33f33",
+     "club": false
+    },
+    {
      "start": "2026-11-07T16:15:00",
      "screen": "4",
      "tags": [],
@@ -1289,15 +1342,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/601be3b4ad3e0068e2c6681604063271bfff31f7-595x841.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-23",
    "shows": [
-    {
-     "start": "2026-10-29T19:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-30T17:00:00",
      "screen": "Sal 2",
@@ -1335,6 +1379,28 @@
    ]
   },
   {
+   "id": "EDI20251820",
+   "title": "Obsession",
+   "age": 15,
+   "minutes": 109,
+   "genres": [
+    "Horror"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/425e72d01afdbb11a7d96adc042b27e0b3d8dea6-1500x2143.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-05-22",
+   "shows": [
+    {
+     "start": "2026-11-07T23:30:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/c2566d4c-81ba-49ff-aee1-4eb5f3e3dcac",
+     "club": false
+    }
+   ]
+  },
+  {
    "id": "EDI20250893",
    "title": "Other Mommy",
    "age": 15,
@@ -1345,15 +1411,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/a7dc76dfccdd99ba7baf997317d7a807c1bccba9-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-09",
    "shows": [
-    {
-     "start": "2026-10-29T20:45:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-30T21:30:00",
      "screen": "Sal 2",
@@ -1407,27 +1464,12 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/6556f7c5-cf40-40de-ad60-046a11e6d7c3",
      "club": false
-    }
-   ]
-  },
-  {
-   "id": "EDI20261486",
-   "title": "Ozzy & Black Sabbath: Back To The Beginning",
-   "age": null,
-   "minutes": 147,
-   "genres": [
-    "Konsert"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/73211cb7c9a8d9e9f08af317cd41d125631f5914-1500x2221.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-10-28",
-   "shows": [
+    },
     {
-     "start": "2026-10-29T20:45:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
+     "start": "2026-11-07T21:50:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/e32978de-c614-4ff9-8cbd-3b655ea31cf9",
      "club": false
     }
    ]
@@ -1481,6 +1523,24 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/bdaa8459-b828-41e2-b1c1-74d9ba15bef5",
      "club": false
+    },
+    {
+     "start": "2026-11-07T09:30:00",
+     "screen": "3",
+     "tags": [
+      "Norsk tale"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/e8d5ec41-c05e-41b7-b85c-377785f58fe7",
+     "club": false
+    },
+    {
+     "start": "2026-11-07T12:00:00",
+     "screen": "4",
+     "tags": [
+      "Norsk tale"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/1cc2870a-fbb2-4ffa-a4f3-b7b8e1e43b03",
+     "club": false
     }
    ]
   },
@@ -1496,49 +1556,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/b7c7d07d556cff3e5c9868b5e6fd02656f31e59c-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-10-29T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-29T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-29T15:15:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-29T18:00:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-29T20:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-30T12:00:00",
      "screen": "1 isense",
@@ -1752,18 +1769,18 @@
     },
     {
      "start": "2026-11-05T12:00:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
+     "club": false
+    },
+    {
+     "start": "2026-11-05T12:00:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/35e194ce-408a-43f4-94fb-aaa7a1e15bc4",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
      "club": false
     },
     {
@@ -1792,10 +1809,10 @@
      "club": false
     },
     {
-     "start": "2026-11-07T15:40:00",
+     "start": "2026-11-07T15:30:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/ed346ffe-1f96-4a7b-a65a-bb7b24a3f76b",
+     "url": "https://www.odeonkino.no/booking/kjop/dfc9d79e-8951-449b-9f16-ade1c335171c",
      "club": false
     },
     {
@@ -1939,6 +1956,15 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/8ef9b974-b71d-4831-adce-5f4ebe90a2c6",
      "club": false
+    },
+    {
+     "start": "2026-11-07T23:55:00",
+     "screen": "1 isense",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/f98fe80c-5d11-4922-812f-8943cf087e35",
+     "club": false
     }
    ]
   },
@@ -2002,13 +2028,6 @@
    "premiere": "2026-10-23",
    "shows": [
     {
-     "start": "2026-10-29T12:00:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-02T14:00:00",
      "screen": "Sal 6",
      "tags": [
@@ -2032,16 +2051,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/0690cc492885fe739c3d101a3af245ffa6db81a9-1500x2143.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-02",
    "shows": [
-    {
-     "start": "2026-10-29T14:10:00",
-     "screen": "3",
-     "tags": [
-      "Norsk tale",
-      "Utekstet"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-31T13:30:00",
      "screen": "3",
@@ -2091,6 +2100,16 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/90a30f05-5a9c-48b8-a46d-1c0d9de44892",
      "club": false
+    },
+    {
+     "start": "2026-11-07T13:30:00",
+     "screen": "3",
+     "tags": [
+      "Norsk tale",
+      "Utekstet"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/d561e95a-e0b6-484e-96b3-ae9779ad7a82",
+     "club": false
     }
    ]
   },
@@ -2106,15 +2125,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/08c062fc034ea81b413d46721ded439a550abcb4-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-09",
    "shows": [
-    {
-     "start": "2026-10-29T15:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-10-30T12:00:00",
      "screen": "4",
@@ -2198,6 +2208,29 @@
    ]
   },
   {
+   "id": "EDI20240688",
+   "title": "Spider-Man: Brand New Day",
+   "age": 12,
+   "minutes": 145,
+   "genres": [
+    "Eventyr",
+    "Superheltfilm"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/13bdf9c085531b0bb6c3b7506e847f46643782b6-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-07-29",
+   "shows": [
+    {
+     "start": "2026-11-07T18:00:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/ddbca6e5-9ef3-49e8-920b-9c500ff3c705",
+     "club": false
+    }
+   ]
+  },
+  {
    "id": "EDI20251333",
    "title": "Street Fighter",
    "age": 12,
@@ -2209,10 +2242,12 @@
    "premiere": "2026-10-16",
    "shows": [
     {
-     "start": "2026-10-29T21:15:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
+     "start": "2026-11-07T22:45:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/396cd712-0ef1-4c04-9768-12d954436085",
      "club": false
     }
    ]
@@ -2263,6 +2298,51 @@
       "Dolby Atmos"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/61ca989a-b142-4a9f-a9ee-d7e091659eaa",
+     "club": false
+    },
+    {
+     "start": "2026-11-19T12:00:00",
+     "screen": "Sal 2",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/af03f443-e638-4bf0-8974-37f8c8269729",
+     "club": false
+    },
+    {
+     "start": "2026-11-19T17:30:00",
+     "screen": "1 isense",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/06694b44-8d91-41d1-973a-52506d6d587e",
+     "club": false
+    },
+    {
+     "start": "2026-11-19T21:00:00",
+     "screen": "1 isense",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/da59551f-bbc8-466e-bff3-a0de71966f72",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "UIP20241680",
+   "title": "The Odyssey",
+   "age": 12,
+   "minutes": 172,
+   "genres": [],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/714c2df548403065609d371f42c15d648ba1c429-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-07-17",
+   "shows": [
+    {
+     "start": "2026-11-07T18:00:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/8738159e-72d7-4de7-89b9-22c57d97190a",
      "club": false
     }
    ]
@@ -2322,6 +2402,27 @@
    ]
   },
   {
+   "id": "BVI20230736",
+   "title": "Vaiana",
+   "age": 6,
+   "minutes": 115,
+   "genres": [],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/00979151e340722952a4e453830b15b8bb625663-1440x2057.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-07-10",
+   "shows": [
+    {
+     "start": "2026-11-07T12:00:00",
+     "screen": "Sal 5",
+     "tags": [
+      "Norsk tale",
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/527c0867-4ce3-4f26-b8df-d672d8a74050",
+     "club": false
+    }
+   ]
+  },
+  {
    "id": "EDI20260552",
    "title": "Verity",
    "age": 15,
@@ -2333,24 +2434,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/c0244aa90fbcd342cf565324c22260fb9d82c865-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-02",
    "shows": [
-    {
-     "start": "2026-10-29T12:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-10-29T17:45:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-10-30T18:15:00",
      "screen": "Sal 6",
@@ -2402,6 +2485,15 @@
      "tags": [],
      "url": "https://www.odeonkino.no/booking/kjop/f8d3c058-356d-4df9-851e-f5b8559667fe",
      "club": false
+    },
+    {
+     "start": "2026-11-07T20:00:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/7160bc35-3175-45a1-93ca-cba1d8e5e61d",
+     "club": false
     }
    ]
   },
@@ -2417,19 +2509,17 @@
    "premiere": "2026-10-16",
    "shows": [
     {
-     "start": "2026-10-29T21:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-02T14:45:00",
      "screen": "3",
      "tags": [],
      "url": "https://www.odeonkino.no/booking/kjop/7079ae1d-1001-4818-9e87-c4077a88b5bb",
+     "club": false
+    },
+    {
+     "start": "2026-11-07T23:55:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/8edbf912-4a43-4c31-a98f-e7b4b7b42a9b",
      "club": false
     }
    ]
@@ -2615,6 +2705,15 @@
      "screen": "3",
      "tags": [],
      "url": "https://www.odeonkino.no/booking/kjop/19dce4aa-58d3-4f92-9e3f-9cd564ce62cb",
+     "club": false
+    },
+    {
+     "start": "2026-11-07T15:00:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/4cace38e-08fc-440d-84a4-16f2dd9bfdd6",
      "club": false
     },
     {
