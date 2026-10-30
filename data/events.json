@@ -1,9 +1,9 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-30T08:12:39Z",
+  "updatedAt": "2026-10-30T10:02:13Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 8,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -2328,6 +2328,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "testarrangement-tollbugata-2",
+   "date": "2027-01-01",
+   "time": "10:00",
+   "title": "Testarrangement",
+   "venue": "Tollbugata 2",
+   "address": "Tollbugata 2, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "100 kr",
+   "priceMin": 100,
+   "soldOut": true,
+   "note": "Rabatt: Presale 10 kr, Test billettype 10 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/65597-testarrangement",
+   "addedAt": "2026-10-30T10:02:13Z"
+  },
+  {
    "id": "parken-45587-parken-kulturhus",
    "date": "2027-01-07",
    "time": "19:00",
@@ -2347,16 +2363,16 @@
    "id": "parken-47759-parken-kulturhus",
    "date": "2027-01-13",
    "time": "19:00",
-   "title": "Tuva & Ronny følger drømmen",
+   "title": "Ny dato | Tuva & Ronny",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "show",
+   "cat": "konsert",
    "price": "480 kr",
    "priceMin": 480,
    "soldOut": false,
    "note": "",
    "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47759-tuva-ronny-folger-drommen/",
+   "url": "https://www.parkenkulturhus.no/program/47759-ny-dato-tuva-ronny/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -2825,6 +2841,24 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/50848-ufo-klarlig/",
    "addedAt": "2026-10-30T08:12:39Z"
+  },
+  {
+   "id": "parken-51230-parken-kulturhus",
+   "date": "2027-04-30",
+   "time": "19:00",
+   "title": "Bjarte Hjelmeland",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "630 kr",
+   "priceMin": 630,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51230-bjarte-hjelmeland/",
+   "addedAt": "2026-10-30T10:02:13Z"
   },
   {
    "id": "parken-48673-parken-kulturhus",
