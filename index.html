@@ -306,6 +306,18 @@ footer { margin-top: 28px; font-size: 13px; color: var(--muted); display: grid; 
 footer a { color: var(--sea); }
 @media (max-width: 420px) { .day { grid-template-columns: 52px 1fr; gap: 10px; } .date .num { font-size: 32px; } }
 @media (prefers-reduced-motion: no-preference) { .ev { transition: transform .15s ease; } .ev:hover { transform: translateX(2px); } }
+/* «I kveld»-filteret som tidslinje: grønn Nå-strek, «om 20 min», og grå kort for det som har startet (prøves helgen 31. okt – 1. nov) */
+.kvnow { position: relative; height: 0; margin: 4px 0 8px; border-top: 2px solid #1e8a4f; }
+.kvnow span { position: absolute; left: 0; top: -11px; font: 700 12px/20px var(--font-mono); color: #fff; background: #1e8a4f; border-radius: 6px; padding: 0 6px; }
+.ev.kvpast { opacity: .5; }
+.kvrel { display: inline-flex; align-items: center; gap: 5px; font: 700 11.5px/1 var(--font-body); border-radius: 999px; padding: 4px 8px; white-space: nowrap; }
+.kvrel.soon { color: #1e8a4f; background: #e3f4ea; border: 1px solid #1e8a4f; }
+.kvrel.soon::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.kvrel.went { color: var(--muted); border: 1px dashed var(--line); }
+html[data-tema="kveld"] .kvnow, html[data-tema="jul"] .kvnow { border-color: #7ee0a1; }
+html[data-tema="kveld"] .kvnow span, html[data-tema="jul"] .kvnow span { background: #7ee0a1; color: #0b2a17; }
+html[data-tema="kveld"] .kvrel.soon, html[data-tema="jul"] .kvrel.soon { color: #7ee0a1; background: #1c3b2a; border-color: #7ee0a1; }
+@media (prefers-color-scheme: dark) { html:not([data-tema]):not([data-theme="light"]) .kvnow { border-color: #7ee0a1; } html:not([data-tema]):not([data-theme="light"]) .kvnow span { background: #7ee0a1; color: #0b2a17; } html:not([data-tema]):not([data-theme="light"]) .kvrel.soon { color: #7ee0a1; background: #1c3b2a; border-color: #7ee0a1; } }
 </style>
 <!-- Tema: «Jul» (tema-jul.css) for alle fra 1. november til 27. desember, ellers «Kveld». «Lyst» (skjer-tema=standard) gjelder hele året. ?tema=jul viser juletemaet utenom sesongen i denne fanen, til test. -->
 <script>try{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld"||q==="standard")localStorage.setItem("skjer-tema",q);if(q==="standard")localStorage.setItem("skjer-theme",'"light"');if(q==="jul")sessionStorage.setItem("skjer-jultest","1");if(q){const u=new URL(location.href);u.searchParams.delete("tema");history.replaceState(null,"",u)}var d=new Date(),mo=d.getMonth(),jul=mo===10||(mo===11&&d.getDate()<=27)||sessionStorage.getItem("skjer-jultest")==="1";var t=localStorage.getItem("skjer-tema");if(jul&&t!=="standard"){document.documentElement.dataset.tema="jul";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#3a0b12";document.write('<link rel="stylesheet" href="tema-jul.css">')}else if(t!=="standard"){document.documentElement.dataset.tema="kveld";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#0a171b";document.write('<link rel="stylesheet" href="tema-kveld.css">')}}catch{}</script>
@@ -926,7 +938,31 @@ function render() {
     return `<section class="day"><div class="date"><div class="wd">${WD[d.getDay()]}</div><div class="num">${d.getDate()}</div><div class="mo">${MO[d.getMonth()]}</div>${rel(d) ? `<div class="rel">${rel(d)}</div>` : ""}</div>
       <div class="events">${g.map(eventHtml).join("")}</div></section>`;
   }).join("");
+  if (state.when === "ikveld") markTonight();
 }
+
+// «I kveld»: Nå-strek mellom det som har startet og det som kommer, «om 20 min» de neste 90 minuttene,
+// og grått kort med «startet 18:00» for det som har startet. Kildene har ikke sluttid, så vi skriver aldri «pågår».
+function markTonight() {
+  // Klokka i Ålesund, også om telefonen står i en annen tidssone (som i-kveld/)
+  const p = Object.fromEntries(new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map(x => [x.type, x.value]));
+  const now = +p.hour * 60 + +p.minute;
+  const hm = m => `${pad2(Math.floor(m / 60))}:${pad2(m % 60)}`;
+  const cards = [...$("list").querySelectorAll("article.ev")].map(a => {
+    const t = a.querySelector(".meta .t")?.textContent.match(/(\d\d):(\d\d)/);
+    return { a, m: t ? +t[1] * 60 + +t[2] : null };
+  }).filter(c => c.m !== null);
+  let put = false;
+  for (const c of cards) {
+    const diff = c.m - now, meta = c.a.querySelector(".meta");
+    if (!put && diff >= 0) { c.a.insertAdjacentHTML("beforebegin", `<div class="kvnow" role="separator" aria-label="Nå, kl. ${hm(now)}"><span>Nå ${hm(now)}</span></div>`); put = true; }
+    if (diff < 0) { c.a.classList.add("kvpast"); meta.insertAdjacentHTML("beforeend", `<span class="kvrel went">startet ${hm(c.m)}</span>`); }
+    else if (diff <= 90) meta.insertAdjacentHTML("beforeend", `<span class="kvrel soon">${diff === 0 ? "starter nå" : "om " + (diff >= 60 ? `${Math.floor(diff / 60)} t${diff % 60 ? ` ${diff % 60} min` : ""}` : `${diff} min`)}</span>`);
+  }
+  if (!put && cards.length) cards[cards.length - 1].a.insertAdjacentHTML("afterend", `<div class="kvnow" role="separator" aria-label="Nå, kl. ${hm(now)}"><span>Nå ${hm(now)}</span></div>`);
+}
+// Oppdater streken hvert minutt mens «I kveld» er valgt og siden er synlig
+setInterval(() => { if (state.when === "ikveld" && state.view !== "kal" && !document.hidden && E.length) render(); }, 60000);
 
 // Kalendervisning: måned med én prikk per arrangement, og dagens arrangementer under.
 // Gjentatte forestillinger (moreShows) telles på hver dato de går.
