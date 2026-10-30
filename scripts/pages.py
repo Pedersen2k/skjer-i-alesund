@@ -722,7 +722,7 @@ def main():
     OUT.mkdir()
     # Forsiden og det den trenger, kopiert som de er
     shutil.copy(ROOT / "og-image.png", OUT / "og-image.png")
-    for f in ("favicon-48.png", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "apple-touch-icon-180.png"):
+    for f in ("favicon-48.png", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "apple-touch-icon-180.png", "profilbilde.png"):
         shutil.copy(ROOT / f, OUT / f)
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}sitemap.xml\n")
     (OUT / f"{INDEXNOW_KEY}.txt").write_text(INDEXNOW_KEY)
