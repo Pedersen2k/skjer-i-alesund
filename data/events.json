@@ -1,9 +1,9 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-30T13:23:27Z",
+  "updatedAt": "2026-10-30T14:11:01Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 8,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1176,6 +1176,22 @@
    "uncertain": false,
    "url": "https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk-lcmek",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "oconnors-2026-11-20-pitch-en-venn-o-connor-s",
+   "date": "2026-11-20",
+   "time": "19:00",
+   "title": "Pitch en venn",
+   "venue": "O'Connor's",
+   "address": "Brunholmgata 10, 6004 Ålesund",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://oconnors.no/alesund/event/pitch-en-venn-nykndcoaql/",
+   "addedAt": "2026-10-30T14:11:01Z"
   },
   {
    "id": "valkyrien-allstars-terminalen-byscene",
