@@ -45,6 +45,10 @@ En knapp «Lagre» øverst (bokmerkeikon) og en melding etter første ★ ber fo
 
 `tema-jul.css` er et juletema for forsiden: mørk fløyelsrød med gull, en adventskrans der lysene tennes søndagene i advent, og en nisse som titter over julekortet. Det brukes for alle fra 1. november til 27. desember og slår seg av av seg selv etterpå. «Lyst» gjelder hele året. Utenom sesongen kan du se det med `?tema=jul` (bare i den fanen). Undersidene beholder kveldstemaet. Vil du fjerne det før tiden, endre datoene i temalasteren øverst i `index.html`. Forslagene det ble valgt fra ligger i `docs/jul-design/`.
 
+## Delingsbilde per arrangement
+
+Hver arrangementsside får sitt eget forhåndsbilde (1200 × 630, `arrangement/<id>/deling.jpg`), som vises når lenken deles på Messenger, Facebook, SMS, WhatsApp osv. Bildet har kategori, tittel, dato, sted, pris eller status (utsolgt, få igjen, gratis) og Ålesund-silhuetten, med snø og hvit måne fra 30. oktober til og med februar og uten snø (gyllen måne) resten av året (`winter()`). Det lages av `scripts/delingsbilde.py` ved hver publisering (trenger Pillow og skriftene, som helgebildet). Adressen har `?v=` som endres når innholdet endres, så Facebook henter nytt bilde når for eksempel et arrangement blir utsolgt. Mangler Pillow, brukes logoen som før.
+
 ## Engelsk side
 
 `en/` (bygget av `en_page()` i `scripts/pages.py`) er «What's on in Ålesund» for turister og andre som søker på engelsk: de neste 14 dagene dag for dag, «In town for the day?» og «Good to know». Titlene står som hos arrangøren; datoer, kategorier, priser og forklaringer er på engelsk. Norsk og engelsk forside peker på hverandre med `hreflang`, og en knapp «English» (jordklode, «EN» på mobil) står ved «Mørkt | Lyst» øverst til høyre. På den engelske siden står «Norsk» på samme sted.

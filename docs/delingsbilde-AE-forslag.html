@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delingsbilde A + E</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Runde 2 av delingsbildet: fem blandinger av A (Plakat) og E (Ålesund-silhuett), 1200 × 630.
+   Hvert forslag vises stort i en chatboble og smått med fire andre arrangementer (lang tittel, utsolgt, gratis, mange datoer). */
+:root {
+  --bg:#0a171b; --surface:#13252d; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a;
+  --gold:#f7c873; --sea:#5ab7bf; --accent:#ff8a6b; --accent-ink:#1a0b07; --few:#ffb547; --sold:#ff8a6b; --now:#7ee0a1;
+  --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-show:#ab93e6; --c-barn:#6cc98a; --c-klubb:#ec78ab; --c-happening:#d9b84a; --c-quiz:#b497e0; --c-julebord:#ef7a7f; --c-sport:#7aa7e6;
+  --font-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+html { background:var(--bg); }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 15px/1.5 var(--font-body);
+  padding-block:28px 72px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+button, select { font:inherit; color:inherit; }
+:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+.wrap { max-width:1500px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr); gap:30px; }
+h1 { font:800 clamp(28px,4.2vw,42px)/1.05 var(--font-display); margin:0 0 10px; text-wrap:balance; }
+header p { margin:0 0 8px; max-width:80ch; color:var(--muted); }
+header p b { color:var(--fg); }
+.ctrl { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; }
+.ctrl label { display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-weight:600; font-size:14px; max-width:100%; }
+.ctrl select { background:#0f1f26; border:1px solid var(--line); border-radius:9px; padding:7px 10px; min-height:40px; max-width:100%; }
+.opts { display:grid; gap:44px; }
+.opt { display:grid; grid-template-columns:minmax(0,560px) minmax(0,1fr); gap:20px 28px; align-items:start; }
+@media (max-width:980px) { .opt { grid-template-columns:minmax(0,1fr); } }
+.info { display:grid; gap:10px; align-content:start; }
+.info h2 { font:800 24px/1.1 var(--font-display); margin:0; }
+.info h2 small { display:block; font:500 14px/1.45 var(--font-body); color:var(--muted); margin-top:6px; }
+.info .verdict { font-size:14px; color:var(--muted); }
+.info .verdict b { color:var(--gold); }
+.pick { font:700 11px/1 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--gold); }
+.thumbs { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+.thumbs figure { margin:0; display:grid; gap:4px; }
+.thumbs figcaption { font-size:12px; color:var(--muted); }
+.chat { background:#0b0d10; border:1px solid #23272d; border-radius:24px; padding:16px 14px 18px; display:grid; gap:10px; }
+.chat .from { justify-self:end; max-width:88%; background:#3478f6; color:#fff; border-radius:18px 18px 4px 18px; padding:8px 12px; font-size:14px; }
+.bubble { justify-self:end; width:88%; border-radius:18px; overflow:hidden; background:#1f2328; border:1px solid #2b3036; }
+.bubble .cap { padding:9px 12px 11px; display:grid; gap:1px; }
+.bubble .cap b { font-size:14px; line-height:1.3; color:#f2f4f6; }
+.bubble .cap small { color:#9aa3ad; font-size:12.5px; }
+.ogbox { position:relative; width:100%; aspect-ratio:1200/630; max-width:100%; overflow:hidden; background:#000; border-radius:4px; }
+.bubble .ogbox { border-radius:0; }
+
+/* ---- Selve bildene, 1200 × 630, skalert ---- */
+.og { position:absolute; left:0; top:0; width:1200px; height:630px; transform-origin:0 0; transform:scale(var(--s,0.3)); overflow:hidden; font-family:var(--font-body); color:#fff; }
+.og .brand { position:absolute; display:flex; align-items:center; gap:14px; font:700 28px/1 var(--font-body); color:#e8f1ef; z-index:3; }
+.og .brand svg { width:42px; height:46px; }
+.og .ttl { font-family:var(--font-display); font-weight:800; letter-spacing:-0.02em; line-height:.98; text-wrap:balance; font-size:var(--fs,96px); }
+.og .cat { font:700 25px/1 var(--font-mono); letter-spacing:.14em; text-transform:uppercase; color:var(--c); }
+.og .when { font:600 37px/1.22 var(--font-body); color:#e8f1ef; }
+.og .when b { color:var(--gold); font-weight:700; }
+.og .st { display:inline-flex; align-items:center; border-radius:999px; font:700 29px/1 var(--font-body); padding:14px 24px; z-index:3; white-space:nowrap; }
+.og .st.few { background:var(--few); color:#2a1a02; }
+.og .st.sold { background:var(--sold); color:var(--accent-ink); }
+.og .st.free { background:var(--now); color:#0b2a17; }
+.og .st.price { background:#0a171bcc; color:#fff; border:2px solid #ffffff44; }
+.og svg.sky { position:absolute; left:0; bottom:0; width:1200px; z-index:1; }
+.og canvas.snow { position:absolute; inset:0; z-index:2; }
+.og .moon { position:absolute; border-radius:50%; background:var(--gold); box-shadow:0 0 90px #f7c87355; }
+
+/* H1 Plakat med byen nederst */
+.h1 { background:radial-gradient(900px 520px at 88% -12%, color-mix(in srgb, var(--c) 55%, transparent), transparent 70%), linear-gradient(170deg,#10303a,#0a171b 75%); }
+.h1 .txt { position:absolute; left:72px; right:72px; top:62px; display:grid; gap:22px; z-index:3; }
+.h1 .when { margin-top:6px; }
+.h1 .brand { left:72px; bottom:36px; }
+.h1 .st { position:absolute; right:72px; bottom:34px; }
+
+/* H2 Plakat med Aksla og gavler til høyre */
+.h2 { background:linear-gradient(170deg,#10303a,#0a171b 80%); }
+.h2 .glow { position:absolute; right:150px; top:70px; width:150px; height:150px; border-radius:50%; background:var(--c); filter:blur(4px); opacity:.95; box-shadow:0 0 120px var(--c); }
+.h2 .txt { position:absolute; left:72px; width:640px; top:62px; bottom:120px; display:flex; flex-direction:column; gap:20px; z-index:3; }
+.h2 .when { margin-top:auto; }
+.h2 svg.sky { left:auto; right:0; width:620px; }
+.h2 .brand { left:72px; bottom:52px; }
+.h2 .st { position:absolute; left:auto; right:60px; top:250px; }
+
+/* H3 Silhuett i kategorifarge */
+.h3 { background:linear-gradient(180deg, color-mix(in srgb, var(--c) 58%, #0a171b) 0%, color-mix(in srgb, var(--c) 18%, #0a171b) 52%, #0a171b 100%); }
+.h3 .moon { right:112px; top:62px; width:96px; height:96px; background:#fff6dc; box-shadow:0 0 90px #fff6dc66; }
+.h3 .txt { position:absolute; left:72px; right:280px; top:58px; display:grid; gap:18px; z-index:3; }
+.h3 .cat { color:#0a171b; background:#ffffffd9; justify-self:start; padding:9px 14px; border-radius:8px; }
+.h3 .brand { left:72px; bottom:40px; }
+.h3 .st { position:absolute; right:72px; top:196px; }
+
+/* H4 Rolig silhuett */
+.h4 { background:linear-gradient(180deg,#0e2f38 0%, #0a171b 100%); }
+.h4 .txt { position:absolute; left:72px; right:72px; top:62px; display:grid; gap:20px; z-index:3; }
+.h4 .brand { left:72px; bottom:36px; }
+.h4 .st { position:absolute; right:72px; bottom:30px; }
+
+/* H5 Vinter: silhuett med snø (1. nov – 27. des, sammen med juletemaet) */
+.h5 { background:linear-gradient(180deg,#14303f 0%, #0b1a24 70%, #0a171b 100%); }
+.h5 .moon { right:110px; top:66px; width:92px; height:92px; background:#f4f1e6; box-shadow:0 0 90px #f4f1e655; }
+.h5 .txt { position:absolute; left:72px; right:270px; top:60px; display:grid; gap:20px; z-index:3; }
+.h5 .brand { left:72px; bottom:38px; }
+.h5 .st { position:absolute; right:72px; top:196px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Delingsbilde: A + E blandet</h1>
+    <p>Du likte både <b>A Plakat</b> (stor, tydelig tittel) og <b>E Ålesund-silhuett</b> (lokal følelse). Her er fem måter å blande dem på. Hvert forslag vises stort i en Messenger-boble og smått med fire andre arrangementer, så du ser hvordan det tåler lange titler, «Utsolgt», «Gratis» og mange datoer.</p>
+    <p>Byen er tegnet av siden selv (gavler, tårn og Aksla), ikke et foto, så den kan lages automatisk for alle arrangementene.</p>
+  </header>
+  <div class="ctrl"><label for="pick">Stort bilde viser <select id="pick"></select></label></div>
+  <div class="opts" id="opts"></div>
+</div>
+<script>
+const EV = [{"date": "2026-10-30", "time": "18:00", "title": "Claudia Scott og Torstein Flakne", "venue": "Løvenvold Theater", "cat": "konsert", "price": "499 kr", "priceMin": 499, "id": "claudia-scott-og-torstein-flakne-lovenvold-theater"}, {"date": "2026-10-30", "time": "19:00", "title": "Treretters: En lattergalla", "venue": "Parken kulturhus", "cat": "standup", "price": "530–625 kr", "priceMin": 530, "few": true, "note": "Kevin Vågenes, Cess og Rasmus Wold.", "id": "parken-47586-parken-kulturhus"}, {"date": "2026-10-30", "time": "20:00", "title": "GOLF", "venue": "Terminalen Byscene", "cat": "konsert", "price": "420 kr", "priceMin": 420, "note": "Rabatt: ÅSS / Studentbillett 320 kr, DNB-kunde 366 kr.", "id": "golf-terminalen-byscene"}, {"date": "2026-10-30", "time": "20:00", "title": "Skumle Oktoberquiz med Martin 👻🎃", "venue": "O'Connor's", "cat": "quiz", "price": "50 kr", "priceMin": 50, "note": "Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. 20:00 og 50 kr. Sjekk hos O'Connor's.", "id": "oconnors-2026-10-30-skumle-oktoberquiz-med-martin-o-connor-s"}, {"date": "2026-10-30", "time": "20:30", "title": "Van Halen-tribute – avskjedskonsert", "venue": "Fabrikken Kulturscene", "cat": "konsert", "note": "Dørene åpner 19.00.", "id": "van-halen-tribute-avskjedskonsert-fabrikken-kulturscene"}, {"date": "2026-10-30", "time": "23:00", "title": "DJ hver helg", "venue": "Liv & Røre Moa", "cat": "klubb", "moreShows": ["2026-11-06T23:00", "2026-11-07T23:00", "2026-11-13T23:00", "2026-11-14T23:00", "2026-11-20T23:00", "2026-11-21T23:00", "2026-11-27T23:00", "2026-11-28T23:00", "2026-12-04T23:00", "2026-12-05T23:00", "2026-12-11T23:00", "2026-12-12T23:00", "2026-12-18T23:00", "2026-12-19T23:00"], "note": "Nattklubb fredag og lørdag kl. 23–03, hver helg til 19. des. DJ-er: Raymond, Hamy, Sierra, Nic og Bigs.", "id": "livrore-dj-liv-rore-moa"}, {"date": "2026-10-31", "time": "12:00", "title": "Familiedag: Halloween på Jugendstilsenteret", "venue": "Jugendstilsenteret og KUBE", "cat": "barn", "price": "120 kr", "priceMin": 120, "note": "Gratis for barn i følge med en voksen som betaler inngang (120,-)", "id": "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug"}, {"date": "2026-10-31", "time": "14:00", "title": "Jazzkafe: Vegard Holum sings– ein hyllest til Chet", "venue": "Parken kulturhus", "cat": "konsert", "price": "150–250 kr", "priceMin": 150, "id": "parken-48033-parken-kulturhus"}, {"date": "2026-10-31", "time": "19:00", "title": "Viggo Venneløs", "venue": "Løvenvold Theater", "cat": "standup", "price": "350 kr", "priceMin": 350, "note": "Dører 18:00 · 15 år. Rabatt: Student 299 kr, Ungdom (15-19år) 299 kr.", "id": "viggo-vennelos-lovenvold-theater"}, {"date": "2026-10-31", "time": "19:00", "title": "Kristian Valen", "venue": "Parken kulturhus", "cat": "konsert", "price": "625 kr", "priceMin": 625, "few": true, "shows": [["2026-10-31T19:00", "few"], ["2026-10-31T21:00", "few"]], "moreShows": ["2026-10-31T21:00"], "id": "parken-45111-parken-kulturhus"}, {"date": "2026-10-31", "time": "20:00", "title": "Halloweenfest", "venue": "Liv & Røre Moa", "cat": "klubb", "price": "Gratis", "note": "Aldersgrense 20 år.", "id": "halloweenfest-liv-rore-moa"}, {"date": "2026-10-31", "time": "20:30", "title": "Autumn Nights – Nordvest Big Band med solister", "venue": "Fabrikken Kulturscene", "cat": "konsert", "note": "Dørene åpner 19.00.", "id": "autumn-nights-nordvest-big-band-med-solister-fabrikken-kultu"}, {"date": "2026-10-31", "time": "22:00", "title": "CIRCUS DAMP", "venue": "Dampsentralen", "cat": "klubb", "price": "200 kr", "priceMin": 200, "note": "Halloweenfest. Kostyme anbefales.", "id": "circus-damp-dampsentralen"}, {"date": "2026-10-31", "time": "23:00", "title": "Halloween-klubb med MENTUM", "venue": "Terminalen Byscene", "cat": "klubb", "price": "200 kr", "priceMin": 200, "soldOut": true, "id": "halloween-klubb-med-mentum-terminalen-byscene"}, {"date": "2026-11-01", "time": "13:00", "title": "Pelsdyr i ord og folkesong", "venue": "Sunnmøre museum", "cat": "happening", "price": "120 kr", "priceMin": 120, "id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus"}, {"date": "2026-11-05", "time": "18:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "priceMin": 699, "moreShows": ["2026-11-06T17:30", "2026-11-06T20:00", "2026-11-07T17:30", "2026-11-07T20:00", "2026-11-19T17:30", "2026-11-20T17:30", "2026-11-20T20:00", "2026-11-21T17:30", "2026-11-21T20:00", "2026-11-26T17:30", "2026-11-27T17:30", "2026-11-27T20:00", "2026-11-28T17:30", "2026-11-28T20:00", "2026-12-03T17:30", "2026-12-04T17:30", "2026-12-04T20:00", "2026-12-05T17:30", "2026-12-05T20:00", "2026-12-10T17:30", "2026-12-11T17:30", "2026-12-12T17:30", "2026-12-17T17:30", "2026-12-18T17:30"], "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 6. nov, 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.", "id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater"}, {"date": "2026-11-29", "time": "17:00", "title": "Zimmermann – julekonsert", "venue": "Løvenvold Theater", "cat": "konsert", "price": "449 kr", "priceMin": 449, "soldOut": true, "shows": [["2026-11-29T17:00", "sold"], ["2026-11-29T19:30", "sold"]], "moreShows": ["2026-11-29T19:30"], "id": "zimmermann-julekonsert-lovenvold-theater"}, {"date": "2026-12-01", "time": "17:30", "title": "Nøtteknekkeren", "venue": "Arbeideren kulturhus", "cat": "show", "price": "299 kr", "priceMin": 299, "few": true, "shows": [["2026-12-01T17:30", "sold"], ["2026-12-02T17:30", "sold"], ["2026-12-03T17:30", "few"], ["2026-12-04T17:30", "few"]], "moreShows": ["2026-12-02T17:30", "2026-12-03T17:30", "2026-12-04T17:30"], "note": "Premiere 1. desember.", "id": "notteknekkeren-arbeideren-kulturhus"}, {"date": "2026-12-19", "time": "16:00", "title": "Darling West – juleturné", "venue": "Løvenvold Theater", "cat": "konsert", "price": "520 kr", "priceMin": 520, "shows": [["2026-12-19T16:00", ""], ["2026-12-19T19:00", "sold"]], "moreShows": ["2026-12-19T19:00"], "id": "darling-west-juleturne-26-lovenvold-theater"}, {"date": "2027-06-19", "title": "Ålesund Live: Karpe", "venue": "Skutvika", "cat": "konsert", "price": "1399 kr", "priceMin": 1399, "note": "Lørdagspass 1399 kr, 2-dagerspass (med Tobias Sten fredag) 1999 kr. Flere artister annonseres.", "id": "alesund-live-karpe"}];
+const CATS = { konsert:"Konsert", standup:"Standup", show:"Show", barn:"Barn og familie", klubb:"Klubb", happening:"Happening", quiz:"Quiz", julebord:"Julebord", sport:"Sport" };
+const WD = ["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"], MO = ["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const noEmoji = s => s.replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, "").trim();
+const cap = s => s[0].toUpperCase() + s.slice(1);
+const dObj = iso => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d); };
+const catOf = e => CATS[e.cat] ? e.cat : "happening";
+const moreN = e => (e.moreShows || []).length;
+const LOGO = `<svg viewBox="0 0 48 52" aria-hidden="true"><circle cx="24" cy="6" r="3.5" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="var(--accent)"/><circle cx="15" cy="30" r="2" fill="#0a171b"/><circle cx="33" cy="30" r="2" fill="#0a171b"/><path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="#0a171b"/><path d="M4 49c3.5-2.5 6.5-2.5 10 0s6.5 2.5 10 0 6.5-2.5 10 0 6.5 2.5 10 0" fill="none" stroke="var(--sea)" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+const brand = `<div class="brand">${LOGO}kaskjerda.no</div>`;
+function status(e) {
+  if (e.soldOut) return ["sold", "Utsolgt"];
+  if (e.few) return ["few", "Få billetter igjen"];
+  if (e.priceMin === 0) return ["free", "Gratis"];
+  return ["price", e.price || "Pris hos arrangør"];
+}
+const stPill = e => { const [k, t] = status(e); return `<span class="st ${k}">${esc(t)}</span>`; };
+const fs = (t, base, per) => Math.max(base * 0.5, Math.min(base, base - (t.length - 16) * per));
+function when(e) {
+  const d = dObj(e.date); let s = `${cap(WD[d.getDay()])} ${d.getDate()}. ${MO[d.getMonth()]}`;
+  if (e.time) s += ` · <b>kl. ${e.time}</b>`;
+  if (moreN(e)) s += ` · + ${moreN(e)} ${moreN(e) === 1 ? "dato" : "datoer"}`;
+  return s + `<br>${esc(e.venue)}`;
+}
+
+/* Byen tegnes av en enkel generator: jugendgavler, tårn og Aksla bak. Samme frø gir samme by hver gang. */
+function rng(seed) { return () => (seed = (seed * 16807) % 2147483647) / 2147483647; }
+function skyline({ w = 1200, h = 230, seed = 7, hill = true, snow = false, lit = "#f7c873", fill = "#06110f", hillFill = "#0b2229", wave = true, density = 1 } = {}) {
+  const r = rng(seed); let p = "", win = "", caps = "";
+  if (hill) p += `<path d="M${w * 0.18} ${h} C ${w * 0.3} ${h * 0.25}, ${w * 0.42} ${h * 0.02}, ${w * 0.55} ${h * 0.05} S ${w * 0.8} ${h * 0.3}, ${w * 0.95} ${h}" fill="${hillFill}"/><rect x="${w * 0.545}" y="${h * 0.02}" width="${w * 0.02}" height="${h * 0.06}" fill="${hillFill}"/>`;
+  let x = -10;
+  while (x < w) {
+    const bw = (46 + r() * 64) / density, top = h * (0.38 + r() * 0.34), kind = r();
+    let path = `M${x} ${h}V${top}`;
+    if (kind < 0.45) { const peak = top - 26 - r() * 34; path += `L${x + bw / 2} ${peak}L${x + bw} ${top}`; if (snow) caps += `<path d="M${x - 2} ${top + 2}L${x + bw / 2} ${peak - 2}L${x + bw + 2} ${top + 2}" fill="none" stroke="#f4f7f6" stroke-width="7" stroke-linejoin="round"/>`; if (r() < 0.35) path += `M${x + bw / 2 - 2} ${peak}v-18h4v18Z`; }
+    else if (kind < 0.7) { const s = 12 + r() * 6; path += `v-${s}h${bw * 0.2}v-${s}h${bw * 0.6}v${s}h${bw * 0.2}`; if (snow) caps += `<path d="M${x + bw * 0.2} ${top - 2 * s}h${bw * 0.6}" stroke="#f4f7f6" stroke-width="7" stroke-linecap="round"/>`; }
+    else if (kind < 0.85) { const t = top - 60 - r() * 30; path += `H${x + bw * 0.35}V${t + 22}L${x + bw * 0.5} ${t}L${x + bw * 0.65} ${t + 22}V${top}H${x + bw}`; if (snow) caps += `<path d="M${x + bw * 0.33} ${t + 23}L${x + bw * 0.5} ${t - 1}L${x + bw * 0.67} ${t + 23}" fill="none" stroke="#f4f7f6" stroke-width="6" stroke-linejoin="round"/>`; }
+    else { path += `Q${x + bw / 2} ${top - 46} ${x + bw} ${top}`; if (snow) caps += `<path d="M${x} ${top}Q${x + bw / 2} ${top - 48} ${x + bw} ${top}" fill="none" stroke="#f4f7f6" stroke-width="7"/>`; }
+    p += `<path d="${path}V${h}Z" fill="${fill}"/>`;
+    for (let wy = top + 16; wy < h - 30; wy += 30) for (let wx = x + 10; wx < x + bw - 16; wx += 22) if (r() < 0.22) win += `<rect x="${wx.toFixed(0)}" y="${wy.toFixed(0)}" width="9" height="13" rx="1.5"/>`;
+    x += bw + (r() < 0.25 ? 6 : 0);
+  }
+  const wv = wave ? `<path d="M0 ${h - 14}${Array.from({ length: Math.ceil(w / 120) }, () => "c40-12 80-12 120 0").join("")}" fill="none" stroke="#5ab7bf" stroke-width="6"/>` : "";
+  return `<svg class="sky" viewBox="0 0 ${w} ${h}" style="height:${h}px" aria-hidden="true">${p}<g fill="${lit}" opacity=".9">${win}</g>${caps}${wv}</svg>`;
+}
+const SNOW = (() => { const r = rng(42); return Array.from({ length: 90 }, () => [r() * 1200, r() * 630, 1.5 + r() * 3, 0.25 + r() * 0.45]); })();
+const snowSvg = `<svg style="position:absolute;inset:0;z-index:2" viewBox="0 0 1200 630" aria-hidden="true">${SNOW.map(([x, y, s, o]) => `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${s.toFixed(1)}" fill="#fff" opacity="${o.toFixed(2)}"/>`).join("")}</svg>`;
+
+const D = [
+  { k:"h1", name:"1 · Plakat med byen nederst", pick:true,
+    sub:"A sin store tittel og kategorifarge øverst. En lav rad med gavler og bølgen langs bunnen, logo og pris står på byen.",
+    verdict:"<b>Mitt valg.</b> Tittelen får like mye plass som i A, og byen gjør bildet gjenkjennelig som «Ålesund» i en feed. Fungerer for alle kategorier.",
+    html:e => { const t = noEmoji(e.title); return `<div class="og h1" style="--c:var(--c-${catOf(e)});--fs:${fs(t, 100, 1.6)}px"><div class="txt"><div class="cat">${esc(CATS[catOf(e)])}</div><div class="ttl">${esc(t)}</div><div class="when">${when(e)}</div></div>${skyline({ h:150, seed:11, hill:false, density:1.25 })}${brand}${stPill(e)}</div>`; } },
+  { k:"h2", name:"2 · Plakat med Aksla til høyre",
+    sub:"Teksten til venstre som i A. Til høyre står Aksla og gavlene under en «måne» i kategorifargen.",
+    verdict:"Mest plakat-aktig og ryddig. Lange titler må bli mindre fordi teksten bare har venstre halvdel.",
+    html:e => { const t = noEmoji(e.title); return `<div class="og h2" style="--c:var(--c-${catOf(e)});--fs:${fs(t, 88, 1.5)}px"><div class="glow"></div><div class="txt"><div class="cat">${esc(CATS[catOf(e)])}</div><div class="ttl">${esc(t)}</div><div class="when">${when(e)}</div></div>${skyline({ w:620, h:300, seed:5, hill:true, density:0.95 })}${brand}${stPill(e)}</div>`; } },
+  { k:"h3", name:"3 · Silhuett i kategorifarge",
+    sub:"E sin by og måne, men himmelen har kategorifargen: blå for konsert, oransje for standup, rosa for klubb.",
+    verdict:"Fargerikt og lett å skille i en chat. Himmelen blir veldig sterk på gule og oransje kategorier.",
+    html:e => { const t = noEmoji(e.title); return `<div class="og h3" style="--c:var(--c-${catOf(e)});--fs:${fs(t, 90, 1.5)}px"><div class="moon"></div><div class="txt"><div class="cat">${esc(CATS[catOf(e)])}</div><div class="ttl">${esc(t)}</div><div class="when">${when(e)}</div></div>${stPill(e)}${skyline({ h:210, seed:3, hill:true })}${brand}</div>`; } },
+  { k:"h4", name:"4 · Rolig silhuett med A sin tittel",
+    sub:"E uten måne. Byen og Aksla er mørke mot mørk himmel, vinduene lyser i kategorifargen. Tittelen er like stor som i A.",
+    verdict:"Diskret og elegant. Byen synes mindre når bildet er lite.",
+    html:e => { const t = noEmoji(e.title); return `<div class="og h4" style="--c:var(--c-${catOf(e)});--fs:${fs(t, 100, 1.6)}px"><div class="txt"><div class="cat">${esc(CATS[catOf(e)])}</div><div class="ttl">${esc(t)}</div><div class="when">${when(e)}</div></div>${skyline({ h:200, seed:19, hill:true, lit:getC(e), fill:"#050e10", hillFill:"#0c252c" })}${brand}${stPill(e)}</div>`; } },
+  { k:"h5", name:"5 · Vinterutgave (1. nov – 27. des)",
+    sub:"Som 3/4, men med snø på takene, snøfall og hvit måne. Brukes automatisk i samme periode som juletemaet, resten av året vises 1.",
+    verdict:"Koselig i desember og passer juletemaet. Kan kombineres med hvilken som helst av de andre.",
+    html:e => { const t = noEmoji(e.title); return `<div class="og h5" style="--c:var(--c-${catOf(e)});--fs:${fs(t, 90, 1.5)}px"><div class="moon"></div>${snowSvg}<div class="txt"><div class="cat">${esc(CATS[catOf(e)])}</div><div class="ttl">${esc(t)}</div><div class="when">${when(e)}</div></div>${stPill(e)}${skyline({ h:210, seed:3, hill:true, snow:true, hillFill:"#1a3540" })}${brand}</div>`; } },
+];
+function getC(e) { return getComputedStyle(document.documentElement).getPropertyValue(`--c-${catOf(e)}`).trim() || "#f7c873"; }
+
+const PICKS = ["golf-terminalen-byscene", "parken-47586", "notteknekkeren", "halloween-klubb", "halloweenfest", "juleshow", "jazzkafe", "karpe", "familiedag", "skumle"].map(k => EV.find(e => e.id.includes(k) || e.title.toLowerCase().includes(k))).filter(Boolean);
+const THUMBS = [["jazzkafe", "Lang tittel"], ["halloween-klubb", "Utsolgt"], ["halloweenfest", "Gratis"], ["juleshow", "Mange datoer"]].map(([k, l]) => [EV.find(e => e.id.includes(k) || e.title.toLowerCase().includes(k)), l]).filter(x => x[0]);
+$("pick").innerHTML = PICKS.map((e, i) => `<option value="${i}">${esc(e.title)}</option>`).join("");
+function render() {
+  const e = PICKS[+$("pick").value || 0];
+  $("opts").innerHTML = D.map(d => `<div class="opt">
+    <div class="chat"><div class="from">Skal vi? 😄</div><div class="bubble"><div class="ogbox">${d.html(e)}</div><div class="cap"><b>${esc(e.title)} – ${esc(e.venue)} | Skjer i Ålesund</b><small>kaskjerda.no</small></div></div></div>
+    <div class="info">${d.pick ? `<span class="pick">Anbefalt</span>` : ""}<h2>${d.name}<small>${d.sub}</small></h2><div class="verdict">${d.verdict}</div>
+      <div class="thumbs">${THUMBS.map(([t, l]) => `<figure><div class="ogbox">${d.html(t)}</div><figcaption>${l}: ${esc(t.title)}</figcaption></figure>`).join("")}</div></div></div>`).join("");
+  scale();
+}
+function scale() { document.querySelectorAll(".ogbox").forEach(b => b.firstElementChild.style.setProperty("--s", b.clientWidth / 1200)); }
+new ResizeObserver(scale).observe(document.body);
+$("pick").onchange = render;
+render();
+document.fonts?.ready.then(scale);
+</script>
+</body>
+</html>
