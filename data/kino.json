@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-30T06:00:05Z",
+  "updatedAt": "2026-10-30T08:16:22Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -1769,18 +1769,18 @@
     },
     {
      "start": "2026-11-05T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T12:00:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/35e194ce-408a-43f4-94fb-aaa7a1e15bc4",
+     "club": false
+    },
+    {
+     "start": "2026-11-05T12:00:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
      "club": false
     },
     {
@@ -2723,6 +2723,27 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/6ebcb159-7dbe-4e46-9431-ecaedc9a412a",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20261752",
+   "title": "You Can See Everything",
+   "age": 0,
+   "minutes": 174,
+   "genres": [
+    "Biografi",
+    "Dokumentar"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/84249b8e77c9edb589ae2254f1b899a59bd74dc1-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-11-20",
+   "shows": [
+    {
+     "start": "2026-11-19T19:00:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/514bde7e-8cfb-483a-82b8-479fda23ca65",
      "club": false
     }
    ]
