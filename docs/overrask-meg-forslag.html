@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Overrask meg</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Seks forslag til en «Overrask meg»-knapp på kaskjerda.no. Hver mobil virker: trykk på knappen.
+   Trekker blant ekte arrangementer de neste 7 dagene (31. okt – 6. nov), uten utsolgte og julebord. Mørkt kveldstema som på siden. */
+:root {
+  --bg:#0a171b; --surface:#13252d; --surface-2:#0f1f26; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a;
+  --gold:#f7c873; --sea:#5ab7bf; --accent:#ff8a6b; --accent-ink:#1a0b07; --few:#ffb547; --few-bg:#3a2a10; --few-line:#6b4c17;
+  --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-show:#ab93e6; --c-barn:#6cc98a; --c-klubb:#ec78ab; --c-happening:#d9b84a; --c-quiz:#b497e0; --c-sport:#7aa7e6;
+  --font-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+html { background:var(--bg); }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 15px/1.5 var(--font-body);
+  padding-block:28px 72px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+button { font:inherit; color:inherit; cursor:pointer; }
+a { color:inherit; }
+:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+.wrap { max-width:1680px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr); gap:30px; }
+header h1 { font:800 clamp(28px,4.2vw,42px)/1.05 var(--font-display); margin:0 0 10px; }
+header p { margin:0 0 8px; max-width:80ch; color:var(--muted); }
+header p b { color:var(--fg); }
+.grid { display:flex; flex-wrap:wrap; gap:36px 26px; align-items:flex-start; }
+.opt { width:390px; max-width:100%; min-width:0; display:grid; gap:10px; align-content:start; }
+.opt h2 { font:800 21px/1.15 var(--font-display); margin:0; }
+.opt h2 small { display:block; font:500 13.5px/1.45 var(--font-body); color:var(--muted); margin-top:4px; }
+.opt .verdict { font-size:13.5px; color:var(--muted); }
+.opt .verdict b { color:var(--gold); }
+.pick { font:700 11px/1 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--gold); }
+.phone { position:relative; border:1px solid var(--line); border-radius:24px; padding:14px 12px 18px; min-height:560px; overflow:hidden;
+  background:radial-gradient(130% 300px at 50% 0,#17434d 0%,rgba(10,23,27,0) 100%),var(--bg); }
+
+/* Liten kopi av toppen på forsiden */
+.mh { display:flex; align-items:center; gap:8px; font:800 22px/1 var(--font-display); margin:2px 0 12px; }
+.mh span { background:linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.mbar { display:flex; gap:8px; margin-bottom:10px; }
+.mbar .search { flex:1; min-width:0; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--muted); padding:10px 12px; font-size:14px; }
+.mbar .mine { border:1px solid var(--line); border-radius:12px; background:var(--surface); padding:0 12px; font-weight:600; font-size:14px; display:grid; place-items:center; }
+.ghost { height:62px; border-radius:12px; background:var(--surface); border:1px solid var(--line); opacity:.45; margin-top:10px; }
+.ghost.s { height:44px; }
+.surp { display:inline-flex; align-items:center; gap:7px; border:1px solid color-mix(in srgb, var(--gold) 60%, var(--line)); background:color-mix(in srgb, var(--gold) 14%, var(--surface));
+  color:var(--gold); border-radius:12px; padding:0 12px; min-height:44px; font-weight:700; font-size:14px; white-space:nowrap; }
+.surp svg, .ico { width:18px; height:18px; flex:none; }
+
+/* Resultatkortet, likt kortene på forsiden */
+.res { --c:var(--sea); background:linear-gradient(135deg, color-mix(in srgb, var(--c) 22%, #13252d), #13252d 62%); border:1px solid var(--line); border-left:4px solid var(--c);
+  border-radius:14px; padding:14px; display:grid; gap:6px; box-shadow:0 12px 30px #0008; }
+.res .kick { font:700 11px/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+.res .tag { font:600 11px/1 var(--font-body); text-transform:uppercase; letter-spacing:.06em; color:var(--c); }
+.res b.t { font:800 21px/1.15 var(--font-display); text-wrap:balance; }
+.res .m { font-size:13.5px; color:var(--muted); }
+.res .m em { font-style:normal; color:var(--fg); font-family:var(--font-mono); font-weight:600; }
+.res .pr { font:600 14px var(--font-mono); }
+.res .fewp { font:700 10.5px/1 var(--font-body); background:var(--few-bg); border:1px solid var(--few-line); color:var(--few); border-radius:999px; padding:4px 7px; margin-left:6px; vertical-align:2px; }
+.res .acts { display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+.btn { white-space:nowrap; border:0; border-radius:10px; padding:0 14px; min-height:42px; font-weight:700; font-size:14px; display:inline-flex; align-items:center; gap:6px; text-decoration:none; }
+.btn.go { background:var(--accent); color:var(--accent-ink); }
+.btn.again { background:var(--surface-2); border:1px solid var(--line); color:var(--fg); }
+.btn.save { background:transparent; border:1px solid var(--line); color:var(--fg); }
+.hint { color:var(--muted); font-size:13px; text-align:center; margin:14px 0; }
+
+/* A Kortet snur seg */
+.flipzone { perspective:1200px; margin-top:12px; min-height:270px; position:relative; }
+.stack { position:absolute; inset:0 10px auto; height:250px; }
+.stack i { position:absolute; inset:0; border-radius:14px; border:1px solid var(--line); background:repeating-linear-gradient(45deg,#16303a 0 10px,#122830 10px 20px); }
+.stack i:nth-child(1) { transform:rotate(-4deg) translateY(6px); } .stack i:nth-child(2) { transform:rotate(3deg) translateY(3px); }
+.flip { position:relative; height:250px; margin:0 10px; transform-style:preserve-3d; transition:transform .7s cubic-bezier(.2,.8,.2,1); }
+.flip.on { transform:rotateY(180deg); }
+.flip > div { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.flip .back { border-radius:14px; border:1px solid var(--line); background:repeating-linear-gradient(45deg,#1a3944 0 10px,#15303a 10px 20px); display:grid; place-items:center; color:var(--gold); font:800 20px var(--font-display); }
+.flip .front { transform:rotateY(180deg); }
+.flip .front .res { height:100%; align-content:start; }
+.shuffle { animation:shuf .45s ease; }
+@keyframes shuf { 30% { transform:translateX(-14px) rotate(-3deg); } 60% { transform:translateX(12px) rotate(2deg); } }
+
+/* B Spilleautomat */
+.slot { margin-top:12px; border-radius:16px; border:2px solid var(--gold); background:#071114; padding:10px; box-shadow:inset 0 0 30px #000; }
+.slot .win { height:66px; overflow:hidden; position:relative; border-radius:10px; background:var(--surface-2); }
+.slot .win::before, .slot .win::after { content:""; position:absolute; left:0; right:0; height:16px; z-index:2; pointer-events:none; }
+.slot .win::before { top:0; background:linear-gradient(#071114,transparent); } .slot .win::after { bottom:0; background:linear-gradient(transparent,#071114); }
+.slot .reel { position:absolute; left:0; right:0; top:0; }
+.slot .reel div { height:66px; display:flex; align-items:center; gap:10px; padding:0 14px; font:800 17px/1.15 var(--font-display); white-space:nowrap; overflow:hidden; }
+.slot .reel div i { width:10px; height:10px; border-radius:50%; background:var(--c); flex:none; }
+.slot .lever { display:flex; justify-content:center; margin-top:10px; }
+.slot .lever .btn { background:var(--gold); color:#10282f; }
+.reveal { margin-top:12px; animation:pop .4s cubic-bezier(.2,1.4,.4,1) both; }
+@keyframes pop { from { transform:scale(.9) translateY(10px); opacity:0; } }
+
+/* C Lykkehjul */
+.wheelbox { position:relative; width:250px; height:250px; margin:14px auto 6px; }
+.wheel { width:100%; height:100%; border-radius:50%; border:4px solid var(--gold); transition:transform 3.2s cubic-bezier(.12,.75,.18,1); box-shadow:0 0 0 6px #0a171b, 0 10px 30px #000a; }
+.wheelbox .pin { position:absolute; left:50%; top:-10px; transform:translateX(-50%); width:0; height:0; border-left:12px solid transparent; border-right:12px solid transparent; border-top:22px solid var(--gold); z-index:2; }
+.wheelbox .hub { position:absolute; inset:0; margin:auto; width:64px; height:64px; border-radius:50%; background:var(--bg); border:3px solid var(--gold); display:grid; place-items:center; font:800 13px var(--font-display); color:var(--gold); }
+.wlabels { position:absolute; inset:0; pointer-events:none; transition:transform 3.2s cubic-bezier(.12,.75,.18,1); }
+.wlabels span { position:absolute; left:50%; top:50%; transform-origin:0 0; color:#0a171b; }
+.wlabels svg { width:20px; height:20px; }
+
+/* D Skrapelodd */
+.scratch { position:relative; margin-top:12px; border-radius:14px; overflow:hidden; touch-action:none; }
+.scratch canvas { position:absolute; inset:0; width:100%; height:100%; cursor:grab; }
+.scratch .res { min-height:220px; box-shadow:none; }
+
+/* E Terning i hjørnet */
+.fab { position:absolute; right:16px; bottom:18px; width:60px; height:60px; border-radius:18px; border:0; background:var(--gold); color:#10282f; display:grid; place-items:center; box-shadow:0 10px 24px #000a; z-index:3; }
+.fab svg { width:30px; height:30px; }
+.fab.roll svg { animation:roll .7s cubic-bezier(.3,.7,.4,1); }
+@keyframes roll { to { transform:rotate(720deg) scale(1.1); } }
+.sheet { position:absolute; left:0; right:0; bottom:0; padding:12px 12px 18px; background:#0e1d23; border-top:1px solid var(--line); border-radius:20px 20px 0 0; transform:translateY(105%); transition:transform .35s cubic-bezier(.2,.8,.2,1); z-index:4; box-shadow:0 -20px 40px #0009; }
+.sheet.on { transform:none; }
+.sheet .grab { width:40px; height:5px; border-radius:3px; background:var(--line); margin:0 auto 10px; }
+.sheet .x { position:absolute; right:12px; top:10px; width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:transparent; }
+.scrim { position:absolute; inset:0; background:#0008; opacity:0; pointer-events:none; transition:opacity .3s; z-index:3; }
+.scrim.on { opacity:1; pointer-events:auto; }
+
+/* F Hva har du lyst på? */
+.moods { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.moods button { border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:0 14px; min-height:44px; font-weight:600; font-size:14px; }
+.moods button[aria-pressed="true"] { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.when2 { display:flex; gap:6px; margin-top:10px; }
+.when2 button { flex:1; border:1px solid var(--line); background:transparent; border-radius:10px; min-height:40px; font-weight:600; font-size:13px; }
+.when2 button[aria-pressed="true"] { border-color:var(--sea); color:var(--sea); }
+.typing::after { content:"▍"; animation:blink 1s steps(1) infinite; color:var(--gold); }
+@keyframes blink { 50% { opacity:0; } }
+@media (prefers-reduced-motion: reduce) { .flip, .wheel, .sheet { transition:none !important; } .shuffle, .fab.roll svg, .reveal { animation:none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>«Overrask meg»: seks forslag</h1>
+    <p>Hver mobil virker: <b>trykk på knappen</b>. Knappen trekker ett tilfeldig arrangement blant de <b>ekte arrangementene de neste 7 dagene</b> (31. okt – 6. nov), uten utsolgte og uten julebord. På siden skal den også følge filtrene du har valgt (kategori, «★ Mine», pris), så «Overrask meg» med Standup valgt bare trekker standup.</p>
+    <p>Trykker du flere ganger, kommer samme arrangement ikke igjen før alle er trukket. Antall trekk telles i statistikken (GoatCounter), ikke hva som ble trukket.</p>
+  </header>
+  <div class="grid" id="grid"></div>
+</div>
+<script>
+const EV = [{"id": "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug", "title": "Familiedag: Halloween på Jugendstilsenteret", "venue": "Jugendstilsenteret og KUBE", "cat": "barn", "price": "120 kr", "priceMin": 120, "few": null, "note": "Gratis for barn i følge med en voksen som betaler inngang (120,-)", "date": "2026-10-31", "time": "12:00"}, {"id": "parken-48033-parken-kulturhus", "title": "Jazzkafe: Vegard Holum sings– ein hyllest til Chet", "venue": "Parken kulturhus", "cat": "konsert", "price": "150–250 kr", "priceMin": 150, "few": null, "note": "", "date": "2026-10-31", "time": "14:00"}, {"id": "viggo-vennelos-lovenvold-theater", "title": "Viggo Venneløs", "venue": "Løvenvold Theater", "cat": "standup", "price": "350 kr", "priceMin": 350, "few": null, "note": "Dører 18:00 · 15 år. Rabatt: Student 299 kr, Ungdom (15-19år) 299 kr.", "date": "2026-10-31", "time": "19:00"}, {"id": "parken-45111-parken-kulturhus", "title": "Kristian Valen", "venue": "Parken kulturhus", "cat": "konsert", "price": "625 kr", "priceMin": 625, "few": true, "note": "", "date": "2026-10-31", "time": "19:00"}, {"id": "halloweenfest-liv-rore-moa", "title": "Halloweenfest", "venue": "Liv & Røre Moa", "cat": "klubb", "price": "Gratis", "priceMin": 0, "few": null, "note": "Aldersgrense 20 år.", "date": "2026-10-31", "time": "20:00"}, {"id": "autumn-nights-nordvest-big-band-med-solister-fabrikken-kultu", "title": "Autumn Nights – Nordvest Big Band med solister", "venue": "Fabrikken Kulturscene", "cat": "konsert", "price": "", "priceMin": null, "few": null, "note": "Dørene åpner 19.00.", "date": "2026-10-31", "time": "20:30"}, {"id": "circus-damp-dampsentralen", "title": "CIRCUS DAMP", "venue": "Dampsentralen", "cat": "klubb", "price": "200 kr", "priceMin": 200, "few": null, "note": "Halloweenfest. Kostyme anbefales.", "date": "2026-10-31", "time": "22:00"}, {"id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus", "title": "Pelsdyr i ord og folkesong", "venue": "Sunnmøre museum", "cat": "happening", "price": "120 kr", "priceMin": 120, "few": null, "note": "", "date": "2026-11-01", "time": "13:00"}, {"id": "parken-50918-parken-kulturhus", "title": "Påfyll", "venue": "Parken kulturhus", "cat": "show", "price": "100 kr", "priceMin": 100, "few": null, "note": "", "date": "2026-11-02", "time": "19:00"}, {"id": "parken-50888-parken-kulturhus", "title": "Marianne Heske – fra Tafjord til verdens kunstscene", "venue": "Parken kulturhus", "cat": "happening", "price": "130–230 kr", "priceMin": 130, "few": null, "note": "", "date": "2026-11-04", "time": "19:00"}, {"id": "parken-46413-parken-kulturhus", "title": "Storefri", "venue": "Parken kulturhus", "cat": "show", "price": "580 kr", "priceMin": 580, "few": true, "note": "", "date": "2026-11-05", "time": "18:00"}, {"id": "livrore-2026-11-05-musikkquiz-med-oystein-liv-rore-moa", "title": "Musikkquiz med Øystein", "venue": "Liv & Røre Moa", "cat": "quiz", "price": "75 kr", "priceMin": 75, "few": null, "note": "Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.", "date": "2026-11-05", "time": "18:00"}, {"id": "schuberts-testamente-sobra-scene", "title": "Schuberts Testamente", "venue": "Sobra Scene", "cat": "konsert", "price": "250 kr", "priceMin": 250, "few": null, "note": "Rabatt: Under 20 100 kr.", "date": "2026-11-05", "time": "18:30"}, {"id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "priceMin": 699, "few": null, "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 6. nov, 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.", "date": "2026-11-05", "time": "18:30"}, {"id": "parken-46661-parken-kulturhus", "title": "The best of Ghibli Studio", "venue": "Parken kulturhus", "cat": "konsert", "price": "400–450 kr", "priceMin": 400, "few": true, "note": "", "date": "2026-11-06", "time": "17:30"}, {"id": "parken-47866-parken-kulturhus", "title": "The music of Hans Zimmer vs John Williams", "venue": "Parken kulturhus", "cat": "konsert", "price": "400–450 kr", "priceMin": 400, "few": true, "note": "", "date": "2026-11-06", "time": "19:30"}, {"id": "maria-mena-terminalen-byscene", "title": "Maria Mena", "venue": "Terminalen Byscene", "cat": "konsert", "price": "699 kr", "priceMin": 699, "few": true, "note": "40-årsturné og 25 år som artist. Rabatt: DNB-kunde 559 kr.", "date": "2026-11-06", "time": "20:00"}, {"id": "heibergs-mandskor-vid-min-flaska-vil-jag-somna-vid-min-flick", "title": "Heibergs Mandskor – «Vid min flaska vil jag somna, vid min flicka vakna opp»", "venue": "Fabrikken Kulturscene", "cat": "konsert", "price": "", "priceMin": null, "few": null, "note": "Dørene åpner 19.00.", "date": "2026-11-06", "time": "20:30"}, {"id": "parken-47822-parken-kulturhus", "title": "Hanna Paulsberg: Belonging", "venue": "Parken kulturhus", "cat": "konsert", "price": "300–350 kr", "priceMin": 300, "few": null, "note": "", "date": "2026-11-06", "time": "21:00"}, {"id": "livrore-dj-liv-rore-moa", "title": "DJ hver helg", "venue": "Liv & Røre Moa", "cat": "klubb", "price": "", "priceMin": null, "few": null, "note": "Nattklubb fredag og lørdag kl. 23–03, hver helg til 19. des. DJ-er: Raymond, Hamy, Sierra, Nic og Bigs.", "date": "2026-11-06", "time": "23:00"}];
+const CATS = { konsert:"Konsert", standup:"Standup", show:"Show", barn:"Barn og familie", klubb:"Klubb", happening:"Happening", quiz:"Quiz", sport:"Sport" };
+const WD = ["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"], MO = ["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"];
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const cap = s => s[0].toUpperCase() + s.slice(1);
+const cat = e => CATS[e.cat] ? e.cat : "happening";
+const day = e => { const [y, m, d] = e.date.split("-").map(Number), D = new Date(y, m - 1, d); return `${cap(WD[D.getDay()])} ${d}. ${MO[m - 1]}`; };
+const DICE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.3" fill="currentColor"/></svg>`;
+const ICON = {
+  konsert:'<path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
+  standup:'<rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>',
+  show:'<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/>',
+  barn:'<ellipse cx="12" cy="9" rx="5.5" ry="6.5"/><path d="M12 15.5l-1 1.5h2l-1-1.5M12 17c0 2-2 2.5-2 4.5"/>',
+  klubb:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.2"/><path d="M12 3.5a8.5 8.5 0 0 1 8.5 8.5"/>',
+  happening:'<path d="M12 2.5v5M12 16.5v5M2.5 12h5M16.5 12h5M5.3 5.3l3.2 3.2M15.5 15.5l3.2 3.2M5.3 18.7l3.2-3.2M15.5 8.5l3.2-3.2"/>',
+  quiz:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.6v.6"/><circle cx="12" cy="17" r=".6"/>',
+};
+const ico = c => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[c] || ICON.happening}</svg>`;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Trekk uten å gjenta før alle er trukket
+function bag(list) { let left = []; return () => { if (!left.length) left = list.slice().sort(() => Math.random() - .5); return left.pop(); }; }
+function card(e, kick = "Hva med …") {
+  const price = e.priceMin === 0 ? "Gratis" : e.price || "Pris hos arrangør";
+  return `<div class="res" style="--c:var(--c-${cat(e)})"><span class="kick">${kick}</span><span class="tag">${CATS[cat(e)]}</span><b class="t">${esc(e.title)}</b>
+    <div class="m">${day(e)}${e.time ? ` · <em>kl. ${esc(e.time)}</em>` : ""}<br>${esc(e.venue)}</div>
+    <div><span class="pr">${esc(price)}</span>${e.few ? `<span class="fewp">Få billetter igjen</span>` : ""}</div>
+    <div class="acts"><a class="btn go" href="#">Billetter →</a><button type="button" class="btn again" data-again>${DICE}En til</button><button type="button" class="btn save" aria-label="Lagre i Mine">☆</button></div></div>`;
+}
+const topBar = (btnInBar = true) => `<div class="mh">Skjer i <span>Ålesund</span></div><div class="mbar"><div class="search">Søk …</div><div class="mine">★ Mine</div>${btnInBar ? `<button type="button" class="surp" data-go>${DICE}Overrask meg</button>` : ""}</div>`;
+
+const OPTS = [
+  { id:"a", name:"A · Kortet snur seg", pick:true, sub:"Knappen ved «★ Mine». En bunke kort stokkes, og det øverste snur seg og viser arrangementet.",
+    verdict:"<b>Mitt valg.</b> Kort og kjent animasjon, passer kortene på siden, og «En til» stokker på nytt.",
+    html:() => topBar() + `<div class="flipzone"><div class="stack"><i></i><i></i></div><div class="flip"><div class="back">Trykk «Overrask meg»</div><div class="front"></div></div></div>`,
+    run(el, next) { const f = el.querySelector(".flip"), z = el.querySelector(".flipzone");
+      const go = () => { const e = next(); f.classList.remove("on"); z.classList.remove("shuffle"); void z.offsetWidth; z.classList.add("shuffle");
+        setTimeout(() => { el.querySelector(".front").innerHTML = card(e); f.classList.add("on"); }, reduce ? 0 : 420); };
+      el.addEventListener("click", ev => { if (ev.target.closest("[data-go],[data-again]")) go(); }); } },
+  { id:"b", name:"B · Spilleautomat", sub:"Titlene ruller forbi i et vindu og bremser ned til ett arrangement.",
+    verdict:"Morsomst og mest spill-aktig. Litt lang (2 s) hvis man trykker mange ganger.",
+    html:() => topBar(false) + `<div class="slot"><div class="win"><div class="reel"></div></div><div class="lever"><button type="button" class="btn" data-go>${DICE}Overrask meg</button></div></div><div class="out"></div>`,
+    run(el, next) { const reel = el.querySelector(".reel"), out = el.querySelector(".out");
+      const row = e => `<div style="--c:var(--c-${cat(e)})"><i></i>${esc(e.title)}</div>`;
+      reel.innerHTML = row(EV[0]);
+      const go = () => { const e = next(), n = 18, list = Array.from({ length: n }, () => EV[Math.floor(Math.random() * EV.length)]).concat([e]);
+        out.innerHTML = ""; reel.style.transition = "none"; reel.style.transform = "translateY(0)"; reel.innerHTML = list.map(row).join("");
+        void reel.offsetWidth; reel.style.transition = reduce ? "none" : "transform 2s cubic-bezier(.15,.8,.25,1)"; reel.style.transform = `translateY(-${n * 66}px)`;
+        setTimeout(() => { out.innerHTML = `<div class="reveal">${card(e, "Jackpot!")}</div>`; }, reduce ? 0 : 2050); };
+      el.addEventListener("click", ev => { if (ev.target.closest("[data-go],[data-again]")) go(); }); } },
+  { id:"c", name:"C · Lykkehjul", sub:"Et hjul med kategorifargene og symbolene. Det snurrer og stopper på ett felt.",
+    verdict:"Veldig visuelt og morsomt å dele som skjermopptak. Tar mest plass.",
+    html:() => topBar(false) + `<div class="wheelbox"><div class="pin"></div><div class="wheel"></div><div class="wlabels"></div><button type="button" class="hub" data-go aria-label="Snurr hjulet">SNURR</button></div><div class="out"><p class="hint">Trykk midt i hjulet</p></div>`,
+    run(el, next) { const w = el.querySelector(".wheel"), out = el.querySelector(".out"), N = 8; let rot = 0, picks = [];
+      const paint = () => { picks = Array.from({ length: N }, () => next());
+        w.style.background = `conic-gradient(${picks.map((e, i) => `var(--c-${cat(e)}) ${i * 45}deg ${(i + 1) * 45}deg`).join(",")})`;
+        el.querySelector(".wlabels").innerHTML = picks.map((e, i) => `<span style="transform:rotate(${i * 45 + 22.5 - 90}deg) translate(80px,-10px)">${ico(cat(e))}</span>`).join(""); };
+      paint();
+      const go = () => { const k = Math.floor(Math.random() * N); rot += 360 * 4 + (360 - (k * 45 + 22.5)) - (rot % 360);
+        w.style.transform = `rotate(${rot}deg)`; el.querySelector(".wlabels").style.transform = w.style.transform;
+        out.innerHTML = ""; setTimeout(() => { out.innerHTML = `<div class="reveal" style="margin-top:8px">${card(picks[k], "Hjulet sier …")}</div>`; }, reduce ? 0 : 3250); };
+      el.addEventListener("click", ev => { if (ev.target.closest("[data-go]")) go(); if (ev.target.closest("[data-again]")) { paint(); go(); } }); } },
+  { id:"d", name:"D · Skrapelodd", sub:"Knappen ved «★ Mine» lager et skrapelodd. Skrap med fingeren for å se hva du har vunnet.",
+    verdict:"Gøyest på mobil, og lett å forstå. På PC skraper man med musa, som er litt klønete.",
+    html:() => topBar() + `<div class="scratch"><div class="lodd"></div><canvas></canvas></div><p class="hint">Trykk «Overrask meg», og skrap</p>`,
+    run(el, next) { const box = el.querySelector(".scratch"), cv = el.querySelector("canvas"), lodd = el.querySelector(".lodd"); let down = false;
+      const cover = () => { const r = box.getBoundingClientRect(); cv.width = r.width * 2; cv.height = r.height * 2; const g = cv.getContext("2d");
+        const gr = g.createLinearGradient(0, 0, cv.width, cv.height); gr.addColorStop(0, "#c9a04a"); gr.addColorStop(.5, "#f7d98b"); gr.addColorStop(1, "#b98a35");
+        g.globalCompositeOperation = "source-over"; g.fillStyle = gr; g.fillRect(0, 0, cv.width, cv.height);
+        g.fillStyle = "#5a3f10"; g.font = "800 44px Bricolage Grotesque, sans-serif"; g.textAlign = "center"; g.fillText("SKRAP HER", cv.width / 2, cv.height / 2 + 14);
+        g.globalCompositeOperation = "destination-out"; };
+      const go = () => { lodd.innerHTML = card(next(), "Du vant …"); cv.style.display = "block"; requestAnimationFrame(cover); };
+      const scr = ev => { if (!down) return; const r = cv.getBoundingClientRect(), g = cv.getContext("2d"); g.beginPath(); g.arc((ev.clientX - r.left) * 2, (ev.clientY - r.top) * 2, 44, 0, 7); g.fill(); };
+      cv.addEventListener("pointerdown", ev => { down = true; cv.setPointerCapture(ev.pointerId); scr(ev); }); cv.addEventListener("pointermove", scr);
+      cv.addEventListener("pointerup", () => { down = false; const g = cv.getContext("2d"), d = g.getImageData(0, 0, cv.width, cv.height).data; let clear = 0;
+        for (let i = 3; i < d.length; i += 400) if (!d[i]) clear++; if (clear / (d.length / 400) > .45) cv.style.display = "none"; });
+      lodd.innerHTML = card(EV[3], "Du vant …"); requestAnimationFrame(cover);
+      el.addEventListener("click", ev => { if (ev.target.closest("[data-go],[data-again]")) go(); }); } },
+  { id:"e", name:"E · Terning i hjørnet", sub:"En terning nede i hjørnet, alltid synlig. Den ruller, og et ark glir opp nedenfra.",
+    verdict:"Rask og diskret, forstyrrer ikke lista. Kan komme i veien for «Lagre»-meldingen nederst.",
+    html:() => topBar(false) + `<div class="ghost"></div><div class="ghost"></div><div class="ghost s"></div><div class="ghost"></div><div class="ghost"></div><div class="scrim"></div><button type="button" class="fab" data-go aria-label="Overrask meg">${DICE}</button><div class="sheet" role="dialog" aria-label="Overraskelse"><div class="grab"></div><button type="button" class="x" aria-label="Lukk">×</button><div class="in"></div></div>`,
+    run(el, next) { const s = el.querySelector(".sheet"), sc = el.querySelector(".scrim"), fab = el.querySelector(".fab");
+      const go = () => { fab.classList.remove("roll"); void fab.offsetWidth; fab.classList.add("roll"); s.classList.remove("on");
+        setTimeout(() => { el.querySelector(".in").innerHTML = card(next()); s.classList.add("on"); sc.classList.add("on"); }, reduce ? 0 : 650); };
+      const close = () => { s.classList.remove("on"); sc.classList.remove("on"); };
+      el.addEventListener("click", ev => { if (ev.target.closest("[data-go],[data-again]")) go(); if (ev.target.closest(".x") || ev.target === sc) close(); }); } },
+  { id:"f", name:"F · Hva har du lyst på?", sub:"Velg en stemning og når, så foreslår siden noe som passer. Teksten skrives fram.",
+    verdict:"Mest nyttig, nesten som en guide. Litt mer å trykke på før man får svar.",
+    html:() => topBar(false) + `<div class="moods" role="group" aria-label="Hva har du lyst på"><button type="button" data-m="le" aria-pressed="true">Le</button><button type="button" data-m="musikk" aria-pressed="false">Musikk</button><button type="button" data-m="danse" aria-pressed="false">Danse</button><button type="button" data-m="barn" aria-pressed="false">Med barna</button><button type="button" data-m="alt" aria-pressed="false">Hva som helst</button></div>
+      <div class="when2" role="group" aria-label="Når"><button type="button" data-w="helg" aria-pressed="true">I helgen</button><button type="button" data-w="uke" aria-pressed="false">Neste 7 dager</button></div>
+      <div style="margin-top:12px"><button type="button" class="surp" data-go style="width:100%;justify-content:center">${DICE}Finn noe til meg</button></div><div class="out"></div>`,
+    run(el) { const MOOD = { le:["standup","show"], musikk:["konsert"], danse:["klubb"], barn:["barn"], alt:null }; let mood = "le", when = "helg";
+      const pool = () => EV.filter(e => (!MOOD[mood] || MOOD[mood].includes(e.cat)) && (when === "uke" || ["2026-10-31", "2026-11-01"].includes(e.date)));
+      const out = el.querySelector(".out");
+      const go = () => { const p = pool(); if (!p.length) { out.innerHTML = `<p class="hint">Ingenting som passer i helgen. Prøv «Neste 7 dager».</p>`; return; }
+        const e = p[Math.floor(Math.random() * p.length)], text = "Hva med " + e.title + "?"; out.innerHTML = `<p class="hint typing" style="text-align:left;font:700 17px var(--font-display);color:var(--fg)"></p>`;
+        const t = out.querySelector("p"); let i = 0; const tick = () => { t.textContent = text.slice(0, ++i); if (i < text.length && !reduce) setTimeout(tick, 28); else { t.classList.remove("typing"); out.insertAdjacentHTML("beforeend", `<div class="reveal">${card(e, "Forslag")}</div>`); } }; tick(); };
+      el.addEventListener("click", ev => { const m = ev.target.closest("[data-m]"), w = ev.target.closest("[data-w]");
+        if (m) { mood = m.dataset.m; el.querySelectorAll("[data-m]").forEach(x => x.setAttribute("aria-pressed", x === m)); }
+        if (w) { when = w.dataset.w; el.querySelectorAll("[data-w]").forEach(x => x.setAttribute("aria-pressed", x === w)); }
+        if (ev.target.closest("[data-go],[data-again]")) go(); }); } },
+];
+document.getElementById("grid").innerHTML = OPTS.map(o => `<div class="opt">${o.pick ? `<span class="pick">Anbefalt</span>` : ""}<h2>${o.name}<small>${o.sub}</small></h2><div class="phone" id="p-${o.id}">${o.html()}</div><div class="verdict">${o.verdict}</div></div>`).join("");
+OPTS.forEach(o => o.run(document.getElementById("p-" + o.id), bag(EV)));
+document.addEventListener("click", e => { if (e.target.closest('a[href="#"]')) e.preventDefault(); });
+</script>
+</body>
+</html>
