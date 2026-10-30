@@ -1,9 +1,9 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-30T18:00:43Z",
+  "updatedAt": "2026-10-30T19:55:05Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 7,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -17,22 +17,6 @@
  },
  "events": [
   {
-   "id": "claudia-scott-og-torstein-flakne-lovenvold-theater",
-   "date": "2026-10-30",
-   "time": "18:00",
-   "title": "Claudia Scott og Torstein Flakne",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "499 kr",
-   "priceMin": 499,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/61783-torstein-flakne-og-claudia-scott",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
    "id": "parken-47586-parken-kulturhus",
    "date": "2026-10-30",
    "time": "19:00",
@@ -43,9 +27,7 @@
    "price": "530–625 kr",
    "priceMin": 530,
    "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "Kevin Vågenes, Cess og Rasmus Wold.",
+   "note": "Kevin Vågenes, Cess og Rasmus Wold. Få billetter igjen.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47586-treretters-en-lattergalla/",
    "addedAt": "2026-10-19T12:59:56Z"
@@ -2743,42 +2725,6 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/65937-rotlaus-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "parken-47488-parken-kulturhus",
-   "date": "2027-03-03",
-   "time": "18:00",
-   "title": "Kakejazz",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "261–320 kr",
-   "priceMin": 261,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47488-kakejazz/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "parken-48873-parken-kulturhus",
-   "date": "2027-03-05",
-   "time": "18:30",
-   "title": "Iselin Guttormsen kommer!",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "standup",
-   "price": "585 kr",
-   "priceMin": 585,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48873-iselin-guttormsen-kommer/",
-   "addedAt": "2026-10-30T13:23:27Z"
   },
   {
    "id": "motorpsycho-terminalen-byscene",
