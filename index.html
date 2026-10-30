@@ -335,6 +335,18 @@ html[data-tema="kveld"] .kvnow, html[data-tema="jul"] .kvnow { border-color: #7e
 html[data-tema="kveld"] .kvnow span, html[data-tema="jul"] .kvnow span { background: #7ee0a1; color: #0b2a17; }
 html[data-tema="kveld"] .kvrel.soon, html[data-tema="jul"] .kvrel.soon { color: #7ee0a1; background: #1c3b2a; border-color: #7ee0a1; }
 @media (prefers-color-scheme: dark) { html:not([data-tema]):not([data-theme="light"]) .kvnow { border-color: #7ee0a1; } html:not([data-tema]):not([data-theme="light"]) .kvnow span { background: #7ee0a1; color: #0b2a17; } html:not([data-tema]):not([data-theme="light"]) .kvrel.soon { color: #7ee0a1; background: #1c3b2a; border-color: #7ee0a1; } }
+/* ★ og overgang (prøves helgen 31. okt – 1. nov, se starFx() og #viewseg) */
+@keyframes fxpop { 0% { transform: scale(1); } 35% { transform: scale(1.5) rotate(-12deg); } 65% { transform: scale(.88) rotate(4deg); } 100% { transform: scale(1); } }
+@keyframes fxunpop { 0% { transform: scale(1); } 40% { transform: scale(.7); } 100% { transform: scale(1); } }
+@keyframes fxbump { 0% { transform: scale(1); } 40% { transform: scale(1.18); } 100% { transform: scale(1); } }
+@keyframes fxfade { from { opacity: 0; } }
+.fav.fx-pop { animation: fxpop .42s cubic-bezier(.3,1.6,.5,1); }
+.fav.fx-unpop { animation: fxunpop .25s ease; }
+#favonly.fx-bump { animation: fxbump .35s ease; }
+#list.fx-fade { animation: fxfade .28s ease; }
+.fx-fly { position: fixed; z-index: 70; font-size: 22px; line-height: 1; color: var(--accent); pointer-events: none; transition: transform .6s cubic-bezier(.5,-0.3,.6,1), opacity .6s; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .32s; }
+@media (prefers-reduced-motion: reduce) { .fav.fx-pop, .fav.fx-unpop, #favonly.fx-bump, #list.fx-fade { animation: none; } .fx-fly { display: none; } }
 </style>
 <!-- Tema: «Jul» (tema-jul.css) for alle fra 1. november til 27. desember, ellers «Kveld». «Lyst» (skjer-tema=standard) gjelder hele året. ?tema=jul viser juletemaet utenom sesongen i denne fanen, til test. -->
 <script>try{const q=new URLSearchParams(location.search).get("tema");if(q==="kveld"||q==="standard")localStorage.setItem("skjer-tema",q);if(q==="standard")localStorage.setItem("skjer-theme",'"light"');if(q==="jul")sessionStorage.setItem("skjer-jultest","1");if(q){const u=new URL(location.href);u.searchParams.delete("tema");history.replaceState(null,"",u)}var d=new Date(),mo=d.getMonth(),jul=mo===10||(mo===11&&d.getDate()<=27)||sessionStorage.getItem("skjer-jultest")==="1";var t=localStorage.getItem("skjer-tema");if(jul&&t!=="standard"){document.documentElement.dataset.tema="jul";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#3a0b12";document.write('<link rel="stylesheet" href="tema-jul.css">')}else if(t!=="standard"){document.documentElement.dataset.tema="kveld";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#0a171b";document.write('<link rel="stylesheet" href="tema-kveld.css">')}}catch{}</script>
@@ -609,9 +621,10 @@ function cardClick(e) {
   const sh = e.target.closest(".share");
   if (sh) { const ev = E.find(x => x.id === sh.dataset.share); if (ev) shareEvent(ev, sh); track("del/" + sh.dataset.share); return; }
   const b = e.target.closest(".fav"); if (!b) return;
-  const id = b.dataset.id, snap = [...favs];
+  const id = b.dataset.id, snap = [...favs], from = b.getBoundingClientRect();
   if (favs.has(id)) favs.delete(id); else { favs.add(id); track("lagre/" + id); SAVE.offer(); }
   store.set("skjer-favs", [...favs]); render();
+  starFx(id, favs.has(id), from);
   if (state.favOnly && !favs.has(id)) showUndo("Fjernet fra Mine", snap, leaveMineIfEmpty());
 }
 $("list").onclick = cardClick;
@@ -1042,8 +1055,30 @@ $("list").addEventListener("click", e => {
 });
 $("viewseg").onclick = e => {
   const b = e.target.closest("[data-view]"); if (!b || b.dataset.view === state.view) return;
-  state.view = b.dataset.view; store.set("skjer-view", state.view); track("kalender-visning/" + state.view); render();
+  const go = () => { state.view = b.dataset.view; store.set("skjer-view", state.view); track("kalender-visning/" + state.view); render(); };
+  // Myk overgang mellom Liste og Kalender: nettleserens egen (View Transitions), ellers toner lista inn (prøves helgen 31. okt – 1. nov)
+  if (REDUCE.matches) return go();
+  if (document.startViewTransition) { document.startViewTransition(go); return; }
+  go(); fxRestart($("list"), "fx-fade");
 };
+
+// ★: stjerna spretter, og en kopi flyr opp til «★ Mine», som hopper når den lander (prøves helgen 31. okt – 1. nov).
+// Lista tegnes på nytt etter trykket, så animasjonen legges på den nye knappen.
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)");
+function fxRestart(el, cls) { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); el.addEventListener("animationend", () => el.classList.remove(cls), { once: true }); }
+function starFx(id, on, from) {
+  if (REDUCE.matches) return;
+  const nb = document.querySelector(`#list .fav[data-id="${CSS.escape(id)}"]`);
+  if (!on) return fxRestart(nb, "fx-unpop");
+  fxRestart(nb, "fx-pop");
+  const mine = $("favonly"), to = mine.getBoundingClientRect();
+  if (to.bottom <= 0 || mine.closest(".controls.gone")) return fxRestart(mine, "fx-bump");  // menyen er skjult: bare pop
+  const f = document.createElement("span"); f.className = "fx-fly"; f.textContent = "★"; f.setAttribute("aria-hidden", "true");
+  f.style.left = `${from.left + from.width / 2 - 11}px`; f.style.top = `${from.top + from.height / 2 - 11}px`; document.body.appendChild(f);
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    f.style.transform = `translate(${to.left + 18 - from.left - from.width / 2}px, ${to.top + to.height / 2 - from.top - from.height / 2}px) scale(.6)`; f.style.opacity = ".2"; }));
+  setTimeout(() => { f.remove(); fxRestart(mine, "fx-bump"); }, 620);
+}
 
 function showStatus() {
   if (!meta.updatedAt) { $("status").textContent = ""; return; }
