@@ -78,12 +78,68 @@ def kino_line(start, sun, limit=3):
     return f"🎬 På kino i helgen: {shown}{more}. Program: {pages.BASE}kino/"
 
 
+CAT_TAGS = {"konsert": ["#konsert", "#livemusikk"], "standup": ["#standup", "#humor"], "show": ["#teater", "#show"],
+            "barn": ["#barnogfamilie", "#familietid"], "klubb": ["#klubb", "#natteliv", "#utgang"], "happening": ["#happening", "#opplevelser"],
+            "quiz": ["#quiz", "#pubquiz"], "sport": ["#aafk", "#fotball"], "julebord": ["#julebord"]}
+BASE_TAGS = ["#ålesund", "#alesund", "#skjeriålesund", "#kaskjerda", "#sunnmøre", "#ålesundby", "#møreogromsdal", "#visitålesund",
+             "#hvaskjer", "#hvaskjeriålesund", "#helgetips", "#helgen", "#helgeiålesund"]
+TAG_MAX = 22
+
+
+def hashtags(evs, start, sun):
+    """Byen og regionen, så kategoriene som faktisk er med i helgen, og litt sesong. Aldri flere enn TAG_MAX."""
+    tags = list(BASE_TAGS)
+    text = " ".join(e["title"].lower() for e in evs)
+    if "halloween" in text:
+        tags += ["#halloween", "#halloweenfest"]
+    if "julemarked" in text:
+        tags.append("#julemarked")
+    if sun.month in (11, 12) and "jul" in text:
+        tags += ["#jul", "#førjul"]
+    if any(e.get("priceMin") == 0 for e in evs):
+        tags.append("#gratis")
+    if kino_line(start, sun):
+        tags.append("#kino")
+    counts = {}
+    for e in evs:
+        counts[e["cat"]] = counts.get(e["cat"], 0) + 1
+    for c, _ in sorted(counts.items(), key=lambda x: -x[1]):
+        tags += CAT_TAGS.get(c, [])
+    return list(dict.fromkeys(tags))[:TAG_MAX]
+
+
+def highlights(evs, limit=4):
+    """Ett høydepunkt per kategori (det første som ikke er utsolgt), de største kategoriene først."""
+    counts, first = {}, {}
+    for e in evs:
+        counts[e["cat"]] = counts.get(e["cat"], 0) + 1
+        if not e.get("soldOut") and not e.get("uncertain") and len(e.get("moreShows") or []) < 6 and e["cat"] not in first:  # faste serier («DJ hver helg») er ikke tips
+            first[e["cat"]] = e
+    picked = [first[c] for c, _ in sorted(counts.items(), key=lambda x: -x[1]) if c in first][:limit]
+    out = []
+    for e in sorted(picked, key=lambda e: (e["date"], e.get("time") or "")):
+        if e:
+            c = e["cat"]
+            day = pages.WD[datetime.date.fromisoformat(e["date"]).weekday()].capitalize()
+            price = pages.price_text(e)
+            out.append(f"{EMOJI.get(c, '✨')} {day}{' ' + e['time'].split(' og ')[0] if e.get('time') else ''}: {e['title']}, {e['venue']}"
+                       + (f" ({price})" if price not in ("Utsolgt", "Pris hos arrangør") else ""))
+    return out
+
+
 def instagram_text(evs, start, sun):
     span = pages.range_text(start, sun)
-    what = f"{len(evs)} {'arrangement' if len(evs) == 1 else 'arrangementer'}: {summary(evs)}." if evs else "Programmet fylles på fortløpende."
-    return (f"Helgen i Ålesund, {span} 🌊\n\n{what}\n\n"
-            "Hele oversikten med priser og billettlenker finner du på Skjer i Ålesund (lenke i bio).\n\n"
-            "#ålesund #skjeriålesund #sunnmøre #ålesundby #hvaskjer")
+    if not evs:
+        return (f"Helgen i Ålesund, {span} 🌊\n\nProgrammet fylles på fortløpende. Følg med!\n\n"
+                "Hele oversikten finner du på kaskjerda.no (lenke i bio).\n\n" + " ".join(hashtags(evs, start, sun)))
+    n = len(evs)
+    hl = highlights(evs)
+    return (f"Hva skjer i Ålesund denne helgen? 🌊\n{span}\n\n"
+            f"{n} {'arrangement' if n == 1 else 'arrangementer'} å velge mellom: {summary(evs)}.\n\n"
+            + ("Noen tips:\n" + "\n".join(hl) + "\n\n" if hl else "")
+            + "🎟️ Alle arrangementene med priser, kart og billettlenker: kaskjerda.no (lenke i bio)\n"
+            "💾 Lagre innlegget og send det til den du skal ut med!\n\n"
+            + " ".join(hashtags(evs, start, sun)))
 
 
 def issue_body(evs, start, sun, today):
