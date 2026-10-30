@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-30T11:58:15Z",
+  "updatedAt": "2026-10-30T13:27:56Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -2001,7 +2001,7 @@
    "genres": [
     "Drama"
    ],
-   "poster": "",
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/5a05b36a004c6b10ad690924357d19f608af3bf2-656x972.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-11",
    "shows": [
     {
@@ -2534,7 +2534,7 @@
     "Familiefilm",
     "Fantasy"
    ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/a028217187860844e0ddaeb5db82a09056111270-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/87e8cca69961cc03bd033d51dcf4e73da65744c2-1500x2104.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-30",
    "shows": [
     {
