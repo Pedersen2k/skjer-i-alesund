@@ -635,7 +635,7 @@ def jul_page(events, today, themes=None):
 }})();
 </script>"""
     title = f"Jul i Ålesund {year}: julekonserter, juleshow og julemarked | {SITE}"
-    desc = describe(occ, f"Jul i Ålesund {year}: julekonserter, juleshow og julemarked")
+    desc = list_desc(f"Jul i Ålesund {year}", occ)
     ld = {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (f"Jul i Ålesund {year}", BASE + "jul-i-alesund/")])] + [event_ld(e) for e in occ]}
     head_extra = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400;1,700&display=swap">'
     return page("jul-i-alesund/", title, desc, body, ld, raw=True, head_extra=head_extra, body_class="jul"), n_ev
@@ -678,6 +678,35 @@ def venue_meta(v, evs, today):
     desc = (f"Program for {v} i Ålesund: {n} {'arrangement' if n == 1 else 'arrangementer'} {range_text(first, last)}{ex}. "
             f"Datoer, billettpriser og lenker, oppdatert flere ganger om dagen.")
     return title, desc
+
+
+def list_desc(label, evs, noun="arrangementer", examples=3, per=""):
+    """Beskrivelse for lister (jul- og temasider): antall, datospenn, noen eksempler og laveste pris. Titlene kortes ned."""
+    if not evs:
+        return f"{label}: oversikt med datoer og billettpriser, oppdatert flere ganger om dagen."
+    days = []
+    for e in evs:
+        days.append(e["date"][:10])
+        days += [m[:10] for m in e.get("moreShows") or [] if isinstance(m, str)]
+    first, last = datetime.date.fromisoformat(min(days)), datetime.date.fromisoformat(max(days))
+    names = []
+    for e in evs:
+        nm = short_name(e["title"])
+        if nm and nm not in names and not nm.isupper():
+            names.append(nm)
+    names = names[:examples]
+    ex = ""
+    if len(names) > 1:
+        ex = ", blant annet " + ", ".join(names[:-1]) + " og " + names[-1]
+    elif names:
+        ex = ", blant annet " + names[0]
+    prices = [e["priceMin"] for e in evs if isinstance(e.get("priceMin"), (int, float))]
+    free = any(p == 0 for p in prices)
+    prices = [p for p in prices if p > 0]
+    n = len(evs)
+    return (f"{label}: {n} {noun if n > 1 else noun.rstrip('er')} {range_text(first, last)}{ex}."
+            + (" Flere er gratis." if free else f" Billetter fra {min(prices)} kr{per}." if prices else "")
+            + " Datoer og lenker, oppdatert flere ganger om dagen.")
 
 
 def front_html(src, events, today, extra_links=()):
@@ -824,7 +853,8 @@ def main():
             listing_page(p + "/", f"Julebord i Ålesund {today.year}: alle julebord med pris og dato | {SITE}", f"Julebord i Ålesund {today.year}",
                          f"{len(evs)} julebord med dato og pris per person, og julemenyer på restaurant.",
                          evs, "Ingen julebord registrert akkurat nå. Julebordene for neste sesong kommer i oktober.", f"Julebord i Ålesund {today.year}",
-                         about=CAT_TEXT[k], lead=julebord_facts(evs, today.year) + julemeny_html() + jul_links("../", p + "/", themes))
+                         about=CAT_TEXT[k], lead=julebord_facts(evs, today.year) + julemeny_html() + jul_links("../", p + "/", themes),
+                         desc=list_desc(f"Julebord i Ålesund {today.year}", evs, "julebord", 3, " per person") if evs else None)
             continue
         listing_page(p + "/", f"{h1} – program og billettpriser | {SITE}", h1,
                      f"{what}: {len(evs)} kommende {'arrangement' if len(evs) == 1 else 'arrangementer'}, " + ("med avspark og billettlenker." if k == "sport" else "med datoer og billettpriser."),
@@ -858,7 +888,7 @@ def main():
         year = today.year
         listing_page(p, f"{h1} {year}: datoer og billetter | {SITE}", f"{h1} {year}",
                      f"{len(evs)} {'arrangement' if len(evs) == 1 else 'arrangementer'} med datoer og billettpriser, oppdatert flere ganger om dagen.",
-                     evs, "", f"{h1} {year}", about=about, lead=jul_links("../", p, themes))
+                     evs, "", f"{h1} {year}", about=about, lead=jul_links("../", p, themes), desc=list_desc(f"{h1} {year}", evs))
     jp = jul_page(all_events, today, themes)
     if jp:
         write("jul-i-alesund/", jp[0])
