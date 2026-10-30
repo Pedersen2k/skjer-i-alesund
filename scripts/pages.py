@@ -843,6 +843,7 @@ def main():
     for e in all_events:
         path = f"arrangement/{e['id']}/"
         write(path, event_page(e, all_events if e["cat"] in SEPARATE else events, path))
+        (OUT / path / "kalender.ics").write_text(build_ics(e["title"], [e], today))
         pages.append((path, (e.get("addedAt") or updated)[:10]))
 
     # Kalenderabonnement: kalender/alle.ics og én per kategori
@@ -1016,6 +1017,10 @@ def en_page(events, today, lang_mark=EN_LANG, path="en/"):
     return page(path, title, desc, body, {"@context": "https://schema.org", "@graph": graph}, raw=True, lang="en", head_extra=HREFLANG)
 
 
+CAL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>'
+SHARE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>'
+
+
 def event_page(e, events, path):
     up = "../../"
     d = datetime.date.fromisoformat(e["date"])
@@ -1043,8 +1048,25 @@ def event_page(e, events, path):
     </dl>
     {f'<p class="note{" warn" if e.get("uncertain") else ""}">{escape(e["note"])}</p>' if e.get("note") else ""}
     <div class="cta">{f'<a class="btn" href="{escape(u)}" target="_blank" rel="noopener">Billetter og info hos arrangør →</a>' if u else ""}{f'<a class="link" href="{up}julebord/">Alle julebord</a>' if e["cat"] in SEPARATE else f'<a class="link" href="{up}#ev-{e["id"]}">Se i hele programmet</a>'}</div>
+    <div class="acts"><a class="act" href="kalender.ics" download="{escape(e['id'])}.ics" data-ev="kalender/{escape(e['id'])}">{CAL_ICON}Legg i kalender</a><button class="act" type="button" id="del" data-title="{escape(e['title'])}" data-text="{escape(e['title'] + ' – ' + e['venue'] + ', ' + when)}">{SHARE_ICON}Del</button></div>
     <p class="small">Datoer og priser kan endres. Sjekk alltid hos arrangøren før du kjøper billett.</p>
   </article>
+  <script>
+  (function () {{
+    const count = n => {{ try {{ window.goatcounter.count({{ path: n, title: n, event: true }}); }} catch (e) {{}} }};
+    const cal = document.querySelector("a.act[data-ev]"); if (cal) cal.addEventListener("click", () => count(cal.dataset.ev));
+    const b = document.getElementById("del"); if (!b) return;
+    b.addEventListener("click", async () => {{
+      const url = location.href.split("#")[0], text = b.dataset.text;
+      count("del/" + location.pathname.split("/").filter(Boolean).pop());
+      try {{
+        if (navigator.share) {{ await navigator.share({{ title: b.dataset.title, text, url }}); return; }}
+        await navigator.clipboard.writeText(text + "\\n" + url);
+        const old = b.innerHTML; b.textContent = "Lenke kopiert"; setTimeout(() => {{ b.innerHTML = old; }}, 2000);
+      }} catch (err) {{ if (!err || err.name !== "AbortError") prompt("Kopier lenken:", url); }}
+    }});
+  }})();
+  </script>
   {f'<section class="also"><h2>Samme dag</h2><div class="events">{"".join(card(x, up) for x in same_day)}</div></section>' if same_day else ""}
   {f'<section class="also"><h2>Mer på {venue}</h2><div class="events">{"".join(card(x, up) for x in same_venue)}</div></section>' if same_venue else ""}
   </main>
@@ -1269,6 +1291,10 @@ SUB_CSS = """
 .detail .cta { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: 14px; }
 .btn { display: inline-block; font: 600 15px/1 var(--font-body); padding: 12px 16px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); text-decoration: none; }
 .btn:hover { filter: brightness(1.05); }
+.detail .acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.act { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--sea); font: 600 14px var(--font-body); text-decoration: none; cursor: pointer; }
+.act svg { width: 18px; height: 18px; }
+.act:hover { border-color: var(--sea); }
 .qweek { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 4px 0 18px; }
 .qweek div { background: var(--surface); border: 1px solid var(--line); border-radius: 9px; text-align: center; padding: 7px 0; font: 600 11px var(--font-mono); color: var(--muted); }
 .qweek b { display: block; font: 800 18px var(--font-display); color: var(--fg); }
