@@ -9,6 +9,7 @@ Skrifter: legg BricolageGrotesque.ttf og Figtree.ttf i mappen FONT_DIR peker på
 """
 import datetime
 import json
+import re
 import os
 import sys
 from pathlib import Path
@@ -133,6 +134,11 @@ def font(name, size, **axes):
             return ImageFont.load_default(size)
 
 
+def no_emoji(text):
+    """Skriftene i bildet har ikke emoji; de ville blitt firkanter."""
+    return re.sub(r"[\U0001F000-\U0001FFFF\u2600-\u27BF\uFE0F\u200d]", "", text).strip()
+
+
 def fit(draw, text, f, width):
     """Kort ned teksten med … så den får plass på én linje."""
     if draw.textlength(text, font=f) <= width:
@@ -148,6 +154,7 @@ PAD = 80
 BOTTOM = H - PAD - 34 - 30  # over streken og bunnteksten
 LARGE = {"top": 372, "day": 54, "row": 100}
 COMPACT = {"top": 336, "day": 50, "row": 54}
+TIGHT = {"top": 300, "day": 42, "row": 46}  # tettest mulig, så helgen får plass på ett bilde
 NEXT_TOP = 236  # på bilde 2 og utover er overskriften mindre
 
 
@@ -157,8 +164,9 @@ def height(items, m):
 
 def plan(evs):
     """Hvilket oppsett, og hvilke arrangementer som havner på hvert bilde."""
-    if height(evs, LARGE) <= BOTTOM - LARGE["top"]:
-        return LARGE, [evs]
+    for m in (LARGE, COMPACT, TIGHT):  # ett bilde om det går, helst med størst mulig skrift
+        if height(evs, m) <= BOTTOM - m["top"]:
+            return m, [evs]
     sheets, rest, top = [], list(evs), COMPACT["top"]
     while rest:
         n = 1
@@ -166,6 +174,15 @@ def plan(evs):
             n += 1
         sheets.append(rest[:n])
         rest, top = rest[n:], NEXT_TOP
+    k = len(sheets)
+    if k > 1:  # fordel jevnt, så ikke siste bilde bare får ett arrangement
+        target, sheets, cur = height(evs, COMPACT) / k, [], []
+        for e in evs:
+            if cur and len(sheets) < k - 1 and height(cur + [e], COMPACT) > target:
+                sheets.append(cur)
+                cur = []
+            cur.append(e)
+        sheets.append(cur)
     return COMPACT, sheets
 
 
@@ -181,14 +198,14 @@ def render_image(evs, start, sun, folder):
     for old in folder.glob("helgen*.png"):
         old.unlink()
     inner = W - 2 * PAD
-    big = m is LARGE
+    big, tight = m is LARGE, m is TIGHT
     f_eyebrow = font("Figtree.ttf", 30, weight=600)
-    f_h1 = font("BricolageGrotesque.ttf", 132 if big else 112, weight=800, optical=96, width=100)
+    f_h1 = font("BricolageGrotesque.ttf", 132 if big else 92 if tight else 112, weight=800, optical=96, width=100)
     f_h1_next = font("BricolageGrotesque.ttf", 72, weight=800, optical=72, width=100)
-    f_span = font("BricolageGrotesque.ttf", 56 if big else 48, weight=800, optical=48, width=100)
+    f_span = font("BricolageGrotesque.ttf", 56 if big else 42 if tight else 48, weight=800, optical=48, width=100)
     f_day = font("Figtree.ttf", 26, weight=700)
-    f_title = font("BricolageGrotesque.ttf", 38 if big else 32, weight=700, optical=24, width=100)
-    f_meta = font("Figtree.ttf", 28 if big else 26, weight=500)
+    f_title = font("BricolageGrotesque.ttf", 38 if big else 28 if tight else 32, weight=700, optical=24, width=100)
+    f_meta = font("Figtree.ttf", 28 if big else 23 if tight else 26, weight=500)
     f_foot = font("Figtree.ttf", 28, weight=600)
     span = pages.range_text(start, sun)
 
@@ -198,7 +215,7 @@ def render_image(evs, start, sun, folder):
         dr.text((PAD, PAD), "SKJER I ÅLESUND", font=f_eyebrow, fill=SEA)
         if i == 0:
             dr.text((PAD - 4, PAD + 52), "I helgen", font=f_h1, fill=FG)
-            dr.text((PAD, PAD + (192 if big else 170)), span, font=f_span, fill=ACCENT)
+            dr.text((PAD, PAD + (192 if big else 158 if tight else 170)), span, font=f_span, fill=ACCENT)
             y = m["top"]
         else:
             dr.text((PAD - 3, PAD + 50), f"I helgen, forts.", font=f_h1_next, fill=FG)
@@ -214,7 +231,7 @@ def render_image(evs, start, sun, folder):
             x = PAD + 30
             if big:
                 dr.rounded_rectangle((PAD, y, PAD + 8, y + m["row"] - 22), radius=4, fill=color)
-                dr.text((x, y - 2), fit(dr, e["title"], f_title, inner - 30), font=f_title, fill=FG)
+                dr.text((x, y - 2), fit(dr, no_emoji(e["title"]), f_title, inner - 30), font=f_title, fill=FG)
                 price = pages.price_text(e)
                 meta = " · ".join(p for p in [e.get("time") and f"kl. {e['time']}", e["venue"], price if price != "Pris hos arrangør" else ""] if p)
                 dr.text((x, y + 46), fit(dr, meta, f_meta, inner - 30), font=f_meta, fill=MUTED)
@@ -227,7 +244,7 @@ def render_image(evs, start, sun, folder):
                 venue = " · " + e["venue"]
                 vw = min(dr.textlength(venue, font=f_meta), inner * 0.42)
                 venue = fit(dr, venue, f_meta, vw)
-                title = fit(dr, e["title"], f_title, inner - (x - PAD) - vw)
+                title = fit(dr, no_emoji(e["title"]), f_title, inner - (x - PAD) - vw)
                 dr.text((x, y), title, font=f_title, fill=FG)
                 dr.text((x + dr.textlength(title, font=f_title), y + 4), venue, font=f_meta, fill=MUTED)
             y += m["row"]
