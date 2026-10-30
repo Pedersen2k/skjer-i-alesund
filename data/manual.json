@@ -439,5 +439,39 @@
     "soldOut": false,
     "uncertain": false,
     "url": "https://tikkio.com/events/66161-karpe-alesund-live"
+  },
+  {
+    "id": "den-vesle-bygda-som-gloymde-at-det-var-jul-arbeideren-2026",
+    "date": "2026-12-12",
+    "time": "12:00",
+    "title": "Den vesle bygda som gløymde at det var jul",
+    "venue": "Arbeideren kulturhus",
+    "address": "Lorkenesgata 2, 6002 Ålesund",
+    "cat": "barn",
+    "price": "Pris hos arrangør",
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Teatret Vårt, familieforestilling fra 4 år, ca. 45 min, basert på Alf Prøysen. Del av Jul på Arbeideren. Også lørdag 12. des kl. 14:00 og søndag 13. des kl. 12:00 og 14:00.",
+    "url": "https://teatretvart.no/program/den-vesle-bygda-som-gloymde-at-det-var-jul",
+    "moreShows": [
+      "2026-12-12T14:00",
+      "2026-12-13T12:00",
+      "2026-12-13T14:00"
+    ]
+  },
+  {
+    "id": "julekonsert-med-allsang-volsdalen-kirke-2026",
+    "date": "2026-12-02",
+    "time": "19:00",
+    "title": "Julekonsert med allsang",
+    "venue": "Volsdalen kirke",
+    "address": "Borgundvegen 124, 6007 Ålesund",
+    "cat": "konsert",
+    "price": "Gratis",
+    "priceMin": 0,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Volsdalen Salme- og lovsangkor inviterer til tradisjonell julekonsert med allsang. Dørene åpner 18:00. Gratis kaffe og kaker i kirken og menighetshuset etterpå.",
+    "url": "https://bypatrioten.com/event/julekonsert-med-allsang/"
   }
 ]
