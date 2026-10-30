@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-10-30T10:15:08Z",
+  "updatedAt": "2026-10-30T11:04:45Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -854,14 +854,14 @@
    "genres": [
     "Drama"
    ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6d58c7d892dafa154f135a003ae5006be05290f1-1500x2250.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/0054744e1f36936a0b20e8ec95cf475d967bb7a6-1080x1514.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-30",
    "shows": [
     {
      "start": "2026-10-30T12:00:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/237710ca-29d4-4591-bce4-a7f2c0c5b30a",
+     "url": "",
      "club": true
     },
     {
@@ -1562,7 +1562,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/4787ae12-a664-4e68-849b-4fbe683d4c5c",
+     "url": "",
      "club": false
     },
     {
@@ -1769,18 +1769,18 @@
     },
     {
      "start": "2026-11-05T12:00:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
+     "club": false
+    },
+    {
+     "start": "2026-11-05T12:00:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/35e194ce-408a-43f4-94fb-aaa7a1e15bc4",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
      "club": false
     },
     {
@@ -2129,7 +2129,7 @@
      "start": "2026-10-30T12:00:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/2637b1ae-26ce-4096-970b-b7dcd011c961",
+     "url": "",
      "club": true
     },
     {
