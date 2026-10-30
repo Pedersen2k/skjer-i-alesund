@@ -50,7 +50,7 @@ UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accep
 ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
 VENUE_NAMES = {"Terminalen": "Terminalen Byscene"}
 # Kurs, medlemskap og ungdomsforestillinger som ikke hører hjemme i kalenderen
-SKIP = re.compile(r"medlemsskap|gruppe, høst|day pass|cowork|festivalpass|SPIRE|foredrag|påmelding|^FUND$", re.I)
+SKIP = re.compile(r"medlemsskap|gruppe, høst|day pass|cowork|festivalpass|SPIRE|foredrag|påmelding|^FUND$|^test ?arrangement$", re.I)
 # Steder rundt Ålesund: Tikkio-arrangementer som siles bort, men nevner et av dem eller mangler sted, gir varsel
 NEAR_ALESUND = re.compile(r"Ålesund|Aalesund|Spjelkavik|Moa\b|Borgund|Vigra|Giske|Hessa|Valderøy|Ellingsøy|Nørvasundet|Volsdalen", re.I)
 UNSURE = []  # (url, tekst) fra siste fetch_tikkio()
