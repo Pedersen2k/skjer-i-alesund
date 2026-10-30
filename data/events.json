@@ -1,9 +1,9 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-30T11:00:30Z",
+  "updatedAt": "2026-10-30T11:54:01Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 9,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -2021,6 +2021,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "til-deg-som-venter-venterommet-terminalen",
+   "date": "2026-12-16",
+   "time": "17:30",
+   "title": "TIL DEG SOM VENTER",
+   "venue": "Venterommet, Terminalen",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "200 kr",
+   "priceMin": 200,
+   "soldOut": false,
+   "note": "Rabatt: Billett barn/ungdom 100 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67159-mia-og-emilie-venterommet",
+   "addedAt": "2026-10-30T11:54:01Z"
+  },
+  {
    "id": "parken-44201-parken-kulturhus",
    "date": "2026-12-16",
    "time": "19:00",
@@ -2342,6 +2358,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45587-john-hammersmark/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-47759-parken-kulturhus",
+   "date": "2027-01-13",
+   "time": "19:00",
+   "title": "Ny dato! Tuva & Ronny",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "480 kr",
+   "priceMin": 480,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/47759-ny-dato-tuva-ronny/",
+   "addedAt": "2026-10-30T11:54:01Z"
   },
   {
    "id": "parken-49634-parken-kulturhus",
@@ -2677,24 +2709,6 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "parken-48873-parken-kulturhus",
-   "date": "2027-03-05",
-   "time": "18:30",
-   "title": "Iselin Guttormsen kommer!",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "standup",
-   "price": "585 kr",
-   "priceMin": 585,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48873-iselin-guttormsen-kommer/",
-   "addedAt": "2026-10-30T11:00:30Z"
-  },
-  {
    "id": "motorpsycho-terminalen-byscene",
    "date": "2027-03-05",
    "time": "20:00",
@@ -2711,24 +2725,6 @@
    "addedAt": "2026-10-21T12:45:40Z"
   },
   {
-   "id": "parken-51055-parken-kulturhus",
-   "date": "2027-03-13",
-   "time": "19:00",
-   "title": "Halvor Johansson",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "standup",
-   "price": "350–450 kr",
-   "priceMin": 350,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51055-halvor-johansson/",
-   "addedAt": "2026-10-30T11:00:30Z"
-  },
-  {
    "id": "synne-vo-her-vil-e-vaer-norgesturne-terminalen-byscene",
    "date": "2027-03-19",
    "time": "20:00",
@@ -2743,24 +2739,6 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66142-synne-vo-her-vil-e-vaer-norgesturne-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "parken-48778-parken-kulturhus",
-   "date": "2027-04-02",
-   "time": "19:00",
-   "title": "Balletak på bransjen",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "standup",
-   "price": "425 kr",
-   "priceMin": 425,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48778-balletak-pa-bransjen/",
-   "addedAt": "2026-10-30T11:00:30Z"
   },
   {
    "id": "parken-48269-parken-kulturhus",
@@ -2811,24 +2789,6 @@
    "addedAt": "2026-10-30T11:00:30Z"
   },
   {
-   "id": "parken-51230-parken-kulturhus",
-   "date": "2027-04-30",
-   "time": "19:00",
-   "title": "Bjarte Hjelmeland",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "show",
-   "price": "630 kr",
-   "priceMin": 630,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51230-bjarte-hjelmeland/",
-   "addedAt": "2026-10-30T11:00:30Z"
-  },
-  {
    "id": "parken-48673-parken-kulturhus",
    "date": "2027-05-13",
    "time": "19:00",
@@ -2842,40 +2802,6 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48673-chopin-klaverets-poet/",
-   "addedAt": "2026-10-30T11:00:30Z"
-  },
-  {
-   "id": "parken-47917-parken-kulturhus",
-   "date": "2027-05-20",
-   "time": "19:00",
-   "title": "Russland – vår dystre nåtid",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "happening",
-   "price": "450 kr",
-   "priceMin": 450,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47917-russland-var-dystre-natid/",
-   "addedAt": "2026-10-30T11:00:30Z"
-  },
-  {
-   "id": "parken-45656-parken-kulturhus",
-   "date": "2027-05-22",
-   "time": "20:00",
-   "title": "Pulse of Floyd",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "580 kr",
-   "priceMin": 580,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/45656-pulse-of-floyd/",
    "addedAt": "2026-10-30T11:00:30Z"
   },
   {
