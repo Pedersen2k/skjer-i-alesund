@@ -650,6 +650,47 @@ def describe(events, what):
     return f"{n} {'arrangement' if n == 1 else 'arrangementer'}: {names}{' med flere' if len(uniq) > 3 else ''}. {what}, med billettpriser, oppdatert flere ganger om dagen."[:300]
 
 
+VENUE_CAT_WORD = {"konsert": "konserter", "standup": "standup", "show": "show", "barn": "barn og familie", "klubb": "klubbkvelder",
+                  "happening": "happenings", "quiz": "quiz", "sport": "kamper"}
+
+
+def short_name(title, limit=34):
+    """Tittelen kuttet ved et ord, uten tankestrek-halen («Heibergs Mandskor – …» blir «Heibergs Mandskor»)."""
+    t = re.split(r"\s[–—-]\s|\s//\s|:\s", title)[0].strip()
+    if len(t) > limit:
+        t = t[:limit].rsplit(" ", 1)[0].rstrip(",.: ")
+        while t.endswith((" og", " med", " i")):
+            t = t.rsplit(" ", 1)[0]
+    return t
+
+
+def venue_meta(v, evs, today):
+    """Tittel og beskrivelse for scene-sidene: «[sted] program [år]» først, så hva som går og hvor langt frem programmet strekker seg."""
+    counts = {}
+    for e in evs:
+        counts[e["cat"]] = counts.get(e["cat"], 0) + 1
+    words = [VENUE_CAT_WORD[c] for c, _ in sorted(counts.items(), key=lambda x: -x[1]) if c in VENUE_CAT_WORD][:2]
+    what = (" og ".join(words) if not any(" og " in w for w in words) else ", ".join(words)) if words else "arrangementer"
+    title = f"{v} program {today.year}: {what} | {SITE}"
+    if len(title) > 75 and words:  # Google kutter rundt 60 tegn: da bare den største kategorien
+        title = f"{v} program {today.year}: {words[0]} | {SITE}"
+    days = []
+    for e in evs:
+        days.append(e["date"][:10])
+        days += [m[:10] for m in e.get("moreShows") or [] if isinstance(m, str)]
+    first, last = datetime.date.fromisoformat(min(days)), datetime.date.fromisoformat(max(days))
+    n = len(evs)
+    names = []
+    for e in evs:
+        nm = short_name(e["title"])
+        if nm and nm not in names and not nm.isupper():
+            names.append(nm)
+    ex = f", blant annet {names[0]} og {names[1]}" if len(names) > 1 else (f", blant annet {names[0]}" if names else "")
+    desc = (f"Program for {v} i Ålesund: {n} {'arrangement' if n == 1 else 'arrangementer'} {range_text(first, last)}{ex}. "
+            f"Datoer, billettpriser og lenker, oppdatert flere ganger om dagen.")
+    return title, desc
+
+
 def front_html(src, events, today, extra_links=()):
     """Forsiden bygger lista med JavaScript. Her legges de neste ukene også inn som vanlig HTML og JSON-LD,
     så søkemotorer og delingstjenester ser innholdet uten å kjøre scriptet. Scriptet bytter ut lista når programmet er hentet."""
@@ -746,8 +787,8 @@ def main():
             MONTH_PAGES[f"{MO[m - 1].capitalize()} {y}"] = f"maned/{MO[m - 1]}-{y}/"
         y, m = y + (m == 12), m % 12 + 1
 
-    def listing_page(path, title, h1, lede, evs, empty, what, image=None, about="", lead=""):
-        write(path, page(path, title, describe(evs, what), listing(path, h1, lede, evs, empty, cats_present, about, lead),
+    def listing_page(path, title, h1, lede, evs, empty, what, image=None, about="", lead="", desc=None):
+        write(path, page(path, title, desc or describe(evs, what), listing(path, h1, lede, evs, empty, cats_present, about, lead),
                          {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (h1, BASE + path)])] + [event_ld(e) for e in evs]}, image=image))
         pages.append((path, updated))
 
@@ -803,10 +844,12 @@ def main():
 
     for v, p in VENUE_PAGES.items():
         evs = [e for e in events if e["venue"] == v]
-        listing_page(p, f"{v} – program og billetter | {SITE}", f"Program for {v}",
+        vtitle, vdesc = venue_meta(v, evs, today)
+        listing_page(p, vtitle, f"Program for {v}",
                      f"Kommende arrangementer på {v}{', ' + evs[0]['address'] if evs[0].get('address') else ', Ålesund'}, med datoer og billettpriser.",
                      evs, "", f"Program for {v} i Ålesund",
-                     about=f"{v} er en av scenene i Ålesund. Oversikten viser kommende arrangementer med dato, klokkeslett og billettpris, hentet fra arrangørens egne sider.")
+                     about=f"{v} er en av scenene i Ålesund. Oversikten viser kommende arrangementer med dato, klokkeslett og billettpris, hentet fra arrangørens egne sider.",
+                     desc=vdesc)
 
     for e in all_events:
         path = f"arrangement/{e['id']}/"
