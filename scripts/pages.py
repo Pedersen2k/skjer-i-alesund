@@ -293,7 +293,7 @@ def venue_path(v):
 
 def links_nav(up, current, extra):
     """Snarveier til de andre undersidene, så både folk og søkemotorer finner rundt."""
-    items = [("i-dag/", "I dag"), ("i-morgen/", "I morgen"), ("denne-helgen/", "Denne helgen"), ("denne-uka/", "Neste 7 dager"), ("kino/", "Kino")] + [(p + "/", CAT_LABEL[k] if k != "sport" else "AaFK") for k, (p, _, _) in CATS.items() if k in extra]
+    items = [("i-kveld/", "I kveld"), ("i-dag/", "I dag"), ("i-morgen/", "I morgen"), ("denne-helgen/", "Denne helgen"), ("denne-uka/", "Neste 7 dager"), ("kino/", "Kino")] + [(p + "/", CAT_LABEL[k] if k != "sport" else "AaFK") for k, (p, _, _) in CATS.items() if k in extra]
     if JUL_NAV:
         items.insert(5, ("jul-i-alesund/", "Jul i Ålesund"))
     items += [(p, l) for l, p in MONTH_PAGES.items()]
@@ -317,6 +317,127 @@ def listing(path, h1, lede, events, empty, cats_present, about="", lead=""):
   {links_nav(up, path, cats_present)}
   <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a></div></footer>"""
     return body
+
+
+def ikveld_rows(events, day):
+    """Én rad per forestilling i dag (også senere forestillinger fra moreShows), sortert på klokkeslett."""
+    rows = []
+    for e in events:
+        times = ([e["time"]] if e["date"] == day and e.get("time") else []) + [m[11:16] for m in e.get("moreShows", []) if m.startswith(day)]
+        status = {s[0][11:16]: s[1] for s in e.get("shows", []) if s[0].startswith(day)}
+        for t in times:
+            rows.append((t, e, e.get("soldOut") or status.get(t) == "sold", not e.get("soldOut") and (status.get(t) == "few" or (t not in status and bool(e.get("few"))))))
+        if e["date"] == day and not e.get("time"):
+            rows.append(("", e, bool(e.get("soldOut")), False))
+    return sorted(rows, key=lambda r: r[0] or "00:00")
+
+
+def ikveld_row(t, e, sold, few, up):
+    c = e["cat"] if e["cat"] in CAT_LABEL else "happening"
+    u = safe_url(e.get("url"))
+    pr = "Utsolgt" if sold else price_text(e)
+    few_html = '<span class="fewp">Få igjen</span>' if few else ""
+    ticket = f'<a class="bt" href="{escape(u)}" target="_blank" rel="noopener">Billetter →</a>' if u and not sold else ""
+    return (f'<div class="it" style="--c:var(--c-{c})"><span class="tm">{escape(t) or "–"}</span>'
+            f'<a class="t" href="{up}arrangement/{e["id"]}/">{escape(e["title"])}</a>'
+            f'<div class="m"><span>{escape(e["venue"])}</span><span class="pr{" sold" if sold else "" if (e.get("price") or e.get("priceMin") == 0) else " unk"}">{escape(pr)}</span>{few_html}{ticket}</div></div>')
+
+
+IKVELD_JS = r"""
+(function () {
+  const WD = ["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"], MO = ["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"];
+  const LABEL = __LABELS__;
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+  const safe = u => /^https?:\/\//i.test(u || "") ? u : "";
+  const hm = m => String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+  const mins = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+  let EV = [];
+  // Dato og klokkeslett i Ålesund, uansett hvilken tidssone telefonen står i
+  function oslo() {
+    const p = Object.fromEntries(new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
+      .formatToParts(new Date()).map(x => [x.type, x.value]));
+    return { day: `${p.year}-${p.month}-${p.day}`, now: +p.hour * 60 + +p.minute };
+  }
+  function rows(day) {
+    const out = [];
+    for (const e of EV) {
+      if (e.cat === "julebord") continue;
+      const st = {}; (e.shows || []).forEach(s => { if (s[0].startsWith(day)) st[s[0].slice(11, 16)] = s[1]; });
+      const ts = (e.date === day && e.time ? [e.time] : []).concat((e.moreShows || []).filter(m => m.startsWith(day)).map(m => m.slice(11, 16)));
+      for (const t of ts) out.push({ t, m: mins(t), e, sold: !!e.soldOut || st[t] === "sold", few: !e.soldOut && (st[t] === "few" || (!(t in st) && !!e.few)) });
+      if (e.date === day && !e.time) out.push({ t: "", m: -1, e, sold: !!e.soldOut, few: false });
+    }
+    return out.sort((a, b) => a.m - b.m);
+  }
+  function rel(o, now) {
+    const d = o.m - now;
+    if (o.m < 0) return "";
+    if (d < 0) return `<span class="rel went">startet ${o.t}</span>`;
+    if (d > 90) return "";
+    const h = Math.floor(d / 60), m = d % 60;
+    return `<span class="rel soon">${d === 0 ? "starter nå" : "om " + (h ? `${h} t${m ? ` ${m} min` : ""}` : `${m} min`)}</span>`;
+  }
+  function price(o) {
+    const e = o.e;
+    if (o.sold) return `<span class="pr sold">Utsolgt</span>`;
+    if (e.priceMin === 0) return `<span class="pr">Gratis</span>`;
+    return e.price ? `<span class="pr">${esc(e.price)}</span>` : `<span class="pr unk">Pris hos arrangør</span>`;
+  }
+  function row(o, now) {
+    const e = o.e, c = LABEL[e.cat] ? e.cat : "happening", u = safe(e.url);
+    return `<div class="it${o.m >= 0 && o.m < now ? " past" : ""}" style="--c:var(--c-${c})"><span class="tm">${o.t || "–"}</span>`
+      + `<a class="t" href="../arrangement/${encodeURIComponent(e.id)}/">${esc(e.title)}</a>`
+      + `<div class="m"><span>${esc(e.venue)}</span>${price(o)}${o.few ? `<span class="fewp">Få igjen</span>` : ""}${rel(o, now)}${u && !o.sold ? `<a class="bt" href="${esc(u)}" target="_blank" rel="noopener">Billetter →</a>` : ""}</div></div>`;
+  }
+  function render() {
+    const { day, now } = oslo(), d = new Date(day + "T12:00"), L = rows(day);
+    const left = L.filter(o => o.m >= now).length;
+    const next = new Date(d); next.setDate(d.getDate() + 1);
+    document.getElementById("kvdate").innerHTML = `${WD[d.getDay()][0].toUpperCase() + WD[d.getDay()].slice(1)} ${d.getDate()}. ${MO[d.getMonth()]} · `
+      + (left ? `<b>${left}</b> ${left === 1 ? "arrangement starter" : "arrangementer starter"} etter kl. ${hm(now)}` : L.length ? "alt i dag har startet" : "ingenting registrert i dag");
+    let h = "", put = false;
+    const timed = L.filter(o => o.m >= 0), untimed = L.filter(o => o.m < 0);
+    for (const o of timed) {
+      if (!put && o.m >= now) { h += `<div class="nowline" aria-label="Nå, kl. ${hm(now)}"><span>${hm(now)}</span></div>`; put = true; }
+      h += row(o, now);
+    }
+    if (timed.length && !put) h += `<div class="nowline"><span>${hm(now)}</span></div>`;
+    const empty = `<div class="kvempty"><b>${L.length ? "Det er ikke mer på programmet i kveld." : "Vi har ingen arrangementer registrert i dag."}</b> Se hva som skjer <a href="../i-morgen/">i morgen, ${WD[next.getDay()]} ${next.getDate()}. ${MO[next.getMonth()]} →</a></div>`;
+    document.getElementById("kvlist").innerHTML = (timed.length ? `<div class="tl">${h}</div>` : "")
+      + (untimed.length ? `<h2 class="kvsub">Uten klokkeslett</h2><div class="tl">${untimed.map(o => row(o, now)).join("")}</div>` : "")
+      + (left ? "" : empty);
+  }
+  fetch("../data/events.json", { cache: "no-cache" }).then(r => r.json()).then(d => { EV = d.events || []; render(); setInterval(render, 60000);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); }); }).catch(() => {});
+})();
+"""
+
+
+def ikveld_page(events, today):
+    """«Hva skjer i Ålesund i kveld?»: dagens arrangementer på en tidslinje. Scriptet viser «Nå»-streken og regner ut
+    «om 20 min» / «startet 18:00» fra klokka i Ålesund, og tegner siden på nytt hvert minutt (også etter midnatt)."""
+    day = today.isoformat()
+    rs = ikveld_rows(events, day)
+    timed, untimed = [r for r in rs if r[0]], [r for r in rs if not r[0]]
+    up = "../"
+    tomorrow = today + datetime.timedelta(days=1)
+    body = f"""  <header class="top">
+    <h1>Hva skjer i Ålesund <span>i kveld?</span></h1>
+    <p class="lede" id="kvdate">{escape(day_text(today).capitalize())} · {len(rs)} {"arrangement" if len(rs) == 1 else "arrangementer"} i dag</p>
+    <p class="lede small">Kildene sier ikke når et arrangement slutter, så vi viser når det startet.</p>
+  </header>
+  <main class="ikveld" id="kvlist">
+    {f'<div class="tl">{"".join(ikveld_row(t, e, s, f, up) for t, e, s, f in timed)}</div>' if timed else ""}
+    {f'<h2 class="kvsub">Uten klokkeslett</h2><div class="tl">{"".join(ikveld_row(t, e, s, f, up) for t, e, s, f in untimed)}</div>' if untimed else ""}
+    {"" if rs else f'<div class="kvempty"><b>Vi har ingen arrangementer registrert i dag.</b> Se hva som skjer <a href="../i-morgen/">i morgen, {escape(day_text(tomorrow))} →</a></div>'}
+  </main>
+  <script>{IKVELD_JS.replace("__LABELS__", json.dumps(CAT_LABEL, ensure_ascii=False))}</script>
+  {links_nav(up, "i-kveld/", {e["cat"] for e in events})}
+  <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a></div></footer>"""
+    evs = occurrences(events, today, today)
+    desc = describe(evs, "Hva skjer i Ålesund i kveld") if evs else f"Hva skjer i Ålesund i kveld, {day_text(today)}? Konserter, standup, show og klubb, med klokkeslett og billettpriser."
+    return page("i-kveld/", f"Hva skjer i Ålesund i kveld? {day_text(today).capitalize()} | {SITE}", desc, body,
+                {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), ("I kveld", BASE + "i-kveld/")])] + [event_ld(e) for e in evs]})
 
 
 WEB3FORMS_KEY = "4fdbd7cb-a640-4982-a1f4-6fefbf772424"  # offentlig nøkkel: kan bare brukes til å sende til eieren
@@ -817,6 +938,9 @@ def main():
                  "Vi har ingen arrangementer registrert i dag. Se hva som skjer i helgen eller i hele programmet.",
                  "Hva skjer i Ålesund i dag")
 
+    write("i-kveld/", ikveld_page(events, today))
+    pages.append(("i-kveld/", updated))
+
     tomorrow = today + datetime.timedelta(days=1)
     listing_page("i-morgen/", f"Hva skjer i Ålesund i morgen? {day_text(tomorrow).capitalize()} | {SITE}", "Skjer i Ålesund i morgen",
                  f"Konserter, standup, show og andre arrangementer i Ålesund {day_text(tomorrow)}.", occurrences(events, tomorrow, tomorrow),
@@ -1278,6 +1402,40 @@ render();
 
 
 SUB_CSS = """
+
+/* I kveld (i-kveld/): tidslinje med «Nå»-strek */
+.ikveld { --now: #1e8a4f; --now-ink: #ffffff; --now-bg: #e3f4ea; }
+html[data-tema="kveld"] .ikveld { --now: #7ee0a1; --now-ink: #0b2a17; --now-bg: #1c3b2a; }
+.top h1 span { color: var(--accent); }
+.lede.small { font-size: 13px; color: var(--muted); }
+.ikveld .tl { position: relative; display: grid; gap: 10px; padding-left: 64px; margin: 8px 0 18px; }
+.ikveld .tl::before { content: ""; position: absolute; left: 48px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+.ikveld .it { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
+.ikveld .it::before { content: ""; position: absolute; left: -21px; top: 15px; width: 12px; height: 12px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 4px var(--bg); }
+.ikveld .it .tm { position: absolute; left: -66px; top: 11px; width: 38px; text-align: right; font: 700 13px/1.2 var(--font-mono); color: var(--fg); }
+.ikveld .it.past { opacity: .55; }
+.ikveld .it .t { display: block; font: 700 16px/1.25 var(--font-display); color: var(--fg); text-decoration: none; }
+.ikveld .it .t:hover { text-decoration: underline; }
+.ikveld .it .m { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 3px; font-size: 13px; color: var(--muted); }
+.ikveld .it .pr { font: 600 13px var(--font-mono); color: var(--fg); }
+.ikveld .it .pr.sold { color: var(--accent); }
+.ikveld .it .pr.unk { font: 500 12.5px var(--font-body); color: var(--muted); }
+.ikveld .it .bt { color: var(--sea); font-weight: 600; text-decoration: none; margin-left: auto; }
+html[data-tema="kveld"] .ikveld .it .bt { color: var(--gold); }
+.ikveld .fewp { font: 700 11px/1 var(--font-body); background: var(--few-bg, #fff3dc); border: 1px solid var(--few-line, #f0c06a); color: var(--few, #8a5a00); border-radius: 999px; padding: 4px 7px; }
+.ikveld .rel { display: inline-flex; align-items: center; gap: 5px; font: 700 11.5px/1 var(--font-body); border-radius: 999px; padding: 4px 8px; white-space: nowrap; }
+.ikveld .rel.soon { background: var(--now-bg); color: var(--now); border: 1px solid var(--now); }
+.ikveld .rel.soon::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--now); animation: kvpulse 1.6s infinite; }
+.ikveld .rel.went { color: var(--muted); border: 1px dashed var(--line); }
+@keyframes kvpulse { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .ikveld .rel.soon::before { animation: none; } }
+.ikveld .nowline { position: relative; height: 0; margin: 2px 0; }
+.ikveld .nowline::before { content: ""; position: absolute; left: -26px; right: 0; top: 0; border-top: 2px solid var(--now); }
+.ikveld .nowline span { position: absolute; left: -66px; top: -10px; font: 700 12px/20px var(--font-mono); color: var(--now-ink); background: var(--now); border-radius: 6px; padding: 0 5px; }
+.ikveld .kvsub { font: 800 16px var(--font-display); margin: 18px 0 4px; }
+.ikveld .kvempty { border: 1px dashed var(--line); border-radius: 14px; padding: 16px; color: var(--muted); }
+.ikveld .kvempty b { color: var(--fg); display: block; margin-bottom: 4px; }
+.ikveld .kvempty a { color: var(--sea); font-weight: 600; }
 /* Engelsk side (en/) */
 .en .jump { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font: 600 14px var(--font-body); }
 .en .jump a, .en .daytime a, .en .faq a { color: var(--sea); }
