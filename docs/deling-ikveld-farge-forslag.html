@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delingsbilde, I kveld og kategorifarge</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Tre sett mockups for kaskjerda.no: delingsbilde per arrangement (5), «I kveld»-siden (5) og kategorifarge på kortene (nå + 6).
+   Ekte arrangementer fra data/events.json (30. okt – 1. nov og noen senere). Mørkt kveldstema som på siden; mobilene er 390 px brede. */
+:root {
+  --bg:#0a171b; --surface:#13252d; --surface-2:#0f1f26; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a;
+  --gold:#f7c873; --sea:#5ab7bf; --accent:#ff8a6b; --accent-ink:#1a0b07; --few:#ffb547; --few-bg:#3a2a10; --few-line:#6b4c17;
+  --sold:#ff8a6b; --now:#7ee0a1;
+  --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-show:#ab93e6; --c-barn:#6cc98a; --c-klubb:#ec78ab; --c-happening:#d9b84a; --c-quiz:#b497e0; --c-julebord:#ef7a7f; --c-sport:#7aa7e6;
+  --font-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+html { background:var(--bg); }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 15px/1.5 var(--font-body);
+  padding-block:28px 72px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+a { color:inherit; text-decoration:none; }
+button, select, input { font:inherit; color:inherit; }
+:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+.wrap { max-width:1680px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr); gap:56px; }
+header.top h1 { font:800 clamp(28px,4.2vw,44px)/1.05 var(--font-display); margin:0 0 12px; text-wrap:balance; }
+header.top p { margin:0 0 8px; max-width:78ch; color:var(--muted); }
+header.top p b { color:var(--fg); }
+.jump { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.jump a { border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:8px 14px; font-weight:600; font-size:14px; }
+.jump a:hover { border-color:var(--gold); }
+section > h2 { font:800 clamp(24px,3vw,32px)/1.1 var(--font-display); margin:0 0 6px; }
+section > .lead { color:var(--muted); max-width:80ch; margin:0 0 16px; }
+section > .lead b { color:var(--fg); }
+.ctrl { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin-bottom:22px; }
+.ctrl label { display:flex; flex-wrap:wrap; gap:8px; align-items:center; max-width:100%; font-weight:600; font-size:14px; }
+.ctrl select { background:var(--surface-2); border:1px solid var(--line); border-radius:9px; padding:7px 10px; min-height:40px; }
+.ctrl input[type=range] { width:min(240px, 60vw); accent-color:var(--gold); }
+.ctrl output { font:700 14px var(--font-mono); color:var(--gold); min-width:5ch; }
+.ctrl .seg { display:inline-flex; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+.ctrl .seg button { background:transparent; border:0; padding:8px 12px; min-height:40px; cursor:pointer; font-weight:600; font-size:14px; }
+.ctrl .seg button[aria-pressed="true"] { background:var(--gold); color:#10282f; }
+.grid { display:flex; flex-wrap:wrap; gap:36px 26px; align-items:flex-start; }
+.opt { width:390px; max-width:100%; min-width:0; display:grid; gap:10px; align-content:start; }
+.opt.wide { width:560px; }
+.opt h3 { font:800 21px/1.15 var(--font-display); margin:0; }
+.opt h3 small { display:block; font:500 13.5px/1.45 var(--font-body); color:var(--muted); margin-top:4px; }
+.opt .spec { font:500 12px/1.55 var(--font-mono); color:var(--muted); border:1px dashed var(--line); border-radius:10px; padding:8px 10px; }
+.opt .verdict { font-size:13.5px; color:var(--muted); }
+.opt .verdict b { color:var(--gold); }
+.pick { font:700 11px/1 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--gold); }
+.phone { border:1px solid var(--line); border-radius:24px; padding:14px 12px 18px; background:radial-gradient(130% 300px at 50% 0,#17434d 0%,rgba(10,23,27,0) 100%),var(--bg); overflow:hidden; }
+
+/* ---------- 1. Delingsbilde ---------- */
+.chat { background:#0b0d10; border:1px solid #23272d; border-radius:24px; padding:16px 14px 18px; display:grid; gap:10px; }
+.chat .from { justify-self:end; max-width:88%; background:#3478f6; color:#fff; border-radius:18px 18px 4px 18px; padding:8px 12px; font-size:14px; }
+.bubble { justify-self:end; width:88%; border-radius:18px; overflow:hidden; background:#1f2328; border:1px solid #2b3036; }
+.bubble .cap { padding:9px 12px 11px; display:grid; gap:1px; }
+.bubble .cap b { font-size:14px; line-height:1.3; color:#f2f4f6; }
+.bubble .cap small { color:#9aa3ad; font-size:12.5px; }
+.ogbox { position:relative; width:100%; aspect-ratio:1200/630; max-width:100%; overflow:hidden; background:#000; }
+.og { position:absolute; left:0; top:0; width:1200px; height:630px; transform-origin:0 0; transform:scale(var(--s,0.3)); overflow:hidden; font-family:var(--font-body); color:#fff; }
+.og .brand { position:absolute; display:flex; align-items:center; gap:14px; font:700 30px/1 var(--font-body); }
+.og .brand svg { width:44px; height:48px; }
+.og .ttl { font-family:var(--font-display); font-weight:800; letter-spacing:-0.02em; line-height:.98; text-wrap:balance; }
+.og .st { display:inline-flex; align-items:center; gap:10px; border-radius:999px; font:700 30px/1 var(--font-body); padding:14px 24px; }
+.og .st.few { background:var(--few); color:#2a1a02; }
+.og .st.sold { background:var(--sold); color:var(--accent-ink); }
+.og .st.free { background:var(--now); color:#0b2a17; }
+.og .st.price { background:#ffffff1a; color:#fff; border:2px solid #ffffff40; }
+
+/* D1 Plakat */
+.d1 { background:radial-gradient(900px 520px at 85% -10%, color-mix(in srgb, var(--c) 55%, transparent), transparent 70%), linear-gradient(160deg,#10303a,#0a171b 70%); }
+.d1 .cat { position:absolute; left:72px; top:68px; font:700 26px/1 var(--font-mono); letter-spacing:.14em; text-transform:uppercase; color:var(--c); }
+.d1 .ttl { position:absolute; left:72px; right:72px; top:116px; font-size:var(--fs,96px); }
+.d1 .when { position:absolute; left:72px; bottom:150px; font:600 38px/1.2 var(--font-body); color:#e8f1ef; }
+.d1 .when b { color:var(--gold); font-weight:700; }
+.d1 .row { position:absolute; left:72px; right:72px; bottom:62px; display:flex; justify-content:space-between; align-items:center; }
+.d1 .brand { position:static; color:#cfe0de; }
+
+/* D2 Billett */
+.d2 { background:color-mix(in srgb, var(--c) 78%, #0a171b); }
+.d2 .tk { position:absolute; inset:58px 58px 96px; display:grid; grid-template-columns:250px 1fr; background:#fbf7ef; color:#13252d; border-radius:26px; overflow:hidden; box-shadow:0 30px 60px #0005; }
+.d2 .stub { background:#13252d; color:#fff; display:grid; place-content:center; text-align:center; gap:4px; position:relative; border-right:6px dashed #fbf7ef; }
+.d2 .stub .wd { font:700 28px/1 var(--font-mono); letter-spacing:.12em; text-transform:uppercase; color:var(--c); }
+.d2 .stub .dn { font:800 150px/0.9 var(--font-display); }
+.d2 .stub .mo { font:700 34px/1 var(--font-body); text-transform:uppercase; letter-spacing:.06em; color:var(--gold); }
+.d2 .body { padding:44px 50px; display:flex; flex-direction:column; gap:16px; min-width:0; }
+.d2 .body .cat { font:700 22px/1 var(--font-mono); letter-spacing:.14em; text-transform:uppercase; color:color-mix(in srgb, var(--c) 70%, #13252d); }
+.d2 .body .ttl { font-size:var(--fs,80px); color:#13252d; }
+.d2 .body .meta { font:600 32px/1.3 var(--font-body); color:#3d5560; margin-top:auto; }
+.d2 .body .st.price { background:#13252d; color:#fff; border:0; }
+.d2 .brand { left:62px; bottom:28px; color:#0a171b; }
+.d2 .brand svg { --accent:#0a171b; --sea:#0a171b; --bg:color-mix(in srgb, var(--c) 78%, #0a171b); }
+
+/* D3 Kalenderblad */
+.d3 { background:#0d1d22; display:grid; grid-template-columns:400px 1fr; }
+.d3 .sheet { background:var(--c); color:#0a171b; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; }
+.d3 .sheet::before { content:""; position:absolute; top:0; left:0; right:0; height:86px; background:#0a171b26; }
+.d3 .sheet .wd { position:absolute; top:24px; font:800 34px/1 var(--font-body); letter-spacing:.06em; text-transform:uppercase; }
+.d3 .sheet .dn { font:800 250px/0.85 var(--font-display); letter-spacing:-0.04em; margin-top:40px; }
+.d3 .sheet .mo { font:800 44px/1 var(--font-body); text-transform:uppercase; letter-spacing:.08em; }
+.d3 .sheet .more { position:absolute; bottom:28px; font:700 24px/1 var(--font-mono); background:#0a171b; color:var(--c); border-radius:999px; padding:10px 18px; }
+.d3 .side { padding:62px 64px; display:flex; flex-direction:column; gap:22px; min-width:0; }
+.d3 .ttl { font-size:var(--fs,86px); }
+.d3 .meta { font:600 34px/1.35 var(--font-body); color:#bcd0cf; }
+.d3 .meta b { color:#fff; }
+.d3 .foot { margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:20px; }
+.d3 .brand { position:static; color:#8fa8ab; font-size:26px; }
+
+/* D4 Fargeflate */
+.d4 { background:var(--c); color:#0a171b; }
+.d4 .word { position:absolute; right:-30px; bottom:-70px; font:800 330px/1 var(--font-display); letter-spacing:-0.05em; color:transparent; -webkit-text-stroke:3px #0a171b2e; text-transform:lowercase; white-space:nowrap; }
+.d4 .ttl { position:absolute; left:70px; right:70px; top:70px; font-size:var(--fs,104px); color:#0a171b; }
+.d4 .when { position:absolute; left:70px; bottom:150px; font:700 40px/1.2 var(--font-body); }
+.d4 .row { position:absolute; left:70px; right:70px; bottom:64px; display:flex; gap:20px; align-items:center; justify-content:space-between; }
+.d4 .brand { position:static; color:#0a171b; }
+.d4 .brand svg { --accent:#0a171b; --sea:#0a171b; --bg:var(--c); }
+.d4 .st.price { background:#0a171b; color:#fff; border:0; }
+
+/* D5 Skyline */
+.d5 { background:linear-gradient(180deg,#0e2f38 0%, #0a171b 100%); }
+.d5 svg.sky { position:absolute; left:0; bottom:0; width:1200px; height:230px; }
+.d5 .moon { position:absolute; right:110px; top:70px; width:90px; height:90px; border-radius:50%; background:var(--gold); box-shadow:0 0 80px #f7c87366; }
+.d5 .cat { display:inline-block; font:700 24px/1 var(--font-mono); letter-spacing:.14em; text-transform:uppercase; background:var(--c); color:#0a171b; padding:10px 16px; border-radius:8px; }
+.d5 .top { position:absolute; left:72px; right:260px; top:64px; display:flex; flex-direction:column; gap:22px; align-items:flex-start; }
+.d5 .ttl { font-size:var(--fs,88px); }
+.d5 .when { font:600 36px/1.25 var(--font-body); color:#e8f1ef; }
+.d5 .when b { color:var(--gold); }
+.d5 .st { position:absolute; right:72px; top:200px; }
+.d5 .brand { left:72px; bottom:40px; color:#e8f1ef; z-index:2; font-size:26px; }
+
+/* ---------- 2. I kveld ---------- */
+.kv h4 { font:800 26px/1.1 var(--font-display); margin:2px 0 2px; text-wrap:balance; }
+.kv h4 span { background:linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.kv .sub { color:var(--muted); font-size:13.5px; margin:0 0 12px; }
+.kv .sub b { color:var(--fg); }
+.crumb { font-size:12px; color:var(--muted); margin-bottom:6px; }
+.crumb b { color:var(--sea); font-weight:600; }
+.emptyk { border:1px dashed var(--line); border-radius:14px; padding:16px; color:var(--muted); font-size:14px; }
+.emptyk b { color:var(--fg); }
+.tl { position:relative; display:grid; gap:10px; padding-left:62px; }
+.tl::before { content:""; position:absolute; left:47px; top:4px; bottom:4px; width:2px; background:var(--line); }
+.tl .it { position:relative; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 12px; }
+.tl .it::before { content:""; position:absolute; left:-20px; top:15px; width:12px; height:12px; border-radius:50%; background:var(--c); box-shadow:0 0 0 4px var(--bg); }
+.tl .it .tm { position:absolute; left:-64px; top:10px; width:36px; text-align:right; font:700 13px/1.2 var(--font-mono); color:var(--fg); }
+.tl .it.past { opacity:.55; }
+.tl .it.past .tm { color:var(--muted); }
+.tl .nowline { position:relative; height:0; margin:2px 0; }
+.tl .nowline::before { content:""; position:absolute; left:-24px; right:0; top:0; border-top:2px solid var(--now); }
+.tl .nowline span { position:absolute; left:-64px; top:-10px; font:700 12px/20px var(--font-mono); color:#0b2a17; background:var(--now); border-radius:6px; padding:0 5px; }
+.it b.t { display:block; font:700 15.5px/1.25 var(--font-display); }
+.it .m { font-size:12.5px; color:var(--muted); display:flex; flex-wrap:wrap; gap:2px 10px; margin-top:2px; }
+.it .m .pr { font-family:var(--font-mono); color:var(--fg); font-weight:600; }
+.it .m .pr.sold { color:var(--sold); }
+.rel { display:inline-flex; align-items:center; gap:5px; font:700 11.5px/1 var(--font-body); border-radius:999px; padding:4px 8px; white-space:nowrap; }
+.rel.soon { background:#1c3b2a; color:var(--now); border:1px solid #2f6a47; }
+.rel.soon::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--now); animation:pulse 1.6s infinite; }
+.rel.later { background:#ffffff0d; color:var(--muted); border:1px solid var(--line); }
+.rel.went { background:transparent; color:var(--muted); border:1px dashed var(--line); }
+@keyframes pulse { 50% { opacity:.25; } }
+@media (prefers-reduced-motion: reduce) { .rel.soon::before { animation:none; } }
+
+.hero { border-radius:16px; padding:16px; background:linear-gradient(135deg, color-mix(in srgb, var(--c) 32%, #13252d), #13252d 70%); border:1px solid color-mix(in srgb, var(--c) 45%, #25414a); display:grid; gap:6px; margin-bottom:14px; }
+.hero .big { font:800 34px/1 var(--font-display); color:var(--now); letter-spacing:-0.02em; }
+.hero .big small { display:block; font:600 12px/1.4 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+.hero b.t { font:800 21px/1.15 var(--font-display); }
+.hero .btn { justify-self:start; margin-top:4px; background:var(--accent); color:var(--accent-ink); font-weight:700; border-radius:10px; padding:10px 14px; font-size:14px; }
+.grp { font:700 11px/1 var(--font-mono); letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin:14px 0 8px; display:flex; justify-content:space-between; }
+.grp em { font-style:normal; color:var(--muted); }
+.rows { display:grid; gap:8px; }
+.row2 { display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:center; background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--c); border-radius:12px; padding:9px 11px; }
+.row2 .tm { font:700 14px/1 var(--font-mono); }
+.row2.past { opacity:.6; }
+.cd { display:grid; grid-template-columns:76px 1fr; gap:10px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:9px 11px 9px 9px; }
+.cd .cl { border-radius:9px; background:color-mix(in srgb, var(--c) 20%, #0f1f26); border:1px solid color-mix(in srgb, var(--c) 40%, #25414a); text-align:center; padding:7px 2px; }
+.cd .cl b { display:block; font:700 18px/1 var(--font-mono); color:var(--fg); }
+.cd .cl small { display:block; font:600 10.5px/1.3 var(--font-mono); color:var(--muted); margin-top:3px; text-transform:uppercase; letter-spacing:.06em; }
+.cd.soon .cl b { color:var(--now); }
+.cd.past .cl b { font-size:13px; color:var(--muted); }
+.cd.past { opacity:.65; }
+.days { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+.days span { border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:7px 12px; font-size:13px; font-weight:600; }
+.days span.on { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.part { display:grid; gap:8px; }
+.part h5 { margin:12px 0 0; display:flex; align-items:baseline; gap:8px; font:800 17px/1.2 var(--font-display); }
+.part h5 small { font:500 12.5px var(--font-body); color:var(--muted); }
+.part h5 .rel { margin-left:auto; }
+.story { aspect-ratio:9/16; max-width:100%; border-radius:18px; overflow:hidden; position:relative; background:linear-gradient(180deg,#123a44 0%, #0a171b 55%); padding:22px 18px; display:flex; flex-direction:column; gap:12px; }
+.story .sh { font:800 34px/0.98 var(--font-display); letter-spacing:-0.02em; }
+.story .sh span { color:var(--gold); }
+.story .sd { font:600 12px var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--sea); }
+.story .srow { display:grid; grid-template-columns:48px 1fr; gap:8px; align-items:start; padding:8px 0; border-top:1px solid #ffffff1a; }
+.story .srow .tm { font:700 14px/1.3 var(--font-mono); color:var(--c); }
+.story .srow b { font:700 14.5px/1.2 var(--font-display); display:block; }
+.story .srow small { font-size:11.5px; color:var(--muted); }
+.story .foot { margin-top:auto; display:flex; align-items:center; gap:8px; font-weight:700; font-size:14px; }
+.story .foot svg { width:22px; height:24px; }
+.story .past { opacity:.45; }
+
+/* ---------- 3. Kategorifarge: felles kort (likt forsiden) ---------- */
+.dayhd { display:flex; align-items:baseline; gap:10px; margin:14px 0 8px; }
+.dayhd:first-child { margin-top:0; }
+.dayhd b { font:800 18px/1 var(--font-display); }
+.dayhd span { font-size:12.5px; color:var(--muted); }
+.evs { display:grid; gap:10px; }
+.ev { --c:var(--sea); position:relative; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 10px; }
+.ev h6 { margin:0; font:700 17px/1.25 var(--font-display); letter-spacing:-0.01em; text-wrap:balance; min-width:0; }
+.ev .side { grid-row:1 / span 2; grid-column:2; display:flex; flex-direction:column; gap:6px; align-items:end; }
+.ev .fav { width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:transparent; color:var(--muted); font-size:18px; line-height:1; display:grid; place-items:center; }
+.ev .price { font:600 13px/1.2 var(--font-mono); white-space:nowrap; }
+.ev .price.unk { font:500 12px/1.2 var(--font-body); color:var(--muted); }
+.ev .price.sold { color:var(--sold); }
+.ev .meta { display:flex; flex-wrap:wrap; gap:4px 10px; align-items:center; font-size:13px; color:var(--muted); grid-column:1; }
+.ev .tag { font-weight:600; color:var(--c); }
+.ev .meta .tm { font-family:var(--font-mono); color:var(--fg); }
+.ev .note { grid-column:1 / -1; font-size:12.5px; color:var(--muted); }
+.ev .act { grid-column:1 / -1; display:flex; gap:12px; font-size:13px; margin-top:4px; }
+.ev .act a { color:var(--gold); font-weight:600; }
+.ev .act span { color:var(--muted); }
+.fewp { font:700 10.5px/1 var(--font-body); background:var(--few-bg); border:1px solid var(--few-line); color:var(--few); border-radius:999px; padding:4px 7px; white-space:nowrap; }
+.ico { width:16px; height:16px; flex:none; }
+
+/* Nå: 4 px kant + svak farge i hjørnet (slik kveldstemaet er i dag) */
+.v0 .ev { border-left:4px solid var(--c); background:linear-gradient(135deg, color-mix(in srgb, var(--c) 20%, #13252d), #13252d 62%); }
+/* S1 tykk kant med ikon */
+.v1 .ev { padding-left:58px; }
+.v1 .ev .edge { position:absolute; left:0; top:0; bottom:0; width:44px; background:var(--c); border-radius:11px 0 0 11px; display:grid; place-items:center; color:#0a171b; }
+.v1 .ev .edge .ico { width:20px; height:20px; }
+.v1 .ev .tag { display:none; }
+/* S2 fane øverst */
+.v2 .ev { padding-top:0; border-color:color-mix(in srgb, var(--c) 40%, #25414a); overflow:hidden; }
+.v2 .ev .tab { grid-column:1 / -1; margin:0 -14px 8px; padding:6px 14px; background:color-mix(in srgb, var(--c) 85%, #0a171b); color:#0a171b; font:700 11.5px/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; display:flex; align-items:center; gap:7px; }
+.v2 .ev .tab .ico { width:14px; height:14px; }
+.v2 .ev .tab .rel { margin-left:auto; background:#0a171bcc; border:0; text-transform:none; letter-spacing:0; }
+.v2 .ev .tag { display:none; }
+.v2 .ev .side { grid-row:2 / span 2; }
+/* S3 fylt merke med ikon */
+.v3 .ev { border-left:1px solid var(--line); }
+.v3 .ev .tag { display:inline-flex; align-items:center; gap:5px; background:var(--c); color:#0a171b; border-radius:999px; padding:3px 9px 3px 7px; font-size:12px; font-weight:700; }
+.v3 .ev .tag .ico { width:13px; height:13px; }
+/* S4 timeplan: klokkeslett i fargeblokk */
+.v4 .ev { grid-template-columns:62px minmax(0,1fr) auto; padding:0; overflow:hidden; gap:0; }
+.v4 .ev .clock { grid-row:1 / span 4; background:color-mix(in srgb, var(--c) 26%, #0f1f26); border-right:3px solid var(--c); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:10px 4px; color:var(--c); }
+.v4 .ev .clock b { font:700 16px/1 var(--font-mono); color:var(--fg); }
+.v4 .ev .clock .ico { width:18px; height:18px; }
+.v4 .ev h6 { grid-column:2; padding:12px 0 0 12px; }
+.v4 .ev .side { grid-column:3; grid-row:1 / span 2; padding:12px 12px 0 8px; }
+.v4 .ev .meta { grid-column:2; padding:4px 0 0 12px; }
+.v4 .ev .meta .tm { display:none; }
+.v4 .ev .note, .v4 .ev .act { grid-column:2 / -1; padding:4px 12px 0 12px; }
+.v4 .ev .act { padding-bottom:12px; }
+/* S5 tydelig farget kort */
+.v5 .ev { background:linear-gradient(160deg, color-mix(in srgb, var(--c) 42%, #13252d), color-mix(in srgb, var(--c) 14%, #13252d) 75%); border-color:color-mix(in srgb, var(--c) 55%, #25414a); }
+.v5 .ev .tag { color:#fff; background:#0a171b55; border-radius:6px; padding:1px 6px; }
+.v5 .ev .meta { color:#d6e4e2; }
+.v5 .ev .note { color:#c9d8d6; }
+/* S6 ikonrute */
+.v6 .ev { grid-template-columns:44px minmax(0,1fr) auto; column-gap:12px; }
+.v6 .ev .tile { grid-row:1 / span 2; width:44px; height:44px; border-radius:12px; background:color-mix(in srgb, var(--c) 22%, #0f1f26); border:1px solid color-mix(in srgb, var(--c) 55%, #25414a); color:var(--c); display:grid; place-items:center; }
+.v6 .ev .tile .ico { width:22px; height:22px; }
+.v6 .ev h6, .v6 .ev .meta { grid-column:2; }
+.v6 .ev .side { grid-column:3; }
+.v6 .ev .note, .v6 .ev .act { grid-column:2 / -1; }
+.legend { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.legend span { display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--muted); }
+.legend i { width:10px; height:10px; border-radius:3px; background:var(--c); }
+@media (max-width:440px) { .opt.wide { width:100%; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Delingsbilde, «I kveld» og kategorifarge</h1>
+    <p>Tre sett forslag med <b>ekte arrangementer</b> fra programmet (fredag 30. oktober til søndag 1. november, og noen senere). Alt er i kveldstemaet slik siden ser ut nå. Velg gjerne én i hver del, eller bland.</p>
+    <p>Merk: kortene på forsiden har allerede en <b>tynn fargekant</b> til venstre (4 px). Del 3 viser derfor sterkere varianter ved siden av slik det er i dag.</p>
+    <nav class="jump"><a href="#deling">1. Delingsbilde</a><a href="#ikveld">2. «I kveld»-siden</a><a href="#farge">3. Kategorifarge</a></nav>
+  </header>
+
+  <section id="deling">
+    <h2>1. Delingsbilde per arrangement</h2>
+    <p class="lead">Bildet som vises når noen deler et arrangement på Messenger, Facebook, SMS eller Snapchat. I dag får alle <b>samme logo-bilde</b>. Her lager siden ett eget bilde (1200 × 630) for hvert arrangement ved hver oppdatering, med samme fonter som helgebildet. Status (utsolgt, få igjen, gratis) og «flere datoer» kommer med automatisk. Bytt arrangement for å se hvordan lange titler og status ser ut.</p>
+    <div class="ctrl">
+      <label for="ogpick">Arrangement <select id="ogpick"></select></label>
+    </div>
+    <div class="grid" id="oggrid"></div>
+  </section>
+
+  <section id="ikveld">
+    <h2>2. «Hva skjer i Ålesund i kveld?»</h2>
+    <p class="lead">En egen side <b>kaskjerda.no/i-kveld/</b> som viser det som starter resten av dagen, regnet ut i nettleseren fra klokka akkurat nå. Kildene sier aldri når noe <b>slutter</b>, så vi skriver «startet kl. 19:00», ikke «pågår». Dra i klokka for å se kvelden gå.</p>
+    <div class="ctrl">
+      <label for="kday">Dag <select id="kday"><option value="2026-10-30">Fredag 30. okt</option><option value="2026-10-31">Lørdag 31. okt</option></select></label>
+      <label for="kclock">Late som klokka er <input type="range" id="kclock" min="600" max="1439" step="10" value="1120"> <output id="kclockv">18:40</output></label>
+    </div>
+    <div class="grid" id="kvgrid"></div>
+  </section>
+
+  <section id="farge">
+    <h2>3. Kategorifarge på kortene</h2>
+    <p class="lead">Målet er at du skal se forskjell på konsert, standup og klubb <b>uten å lese</b>. Alle har ett lite symbol per kategori (ingen emoji). Slå på «Starter snart» for å se merket «om 40 min» / «startet 18:00» på dagens arrangementer. Det kan kombineres med alle variantene.</p>
+    <div class="ctrl">
+      <span style="font-weight:600;font-size:14px">«Starter snart»-merke</span>
+      <span class="seg" role="group" aria-label="Starter snart-merke"><button type="button" id="soonOn" aria-pressed="true">På</button><button type="button" id="soonOff" aria-pressed="false">Av</button></span>
+      <label for="fclock">Klokka <input type="range" id="fclock" min="600" max="1439" step="10" value="1120"> <output id="fclockv">18:40</output></label>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="grid" id="fgrid"></div>
+  </section>
+</div>
+
+<script>
+const EV = [{"date": "2026-10-30", "time": "18:00", "title": "Claudia Scott og Torstein Flakne", "venue": "Løvenvold Theater", "cat": "konsert", "price": "499 kr", "priceMin": 499, "id": "claudia-scott-og-torstein-flakne-lovenvold-theater"}, {"date": "2026-10-30", "time": "19:00", "title": "Treretters: En lattergalla", "venue": "Parken kulturhus", "cat": "standup", "price": "530–625 kr", "priceMin": 530, "few": true, "note": "Kevin Vågenes, Cess og Rasmus Wold.", "id": "parken-47586-parken-kulturhus"}, {"date": "2026-10-30", "time": "20:00", "title": "GOLF", "venue": "Terminalen Byscene", "cat": "konsert", "price": "420 kr", "priceMin": 420, "note": "Rabatt: ÅSS / Studentbillett 320 kr, DNB-kunde 366 kr.", "id": "golf-terminalen-byscene"}, {"date": "2026-10-30", "time": "20:00", "title": "Skumle Oktoberquiz med Martin 👻🎃", "venue": "O'Connor's", "cat": "quiz", "price": "50 kr", "priceMin": 50, "note": "Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. 20:00 og 50 kr. Sjekk hos O'Connor's.", "id": "oconnors-2026-10-30-skumle-oktoberquiz-med-martin-o-connor-s"}, {"date": "2026-10-30", "time": "20:30", "title": "Van Halen-tribute – avskjedskonsert", "venue": "Fabrikken Kulturscene", "cat": "konsert", "note": "Dørene åpner 19.00.", "id": "van-halen-tribute-avskjedskonsert-fabrikken-kulturscene"}, {"date": "2026-10-30", "time": "23:00", "title": "DJ hver helg", "venue": "Liv & Røre Moa", "cat": "klubb", "moreShows": ["2026-11-06T23:00", "2026-11-07T23:00", "2026-11-13T23:00", "2026-11-14T23:00", "2026-11-20T23:00", "2026-11-21T23:00", "2026-11-27T23:00", "2026-11-28T23:00", "2026-12-04T23:00", "2026-12-05T23:00", "2026-12-11T23:00", "2026-12-12T23:00", "2026-12-18T23:00", "2026-12-19T23:00"], "note": "Nattklubb fredag og lørdag kl. 23–03, hver helg til 19. des. DJ-er: Raymond, Hamy, Sierra, Nic og Bigs.", "id": "livrore-dj-liv-rore-moa"}, {"date": "2026-10-31", "time": "12:00", "title": "Familiedag: Halloween på Jugendstilsenteret", "venue": "Jugendstilsenteret og KUBE", "cat": "barn", "price": "120 kr", "priceMin": 120, "note": "Gratis for barn i følge med en voksen som betaler inngang (120,-)", "id": "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug"}, {"date": "2026-10-31", "time": "14:00", "title": "Jazzkafe: Vegard Holum sings– ein hyllest til Chet", "venue": "Parken kulturhus", "cat": "konsert", "price": "150–250 kr", "priceMin": 150, "id": "parken-48033-parken-kulturhus"}, {"date": "2026-10-31", "time": "19:00", "title": "Viggo Venneløs", "venue": "Løvenvold Theater", "cat": "standup", "price": "350 kr", "priceMin": 350, "note": "Dører 18:00 · 15 år. Rabatt: Student 299 kr, Ungdom (15-19år) 299 kr.", "id": "viggo-vennelos-lovenvold-theater"}, {"date": "2026-10-31", "time": "19:00", "title": "Kristian Valen", "venue": "Parken kulturhus", "cat": "konsert", "price": "625 kr", "priceMin": 625, "few": true, "shows": [["2026-10-31T19:00", "few"], ["2026-10-31T21:00", "few"]], "moreShows": ["2026-10-31T21:00"], "id": "parken-45111-parken-kulturhus"}, {"date": "2026-10-31", "time": "20:00", "title": "Halloweenfest", "venue": "Liv & Røre Moa", "cat": "klubb", "price": "Gratis", "note": "Aldersgrense 20 år.", "id": "halloweenfest-liv-rore-moa"}, {"date": "2026-10-31", "time": "20:30", "title": "Autumn Nights – Nordvest Big Band med solister", "venue": "Fabrikken Kulturscene", "cat": "konsert", "note": "Dørene åpner 19.00.", "id": "autumn-nights-nordvest-big-band-med-solister-fabrikken-kultu"}, {"date": "2026-10-31", "time": "22:00", "title": "CIRCUS DAMP", "venue": "Dampsentralen", "cat": "klubb", "price": "200 kr", "priceMin": 200, "note": "Halloweenfest. Kostyme anbefales.", "id": "circus-damp-dampsentralen"}, {"date": "2026-10-31", "time": "23:00", "title": "Halloween-klubb med MENTUM", "venue": "Terminalen Byscene", "cat": "klubb", "price": "200 kr", "priceMin": 200, "soldOut": true, "id": "halloween-klubb-med-mentum-terminalen-byscene"}, {"date": "2026-11-01", "time": "13:00", "title": "Pelsdyr i ord og folkesong", "venue": "Sunnmøre museum", "cat": "happening", "price": "120 kr", "priceMin": 120, "id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus"}, {"date": "2026-11-05", "time": "18:30", "title": "Juleshow på Løvenvold Vol. 4", "venue": "Løvenvold Theater", "cat": "standup", "price": "699 kr", "priceMin": 699, "moreShows": ["2026-11-06T17:30", "2026-11-06T20:00", "2026-11-07T17:30", "2026-11-07T20:00", "2026-11-19T17:30", "2026-11-20T17:30", "2026-11-20T20:00", "2026-11-21T17:30", "2026-11-21T20:00", "2026-11-26T17:30", "2026-11-27T17:30", "2026-11-27T20:00", "2026-11-28T17:30", "2026-11-28T20:00", "2026-12-03T17:30", "2026-12-04T17:30", "2026-12-04T20:00", "2026-12-05T17:30", "2026-12-05T20:00", "2026-12-10T17:30", "2026-12-11T17:30", "2026-12-12T17:30", "2026-12-17T17:30", "2026-12-18T17:30"], "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 6. nov, 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.", "id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater"}, {"date": "2026-11-29", "time": "17:00", "title": "Zimmermann – julekonsert", "venue": "Løvenvold Theater", "cat": "konsert", "price": "449 kr", "priceMin": 449, "soldOut": true, "shows": [["2026-11-29T17:00", "sold"], ["2026-11-29T19:30", "sold"]], "moreShows": ["2026-11-29T19:30"], "id": "zimmermann-julekonsert-lovenvold-theater"}, {"date": "2026-12-01", "time": "17:30", "title": "Nøtteknekkeren", "venue": "Arbeideren kulturhus", "cat": "show", "price": "299 kr", "priceMin": 299, "few": true, "shows": [["2026-12-01T17:30", "sold"], ["2026-12-02T17:30", "sold"], ["2026-12-03T17:30", "few"], ["2026-12-04T17:30", "few"]], "moreShows": ["2026-12-02T17:30", "2026-12-03T17:30", "2026-12-04T17:30"], "note": "Premiere 1. desember.", "id": "notteknekkeren-arbeideren-kulturhus"}, {"date": "2026-12-19", "time": "16:00", "title": "Darling West – juleturné", "venue": "Løvenvold Theater", "cat": "konsert", "price": "520 kr", "priceMin": 520, "shows": [["2026-12-19T16:00", ""], ["2026-12-19T19:00", "sold"]], "moreShows": ["2026-12-19T19:00"], "id": "darling-west-juleturne-26-lovenvold-theater"}, {"date": "2027-06-19", "title": "Ålesund Live: Karpe", "venue": "Skutvika", "cat": "konsert", "price": "1399 kr", "priceMin": 1399, "note": "Lørdagspass 1399 kr, 2-dagerspass (med Tobias Sten fredag) 1999 kr. Flere artister annonseres.", "id": "alesund-live-karpe"}];
+const CATS = { konsert:"Konsert", standup:"Standup", show:"Show", barn:"Barn og familie", klubb:"Klubb", happening:"Happening", quiz:"Quiz", julebord:"Julebord", sport:"Sport" };
+const WD = ["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"], MO = ["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"];
+const MOS = ["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"];
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const noEmoji = s => s.replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, "").trim();
+const dObj = iso => { const [y, m, d] = iso.slice(0, 10).split("-").map(Number); return new Date(y, m - 1, d); };
+const hm = m => String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+const mins = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+const cap = s => s[0].toUpperCase() + s.slice(1);
+const LOGO = `<svg viewBox="0 0 48 52" aria-hidden="true"><circle cx="24" cy="6" r="3.5" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="var(--accent)"/><circle cx="15" cy="30" r="2" fill="var(--bg)"/><circle cx="33" cy="30" r="2" fill="var(--bg)"/><path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="var(--bg)"/><path d="M4 49c3.5-2.5 6.5-2.5 10 0s6.5 2.5 10 0 6.5-2.5 10 0 6.5 2.5 10 0" fill="none" stroke="var(--sea)" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+// Enkle kategorisymboler (strek, arver farge)
+const ICON = {
+  konsert:`<path d="M9 18V5l11-2v13" /><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>`,
+  standup:`<rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>`,
+  show:`<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/>`,
+  barn:`<ellipse cx="12" cy="9" rx="5.5" ry="6.5"/><path d="M12 15.5l-1 1.5h2l-1-1.5M12 17c0 2-2 2.5-2 4.5"/>`,
+  klubb:`<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.2"/><path d="M12 3.5a8.5 8.5 0 0 1 8.5 8.5"/>`,
+  happening:`<path d="M12 2.5v5M12 16.5v5M2.5 12h5M16.5 12h5M5.3 5.3l3.2 3.2M15.5 15.5l3.2 3.2M5.3 18.7l3.2-3.2M15.5 8.5l3.2-3.2"/>`,
+  quiz:`<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.6v.6"/><circle cx="12" cy="17" r=".6"/>`,
+  julebord:`<path d="M12 2.5l6 9h-3.5l4.5 6.5H5l4.5-6.5H6Z"/><path d="M12 18v3.5"/>`,
+  sport:`<circle cx="12" cy="12" r="9"/><path d="M12 7.5l4 3-1.5 4.5h-5L8 10.5Z"/>`,
+};
+const ico = c => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[c] || ICON.happening}</svg>`;
+const catOf = e => CATS[e.cat] ? e.cat : "happening";
+const cvar = e => `--c:var(--c-${catOf(e)})`;
+function status(e) {
+  if (e.soldOut) return ["sold", "Utsolgt"];
+  if (e.few) return ["few", "Få billetter igjen"];
+  if (e.priceMin === 0) return ["free", "Gratis"];
+  if (e.price) return ["price", e.price];
+  return ["price", "Pris hos arrangør"];
+}
+const moreN = e => (e.moreShows || []).length;
+
+/* ---------- 1. Delingsbilder ---------- */
+const OG_PICKS = ["golf-terminalen-byscene", "parken-47586-parken-kulturhus", "halloween-klubb", "halloweenfest", "notteknekkeren", "juleshow", "karpe", "familiedag", "skumle"];
+const ogList = OG_PICKS.map(k => EV.find(e => e.id.includes(k))).filter(Boolean);
+const $ = id => document.getElementById(id);
+$("ogpick").innerHTML = ogList.map((e, i) => `<option value="${i}">${esc(e.title)}${e.soldOut ? " (utsolgt)" : e.few ? " (få igjen)" : e.priceMin === 0 ? " (gratis)" : moreN(e) > 3 ? " (mange datoer)" : ""}</option>`).join("");
+function fs(title, base, perChar) { const n = title.length; return Math.max(base * 0.52, Math.min(base, base - (n - 18) * perChar)); }
+function whenTxt(e, opts = {}) {
+  const d = dObj(e.date); let s = `${cap(WD[d.getDay()])} ${d.getDate()}. ${MO[d.getMonth()]}`;
+  if (e.time) s += opts.b ? ` · <b>kl. ${e.time}</b>` : ` kl. ${e.time}`;
+  if (moreN(e)) s += ` · + ${moreN(e)} ${moreN(e) === 1 ? "dato" : "datoer"}`;
+  return s;
+}
+const stPill = e => { const [k, t] = status(e); return `<span class="st ${k}">${esc(t)}</span>`; };
+const brand = (cls = "") => `<div class="brand ${cls}">${LOGO}kaskjerda.no</div>`;
+const SKY = `<svg class="sky" viewBox="0 0 1200 230" preserveAspectRatio="none" aria-hidden="true"><path fill="#06110f" d="M0 230V150h60v-30l30-40 30 40v30h50v-60l20-25 20 25v60h40v-90l45-50 45 50v40h40v-50l25-30 25 30v80h60V90h20V60l30-30 30 30v30h20v80h60v-60l40-45 40 45v20h50v-40l30-35 30 35v70h40V80l35-40 35 40v60h50v-30l25-30 25 30v50h70v-70l30-35 30 35v100h40V230Z"/><g fill="#f7c873" opacity=".85"><rect x="215" y="140" width="10" height="14"/><rect x="470" y="110" width="10" height="14"/><rect x="500" y="110" width="10" height="14"/><rect x="760" y="150" width="10" height="14"/><rect x="905" y="120" width="10" height="14"/><rect x="1110" y="140" width="10" height="14"/><rect x="335" y="155" width="10" height="14"/></g><path d="M0 214c40-12 80-12 120 0s80 12 120 0 80-12 120 0 80 12 120 0 80-12 120 0 80 12 120 0 80-12 120 0 80 12 120 0 80-12 120 0 80 12 120 0" fill="none" stroke="#5ab7bf" stroke-width="6"/></svg>`;
+const OG = [
+  { name:"A · Plakat", sub:"Stor tittel på mørk bakgrunn med et skjær av kategorifargen. Ligner forsiden.", verdict:"<b>Mitt valg.</b> Kjennes igjen som siden, leses godt også som lite bilde i Messenger.", pick:true,
+    html:e => { const t = noEmoji(e.title); return `<div class="og d1" style="${cvar(e)};--fs:${fs(t, 104, 1.6)}px"><div class="cat">${esc(CATS[catOf(e)])}</div><div class="ttl">${esc(t)}</div><div class="when">${whenTxt(e, { b:true })}<br>${esc(e.venue)}</div><div class="row">${brand()}${stPill(e)}</div></div>`; } },
+  { name:"B · Billett", sub:"En billett med avriv: dato på stubben, tittel og pris på billetten.", verdict:"Morsom og tydelig, men mye pynt. Lange titler blir mindre.",
+    html:e => { const t = noEmoji(e.title), d = dObj(e.date); return `<div class="og d2" style="${cvar(e)};--fs:${fs(t, 84, 1.4)}px"><div class="tk"><div class="stub"><div class="wd">${WD[d.getDay()].slice(0, 3)}</div><div class="dn">${d.getDate()}</div><div class="mo">${MOS[d.getMonth()]}</div></div><div class="body"><div class="cat">${esc(CATS[catOf(e)])}</div><div class="ttl">${esc(t)}</div><div class="meta">${esc(e.venue)}${e.time ? ` · kl. ${e.time}` : ""}${moreN(e) ? ` · + ${moreN(e)} datoer` : ""}</div><div>${stPill(e)}</div></div></div>${brand()}</div>`; } },
+  { name:"C · Kalenderblad", sub:"Datoen som et kalenderark i kategorifargen, resten til høyre.", verdict:"Datoen er det første du ser. Bra når folk skal avtale å gå sammen.",
+    html:e => { const t = noEmoji(e.title), d = dObj(e.date); return `<div class="og d3" style="${cvar(e)};--fs:${fs(t, 88, 1.5)}px"><div class="sheet"><div class="wd">${WD[d.getDay()]}</div><div class="dn">${d.getDate()}</div><div class="mo">${MO[d.getMonth()]}</div>${moreN(e) ? `<div class="more">+ ${moreN(e)} datoer</div>` : ""}</div><div class="side"><div class="ttl">${esc(t)}</div><div class="meta">${e.time ? `<b>kl. ${e.time}</b> · ` : ""}${esc(e.venue)}</div><div class="foot">${brand()}${stPill(e)}</div></div></div>`; } },
+  { name:"D · Fargeflate", sub:"Hele bildet i kategorifargen, kategorinavnet som stor kontur bak.", verdict:"Skiller seg mest ut i en feed. Fargene blir veldig sterke ved siden av hverandre.",
+    html:e => { const t = noEmoji(e.title); return `<div class="og d4" style="${cvar(e)};--fs:${fs(t, 108, 1.7)}px"><div class="word">${esc(CATS[catOf(e)].split(" ")[0])}</div><div class="ttl">${esc(t)}</div><div class="when">${whenTxt(e)} · ${esc(e.venue)}</div><div class="row">${brand()}${stPill(e)}</div></div>`; } },
+  { name:"E · Ålesund-silhuett", sub:"Jugendgavler med lys i vinduene og bølge nederst, måne i gull.", verdict:"Mest lokal følelse. Litt mindre plass til tittelen.",
+    html:e => { const t = noEmoji(e.title); return `<div class="og d5" style="${cvar(e)};--fs:${fs(t, 88, 1.5)}px"><div class="moon"></div><div class="top"><span class="cat">${esc(CATS[catOf(e)])}</span><div class="ttl">${esc(t)}</div><div class="when">${whenTxt(e, { b:true })}<br>${esc(e.venue)}</div></div>${stPill(e)}${SKY}${brand()}</div>`; } },
+];
+function renderOG() {
+  const e = ogList[+$("ogpick").value || 0];
+  $("oggrid").innerHTML = OG.map(o => `<div class="opt wide">${o.pick ? `<span class="pick">Anbefalt</span>` : ""}<h3>${o.name}<small>${o.sub}</small></h3>
+    <div class="chat"><div class="from">Skal vi? 😄</div><div class="bubble"><div class="ogbox">${o.html(e)}</div><div class="cap"><b>${esc(e.title)} – ${esc(e.venue)} | Skjer i Ålesund</b><small>kaskjerda.no</small></div></div></div>
+    <div class="verdict">${o.verdict}</div></div>`).join("");
+  scaleOG();
+}
+function scaleOG() { document.querySelectorAll(".ogbox").forEach(b => b.firstElementChild.style.setProperty("--s", b.clientWidth / 1200)); }
+new ResizeObserver(scaleOG).observe(document.body);
+$("ogpick").onchange = renderOG;
+
+/* ---------- 2. I kveld ---------- */
+function occ(day) {
+  const out = [];
+  for (const e of EV) {
+    const times = [];
+    if (e.date === day && e.time) times.push([e.time, e.shows?.find(s => s[0] === `${day}T${e.time}`)?.[1] || ""]);
+    for (const m of e.moreShows || []) if (m.startsWith(day)) times.push([m.slice(11, 16), e.shows?.find(s => s[0] === m)?.[1] || ""]);
+    for (const [t, st] of times) out.push({ e, t, m:mins(t), sold:e.soldOut || st === "sold", few:!e.soldOut && (st === "few" || (!st && e.few)) });
+  }
+  return out.sort((a, b) => a.m - b.m);
+}
+function rel(o, now, long) {
+  const d = o.m - now;
+  if (d > 0) { const h = Math.floor(d / 60), m = d % 60, txt = h ? `${h} t${m ? ` ${m} min` : ""}` : `${m} min`; return d <= 90 ? `<span class="rel soon">${long ? "Starter om " : "om "}${txt}</span>` : `<span class="rel later">om ${txt}</span>`; }
+  return `<span class="rel went">startet ${o.t}</span>`;
+}
+const prTxt = o => o.sold ? `<span class="pr sold">Utsolgt</span>` : o.e.priceMin === 0 ? `<span class="pr">Gratis</span>` : o.e.price ? `<span class="pr">${esc(o.e.price)}</span>` : `<span>Pris hos arrangør</span>`;
+const fewTxt = o => o.few ? `<span class="fewp">Få igjen</span>` : "";
+function kvHead(day, list, now) {
+  const d = dObj(day), left = list.filter(o => o.m >= now).length;
+  return `<div class="crumb">kaskjerda.no › <b>I kveld</b></div><h4>Hva skjer i Ålesund <span>i kveld?</span></h4><p class="sub">${cap(WD[d.getDay()])} ${d.getDate()}. ${MO[d.getMonth()]} · <b>${left}</b> ${left === 1 ? "arrangement starter" : "arrangementer starter"} etter kl. ${hm(now)}</p>`;
+}
+const nothing = day => { const d = dObj(day); d.setDate(d.getDate() + 1); return `<div class="emptyk"><b>Det er ikke mer på programmet i kveld.</b><br>Se hva som skjer i morgen, ${WD[d.getDay()]} ${d.getDate()}. ${MO[d.getMonth()]} →</div>`; };
+const KV = [
+  { name:"A · Tidslinje", sub:"Alt i dag på en tidslinje. En grønn «Nå»-strek flytter seg, det som har startet blir gråere.", verdict:"<b>Mitt valg.</b> Du ser hele kvelden på ett blikk, og hvor du er i den.", pick:true,
+    html:(day, L, now) => { let put = false, h = ""; for (const o of L) { if (!put && o.m >= now) { h += `<div class="nowline"><span>${hm(now)}</span></div>`; put = true; } h += `<div class="it ${o.m < now ? "past" : ""}" style="${cvar(o.e)}"><span class="tm">${o.t}</span><b class="t">${esc(o.e.title)}</b><div class="m"><span>${esc(o.e.venue)}</span>${prTxt(o)}${fewTxt(o)}${o.m >= now && o.m - now <= 90 ? rel(o, now) : ""}</div></div>`; } if (!put) h += `<div class="nowline"><span>${hm(now)}</span></div>`; return kvHead(day, L, now) + `<div class="tl">${h}</div>` + (put ? "" : `<div style="margin-top:12px">${nothing(day)}</div>`); } },
+  { name:"B · Neste først", sub:"Det som starter nærmest nå får et stort kort med billettknapp. Resten under, det som har startet til slutt.", verdict:"Best for «vi vil ut nå». Kortet øverst gir mange billettklikk.",
+    html:(day, L, now) => { const up = L.filter(o => o.m >= now), went = L.filter(o => o.m < now); if (!up.length) return kvHead(day, L, now) + nothing(day); const n = up[0], d = n.m - now, rows = a => a.map(o => `<div class="row2 it ${o.m < now ? "past" : ""}" style="${cvar(o.e)}"><span class="tm">${o.t}</span><div><b class="t">${esc(o.e.title)}</b><div class="m"><span>${esc(o.e.venue)}</span>${prTxt(o)}</div></div>${o.m >= now ? rel(o, now) : ""}</div>`).join("");
+      return kvHead(day, L, now) + `<div class="hero" style="${cvar(n.e)}"><div class="big"><small>Neste ut</small>${d < 60 ? `om ${d} min` : `kl. ${n.t}`}</div><b class="t">${esc(n.e.title)}</b><div class="it"><div class="m"><span>${esc(n.e.venue)}</span><span>kl. ${n.t}</span>${prTxt(n)}${fewTxt(n)}</div></div>${n.sold ? "" : `<a class="btn" href="#ikveld">Billetter →</a>`}</div>` + (up.length > 1 ? `<div class="grp">Senere i kveld <em>${up.length - 1}</em></div><div class="rows">${rows(up.slice(1))}</div>` : "") + (went.length ? `<div class="grp">Har startet <em>${went.length}</em></div><div class="rows">${rows(went)}</div>` : ""); } },
+  { name:"C · Nedtelling", sub:"Hver rad har en klokke til venstre som teller ned: «om 1 t 20», «om 35 min».", verdict:"Gøy og tydelig, men mye tall. Passer best sent på dagen.",
+    html:(day, L, now) => { const up = L.filter(o => o.m >= now); return kvHead(day, L, now) + (up.length ? "" : nothing(day)) + `<div class="rows">${L.map(o => { const d = o.m - now, h = Math.floor(d / 60), m = d % 60; return `<div class="cd it ${d < 0 ? "past" : d <= 90 ? "soon" : ""}" style="${cvar(o.e)}"><div class="cl">${d < 0 ? `<b>${o.t}</b><small>startet</small>` : `<b>${h ? `${h}t ${String(m).padStart(2, "0")}` : `${m}m`}</b><small>kl. ${o.t}</small>`}</div><div><b class="t">${esc(o.e.title)}</b><div class="m"><span>${esc(o.e.venue)}</span>${prTxt(o)}${fewTxt(o)}</div></div></div>`; }).join("")}</div>`; } },
+  { name:"D · Delt i kveldens deler", sub:"Dagsknapper øverst (I kveld, I morgen, helgen). Lista er delt i ettermiddag, kveld og natt.", verdict:"Ryddig og rolig. Knappene gjør siden nyttig også i morgen.",
+    html:(day, L, now) => { const parts = [["Ettermiddag", "før kl. 18", 0, 1080], ["Kveld", "kl. 18–22", 1080, 1320], ["Natt", "etter kl. 22", 1320, 1440]]; const tomorrow = day === "2026-10-30" ? "Lør 31." : "Søn 1."; let h = `<div class="days"><span class="on">I kveld</span><span>I morgen</span><span>${tomorrow}</span><span>Denne helgen</span></div>`;
+      for (const [n, s, a, b] of parts) { const g = L.filter(o => o.m >= a && o.m < b); if (!g.length) continue; const live = now >= a && now < b; h += `<div class="part"><h5>${n} <small>${s}</small>${live ? `<span class="rel soon">nå</span>` : now >= b ? `<span class="rel went">ferdig startet</span>` : ""}</h5>${g.map(o => `<div class="row2 it ${o.m < now ? "past" : ""}" style="${cvar(o.e)}"><span class="tm">${o.t}</span><div><b class="t">${esc(o.e.title)}</b><div class="m"><span>${esc(o.e.venue)}</span>${prTxt(o)}${fewTxt(o)}</div></div>${o.m >= now && o.m - now <= 90 ? rel(o, now) : ""}</div>`).join("")}</div>`; }
+      return kvHead(day, L, now) + h; } },
+  { name:"E · Storyformat", sub:"Hele kvelden på én skjerm i 9:16, laget for skjermbilde og Instagram-story. Kan også lages som bilde automatisk.", verdict:"Mer et delingsverktøy enn en side. Fint i tillegg til A eller B.",
+    html:(day, L, now) => { const d = dObj(day); return `<div class="story"><div class="sd">${WD[d.getDay()]} ${d.getDate()}. ${MO[d.getMonth()]}</div><div class="sh">I kveld i <span>Ålesund</span></div>${L.slice(0, 8).map(o => `<div class="srow ${o.m < now ? "past" : ""}" style="${cvar(o.e)}"><span class="tm">${o.t}</span><div><b>${esc(noEmoji(o.e.title))}</b><small>${esc(o.e.venue)} · ${o.sold ? "Utsolgt" : o.e.priceMin === 0 ? "Gratis" : esc(o.e.price || "Pris hos arrangør")}</small></div></div>`).join("")}<div class="foot">${LOGO}kaskjerda.no/i-kveld</div></div>`; } },
+];
+function renderKV() {
+  const day = $("kday").value, now = +$("kclock").value; $("kclockv").textContent = hm(now);
+  const L = occ(day);
+  $("kvgrid").innerHTML = KV.map(o => `<div class="opt">${o.pick ? `<span class="pick">Anbefalt</span>` : ""}<h3>${o.name}<small>${o.sub}</small></h3><div class="phone kv">${o.html(day, L, now)}</div><div class="verdict">${o.verdict}</div></div>`).join("");
+}
+$("kday").onchange = renderKV; $("kclock").oninput = renderKV;
+
+/* ---------- 3. Kategorifarge ---------- */
+const FDAYS = ["2026-10-30", "2026-10-31"];
+let soon = true;
+function priceHtml(e) { if (e.soldOut) return `<span class="price sold">Utsolgt</span>`; if (e.priceMin === 0) return `<span class="price">Gratis</span>`; if (e.price) return `<span class="price">${esc(e.price)}</span>`; return `<span class="price unk">Pris hos arrangør</span>`; }
+function soonPill(e, now) { if (!soon || e.date !== FDAYS[0] || !e.time) return ""; const m = mins(e.time), d = m - now; if (d < 0) return `<span class="rel went">startet ${e.time}</span>`; if (d <= 180) return rel({ m, t:e.time }, now); return ""; }
+function card(e, v, now) {
+  const c = catOf(e), sp = soonPill(e, now);
+  const meta = `<div class="meta"><span class="tag">${v === 3 ? ico(c) : ""}${CATS[c]}</span><span>${esc(e.venue)}</span>${e.time ? `<span class="tm">kl. ${e.time}</span>` : ""}${v !== 2 ? sp : ""}</div>`;
+  const pre = v === 1 ? `<span class="edge">${ico(c)}</span>` : v === 2 ? `<div class="tab">${ico(c)}${CATS[c]}${sp}</div>` : v === 4 ? `<div class="clock">${ico(c)}<b>${e.time || "–"}</b></div>` : v === 6 ? `<span class="tile">${ico(c)}</span>` : "";
+  return `<article class="ev" style="${cvar(e)}">${pre}<h6>${esc(e.title)}</h6><div class="side"><span class="fav">☆</span>${priceHtml(e)}${e.few && !e.soldOut ? `<span class="fewp">Få billetter igjen</span>` : ""}</div>${meta}${e.note && e.note.length < 70 ? `<div class="note">${esc(e.note)}</div>` : ""}<div class="act"><a href="#farge">Se program og billetter →</a><span>Kalender</span><span>Del</span></div></article>`;
+}
+const FV = [
+  { v:0, name:"Nå · slik det er i dag", sub:"4 px fargekant til venstre og et svakt fargeskjær i hjørnet. Kategorinavnet i farget tekst." , verdict:"Fargen er der, men den er svak på mobil, særlig ute i dagslys." },
+  { v:1, name:"S1 · Bred kant med symbol", sub:"Kanten blir 44 px bred med symbolet i. Kategorinavnet tas bort fra linja.", verdict:"<b>Mitt valg.</b> Du ser kategorien med tommelen på skjermen. Koster litt bredde til tittelen.", pick:true },
+  { v:2, name:"S2 · Fane øverst", sub:"En smal fargelist over kortet med symbol og kategorinavn. «Starter snart» sitter i fanen.", verdict:"Veldig tydelig, men kortene blir litt høyere og lista mer fargerik." },
+  { v:3, name:"S3 · Fylt kategorimerke", sub:"Kortet er nøytralt. Kategorien blir et fylt merke med symbol.", verdict:"Minst endring og roligst. Fargen er liten, men skarp." },
+  { v:4, name:"S4 · Timeplan", sub:"Klokkeslettet står i en fargeblokk til venstre, som en tavle på en stasjon.", verdict:"Godt for å finne «hva starter kl. 20». Arrangementer uten klokkeslett får en strek." },
+  { v:5, name:"S5 · Hele kortet i farge", sub:"Kortet er farget fra hjørnet og nedover, sterkere enn i dag.", verdict:"Stemningsfullt, men tekst på farge leses dårligere, og lista kan bli urolig." },
+  { v:6, name:"S6 · Symbolrute", sub:"En liten rute med symbolet foran tittelen, som ikonene i en app.", verdict:"Ryddig og moderne. Fungerer godt også i lyst tema." },
+];
+function renderF() {
+  const now = +$("fclock").value; $("fclockv").textContent = hm(now);
+  const body = v => FDAYS.map(day => { const d = dObj(day), es = EV.filter(e => e.date === day).slice(0, day === FDAYS[0] ? 9 : 3); return `<div class="dayhd"><b>${day === FDAYS[0] ? "I dag" : cap(WD[d.getDay()])}</b><span>${WD[d.getDay()]} ${d.getDate()}. ${MO[d.getMonth()]}</span></div><div class="evs">${es.map(e => card(e, v, now)).join("")}</div>`; }).join("");
+  $("fgrid").innerHTML = FV.map(o => `<div class="opt">${o.pick ? `<span class="pick">Anbefalt</span>` : ""}<h3>${o.name}<small>${o.sub}</small></h3><div class="phone v${o.v}">${body(o.v)}</div><div class="verdict">${o.verdict}</div></div>`).join("");
+}
+$("legend").innerHTML = Object.keys(CATS).filter(c => c !== "julebord").map(c => `<span style="--c:var(--c-${c})"><i></i>${CATS[c]}</span>`).join("");
+$("fclock").oninput = renderF;
+$("soonOn").onclick = () => { soon = true; $("soonOn").setAttribute("aria-pressed", "true"); $("soonOff").setAttribute("aria-pressed", "false"); renderF(); };
+$("soonOff").onclick = () => { soon = false; $("soonOn").setAttribute("aria-pressed", "false"); $("soonOff").setAttribute("aria-pressed", "true"); renderF(); };
+
+renderOG(); renderKV(); renderF();
+document.fonts?.ready.then(scaleOG);
+</script>
+</body>
+</html>
