@@ -1,7 +1,7 @@
 """Forhåndsvisning av større nedtrekksmenyer i filterlinja på mobil (Claude-artefakt, flere filer).
 
 «Nå» er slik det er i dag (rundt 35 px). M1 bare høyere (44 px), M2 44 px uten den ekstra tellelinja (antallet står i
-søkefeltet), M3 44 px med symbol i hver meny, M4 48 px og større tekst, M5 én «Filtre»-knapp som folder ut menyene.
+søkefeltet), M3 44 px med symbol i hver meny, M4 48 px og større tekst, M5 én «Filtre»-knapp som folder ut menyene, M6 = M3 med antallet i søkefeltet (som M2).
 
 Forsiden vises i en mobilramme (390 px) inne i artefakten, så mobiloppsettet gjelder også på PC. Velgeren nederst i
 rammen bytter variant og tema, og viser hvor høy filterlinja blir.
@@ -65,7 +65,7 @@ body { padding-bottom: 170px; }
 }
 </style>
 <nav class="mmpick" aria-label="Velg variant og tema">
-  <div class="seg" role="group" aria-label="Variant"><button type="button" data-v="na">Nå</button><button type="button" data-v="m1">M1</button><button type="button" data-v="m2">M2</button><button type="button" data-v="m3">M3</button><button type="button" data-v="m4">M4</button><button type="button" data-v="m5">M5</button></div>
+  <div class="seg" role="group" aria-label="Variant"><button type="button" data-v="na">Nå</button><button type="button" data-v="m1">M1</button><button type="button" data-v="m2">M2</button><button type="button" data-v="m3">M3</button><button type="button" data-v="m4">M4</button><button type="button" data-v="m5">M5</button><button type="button" data-v="m6">M6</button></div>
   <div class="seg" role="group" aria-label="Tema"><button type="button" data-t="kveld">Mørkt</button><button type="button" data-t="jul">Jul</button><button type="button" data-t="lys">Lyst</button></div>
   <p id="mmtxt"></p>
 </nav>
@@ -77,6 +77,7 @@ body { padding-bottom: 170px; }
     m2: "M2 Høyere, men tettere: 44 px, og antallet står i søkefeltet («Søk i 153 …») i stedet for på egen linje.",
     m3: "M3 Med symbol: 44 px og et lite symbol foran hver meny (kalender, merkelapp, sted, pris).",
     m4: "M4 Store: 48 px og større tekst. Lettest å treffe, men filterlinja blir høyest.",
+    m6: "M6 = M3 + M2: 44 px med symbol i hver meny, og antallet står i søkefeltet i stedet for på egen linje.",
     m5: "M5 Filtre-knapp: søk, «Filtre» og Mine på én linje. «Filtre» folder ut de fire menyene (48 px). Lavest filterlinje.",
   };
   const ctl = document.querySelector(".controls"), q = document.getElementById("q");
@@ -98,12 +99,12 @@ body { padding-bottom: 170px; }
     else { root.dataset.tema = x; delete root.dataset.theme; document.head.insertAdjacentHTML("beforeend", `<link rel="stylesheet" href="tema-${x}.css">`); }
   }
   function apply() {
-    document.body.className = document.body.className.replace(/\\bmm-\\w+/g, "").trim() + " mm-" + v();
+    document.body.className = document.body.className.replace(/\\bmm-\\w+/g, "").trim() + (v() === "m6" ? " mm-m6 mm-m3 mm-m2" : " mm-" + v());
     document.body.classList.remove("mm-open"); btn.setAttribute("aria-expanded", "false");
     setTema(t());
     document.querySelectorAll(".mmpick [data-v]").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === v()));
     document.querySelectorAll(".mmpick [data-t]").forEach(b => b.setAttribute("aria-pressed", b.dataset.t === t()));
-    q.placeholder = v() === "m2" ? `Søk i ${E.length} arrangementer …` : "Søk …";
+    q.placeholder = ["m2", "m6"].includes(v()) ? `Søk i ${E.length} arrangementer …` : "Søk …";
     label(); measure();
   }
   document.querySelectorAll(".mmpick [data-v]").forEach(b => b.addEventListener("click", () => { location.hash = b.dataset.v + "-" + t(); }));
