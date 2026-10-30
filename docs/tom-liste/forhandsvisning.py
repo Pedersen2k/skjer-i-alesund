@@ -3,10 +3,11 @@
 Når filtrene gir null treff, viser siden i dag bare en tekstlinje. Forslagene:
 T1 tegning + én knapp («Prøv neste 7 dager →»), T2 knapper som fjerner ett filter om gangen med antall treff,
 T3 de nærmeste treffene uten datofilteret, T4 tegning + knappene fra T2, T5 lun tekst + snarveier og «Tips oss»,
-T6 «T1 med reserve»: tegning, én stor knapp med valget som gir flest treff, og ett–to små alternativer under (Claudes valg).
+T6 «T1 med reserve»: tegning, én stor knapp med valget som gir flest treff, og ett–to små alternativer under,
+T7 én regel: finnes det treff på andre datoer, de tre nærmeste som kort + «Se alle N →»; ellers én stor knapp + «Nullstill alt» (Claudes valg).
 Velgeren nederst lager en tom liste (søk uten treff, filtre uten treff, tom «★ Mine») og bytter tema.
 
-Bygger på _site/ (kjør scripts/pages.py først). Skriver preview/tom-liste/. Valg i adressen: #t6-sok-kveld osv.
+Bygger på _site/ (kjør scripts/pages.py først). Skriver preview/tom-liste/. Valg i adressen: #t7-sok-kveld osv.
 
 Kjør: python3 scripts/pages.py && python3 docs/tom-liste/forhandsvisning.py
 """
@@ -57,6 +58,8 @@ body { padding-bottom: 200px; }
 html[data-tema="kveld"] .tomt .links a, html[data-tema="kveld"] .tomt .links button { color: var(--gold); }
 .tomt.t5 { border-style: solid; text-align: left; justify-items: start; }
 .tomt.t5 h3 { max-width: none; }
+.tomt.t7 .near a { min-height: 56px; }
+.tomt.t7 .links { font-size: 14.5px; }
 .tomt.t6 .go { min-height: 48px; padding: 0 22px; font-size: 16px; }
 .tomt.t6 .go .n { font: 700 12.5px/1 var(--font-mono); padding: 4px 7px; border-radius: 999px; background: color-mix(in srgb, var(--accent-ink) 18%, transparent); }
 .tomt.t6 .links { font-size: 13.5px; font-weight: 500; gap: 4px 14px; align-items: center; }
@@ -67,7 +70,7 @@ html[data-tema="kveld"] .tomt .links a, html[data-tema="kveld"] .tomt .links but
 @media (prefers-reduced-motion: reduce) { .tomt .art .spot { animation: none; } }
 </style>
 <nav class="tlpick" aria-label="Velg forslag, situasjon og tema">
-  <div class="row"><span class="lbl">Forslag</span><div class="seg" role="group" aria-label="Forslag"><button type="button" data-v="t0">Nå</button><button type="button" data-v="t1">T1</button><button type="button" data-v="t2">T2</button><button type="button" data-v="t3">T3</button><button type="button" data-v="t4">T4</button><button type="button" data-v="t5">T5</button><button type="button" data-v="t6">T6</button></div></div>
+  <div class="row"><span class="lbl">Forslag</span><div class="seg" role="group" aria-label="Forslag"><button type="button" data-v="t0">Nå</button><button type="button" data-v="t1">T1</button><button type="button" data-v="t2">T2</button><button type="button" data-v="t3">T3</button><button type="button" data-v="t4">T4</button><button type="button" data-v="t5">T5</button><button type="button" data-v="t6">T6</button><button type="button" data-v="t7">T7</button></div></div>
   <div class="row"><span class="lbl">Lag tom liste</span><div class="seg" role="group" aria-label="Situasjon"><button type="button" data-s="sok">Søk uten treff</button><button type="button" data-s="barn">Barn i kveld</button><button type="button" data-s="gratis">Gratis standup</button><button type="button" data-s="mine">Tom ★ Mine</button></div>
   <div class="seg" role="group" aria-label="Tema"><button type="button" data-t="kveld">Mørkt</button><button type="button" data-t="jul">Jul</button><button type="button" data-t="lys">Lyst</button></div></div>
   <p id="tltxt"></p>
@@ -81,11 +84,12 @@ html[data-tema="kveld"] .tomt .links a, html[data-tema="kveld"] .tomt .links but
     t3: "T3 Nærmeste treff: de tre nærmeste arrangementene som passer filtrene dine, uansett dato.",
     t4: "T4 Tegning + knapper: tegningen fra T1 og knappene fra T2.",
     t5: "T5 Lun tekst: en kort setning, snarveier til helgen og hele programmet, og «Tips oss» hvis noe mangler.",
-    t6: "T6 T1 med reserve: én stor knapp med det valget som gir flest treff, og ett–to små alternativer under. Mitt valg.",
+    t6: "T6 T1 med reserve: én stor knapp med det valget som gir flest treff, og ett–to små alternativer under.",
+    t7: "T7 Én regel: finnes det treff på andre datoer, vises de tre nærmeste med en gang, og én lenke «Se alle». Finnes det ingen, én stor knapp og «Nullstill alt». Aldri mer enn én knapp og én lenke. Mitt valg.",
   };
   const SIT = { sok: "Søk uten treff", barn: "Barn i kveld", gratis: "Gratis standup", mine: "Tom ★ Mine" };
-  const parts = () => (location.hash.slice(1) || "t6-barn-kveld").split("-");
-  const v = () => (TXT[parts()[0]] ? parts()[0] : "t6"), sit = () => (SIT[parts()[1]] ? parts()[1] : "barn"), t = () => (["kveld", "jul", "lys"].includes(parts()[2]) ? parts()[2] : "kveld");
+  const parts = () => (location.hash.slice(1) || "t7-barn-kveld").split("-");
+  const v = () => (TXT[parts()[0]] ? parts()[0] : "t7"), sit = () => (SIT[parts()[1]] ? parts()[1] : "barn"), t = () => (["kveld", "jul", "lys"].includes(parts()[2]) ? parts()[2] : "kveld");
   const go = (a, b, c) => { location.hash = `${a}-${b}-${c}`; };
 
   // Små tegninger (strek i tekstfarge, aksent i sidens farge)
@@ -158,6 +162,16 @@ html[data-tema="kveld"] .tomt .links a, html[data-tema="kveld"] .tomt .links but
         const small = rest.slice(0, 2).map(([[l, , n], i]) => `<button type="button" data-i="${i}">${esc(l)} (${n})</button>`).join("");
         return `<div class="tomt t6">${art()}<h3>${headline()}</h3><button type="button" class="go" data-i="${top[1]}">${esc(top[0][0])} → <span class="n">${top[0][2]}</span></button><div class="links"><span class="eller">eller</span>${small}<button type="button" data-reset>Nullstill alt</button></div></div>`;
       }
+      case "t7": {
+        // Treff på andre datoer: vis dem. Ellers: valget med flest treff som én stor knapp.
+        const n = state.when !== "alt" ? nearest() : [];
+        if (n.length) {
+          const all = count({ when: "alt" });
+          return `<div class="tomt t7"><h3>${headline()}</h3><p>Men dette kommer snart:</p><div class="near">${n.map(e => `<a href="#ev-${esc(e.id)}" data-ev="${esc(e.id)}" style="--c:var(--c-${e.cat})"><span class="d">${dstr(e.d)}${e.time ? "<br>" + esc(e.time) : ""}</span><span>${esc(e.title)}<small>${esc(e.venue)}</small></span><span class="pr">${esc(e.priceMin === 0 ? "Gratis" : e.price || "")}</span></a>`).join("")}</div>${all > n.length ? `<div class="links"><button type="button" data-when-alt>Se alle ${all} →</button></div>` : ""}</div>`;
+        }
+        const top = current.map((x, i) => [x, i]).sort((a, b) => b[0][2] - a[0][2])[0];
+        return `<div class="tomt t6">${art()}<h3>${headline()}</h3>${top ? `<button type="button" class="go" data-i="${top[1]}">${esc(top[0][0])} → <span class="n">${top[0][2]}</span></button><div class="links"><button type="button" data-reset>Nullstill alt</button></div>` : `<button type="button" class="go" data-reset>Se hele programmet →</button>`}</div>`;
+      }
       case "t5": return `<div class="tomt t5"><h3>${headline()}. Det skjer mye annet!</h3><div class="links"><button type="button" data-when="helg">Se denne helgen →</button><button type="button" data-reset>Hele programmet →</button><a href="kontakt/">Mangler det noe? Tips oss →</a></div></div>`;
     }
     return "";
@@ -165,8 +179,9 @@ html[data-tema="kveld"] .tomt .links a, html[data-tema="kveld"] .tomt .links but
   const orig = render;
   render = function () { orig(); const em = document.querySelector("#list .empty"); if (em && v() !== "t0" && E.length) em.outerHTML = build(); };
   $("list").addEventListener("click", e => {
-    const b = e.target.closest(".tomt [data-i], .tomt [data-reset], .tomt [data-when], .tomt [data-when-alt]"); if (!b) return;
+    const b = e.target.closest(".tomt [data-i], .tomt [data-reset], .tomt [data-when], .tomt [data-when-alt], .tomt [data-ev]"); if (!b) return;
     e.stopPropagation();
+    if (b.dataset.ev) { e.preventDefault(); apply({ when: "alt" }); const el = document.getElementById("ev-" + b.dataset.ev); if (el) { el.scrollIntoView({ block: "center", behavior: "smooth" }); el.animate([{ outline: "2px solid var(--accent)" }, { outline: "2px solid transparent" }], { duration: 1600 }); } return; }
     if (b.dataset.reset !== undefined) return apply({ ...RESET, cats: new Set() });
     if (b.dataset.when) return apply({ when: b.dataset.when, cats: new Set(), venue: "", price: "", q: "", favOnly: false });
     if (b.dataset.whenAlt !== undefined) return apply({ when: "alt" });
