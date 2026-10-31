@@ -16,6 +16,7 @@ import re
 import sys
 import time
 import unicodedata
+import urllib.error
 import urllib.request
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -54,6 +55,7 @@ SKIP = re.compile(r"medlemsskap|gruppe, høst|day pass|cowork|festivalpass|SPIRE
 # Steder rundt Ålesund: Tikkio-arrangementer som siles bort, men nevner et av dem eller mangler sted, gir varsel
 NEAR_ALESUND = re.compile(r"Ålesund|Aalesund|Spjelkavik|Moa\b|Borgund|Vigra|Giske|Hessa|Valderøy|Ellingsøy|Nørvasundet|Volsdalen", re.I)
 UNSURE = []  # (url, tekst) fra siste fetch_tikkio()
+PARKEN_FAILED = set()  # Parken-sider som ikke svarte i siste fetch_parken()
 # Billettyper som ikke er reelle priser
 NOISE = re.compile(r"ledsager|rullestol|gjest|faktura|flyttet|uttak|copy|gratisbillett", re.I)
 REGULAR = re.compile(r"ordin|^billett$|^standard|^voksen|^kinobillett|^parkett", re.I)
@@ -228,12 +230,29 @@ def fetch_parken():
         if all(u != url for u, _ in urls):
             urls.append((url, m.group(2)))
     raw = []
+    PARKEN_FAILED.clear()
     for url, pid in urls:
-        try:
-            page = get(url)
-            time.sleep(0.5)
-        except Exception as e:  # en enkelt side som feiler skal ikke stoppe hele kjøringen
-            print("feil:", url, e, file=sys.stderr)
+        page = None
+        # Parken svarer «429 Too Many Requests» når vi henter mange sider fort; vent og prøv igjen
+        for wait in (0, 10, 30):
+            if wait:
+                time.sleep(wait)
+            try:
+                page = get(url)
+                break
+            except urllib.error.HTTPError as e:
+                err = e
+                if e.code != 429 and e.code < 500:
+                    break
+                ra = e.headers.get("Retry-After", "")
+                if ra.isdigit():
+                    time.sleep(min(int(ra), 60))
+            except Exception as e:
+                err = e
+        time.sleep(1)
+        if page is None:  # en enkelt side som feiler skal ikke stoppe hele kjøringen
+            print("feil:", url, err, file=sys.stderr)
+            PARKEN_FAILED.add(url)
             continue
         title, shows, price = parse_parken(page, today)
         genre = parken_genre(page)
@@ -727,6 +746,11 @@ def warn(msg):
             f.write(f"- {msg}\n")
 
 
+def gone_limit():
+    t = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=30)
+    return t.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
 def main():
     overrides = json.loads((DATA / "overrides.json").read_text())
     manual = json.loads((DATA / "manual.json").read_text())
@@ -735,6 +759,10 @@ def main():
     first_seen = {e["id"]: e.get("addedAt") for e in old["events"]}
     # Endres tittelen (og dermed id-en), kjenner vi arrangementet igjen på lenke og dato, så det ikke ser nytt ut
     seen_url = {(e["url"], e["date"]): e.get("addedAt") for e in old["events"] if e.get("url")}
+    # Arrangementer som har falt ut en kort stund (en side som ikke svarte), husket i 30 dager: id -> [addedAt, borte siden]
+    gone = {i: v for i, v in old["meta"].get("gone", {}).items() if v[1] >= gone_limit()}
+    for i, (added_at, _) in gone.items():
+        first_seen.setdefault(i, added_at)
 
     now = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     today = datetime.datetime.now(TZ).date().isoformat()
@@ -742,6 +770,12 @@ def main():
     if not events:
         sys.exit("Fant ingen arrangementer på Tikkio – beholder forrige versjon.")
     parken = build_events(fetch_parken(), overrides)
+    if parken and PARKEN_FAILED:
+        # Sider som ikke svarte denne gangen: behold det vi hadde, så arrangementene ikke forsvinner og senere ser nye ut
+        have = {e["id"] for e in parken}
+        kept = [e for e in old["events"] if e.get("url") in PARKEN_FAILED and e["date"] >= today and e["id"] not in have]
+        parken += kept
+        print(f"Parken: {len(PARKEN_FAILED)} sider svarte ikke, beholdt {len(kept)} arrangementer fra forrige gang", file=sys.stderr)
     if not parken:
         warn("Fikk ingen arrangementer fra Parken kulturhus. Siden viser reserven i data/manual.json, som kan være utdatert.")
     aafk = fetch_aafk()
@@ -840,7 +874,12 @@ def main():
     if unsure and "tikkioChecked" in old["meta"]:
         warn("Tikkio har arrangementer som ikke er tatt med, men som kan være i Ålesund (legg inn sted i ALESUND_VENUES i sync.py eller i manual.json hvis de skal med): "
              + "; ".join(f"{t} {u}" for u, t in unsure))
+    ids = {e["id"] for e in events}
+    gone.update({e["id"]: [e["addedAt"], now] for e in old["events"]
+                 if e["id"] not in ids and e["date"] >= today and e.get("addedAt") and e["id"] not in gone})
+    gone = {i: v for i, v in gone.items() if i not in ids}
     meta = {
+        "gone": gone,
         "tikkioChecked": sorted(checked | {u for u, _ in UNSURE}),
         "updatedAt": now,
         "seededAt": seeded_at,
