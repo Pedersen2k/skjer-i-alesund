@@ -1,8 +1,21 @@
 {
  "meta": {
-  "gone": {},
+  "gone": {
+   "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug": [
+    "2026-10-19T12:59:56Z",
+    "2026-10-31T15:46:49Z"
+   ],
+   "parken-48033-parken-kulturhus": [
+    "2026-10-19T12:59:56Z",
+    "2026-10-31T15:46:49Z"
+   ],
+   "aafk-2026-11-07-aafk-kvinner-valerenga-fotball": [
+    "2026-10-19T12:59:56Z",
+    "2026-10-31T15:46:49Z"
+   ]
+  },
   "tikkioChecked": [],
-  "updatedAt": "2026-10-31T13:54:08Z",
+  "updatedAt": "2026-10-31T15:46:49Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -17,38 +30,6 @@
   ]
  },
  "events": [
-  {
-   "id": "viti-familiedag-halloween-paa-jugendstilsenteret-og-kube-jug",
-   "date": "2026-10-31",
-   "time": "12:00",
-   "title": "Familiedag: Halloween på Jugendstilsenteret",
-   "venue": "Jugendstilsenteret og KUBE",
-   "address": "Apotekergata 16, Ålesund",
-   "cat": "barn",
-   "price": "120 kr",
-   "priceMin": 120,
-   "soldOut": false,
-   "note": "Gratis for barn i følge med en voksen som betaler inngang (120,-)",
-   "uncertain": false,
-   "url": "https://www.vitimusea.no/arrangement/familiedag-halloween-paa-jugendstilsenteret-og-kube",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "parken-48033-parken-kulturhus",
-   "date": "2026-10-31",
-   "time": "14:00",
-   "title": "Jazzkafe: Vegard Holum sings– ein hyllest til Chet",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "150–250 kr",
-   "priceMin": 150,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/48033-jazzkafe-vegard-holum-sings-ein-hyllest-til-chet/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "viggo-vennelos-lovenvold-theater",
    "date": "2026-10-31",
@@ -478,25 +459,6 @@
     "2026-11-07"
    ],
    "addedAt": "2026-10-26T21:12:29Z"
-  },
-  {
-   "id": "aafk-2026-11-07-aafk-kvinner-valerenga-fotball",
-   "date": "2026-11-07",
-   "time": "13:00",
-   "title": "AaFK Kvinner – Vålerenga Fotball",
-   "home": "AaFK Kvinner",
-   "away": "Vålerenga Fotball",
-   "league": "Toppserien",
-   "venue": "Color Line Stadion",
-   "address": "",
-   "cat": "sport",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
-   "uncertain": false,
-   "url": "https://aafk.ticketco.events/no/nb",
-   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "parken-45583-parken-kulturhus",
