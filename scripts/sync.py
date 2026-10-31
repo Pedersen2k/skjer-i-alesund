@@ -763,6 +763,12 @@ def main():
     gone = {i: v for i, v in old["meta"].get("gone", {}).items() if v[1] >= gone_limit()}
     for i, (added_at, _) in gone.items():
         first_seen.setdefault(i, added_at)
+    # Engangsrettelse: riktig «lagt til»-tid for Parken-arrangementer som fikk ny tid da Parken svarte 429 (30.–31. okt.).
+    # Kan slettes når de er tilbake med riktig tid (fila og disse linjene).
+    fix_path = DATA / "addedat.json"
+    for i, added_at in (json.loads(fix_path.read_text()) if fix_path.exists() else {}).items():
+        if not first_seen.get(i) or added_at < first_seen[i]:
+            first_seen[i] = added_at
 
     now = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     today = datetime.datetime.now(TZ).date().isoformat()
