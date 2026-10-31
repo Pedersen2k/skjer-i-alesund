@@ -1,9 +1,9 @@
 {
  "meta": {
   "tikkioChecked": [],
-  "updatedAt": "2026-10-31T05:52:06Z",
+  "updatedAt": "2026-10-31T07:59:50Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 5,
+  "lastAdded": 3,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -2830,6 +2830,56 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/51230-bjarte-hjelmeland/",
    "addedAt": "2026-10-31T05:52:06Z"
+  },
+  {
+   "id": "parken-48673-parken-kulturhus",
+   "date": "2027-05-13",
+   "time": "19:00",
+   "title": "Chopin – klaverets poet",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "150–390 kr",
+   "priceMin": 150,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/48673-chopin-klaverets-poet/",
+   "addedAt": "2026-10-31T07:59:50Z"
+  },
+  {
+   "id": "parken-47917-parken-kulturhus",
+   "date": "2027-05-20",
+   "time": "19:00",
+   "title": "Russland – vår dystre nåtid",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "happening",
+   "price": "450 kr",
+   "priceMin": 450,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/47917-russland-var-dystre-natid/",
+   "addedAt": "2026-10-31T07:59:50Z"
+  },
+  {
+   "id": "parken-45656-parken-kulturhus",
+   "date": "2027-05-22",
+   "time": "20:00",
+   "title": "Pulse of Floyd",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "580 kr",
+   "priceMin": 580,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/45656-pulse-of-floyd/",
+   "addedAt": "2026-10-31T07:59:50Z"
   },
   {
    "id": "alesund-live-tobias-sten",
