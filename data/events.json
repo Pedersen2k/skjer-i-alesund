@@ -12,10 +12,18 @@
    "aafk-2026-11-07-aafk-kvinner-valerenga-fotball": [
     "2026-10-19T12:59:56Z",
     "2026-10-31T15:46:49Z"
+   ],
+   "viggo-vennelos-lovenvold-theater": [
+    "2026-10-19T12:59:56Z",
+    "2026-10-31T21:46:26Z"
+   ],
+   "parken-45111-parken-kulturhus": [
+    "2026-10-19T12:59:56Z",
+    "2026-10-31T21:46:26Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-10-31T19:48:31Z",
+  "updatedAt": "2026-10-31T21:46:26Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -30,53 +38,6 @@
   ]
  },
  "events": [
-  {
-   "id": "viggo-vennelos-lovenvold-theater",
-   "date": "2026-10-31",
-   "time": "19:00",
-   "title": "Viggo Venneløs",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
-   "cat": "standup",
-   "price": "350 kr",
-   "priceMin": 350,
-   "soldOut": false,
-   "note": "Dører 18:00 · 15 år. Rabatt: Student 299 kr, Ungdom (15-19år) 299 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/60252-viggo-vennelos-lovenvold-theater",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "parken-45111-parken-kulturhus",
-   "date": "2026-10-31",
-   "time": "19:00",
-   "title": "Kristian Valen",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "625 kr",
-   "priceMin": 625,
-   "soldOut": false,
-   "few": true,
-   "shows": [
-    [
-     "2026-10-31T19:00",
-     "few"
-    ],
-    [
-     "2026-10-31T21:00",
-     "few"
-    ]
-   ],
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/45111-kristian-valen/",
-   "moreShows": [
-    "2026-10-31T21:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "halloweenfest-liv-rore-moa",
    "date": "2026-10-31",
