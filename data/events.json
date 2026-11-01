@@ -16,10 +16,14 @@
    "parken-45111-parken-kulturhus": [
     "2026-10-19T12:59:56Z",
     "2026-10-31T21:46:26Z"
+   ],
+   "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-01T15:47:28Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-01T13:55:23Z",
+  "updatedAt": "2026-11-01T15:47:28Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -49,22 +53,6 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67285-arskort-011126-311027",
    "addedAt": "2026-11-01T08:08:26Z"
-  },
-  {
-   "id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus",
-   "date": "2026-11-01",
-   "time": "13:00",
-   "title": "Pelsdyr i ord og folkesong",
-   "venue": "Sunnmøre museum",
-   "address": "Museumsvegen 12, 6015 Ålesund",
-   "cat": "happening",
-   "price": "120 kr",
-   "priceMin": 120,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.vitimusea.no/arrangement/pelsdyr-i-ord-og-folkesong-sunnmore-museum",
-   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "parken-50918-parken-kulturhus",
