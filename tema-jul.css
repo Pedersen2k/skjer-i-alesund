@@ -33,15 +33,15 @@ html[data-tema="jul"] .jd-flame { animation: jd-flicker 1.6s ease-in-out infinit
   html[data-tema="jul"] .jd-wreath { position: relative; right: auto; top: auto; display: block; width: 120px; height: 120px; margin: 4px auto -4px; }
   html[data-tema="jul"] .jd-wreath-note { position: static; width: auto; margin: 0 0 10px; }
 }
-html[data-tema="jul"] .jd-peek { position: absolute; bottom: 100%; width: 92px; height: 78px; overflow: hidden; pointer-events: none; z-index: 6; }
+/* Nissen står nede i høyre hjørne av julekortet og titter opp bak kanten. Han ligger inne i kortet, så han følger kortet og havner aldri over filtermenyen. */
+html[data-tema="jul"] .jd-peek { position: absolute; right: 16px; bottom: 0; width: 92px; height: 78px; overflow: hidden; pointer-events: none; }
+@media (max-width: 349px) { html[data-tema="jul"] .jd-peek { display: none; } }
 html[data-tema="jul"] .jd-peek svg { position: absolute; left: 0; bottom: 0; width: 92px; height: 77px; transform: translateY(0); }
 html[data-tema="jul"] .jd-peek.anim svg { animation: jd-peek 9s ease-in-out infinite; }
 html[data-tema="jul"] .jd-peek .jd-eyes { animation: jd-blink 4.5s infinite; transform-box: fill-box; transform-origin: center; }
 @keyframes jd-peek { 0%, 8% { transform: translateY(58%); } 16%, 62% { transform: translateY(0); } 66%, 70% { transform: translateY(6%) rotate(-3deg); } 74%, 86% { transform: translateY(0); } 94%, 100% { transform: translateY(58%); } }
 @keyframes jd-blink { 0%, 46%, 50%, 100% { transform: scaleY(1); } 48% { transform: scaleY(.1); } }
-html[data-tema="jul"] .jd-peek-wrap { position: relative; height: 0; margin-top: 64px; }
 @media (prefers-reduced-motion: reduce) { html[data-tema="jul"] .jd-peek.anim svg, html[data-tema="jul"] .jd-peek .jd-eyes, html[data-tema="jul"] .jd-flame { animation: none; } }
-html[data-tema="jul"] body.nyonly .jd-peek-wrap { display: none; }
 /* Lesbarhet (1. nov): kategoriordene brukte de mørke fargene fra lyst tema og ble nesten borte på vinrødt; små tekster var 12,5 px i dus rosa */
 html[data-tema="jul"]:root, html[data-tema="jul"]:root[data-theme] { --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-show:#ab93e6; --c-barn:#6cc98a; --c-klubb:#ec78ab; --c-happening:#e3c25a; --c-quiz:#b497e0; --c-julebord:#ef7a7f; --c-sport:#7aa7e6; --muted:#e2c6ba; }
 html[data-tema="jul"] .note, html[data-tema="jul"] .venue { font-size: 14px; }

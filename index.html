@@ -1327,7 +1327,7 @@ if (document.documentElement.dataset.tema === "jul") (() => {
   document.querySelector(".brand").after(w, note);
   // Nissen lages når julekortet vises (fra 1. november, eller med ?jul=1)
   const peek = () => {
-    const jc = document.getElementById("julcard"); if (!jc || jc.hidden || document.querySelector(".jd-peek-wrap")) return;
+    const jc = document.getElementById("julcard"); if (!jc || jc.hidden || document.querySelector(".jd-peek")) return;
     const s = el("svg", { viewBox: "0 0 120 100", role: "img", "aria-label": "Nisse som titter fram" });
     s.append(el("path", { d: "M30 54 Q40 10 92 18 Q108 22 106 40 Q92 30 86 54 Z", fill: "#d42a2f" }), el("path", { d: "M44 30 Q60 18 82 22", fill: "none", stroke: "#ffffff33", "stroke-width": 3, "stroke-linecap": "round" }),
       el("circle", { cx: 105, cy: 43, r: 7.5, fill: "#fff" }), el("ellipse", { cx: 60, cy: 72, rx: 25, ry: 21, fill: "#f6c9a4" }), el("rect", { x: 26, y: 47, width: 70, height: 13, rx: 6.5, fill: "#fff" }));
@@ -1336,8 +1336,8 @@ if (document.documentElement.dataset.tema === "jul") (() => {
       el("path", { d: "M34 78 Q38 100 60 100 Q82 100 86 78 Q76 88 60 86 Q44 88 34 78 Z", fill: "#fff" }), el("ellipse", { cx: 53, cy: 82, rx: 8, ry: 4, fill: "#f4f4f4" }), el("ellipse", { cx: 67, cy: 82, rx: 8, ry: 4, fill: "#f4f4f4" }),
       el("circle", { cx: 60, cy: 76, r: 4.2, fill: "#e88f7c" }), el("ellipse", { cx: 24, cy: 94, rx: 11, ry: 8, fill: "#2f7a50" }), el("rect", { x: 14, y: 96, width: 20, height: 5, rx: 2.5, fill: "#fff" }),
       el("ellipse", { cx: 96, cy: 94, rx: 11, ry: 8, fill: "#2f7a50" }), el("rect", { x: 86, y: 96, width: 20, height: 5, rx: 2.5, fill: "#fff" }));
-    const box = Object.assign(document.createElement("div"), { className: "jd-peek" + (reduce ? "" : " anim") }), wrap = Object.assign(document.createElement("div"), { className: "jd-peek-wrap" });
-    box.style.left = "22px"; box.append(s); wrap.append(box); jc.before(wrap);
+    const box = Object.assign(document.createElement("div"), { className: "jd-peek" + (reduce ? "" : " anim") });
+    box.append(s); jc.append(box);
   };
   const jc = document.getElementById("julcard");
   if (jc) { peek(); new MutationObserver(peek).observe(jc, { attributes: true, attributeFilter: ["hidden"] }); }
