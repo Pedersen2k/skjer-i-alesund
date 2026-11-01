@@ -23,9 +23,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-01T05:55:49Z",
+  "updatedAt": "2026-11-01T08:08:26Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -38,6 +38,22 @@
   ]
  },
  "events": [
+  {
+   "id": "arskort-01-11-26-31-10-27-borgund-dyreklubb",
+   "date": "2026-11-01",
+   "time": "12:00",
+   "title": "Årskort 01.11.26 - 31.10.27",
+   "venue": "Borgund Dyreklubb",
+   "address": "",
+   "cat": "konsert",
+   "price": "579 kr",
+   "priceMin": 579,
+   "soldOut": false,
+   "note": "Rabatt: Årskort barn/voksen 01.11.26 - 31.10.27 270 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67285-arskort-011126-311027",
+   "addedAt": "2026-11-01T08:08:26Z"
+  },
   {
    "id": "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus",
    "date": "2026-11-01",
@@ -1250,6 +1266,22 @@
    "url": "https://www.cruise-service.no/en/event-details-1/julebord-pa-ms-bruvik-2",
    "note": "Helaftens julebord på fjorden: tradisjonell julemat, dessert og kaffe. Fra Ålesund kl. 19:30, tilbake 23:30 (fra Langevåg kl. 19:00). Cruise Service melder at billettene ikke er i salg lenger.",
    "addedAt": "2026-10-26T20:53:51Z"
+  },
+  {
+   "id": "jul-pa-garden-med-nissebesok-sondag-29-11-26-borgund-dyreklu",
+   "date": "2026-11-29",
+   "time": "12:00",
+   "title": "Jul på gården med nissebesøk, søndag 29.11.26, Borgund Dyreklubb",
+   "venue": "Borgund Dyreklubb",
+   "address": "",
+   "cat": "klubb",
+   "price": "270 kr",
+   "priceMin": 270,
+   "soldOut": false,
+   "note": "Rabatt: Årskort Enkeltbillett / Årskort må vises ved inngangen 39 kr, Enkeltbillett (barn/voksen) 91 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67286-jul-pa-garden-med-nissebesok-sondag-291126",
+   "addedAt": "2026-11-01T08:08:26Z"
   },
   {
    "id": "zimmermann-julekonsert-lovenvold-theater",
