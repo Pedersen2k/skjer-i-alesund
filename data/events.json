@@ -9,10 +9,6 @@
     "2026-10-19T12:59:56Z",
     "2026-10-31T15:46:49Z"
    ],
-   "aafk-2026-11-07-aafk-kvinner-valerenga-fotball": [
-    "2026-10-19T12:59:56Z",
-    "2026-10-31T15:46:49Z"
-   ],
    "viggo-vennelos-lovenvold-theater": [
     "2026-10-19T12:59:56Z",
     "2026-10-31T21:46:26Z"
@@ -23,7 +19,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-01T09:55:26Z",
+  "updatedAt": "2026-11-01T10:36:27Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -372,6 +368,25 @@
     "2026-11-07"
    ],
    "addedAt": "2026-10-26T21:12:29Z"
+  },
+  {
+   "id": "aafk-2026-11-07-aafk-kvinner-valerenga-fotball",
+   "date": "2026-11-07",
+   "time": "13:00",
+   "title": "AaFK Kvinner – Vålerenga Fotball",
+   "home": "AaFK Kvinner",
+   "away": "Vålerenga Fotball",
+   "league": "Toppserien",
+   "venue": "Color Line Stadion",
+   "address": "",
+   "cat": "sport",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
+   "uncertain": false,
+   "url": "https://aafk.ticketco.events/no/nb",
+   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "parken-45583-parken-kulturhus",
