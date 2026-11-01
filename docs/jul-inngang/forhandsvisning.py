@@ -24,6 +24,13 @@ THEMES = [("julekonserter-i-alesund", "Julekonserter", "🎶"), ("jul-for-barn-i
           ("julemarked-i-alesund", "Julemarked", "🎄"), ("romjul-og-nyttar-i-alesund", "Romjul og nyttår", "✨"),
           ("julebord", "Julebord", "🍽️")]
 import json
+PICK = """
+#pickbar { position: fixed; z-index: 40; left: 8px; right: 8px; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 8px; border-radius: 14px; background: #1a0509f2; border: 1px solid #e9c06a88; box-shadow: 0 10px 30px #000a; }
+#pickbar b { font: 700 11px var(--font-mono); color: #e9c06a; text-transform: uppercase; letter-spacing: .08em; margin-right: 2px; }
+#pickbar button { min-height: 40px; padding: 0 12px; border-radius: 99px; border: 1px solid #ffffff33; background: transparent; color: #fbeedd; font: 600 13px var(--font-body); cursor: pointer; }
+#pickbar button[aria-pressed="true"] { background: #e9c06a; color: #2a1405; border-color: #e9c06a; }
+body { padding-bottom: 130px; }
+"""
 INFO = json.dumps([{"href": p, "navn": n, "ikon": i, "n": count(p)} for p, n, i in THEMES], ensure_ascii=False)
 
 CSS = """
@@ -53,28 +60,35 @@ body.n3 .jd-peek { transition: opacity .2s; }
 
 JS = """
 (function () {
-  var INFO = %s, h = (location.hash || "#e0-n0").slice(1).split("-"), e = h[0] || "e0", n = h[1] || "n0";
-  var st = document.createElement("style"); st.textContent = %s; document.head.append(st);
-  document.body.classList.add(n);
-  function build() {
-    var jc = document.getElementById("julcard"); if (!jc || jc.hidden || jc.dataset.done) return; jc.dataset.done = 1;
-    var link = function (x, inner) { return '<a href="' + x.href + '/">' + inner + '</a>'; };
-    if (e === "e1") jc.insertAdjacentHTML("afterend", '<nav class="je1" aria-label="Jul i Ålesund">' + INFO.map(function (x) { return link(x, x.navn + ' <b>' + x.n + '</b>'); }).join("") + '</nav>');
-    if (e === "e2") { jc.insertAdjacentHTML("beforeend", '<button type="button" class="je2tog" id="je2tog" aria-expanded="false">Velg tema ▾</button><div class="je2">' + INFO.map(function (x) { return link(x, '<span>' + x.ikon + '</span><strong>' + x.navn + '</strong><em>' + x.n + ' arrangementer</em>'); }).join("") + '</div>');
+  var INFO = %s, st = document.createElement("style"); st.textContent = %s; document.head.append(st);
+  var cur = (location.hash || "#e2-n1").slice(1).split("-"), E = cur[0] || "e2", N = cur[1] || "n1";
+  var link = function (x, inner) { return '<a href="#" onclick="return false">' + inner + '</a>'; };
+  function clean() {
+    document.querySelectorAll(".je1,.je2,.je2tog,.je3,.jd-in").forEach(function (x) { x.remove(); });
+    var jc = document.getElementById("julcard"); if (jc) { jc.classList.remove("open"); var b = jc.querySelector(".julbtns"); if (b) b.style.display = ""; }
+    document.body.classList.remove("n0", "n1", "n2", "n3");
+  }
+  function apply() {
+    var jc = document.getElementById("julcard"); if (!jc || jc.hidden || !document.querySelector(".jd-peek svg")) return false;
+    clean(); document.body.classList.add(N);
+    if (E === "e1") jc.insertAdjacentHTML("afterend", '<nav class="je1" aria-label="Jul i Ålesund">' + INFO.map(function (x) { return link(x, x.navn + ' <b>' + x.n + '</b>'); }).join("") + '</nav>');
+    if (E === "e2") { jc.insertAdjacentHTML("beforeend", '<button type="button" class="je2tog" id="je2tog" aria-expanded="false">Velg tema ▾</button><div class="je2">' + INFO.map(function (x) { return link(x, '<span>' + x.ikon + '</span><strong>' + x.navn + '</strong><em>' + x.n + ' arrangementer</em>'); }).join("") + '</div>');
       document.getElementById("je2tog").onclick = function () { var o = jc.classList.toggle("open"); this.textContent = o ? "Skjul ▴" : "Velg tema ▾"; this.setAttribute("aria-expanded", o); }; }
-    if (e === "e3") { var b = jc.querySelector(".julbtns"); if (b) b.style.display = "none"; jc.insertAdjacentHTML("beforeend", '<div class="je3">' + INFO.map(function (x) { return link(x, '<span>' + x.ikon + '</span><strong>' + x.navn + '</strong><em>' + x.n + '</em>'); }).join("") + '<a href="jul-i-alesund/"><span>🎁</span><strong>Alt i jula</strong><em>50</em></a></div>'); }
-    if (n === "n2") { var pk = document.querySelector(".jd-peek svg"); if (pk) { var d = document.createElement("div"); d.className = "jd-in"; d.append(pk.cloneNode(true)); jc.append(d); } }
+    if (E === "e3") { var b = jc.querySelector(".julbtns"); if (b) b.style.display = "none"; jc.insertAdjacentHTML("beforeend", '<div class="je3">' + INFO.map(function (x) { return link(x, '<span>' + x.ikon + '</span><strong>' + x.navn + '</strong><em>' + x.n + '</em>'); }).join("") + '<a href="#" onclick="return false"><span>🎁</span><strong>Alt i jula</strong><em>50</em></a></div>'); }
+    if (N === "n2") { var d = document.createElement("div"); d.className = "jd-in"; d.append(document.querySelector(".jd-peek svg").cloneNode(true)); jc.append(d); }
+    document.querySelectorAll("#pickbar button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.v === E || b.dataset.v === N)); });
+    return true;
   }
-  var t = setInterval(function () { build(); if (document.getElementById("julcard") && document.getElementById("julcard").dataset.done && document.querySelector(".jd-peek svg")) { clearInterval(t); if (n === "n2") { var jc = document.getElementById("julcard"); if (!jc.querySelector(".jd-in")) { var d = document.createElement("div"); d.className = "jd-in"; d.append(document.querySelector(".jd-peek svg").cloneNode(true)); jc.append(d); } } } }, 150);
-  if (n === "n3") {
-    var ctl = document.querySelector(".controls");
-    function fade() { var p = document.querySelector(".jd-peek"); if (!p || !ctl) return; var top = p.getBoundingClientRect().top, bar = ctl.getBoundingClientRect().bottom;
-      var k = Math.max(0, Math.min(1, (top - bar) / 60)); p.style.opacity = k; }
-    addEventListener("scroll", fade, { passive: true }); setInterval(fade, 300);
-  }
-  addEventListener("hashchange", function () { location.reload(); });
+  var bar = document.createElement("div"); bar.id = "pickbar";
+  bar.innerHTML = '<b>Inngang</b><button data-v="e0">I dag</button><button data-v="e1">E1</button><button data-v="e2">E2</button><button data-v="e3">E3</button><b>Nisse</b><button data-v="n0">I dag</button><button data-v="n1">Bak menyen</button><button data-v="n3">Tones ut</button>';
+  bar.onclick = function (ev) { var v = ev.target.dataset && ev.target.dataset.v; if (!v) return; if (v[0] === "e") E = v; else N = v; try { history.replaceState(null, "", "#" + E + "-" + N); } catch (x) {} apply(); var jc = document.getElementById("julcard"); if (jc) jc.scrollIntoView({ block: "center" }); };
+  document.body.append(bar);
+  var t = setInterval(function () { if (apply()) clearInterval(t); }, 150);
+  var ctl = document.querySelector(".controls");
+  function fade() { var p = document.querySelector(".jd-peek"); if (!p) return; if (N !== "n3") { p.style.opacity = ""; return; } var k = Math.max(0, Math.min(1, (p.getBoundingClientRect().top - ctl.getBoundingClientRect().bottom) / 60)); p.style.opacity = k; }
+  addEventListener("scroll", fade, { passive: true }); setInterval(fade, 300);
 })();
-""" % (INFO, json.dumps(CSS))
+""" % (INFO, json.dumps(CSS + PICK))
 
 page = (SITE / "index.html").read_text()
 page = re.sub(r"<!doctype html>\s*|</?html[^>]*>\s*|</?head>\s*|</?body>\s*", "", page, flags=re.I)
