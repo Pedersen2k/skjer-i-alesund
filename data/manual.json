@@ -534,21 +534,6 @@
     "url": "https://bypatrioten.com/event/jazzsirkelen-jazzkafe-med-arnt-inge-saeter-kvartett/"
   },
   {
-    "id": "julekonsert-mannskoret-varde-borgund-2026",
-    "date": "2026-11-29",
-    "time": "18:00",
-    "title": "Julekonsert med Mannskoret Varde",
-    "venue": "Borgund kirke",
-    "address": "Borgundgavlen 30, 6015 Ålesund",
-    "cat": "konsert",
-    "price": "300 kr",
-    "priceMin": 300,
-    "soldOut": false,
-    "uncertain": false,
-    "note": "Mannskoret Varde avslutter 100-årsjubileet, med gjester fra Ytre Suløens Jass-ensemble og Tricia Boutté. Barn under 12 år gratis. Dørene åpner 17:30. Billetter på Tikkio.",
-    "url": "https://tikkio.com/events/67215"
-  },
-  {
     "id": "alesund-filmklubb-north-by-northwest-2026",
     "date": "2026-11-30",
     "time": "19:15",
@@ -621,36 +606,6 @@
     "uncertain": true,
     "note": "Vino Bar og Fabrikken inviterer til boblesmaking fra hele verden, kl. 18–21. 18 år. Vino Bars billettside har «kl. 1300» i navnet, mens beskrivelsen sier 18–21; sjekk tid hos arrangør.",
     "url": "https://vinobar.no/product/alesund-bobler-lordag-30-01-2027-kl-1300/"
-  },
-  {
-    "id": "iver-kleive-knut-reiersrud-spjelkavik-2027",
-    "date": "2027-02-04",
-    "time": "19:00",
-    "title": "Iver Kleive og Knut Reiersrud: «Vidunderligst av alt på jord»",
-    "venue": "Spjelkavik kirke",
-    "address": "Vestmoa 20, 6018 Ålesund",
-    "cat": "konsert",
-    "price": "400 kr",
-    "priceMin": 400,
-    "soldOut": false,
-    "uncertain": false,
-    "note": "Orgel og gitarer, åpningen av Spjelkavik kirkes 40-årsjubileum. Student fra videregående 250 kr. Dørene åpner 18:30.",
-    "url": "https://tikkio.com/events/66980"
-  },
-  {
-    "id": "men-har-du-provd-yoga-helene-holtskog-2027",
-    "date": "2027-02-06",
-    "time": "19:00",
-    "title": "«Men har du prøvd yoga?» – Helene Holtskog",
-    "venue": "Løvenvold Theater",
-    "address": "Løvenvoldgata 11, 6002 Ålesund",
-    "cat": "standup",
-    "price": "330 kr",
-    "priceMin": 330,
-    "soldOut": false,
-    "uncertain": false,
-    "note": "Standupshow om å skli på isen. Dørene åpner 18:00. Billetter på Tikkio.",
-    "url": "https://tikkio.com/events/64290"
   },
   {
     "id": "weniff-2027",
