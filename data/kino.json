@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-01T19:53:15Z",
+  "updatedAt": "2026-11-01T21:50:53Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -50,7 +50,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/66da1ebd-6d04-4184-8920-fafb43d37584",
+     "url": "",
      "club": false
     },
     {
@@ -1240,7 +1240,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/801e5cee-24fe-4c4c-957d-bb8e09da8a60",
+     "url": "",
      "club": false
     },
     {
@@ -1421,16 +1421,16 @@
     },
     {
      "start": "2026-11-03T12:00:00",
-     "screen": "3",
+     "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/7c1aeb14-65b8-48db-b7ac-186d4218e08c",
+     "url": "https://www.odeonkino.no/booking/kjop/744f0c44-8b92-453a-93ba-b26e2e0d7462",
      "club": false
     },
     {
      "start": "2026-11-03T12:00:00",
-     "screen": "4",
+     "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/744f0c44-8b92-453a-93ba-b26e2e0d7462",
+     "url": "https://www.odeonkino.no/booking/kjop/7c1aeb14-65b8-48db-b7ac-186d4218e08c",
      "club": false
     },
     {
@@ -1494,18 +1494,18 @@
     },
     {
      "start": "2026-11-05T12:00:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
+     "club": false
+    },
+    {
+     "start": "2026-11-05T12:00:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/35e194ce-408a-43f4-94fb-aaa7a1e15bc4",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
      "club": false
     },
     {
@@ -2134,7 +2134,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/505024c6-7694-4354-958a-2947f4b86652",
+     "url": "",
      "club": false
     },
     {
