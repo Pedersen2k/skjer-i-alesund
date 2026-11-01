@@ -1,0 +1,99 @@
+<title>Dagsrute Ålesund</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Velg dag og lyst, så viser vi hva som skjer i Ålesund: konserter, standup, show, barn og klubb med billettpriser.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Design 3 «Dagsrute»: lys, leken og app-aktig. Ukestripe (7 faste kolonner, ingen sidelengs rulling) + «Hva har du lyst på?» → store kort med egen illustrasjon per kategori. Klistremerke-farger på mintgrå bunn. */
+:root { --bg:#EEF5F1; --ink:#12201B; --mute:#4d6159; --card:#fff; --line:#12201b1f; --tom:#FF5B3A; --sun:#FFD23F; --sea:#1B9AAA; --plum:#6A4C93; --lime:#8BD450;
+  --f-d:"Bricolage Grotesque","Arial Rounded MT Bold",system-ui,sans-serif; --f-b:"Figtree",system-ui,sans-serif;
+  --c-konsert:#1B9AAA; --c-standup:#FF5B3A; --c-show:#6A4C93; --c-barn:#58B947; --c-klubb:#E83E8C; --c-happening:#F2A900; --c-quiz:#2F6FED; --c-sport:#1c7a4b; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0f1a16; --ink:#EAF4EE; --mute:#9db5aa; --card:#172620; --line:#eaf4ee24; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg:#0f1a16; --ink:#EAF4EE; --mute:#9db5aa; --card:#172620; --line:#eaf4ee24; color-scheme: dark; }
+* { box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16.5px/1.5 var(--f-b); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+.wrap { max-width: 1120px; margin: 0 auto; } a { color: inherit; }
+.top { display: flex; justify-content: space-between; align-items: center; padding-block: 16px; } .logo { font: 800 20px var(--f-d); letter-spacing: -.03em; text-decoration: none; display: flex; align-items: center; gap: 8px; } .logo i { width: 26px; height: 26px; background: var(--tom); border-radius: 9px 9px 9px 2px; transform: rotate(-8deg); box-shadow: 5px 5px 0 var(--sun); display: inline-block; }
+.btn { font: 700 15px var(--f-b); min-height: 44px; padding: 0 18px; border-radius: 14px; border: 2px solid var(--ink); background: var(--card); color: var(--ink); cursor: pointer; box-shadow: 0 3px 0 var(--ink); transition: transform .12s, box-shadow .12s; display: inline-flex; align-items: center; gap: 6px; } .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 0 var(--ink); } .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); } .btn[aria-pressed="true"] { background: var(--sun); }
+.hero { position: relative; padding-block: clamp(10px, 4vw, 40px) 10px; } .hero h1 { font: 800 clamp(38px, 8vw, 84px)/.98 var(--f-d); letter-spacing: -.045em; margin: 0; max-width: 14ch; text-wrap: balance; }
+.hero h1 mark { background: linear-gradient(transparent 58%, var(--sun) 58%); color: inherit; padding: 0 .06em; } .hero p { color: var(--mute); max-width: 48ch; margin: 14px 0 0; font-size: clamp(16px, 2vw, 19px); }
+.blob { position: absolute; border-radius: 50%; pointer-events: none; z-index: -1; animation: bob 7s ease-in-out infinite alternate; } .b1 { width: clamp(90px, 18vw, 220px); aspect-ratio: 1; background: var(--sun); right: 4%; top: 4px; } .b2 { width: clamp(60px, 11vw, 130px); aspect-ratio: 1; background: var(--tom); right: 17%; top: 100px; animation-delay: -2s; border-radius: 40% 60% 55% 45%; } .b3 { width: clamp(40px, 7vw, 80px); aspect-ratio: 1; background: var(--sea); right: 2%; top: 150px; animation-delay: -4s; border-radius: 12px; transform: rotate(18deg); }
+@keyframes bob { to { transform: translateY(18px) rotate(10deg); } }
+.panel { background: var(--card); border: 2px solid var(--ink); border-radius: 26px; padding: 18px; margin-top: 22px; box-shadow: 0 6px 0 var(--ink); }
+.panel h2 { font: 800 21px var(--f-d); letter-spacing: -.03em; margin: 0 0 12px; }
+.moods { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.mood { position: relative; overflow: hidden; text-align: left; border: 2px solid var(--ink); border-radius: 18px; min-height: 92px; padding: 12px 14px; font: 800 18px/1.1 var(--f-d); letter-spacing: -.03em; color: #12201B; cursor: pointer; background: var(--mc); transition: transform .25s cubic-bezier(.3,1.6,.5,1); display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; } .mood:hover { transform: translateY(-4px) rotate(-1.5deg); } .mood small { font: 600 13px var(--f-b); opacity: .75; letter-spacing: 0; } .mood svg { position: absolute; right: -4px; top: -4px; width: 54px; height: 54px; opacity: .4; } .mood[aria-pressed="true"] { box-shadow: 0 0 0 4px var(--bg), 0 0 0 7px var(--ink); }
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; } .wd { border: 2px solid var(--ink); border-radius: 16px; background: var(--card); color: var(--ink); min-height: 74px; padding: 6px 0; cursor: pointer; display: grid; place-items: center; align-content: center; gap: 1px; font: 600 11px var(--f-b); text-transform: uppercase; transition: transform .2s cubic-bezier(.3,1.6,.5,1), background .15s; } .wd b { font: 800 22px var(--f-d); letter-spacing: -.03em; } .wd i { display: block; height: 6px; width: 6px; border-radius: 50%; background: var(--tom); } .wd:hover { transform: translateY(-3px); } .wd[aria-pressed="true"] { background: var(--ink); color: var(--bg); } .wd[disabled] { opacity: .4; cursor: default; box-shadow: none; } .wd.we:not([aria-pressed="true"]) { background: #FFF1B8; color: #12201B; }
+.row2 { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; } .row2 input { flex: 1 1 200px; min-width: 0; min-height: 48px; border-radius: 14px; border: 2px solid var(--ink); padding: 0 16px; font: 500 16px var(--f-b); background: var(--bg); color: var(--ink); }
+input:focus-visible, button:focus-visible, .card a:focus-visible { outline: 3px solid var(--plum); outline-offset: 2px; }
+.res { display: flex; justify-content: space-between; align-items: center; margin: 30px 0 4px; gap: 10px; flex-wrap: wrap; } .res h2 { font: 800 clamp(24px, 4vw, 38px)/1.05 var(--f-d); letter-spacing: -.04em; margin: 0; } .res span { color: var(--mute); font-weight: 600; }
+.dayh { display: flex; align-items: center; gap: 12px; margin: 26px 0 12px; } .dayh .dn { width: 58px; height: 58px; border-radius: 16px; background: var(--ink); color: var(--bg); display: grid; place-items: center; align-content: center; font: 800 24px/1 var(--f-d); transform: rotate(-4deg); } .dayh .dn small { font: 700 10px var(--f-b); text-transform: uppercase; letter-spacing: .08em; opacity: .75; } .dayh b { font: 800 22px var(--f-d); letter-spacing: -.03em; display: block; } .dayh span { color: var(--mute); font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 14px; }
+.card { --c: var(--c-konsert); position: relative; background: var(--card); border: 2px solid var(--ink); border-radius: 24px; overflow: hidden; display: grid; grid-template-rows: 96px 1fr; box-shadow: 0 5px 0 var(--ink); transition: transform .3s cubic-bezier(.3,1.5,.5,1), box-shadow .3s; view-transition-class: card; } .card:hover { transform: translateY(-5px) rotate(-.6deg); box-shadow: 0 10px 0 var(--ink); }
+.art { position: relative; background: var(--c); overflow: hidden; } .art svg { position: absolute; inset: 0; width: 100%; height: 100%; } .art .lab { position: absolute; left: 14px; bottom: 10px; font: 800 13px var(--f-b); text-transform: uppercase; letter-spacing: .08em; background: #fff; color: #12201B; border: 2px solid #12201B; border-radius: 99px; padding: 2px 10px; } .art .tm { position: absolute; right: 12px; top: 10px; font: 800 17px var(--f-d); background: var(--sun); color: #12201B; border: 2px solid #12201B; border-radius: 12px; padding: 1px 9px; transform: rotate(3deg); }
+.body { padding: 14px 16px 16px; display: grid; gap: 8px; align-content: space-between; } .card h3 { font: 800 21px/1.12 var(--f-d); letter-spacing: -.035em; margin: 0; text-wrap: balance; } .card h3 a { text-decoration: none; } .card h3 a::after { content: ""; position: absolute; inset: 0; z-index: 1; } .m { color: var(--mute); font-size: 15px; } .ft { display: flex; justify-content: space-between; align-items: center; gap: 8px; position: relative; z-index: 2; } .price { font: 800 18px var(--f-d); letter-spacing: -.03em; } .price.free { color: #1c7a4b; } .st { font: 700 12px var(--f-b); padding: 3px 9px; border-radius: 99px; background: var(--sun); color: #12201B; margin-left: 6px; } .st.out { background: #ffb3a6; }
+.star { width: 48px; height: 48px; border-radius: 15px; border: 2px solid var(--ink); background: var(--card); color: var(--ink); font-size: 21px; cursor: pointer; position: relative; transition: transform .2s cubic-bezier(.3,1.7,.5,1); } .star:hover { transform: scale(1.1) rotate(-8deg); } .star[aria-pressed="true"] { background: var(--sun); color: #12201B; }
+.pop { position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; animation: pop .7s ease-out forwards; } @keyframes pop { to { transform: translate(var(--x), var(--y)) scale(.2); opacity: 0; } }
+.js .rv { opacity: 0; transform: translateY(22px) scale(.97); transition: opacity .5s, transform .6s cubic-bezier(.3,1.3,.5,1); transition-delay: calc(var(--i, 0) * 40ms); } .js .rv.in { opacity: 1; transform: none; }
+.empty { padding: 50px 10px; text-align: center; font: 800 26px var(--f-d); }
+footer { margin: 70px 0 60px; color: var(--mute); max-width: 62ch; font-size: 15px; }
+@media (max-width: 520px) { .wd { min-height: 64px; border-radius: 12px; } .wd b { font-size: 18px; } .blob { opacity: .55; } }
+@media (prefers-reduced-motion: reduce) { .blob { animation: none; } .js .rv { opacity: 1; transform: none; transition: none; } .card, .mood, .wd, .btn, .star { transition: none; } html { scroll-behavior: auto; } }
+::view-transition-group(*) { animation-duration: .35s; }
+</style>
+<div class="wrap">
+  <header class="top"><a class="logo" href="#"><i></i>Skjer i Ålesund</a><button class="btn" id="mine" type="button" aria-pressed="false">★ Mine <span id="nm"></span></button></header>
+  <section class="hero"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><h1>Ka skjer <mark>i dag?</mark></h1><p id="lede">Velg dag og lyst, så viser vi hva som skjer i Ålesund.</p></section>
+  <section class="panel" aria-label="Velg dag og lyst">
+    <h2>Hva har du lyst på?</h2><div class="moods" id="moods"></div>
+    <h2 style="margin-top:20px">Når passer det?</h2><div class="week" id="week"></div>
+    <div class="row2"><input id="q" type="search" placeholder="Søk etter artist eller sted …" aria-label="Søk" autocomplete="off"><button class="btn" id="free" type="button" aria-pressed="false">Bare gratis</button><button class="btn" id="reset" type="button">Nullstill</button></div>
+  </section>
+  <div class="res"><h2 id="rt">Alt som skjer</h2><span id="rc"></span></div>
+  <main id="list" aria-live="polite"></main>
+  <footer>Programmet hentes fra arrangørenes egne sider og billettsalg og oppdateres flere ganger om dagen. Sjekk alltid hos arrangøren før du kjøper billett.</footer>
+</div>
+<script>
+document.documentElement.classList.add("js");
+{{CORE}}
+const f = { cat: "", when: "", day: "", free: false, mine: false, q: "" }; let ALL = [];
+const MOODS = [["Musikk", "konsert", "#9be3ea", "Konserter", "M8 40V24m10 16V10m10 30V20m10 20V30m10 10V16"], ["Le", "standup", "#ffb199", "Standup", "M12 44c0-16 8-30 22-30s18 10 8 18c-6 5-6 10-16 12z"], ["Show og scene", "show", "#cdb9ee", "Teater, dans, show", "M8 10h48l-8 36H16zM20 10v30m12-30v36m12-36v30"], ["Med barna", "barn", "#bfe8b0", "Barn og familie", "M32 12a10 10 0 110 20 10 10 0 010-20zM12 50c4-12 12-14 20-14s16 2 20 14"], ["Dans og klubb", "klubb", "#f7b3d3", "Klubb og DJ", "M32 8a24 24 0 110 48 24 24 0 010-48zM8 32h48M32 8c-12 12-12 36 0 48M32 8c12 12 12 36 0 48"], ["Alt mulig", "", "#ffe58a", "Se alt", "M32 6l7 17 18 2-14 12 5 18-16-10-16 10 5-18L7 25l18-2z"]];
+const ART = { konsert: "M0 70c20-30 40 30 60 0s40 30 60 0 40 30 60 0 40 30 60 0 40 30 60 0", standup: "M20 80l30-60 30 60zM100 80l30-60 30 60z", show: "M0 20h300M0 50h300M0 80h300", barn: "", klubb: "", happening: "", quiz: "", sport: "" };
+function art(e) { const k = e.cat; let g = ""; const w = "#ffffff55";
+  if (k === "konsert") g = [0, 1, 2, 3].map(i => `<circle cx="230" cy="48" r="${14 + i * 18}" fill="none" stroke="${w}" stroke-width="5"/>`).join("");
+  else if (k === "standup") g = `<path d="M170 20h110a12 12 0 0112 12v34a12 12 0 01-12 12h-60l-24 20v-20h-26a12 12 0 01-12-12V32a12 12 0 0112-12z" fill="${w}"/>`;
+  else if (k === "show") g = [0, 1, 2, 3, 4].map(i => `<path d="M${150 + i * 34} 0h18l-30 100h-18z" fill="${w}"/>`).join("");
+  else if (k === "barn") g = `<circle cx="210" cy="40" r="30" fill="${w}"/><circle cx="270" cy="70" r="22" fill="${w}"/><circle cx="160" cy="76" r="16" fill="${w}"/>`;
+  else if (k === "klubb") g = [0, 1, 2, 3, 4, 5].map(i => `<circle cx="${150 + (i % 3) * 56}" cy="${28 + Math.floor(i / 3) * 44}" r="${10 + (i % 2) * 8}" fill="${w}"/>`).join("");
+  else if (k === "quiz") g = `<text x="200" y="86" font-size="96" font-weight="800" fill="${w}" font-family="Arial">?</text><text x="270" y="60" font-size="48" font-weight="800" fill="${w}" font-family="Arial">?</text>`;
+  else if (k === "sport") g = `<circle cx="230" cy="50" r="36" fill="none" stroke="${w}" stroke-width="5"/><path d="M150 50h160" stroke="${w}" stroke-width="5"/>`;
+  else g = [0, 1, 2, 3, 4].map(i => `<path d="M${170 + i * 30} ${20 + (i % 2) * 40}l6 14 15 2-11 10 3 15-13-8-13 8 3-15-11-10 15-2z" fill="${w}"/>`).join("");
+  return `<svg viewBox="0 0 300 100" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">${g}</svg>`; }
+function moods() { $("moods").innerHTML = MOODS.map((m, i) => `<button class="mood" type="button" data-k="${m[1]}" style="--mc:${m[2]}" aria-pressed="${f.cat === m[1] && (m[1] !== "" || !f.cat)}"><svg viewBox="0 0 64 64" fill="none" stroke="#12201B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="${m[4]}"/></svg>${m[0]}<small>${ALL.filter(e => !m[1] || e.cat === m[1]).length} arrangementer</small></button>`).join(""); }
+function week() { let h = ""; for (let i = 0; i < 7; i++) { const iso = addDays(TODAY, i), d = pd(iso), n = ALL.filter(e => e.date === iso).length; h += `<button class="wd${d.getDay() === 0 || d.getDay() >= 5 ? " we" : ""}" type="button" data-d="${iso}" aria-pressed="${f.day === iso}" ${n ? "" : "disabled"} aria-label="${dayName(iso)} ${d.getDate()}. ${MOL[d.getMonth()]}, ${n} arrangementer">${i === 0 ? "I dag" : WD[d.getDay()]}<b>${d.getDate()}</b>${n ? "<i></i>" : "<span> </span>"}</button>`; } $("week").innerHTML = h; }
+function card(e, i) {
+  const st = e.sold ? '<span class="st out">Utsolgt</span>' : e.few ? '<span class="st">Få igjen</span>' : e.more.length ? `<span class="st">+${e.more.length} datoer</span>` : "";
+  return `<article class="card rv" style="--c:var(--c-${esc(e.cat in CATS ? e.cat : "happening")});--i:${i % 6}"><div class="art">${art(e)}<span class="lab">${esc(e.label)}</span>${e.time ? `<span class="tm">${esc(e.time)}</span>` : ""}</div>
+   <div class="body"><div><h3><a href="${safeUrl(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a></h3><div class="m">${esc(e.venue)}</div></div>
+   <div class="ft"><span class="price${e.free ? " free" : ""}">${esc(priceText(e))}${st}</span><button class="star" type="button" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="Lagre ${esc(e.title)}">${favs.has(e.id) ? "★" : "☆"}</button></div></div></article>`;
+}
+function draw() {
+  moods(); week(); $("nm").textContent = favs.size() || ""; $("mine").setAttribute("aria-pressed", f.mine); $("free").setAttribute("aria-pressed", f.free);
+  const list = ALL.filter(e => matches(e, f)); const cat = MOODS.find(m => m[1] && m[1] === f.cat);
+  $("rt").textContent = f.mine ? "Dine lagrede" : f.day ? dayName(f.day) + " " + pd(f.day).getDate() + ". " + MOL[pd(f.day).getMonth()] : cat ? cat[3] : f.free ? "Gratis i Ålesund" : "Alt som skjer";
+  $("rc").textContent = list.length + (list.length === 1 ? " arrangement" : " arrangementer");
+  $("list").innerHTML = list.length ? byDay(list).slice(0, 30).map(([d, es]) => `<section aria-label="${dayName(d)}"><div class="dayh"><div class="dn"><small>${WD[pd(d).getDay()]}</small>${pd(d).getDate()}</div><div><b>${dayName(d)}</b><span>${pd(d).getDate()}. ${MOL[pd(d).getMonth()]} · ${es.length} ${es.length === 1 ? "arrangement" : "arrangementer"}</span></div></div><div class="grid">${es.map(card).join("")}</div></section>`).join("") : `<div class="empty">Ingenting her ennå. Prøv en annen dag.</div>`;
+  reveal($("list"));
+}
+const render = () => document.startViewTransition && !reduceMotion ? document.startViewTransition(draw) : draw();
+$("moods").onclick = e => { const b = e.target.closest("button"); if (!b) return; f.cat = f.cat === b.dataset.k ? "" : b.dataset.k; render(); };
+$("week").onclick = e => { const b = e.target.closest("button"); if (!b || b.disabled) return; f.day = f.day === b.dataset.d ? "" : b.dataset.d; render(); };
+$("free").onclick = () => { f.free = !f.free; render(); }; $("mine").onclick = () => { f.mine = !f.mine; render(); };
+$("reset").onclick = () => { Object.assign(f, { cat: "", when: "", day: "", free: false, mine: false, q: "" }); $("q").value = ""; render(); };
+$("q").oninput = e => { f.q = e.target.value.trim(); draw(); };
+$("list").onclick = ev => { const b = ev.target.closest(".star"); if (!b) return; const on = favs.toggle(b.dataset.id); b.setAttribute("aria-pressed", on); b.textContent = on ? "★" : "☆"; $("nm").textContent = favs.size() || "";
+  if (on && !reduceMotion) for (let i = 0; i < 9; i++) { const p = document.createElement("span"); p.className = "pop"; const a = i / 9 * 6.28; p.style.cssText = `left:20px;top:20px;--x:${Math.cos(a) * 34}px;--y:${Math.sin(a) * 34}px;background:${["#FF5B3A", "#FFD23F", "#1B9AAA", "#6A4C93"][i % 4]}`; b.append(p); setTimeout(() => p.remove(), 700); }
+  if (f.mine && !on) setTimeout(draw, 250); };
+loadEvents().then(ev => { ALL = ev; const n = ALL.filter(e => e.date === TODAY).length; document.querySelector("h1 mark").textContent = n ? "i dag?" : "snart?";
+  $("lede").textContent = `${n ? n + " arrangementer i dag" : ALL.length + " kommende arrangementer"} i Ålesund. Velg lyst og dag, så viser vi det som passer, med billettpris.`; draw(); addJsonLd(ALL); }).catch(() => { $("list").innerHTML = '<div class="empty">Kunne ikke hente programmet.</div>'; });
+</script>

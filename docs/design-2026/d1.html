@@ -1,0 +1,97 @@
+<title>Ka skjer da? Plakatvegg</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Hva skjer i Ålesund i kveld og i helgen? Konserter, standup, show og klubb med billettpriser, oppdatert flere ganger om dagen.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap">
+<style>
+/* Design 1 «Plakatvegg»: konsertplakat-estetikk. Ultramarin + lime på lys papirgrå, kjempestor type, én rad = én plakat som farges i kategorifargen. */
+:root { --bg:#ECECE6; --ink:#0D0D10; --mute:#55555e; --line:#0d0d1022; --blue:#2A39FF; --lime:#D2F23B; --card:#fff;
+  --f-d:"Unbounded","Arial Black",system-ui,sans-serif; --f-b:"Instrument Sans",system-ui,sans-serif; --f-m:"DM Mono",ui-monospace,monospace;
+  --c-konsert:#2A39FF; --c-standup:#FF5A1F; --c-show:#8A3FFC; --c-barn:#10A04F; --c-klubb:#FF2E93; --c-happening:#F5B800; --c-quiz:#00A3A3; --c-sport:#0E7BE0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0D0D10; --ink:#F1F1EA; --mute:#9a9aa6; --line:#f1f1ea22; --blue:#7C87FF; --card:#16161b; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg:#0D0D10; --ink:#F1F1EA; --mute:#9a9aa6; --line:#f1f1ea22; --blue:#7C87FF; --card:#16161b; color-scheme: dark; }
+* { box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.5 var(--f-b); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: inherit; } .wrap { max-width: 1180px; margin: 0 auto; }
+.bar { display: flex; justify-content: space-between; align-items: center; padding-block: 18px; gap: 12px; }
+.logo { font: 800 15px var(--f-d); letter-spacing: -.02em; text-decoration: none; display: flex; gap: 8px; align-items: center; } .logo i { width: 22px; height: 22px; border-radius: 50%; background: var(--blue); box-shadow: 8px 0 0 -3px var(--lime); display: inline-block; }
+.bar nav { display: flex; gap: 6px; } .bar nav a { font: 600 14px var(--f-b); text-decoration: none; padding: 10px 14px; border-radius: 99px; border: 1.5px solid var(--ink); min-height: 44px; display: inline-flex; align-items: center; } .bar nav a:hover { background: var(--ink); color: var(--bg); }
+.hero { padding-block: clamp(20px, 6vw, 64px) 8px; }
+.hero h1 { font: 800 clamp(38px, 9.2vw, 124px)/1.08 var(--f-d); letter-spacing: -.045em; margin: 0; text-wrap: balance; }
+.hero h1 em { font-style: normal; color: var(--blue); } .hero h1 .hl { display: inline-block; background: var(--lime); color: #0d0d10; border-radius: 99px; padding: .02em .28em .06em; transform: rotate(-2deg); }
+.hero p { max-width: 52ch; font-size: clamp(17px, 2.4vw, 21px); color: var(--mute); margin: 22px 0 0; }
+.tick { margin-top: 28px; overflow: hidden; border-block: 2px solid var(--ink); background: var(--ink); color: var(--bg); }
+.tick div { display: flex; width: max-content; animation: mq 48s linear infinite; } .tick:hover div { animation-play-state: paused; }
+.tick span { font: 800 15px var(--f-d); padding: 13px 26px; white-space: nowrap; text-transform: uppercase; letter-spacing: -.01em; } .tick span b { color: var(--lime); font-weight: 800; margin-right: 10px; }
+@keyframes mq { to { transform: translateX(-50%); } }
+.ctl { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; border-bottom: 1.5px solid var(--line); display: grid; gap: 10px; }
+.search { display: flex; gap: 8px; } .search input { flex: 1; min-width: 0; font: 500 17px var(--f-b); padding: 0 18px; min-height: 52px; border-radius: 99px; border: 2px solid var(--ink); background: var(--card); color: var(--ink); }
+.search input:focus-visible, .pill:focus-visible, .row a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; } .pill { font: 600 15px var(--f-b); min-height: 44px; padding: 0 17px; border-radius: 99px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; transition: transform .15s, background .15s; }
+.pill:hover { transform: translateY(-2px); } .pill[aria-pressed="true"] { background: var(--ink); color: var(--bg); } .pill .n { font: 500 12px var(--f-m); opacity: .6; margin-left: 6px; }
+.day { display: grid; grid-template-columns: 1fr; margin-top: 40px; } .dayh { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding-bottom: 8px; border-bottom: 2.5px solid var(--ink); }
+.dayh b { font: 800 clamp(30px, 6vw, 64px)/1 var(--f-d); letter-spacing: -.04em; } .dayh span { font: 500 14px var(--f-m); text-transform: uppercase; letter-spacing: .08em; color: var(--mute); }
+.row { --c: var(--c-konsert); --ci: #fff; position: relative; display: grid; grid-template-columns: 1fr auto; gap: 6px 18px; padding: 18px 12px; border-bottom: 1.5px solid var(--line); align-items: center; transition: background .25s, color .25s, padding .25s; margin-inline: -12px; }
+.row::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--c); transition: width .3s cubic-bezier(.2,.8,.2,1); }
+.row:hover, .row:focus-within { background: var(--c); color: var(--ci); padding-left: 28px; } .row:hover::before { width: 0; }
+.row h2 { font: 800 clamp(20px, 3.1vw, 34px)/1.08 var(--f-d); letter-spacing: -.035em; margin: 0; text-wrap: balance; } .row h2 a { text-decoration: none; } .row h2 a::after { content: ""; position: absolute; inset: 0; }
+.meta { font: 500 14px var(--f-m); display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; opacity: .85; text-transform: uppercase; letter-spacing: .02em; } .meta .cat { color: color-mix(in srgb, var(--c) 72%, var(--ink)); font-weight: 500; } .row:hover .meta .cat { color: inherit; }
+.side { display: flex; align-items: center; gap: 12px; text-align: right; } .price { font: 800 clamp(16px, 2.2vw, 24px) var(--f-d); letter-spacing: -.03em; white-space: nowrap; } .price.free { color: var(--c-barn); } .row:hover .price { color: inherit; } .price small { display: block; font: 500 12px var(--f-m); opacity: .7; letter-spacing: 0; }
+.star { position: relative; z-index: 2; width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid currentColor; background: transparent; color: inherit; cursor: pointer; font-size: 20px; display: grid; place-items: center; transition: transform .2s; } .star:hover { transform: scale(1.12) rotate(12deg); } .star[aria-pressed="true"] { background: var(--lime); color: #0d0d10; border-color: #0d0d10; }
+.tag { display: inline-block; font: 600 12px var(--f-m); padding: 3px 9px; border-radius: 99px; background: var(--lime); color: #0d0d10; text-transform: uppercase; } .tag.red { background: #ff3b30; color: #fff; }
+.row[data-cat="happening"] { --ci: #0d0d10; } .row[data-cat="standup"] { --ci: #0d0d10; }
+.js .rv { opacity: 0; transform: translateY(26px); transition: opacity .6s, transform .6s cubic-bezier(.2,.8,.2,1); } .js .rv.in { opacity: 1; transform: none; }
+.empty { padding: 60px 0; font: 800 clamp(28px, 6vw, 60px)/1 var(--f-d); letter-spacing: -.04em; }
+footer { margin-top: 90px; padding-block: 40px 70px; border-top: 2.5px solid var(--ink); display: grid; gap: 14px; color: var(--mute); font-size: 15px; } footer b { font: 800 clamp(30px, 8vw, 100px)/.95 var(--f-d); letter-spacing: -.05em; color: var(--ink); }
+@media (max-width: 760px) { .ctl { position: static; } }
+@media (max-width: 560px) { .row { grid-template-columns: 1fr; } .side { justify-content: space-between; text-align: left; } .bar nav a:not(:last-child) { display: none; } }
+@media (prefers-reduced-motion: reduce) { .tick div { animation: none; } .row, .row::before, .pill, .star { transition: none; } .js .rv { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+</style>
+<div class="wrap">
+  <header class="bar"><a class="logo" href="#"><i></i>Skjer i Ålesund</a><nav aria-label="Snarveier"><a href="#" data-w="i-dag">I kveld</a><a href="#" data-w="helg">Helgen</a><a href="#" id="mine">★ Mine <span id="nm"></span></a></nav></header>
+  <section class="hero"><h1>Hva skjer i <em>Ålesund</em> <span class="hl" id="hl">i kveld?</span></h1>
+    <p id="lede">Konserter, standup, show og klubb samlet på ett sted, med billettpris. Oppdateres flere ganger om dagen.</p></section>
+</div>
+<div class="tick" aria-hidden="true"><div id="mq"></div></div>
+<div class="wrap">
+  <div class="ctl"><form class="search" role="search" onsubmit="return false"><input id="q" type="search" placeholder="Søk: artist, sted, ‘standup’ …" aria-label="Søk i programmet" autocomplete="off"></form><div class="pills" id="pills" role="group" aria-label="Filter"></div></div>
+  <main id="list" aria-live="polite"></main>
+  <footer><b>Ka skjer da?</b><span>Programmet hentes fra arrangørene (Tikkio, Parken, Dampsentralen med flere). Sjekk alltid hos arrangøren før du kjøper billett.</span></footer>
+</div>
+<script>
+document.documentElement.classList.add("js");
+{{CORE}}
+const f = { cat: "", when: "", free: false, mine: false, q: "" };
+let ALL = [];
+function pills() {
+  const defs = [["Alle", () => { f.cat = ""; f.when = ""; f.free = false; f.mine = false; }, !f.cat && !f.when && !f.free && !f.mine, ALL.length],
+    ["I dag", () => { f.when = f.when === "i-dag" ? "" : "i-dag"; }, f.when === "i-dag", ALL.filter(e => e.date === TODAY).length],
+    ["Helgen", () => { f.when = f.when === "helg" ? "" : "helg"; }, f.when === "helg", ALL.filter(e => matches(e, { when: "helg" })).length],
+    ["Gratis", () => { f.free = !f.free; }, f.free, ALL.filter(e => e.free).length]];
+  const cats = Object.keys(CATS).map(k => [CATS[k], () => { f.cat = f.cat === k ? "" : k; }, f.cat === k, ALL.filter(e => e.cat === k).length]).filter(c => c[3]);
+  $("pills").innerHTML = [...defs, ...cats].map((d, i) => `<button class="pill" type="button" data-i="${i}" aria-pressed="${d[2]}">${d[0]}<span class="n">${d[3]}</span></button>`).join("");
+  $("pills").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; [...defs, ...cats][+b.dataset.i][1](); render(); };
+}
+function row(e) {
+  const t = e.time ? e.time : "";
+  const tags = (e.sold ? '<span class="tag red">Utsolgt</span>' : e.few ? '<span class="tag">Få billetter igjen</span>' : e.free ? '<span class="tag">Gratis</span>' : "") + (e.more.length ? ` <span class="tag">+${e.more.length} datoer</span>` : "");
+  return `<article class="row rv" data-cat="${esc(e.cat)}" style="--c:var(--c-${esc(e.cat in CATS ? e.cat : "happening")})"><div><h2><a href="${safeUrl(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a></h2>
+    <div class="meta"><span class="cat">${esc(e.label)}</span><span>${t ? "kl. " + esc(t) : ""}</span><span>${esc(e.venue)}</span>${tags}</div></div>
+    <div class="side"><div class="price${e.free ? " free" : ""}">${esc(priceText(e))}<small>billetter →</small></div><button class="star" type="button" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="Lagre ${esc(e.title)}">${favs.has(e.id) ? "★" : "☆"}</button></div></article>`;
+}
+function render() {
+  pills(); $("nm").textContent = favs.size() ? favs.size() : ""; $("mine").style.background = f.mine ? "var(--ink)" : ""; $("mine").style.color = f.mine ? "var(--bg)" : "";
+  const list = ALL.filter(e => matches(e, f));
+  $("list").innerHTML = list.length ? byDay(list).slice(0, 40).map(([d, es]) => `<section class="day" aria-label="${dayName(d)}"><div class="dayh rv"><b>${dayName(d)}</b><span>${pd(d).getDate()}. ${MOL[pd(d).getMonth()]}</span><span>${es.length} ${es.length === 1 ? "arrangement" : "arrangementer"}</span></div>${es.map(row).join("")}</section>`).join("") : `<div class="empty">Ingenting her. Prøv «Alle».</div>`;
+  reveal($("list"));
+}
+$("list").onclick = ev => { const b = ev.target.closest(".star"); if (!b) return; const on = favs.toggle(b.dataset.id); b.setAttribute("aria-pressed", on); b.textContent = on ? "★" : "☆"; $("nm").textContent = favs.size() || ""; if (f.mine) render(); };
+$("q").oninput = e => { f.q = e.target.value.trim(); render(); };
+document.querySelectorAll("[data-w]").forEach(a => a.onclick = ev => { ev.preventDefault(); f.when = a.dataset.w; f.cat = ""; render(); scrollTo({ top: $("list").offsetTop - 140 }); });
+$("mine").onclick = ev => { ev.preventDefault(); f.mine = !f.mine; render(); };
+loadEvents().then(ev => { ALL = ev; const tonight = ALL.filter(e => e.date === TODAY);
+  $("hl").textContent = tonight.length ? "i kveld?" : "snart?";
+  $("lede").innerHTML = `<b>${tonight.length ? tonight.length + " arrangementer i dag" : "Neste arrangement " + dayName(ALL[0].date)}</b>, ${ALL.length} kommende totalt. Konserter, standup, show og klubb med billettpris, oppdatert flere ganger om dagen.`;
+  const m = (tonight.length ? tonight : ALL.slice(0, 12)).map(e => `<span><b>${esc(e.time || "")}</b>${esc(e.title)}</span>`).join(""); $("mq").innerHTML = m + m + m + m;
+  render(); addJsonLd(ALL); }).catch(() => { $("list").innerHTML = '<div class="empty">Kunne ikke hente programmet.</div>'; });
+</script>

@@ -1,0 +1,91 @@
+<title>Nordlys over fjorden</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Hva skjer i Ålesund denne uka? Konserter, standup, show og klubb med billettpriser, oppdatert flere ganger om dagen.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600;800&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Design 2 «Nordlys»: mørk glass over et levende nordlys. Bento-fliser øverst (kveldens neste, helgen, gratis), glasskort med lys som følger pekeren. Forpliktet til mørkt tema. */
+:root { color-scheme: dark; --bg:#060b16; --ink:#EAF2FF; --mute:#9bb0cc; --glass:#ffffff0f; --glass2:#ffffff1a; --edge:#ffffff26; --g1:#37f2b0; --g2:#46b7ff; --g3:#9d6bff; --pink:#ff6bd6;
+  --f-d:"Sora",system-ui,sans-serif; --f-b:"Manrope",system-ui,sans-serif; --f-m:"JetBrains Mono",ui-monospace,monospace;
+  --c-konsert:#46b7ff; --c-standup:#ffa14a; --c-show:#b890ff; --c-barn:#5df2a0; --c-klubb:#ff6bd6; --c-happening:#ffd75e; --c-quiz:#5eeadf; --c-sport:#7aa7ff; }
+* { box-sizing: border-box; } html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16.5px/1.55 var(--f-b); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: #060b16; }
+.sky { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: radial-gradient(120% 80% at 50% 110%, #0c2340 0%, #060b16 60%); }
+.sky i { position: absolute; width: 70vmax; height: 34vmax; filter: blur(70px); opacity: .55; border-radius: 50%; mix-blend-mode: screen; animation: drift 22s ease-in-out infinite alternate; }
+.sky i:nth-child(1) { background: linear-gradient(90deg, var(--g1), var(--g2)); left: -20vmax; top: -8vmax; } .sky i:nth-child(2) { background: linear-gradient(90deg, var(--g3), var(--pink)); right: -25vmax; top: 6vmax; animation-duration: 28s; animation-delay: -9s; opacity: .4; } .sky i:nth-child(3) { background: linear-gradient(90deg, var(--g2), var(--g1)); left: 10vmax; top: 22vmax; animation-duration: 34s; animation-delay: -15s; opacity: .3; }
+@keyframes drift { 0% { transform: translate3d(0, 0, 0) rotate(-6deg) scale(1); } 100% { transform: translate3d(12vmax, 5vmax, 0) rotate(8deg) scale(1.15); } }
+.stars { position: absolute; inset: 0; background-image: radial-gradient(1.2px 1.2px at 20px 30px, #fff9, transparent), radial-gradient(1px 1px at 120px 90px, #fff7, transparent), radial-gradient(1.4px 1.4px at 200px 20px, #fffb, transparent); background-size: 240px 140px; opacity: .6; }
+.wrap { max-width: 1160px; margin: 0 auto; } a { color: inherit; }
+.top { display: flex; justify-content: space-between; align-items: center; padding-block: 20px; gap: 10px; } .logo { font: 800 18px var(--f-d); letter-spacing: -.03em; text-decoration: none; background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.chipb { font: 600 14px var(--f-b); min-height: 44px; padding: 0 16px; border-radius: 99px; border: 1px solid var(--edge); background: var(--glass); backdrop-filter: blur(14px); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; transition: background .2s, transform .2s; } .chipb:hover { background: var(--glass2); transform: translateY(-1px); } .chipb[aria-pressed="true"] { background: linear-gradient(90deg, #37f2b033, #46b7ff33); border-color: var(--g1); }
+.hero { padding-block: clamp(18px, 5vw, 56px) 22px; max-width: 880px; }
+.hero h1 { font: 800 clamp(38px, 8.4vw, 96px)/.98 var(--f-d); letter-spacing: -.045em; margin: 0; text-wrap: balance; } .hero h1 span { background: linear-gradient(100deg, var(--g1), var(--g2) 45%, var(--g3) 80%, var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% 100%; animation: sheen 9s ease-in-out infinite alternate; }
+@keyframes sheen { to { background-position: 100% 0; } }
+.hero p { color: var(--mute); font-size: clamp(16px, 2vw, 20px); max-width: 54ch; margin: 18px 0 0; }
+.bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; margin-top: 12px; }
+.tile { position: relative; overflow: hidden; border-radius: 24px; padding: 20px; border: 1px solid var(--edge); background: var(--glass); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); text-align: left; color: inherit; font: inherit; cursor: pointer; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .2s; }
+.tile::before, .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, -20%), #ffffff22, transparent 45%); opacity: 0; transition: opacity .3s; pointer-events: none; } .tile:hover::before, .card:hover::before { opacity: 1; } .tile:hover { transform: translateY(-4px); border-color: #ffffff55; }
+.tile small { font: 500 12px var(--f-m); letter-spacing: .1em; text-transform: uppercase; color: var(--mute); } .tile b { font: 800 clamp(34px, 5vw, 64px)/1 var(--f-d); letter-spacing: -.05em; } .tile p { margin: 0; color: var(--mute); font-size: 15px; }
+.t-next { grid-column: span 6; background: linear-gradient(140deg, #37f2b02b, #46b7ff1c 50%, #9d6bff26); } .t-next h2 { font: 800 clamp(22px, 3.4vw, 38px)/1.08 var(--f-d); letter-spacing: -.04em; margin: 4px 0 0; text-wrap: balance; } .t-a, .t-b, .t-c { grid-column: span 2; } .t-c { grid-column: span 2; }
+.cd { font: 500 15px var(--f-m); color: var(--g1); }
+.ctl { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; margin-top: 26px; padding-block: 12px; display: grid; gap: 10px; background: linear-gradient(#060b16f2, #060b16cc 70%, transparent); backdrop-filter: blur(8px); }
+.ctl input { width: 100%; min-height: 52px; padding: 0 20px; border-radius: 99px; border: 1px solid var(--edge); background: var(--glass); color: var(--ink); font: 500 17px var(--f-b); backdrop-filter: blur(14px); } .ctl input::placeholder { color: #7f93b0; }
+.ctl input:focus-visible, .chipb:focus-visible, .tile:focus-visible, .star:focus-visible, .card a:focus-visible { outline: 2px solid var(--g1); outline-offset: 3px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.dayh { display: flex; align-items: baseline; gap: 12px; margin: 38px 0 14px; flex-wrap: wrap; } .dayh b { font: 800 clamp(26px, 4vw, 44px)/1 var(--f-d); letter-spacing: -.04em; } .dayh span { color: var(--mute); font: 500 13px var(--f-m); text-transform: uppercase; letter-spacing: .08em; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+.card { --c: var(--c-konsert); position: relative; overflow: hidden; border-radius: 22px; padding: 18px 18px 16px; border: 1px solid var(--edge); background: var(--glass); backdrop-filter: blur(16px); display: grid; gap: 10px; align-content: space-between; min-height: 190px; transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .25s, box-shadow .35s; }
+.card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, var(--c), transparent); } .card:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--c) 70%, #fff 0%); box-shadow: 0 18px 50px -18px var(--c); }
+.card .cat { font: 500 12px var(--f-m); letter-spacing: .1em; text-transform: uppercase; color: var(--c); display: flex; gap: 8px; align-items: center; } .card .cat::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); box-shadow: 0 0 12px var(--c); }
+.card h3 { font: 700 clamp(19px, 2.4vw, 23px)/1.18 var(--f-d); letter-spacing: -.03em; margin: 6px 0 4px; text-wrap: balance; } .card h3 a { text-decoration: none; } .card h3 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.card .m { color: var(--mute); font-size: 15px; } .card .foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; position: relative; z-index: 2; } .price { font: 700 16px var(--f-d); letter-spacing: -.02em; } .price.free { color: var(--g1); }
+.badge { font: 500 11px var(--f-m); letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; border: 1px solid var(--edge); color: var(--ink); margin-left: 6px; } .badge.hot { color: #ffb36b; border-color: #ffb36b66; } .badge.out { color: #ff8a8a; border-color: #ff8a8a66; }
+.star { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--edge); background: var(--glass); color: var(--ink); font-size: 19px; cursor: pointer; transition: transform .25s cubic-bezier(.3,1.6,.5,1), background .2s; } .star:hover { transform: scale(1.12); } .star[aria-pressed="true"] { background: linear-gradient(135deg, var(--g1), var(--g2)); color: #04210f; border-color: transparent; }
+.js .rv { opacity: 0; transform: translateY(24px) scale(.985); transition: opacity .6s, transform .7s cubic-bezier(.2,.8,.2,1); transition-delay: calc(var(--i, 0) * 45ms); } .js .rv.in { opacity: 1; transform: none; }
+.empty { padding: 70px 0; text-align: center; font: 700 28px var(--f-d); color: var(--mute); }
+footer { margin: 80px 0 60px; padding-top: 26px; border-top: 1px solid var(--edge); color: var(--mute); font-size: 15px; max-width: 70ch; }
+@media (max-width: 760px) { .ctl { position: static; background: none; backdrop-filter: none; } .t-next { grid-column: span 12; } .t-a, .t-b, .t-c { grid-column: span 4; min-height: 128px; padding: 14px; border-radius: 20px; } .tile b { font-size: 34px; } .t-a p, .t-b p, .t-c p { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sky i, .hero h1 span { animation: none; } .js .rv { opacity: 1; transform: none; transition: none; } .card, .tile, .star, .chipb { transition: none; } html { scroll-behavior: auto; } }
+</style>
+<div class="sky" aria-hidden="true"><div class="stars"></div><i></i><i></i><i></i></div>
+<div class="wrap">
+  <header class="top"><a class="logo" href="#">Skjer i Ålesund</a><button class="chipb" id="mine" type="button" aria-pressed="false">★ Mine <span id="nm"></span></button></header>
+  <section class="hero"><h1>Hva skjer i Ålesund <span>akkurat nå?</span></h1><p id="lede">Konserter, standup, show og klubb samlet på ett sted, med billettpriser.</p></section>
+  <section class="bento" aria-label="Snarveier"><button class="tile t-next" id="tn" type="button"></button><button class="tile t-a" data-w="i-dag" type="button"><small>I dag</small><b id="n1">0</b><p>arrangementer</p></button><button class="tile t-b" data-w="helg" type="button"><small>Helgen</small><b id="n2">0</b><p>fre til søn</p></button><button class="tile t-c" id="tfree" type="button"><small>Gratis</small><b id="n3">0</b><p>uten billett</p></button></section>
+  <div class="ctl"><input id="q" type="search" placeholder="Søk i programmet …" aria-label="Søk i programmet" autocomplete="off"><div class="chips" id="chips" role="group" aria-label="Kategorier"></div></div>
+  <main id="list" aria-live="polite"></main>
+  <footer>Programmet hentes fra arrangørenes egne sider og billettsalg, og oppdateres flere ganger om dagen. Sjekk alltid hos arrangøren før du kjøper billett.</footer>
+</div>
+<script>
+document.documentElement.classList.add("js");
+{{CORE}}
+const f = { cat: "", when: "", free: false, mine: false, q: "" }; let ALL = [];
+function chips() {
+  const c = [["Alle", "", !f.cat && !f.when && !f.free]].concat(Object.keys(CATS).filter(k => ALL.some(e => e.cat === k)).map(k => [CATS[k], k, f.cat === k]));
+  $("chips").innerHTML = c.map(x => `<button class="chipb" type="button" data-k="${x[1]}" aria-pressed="${x[2]}">${x[0]}</button>`).join("") + (f.when || f.free ? `<button class="chipb" type="button" data-k="__x" aria-pressed="true">${f.free ? "Gratis" : f.when === "i-dag" ? "I dag" : "Helgen"} ✕</button>` : "");
+}
+$("chips").onclick = e => { const b = e.target.closest("button"); if (!b) return; if (b.dataset.k === "__x") { f.when = ""; f.free = false; } else { f.cat = b.dataset.k; if (!b.dataset.k) { f.when = ""; f.free = false; } } render(); };
+function card(e, i) {
+  const out = e.sold ? '<span class="badge out">Utsolgt</span>' : e.few ? '<span class="badge hot">Få igjen</span>' : "";
+  return `<article class="card rv" style="--c:var(--c-${esc(e.cat in CATS ? e.cat : "happening")});--i:${i % 6}"><div><div class="cat">${esc(e.label)}${e.more.length ? `<span class="badge">+${e.more.length} datoer</span>` : ""}</div><h3><a href="${safeUrl(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a></h3><div class="m">${e.time ? "kl. " + esc(e.time) + " · " : ""}${esc(e.venue)}</div></div>
+    <div class="foot"><span class="price${e.free ? " free" : ""}">${esc(priceText(e))}${out}</span><button class="star" type="button" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="Lagre ${esc(e.title)}">${favs.has(e.id) ? "★" : "☆"}</button></div></article>`;
+}
+function render() {
+  chips(); $("nm").textContent = favs.size() || ""; $("mine").setAttribute("aria-pressed", f.mine);
+  const list = ALL.filter(e => matches(e, f));
+  $("list").innerHTML = list.length ? byDay(list).slice(0, 30).map(([d, es]) => `<section aria-label="${dayName(d)}"><div class="dayh"><b>${dayName(d)}</b><span>${pd(d).getDate()}. ${MOL[pd(d).getMonth()]} · ${es.length}</span></div><div class="grid">${es.map(card).join("")}</div></section>`).join("") : `<div class="empty">Ingen treff. Prøv «Alle».</div>`;
+  reveal($("list"));
+}
+$("list").onclick = ev => { const b = ev.target.closest(".star"); if (!b) return; const on = favs.toggle(b.dataset.id); b.setAttribute("aria-pressed", on); b.textContent = on ? "★" : "☆"; $("nm").textContent = favs.size() || ""; if (f.mine) render(); };
+document.addEventListener("pointermove", ev => { const t = ev.target.closest(".tile,.card"); if (!t) return; const r = t.getBoundingClientRect(); t.style.setProperty("--mx", ev.clientX - r.left + "px"); t.style.setProperty("--my", ev.clientY - r.top + "px"); });
+$("q").oninput = e => { f.q = e.target.value.trim(); render(); };
+$("mine").onclick = () => { f.mine = !f.mine; render(); };
+document.querySelectorAll("[data-w]").forEach(b => b.onclick = () => { f.when = b.dataset.w; f.free = false; f.cat = ""; render(); scrollTo({ top: $("q").offsetTop + 380, behavior: reduceMotion ? "auto" : "smooth" }); });
+$("tfree").onclick = () => { f.free = true; f.when = ""; f.cat = ""; render(); scrollTo({ top: $("q").offsetTop + 380, behavior: reduceMotion ? "auto" : "smooth" }); };
+function countdown(e) { const t = new Date(e.date + "T" + (e.time || "19:00") + ":00" + (new Date().getTimezoneOffset() === -60 ? "+01:00" : "+02:00")); const m = Math.round((t - Date.now()) / 6e4); if (m < 0) return "pågår nå"; if (m < 60) return "om " + m + " min"; if (m < 1440) return "om " + Math.floor(m / 60) + " t " + (m % 60) + " min"; return dayName(e.date).toLowerCase() + " kl. " + (e.time || ""); }
+loadEvents().then(ev => { ALL = ev; const nx = ALL.find(e => (e.date + "T" + (e.time || "00:00")) >= new Date().toLocaleString("sv-SE", { timeZone: "Europe/Oslo" }).replace(" ", "T").slice(0, 16)) || ALL[0];
+  $("n1").textContent = ALL.filter(e => e.date === TODAY).length; $("n2").textContent = ALL.filter(e => matches(e, { when: "helg" })).length; $("n3").textContent = ALL.filter(e => e.free).length;
+  $("lede").innerHTML = `${ALL.length} kommende arrangementer i Ålesund: konserter, standup, show, barn og klubb, med billettpris og oppdatert flere ganger om dagen.`;
+  const tn = () => { $("tn").innerHTML = `<small>Neste opp</small><div><h2>${esc(nx.title)}</h2><p>${esc(nx.venue)} · ${esc(priceText(nx))}</p></div><span class="cd">${esc(countdown(nx))}</span>`; }; tn(); setInterval(tn, 30000); $("tn").onclick = () => open(safeUrl(nx.url), "_blank", "noopener");
+  render(); addJsonLd(ALL); }).catch(() => { $("list").innerHTML = '<div class="empty">Kunne ikke hente programmet.</div>'; });
+</script>
