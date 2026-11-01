@@ -580,7 +580,7 @@ def fetch_aafk():
         except Exception as e:
             warn(f"Klarte ikke å hente terminlisten til AaFK ({url}): {e}")
             continue
-        rows = re.findall(r'<tr class="[^"]*schedule__match">(.*?)</tr>', page, re.S)
+        rows = re.findall(r'<tr class="[^"]*schedule__match(?:\s[^"]*)?"[^>]*>(.*?)</tr>', page, re.S)  # også «schedule__match--upcoming» (neste kamp)
         if not rows:  # ingen hjemmekamper er greit utenom sesongen, men en tom liste betyr at siden er endret
             warn(f"Fant ingen kamper i terminlisten til AaFK ({url}). Sjekk om aafk.no har endret siden.")
         for row in rows:
