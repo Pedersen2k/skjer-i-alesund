@@ -20,10 +20,14 @@
    "viti-pelsdyr-i-ord-og-folkesong-sunnmore-museum-sunnmore-mus": [
     "2026-10-19T12:59:56Z",
     "2026-11-01T15:47:28Z"
+   ],
+   "arskort-01-11-26-31-10-27-borgund-dyreklubb": [
+    "2026-11-01T08:08:26Z",
+    "2026-11-01T18:55:53Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-01T17:44:17Z",
+  "updatedAt": "2026-11-01T18:55:53Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -38,22 +42,6 @@
   ]
  },
  "events": [
-  {
-   "id": "arskort-01-11-26-31-10-27-borgund-dyreklubb",
-   "date": "2026-11-01",
-   "time": "12:00",
-   "title": "Årskort 01.11.26 - 31.10.27",
-   "venue": "Borgund Dyreklubb",
-   "address": "",
-   "cat": "konsert",
-   "price": "579 kr",
-   "priceMin": 579,
-   "soldOut": false,
-   "note": "Rabatt: Årskort barn/voksen 01.11.26 - 31.10.27 270 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/67285-arskort-011126-311027",
-   "addedAt": "2026-11-01T08:08:26Z"
-  },
   {
    "id": "parken-50918-parken-kulturhus",
    "date": "2026-11-02",
@@ -624,10 +612,10 @@
    "venue": "Thon Hotel Baronen",
    "address": "Kanalvegen 1, 6010 Ålesund",
    "cat": "happening",
-   "price": "749 kr",
-   "priceMin": 749,
+   "price": "599 kr",
+   "priceMin": 599,
    "soldOut": false,
-   "note": "Rabatt: LITEN krans - 1 billett 489 kr.",
+   "note": "Rabatt: LITEN krans - 1 billett 349 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66657-juleverksted-cupcakekrans",
    "addedAt": "2026-10-19T12:59:56Z"
