@@ -2,8 +2,8 @@
 
 Offentlig nettside med konserter, standup, show og happenings i Ålesund, med billettpriser. Statisk side på GitHub Pages som oppdateres hver andre time på dagtid av GitHub Actions. Brukeren snakker norsk: svar og skriv UI-tekst på norsk (bokmål).
 
-Full oversikt over mål, beslutninger, filer, neste steg og fallgruver: @HANDOFF.md
-Brukerrettet dokumentasjon (manual.json, overrides.json, varsling): @README.md
+Oversikt over mål, beslutninger, filer, neste steg og fallgruver: `HANDOFF.md`. Den er stor, så les den bare når oppgaven krever det, og søk heller etter seksjonen du trenger.
+Brukerrettet dokumentasjon (manual.json, overrides.json, varsling): `README.md`, les ved behov.
 
 ## Regler
 - `data/events.json` er generert. Aldri rediger for hånd. Bruk `data/manual.json` og `data/overrides.json`.
