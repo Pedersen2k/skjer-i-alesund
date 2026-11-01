@@ -182,7 +182,17 @@ def ld_script(obj):
     return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False).replace("</", "<\\/") + "</script>"
 
 
-def page(path, title, description, body, ld=None, up=None, image=None, raw=False, head_extra="", body_class="", lang="nb"):
+def page(*args, jul=False, **kw):
+    """Som _page(), men med jul=True får siden juletemaet (tema-jul.css) i stedet for kveldstemaet: de seks julesidene ser ut som forsiden i jula.
+    «Lyst» gjelder fortsatt (lasteren slår temaet av for den som har valgt det)."""
+    html = _page(*args, **kw)
+    if not jul:
+        return html
+    return (html.replace('dataset.tema="kveld"', 'dataset.tema="jul"').replace("#0a171b", "#3a0b12").replace("tema-kveld.css", "tema-jul.css")
+            .replace('(document.documentElement.dataset.tema==="kveld")', "(document.documentElement.dataset.tema!==undefined)"))
+
+
+def _page(path, title, description, body, ld=None, up=None, image=None, raw=False, head_extra="", body_class="", lang="nb"):
     """Hele HTML-dokumentet. path er relativ adresse, f.eks. «konserter/».
     up er veien tilbake til roten; 404-siden vises på vilkårlige adresser og bruker derfor full adresse.
     image er (adresse, bredde, høyde) for forhåndsvisningsbildet, ellers brukes logoen."""
@@ -759,7 +769,7 @@ def jul_page(events, today, themes=None):
     desc = list_desc(f"Jul i Ålesund {year}", occ)
     ld = {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (f"Jul i Ålesund {year}", BASE + "jul-i-alesund/")])] + [event_ld(e) for e in occ]}
     head_extra = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&display=swap">'
-    return page("jul-i-alesund/", title, desc, body, ld, raw=True, head_extra=head_extra, body_class="jul"), n_ev
+    return page("jul-i-alesund/", title, desc, body, ld, raw=True, head_extra=head_extra, body_class="jul", jul=False), n_ev
 
 
 def describe(events, what):
@@ -926,9 +936,9 @@ def main():
             MONTH_PAGES[f"{MO[m - 1].capitalize()} {y}"] = f"maned/{MO[m - 1]}-{y}/"
         y, m = y + (m == 12), m % 12 + 1
 
-    def listing_page(path, title, h1, lede, evs, empty, what, image=None, about="", lead="", desc=None):
+    def listing_page(path, title, h1, lede, evs, empty, what, image=None, about="", lead="", desc=None, jul=False):
         write(path, page(path, title, desc or describe(evs, what), listing(path, h1, lede, evs, empty, cats_present, about, lead),
-                         {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (h1, BASE + path)])] + [event_ld(e) for e in evs]}, image=image))
+                         {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (h1, BASE + path)])] + [event_ld(e) for e in evs]}, image=image, jul=jul))
         pages.append((path, updated))
 
     # I dag
@@ -978,7 +988,7 @@ def main():
                          f"{len(evs)} julebord med dato og pris per person, og julemenyer på restaurant.",
                          evs, "Ingen julebord registrert akkurat nå. Julebordene for neste sesong kommer i oktober.", f"Julebord i Ålesund {today.year}",
                          about=CAT_TEXT[k], lead=julebord_facts(evs, today.year) + julemeny_html() + jul_links("../", p + "/", themes),
-                         desc=list_desc(f"Julebord i Ålesund {today.year}", evs, "julebord", 3, " per person") if evs else None)
+                         desc=list_desc(f"Julebord i Ålesund {today.year}", evs, "julebord", 3, " per person") if evs else None, jul=True)
             continue
         listing_page(p + "/", f"{h1} – program og billettpriser | {SITE}", h1,
                      f"{what}: {len(evs)} kommende {'arrangement' if len(evs) == 1 else 'arrangementer'}, " + ("med avspark og billettlenker." if k == "sport" else "med datoer og billettpriser."),
@@ -1025,7 +1035,7 @@ def main():
         year = today.year
         listing_page(p, f"{h1} {year}: datoer og billetter | {SITE}", f"{h1} {year}",
                      f"{len(evs)} {'arrangement' if len(evs) == 1 else 'arrangementer'} med datoer og billettpriser, oppdatert flere ganger om dagen.",
-                     evs, "", f"{h1} {year}", about=about, lead=jul_links("../", p, themes), desc=list_desc(f"{h1} {year}", evs))
+                     evs, "", f"{h1} {year}", about=about, lead=jul_links("../", p, themes), desc=list_desc(f"{h1} {year}", evs), jul=True)
     jp = jul_page(all_events, today, themes)
     if jp:
         write("jul-i-alesund/", jp[0])

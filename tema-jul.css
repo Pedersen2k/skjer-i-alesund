@@ -47,3 +47,9 @@ html[data-tema="jul"]:root, html[data-tema="jul"]:root[data-theme] { --c-konsert
 html[data-tema="jul"] .note, html[data-tema="jul"] .venue { font-size: 14px; }
 html[data-tema="jul"] .meta, html[data-tema="jul"] .count, html[data-tema="jul"] .status { font-size: 13.5px; }
 html[data-tema="jul"] .lede { color:#f0dacd; }
+/* Undersidene med juletema (julesidene og julebord/): lenker i gull, julemenyboksen i kortfargene, brødsmulen uten understreking */
+html[data-tema="jul"] .julemeny { background: #4c121b; border-color: #e9c06a66; }
+html[data-tema="jul"] .julemeny a, html[data-tema="jul"] .jbtips a, html[data-tema="jul"] .facts a, html[data-tema="jul"] .sub p a { color: #e9c06a; }
+html[data-tema="jul"] .julemeny li small { color: #f5d98e; }
+html[data-tema="jul"] .julemeny h2 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 24px; }
+html[data-tema="jul"] .crumbs a { text-decoration: none; color: #e9c06a; }
