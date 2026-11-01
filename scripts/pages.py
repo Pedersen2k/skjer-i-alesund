@@ -758,7 +758,7 @@ def jul_page(events, today, themes=None):
     title = f"Jul i Ålesund {year}: julekonserter, juleshow og julemarked | {SITE}"
     desc = list_desc(f"Jul i Ålesund {year}", occ)
     ld = {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (f"Jul i Ålesund {year}", BASE + "jul-i-alesund/")])] + [event_ld(e) for e in occ]}
-    head_extra = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400;1,700&display=swap">'
+    head_extra = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&display=swap">'
     return page("jul-i-alesund/", title, desc, body, ld, raw=True, head_extra=head_extra, body_class="jul"), n_ev
 
 
@@ -1630,6 +1630,36 @@ body.jul { background: #f6efe0; color: #2a2a22; font-family: "Figtree", system-u
 .jul .more { margin-top: 26px; } .jul .more h2 { font: italic 700 20px "Fraunces", serif; color: #0d3327; margin: 0 0 8px; }
 .jul .more .chip { background: #fffaf0; color: #2a2a22; border: 1.5px solid #cdbf98; text-decoration: none; padding: 8px 13px; border-radius: 99px; font: 600 13px "Figtree", sans-serif; }
 .jul .more .row { display: flex; flex-wrap: wrap; gap: 7px; }
+/* Jul-siden i samme juletema som forsiden: vinrød bunn, gull, Cormorant Garamond, mørke kort og datobokser med dobbel ramme */
+html body.jul, html[data-tema] body.jul { --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-show:#ab93e6; --c-barn:#6cc98a; --c-klubb:#ec78ab; --c-happening:#e3c25a; --c-quiz:#b497e0; --c-julebord:#ef7a7f;
+  background: radial-gradient(140% 600px at 50% -100px, #6b1520, #3a0b12 70%), #3a0b12; color: #fbeedd; }
+.jul .jul-hero { background: transparent; padding: 58px 20px 30px; }
+.jul .jgar { display: none; }
+.jul .jul-hero h1 { font: italic 700 clamp(48px, 12vw, 78px)/.95 "Cormorant Garamond", Georgia, serif; color: #fbeedd; text-shadow: none; }
+.jul .jul-hero h1::after { content: ""; display: block; width: 92px; height: 2px; margin: 14px auto 0; background: linear-gradient(90deg, transparent, #e9c06a, transparent); }
+.jul .jul-hero p { font: 400 17px/1.5 "Figtree", system-ui, sans-serif; color: #e8cfc3; max-width: 38ch; }
+.jul .jul-hero small, .jul .jul-back { color: #e9c06a; }
+.jul .jul-back { font-size: 13px; top: 18px; }
+.jul .jul-hero { padding-top: 64px; }
+.jul .jdt { line-height: 1; } .jul .jdt b { margin: 3px 0; }
+.jul .jcd { background: #4c121b; border: 1.5px solid #e9c06a; border-radius: 6px; box-shadow: inset 0 0 0 3px #4c121b, inset 0 0 0 4px #e9c06a55; padding: 8px 20px 8px 14px; }
+.jul .jcd b { font: 700 38px/1 "Cormorant Garamond", Georgia, serif; color: #e9c06a; } .jul .jcd span { color: #fbeedd; }
+.jul .jul-main h2, .jul .more h2 { font: italic 700 30px/1.1 "Cormorant Garamond", Georgia, serif; color: #fbeedd; }
+.jul .more h2 { font-size: 24px; }
+.jul .jul-sub, .jul .jmore, .jul .jm, .jul .jcnt, .jul .jul-note { color: #dcbcb0; }
+.jul .jm, .jul .jmore, .jul .jul-note { font-size: 14px; }
+.jul .jul-note a { color: #e9c06a; }
+html body.jul .jlist .jhd, html[data-tema] body.jul .jlist .jhd { background: #3a0b12ee; padding: 12px 8px 10px; margin-left: -8px; margin-right: -8px; backdrop-filter: blur(8px); border-bottom-color: #6b2530; }
+.jul .jc { background: #4c121b; border: 1px solid #6b2530; border-left: 4px solid var(--c); box-shadow: none; padding: 12px 14px; }
+.jul .jc h3 { font: 700 22px/1.15 "Cormorant Garamond", Georgia, serif; } .jul .jc h3 a { color: #fbeedd; }
+.jul .jp { color: #fbeedd; font: 600 13.5px "JetBrains Mono", ui-monospace, monospace; margin-top: 4px; }
+.jul .jrow { border-bottom: 1px solid #6b2530; grid-template-columns: 62px 1fr; }
+.jul .jdt { background: linear-gradient(180deg, #5a1620, #451018); border: 1.5px solid #e9c06a; border-radius: 6px; padding: 8px 0 9px; box-shadow: inset 0 0 0 3px #451018, inset 0 0 0 4px #e9c06a55, 0 6px 16px #0006; position: sticky; top: 84px; }
+.jul .jdt small { color: #e9c06a; font-size: 11px; } .jul .jdt b { font: 700 34px/1 "Cormorant Garamond", Georgia, serif; color: #fbeedd; }
+.jul .jul-jb { background: #1f4a37; border: 1px solid #e9c06a66; color: #fbeedd; box-shadow: 0 0 0 1px #0f2a1f; font-size: 15.5px; }
+.jul .jchips .chip, .jul .more .chip { background: #ffffff0d; border: 1px solid #ffffff22; color: #fbeedd; font-size: 14px; padding: 9px 14px; }
+.jul .jchips .chip[aria-pressed="true"] { background: #e9c06a; color: #2a1405; border-color: #e9c06a; }
+.jul .snow, .jul .snow2 { opacity: .35; }
 """
 
 

@@ -42,3 +42,8 @@ html[data-tema="jul"] .jd-peek .jd-eyes { animation: jd-blink 4.5s infinite; tra
 html[data-tema="jul"] .jd-peek-wrap { position: relative; height: 0; margin-top: 64px; }
 @media (prefers-reduced-motion: reduce) { html[data-tema="jul"] .jd-peek.anim svg, html[data-tema="jul"] .jd-peek .jd-eyes, html[data-tema="jul"] .jd-flame { animation: none; } }
 html[data-tema="jul"] body.nyonly .jd-peek-wrap { display: none; }
+/* Lesbarhet (1. nov): kategoriordene brukte de mørke fargene fra lyst tema og ble nesten borte på vinrødt; små tekster var 12,5 px i dus rosa */
+html[data-tema="jul"]:root, html[data-tema="jul"]:root[data-theme] { --c-konsert:#5ab7bf; --c-standup:#f08a4b; --c-show:#ab93e6; --c-barn:#6cc98a; --c-klubb:#ec78ab; --c-happening:#e3c25a; --c-quiz:#b497e0; --c-julebord:#ef7a7f; --c-sport:#7aa7e6; --muted:#e2c6ba; }
+html[data-tema="jul"] .note, html[data-tema="jul"] .venue { font-size: 14px; }
+html[data-tema="jul"] .meta, html[data-tema="jul"] .count, html[data-tema="jul"] .status { font-size: 13.5px; }
+html[data-tema="jul"] .lede { color:#f0dacd; }
