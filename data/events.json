@@ -31,9 +31,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-02T16:13:47Z",
+  "updatedAt": "2026-11-02T18:05:15Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -421,7 +421,7 @@
    "soldOut": false,
    "uncertain": false,
    "note": "Akustisk jazz med bossa nova og samba. Dørene åpner 12:30. Salg av kaker og kaffe. Kilde: Bypatrioten.",
-   "url": "https://bypatrioten.com/event/kulturkafe-pa-sobra-scene-kurt-sagen-kvartett/",
+   "url": "https://www.sobrascene.no/",
    "addedAt": "2026-11-01T21:47:04Z"
   },
   {
@@ -453,7 +453,7 @@
    "soldOut": false,
    "uncertain": false,
    "note": "Voxing og Aalesund Gospelkor arrangerer konsert sammen for første gang, med band. Dørene åpner 17:30. Billetter kjøpes i døra med Vipps. Kilde: Bypatrioten.",
-   "url": "https://bypatrioten.com/event/gospelkonsert-med-aalesund-gospelkor-og-voxing/",
+   "url": "https://www.voxing.no/",
    "addedAt": "2026-11-01T21:47:04Z"
   },
   {
@@ -571,7 +571,7 @@
    "soldOut": false,
    "uncertain": false,
    "note": "Orgelkonsert med verk av Buxtehude, Bach og Sverre Eftestøl. Student/barn gratis. Dørene åpner 18:30. Kilde: Bypatrioten.",
-   "url": "https://bypatrioten.com/event/nordtriptychon-ved-suzanne-zgraggen-orgel/",
+   "url": "https://kyrkja.alesund.no/",
    "addedAt": "2026-11-01T21:47:04Z"
   },
   {
@@ -1116,7 +1116,7 @@
    "soldOut": false,
    "uncertain": false,
    "note": "Swingjazz fra Molde. Billetter i døra, pris står ikke oppgitt. Kilde: Bypatrioten.",
-   "url": "https://bypatrioten.com/event/jazzsirkelen-jazzkafe-med-arnt-inge-saeter-kvartett/",
+   "url": "https://jazzsirkelen.no/",
    "addedAt": "2026-11-01T21:47:04Z"
   },
   {
@@ -1493,7 +1493,7 @@
    "soldOut": false,
    "uncertain": false,
    "note": "Volsdalen Salme- og lovsangkor inviterer til tradisjonell julekonsert med allsang. Dørene åpner 18:00. Gratis kaffe og kaker i kirken og menighetshuset etterpå.",
-   "url": "https://bypatrioten.com/event/julekonsert-med-allsang/",
+   "url": "https://www.volsdalen.menighet.no/",
    "addedAt": "2026-10-30T13:23:27Z"
   },
   {
@@ -1557,7 +1557,7 @@
    "soldOut": false,
    "uncertain": false,
    "note": "Kl. 11–16. Lokalt håndverk, kunst, design og lokalmat, kafé med julekaker. Arrangert av Hatlane skolekorps.",
-   "url": "https://bypatrioten.com/event/julemarked-pa-hatlane-skole-3/",
+   "url": "https://www.hatlaneskolekorps.no/",
    "addedAt": "2026-10-27T07:56:21Z"
   },
   {
@@ -1694,7 +1694,7 @@
    "soldOut": false,
    "uncertain": false,
    "note": "Saxofon og piano: improvisasjoner over julesanger fra hele verden. Dørene åpner 19:30. Kilde: Bypatrioten.",
-   "url": "https://bypatrioten.com/event/trygve-seim-og-andreas-utnem/",
+   "url": "https://www.sobrascene.no/",
    "addedAt": "2026-11-01T21:47:04Z"
   },
   {
@@ -1740,7 +1740,7 @@
    "soldOut": false,
    "uncertain": false,
    "note": "Gjallarhorn Brass med Sunnmøre Senior Storband og Nørvøy Ungdomskorps som gjester. Billetter selges i døra, pris står ikke oppgitt. Kilde: Bypatrioten.",
-   "url": "https://bypatrioten.com/event/julekonsert-spjelkavik-kirke/",
+   "url": "https://www.spjelkavik.kyrkjelyd.no/",
    "addedAt": "2026-11-01T21:47:04Z"
   },
   {
@@ -2360,8 +2360,6 @@
    "price": "445–545 kr",
    "priceMin": 445,
    "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45587-john-hammersmark/",
@@ -2378,8 +2376,6 @@
    "price": "480 kr",
    "priceMin": 480,
    "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47759-ny-dato-tuva-ronny/",
@@ -2746,7 +2742,7 @@
    "soldOut": false,
    "uncertain": false,
    "note": "14. utgave av kortfilmfestivalen, 4.–7. mars, med FilmLab, masterclass, bransjetreff, filmquiz og festivalfest. Klokkeslett og priser står ikke på Bypatriotens side. Kilde: Bypatrioten.",
-   "url": "https://bypatrioten.com/event/weniff-2027-alesunds-egen-filmfestival/",
+   "url": "https://weniff.com/",
    "moreShows": [
     "2027-03-05",
     "2027-03-06",
@@ -2883,8 +2879,6 @@
    "price": "499 kr",
    "priceMin": 499,
    "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/50848-ufo-klarlig/",
@@ -2935,8 +2929,6 @@
    "price": "450 kr",
    "priceMin": 450,
    "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47917-russland-var-dystre-natid/",
