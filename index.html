@@ -975,10 +975,14 @@ function quizHtml(c) {
       </article>`;
 }
 
-let KINO = [];
+let KINO = [], KINO_NOW = "";
 function kinoHit() {
   const el = $("kinohit"), n = state.q ? KINO.filter(f => f.title.toLowerCase().includes(state.q)) : [];
-  el.innerHTML = n.length ? `<a class="kinostrip" href="kino/"><div>🎬 <b>${n.length === 1 ? esc(n[0].title) : n.length + " filmer"}</b> på kino i Ålesund</div><span>Se kinoprogrammet →</span></a>` : "";
+  if (!n.length) { el.innerHTML = ""; return; }
+  // Rett til første dag filmen vises (kino/ åpner på #ÅÅÅÅ-MM-DD); uten kommende visning åpnes kinosiden vanlig
+  const next = n.flatMap(f => f.shows.map(s => s.start)).filter(s => s >= KINO_NOW).sort()[0], day = next && next.slice(0, 10);
+  const when = day ? new Date(day + "T12:00").toLocaleDateString("nb-NO", { weekday: "long", day: "numeric", month: "long" }) + " kl. " + next.slice(11, 16) : "";
+  el.innerHTML = `<a class="kinostrip" href="kino/${day ? "#" + day : ""}"><div>🎬 <b>${n.length === 1 ? esc(n[0].title) : n.length + " filmer"}</b> på kino i Ålesund${when ? `, første visning ${when}` : ""}</div><span>Se visningen →</span></a>`;
 }
 function render() {
   updateTabs();
@@ -1266,9 +1270,10 @@ fetch("data/events.json", { cache: "no-cache" })
 fetch("data/kino.json", { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(k => {
-    KINO = k.films || []; kinoHit();
+    KINO = k.films || [];
     const p = Object.fromEntries(new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map(x => [x.type, x.value]));
     const nowStr = `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`, day = nowStr.slice(0, 10);
+    KINO_NOW = nowStr; kinoHit();
     // Visninger igjen i dag; når kveldens siste har startet, vises neste dag med program (stripen skal alltid være der)
     const count = (d, from) => { let films = 0, shows = 0; for (const f of k.films || []) { const n = f.shows.filter(s => s.start.slice(0, 10) === d && s.start >= from).length; if (n) { films++; shows += n; } } return [films, shows]; };
     let [films, shows] = count(day, nowStr), label = "i dag";
