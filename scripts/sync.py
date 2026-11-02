@@ -674,6 +674,8 @@ def build_events(raw, overrides):
             **({"few": True} if few else {}),
             **({"shows": [[s["start"].strftime("%Y-%m-%d" if s.get("noTime") else "%Y-%m-%dT%H:%M"), x] for s, x in zip(shows, status)]} if chips else {}),
             # Parken merker nesten alt med «Få billetter igjen»; siden viser det derfor bare de siste to ukene
+            # Hvilke forestillinger som er utsolgt når bare noen av dem er det (og tidene ikke vises som knapper), så forsiden kan merke hver dag riktig
+            **({"soldShows": [s["start"].strftime("%Y-%m-%d" if s.get("noTime") else "%Y-%m-%dT%H:%M") for s in sold]} if sold and len(sold) < len(shows) and not chips else {}),
             **({"statusSrc": "parken"} if first.get("src") == "parken" and (few or chips) else {}),
             "note": " ".join(n for n in notes if n),
             "uncertain": bool(o.get("uncertain", first.get("uncertain", False))),

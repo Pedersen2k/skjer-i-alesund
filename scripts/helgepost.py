@@ -246,8 +246,9 @@ def image_names(evs):
     return ["helgen.png"] + [f"helgen-{i}.png" for i in range(2, len(plan(evs)[1]) + 1)]
 
 
-def render_image(evs, start, sun, folder):
-    """Lager helgen.png (og helgen-2.png osv. ved behov) i folder. Gir filnavnene tilbake."""
+def render_image(evs, start, sun, folder, heading="I helgen", span=None):
+    """Lager helgen.png (og helgen-2.png osv. ved behov) i folder. Gir filnavnene tilbake.
+    heading og span kan byttes for andre utvalg (for eksempel «Denne uka»)."""
     from PIL import Image, ImageDraw
     m, sheets = plan(evs)
     names = image_names(evs)
@@ -263,18 +264,18 @@ def render_image(evs, start, sun, folder):
     f_title = font("BricolageGrotesque.ttf", 38 if big else 28 if tight else 32, weight=700, optical=24, width=100)
     f_meta = font("Figtree.ttf", 28 if big else 23 if tight else 26, weight=500)
     f_foot = font("Figtree.ttf", 28, weight=600)
-    span = pages.range_text(start, sun)
+    span = span or pages.range_text(start, sun)
 
     for i, items in enumerate(sheets or [[]]):
         img = Image.new("RGB", (W, H), BG)
         dr = ImageDraw.Draw(img)
         dr.text((PAD, PAD), "SKJER I ÅLESUND", font=f_eyebrow, fill=SEA)
         if i == 0:
-            dr.text((PAD - 4, PAD + 52), "I helgen", font=f_h1, fill=FG)
+            dr.text((PAD - 4, PAD + 52), heading, font=f_h1, fill=FG)
             dr.text((PAD, PAD + (192 if big else 158 if tight else 170)), span, font=f_span, fill=ACCENT)
             y = m["top"]
         else:
-            dr.text((PAD - 3, PAD + 50), f"I helgen, forts.", font=f_h1_next, fill=FG)
+            dr.text((PAD - 3, PAD + 50), f"{heading}, forts.", font=f_h1_next, fill=FG)
             y = NEXT_TOP
         day = None
         for e in items:
