@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-02T16:17:49Z",
+  "updatedAt": "2026-11-02T18:11:03Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -753,7 +753,7 @@
      "start": "2026-11-02T18:00:00",
      "screen": "1 isense",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/ea578fe7-461e-4a5e-b346-1c195845c34d",
+     "url": "",
      "club": true
     },
     {
@@ -795,20 +795,20 @@
     },
     {
      "start": "2026-11-04T12:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "https://www.odeonkino.no/booking/kjop/3683816b-3202-4102-9928-6d4493bda742",
-     "club": true
-    },
-    {
-     "start": "2026-11-04T12:00:00",
      "screen": "Sal 2",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/66920053-e1a0-494a-b72d-2c9566c2fdbf",
+     "club": true
+    },
+    {
+     "start": "2026-11-04T12:00:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/3683816b-3202-4102-9928-6d4493bda742",
      "club": true
     },
     {
@@ -1180,14 +1180,14 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/5b1438c6-85fe-412e-a290-24e219f26ac8",
+     "url": "",
      "club": false
     },
     {
      "start": "2026-11-02T19:00:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/1cf8d4c9-50fe-416c-a2c2-3193853c8489",
+     "url": "",
      "club": false
     },
     {
@@ -1583,7 +1583,7 @@
      "start": "2026-11-02T17:15:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/f4f30c46-3f8f-4852-9e6d-745d0116174a",
+     "url": "",
      "club": true
     },
     {
@@ -1988,7 +1988,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/cc66a40d-6a73-4879-ae99-c83c2c0ee7b8",
+     "url": "",
      "club": false
     },
     {
