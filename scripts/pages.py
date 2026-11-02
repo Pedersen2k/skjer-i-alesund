@@ -1298,7 +1298,7 @@ def kino_film(f, day):
         times += (f'<a class="t" href="{escape(safe_url(s["url"]))}" target="_blank" rel="noopener noreferrer" '
                   f'data-start="{s["start"]}" title="{title}">{s["start"][11:16]}{tags}</a>')
     premiere = '<span class="newfilm">Ny</span>' if f.get("premiere") == day else ""
-    return f"""    <article class="film">
+    return f"""    <article class="film" data-film="{escape(str(f.get("id", "")), True)}">
       <div class="poster" style="--pc:{color}"><span>{escape(f["title"])}</span>{img}</div>
       <div class="info">
         <h2>{escape(f["title"])} {premiere}</h2>
@@ -1408,6 +1408,16 @@ document.addEventListener("keydown", e => { if (e.key === "Escape" && open) { op
 const wanted = location.hash.slice(1);
 sel = allDays.includes(wanted) && wanted >= today ? wanted : (upcoming[0] || allDays[0] || null);
 render();
+// Kommer man fra søket på forsiden (kino/?film=ID#dato): bla til filmen og fremhev den
+const wantFilm = new URLSearchParams(location.search).get("film");
+if (wantFilm) {
+  const hit = [...document.querySelectorAll(".kinoday:not([hidden]) .film")].find(f => f.dataset.film === wantFilm);
+  if (hit) {
+    hit.classList.add("hit");
+    hit.insertAdjacentHTML("afterbegin", '<div class="hitlbl">Søketreff</div>');
+    requestAnimationFrame(() => hit.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }));
+  }
+}
 """
 
 
@@ -1572,6 +1582,11 @@ html[data-tema="kveld"] .ikveld .it .bt { color: var(--gold); }
 .kinoday { display: grid; gap: 12px; }
 .film { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 8px 14px; }
 .film.done { opacity: .6; }
+.film.hit { border-color: var(--kino); box-shadow: 0 0 0 3px color-mix(in srgb, var(--kino) 35%, transparent); animation: hitpulse 1.6s ease-out 1; }
+.film .hitlbl { grid-column: 1 / -1; justify-self: start; font: 700 11px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--kino-ink); background: var(--kino); padding: 5px 9px; border-radius: 6px; margin: 0 0 2px; }
+.kinofilms.grid .film.hit .hitlbl { margin: 8px 8px 0; }
+@keyframes hitpulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--kino) 70%, transparent); } 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--kino) 35%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .film.hit { animation: none; } }
 .poster { grid-row: span 1; width: 72px; aspect-ratio: 2 / 3; border-radius: 6px; background: var(--pc); position: relative; overflow: hidden; color: #fff; }
 .poster span { position: absolute; inset: 0; padding: 6px; font: 700 11px/1.15 var(--font-display); display: flex; align-items: flex-end; overflow-wrap: break-word; hyphens: auto; }
 .poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
