@@ -31,9 +31,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-02T14:28:01Z",
+  "updatedAt": "2026-11-02T16:13:47Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -57,6 +57,8 @@
    "price": "100 kr",
    "priceMin": 100,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/50918-pafyll/",
@@ -583,6 +585,8 @@
    "price": "417–460 kr",
    "priceMin": 417,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45760-bak-lukkede-dorer/",
@@ -2328,6 +2332,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/65476-vassendgutane-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "e39-vol-5-nyttars-molo-molo",
+   "date": "2026-12-31",
+   "time": "22:00",
+   "title": "E39 - Vol.5 Nyttårs MOLO",
+   "venue": "MOLO",
+   "address": "Keiser Wilhelms g. 2B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "229 kr",
+   "priceMin": 229,
+   "soldOut": false,
+   "note": "Rabatt: PRESALE BILLETTER 179 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67324-e39-vol5-nyttars-molo",
+   "addedAt": "2026-11-02T16:13:47Z"
   },
   {
    "id": "parken-45587-parken-kulturhus",

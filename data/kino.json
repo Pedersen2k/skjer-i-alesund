@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-02T14:32:06Z",
+  "updatedAt": "2026-11-02T16:17:49Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -921,7 +921,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/f6dee105-666f-4c4b-a7cf-b5903d5d74f2",
+     "url": "",
      "club": false
     },
     {
@@ -1379,7 +1379,7 @@
   {
    "id": "EDI20261593",
    "title": "Ramayana: Rise of a Legend",
-   "age": 15,
+   "age": 12,
    "minutes": 210,
    "genres": [
     "Action",
