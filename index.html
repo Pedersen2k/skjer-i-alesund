@@ -632,6 +632,8 @@ $("when").onclick = e => { const b = e.target.closest("[data-w]"); if (!b) retur
 $("cats").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return; const c = b.dataset.c; state.cats.has(c) ? state.cats.delete(c) : (state.cats.add(c), track("filter/" + c)); b.setAttribute("aria-pressed", state.cats.has(c)); syncFilters(); render(); };
 $("venue").onchange = e => { state.venue = e.target.value; render(); };
 $("price").onchange = e => { state.price = e.target.value; render(); };
+// Søk: bokmål og nynorsk likestilt (kirke = kyrkje/kyrkja/kirka), så «kirke» finner «Spjelkavik kyrkje» og omvendt
+const sokFold = t => String(t).toLowerCase().replace(/kyrkj[ea]|kirka/g, "kirke");
 $("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
 const setFavOnly = on => { state.favOnly = on; $("favonly").setAttribute("aria-pressed", on); };
 $("favonly").onclick = () => { setFavOnly(!state.favOnly); render(); };
@@ -945,7 +947,7 @@ const matchesBase = e => (!state.nyOnly || (newIds || (newIds = new Set(newSince
   (!state.venue || e.venue === state.venue) &&
   priceOk(e) &&
   (!state.favOnly || favs.has(e.id)) &&
-  (!state.q || (e.title + " " + e.venue + " " + catLabel(e.cat)).toLowerCase().includes(state.q));
+  (!state.q || sokFold(e.title + " " + e.venue + " " + catLabel(e.cat)).includes(sokFold(state.q)));
 
 function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] || e.cat === "julebord" ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
         <h3><a class="title" href="arrangement/${encodeURIComponent(e.id)}/">${esc(e.title)}</a></h3>
@@ -977,7 +979,7 @@ function quizHtml(c) {
 
 let KINO = [], KINO_NOW = "";
 function kinoHit() {
-  const el = $("kinohit"), n = state.q ? KINO.filter(f => f.title.toLowerCase().includes(state.q)) : [];
+  const el = $("kinohit"), n = state.q ? KINO.filter(f => sokFold(f.title).includes(sokFold(state.q))) : [];
   if (!n.length) { el.innerHTML = ""; return; }
   // Rett til første dag filmen vises (kino/ åpner på #ÅÅÅÅ-MM-DD); uten kommende visning åpnes kinosiden vanlig
   const all = n.flatMap(f => f.shows.map(s => [s.start, f.id])).filter(x => x[0] >= KINO_NOW).sort(), next = all[0] && all[0][0], film = all[0] && all[0][1], day = next && next.slice(0, 10);
