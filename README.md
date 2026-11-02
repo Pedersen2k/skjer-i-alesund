@@ -24,6 +24,10 @@ Konserter, standup, show og happenings i Ålesund, samlet på ett sted, med bill
 
 Kategorien `julebord` er for julebord som alle kan bestille (ikke selskapslokaler for store grupper). Den vises på forsiden bare når programmet har julebord, og har egen side `julebord/`. Tittel med «julebord», «julebuffet» eller «julegilde» blir julebord automatisk. Julebord på hoteller og båter uten billettside ligger i `data/manual.json` med lenke til kilden. Julemenyer på restaurant uten faste datoer står i `data/julebord.json` og vises i en egen boks på `julebord/`. Sjekk begge hver høst.
 
+## Nytt i programmet
+
+Hver kveld (ca. kl. 22:50) lager `.github/workflows/nytt-i-dag.yml` et issue «Nytt i programmet: …» med arrangementene som er lagt til siste døgn, gruppert etter kategori med dato, sted, pris og lenker (til siden vår og til arrangøren), så du får det på e-post. Er ingenting nytt, lages det ikke noe issue. Forrige oversikt lukkes. Teksten lages av `scripts/nytt_i_dag.py` ut fra `addedAt` i `events.json`. Kan også startes under Actions → Nytt i programmet → Run workflow.
+
 ## Helgepost
 
 Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et issue med tittelen «Helgepost: …», så du får det på e-post. Det inneholder en ferdig tekst til Facebook-grupper, en bildetekst til Instagram og helgebildet (1080 × 1350), som ligger på `denne-helgen/helgen.png` og også er forhåndsvisningen når noen deler `denne-helgen/`. Er det mange arrangementer, blir linjene kompakte, og får heller ikke det plass, fortsetter lista på `helgen-2.png` osv., som du legger ut som karusell. Forrige ukes helgepost lukkes automatisk. Du kan lage en når som helst under Actions → Helgepost → Run workflow. Teksten og bildet lages av `scripts/helgepost.py`.
