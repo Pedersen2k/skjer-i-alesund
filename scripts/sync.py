@@ -49,7 +49,7 @@ MONTHS = ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", 
 UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accept-Language": "nb-NO,nb;q=0.9"}
 
 ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
-VENUE_NAMES = {"Terminalen": "Terminalen Byscene"}
+VENUE_NAMES = {"Terminalen": "Terminalen Byscene", "Spjelkavik kyrkje": "Spjelkavik kirke"}
 # Kurs, medlemskap og ungdomsforestillinger som ikke hører hjemme i kalenderen
 SKIP = re.compile(r"medlemsskap|gruppe, høst|day pass|cowork|festivalpass|SPIRE|foredrag|påmelding|^FUND$|^test ?arrangement$|^årskort\b", re.I)
 # Steder rundt Ålesund: Tikkio-arrangementer som siles bort, men nevner et av dem eller mangler sted, gir varsel
