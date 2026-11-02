@@ -8,6 +8,7 @@ Brukerrettet dokumentasjon (manual.json, overrides.json, varsling): @README.md
 ## Regler
 - `data/events.json` er generert. Aldri rediger for hånd. Bruk `data/manual.json` og `data/overrides.json`.
 - Ikke finn på arrangementer, datoer eller priser. Alt skal komme fra en kilde (Tikkio, Parken) eller `manual.json`. Ved uenighet mellom kilder: `uncertain: true` med forklaring i notatet.
+- `url` i `manual.json` skal peke til arrangøren (egen nettside eller billettside), ikke til en kalender som Bypatrioten. Bypatrioten er kun idekilde; krediter den i notatet («Kilde: Bypatrioten») der dato/tid er hentet derfra.
 - Boten committer hver dag: kjør `git pull` før `git push`.
 - Test lokalt (`python3 scripts/sync.py`, `python3 -m http.server`). Miljøet blokkerer trolig den live siden (`kaskjerda.no`, tidligere `*.github.io`), så den kan ikke åpnes herfra.
 - Hold `index.html` som én fil uten byggesteg.
