@@ -1,0 +1,40 @@
+name: Nytt i programmet
+
+# Hver kveld etter siste planlagte oppdatering: et issue med arrangementer som er lagt til siste døgn (eieren får e-post).
+# Kommer det ingenting nytt, lages det ikke noe issue. Forrige oversikt lukkes, så bare den nyeste er åpen.
+# Kan også startes for hånd under Actions → Nytt i programmet → Run workflow.
+
+on:
+  schedule:
+    - cron: "50 21 * * *"   # UTC. Vintertid ca. 22:50, sommertid 23:50. Siste oppdatering går ca. 22:17 (vintertid).
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  nytt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Finn nye arrangementer
+        id: nytt
+        run: python3 scripts/nytt_i_dag.py body.md
+
+      - name: Legg oversikten i et issue
+        if: steps.nytt.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: ${{ steps.nytt.outputs.title }}
+        run: |
+          for num in $(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"Nytt i programmet:\" in:title" --json number --jq '.[].number'); do
+            gh issue close "$num" --repo "$GITHUB_REPOSITORY" --comment "Erstattet av en nyere oversikt."
+          done
+          # Tildeles eieren, så GitHub sender e-post uten at repoet må følges
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file body.md --assignee "$GITHUB_REPOSITORY_OWNER"
