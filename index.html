@@ -638,12 +638,12 @@ $("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render();
 const setFavOnly = on => { state.favOnly = on; $("favonly").setAttribute("aria-pressed", on); };
 $("favonly").onclick = () => { setFavOnly(!state.favOnly); render(); };
 function cardClick(e) {
-  const art = e.target.closest(".ev"), evId = art ? art.id.replace(/^n?ev-/, "") : "";
+  const art = e.target.closest(".ev"), evId = art ? (art.dataset.eid || art.id.replace(/^n?ev-/, "")) : "";
   if (e.target.closest(".link")) { track("billett/" + evId); return; }
   if (e.target.closest("a.title")) { if (art && !art.classList.contains("quizcard")) track("side/" + evId); return; } // tittelen åpner arrangementets egen side
   if (e.target.closest(".venue")) { track("kart/" + evId); return; }
   const c = e.target.closest(".cal");
-  if (c) { const ev = ALL().find(x => x.id === c.dataset.cal); if (ev) downloadIcs(ev); track("kalender/" + c.dataset.cal); return; }
+  if (c) { const ev = ALL().find(x => x.id === c.dataset.cal && (!c.dataset.date || x.date === c.dataset.date)); if (ev) downloadIcs(ev); track("kalender/" + c.dataset.cal); return; }
   const sh = e.target.closest(".share");
   if (sh) { const ev = ALL().find(x => x.id === sh.dataset.share); if (ev) shareEvent(ev, sh); track("del/" + sh.dataset.share); return; }
   const b = e.target.closest(".fav"); if (!b) return;
@@ -671,8 +671,9 @@ function downloadIcs(e) {
   const [y, m, d] = e.date.split("-").map(Number);
   // Regnes i UTC-felt bare for å legge til tid; verdiene skrives som lokal tid i Europe/Oslo
   let start, end;
-  if (/^\d{1,2}:\d{2}$/.test(e.time || "")) {
-    const [hh, mm] = e.time.split(":").map(Number);
+  const t1 = (e.time || "").split(" og ")[0];  // «17:30 og 20:00»: kalenderfilen får den første
+  if (/^\d{1,2}:\d{2}$/.test(t1)) {
+    const [hh, mm] = t1.split(":").map(Number);
     const s0 = new Date(Date.UTC(y, m - 1, d, hh, mm)), e0 = new Date(s0.getTime() + 2 * 36e5);
     start = `DTSTART;TZID=Europe/Oslo:${stamp(s0, true)}`; end = `DTEND;TZID=Europe/Oslo:${stamp(e0, true)}`;
   } else {
@@ -786,7 +787,8 @@ addEventListener("hashchange", showHashed);
 const SHARED = (new URLSearchParams(location.search).get("mine") || "").split(",").map(s => s.trim()).filter(Boolean).slice(0, 50);
 const byDate = (a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99");
 const fmtDay = e => `${WD[e.d.getDay()]} ${e.d.getDate()}. ${MO[e.d.getMonth()]}`;
-const mineEvents = () => ALL().filter(e => favs.has(e.id) && e.d >= TODAY).sort(byDate);
+const firstPerId = list => { const seen = new Set(); return list.filter(e => !seen.has(e.id) && seen.add(e.id)); };  // gjentatte forestillinger teller som ett arrangement
+const mineEvents = () => firstPerId(ALL().filter(e => favs.has(e.id) && e.d >= TODAY).sort(byDate));
 const shareUrl = evs => location.origin + location.pathname.replace(/index\.html$/, "") + "?mine=" + evs.map(e => encodeURIComponent(e.id)).join(",");
 
 // Kortet øverst hos den som åpner en delt lenke
@@ -949,13 +951,13 @@ const matchesBase = e => (!state.nyOnly || (newIds || (newIds = new Set(newSince
   (!state.favOnly || favs.has(e.id)) &&
   (!state.q || sokFold(e.title + " " + e.venue + " " + catLabel(e.cat)).includes(sokFold(state.q)));
 
-function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] || e.cat === "julebord" ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
+function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] || e.cat === "julebord" ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}${e.occ ? "-" + esc(e.occ) : ""}" data-eid="${esc(e.id)}" style="--c:var(--c-${c})">
         <h3><a class="title" href="arrangement/${encodeURIComponent(e.id)}/">${esc(e.title)}</a></h3>
         <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}${fewHtml(e)}</div>
         <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${catLabel(c)}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
         ${showsHtml(e)}
         ${e.note ? `<div class="note ${e.uncertain ? "warn" : ""}">${esc(e.note)}</div>` : ""}
-        <div class="actions">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}<button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div>
+        <div class="actions">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}<button class="cal" type="button" data-cal="${esc(e.id)}" data-date="${esc(e.date)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div>
       </article>`; }
 
 // Quiz samles i ett kort på første quizdato (ikke når bare kategorien Quiz er valgt); detaljene ligger på quiz/
@@ -1027,7 +1029,7 @@ function emptyHtml() {
   const near = state.when !== "alt" ? emptyMatches({ when: "alt" }) : [];
   if (near.length) {
     const all = collapseQuiz(near).length;
-    return `<div class="tomt"><h3>${head}</h3><p>Men dette kommer snart:</p><div class="near">${near.slice(0, 3).map(e => `<a href="#ev-${esc(e.id)}" data-ev="${esc(e.id)}" style="--c:var(--c-${CATS[e.cat] ? e.cat : "happening"})"><span class="d">${WD[e.d.getDay()]} ${e.d.getDate()}. ${MO[e.d.getMonth()]}${e.time ? "<br>" + esc(e.time) : ""}</span><span>${esc(e.title)}<small>${esc(e.venue)}</small></span><span class="pr">${esc(e.priceMin === 0 ? "Gratis" : e.price || "")}</span></a>`).join("")}</div>${all > 3 ? `<div class="links"><button type="button" data-fix="alt">Se alle ${all} →</button></div>` : ""}</div>`;
+    return `<div class="tomt"><h3>${head}</h3><p>Men dette kommer snart:</p><div class="near">${firstPerId(near).slice(0, 3).map(e => `<a href="#ev-${esc(e.id)}" data-ev="${esc(e.id)}" style="--c:var(--c-${CATS[e.cat] ? e.cat : "happening"})"><span class="d">${WD[e.d.getDay()]} ${e.d.getDate()}. ${MO[e.d.getMonth()]}${e.time ? "<br>" + esc(e.time) : ""}</span><span>${esc(e.title)}<small>${esc(e.venue)}</small></span><span class="pr">${esc(e.priceMin === 0 ? "Gratis" : e.price || "")}</span></a>`).join("")}</div>${all > 3 ? `<div class="links"><button type="button" data-fix="alt">Se alle ${all} →</button></div>` : ""}</div>`;
   }
   // Fjern ett filter om gangen; valget med flest treff blir knappen
   const o = [];
@@ -1162,7 +1164,7 @@ const REDUCE = matchMedia("(prefers-reduced-motion: reduce)");
 function fxRestart(el, cls) { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); el.addEventListener("animationend", () => el.classList.remove(cls), { once: true }); }
 function starFx(id, on, from) {
   if (REDUCE.matches) return;
-  const nb = document.querySelector(`#list .fav[data-id="${CSS.escape(id)}"]`);
+  const nb = [...document.querySelectorAll(`#list .fav[data-id="${CSS.escape(id)}"]`)].sort((a, b) => Math.abs(a.getBoundingClientRect().top - from.top) - Math.abs(b.getBoundingClientRect().top - from.top))[0];
   if (!on) return fxRestart(nb, "fx-unpop");
   fxRestart(nb, "fx-pop");
   const mine = $("favonly"), to = mine.getBoundingClientRect();
@@ -1202,7 +1204,7 @@ let baseline;
 function newSinceList() {
   if (baseline === undefined) baseline = visitBaseline();
   if (!baseline) return [];  // første besøk, eller du var her for under en halvtime siden
-  return E.filter(e => e.d >= TODAY && e.addedAt && e.addedAt > (meta.seededAt || "") && new Date(e.addedAt) > baseline).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
+  return firstPerId(E.filter(e => e.d >= TODAY && e.addedAt && e.addedAt > (meta.seededAt || "") && new Date(e.addedAt) > baseline).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99")));
 }
 const sinceWhen = () => {
   const d = Math.round((TODAY - new Date(baseline.getFullYear(), baseline.getMonth(), baseline.getDate())) / dayMs);
@@ -1257,6 +1259,43 @@ function addStructuredData() {
   } catch {}
 }
 
+// Gjentatte forestillinger (moreShows) får ett kort hver dag de går, med klokkeslettene den dagen. Utsolgt og «få igjen» regnes per dag.
+// Alle kortene deler id, så ★, kalender og delingslenke gjelder hele arrangementet. Datolista i notatet er overflødig når hver dag har sitt kort.
+const NOTE_DAY = String.raw`(?:\d{1,2}\. [a-zæøå]+|\d{2}:\d{2})`;
+const RE_MORE = new RegExp(String.raw`\s*Flere forestillinger: ${NOTE_DAY}(?:, ${NOTE_DAY})*(?: m\.fl\.|\.)?`);
+const RE_SOLD = new RegExp(String.raw`\s*Utsolgt: ${NOTE_DAY}(?:, ${NOTE_DAY})*\.?`);
+const RE_ALSO = /\s*Også kl\. \d{2}:\d{2}(?: og \d{2}:\d{2})*\./;
+function expandShows(list) {
+  const out = [];
+  list.forEach(e => {
+    if (!e.moreShows || !e.moreShows.length) { out.push(e); return; }
+    const days = new Map(), add = (d, t) => { if (!days.has(d)) days.set(d, []); if (t && !days.get(d).includes(t)) days.get(d).push(t); };
+    add(e.date, e.time || "");
+    e.moreShows.forEach(x => add(x.slice(0, 10), x.slice(11, 16)));
+    const status = new Map((e.shows || []).map(([iso, st]) => [iso, st]));
+    (e.soldShows || []).forEach(iso => status.set(iso, "sold"));
+    let note = (e.note || "").replace(RE_MORE, "").replace(RE_ALSO, "");
+    if (e.soldShows) note = note.replace(RE_SOLD, "");
+    note = note.trim();
+    let first = true;
+    [...days.keys()].sort().forEach(date => {
+      const d = new Date(date + "T12:00");
+      if (d < TODAY) return;
+      const ts = days.get(date).slice().sort(), isos = ts.length ? ts.map(t => `${date}T${t}`) : [date];
+      const st = isos.map(i => status.get(i) || "");
+      const sold = !!e.soldOut || (status.size > 0 && st.every(x => x === "sold"));
+      const live = st.filter(x => x !== "sold");
+      const few = !sold && (status.size ? live.length > 0 && live.every(x => x === "few") : !!e.few);
+      const c = { ...e, date, d, time: ts.join(" og "), soldOut: sold, note, occ: first ? "" : date };
+      delete c.moreShows; delete c.soldShows; delete c.shows;
+      if (few) c.few = true; else delete c.few;
+      if (e.shows && ts.length >= 2) c.shows = isos.map((i, k) => [i, st[k]]);
+      out.push(c); first = false;
+    });
+  });
+  return out;
+}
+
 if (!$("list").firstElementChild) render(); // lista kan allerede være lagt inn som HTML av scripts/pages.py
 fetch("data/events.json", { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
@@ -1264,7 +1303,7 @@ fetch("data/events.json", { cache: "no-cache" })
     meta = data.meta || {};
     const all = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
     JB = all.filter(e => e.cat === "julebord" && e.d >= TODAY);
-    E = all.filter(e => e.cat !== "julebord");
+    E = expandShows(all.filter(e => e.cat !== "julebord"));
     fillVenues(); julebordEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
