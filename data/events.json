@@ -36,10 +36,14 @@
    "julekonsert-spjelkavik-kyrkje-spjelkavik-kyrkje": [
     "2026-10-19T12:59:56Z",
     "2026-11-02T18:40:18Z"
+   ],
+   "parken-50918-parken-kulturhus": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-02T21:38:18Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-02T20:00:13Z",
+  "updatedAt": "2026-11-02T21:38:18Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -54,24 +58,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-50918-parken-kulturhus",
-   "date": "2026-11-02",
-   "time": "19:00",
-   "title": "Påfyll",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "show",
-   "price": "100 kr",
-   "priceMin": 100,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/50918-pafyll/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "parken-50888-parken-kulturhus",
    "date": "2026-11-04",
@@ -162,6 +148,19 @@
    "price": "699 kr",
    "priceMin": 699,
    "soldOut": false,
+   "soldShows": [
+    "2026-11-06T17:30",
+    "2026-11-07T17:30",
+    "2026-11-20T17:30",
+    "2026-11-21T17:30",
+    "2026-11-27T17:30",
+    "2026-11-28T17:30",
+    "2026-12-04T17:30",
+    "2026-12-04T20:00",
+    "2026-12-05T17:30",
+    "2026-12-11T17:30",
+    "2026-12-12T17:30"
+   ],
    "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 6. nov, 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/62677-juleshow-pa-lovenvold-vol-4-511",
