@@ -463,6 +463,7 @@ html[data-tema="kveld"] .tomt .links button, html[data-tema="jul"] .tomt .links 
     <p class="swipehint" id="swipehint" hidden>← Sveip et arrangement mot venstre for å fjerne det</p>
   </div>
 
+  <div id="kinohit"></div>
   <main id="list"></main>
   <div class="savetoast" id="savetoast" role="status" hidden></div>
   <div class="toast" id="toast" role="status" hidden><span id="toast-msg"></span><button type="button" id="toast-undo">Angre</button><i></i></div>
@@ -489,6 +490,10 @@ html[data-tema="kveld"] .tomt .links button, html[data-tema="jul"] .tomt .links 
 const now = new Date();
 const TODAY = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 const CATS = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn & familie", klubb: "Klubb", happening: "Happening", quiz: "Quiz", sport: "Sport" };
+// Søk finner alt: julebord ligger utenfor lista, men tas med så snart man søker (poolen), og kinofilmer får en egen treffstripe
+const catLabel = c => CATS[c] || (c === "julebord" ? "Julebord" : CATS.happening);
+const ALL = () => E.concat(JB);
+const pool = () => state.q ? E.concat(JB) : E;
 // Julebord er ikke i lista: de har egen side (julebord/) og en inngang på forsiden, se julebordEntry()
 let JB = [];
 let E = [];
@@ -636,9 +641,9 @@ function cardClick(e) {
   if (e.target.closest("a.title")) { if (art && !art.classList.contains("quizcard")) track("side/" + evId); return; } // tittelen åpner arrangementets egen side
   if (e.target.closest(".venue")) { track("kart/" + evId); return; }
   const c = e.target.closest(".cal");
-  if (c) { const ev = E.find(x => x.id === c.dataset.cal); if (ev) downloadIcs(ev); track("kalender/" + c.dataset.cal); return; }
+  if (c) { const ev = ALL().find(x => x.id === c.dataset.cal); if (ev) downloadIcs(ev); track("kalender/" + c.dataset.cal); return; }
   const sh = e.target.closest(".share");
-  if (sh) { const ev = E.find(x => x.id === sh.dataset.share); if (ev) shareEvent(ev, sh); track("del/" + sh.dataset.share); return; }
+  if (sh) { const ev = ALL().find(x => x.id === sh.dataset.share); if (ev) shareEvent(ev, sh); track("del/" + sh.dataset.share); return; }
   const b = e.target.closest(".fav"); if (!b) return;
   const id = b.dataset.id, snap = [...favs], from = b.getBoundingClientRect();
   if (favs.has(id)) favs.delete(id); else { favs.add(id); track("lagre/" + id); SAVE.offer(); }
@@ -768,7 +773,7 @@ async function shareEvent(e, btn) {
 function showHashed() {
   const m = location.hash.match(/^#ev-(.+)$/); if (!m) return;
   const id = decodeURIComponent(m[1]);
-  if (!E.some(x => x.id === id)) return;
+  if (!ALL().some(x => x.id === id)) return;
   const el = document.getElementById("ev-" + id); if (!el) return;
   el.classList.add("hit");
   el.scrollIntoView({ block: "center" });
@@ -779,13 +784,13 @@ addEventListener("hashchange", showHashed);
 const SHARED = (new URLSearchParams(location.search).get("mine") || "").split(",").map(s => s.trim()).filter(Boolean).slice(0, 50);
 const byDate = (a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99");
 const fmtDay = e => `${WD[e.d.getDay()]} ${e.d.getDate()}. ${MO[e.d.getMonth()]}`;
-const mineEvents = () => E.filter(e => favs.has(e.id) && e.d >= TODAY).sort(byDate);
+const mineEvents = () => ALL().filter(e => favs.has(e.id) && e.d >= TODAY).sort(byDate);
 const shareUrl = evs => location.origin + location.pathname.replace(/index\.html$/, "") + "?mine=" + evs.map(e => encodeURIComponent(e.id)).join(",");
 
 // Kortet øverst hos den som åpner en delt lenke
 function showShared() {
   if (!SHARED.length) return;
-  const evs = SHARED.map(id => E.find(e => e.id === id)).filter(e => e && e.d >= TODAY).sort(byDate), gone = SHARED.length - evs.length;
+  const evs = SHARED.map(id => ALL().find(e => e.id === id)).filter(e => e && e.d >= TODAY).sort(byDate), gone = SHARED.length - evs.length;
   $("delt-h").textContent = evs.length ? `En venn har delt ${evs.length} arrangement${evs.length === 1 ? "" : "er"} med deg` : "Arrangementene i lenken er over";
   $("delt-rows").innerHTML = evs.map(e => `<a class="delt-row" href="#ev-${esc(encodeURIComponent(e.id))}"><b>${fmtDay(e)}</b><span>${esc(e.title)}<small>${esc(e.venue)}${e.time ? ` · kl. ${esc(e.time)}` : ""}</small></span><span class="pr">${esc(e.soldOut ? "Utsolgt" : e.priceMin === 0 ? "Gratis" : e.price || "")}</span></a>`).join("")
     + (gone && evs.length ? `<p class="delt-gone">${gone} av dem er allerede over.</p>` : "");
@@ -940,12 +945,12 @@ const matchesBase = e => (!state.nyOnly || (newIds || (newIds = new Set(newSince
   (!state.venue || e.venue === state.venue) &&
   priceOk(e) &&
   (!state.favOnly || favs.has(e.id)) &&
-  (!state.q || (e.title + " " + e.venue + " " + (CATS[e.cat] || "")).toLowerCase().includes(state.q));
+  (!state.q || (e.title + " " + e.venue + " " + catLabel(e.cat)).toLowerCase().includes(state.q));
 
-function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
+function eventHtml(e) { if (e.quizCard) return quizHtml(e); const c = CATS[e.cat] || e.cat === "julebord" ? e.cat : "happening", u = safeUrl(e.url); if (e.cat === "sport" && e.home && e.away) return matchHtml(e, u); return `<article class="ev" id="ev-${esc(e.id)}" style="--c:var(--c-${c})">
         <h3><a class="title" href="arrangement/${encodeURIComponent(e.id)}/">${esc(e.title)}</a></h3>
         <div class="side"><button class="fav" data-id="${esc(e.id)}" aria-pressed="${favs.has(e.id)}" aria-label="${favs.has(e.id) ? "Fjern fra mine" : "Lagre"}">${favs.has(e.id) ? "★" : "☆"}</button>${priceHtml(e)}${fewHtml(e)}</div>
-        <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${CATS[c]}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
+        <div class="meta">${isNew(e) ? `<span class="new">Nytt</span>` : ""}<span class="tag">${catLabel(c)}</span><a class="venue" href="${esc(mapUrl(e))}" target="_blank" rel="noopener" title="${esc(e.address ? e.address : "Vis på kart")}" aria-label="${esc(e.venue)}, vis på kart">${PIN}${esc(e.venue)}</a>${e.time ? `<span class="t">kl. ${esc(e.time)}</span>` : ""}</div>
         ${showsHtml(e)}
         ${e.note ? `<div class="note ${e.uncertain ? "warn" : ""}">${esc(e.note)}</div>` : ""}
         <div class="actions">${u ? `<a class="link" href="${esc(u)}" target="_blank" rel="noopener">Se program og billetter →</a>` : ""}<button class="cal" type="button" data-cal="${esc(e.id)}">${CAL}Legg i kalender</button><button class="share" type="button" data-share="${esc(e.id)}">${SHARE}Del</button></div>
@@ -970,16 +975,21 @@ function quizHtml(c) {
       </article>`;
 }
 
+let KINO = [];
+function kinoHit() {
+  const el = $("kinohit"), n = state.q ? KINO.filter(f => f.title.toLowerCase().includes(state.q)) : [];
+  el.innerHTML = n.length ? `<a class="kinostrip" href="kino/"><div>🎬 <b>${n.length === 1 ? esc(n[0].title) : n.length + " filmer"}</b> på kino i Ålesund</div><span>Se kinoprogrammet →</span></a>` : "";
+}
 function render() {
   updateTabs();
-  const items = E.filter(e => e.d >= TODAY && WHEN[state.when][1](e.d) && matchesBase(e)).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
+  const items = pool().filter(e => e.d >= TODAY && WHEN[state.when][1](e.d) && matchesBase(e)).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
   updateSubscribe();
   updateMine();
   document.querySelector(".controls").classList.toggle("kalmode", state.view === "kal");
   document.querySelectorAll("#viewseg [data-view]").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === state.view));
   if (state.view === "kal") return renderCal();
   $("count").textContent = `${items.length} arrangement${items.length === 1 ? "" : "er"}`;
-  searchHint();
+  searchHint(); kinoHit();
   if (!items.length) { const onlyNew = state.nyOnly && !state.favOnly && !state.q && !state.cats.size && !state.venue && state.price === "" && state.when === "alt";
     $("list").innerHTML = E.length && !onlyNew ? emptyHtml() : `<div class="empty">${!E.length ? "Ingen arrangementer er lagt inn ennå. De dukker opp her når programmet er hentet." : "Ingenting nytt siden sist. Trykk «Alle» for å se hele programmet."}</div>`; return; }
   const groups = new Map();
@@ -1002,7 +1012,7 @@ const EMPTY_ART = {
 const emptyMatches = patch => {
   const s = { when: state.when, cats: new Set(state.cats), venue: state.venue, price: state.price, q: state.q, favOnly: state.favOnly, nyOnly: state.nyOnly };
   Object.assign(state, patch);
-  const r = E.filter(e => e.d >= TODAY && WHEN[state.when][1](e.d) && matchesBase(e)).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
+  const r = pool().filter(e => e.d >= TODAY && WHEN[state.when][1](e.d) && matchesBase(e)).sort((a, b) => a.d - b.d || (a.time || "99").localeCompare(b.time || "99"));
   Object.assign(state, s); return r;
 };
 let emptyFix = null;
@@ -1080,7 +1090,7 @@ const dkey = d => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate
 let calMonth = new Date(TODAY.getFullYear(), TODAY.getMonth(), 1), calSel = TODAY, calTap = false;
 function calOcc() {
   const out = [];
-  E.forEach(e => {
+  pool().forEach(e => {
     if (!matchesBase(e)) return;
     const days = new Map([[e.date, e.time || ""]]);
     (e.moreShows || []).forEach(x => { const d = x.slice(0, 10); if (!days.has(d)) days.set(d, x.slice(11, 16)); });
@@ -1256,6 +1266,7 @@ fetch("data/events.json", { cache: "no-cache" })
 fetch("data/kino.json", { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(k => {
+    KINO = k.films || []; kinoHit();
     const p = Object.fromEntries(new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date()).map(x => [x.type, x.value]));
     const nowStr = `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`, day = nowStr.slice(0, 10);
     // Visninger igjen i dag; når kveldens siste har startet, vises neste dag med program (stripen skal alltid være der)
