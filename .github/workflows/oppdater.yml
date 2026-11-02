@@ -7,6 +7,8 @@ on:
     # Det committes og publiseres bare når programmet er endret.
     # UTC. Vintertid: ca. 06:17, 08:17 … 22:17 (sommertid: en time senere).
     - cron: "17 5-21/2 * * *"
+  # Også ved push til main: ellers blir endringer i manual.json, overrides.json og sync.py liggende til neste planlagte kjøring.
+  # Botens egen commit bruker GITHUB_TOKEN og starter ikke en ny kjøring, så det blir ingen løkke.
   push:
     branches: [main]
   workflow_dispatch:
@@ -36,7 +38,6 @@ jobs:
 
       - name: Hent program fra Tikkio og Parken
         id: sync
-        if: github.event_name != 'push'
         env:
           SYNC_WARNINGS: ${{ runner.temp }}/sync-warnings.md
         run: |
@@ -45,7 +46,6 @@ jobs:
 
       # Kinoprogrammet (ODEON Ålesund via Filmweb) ligger adskilt fra resten og stopper aldri oppdateringen
       - name: Hent kinoprogram
-        if: github.event_name != 'push'
         env:
           SYNC_WARNINGS: ${{ runner.temp }}/sync-warnings.md
         run: |
@@ -54,7 +54,6 @@ jobs:
         id: kino
 
       - name: Lagre endringer
-        if: github.event_name != 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -97,7 +96,7 @@ jobs:
       # Varsling: ett åpent issue samler problemene (GitHub sender e-post til eieren).
       # Det lukkes automatisk neste gang alt går fint.
       - name: Varsle om problemer
-        if: always() && github.event_name != 'push' && (failure() || steps.sync.outputs.warnings == 'true' || steps.kino.outputs.warnings == 'true')
+        if: always() && (failure() || steps.sync.outputs.warnings == 'true' || steps.kino.outputs.warnings == 'true')
         env:
           GH_TOKEN: ${{ github.token }}
           SYNC_WARNINGS: ${{ runner.temp }}/sync-warnings.md
@@ -128,7 +127,7 @@ jobs:
           fi
 
       - name: Lukk varsel når alt er i orden igjen
-        if: success() && github.event_name != 'push' && steps.sync.outputs.warnings != 'true' && steps.kino.outputs.warnings != 'true'
+        if: success() && steps.sync.outputs.warnings != 'true' && steps.kino.outputs.warnings != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
