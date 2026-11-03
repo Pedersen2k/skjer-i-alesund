@@ -1217,10 +1217,16 @@ def event_page(e, events, path, image=None):
     c = e["cat"] if e["cat"] in CAT_LABEL else "happening"
     u = safe_url(e.get("url"))
     when = day_text(d, year=True) + (f" kl. {e['time']}" if e.get("time") else "")
-    title = f"{e['title']} – {e['venue']}, {d.day}. {MO[d.month - 1]} | {SITE}"
     pt = price_text(e)
-    desc = f"{e['title']} på {e['venue']} i Ålesund {when}. " + (
-        f"Billett: {pt}. " if pt != "Pris hos arrangør" else "") + (e.get("note") or "")
+    # Tittel uten nettstedsnavn (Google viser det selv), så prisen rekker å bli synlig: «Tittel – Scene 5. nov. · 699 kr»
+    tail = " · utsolgt" if e.get("soldOut") else " · gratis" if pt == "Gratis" else f" · {pt}" if pt != "Pris hos arrangør" else ""
+    title = f"{e['title']} – {e['venue']} {d.day}. {MO[d.month - 1][:3]}.{tail}"
+    n_more = len(e.get("moreShows", []))
+    desc = f"{e['title']} på {e['venue']}, {d.day}. {MO[d.month - 1]} {d.year}" + (f" kl. {e['time']}" if e.get("time") else "") + ". " + (
+        "Utsolgt. " if e.get("soldOut") else "Gratis inngang. " if pt == "Gratis"
+        else f"Billetter fra {pt}{' – få igjen' if e.get('few') and few_ok(e, d) else ''}. " if pt != "Pris hos arrangør" else "") + (
+        f"{n_more + 1} datoer. " if n_more else "") + (
+        "Se tider hos arrangør." if pt == "Gratis" else "Se tider og pris hos arrangør." if pt == "Pris hos arrangør" else "Se tider og kjøp billett hos arrangør.")
     venue = escape(e["venue"])
     venue_html = f'<a href="{up}{venue_path(e["venue"])}">{venue}</a>' if venue_path(e["venue"]) else venue
     same_venue = [x for x in events if x["venue"] == e["venue"] and x["id"] != e["id"]][:5]
