@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Status | Skjer i Ålesund</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: smal leseside, sammendrag øverst, så kolonner med leveranser, venteliste og datoer. Fargene følger siden selv: mørk teal og gull. */
+:root{
+  --bg:#f3f6f5; --panel:#ffffff; --fg:#13292b; --muted:#566b6d; --line:#d5e0df;
+  --accent:#a8720f; --accent-soft:#f5e8c9;
+  --ok:#1d7a4b; --ok-bg:#dcf1e5; --wait:#8a5a00; --wait-bg:#f7e6bd; --todo:#2b5f8a; --todo-bg:#dce9f5; --stop:#8a3a3a; --stop-bg:#f4dcdc;
+  --bar:#2f7f84;
+  --f-display:"Bricolage Grotesque",system-ui,sans-serif; --f-body:"Figtree",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1d1f; --panel:#12292c; --fg:#e6efee; --muted:#93aaa9; --line:#25444a;
+  --accent:#e9c06a; --accent-soft:#3a2f14;
+  --ok:#7fd6a4; --ok-bg:#16402c; --wait:#f0c96b; --wait-bg:#40330f; --todo:#8dc0ee; --todo-bg:#173247; --stop:#ee9d9d; --stop-bg:#472020;
+  --bar:#4fb3b8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1d1f; --panel:#12292c; --fg:#e6efee; --muted:#93aaa9; --line:#25444a;
+  --accent:#e9c06a; --accent-soft:#3a2f14;
+  --ok:#7fd6a4; --ok-bg:#16402c; --wait:#f0c96b; --wait-bg:#40330f; --todo:#8dc0ee; --todo-bg:#173247; --stop:#ee9d9d; --stop-bg:#472020;
+  --bar:#4fb3b8; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:700}
+h2{font-size:21px;font-weight:700}
+h3{font-size:16px;font-weight:700}
+p{margin:0}
+a{color:var(--accent)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{display:flex;flex-direction:column;gap:8px}
+header p{color:var(--muted);max-width:62ch}
+.stamp{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi b{font-family:var(--f-display);font-size:32px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi span{font-size:13px;color:var(--muted)}
+.kpi small{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+section{display:flex;flex-direction:column;gap:12px}
+section>.lead{color:var(--muted);max-width:66ch}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.bars{display:flex;flex-direction:column;gap:7px}
+.bar{display:grid;grid-template-columns:minmax(90px,130px) 1fr 34px;align-items:center;gap:10px;font-size:14px}
+.bar i{display:block;height:12px;border-radius:3px;background:var(--bar);min-width:2px}
+.bar .n{font-family:var(--f-mono);font-size:13px;text-align:right}
+.bar .l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.src{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:400;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:8px 10px 8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.scroll{overflow-x:auto}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:11px;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.p-ok{background:var(--ok-bg);color:var(--ok)}
+.p-wait{background:var(--wait-bg);color:var(--wait)}
+.p-todo{background:var(--todo-bg);color:var(--todo)}
+.p-stop{background:var(--stop-bg);color:var(--stop)}
+.list{display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none}
+.list li{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--line);align-items:start}
+.list li:last-child{border-bottom:0}
+.list .when{font-family:var(--f-mono);font-size:12px;color:var(--muted);min-width:68px;padding-top:2px}
+.list .what{min-width:0}
+.list .what b{font-weight:600}
+.list .what span{display:block;color:var(--muted);font-size:13.5px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tabs button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:99px;padding:5px 12px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cal{display:flex;flex-direction:column;gap:0}
+.cal .row{display:grid;grid-template-columns:76px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.cal .row:last-child{border-bottom:0}
+.cal .d{font-family:var(--f-display);font-weight:700;font-size:18px;line-height:1.1}
+.cal .d small{display:block;font-family:var(--f-mono);font-weight:400;font-size:11px;color:var(--muted);margin-top:2px}
+.cal .t{min-width:0}
+.cal .t span{display:block;color:var(--muted);font-size:13.5px}
+.note{background:var(--accent-soft);border-radius:10px;padding:12px 16px;font-size:14px}
+footer{font-size:12.5px;color:var(--muted);max-width:70ch}
+@media (max-width:520px){.bar{grid-template-columns:92px 1fr 30px}.list li{grid-template-columns:1fr}.cal .row{grid-template-columns:64px 1fr}}
+
+.banner{display:flex;gap:12px;align-items:center;border-radius:10px;padding:14px 16px;border:1px solid var(--line);background:var(--panel)}
+.banner .dot{width:12px;height:12px;border-radius:50%;flex:none;background:var(--muted)}
+.banner.ok{background:var(--ok-bg);border-color:transparent}.banner.ok .dot{background:var(--ok)}
+.banner.bad{background:var(--stop-bg);border-color:transparent}.banner.bad .dot{background:var(--stop)}
+.banner.warn{background:var(--wait-bg);border-color:transparent}.banner.warn .dot{background:var(--wait)}
+.banner b{font-family:var(--f-display);font-size:18px}
+.alert{border:1px solid var(--stop);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--panel)}
+.alert pre{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-family:var(--f-body);font-size:14px}
+.alert .meta{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.runs{display:flex;flex-wrap:wrap;gap:6px}
+.runs a{display:block;width:22px;height:22px;border-radius:5px;background:var(--muted)}
+.runs a.success{background:var(--ok)}.runs a.failure{background:var(--stop)}.runs a.progress{background:var(--wait)}
+.small{font-size:13px;color:var(--muted)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14px}
+</style></head><body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Prosjektstatus · kaskjerda.no</div>
+  <h1>Skjer i Ålesund: status</h1>
+  <p>Tall, feilmeldinger og kjøringer hentes live hver gang du åpner siden. Leveranser, ventelisten og datoene ligger i <span class="mono">data/status.json</span> og oppdateres av Claude når noe skjer.</p>
+  <div class="stamp"><span id="stampData">Program: henter …</span><span id="stampStatus"></span><span>Skjult side: ikke i sitemap, ikke lenket, merket noindex</span></div>
+</header>
+
+<section>
+  <h2>Feil og varsler</h2>
+  <div id="banner" class="banner"><span class="dot"></span><div><b>Henter fra GitHub …</b></div></div>
+  <div id="alerts" style="display:flex;flex-direction:column;gap:12px"></div>
+  <div class="box">
+    <h3>Siste kjøringer av oppdateringen</h3>
+    <div class="runs" id="runs" aria-label="Siste kjøringer"></div>
+    <div class="small" id="runsNote">Nyeste til venstre. Grønn: gikk fint. Rød: feilet. Gul: pågår eller avbrutt.</div>
+  </div>
+  <div class="box">
+    <h3>Andre åpne meldinger</h3>
+    <ul class="list" id="issues"></ul>
+    <div class="btnrow"><a href="https://github.com/Pedersen2k/skjer-i-alesund/issues" target="_blank" rel="noopener">Alle issues på GitHub →</a><a href="https://github.com/Pedersen2k/skjer-i-alesund/actions" target="_blank" rel="noopener">Alle kjøringer →</a></div>
+  </div>
+</section>
+
+<div class="kpis" id="kpis"></div>
+
+<section>
+  <h2>Programmet akkurat nå</h2>
+  <div class="grid2">
+    <div class="box"><h3>Etter kategori</h3><div class="bars" id="cats"></div><div class="src">data/events.json</div></div>
+    <div class="box"><h3>Største scener</h3><div class="bars" id="venues"></div><div class="src">data/events.json, de åtte med flest arrangementer</div></div>
+  </div>
+  <div class="box"><h3>Lagt til sist</h3><ul class="list" id="newest"></ul><div class="src">addedAt i data/events.json</div></div>
+</section>
+
+<section>
+  <h2>Søkemotorer</h2>
+  <div class="box"><div class="scroll"><table id="sc"></table></div><p class="small" id="scnote"></p></div>
+</section>
+
+<section>
+  <h2>Datakilder</h2>
+  <div class="box scroll">
+    <table>
+      <tr><th>Kilde</th><th>Hva</th><th>Status</th></tr>
+      <tr><td>Tikkio</td><td>Ålesund-arrangementer, priser, utsolgt og «få billetter igjen» fra hver side</td><td><span class="pill p-ok">automatisk</span></td></tr>
+      <tr><td>Parken kulturhus</td><td>Program, pris og status per forestilling. Gir 429 ved mye trafikk, så henteren venter og prøver på nytt</td><td><span class="pill p-ok">automatisk</span></td></tr>
+      <tr><td>AaFK</td><td>Hjemmekamper (menn og kvinner) på Color Line Stadion. Priser ligger i TicketCo og er ikke hentet</td><td><span class="pill p-ok">automatisk</span> <span class="pill p-wait">uten pris</span></td></tr>
+      <tr><td>Dampsentralen</td><td>Kalender som JSON, pris via Tikkio-lenke når den finnes</td><td><span class="pill p-ok">automatisk</span></td></tr>
+      <tr><td>O'Connor's</td><td>Quizkvelder. Sidene er uenige om tid og pris, derfor «usikker»</td><td><span class="pill p-ok">automatisk</span></td></tr>
+      <tr><td>Viti</td><td>Jugendstilsenteret og Sunnmøre museum</td><td><span class="pill p-ok">automatisk</span></td></tr>
+      <tr><td>Fabrikken Kulturscene</td><td>Program og julebord. Billetto er blokkert, så de fleste mangler pris</td><td><span class="pill p-ok">automatisk</span> <span class="pill p-wait">uten pris</span></td></tr>
+      <tr><td>Liv &amp; Røre Moa</td><td>Arrangementer og DJ-plan</td><td><span class="pill p-ok">automatisk</span></td></tr>
+      <tr><td>ODEON Ålesund (kino)</td><td>Fra Filmweb, egen side og stripe, ikke i hovedlisten</td><td><span class="pill p-ok">automatisk</span></td></tr>
+      <tr><td>manual.json</td><td>Julemarkeder, Ålesund Live, kirkekonserter, hoteller, Teatret Vårt. Alltid med lenke til arrangøren</td><td><span class="pill p-todo">for hånd</span></td></tr>
+      <tr><td>Aalesunds Museum</td><td>Hendelsene ligger i en Elfsight-widget som miljøet blokkerer</td><td><span class="pill p-wait">på vent</span></td></tr>
+      <tr><td>Bypatrioten</td><td>Bare idekilde. Ikke kopiert, dato og pris hentes fra arrangøren</td><td><span class="pill p-stop">ikke kilde</span></td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Levert</h2>
+  <div class="tabs" id="tabs" role="group" aria-label="Filtrer levert">
+    <button type="button" aria-pressed="true" data-t="alle">Alle</button>
+    <button type="button" aria-pressed="false" data-t="program">Program og kilder</button>
+    <button type="button" aria-pressed="false" data-t="side">Funksjoner</button>
+    <button type="button" aria-pressed="false" data-t="seo">Søk og deling</button>
+    <button type="button" aria-pressed="false" data-t="drift">Drift</button>
+  </div>
+  <div class="box"><ul class="list" id="done"></ul></div>
+</section>
+
+<section>
+  <h2>På vent</h2>
+  <div class="box scroll"><table><tr><th>Sak</th><th>Hvorfor venter det</th><th>Status</th></tr><tbody id="waiting"></tbody></table></div>
+</section>
+
+<section>
+  <h2>Kommende datoer og neste steg</h2>
+  <div class="grid2">
+    <div class="box"><h3>Kalender</h3><div class="cal" id="cal"></div></div>
+    <div class="box"><h3>Neste steg</h3><ul class="list" id="next"></ul></div>
+  </div>
+</section>
+<section>
+  <h2>Viktige beslutninger og regler</h2>
+  <div class="grid2">
+    <div class="box"><ul class="list">
+      <li><span class="pill p-ok">fast</span><div class="what"><b>Statisk side på GitHub Pages</b><span>Gratis, ingen innlogging. Den gamle Claude-artifacten er en forhåndsvisningskopi som ikke oppdateres.</span></div></li>
+      <li><span class="pill p-ok">fast</span><div class="what"><b>Ingenting oppfinnes</b><span>Arrangementer, datoer og priser kommer fra en kilde. Ved uenighet: <span class="mono">uncertain: true</span> med forklaring.</span></div></li>
+      <li><span class="pill p-ok">fast</span><div class="what"><b>Generert data røres ikke</b><span>events.json endres aldri for hånd. Bruk manual.json og overrides.json.</span></div></li>
+      <li><span class="pill p-ok">fast</span><div class="what"><b>Én fil uten byggesteg</b><span>index.html er hele forsiden.</span></div></li>
+    </ul></div>
+    <div class="box"><ul class="list">
+      <li><span class="pill p-ok">fast</span><div class="what"><b>Alle fire helgeforsøkene beholdt (1. nov.)</b><span>«I kveld» med grønn «Nå»-linje, stjerne som flyr til «★ Mine», overgang mellom liste og kalender, ny tom liste.</span></div></li>
+      <li><span class="pill p-ok">fast</span><div class="what"><b>Julebord på egen side</b><span>Holdes utenfor hovedlisten for å unngå rot.</span></div></li>
+      <li><span class="pill p-ok">fast</span><div class="what"><b>Kategorier gjettes forsiktig</b><span>Parkens sjanger er bare et hint. Ny hendelse med tvilsom kategori gir varsel.</span></div></li>
+      <li><span class="pill p-ok">fast</span><div class="what"><b>Vakt for overstyringer (3. nov.)</b><span><span class="mono">fromDate</span> og <span class="mono">fromTime</span> gjør at en rettelse gjelder bare så lenge kilden har originalverdien.</span></div></li>
+    </ul></div>
+  </div>
+</section><section>
+  <h2>Kjente svakheter</h2>
+  <div class="box"><ul class="list">
+    <li><span class="pill p-wait">data</span><div class="what"><b>30 av 163 arrangementer har ukjent pris</b><span>AaFK, Fabrikken (utenom julebord) og enkelte hoteller viser «Pris hos arrangør». Vises uten pris i strukturerte data.</span></div></li>
+    <li><span class="pill p-wait">data</span><div class="what"><b>Mangler fra Google: endDate, performer, organizer</b><span>Står ikke i kildene og blir ikke funnet på.</span></div></li>
+    <li><span class="pill p-wait">risiko</span><div class="what"><b>Parken og Tikkio kan endre sidene</b><span>Skrapere er skjøre. Jobben åpner issue og sender e-post ved feil.</span></div></li>
+    <li><span class="pill p-wait">risiko</span><div class="what"><b>Avsluttede sider blir 404 etter 45 dager</b><span>Det finnes ikke en 404-side som foreslår hva som skjer nå (den gjeldende lenker til forsiden).</span></div></li>
+    <li><span class="pill p-wait">ikke testet</span><div class="what"><b>Mobil og ekte enheter</b><span>«Lagre»-knappen, kalenderabonnement og kinosiden er bare delvis prøvd på ekte telefon.</span></div></li>
+  </ul></div>
+</section>
+<footer>Live: GitHub sitt åpne API (issues og kjøringer, maks 60 oppslag i timen per nettverk) og data/events.json. Hvis grensen er nådd, vises en lenke til GitHub i stedet.</footer>
+</div>
+
+<script>
+(function(){
+var REPO="Pedersen2k/skjer-i-alesund",API="https://api.github.com/repos/"+REPO;
+function $(id){return document.getElementById(id)}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function pill(cls,txt){return el("span","pill "+cls,txt)}
+function fmt(iso){try{return new Date(iso).toLocaleString("nb-NO",{timeZone:"Europe/Oslo",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}catch(e){return iso}}
+function ago(iso){var m=Math.round((Date.now()-new Date(iso))/60000);if(m<60)return m+" min siden";if(m<1440)return Math.round(m/60)+" t siden";return Math.round(m/1440)+" d siden"}
+function bars(id,rows){var box=$(id),max=Math.max.apply(null,rows.map(function(r){return r[1]}));rows.forEach(function(r){var d=el("div","bar"),l=el("span","l",r[0]);l.title=r[0];var w=el("span"),i=el("i");i.style.width=(r[1]/max*100)+"%";w.appendChild(i);d.append(l,w,el("span","n",r[1]));box.appendChild(d)})}
+function linkify(parent,text){text.split(/(https?:\/\/\S+)/).forEach(function(p){if(/^https?:\/\//.test(p)&&/^https:\/\/(github\.com|kaskjerda\.no)\//.test(p)){var a=el("a",null,p);a.href=p;a.target="_blank";a.rel="noopener";parent.appendChild(a)}else parent.appendChild(document.createTextNode(p))})}
+var state={alerts:null,runs:null,fresh:null};
+function banner(){
+  var b=$("banner"),h=b.querySelector("div");h.textContent="";
+  var bad=[],warn=[];
+  if(state.alerts&&state.alerts.length)bad.push(state.alerts.length+" åpent varsel om programoppdateringen");
+  if(state.runs){var last=state.runs[0];if(last&&last.conclusion==="failure")bad.push("Siste kjøring feilet")}
+  if(state.fresh!=null&&state.fresh>5*60){var hr=new Date().toLocaleString("en-GB",{timeZone:"Europe/Oslo",hour:"2-digit",hour12:false});if(+hr>=8&&+hr<=22)warn.push("Programmet er over "+Math.round(state.fresh/60)+" timer gammelt")}
+  if(state.alerts===null&&state.runs===null){b.className="banner warn";h.appendChild(el("b",null,"Fikk ikke kontakt med GitHub"));h.appendChild(el("div","small","Grensen for oppslag kan være nådd. Prøv igjen senere, eller åpne issues-siden under."));return}
+  if(bad.length){b.className="banner bad";h.appendChild(el("b",null,"Trenger tilsyn"));h.appendChild(el("div","small",bad.join(" · ")))}
+  else if(warn.length){b.className="banner warn";h.appendChild(el("b",null,"Sjekk programmet"));h.appendChild(el("div","small",warn.join(" · ")))}
+  else{b.className="banner ok";h.appendChild(el("b",null,"Alt i orden"));h.appendChild(el("div","small","Ingen åpne varsler, siste kjøring gikk fint og programmet er ferskt."))}
+}
+function gh(path){return fetch(API+path,{headers:{Accept:"application/vnd.github+json"}}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
+gh("/issues?state=open&per_page=50").then(function(list){
+  list=list.filter(function(i){return !i.pull_request});
+  var alerts=list.filter(function(i){return /tilsyn/i.test(i.title)}),other=list.filter(function(i){return alerts.indexOf(i)<0});
+  state.alerts=alerts;
+  var box=$("alerts");
+  alerts.forEach(function(i){
+    var c=el("div","alert");var t=el("h3",null,i.title);var m=el("div","meta","Åpnet "+fmt(i.created_at)+" · oppdatert "+ago(i.updated_at)+" · #"+i.number);
+    var pre=el("pre");linkify(pre,i.body||"");
+    var a=el("a",null,"Åpne på GitHub →");a.href=i.html_url;a.target="_blank";a.rel="noopener";
+    c.append(t,m,pre,a);box.appendChild(c)});
+  var ul=$("issues");
+  if(!other.length)ul.appendChild(el("li",null,"Ingen."));
+  other.forEach(function(i){var li=el("li");li.style.gridTemplateColumns="1fr";var d=el("div","what");var a=el("b",null,i.title);var s=el("span",null,"Åpnet "+fmt(i.created_at)+" · ");var l=el("a",null,"#"+i.number);l.href=i.html_url;l.target="_blank";l.rel="noopener";s.appendChild(l);d.append(a,s);li.appendChild(d);ul.appendChild(li)});
+  banner();
+}).catch(function(){$("issues").appendChild(el("li",null,"Kunne ikke hente issues."));banner()});
+gh("/actions/workflows/oppdater.yml/runs?per_page=24").then(function(j){
+  var runs=j.workflow_runs||[];state.runs=runs;
+  var box=$("runs");
+  runs.forEach(function(r){var a=el("a",r.status!=="completed"?"progress":(r.conclusion==="success"?"success":(r.conclusion==="failure"?"failure":"progress")));a.href=r.html_url;a.target="_blank";a.rel="noopener";a.title=fmt(r.created_at)+" · "+r.event+" · "+(r.conclusion||r.status);box.appendChild(a)});
+  var ok=runs.filter(function(r){return r.conclusion==="success"}).length,bad=runs.filter(function(r){return r.conclusion==="failure"}).length;
+  $("runsNote").textContent="Siste "+runs.length+" kjøringer: "+ok+" fint, "+bad+" feilet. Nyeste til venstre. Hold over en rute for tid og type.";
+  banner();
+}).catch(function(){banner()});
+
+fetch("../data/events.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){
+  var ev=d.events,cats={},ven={};
+  ev.forEach(function(e){cats[e.cat]=(cats[e.cat]||0)+1;ven[e.venue]=(ven[e.venue]||0)+1});
+  var L={konsert:"Konsert",show:"Show",happening:"Happening",quiz:"Quiz",julebord:"Julebord",standup:"Standup",barn:"Barn",klubb:"Klubb",sport:"Sport"};
+  bars("cats",Object.keys(cats).sort(function(a,b){return cats[b]-cats[a]}).map(function(k){return [L[k]||k,cats[k]]}));
+  bars("venues",Object.keys(ven).sort(function(a,b){return ven[b]-ven[a]}).slice(0,8).map(function(k){return [k,ven[k]]}));
+  var up=d.meta.updatedAt;state.fresh=(Date.now()-new Date(up))/60000;banner();
+  $("stampData").textContent="Program hentet "+fmt(up)+" ("+ago(up)+")";
+  var free=ev.filter(function(e){return e.priceMin===0}).length,noPrice=ev.filter(function(e){return e.priceMin==null&&!/gratis/i.test(e.price||"")}).length;
+  var k=$("kpis");
+  [[ev.length,"kommende arrangementer","fra "+(d.meta.sources||[]).length+" automatiske kilder"],[ev.filter(function(e){return e.cat!=="julebord"}).length,"i hovedlisten","uten julebord"],[free,"gratis","priceMin = 0"],[noPrice,"uten kjent pris","vises som «Pris hos arrangør»"]].forEach(function(x){var c=el("div","kpi");c.append(el("b",null,String(x[0])),el("span",null,x[1]),el("small",null,x[2]));k.appendChild(c)});
+  var nw=ev.filter(function(e){return e.addedAt}).sort(function(a,b){return a.addedAt<b.addedAt?1:-1}).slice(0,8),ul=$("newest");
+  nw.forEach(function(e){var li=el("li");li.style.gridTemplateColumns="auto 1fr";var w=el("span","when",ago(e.addedAt));var d=el("div","what");d.append(el("b",null,e.title),el("span",null,(e.date||"").slice(0,10)+" · "+e.venue+" · "+(e.price||"")));li.append(w,d);ul.appendChild(li)});
+}).catch(function(){$("stampData").textContent="Program: kunne ikke hentes"});
+
+var TAGCLS={"etter jul":"p-wait","nyttår":"p-wait","droppet":"p-stop"};
+fetch("../data/status.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(S){
+  $("stampStatus").textContent="Planlister oppdatert "+S.updated;
+  var c=S.searchConsole;
+  var rows=[["Klikk",c.clicks],["Visninger",c.impressions],["Klikkrate",c.ctr],["Snittposisjon",c.position],["Posisjon for «skjer i ålesund»",c.brandPosition]];
+  var t=$("sc");var h=el("tr");h.append(el("th",null,"Search Console, eksport "+c.date),el("th",null,"Verdi"));t.appendChild(h);
+  rows.forEach(function(r){var tr=el("tr");tr.append(el("td",null,r[0]),el("td","mono",String(r[1])));t.appendChild(tr)});
+  $("scnote").textContent=c.note;
+  function draw(tag){var ul=$("done");ul.textContent="";S.done.slice().reverse().forEach(function(r){if(tag!=="alle"&&r.tag!==tag)return;var li=el("li");var w=el("span","when",r.when);var b=el("div","what");b.append(el("b",null,r.title),el("span",null,r.text));li.append(w,b);ul.appendChild(li)})}
+  draw("alle");
+  $("tabs").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;[].forEach.call($("tabs").children,function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});draw(b.getAttribute("data-t"))});
+  S.waiting.forEach(function(r){var tr=el("tr"),a=el("td"),b=el("td"),c2=el("td");a.appendChild(el("b",null,r[0]));b.textContent=r[1];c2.appendChild(pill(TAGCLS[r[2]]||"p-wait",r[2]));tr.append(a,b,c2);$("waiting").appendChild(tr)});
+  S.calendar.forEach(function(r){var row=el("div","row"),d=el("div","d",r[0]);d.appendChild(el("small",null,r[1]));var t=el("div","t");t.append(el("b",null,r[2]),el("span",null,r[3]));row.append(d,t);$("cal").appendChild(row)});
+  S.next.forEach(function(r,i){var li=el("li"),p=pill("p-todo",String(i+1)),d=el("div","what");d.append(el("b",null,r[0]),el("span",null,r[1]));li.append(p,d);$("next").appendChild(li)});
+}).catch(function(){$("stampStatus").textContent="Planlister kunne ikke hentes"});
+})();
+</script>
+</body></html>

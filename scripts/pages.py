@@ -900,6 +900,10 @@ def main():
     shutil.copy(ROOT / "data" / "events.json", OUT / "data" / "events.json")
     if (ROOT / "data" / "kino.json").exists():
         shutil.copy(ROOT / "data" / "kino.json", OUT / "data" / "kino.json")
+    # Skjult statusside (noindex, ikke i sitemap, ikke lenket): henter issues, kjøringer og program live i nettleseren
+    (OUT / "status").mkdir()
+    shutil.copy(ROOT / "status.html", OUT / "status" / "index.html")
+    shutil.copy(ROOT / "data" / "status.json", OUT / "data" / "status.json")
     cfg = jul_config()
     themes = jul_theme_events(all_events, today, cfg)
     has_jul = any(is_jul(e, cfg) for e in all_events)
