@@ -1288,7 +1288,7 @@ def past_event_page(e, events, path, weekend):
         return f'<section class="also"><h2>{h}</h2><div class="events">{"".join(card(x, up) for x in evs)}</div></section>' if evs else ""
     body = f"""  <main>
   <article class="detail over" style="--c:var(--c-{c})">
-    <div class="overbar" role="status"><b>Dette arrangementet er over.</b> Siste dato var {escape(over)}.</div>
+    <div class="overbar" role="status"><b>Dette arrangementet er over.</b> Siste dato var {escape(over)}.<div class="tips">Savner du noe på programmet? <a href="{up}kontakt/">Tips oss</a></div></div>
     <div class="tag">{CAT_LABEL[c]}{f' · {escape(e["league"])}' if e.get("league") else ""}</div>
     <h1>{escape(e['title'])}</h1>
     <dl>
@@ -1564,6 +1564,8 @@ html[data-tema="kveld"] .ikveld .it .bt { color: var(--gold); }
 .detail dd.sold { color: var(--accent); font-weight: 600; }
 .detail .note { font-size: 14px; }
 .detail .overbar { margin: 0 0 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); border-left: 4px solid var(--muted); background: var(--surface); font-size: 15px; line-height: 1.4; }
+.detail .overbar .tips { margin-top: 6px; font-size: 14px; }
+.detail .overbar .tips a { font-weight: 600; }
 .detail.over h1 { opacity: .85; }
 .detail .cta { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: 14px; }
 .btn { display: inline-block; font: 600 15px/1 var(--font-body); padding: 12px 16px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); text-decoration: none; }
