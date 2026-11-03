@@ -43,7 +43,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-03T16:02:39Z",
+  "updatedAt": "2026-11-03T17:58:51Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -2447,6 +2447,8 @@
    "price": "655 kr",
    "priceMin": 655,
    "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49634-odd-nordstoga/",
