@@ -856,7 +856,7 @@ def front_html(src, events, today, extra_links=()):
     sub(r'<link rel="icon" href="data:[^"]*">', ICON_LINKS.format(up=""))
     graph = [
         {"@type": "WebSite", "@id": BASE + "#website", "url": BASE, "name": SITE, "alternateName": ["Ka skjer da?", "kaskjerda.no"], "inLanguage": "nb-NO", "description": FRONT_DESC},
-        {"@type": "Organization", "@id": BASE + "#org", "name": SITE, "url": BASE, "logo": {"@type": "ImageObject", "url": BASE + "icon-512.png", "width": 512, "height": 512}},
+        {"@type": "Organization", "@id": BASE + "#org", "name": SITE, "url": BASE, "logo": {"@type": "ImageObject", "url": BASE + "icon-512.png", "width": 512, "height": 512}, "sameAs": ["https://www.instagram.com/kaskjerda.no/"]},
     ] + [event_ld(e) for e in occurrences(events, today, today + datetime.timedelta(days=30))]
     head_extra = (f'<meta name="robots" content="{ROBOTS_META}">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
                   + ld_script({"@context": "https://schema.org", "@graph": graph}).replace('<script type="application/ld+json">', '<script type="application/ld+json" id="ld-front">', 1))
