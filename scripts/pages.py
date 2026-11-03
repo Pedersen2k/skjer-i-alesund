@@ -1023,6 +1023,19 @@ def main():
         (OUT / path / "kalender.ics").write_text(build_ics(e["title"], [e], today))
         pages.append((path, (e.get("addedAt") or updated)[:10]))
 
+    # Arrangementer som er over (45 dager): egen side uten billettknapp, ikke i sitemapet
+    past_path = ROOT / "data" / "past.json"
+    n_past = 0
+    if past_path.exists():
+        live = {e["id"] for e in data["events"]}
+        for e in json.loads(past_path.read_text())["events"]:
+            if e["id"] in live or e["last"] > today.isoformat():
+                continue
+            path = f"arrangement/{e['id']}/"
+            write(path, past_event_page(e, events, path, weekend))
+            n_past += 1
+    print(f"Arrangementer som er over: {n_past} sider", file=sys.stderr)
+
     # Kalenderabonnement: kalender/alle.ics og én per kategori
     (OUT / "kalender").mkdir()
     feeds = {"alle": ("Skjer i Ålesund", events)}
@@ -1250,6 +1263,47 @@ def event_page(e, events, path, image=None):
   <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a><a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
     trail = [(SITE, BASE), (CATS.get(c, CATS["happening"])[1], BASE + cat_path), (e["title"], BASE + path)]
     return page(path, title, desc[:300], body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail), event_ld(e)]}, image=image)
+
+
+def past_event_page(e, events, path, weekend):
+    """Siden til et arrangement som er over (data/past.json, 45 dager). Samme adresse og tittel som før, så den som søker på navnet
+    fortsatt finner den, men uten billettknapp og Event-JSON-LD, og med det som skjer nå. Står ikke i sitemapet."""
+    up = "../../"
+    d = datetime.date.fromisoformat(e["date"])
+    last = datetime.date.fromisoformat(e["last"])
+    c = e["cat"] if e["cat"] in CAT_LABEL else "happening"
+    when = day_text(d, year=True) + (f" kl. {e['time']}" if e.get("time") else "")
+    title = f"{e['title']} – {e['venue']}, {d.day}. {MO[d.month - 1]} | {SITE}"
+    desc = f"{e['title']} på {e['venue']} i Ålesund ({day_text(d, year=True)}) er over. Se hva som skjer i Ålesund nå."
+    venue = escape(e["venue"])
+    venue_html = f'<a href="{up}{venue_path(e["venue"])}">{venue}</a>' if venue_path(e["venue"]) else venue
+    same_venue = [x for x in events if x["venue"] == e["venue"]][:4]
+    same_cat = [x for x in events if x["cat"] == e["cat"] and x not in same_venue][:4]
+    shown = {x["id"] for x in same_venue + same_cat}
+    wk = [x for x in weekend if x["id"] not in shown][:4]
+    cat_path = CATS.get(c, CATS["happening"])[0] + "/"
+    over = day_text(last, year=True) if last != d else day_text(d, year=True)
+
+    def block(h, evs):
+        return f'<section class="also"><h2>{h}</h2><div class="events">{"".join(card(x, up) for x in evs)}</div></section>' if evs else ""
+    body = f"""  <main>
+  <article class="detail over" style="--c:var(--c-{c})">
+    <div class="overbar" role="status"><b>Dette arrangementet er over.</b> Siste dato var {escape(over)}.<div class="tips">Savner du noe på programmet? <a href="{up}kontakt/">Tips oss</a></div></div>
+    <div class="tag">{CAT_LABEL[c]}{f' · {escape(e["league"])}' if e.get("league") else ""}</div>
+    <h1>{escape(e['title'])}</h1>
+    <dl>
+      <dt>Var</dt><dd>{escape(when[0].upper() + when[1:])}</dd>
+      <dt>Hvor</dt><dd>{venue_html}{f', {escape(e["address"])}' if e.get("address") else ", Ålesund"}</dd>
+    </dl>
+    <div class="cta"><a class="btn" href="{up}">Se hva som skjer nå →</a>{f'<a class="link" href="{up}{venue_path(e["venue"])}">Program for {venue}</a>' if venue_path(e["venue"]) else ""}</div>
+  </article>
+  {block("Neste på " + venue, same_venue)}
+  {block("Mer: " + CAT_LABEL[c].lower(), same_cat)}
+  {block("Denne helgen", wk)}
+  </main>
+  <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a><a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
+    trail = [(SITE, BASE), (CATS.get(c, CATS["happening"])[1], BASE + cat_path), (e["title"], BASE + path)]
+    return page(path, title, desc, body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail)]})
 
 
 # Det undersidene trenger i tillegg til forsidens stil
@@ -1509,6 +1563,10 @@ html[data-tema="kveld"] .ikveld .it .bt { color: var(--gold); }
 .detail dd a { color: var(--sea); }
 .detail dd.sold { color: var(--accent); font-weight: 600; }
 .detail .note { font-size: 14px; }
+.detail .overbar { margin: 0 0 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); border-left: 4px solid var(--muted); background: var(--surface); font-size: 15px; line-height: 1.4; }
+.detail .overbar .tips { margin-top: 6px; font-size: 14px; }
+.detail .overbar .tips a { font-weight: 600; }
+.detail.over h1 { opacity: .85; }
 .detail .cta { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: 14px; }
 .btn { display: inline-block; font: 600 15px/1 var(--font-body); padding: 12px 16px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); text-decoration: none; }
 .btn:hover { filter: brightness(1.05); }
