@@ -1,0 +1,312 @@
+{
+ "updated": "2026-11-03",
+ "searchConsole": {
+  "date": "2026-11-03",
+  "clicks": 132,
+  "impressions": 5729,
+  "ctr": "2,3 %",
+  "position": 6,
+  "brandPosition": 37,
+  "note": "Beslutning 3. nov.: ikke endre titler på julesidene nå. Se igjen 17. nov."
+ },
+ "done": [
+  {
+   "when": "22.–24. okt.",
+   "tag": "side",
+   "title": "Filter, søk, ★ Mine, kalendervisning og kalenderabonnement",
+   "text": "Tid, kategori, scene og pris. Mine lagres i nettleseren. Abonnement per kategori (iPhone, Google, kopier lenke)."
+  },
+  {
+   "when": "24. okt.",
+   "tag": "drift",
+   "title": "Eget domene kaskjerda.no",
+   "text": "DNS, Search Console og kanonisk adresse er byttet. Gamle github.io-adressen sender videre."
+  },
+  {
+   "when": "24. okt.",
+   "tag": "side",
+   "title": "Mobilmeny uten sidelengs rulling",
+   "text": "Søk, ★ Mine og 2×2 nedtrekk. Glir bort ved rulling ned."
+  },
+  {
+   "when": "25. okt.",
+   "tag": "seo",
+   "title": "SEO-pakke",
+   "text": "Forhåndsrendret liste, JSON-LD, undersider for dag, helg, måned, kategori og scene, robots, sitemap, IndexNow."
+  },
+  {
+   "when": "26. okt.",
+   "tag": "program",
+   "title": "Kontakt, quiz, O'Connor's, Viti, Fabrikken og julebord",
+   "text": "Kontaktskjema, quizkategori som ett kort, tre nye kilder, julebord på egen side."
+  },
+  {
+   "when": "26. okt.",
+   "tag": "side",
+   "title": "Mørkt kveldstema som standard",
+   "text": "Bryter «Mørkt | Lyst» øverst til høyre."
+  },
+  {
+   "when": "26. okt.",
+   "tag": "seo",
+   "title": "Jul i Ålesund og julesider",
+   "text": "Seks temasider og snarveier fra forsiden."
+  },
+  {
+   "when": "27. okt.",
+   "tag": "program",
+   "title": "Utsolgt og «Få billetter igjen»",
+   "text": "Rettet feil der utsolgte Tikkio-arrangementer sto som ledige. Tidsknapper for 2–6 forestillinger."
+  },
+  {
+   "when": "27. okt.",
+   "tag": "drift",
+   "title": "Synkronisering hver andre time 06–22",
+   "text": "Var to ganger om dagen."
+  },
+  {
+   "when": "27. okt.",
+   "tag": "side",
+   "title": "Del Mine",
+   "text": "Del lista som lenke. Mottaker kan lagre alle i sin egen Mine."
+  },
+  {
+   "when": "27. okt.",
+   "tag": "seo",
+   "title": "Engelsk side",
+   "text": "en/ med hreflang og «English»-knapp."
+  },
+  {
+   "when": "28. okt.",
+   "tag": "side",
+   "title": "Fane «Nytt siden sist», «Tøm Mine» og sveip",
+   "text": "Etter at første versjon ble prøvd og tatt bort."
+  },
+  {
+   "when": "29. okt.",
+   "tag": "side",
+   "title": "«Lagre siden»",
+   "text": "Bokmerkeknapp og melding etter første ★. Installer-knapp i Chrome og Edge."
+  },
+  {
+   "when": "29. okt.",
+   "tag": "program",
+   "title": "Liv & Røre Moa som kilde",
+   "text": "Arrangementer og DJ-plan."
+  },
+  {
+   "when": "30. okt.",
+   "tag": "seo",
+   "title": "Egne titler og beskrivelser for scener, kalender og del-knapp på arrangementssider",
+   "text": "Etter forslaget «før og etter»."
+  },
+  {
+   "when": "30. okt.",
+   "tag": "program",
+   "title": "Teatret Vårt og Julekonsert med allsang i programmet",
+   "text": "Begge med lenke til arrangøren."
+  },
+  {
+   "when": "31. okt.",
+   "tag": "seo",
+   "title": "Eget delingsbilde per arrangement",
+   "text": "1200×630, med vintersilhuett fra 30. okt. til februar."
+  },
+  {
+   "when": "31. okt.",
+   "tag": "side",
+   "title": "Mobil: større nedtrekk og søkefelt med antall",
+   "text": "Forslag M7. Dessuten klistrede dagsoverskrifter."
+  },
+  {
+   "when": "31. okt.",
+   "tag": "drift",
+   "title": "Rettelse for Parken 429 og 30 dagers hukommelse for forsvunnet arrangement",
+   "text": "Falske «Nytt»-merker er borte."
+  },
+  {
+   "when": "1. nov.",
+   "tag": "side",
+   "title": "Juletema 1. nov.–27. des.",
+   "text": "Adventskrans der lysene tennes, og nisse over julekortet. «Lyst» gjelder hele året."
+  },
+  {
+   "when": "1. nov.",
+   "tag": "side",
+   "title": "Alle fire helgeforsøk gjort faste",
+   "text": "«I kveld»-linje, stjerne, overgang, ny tom liste."
+  },
+  {
+   "when": "2. nov.",
+   "tag": "drift",
+   "title": "Synk også ved push til main",
+   "text": "Endringer i manual og overrides er live etter ca. 5 minutter."
+  },
+  {
+   "when": "3. nov.",
+   "tag": "seo",
+   "title": "Avsluttede arrangementer beholder siden i 45 dager (#153)",
+   "text": "data/past.json."
+  },
+  {
+   "when": "3. nov.",
+   "tag": "seo",
+   "title": "Pris i tittel og beskrivelse på arrangementssider (#155) og bedre JSON-LD (#157, #158)",
+   "text": "sameAs, bilde per arrangement og tilbud uten oppfunnet pris."
+  },
+  {
+   "when": "3. nov.",
+   "tag": "drift",
+   "title": "Vakt for overstyringer (#160, #161)",
+   "text": "Utdatert dato-override fjernet. Varsel når kilden endrer dato eller tid."
+  }
+ ],
+ "waiting": [
+  [
+   "Store designendringer på mobil",
+   "Besluttet 29. okt. å vente til etter jul. Siden ser bra ut på mobil allerede",
+   "etter jul"
+  ],
+  [
+   "Kompass i delearket på iPhone",
+   "Slik iOS håndterer deling fra JavaScript. Se igjen etter nyttår",
+   "nyttår"
+  ],
+  [
+   "«Gratis og billig i Ålesund»",
+   "Utsatt 27. okt. Bare 5 gratis og ca. 24 til 150 kr eller mindre. Mockups ligger klare",
+   "utsatt"
+  ],
+  [
+   "Bedre søk på siden",
+   "Forslag S5 (skrivefeil, synonymer, «Mente du …?») er ikke valgt",
+   "ikke valgt"
+  ],
+  [
+   "«Overrask meg»",
+   "Seks fungerende mockups. Eieren likte dem, men har ikke valgt",
+   "ikke valgt"
+  ],
+  [
+   "Kategorifarge (S1–S6)",
+   "Forhåndsvisning finnes. Ingenting endret i index.html",
+   "ikke valgt"
+  ],
+  [
+   "Historie 9:16 «I kveld i Ålesund»",
+   "Spart til deling på sosiale medier",
+   "spart"
+  ],
+  [
+   "Tabell over alle forestillinger på arrangementssiden",
+   "Bygges hvis 17. nov.-tallene viser at arrangementssidene får klikk",
+   "avhenger av tall"
+  ],
+  [
+   "Plakat og sosiale poster",
+   "Fire plakater og seks poster som mockups",
+   "ikke valgt"
+  ],
+  [
+   "Aalesunds Museum som kilde",
+   "Hendelsene ligger i en Elfsight-widget som miljøet blokkerer",
+   "på vent"
+  ],
+  [
+   "Flere arrangementer fra idékilden",
+   "Ålesund Filmklubb, Jazzsirkelen, Gospelkonsert Filadelfia m.fl. Ikke bestemt",
+   "ikke bestemt"
+  ],
+  [
+   "App / PWA med frakoblet bruk",
+   "Manifest og «Lagre»-knapp finnes. Service worker er ikke bygget",
+   "ikke bestemt"
+  ],
+  [
+   "Annonser / betalt plassering",
+   "Først etter fire uker med besøkstall, og tillatelse fra Tikkio og scenene",
+   "idé"
+  ],
+  [
+   "Vær på siden, helgefarge",
+   "Eieren droppet begge for nå",
+   "droppet"
+  ]
+ ],
+ "calendar": [
+  [
+   "~7. nov.",
+   "Claude",
+   "Rydd bort engangsrettelsen",
+   "Slett data/addedat.json og «Engangsrettelse»-linjene i sync.py når de 11 Parken-arrangementene er tilbake"
+  ],
+  [
+   "12. nov.",
+   "Eier",
+   "Bing Webmaster Tools",
+   "Importer fra Google Search Console"
+  ],
+  [
+   "17. nov.",
+   "Eier + Claude",
+   "Ny Search Console-gjennomgang",
+   "Sammenlign med 3. nov. Arrangementssider, avsluttede sider (#153), julesider, scenesider. Rich Results Test av en side uten pris"
+  ],
+  [
+   "17. nov.",
+   "Eier + Claude",
+   "«Få billetter igjen» og «Del lista»",
+   "Er pillene for mange? Se GoatCounter delt/*"
+  ],
+  [
+   "Hver torsdag",
+   "Automatisk",
+   "Helgepost",
+   "Issue med tekst for Facebook og Instagram og helgebildet"
+  ],
+  [
+   "Hver mandag",
+   "Claude",
+   "Sjekk av nye arrangementer",
+   "Kategorier, særlig ballett og film"
+  ],
+  [
+   "Hver uke i nov.",
+   "Claude",
+   "Julebord og julearrangementer",
+   "Scandic Parken, MS Bruvik, Hotel 1904, Quality-hotellene"
+  ],
+  [
+   "Mid-nov.",
+   "Claude",
+   "Sjekk av data/past.json",
+   "Første Actions-kjøring etter #153 er ikke sett"
+  ]
+ ],
+ "next": [
+  [
+   "Lenker og omtale",
+   "E-poster til Visit Ålesund, Parken, Løvenvold, Terminalen og Fabrikken. Pressetips om julebordoversikten. Utkastene er ikke skrevet."
+  ],
+  [
+   "Search Console «Sider»",
+   "Se etter «Oppdaget, ikke indeksert». 200+ sider fra ca. 160 arrangementer er hovedrisikoen for tynt innhold."
+  ],
+  [
+   "Hold julesidene ferske",
+   "Høysesong frem til tidlig desember."
+  ],
+  [
+   "Lag 2 for overstyringer",
+   "Foreslått: planlagt agent som rydder overflødige overrides og lager ukentlig oppsummering."
+  ],
+  [
+   "fromTime på Purppuri og Viggo Venneløs",
+   "Legges inn når arrangementene er tilbake i Tikkio-listen."
+  ],
+  [
+   "Tillatelse",
+   "Sjekk Tikkios vilkår eller spør scenene før siden promoteres bredt."
+  ]
+ ]
+}
