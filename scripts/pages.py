@@ -130,7 +130,7 @@ def safe_url(u):
     return u if (u or "").startswith("https://") else ""
 
 
-def event_ld(e):
+def event_ld(e, image=None):
     """schema.org/Event med bare felt vi har fra kilden (samme som forsiden lager med JavaScript)."""
     o = {
         "@type": "FoodEvent" if e.get("cat") == "julebord" else "Event",
@@ -140,9 +140,9 @@ def event_ld(e):
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "location": {"@type": "Place", "name": e["venue"], "address": {"@type": "PostalAddress", "addressLocality": "Ålesund", "addressCountry": "NO"}},
         "url": BASE + f"arrangement/{e['id']}/",
-        "image": BASE + "og-image.png",
+        "image": image or BASE + "og-image.png",  # eventets eget delingsbilde på arrangementssiden, ellers logoen
     }
-    if e.get("address"):
+    if e.get("address") and re.search(r"\d", e["address"]):  # bare ekte gateadresse; «Skutvika, Ålesund» er ikke en gateadresse
         o["location"]["address"]["streetAddress"] = e["address"]
     d = datetime.date.fromisoformat(e["date"])
     o["description"] = e.get("note") or f"{e['title']} på {e['venue']} i Ålesund {day_text(d, year=True)}" + (f" kl. {e['time']}." if e.get("time") else ".")
@@ -151,6 +151,10 @@ def event_ld(e):
                        "availability": "https://schema.org/SoldOut" if e.get("soldOut") else "https://schema.org/LimitedAvailability" if e.get("few") else "https://schema.org/InStock"}
         if e["priceMin"] == 0:
             o["isAccessibleForFree"] = True
+    elif safe_url(e.get("url")):
+        # ukjent pris: vi oppgir ingen pris, bare billettlenken og status
+        o["offers"] = {"@type": "Offer", "url": safe_url(e["url"]),
+                       "availability": "https://schema.org/SoldOut" if e.get("soldOut") else "https://schema.org/LimitedAvailability" if e.get("few") else "https://schema.org/InStock"}
     return o
 
 
@@ -1268,7 +1272,7 @@ def event_page(e, events, path, image=None):
   </main>
   <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a><a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
     trail = [(SITE, BASE), (CATS.get(c, CATS["happening"])[1], BASE + cat_path), (e["title"], BASE + path)]
-    return page(path, title, desc[:300], body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail), event_ld(e)]}, image=image)
+    return page(path, title, desc[:300], body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail), event_ld(e, image[0] if image else None)]}, image=image)
 
 
 def past_event_page(e, events, path, weekend):
