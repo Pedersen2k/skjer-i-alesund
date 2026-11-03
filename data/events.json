@@ -43,9 +43,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-03T13:17:40Z",
+  "updatedAt": "2026-11-03T13:48:40Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -2421,6 +2421,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "musikkprat-med-musikkprisen-panelsamtale-med-juryen-venterom",
+   "date": "2027-01-14",
+   "time": "18:00",
+   "title": "Musikkprat med Musikkprisen, panelsamtale med juryen",
+   "venue": "Venterommet, Terminalen",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67343-bransjeprat-med-musikkprisen-panelsamtale-med-juryen-terminalen-byscene",
+   "addedAt": "2026-11-03T13:48:40Z"
+  },
+  {
    "id": "parken-49634-parken-kulturhus",
    "date": "2027-01-14",
    "time": "19:00",
@@ -2435,6 +2451,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49634-odd-nordstoga/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "finale-musikkprisen-2026-terminalen-byscene",
+   "date": "2027-01-15",
+   "time": "18:00",
+   "title": "Finale Musikkprisen 2026",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "150 kr",
+   "priceMin": 150,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67344-finale-musikkprisen-2026-terminalen-byscene",
+   "addedAt": "2026-11-03T13:48:40Z"
   },
   {
    "id": "parken-49424-parken-kulturhus",
