@@ -659,11 +659,23 @@ def build_events(raw, overrides):
                 chk = f"Parken oppgir «{first['genre']}», men kategorien er {cat}"
             elif rule is None and not want:
                 chk = f"ingen regel traff tittelen, gjettet {cat}"
+        # Vakt for overstyringer: «date»/«time» gjelder bare så lenge kilden fortsatt har «fromDate»/«fromTime».
+        # Har kilden endret seg til noe annet enn både originalen og vår rettelse, varsles eieren (én gang per endring).
+        src_date = first["start"].date().isoformat()
+        src_time = "" if first.get("noTime") else first["start"].strftime("%H:%M")
+        ov_time = src_time
+        if o.get("time"):
+            if "fromTime" not in o or o["fromTime"] == src_time:
+                ov_time = o["time"]
+            elif src_time != o["time"]:
+                warn(f"Kilden har endret klokkeslett for «{first['title']}» ({venue}): nå {src_time}, var {o['fromTime']}. Overstyringen ({o['time']}) er slått av; sjekk hos arrangøren og rett eller fjern den i data/overrides.json.")
+        if o.get("date") and src_date not in (o.get("fromDate", src_date), o["date"]):
+            warn(f"Kilden har endret dato for «{first['title']}» ({venue}): nå {src_date}, var {o['fromDate']}. Overstyringen ({o['date']}) er slått av; sjekk hos arrangøren og rett eller fjern den i data/overrides.json.")
         events.append({
             "id": slug(key + "-" + venue),
             # «date» i en overstyring retter en feil dato hos kilden, men bare så lenge kilden fortsatt har «fromDate»
             "date": (o["date"] if o.get("date") and first["start"].date().isoformat() == o.get("fromDate", first["start"].date().isoformat()) else first["start"].date().isoformat()),
-            "time": o.get("time") or ("" if first.get("noTime") else first["start"].strftime("%H:%M")),
+            "time": ov_time,
             "title": o.get("title") or first["title"],
             "venue": venue,
             "address": first.get("address", ""),

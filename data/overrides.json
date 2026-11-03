@@ -140,7 +140,8 @@
     "cat": "standup",
     "title": "Juleshow på Løvenvold Vol. 4",
     "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30.",
-    "time": "18:30"
+    "time": "18:30",
+    "fromTime": "17:30"
   },
   "juleverksted-alesund-cupcakekrans": {
     "cat": "happening",
