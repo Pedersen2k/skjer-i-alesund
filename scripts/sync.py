@@ -748,6 +748,29 @@ def warn(msg):
             f.write(f"- {msg}\n")
 
 
+PAST_DAYS = 45
+
+
+def last_date(e):
+    """Siste dato arrangementet går (første dato eller siste i moreShows)."""
+    return max([e["date"]] + [m[:10] for m in e.get("moreShows", [])])
+
+
+def update_past(old_events, new_events, today):
+    """Arrangementer som er over, huskes i PAST_DAYS dager i data/past.json, så siden deres (arrangement/<id>/)
+    kan vise «Dette arrangementet er over» i stedet for 404. Arrangementer som forsvinner før datoen (avlyst, kilde nede) tas ikke med."""
+    path = DATA / "past.json"
+    past = {e["id"]: e for e in json.loads(path.read_text())["events"]} if path.exists() else {}
+    ids = {e["id"] for e in new_events}
+    for e in old_events:
+        if e["id"] not in ids and last_date(e) <= today.isoformat():
+            past[e["id"]] = {**e, "last": last_date(e)}
+    cutoff = (today - datetime.timedelta(days=PAST_DAYS)).isoformat()
+    kept = sorted((e for i, e in past.items() if i not in ids and e["last"] >= cutoff), key=lambda e: (e["last"], e["id"]))
+    path.write_text(json.dumps({"events": kept}, ensure_ascii=False, indent=1) + "\n")
+    return len(kept)
+
+
 def gone_limit():
     t = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=30)
     return t.replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -900,6 +923,7 @@ def main():
     if before >= 20 and len(events) < before * 0.6:
         warn(f"Antall arrangementer falt fra {before} til {len(events)}. Sjekk om Tikkio eller Parken har endret sidene sine.")
     old_path.write_text(json.dumps({"meta": meta, "events": events}, ensure_ascii=False, indent=1) + "\n")
+    update_past(old["events"], events, datetime.datetime.now(TZ).date())
     print(f"{len(events)} arrangementer, {meta['lastAdded']} nye")
 
 
