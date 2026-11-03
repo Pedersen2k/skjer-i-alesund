@@ -43,7 +43,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-03T10:05:51Z",
+  "updatedAt": "2026-11-03T10:10:58Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 1,
   "sources": [
@@ -149,7 +149,6 @@
    "priceMin": 699,
    "soldOut": false,
    "soldShows": [
-    "2026-11-06T17:30",
     "2026-11-07T17:30",
     "2026-11-20T17:30",
     "2026-11-21T17:30",
@@ -161,7 +160,7 @@
     "2026-12-11T17:30",
     "2026-12-12T17:30"
    ],
-   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 6. nov, 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.",
+   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/62677-juleshow-pa-lovenvold-vol-4-511",
    "moreShows": [
@@ -491,7 +490,7 @@
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/67339-360-room-dj-sierra-terminalen-byscene",
-   "addedAt": "2026-11-03T10:05:51Z"
+   "addedAt": "2026-11-03T10:10:58Z"
   },
   {
    "id": "klubb-damp-dampsentralen",
