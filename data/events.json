@@ -43,7 +43,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-03T11:08:51Z",
+  "updatedAt": "2026-11-03T11:14:29Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -2364,10 +2364,10 @@
    "venue": "MOLO",
    "address": "Keiser Wilhelms g. 2B, 6003 Ålesund",
    "cat": "konsert",
-   "price": "229 kr",
-   "priceMin": 229,
+   "price": "250 kr",
+   "priceMin": 250,
    "soldOut": false,
-   "note": "Rabatt: PRESALE BILLETTER 179 kr.",
+   "note": "Rabatt: PRESALE BILLETTER 180 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67324-e39-vol5-nyttars-molo",
    "addedAt": "2026-11-02T16:13:47Z"
