@@ -43,7 +43,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-03T06:04:40Z",
+  "updatedAt": "2026-11-03T08:25:57Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -2023,7 +2023,7 @@
    "cat": "konsert",
    "price": "200 kr",
    "priceMin": 200,
-   "soldOut": false,
+   "soldOut": true,
    "note": "Rabatt: Billett barn/ungdom 100 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67159-mia-og-emilie-venterommet",
