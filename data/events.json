@@ -40,10 +40,14 @@
    "parken-50918-parken-kulturhus": [
     "2026-10-19T12:59:56Z",
     "2026-11-02T21:38:18Z"
+   ],
+   "parken-50888-parken-kulturhus": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-04T21:58:19Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-04T20:07:35Z",
+  "updatedAt": "2026-11-04T21:58:19Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -58,22 +62,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-50888-parken-kulturhus",
-   "date": "2026-11-04",
-   "time": "19:00",
-   "title": "Marianne Heske – fra Tafjord til verdens kunstscene",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "happening",
-   "price": "130–230 kr",
-   "priceMin": 130,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/50888-marianne-heske-fra-tafjord-til-verdens-kunstscene/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "parken-46413-parken-kulturhus",
    "date": "2026-11-05",
