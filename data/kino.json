@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-04T14:31:47Z",
+  "updatedAt": "2026-11-04T16:31:43Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -513,7 +513,7 @@
      "start": "2026-11-04T17:30:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/ecd71e45-e4ee-4bbe-8820-b4bd0caf1567",
+     "url": "",
      "club": false
     },
     {
@@ -1023,7 +1023,7 @@
       "Utekstet",
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/7f7cf07d-a722-4258-aa29-fc31c9ca1b62",
+     "url": "",
      "club": false
     },
     {
@@ -1449,7 +1449,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/8c13fb7c-7bda-4bff-87e4-9bcc082164a4",
+     "url": "",
      "club": false
     },
     {
@@ -1768,7 +1768,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/38dead63-f075-4734-90db-479bcb04ebb1",
+     "url": "",
      "club": false
     },
     {
@@ -1780,18 +1780,18 @@
     },
     {
      "start": "2026-11-05T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T12:00:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/35e194ce-408a-43f4-94fb-aaa7a1e15bc4",
+     "club": false
+    },
+    {
+     "start": "2026-11-05T12:00:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/1873fa28-be89-4700-bb4b-e6c2525bfd5e",
      "club": false
     },
     {
