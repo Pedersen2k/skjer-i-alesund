@@ -43,7 +43,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-04T06:11:22Z",
+  "updatedAt": "2026-11-04T08:25:28Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -151,6 +151,7 @@
    "soldShows": [
     "2026-11-06T17:30",
     "2026-11-07T17:30",
+    "2026-11-20T17:30",
     "2026-11-21T17:30",
     "2026-11-27T17:30",
     "2026-11-28T17:30",
@@ -161,7 +162,7 @@
     "2026-12-12T17:30",
     "2026-12-18T17:30"
    ],
-   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 6. nov, 7. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.",
+   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 6. nov, 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 6. nov, 7. nov, 19. nov, 20. nov, 21. nov m.fl. Rabatt: La Familia 499 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/62677-juleshow-pa-lovenvold-vol-4-511",
    "moreShows": [
@@ -2776,10 +2777,10 @@
    "venue": "Terminalen Byscene",
    "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
    "cat": "konsert",
-   "price": "",
-   "priceMin": null,
+   "price": "595 kr",
+   "priceMin": 595,
    "soldOut": false,
-   "note": "",
+   "note": "Rabatt: DNB-kunde 476 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/65937-rotlaus-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z"

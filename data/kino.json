@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-04T06:15:59Z",
+  "updatedAt": "2026-11-04T08:29:49Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -476,15 +476,6 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/c11f7fc4-56fe-42fb-85a2-a1d0e92f3848",
-     "club": false
-    },
-    {
-     "start": "2026-11-11T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "https://www.odeonkino.no/booking/kjop/6378682f-ae9a-4042-8563-a41f3062e25b",
      "club": false
     },
     {
@@ -1403,6 +1394,31 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/07570a8e-6d47-455b-ad4a-b5118ae7cd19",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20260513",
+   "title": "Monster Mia",
+   "age": 6,
+   "minutes": 81,
+   "genres": [
+    "Animasjon",
+    "Eventyr",
+    "Komedie"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/fb974225041180a11d91ebb046cc249f344995ac-1500x2250.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-10-16",
+   "shows": [
+    {
+     "start": "2026-11-06T17:30:00",
+     "screen": "Sal 6",
+     "tags": [
+      "Norsk tale",
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/9ef3735d-b713-42e2-b22b-e047f489dbbc",
      "club": false
     }
    ]
@@ -2875,15 +2891,6 @@
      "club": false
     },
     {
-     "start": "2026-11-06T17:30:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "https://www.odeonkino.no/booking/kjop/c3065f2d-4ff8-4d61-a7da-5a8be0051161",
-     "club": false
-    },
-    {
      "start": "2026-11-07T15:00:00",
      "screen": "Sal 6",
      "tags": [
@@ -2926,6 +2933,15 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/fb6e9413-78ef-4d98-8744-1d8cfd20212f",
+     "club": false
+    },
+    {
+     "start": "2026-11-11T12:00:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/53374dac-d51f-49f7-aa15-bc78495c9766",
      "club": false
     },
     {
