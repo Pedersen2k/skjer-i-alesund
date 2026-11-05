@@ -52,10 +52,14 @@
    "schuberts-testamente-sobra-scene": [
     "2026-10-19T12:59:56Z",
     "2026-11-05T20:03:59Z"
+   ],
+   "parken-46413-parken-kulturhus": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-05T22:13:24Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-05T21:57:26Z",
+  "updatedAt": "2026-11-05T22:13:24Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -70,37 +74,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-46413-parken-kulturhus",
-   "date": "2026-11-05",
-   "time": "18:00",
-   "title": "Storefri",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "show",
-   "price": "580 kr",
-   "priceMin": 580,
-   "soldOut": false,
-   "few": true,
-   "shows": [
-    [
-     "2026-11-05T18:00",
-     "few"
-    ],
-    [
-     "2026-11-05T21:00",
-     "sold"
-    ]
-   ],
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/46413-storefri/",
-   "moreShows": [
-    "2026-11-05T21:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "parken-46661-parken-kulturhus",
    "date": "2026-11-06",
