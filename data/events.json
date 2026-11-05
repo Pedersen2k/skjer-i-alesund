@@ -47,7 +47,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-05T16:17:19Z",
+  "updatedAt": "2026-11-05T17:58:16Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -1235,6 +1235,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "inkluderingskveld-2026-dampsentralen",
+   "date": "2026-11-25",
+   "time": "18:00",
+   "title": "INKLUDERINGSKVELD 2026",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Arrangert av Ålesund idrettsråd.",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "kontrabass-og-heimelaga-lyrikk-med-arne-hjeltnes-og-roger-al",
    "date": "2026-11-25",
    "time": "20:00",
@@ -1248,22 +1264,6 @@
    "note": "Dørene åpner 19.00.",
    "uncertain": false,
    "url": "https://billetto.no/e/arne-hjeltnes-og-roger-a-ivin-kontrabass-og-heimelaga-lyrikk-onsdag-25-november-billetter-1994042",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "inkluderingskveld-2026-dampsentralen",
-   "date": "2026-11-26",
-   "time": "18:00",
-   "title": "INKLUDERINGSKVELD 2026",
-   "venue": "Dampsentralen",
-   "address": "",
-   "cat": "happening",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Arrangert av Ålesund idrettsråd.",
-   "uncertain": false,
-   "url": "https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
