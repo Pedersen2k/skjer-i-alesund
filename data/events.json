@@ -55,9 +55,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-05T20:03:59Z",
+  "updatedAt": "2026-11-05T21:18:22Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -443,6 +443,30 @@
    "uncertain": false,
    "url": "https://billetto.no/e/karsten-blomvik-lykkelig-deprimert-lordag-7-november-billetter-1941304",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "dj-hver-lordag-bryt-tapas",
+   "date": "2026-11-07",
+   "time": "21:00",
+   "title": "DJ Dadsh hver lørdag",
+   "venue": "Bryt Tapas",
+   "address": "Notenesgata 1, 6002 Ålesund",
+   "cat": "klubb",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "uncertain": false,
+   "url": "https://www.bryttapas.no/",
+   "note": "DJ Dadsh spiller på Bryt Tapas hver lørdag fra kl. 21:00, fra 7. november til 19. desember. Bord kan bestilles hos Bryt.",
+   "moreShows": [
+    "2026-11-14T21:00",
+    "2026-11-21T21:00",
+    "2026-11-28T21:00",
+    "2026-12-05T21:00",
+    "2026-12-12T21:00",
+    "2026-12-19T21:00"
+   ],
+   "addedAt": "2026-11-05T21:18:22Z"
   },
   {
    "id": "360-room-dj-sierra-terminalen-byscene",
@@ -2658,7 +2682,9 @@
    "cat": "show",
    "price": "585–625 kr",
    "priceMin": 585,
-   "soldOut": true,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49633-hvis-gud-vil/",
