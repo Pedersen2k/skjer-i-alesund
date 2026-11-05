@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-05T08:31:56Z",
+  "updatedAt": "2026-11-05T10:21:29Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -545,6 +545,28 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/1d145476-a013-4187-9d76-f33fdce0f9a5",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20260641",
+   "title": "How to Rob a Bank",
+   "age": null,
+   "minutes": 122,
+   "genres": [
+    "Action",
+    "Krim",
+    "Thriller"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/c3a6811879950602c183fdfda59c4f5c0faa72b9-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-11-13",
+   "shows": [
+    {
+     "start": "2026-11-13T20:30:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/affe7c07-6e53-46d5-a6e9-6058c7e5a4d9",
      "club": false
     }
    ]
@@ -1427,6 +1449,30 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/993fd441-287c-445d-9403-9edb170c153c",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20261769",
+   "title": "NASZA REWOLUCJA",
+   "age": 15,
+   "minutes": 125,
+   "genres": [
+    "Biografi",
+    "Drama",
+    "Romantikk"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/603f6d21d02b9458de6393d789d93c4afdabddc6-1055x1491.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-11-20",
+   "shows": [
+    {
+     "start": "2026-11-20T20:45:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/ac2f975a-e155-4a18-936a-04c6c9e54507",
      "club": false
     }
    ]
@@ -2524,6 +2570,29 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/527c0867-4ce3-4f26-b8df-d672d8a74050",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20251703",
+   "title": "Velkommen til familien",
+   "age": 9,
+   "minutes": 95,
+   "genres": [
+    "Drama",
+    "Komedie"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/38737a7ca32b8125125a68d3c6dcd30fa90624bd-1500x2143.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-11-13",
+   "shows": [
+    {
+     "start": "2026-11-13T17:45:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/5545cac0-3091-4b43-838f-7bf7378d6ca7",
      "club": false
     }
    ]
