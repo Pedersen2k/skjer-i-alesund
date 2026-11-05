@@ -798,6 +798,40 @@
    "url": "https://www.parkenkulturhus.no/program/50888-marianne-heske-fra-tafjord-til-verdens-kunstscene/",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-04"
+  },
+  {
+   "id": "livrore-2026-11-05-musikkquiz-med-oystein-liv-rore-moa",
+   "date": "2026-11-05",
+   "time": "18:00",
+   "title": "Musikkquiz med Øystein",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "75 kr",
+   "priceMin": 75,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.",
+   "uncertain": true,
+   "url": "https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-pu7pckqtjt/",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-05"
+  },
+  {
+   "id": "schuberts-testamente-sobra-scene",
+   "date": "2026-11-05",
+   "time": "18:30",
+   "title": "Schuberts Testamente",
+   "venue": "Sobra Scene",
+   "address": "Korsegata 6, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "250 kr",
+   "priceMin": 250,
+   "soldOut": false,
+   "note": "Rabatt: Under 20 100 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/65878-schuberts-testamente",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-05"
   }
  ]
 }
