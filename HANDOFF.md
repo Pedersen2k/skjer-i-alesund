@@ -253,6 +253,7 @@ Not done: Bypatrioten quizzes (`bypatrioten.com/kalender/`, reachable, not parse
 - Dislikes sideways scrolling on mobile.
 - Wants to see several design options as interactive mockups before deciding (see `docs/`), then picks one.
 - Tests on the phone after a merge to `main`, so merge when asked and say how to bypass the cache (hard refresh or private tab).
+- **Instagram-poster: større tekst (eier, 5 nov).** Eieren la ut helgekarusellen for 6.–8. nov (Claude Design-lerret https://claude.ai/artifact/Gc7kR3FNFpyVaqWpF3KMss, 6 poster 1080×1350 + 6 story 1080×1920, kveldsdesign, julebord utelatt) og syntes teksten var for liten på mobil. Neste gang: titler minst ~50 px (var 38), sted/pris-linja minst ~32 px (var 25), klokkeslett minst ~42 px (var 34), og heller flere bilder med færre rader (maks 4–5 per bilde) enn mange små rader. Gjelder også helgebildet fra `helgepost.py` (`TIGHT`-oppsettet har liten tekst). Eieren tagger scenene på bildene (ikke i kommentar); verifiserte Instagram-kontoer: @terminalen_byscene, @lovenvoldtheater, @dampsentralen, @livogrore_moa, @oconnors_alesund, @bryt_tapas, @aalesundsfk, @parken_kulturhus, @sobrascene, @aalesundsfk_kvinner.
 
 ## Gotchas
 - The Claude cloud environment blocks `*.github.io`. Claude can't open the live site, so test locally: `python3 -m http.server`.
