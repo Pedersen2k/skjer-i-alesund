@@ -625,5 +625,28 @@
       "2027-03-06",
       "2027-03-07"
     ]
+  },
+  {
+    "id": "dj-hver-lordag-bryt-tapas",
+    "date": "2026-11-07",
+    "time": "21:00",
+    "title": "DJ Dadsh hver lørdag",
+    "venue": "Bryt Tapas",
+    "address": "Notenesgata 1, 6002 Ålesund",
+    "cat": "klubb",
+    "price": "",
+    "priceMin": null,
+    "soldOut": false,
+    "uncertain": false,
+    "url": "https://www.bryttapas.no/",
+    "note": "DJ Dadsh spiller på Bryt Tapas hver lørdag fra kl. 21:00, fra 7. november til 19. desember. Bord kan bestilles hos Bryt.",
+    "moreShows": [
+      "2026-11-14T21:00",
+      "2026-11-21T21:00",
+      "2026-11-28T21:00",
+      "2026-12-05T21:00",
+      "2026-12-12T21:00",
+      "2026-12-19T21:00"
+    ]
   }
 ]
