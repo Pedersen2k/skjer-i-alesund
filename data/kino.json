@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-06T12:55:07Z",
+  "updatedAt": "2026-11-06T14:30:00Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -524,7 +524,7 @@
   {
    "id": "EDI20260641",
    "title": "How to Rob a Bank",
-   "age": null,
+   "age": 12,
    "minutes": 122,
    "genres": [
     "Action",
@@ -651,7 +651,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/c062e973-860f-49d5-8c13-e5e9de6f092f",
+     "url": "",
      "club": false
     },
     {
@@ -1084,7 +1084,7 @@
      "start": "2026-11-06T14:00:00",
      "screen": "1 isense",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/1482c93d-d10d-4e5d-aa52-124776a7042c",
+     "url": "",
      "club": true
     },
     {
@@ -1588,7 +1588,7 @@
     "Action",
     "Komedie"
    ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/b7c7d07d556cff3e5c9868b5e6fd02656f31e59c-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/4fe030b928d64fd21116e82118c14e872c70ee09-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
     {
@@ -1606,7 +1606,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/42bc5db5-71c4-461d-806c-a57cc78fe631",
+     "url": "",
      "club": false
     },
     {
@@ -1931,7 +1931,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/f8ccb0f7-fd6f-4189-91db-2f91d48b38bb",
+     "url": "",
      "club": false
     },
     {
