@@ -59,9 +59,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-06T08:23:37Z",
+  "updatedAt": "2026-11-06T10:14:44Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -2072,6 +2072,22 @@
    "uncertain": false,
    "url": "https://billetto.no/e/julevisekveld-pa-fabrikken-onsdag-16-desember-billetter-1993425",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "til-deg-som-venter-kl-20-00-venterommet-terminalen",
+   "date": "2026-12-16",
+   "time": "20:30",
+   "title": "TIL DEG SOM VENTER – Kl. 20:00",
+   "venue": "Venterommet, Terminalen",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "200 kr",
+   "priceMin": 200,
+   "soldOut": false,
+   "note": "Rabatt: Billett barn/ungdom 100 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67312-til-deg-som-venter-andre-konsert-venterommet",
+   "addedAt": "2026-11-06T10:14:44Z"
   },
   {
    "id": "parken-43586-parken-kulturhus",
