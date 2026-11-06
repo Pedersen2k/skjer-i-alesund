@@ -514,9 +514,6 @@ def kontakt_page():
   <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div></footer>"""
 
 
-ARR_SOURCES = ["Tikkio", "Parken kulturhus", "Dampsentralen", "Fabrikken Kulturscene", "O'Connor's", "Liv &amp; Røre Moa", "Viti (Jugendstilsenteret og Sunnmøre museum)", "AaFK"]
-
-
 def arrangor_page(all_events):
     """For arrangører: hvordan man kommer med, hva man får, skjema for å sende inn arrangementer, og «lenk til oss».
     Tallene kommer fra events.json; ingenting er oppdiktet."""
@@ -535,21 +532,13 @@ def arrangor_page(all_events):
   </header>
   <main class="arr">
   <section>
-    <h2>Slik kommer du med</h2>
-    <ol class="arr-steps">
-      <li><b>Selger du billetter på Tikkio?</b> Da kommer arrangementet med av seg selv, med pris, utsolgt-status og alle forestillinger. Du trenger ikke gjøre noe.</li>
-      <li><b>Har du en egen programside?</b> Vi henter allerede automatisk fra {", ".join(ARR_SOURCES[1:-1])} og {ARR_SOURCES[-1]}. Send oss lenken til programmet ditt, så ser vi om vi kan hente det på samme måte.</li>
-      <li><b>Ellers</b> Fyll ut skjemaet under. Vi sjekker opplysningene mot billettsiden din og legger det inn for hånd.</li>
-    </ol>
-  </section>
-  <section>
     <h2>Dette får du</h2>
     <ul class="arr-get">
       <li><b>Egen side for arrangementet</b> Med dato, tid, sted, pris og billettknapp, og «Legg i kalender» og «Del».</li>
       <li><b>Synlig i Google</b> Som arrangement (strukturerte data), og på sidene for dag, helg, kategori og scene.</li>
       <li><b>Eget delingsbilde</b> Vises når lenken deles på Messenger, Facebook eller SMS.</li>
       <li><b>Med i Helgeposten</b> Oversikten over helgen som deles på Instagram og Facebook hver torsdag.</li>
-      <li><b>Utsolgt og «få billetter igjen»</b> Vises når billettsiden din sier det (Tikkio og Parken).</li>
+      <li><b>Utsolgt og «få billetter igjen»</b> Vises på kortet når du gir oss beskjed.</li>
       <li><b>Turister finner deg også</b> De neste 14 dagene ligger på engelsk på <a href="../en/">kaskjerda.no/en</a>.</li>
     </ul>
   </section>
@@ -589,7 +578,7 @@ def arrangor_page(all_events):
     <h3>Koster det noe?</h3>
     <p>Nei. Det er gratis å være med, og vi tar ingen del av billettsalget.</p>
     <h3>Hvor kommer tallene fra?</h3>
-    <p>Fra billettsiden din. Vi finner ikke på datoer eller priser. Står det noe annet hos deg enn hos oss, er det din side som gjelder, og vi retter det så fort vi får beskjed.</p>
+    <p>Fra deg og billettsiden din. Vi finner ikke på datoer eller priser. Står det noe annet hos deg enn hos oss, er det din side som gjelder, og vi retter det så fort vi får beskjed.</p>
     <h3>Noe er feil, eller vi vil ikke være med</h3>
     <p>Send en melding via <a href="../kontakt/">kontaktskjemaet</a>, så retter eller fjerner vi det.</p>
     <h3>Kan vi betale for å bli fremhevet?</h3>
