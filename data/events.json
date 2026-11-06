@@ -56,12 +56,20 @@
    "parken-46413-parken-kulturhus": [
     "2026-10-19T12:59:56Z",
     "2026-11-05T22:13:24Z"
+   ],
+   "parken-46661-parken-kulturhus": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-06T19:59:11Z"
+   ],
+   "parken-47866-parken-kulturhus": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-06T19:59:11Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-06T17:56:36Z",
+  "updatedAt": "2026-11-06T19:59:11Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -74,24 +82,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-46661-parken-kulturhus",
-   "date": "2026-11-06",
-   "time": "17:30",
-   "title": "The best of Ghibli Studio",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "400–450 kr",
-   "priceMin": 400,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/46661-the-best-of-ghibli-studio/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "juleinspirert-tapasbuffet-hotel-1904",
    "date": "2026-11-06",
@@ -126,7 +116,7 @@
   {
    "id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater",
    "date": "2026-11-06",
-   "time": "18:30",
+   "time": "20:00",
    "title": "Juleshow på Løvenvold Vol. 4",
    "venue": "Løvenvold Theater",
    "address": "Løvenvoldgata 11, 6002 Ålesund",
@@ -135,7 +125,6 @@
    "priceMin": 699,
    "soldOut": false,
    "soldShows": [
-    "2026-11-06T17:30",
     "2026-11-07T17:30",
     "2026-11-20T17:30",
     "2026-11-21T17:30",
@@ -148,11 +137,10 @@
     "2026-12-12T17:30",
     "2026-12-18T17:30"
    ],
-   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Også kl. 20:00. Utsolgt: 17:30, 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 7. nov, 19. nov, 20. nov, 21. nov, 26. nov m.fl.",
+   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 7. nov, 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 7. nov, 19. nov, 20. nov, 21. nov, 26. nov m.fl. Rabatt: Intern Familiebillett 200 kr.",
    "uncertain": false,
-   "url": "https://tikkio.com/events/62679-juleshow-pa-lovenvold-vol-4-611",
+   "url": "https://tikkio.com/events/62695-ekstrashow-juleshow-pa-lovenvold-vol-4-0611",
    "moreShows": [
-    "2026-11-06T20:00",
     "2026-11-07T17:30",
     "2026-11-07T20:00",
     "2026-11-19T17:30",
@@ -179,24 +167,6 @@
     "2026-12-18T17:30",
     "2026-12-18T20:00"
    ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "parken-47866-parken-kulturhus",
-   "date": "2026-11-06",
-   "time": "19:30",
-   "title": "The music of Hans Zimmer vs John Williams",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "400–450 kr",
-   "priceMin": 400,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47866-the-music-of-hans-zimmer-vs-john-williams/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -2495,6 +2465,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49424-the-show-must-go-on/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-51384-parken-kulturhus",
+   "date": "2027-01-17",
+   "time": "18:00",
+   "title": "Ole Reinlund",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "385 kr",
+   "priceMin": 385,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51384-ole-reinlund/",
+   "addedAt": "2026-11-06T19:59:11Z"
   },
   {
    "id": "slomosa-terminalen-byscene",
