@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-05T22:17:21Z",
+  "updatedAt": "2026-11-06T06:15:44Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -76,15 +76,6 @@
    "premiere": "2026-10-23",
    "shows": [
     {
-     "start": "2026-11-05T21:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-06T21:20:00",
      "screen": "3",
      "tags": [],
@@ -152,16 +143,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/eb4b617f94d0ff88352912d08252a7d22ada253a-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-02",
    "shows": [
-    {
-     "start": "2026-11-05T12:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-06T15:30:00",
      "screen": "3",
@@ -278,15 +259,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ce797c664fa97646a09fdfdb807c5ec4668040af-1500x2103.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-09-11",
    "shows": [
-    {
-     "start": "2026-11-05T14:45:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-11-06T15:30:00",
      "screen": "Sal 5",
@@ -486,13 +458,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f73aa5f1d8a24cb412b69b828e2f56dcd502c171-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-09-25",
    "shows": [
-    {
-     "start": "2026-11-05T20:45:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-06T13:00:00",
      "screen": "Sal 5",
@@ -1102,36 +1067,6 @@
    "premiere": "2026-10-30",
    "shows": [
     {
-     "start": "2026-11-05T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-05T14:45:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-05T18:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-05T20:15:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
      "start": "2026-11-06T12:00:00",
      "screen": "3",
      "tags": [],
@@ -1377,15 +1312,6 @@
    "premiere": "2026-10-16",
    "shows": [
     {
-     "start": "2026-11-05T15:00:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-07T09:45:00",
      "screen": "Sal 5",
      "tags": [
@@ -1489,13 +1415,6 @@
    "premiere": "2026-10-23",
    "shows": [
     {
-     "start": "2026-11-05T15:30:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-09T16:15:00",
      "screen": "Sal 6",
      "tags": [
@@ -1548,15 +1467,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/a7dc76dfccdd99ba7baf997317d7a807c1bccba9-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-09",
    "shows": [
-    {
-     "start": "2026-11-05T21:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-06T21:00:00",
      "screen": "Sal 5",
@@ -1674,38 +1584,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/b7c7d07d556cff3e5c9868b5e6fd02656f31e59c-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-11-05T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T15:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T18:15:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-06T12:30:00",
      "screen": "Sal 2",
@@ -1960,29 +1838,6 @@
       "Utekstet"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/fc5b2c47-8d88-470a-9148-c39bca02a0f6",
-     "club": false
-    }
-   ]
-  },
-  {
-   "id": "EDI20261481",
-   "title": "Primetime",
-   "age": 15,
-   "minutes": 110,
-   "genres": [
-    "Drama"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/c3450b07490826a3a8ddbcfa8395fd77d634841d-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-11-04",
-   "shows": [
-    {
-     "start": "2026-11-05T21:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "Utekstet",
-      "LUXE"
-     ],
-     "url": "",
      "club": false
     }
    ]
@@ -2273,22 +2128,6 @@
    "premiere": "2026-10-09",
    "shows": [
     {
-     "start": "2026-11-05T12:00:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-05T17:15:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
      "start": "2026-11-06T12:00:00",
      "screen": "4",
      "tags": [],
@@ -2531,29 +2370,6 @@
    ]
   },
   {
-   "id": "SMN20050114",
-   "title": "V for vendetta",
-   "age": 15,
-   "minutes": 133,
-   "genres": [
-    "Sci-Fi"
-   ],
-   "poster": "",
-   "premiere": "2026-11-05",
-   "shows": [
-    {
-     "start": "2026-11-05T18:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "Utekstet",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "BVI20230736",
    "title": "Vaiana",
    "age": 6,
@@ -2609,13 +2425,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/c0244aa90fbcd342cf565324c22260fb9d82c865-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-02",
    "shows": [
-    {
-     "start": "2026-11-05T20:45:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-06T20:30:00",
      "screen": "Sal 6",
@@ -2689,26 +2498,6 @@
    ]
   },
   {
-   "id": "BVI20220663",
-   "title": "Whalefall",
-   "age": 15,
-   "minutes": 106,
-   "genres": [
-    "Thriller"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/57c857b68706fdf57f4637b2a54c4b4ca85e898e-1440x2057.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-10-16",
-   "shows": [
-    {
-     "start": "2026-11-07T23:55:00",
-     "screen": "4",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/8edbf912-4a43-4c31-a98f-e7b4b7b42a9b",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20260846",
    "title": "Wildwood",
    "age": 12,
@@ -2721,31 +2510,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/87e8cca69961cc03bd033d51dcf4e73da65744c2-1500x2104.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-30",
    "shows": [
-    {
-     "start": "2026-11-05T12:45:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T15:45:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-05T17:45:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-06T12:00:00",
      "screen": "Sal 6",
