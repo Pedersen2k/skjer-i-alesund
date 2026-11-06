@@ -59,7 +59,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-06T10:14:44Z",
+  "updatedAt": "2026-11-06T11:41:20Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 1,
   "sources": [
@@ -1269,6 +1269,22 @@
    "uncertain": false,
    "url": "https://livrore.no/event/torsdagers-quiz-med-oystein-oksnes-neynxwdqrh/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "chris-medina-eirik-naess-jul-hos-oss-alesund-kirke-2026",
+   "date": "2026-11-26",
+   "time": "19:00",
+   "title": "Chris Medina & Eirik Næss – «Jul Hos Oss»",
+   "price": "475 kr",
+   "priceMin": 475,
+   "venue": "Ålesund kirke",
+   "address": "Kirkegata 2, 6004 Ålesund",
+   "cat": "konsert",
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Med Lars Støvland. Tiårsjubileum for juleturneen. Rabatt: Student 225 kr, barn under 16 år 75 kr.",
+   "url": "https://secure.tickster.com/no/lnnyulljpvcjp60/products",
+   "addedAt": "2026-11-06T11:41:20Z"
   },
   {
    "id": "parken-49740-parken-kulturhus",
