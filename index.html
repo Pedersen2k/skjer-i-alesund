@@ -66,6 +66,24 @@ body { margin: 0; font-size: 14px; }
 .missing b { font: 700 17px/1.2 var(--font-display); }
 .missing span { color: var(--muted); font-size: 14px; }
 .missing:hover span { color: var(--fg); }
+/* For arrangører: to små kort øverst på PC, knapp i toppstripa og lenke i «Mangler det noe?» på mobil */
+.arrduo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 14px 0 0; }
+.arrduo a { display: block; padding: 11px 13px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-decoration: none; color: var(--fg); }
+.arrduo b { display: block; font: 700 14.5px/1.25 var(--font-body); }
+.arrduo span { font-size: 12.5px; color: var(--muted); }
+.arrduo a:last-child b { color: var(--accent); }
+.arrduo a:hover { border-color: var(--accent); }
+.arrbtn svg { color: var(--accent); }
+.langbtn.arrbtn, .missing2 { display: none; }
+.missing2 { margin: 22px 0; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.missing2 b { display: block; margin-bottom: 4px; font: 700 17px/1.2 var(--font-display); color: var(--fg); }
+.missing2 a { color: var(--accent); font-weight: 600; }
+@media (max-width: 640px) {
+  .arrduo, .missing { display: none; }
+  .langbtn.arrbtn { display: inline-flex; }
+  .missing2 { display: block; }
+}
+@media (max-width: 440px) { .topbar > .eyebrow { display: none; } }
 .quizcard .qrows { grid-column: 1 / -1; margin-top: 6px; border-top: 1px dashed var(--line); font-size: 14px; }
 .quizcard .qrow { display: grid; grid-template-columns: 58px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--line); color: var(--fg); text-decoration: none; }
 .quizcard .qrow:last-child { border-bottom: 0; }
@@ -378,7 +396,7 @@ html[data-tema="kveld"] .tomt .links button, html[data-tema="jul"] .tomt .links 
   <header class="top">
     <div class="topbar">
       <div class="eyebrow">62,47° N · 6,15° Ø</div>
-      <div class="topr"><button class="langbtn savebtn" id="savebtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="savepop" aria-label="Lagre siden" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span class="sl">Lagre</span></button><a class="langbtn" id="langbtn" href="en/" hreflang="en" lang="en" aria-label="English"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="ll">English</span><span class="ls">EN</span></a>
+      <div class="topr"><button class="langbtn savebtn" id="savebtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="savepop" aria-label="Lagre siden" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span class="sl">Lagre</span></button><a class="langbtn arrbtn" href="arrangor/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span class="ll">For arrangører</span><span class="ls">Arrangør</span></a><a class="langbtn" id="langbtn" href="en/" hreflang="en" lang="en" aria-label="English"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="ll">English</span><span class="ls">EN</span></a>
       <div class="tsw" role="group" aria-label="Design"><button type="button" data-t="kveld" aria-label="Mørkt"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="tl">Mørkt</span></button><button type="button" data-t="standard" aria-label="Lyst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span class="tl">Lyst</span></button></div></div>
       <div class="savepop" id="savepop" role="dialog" aria-label="Ha siden med deg" hidden></div>
     </div>
@@ -394,6 +412,7 @@ html[data-tema="kveld"] .tomt .links button, html[data-tema="jul"] .tomt .links 
     </div>
     <p class="lede">Konserter, standup, show og happenings i byen, samlet på ett sted. Programmet sjekkes hver andre time på dagtid, og nye arrangementer merkes med NYTT. Trykk ☆ for å lagre det du vil på.</p>
     <div class="status" id="status">Henter programmet …</div>
+    <div class="arrduo"><a href="kontakt/"><b>Mangler det noe?</b><span>Tips oss om et arrangement</span></a><a href="arrangor/"><b>For arrangører →</b><span>Kom med gratis</span></a></div>
   </header>
 
   <div class="controls">
@@ -478,6 +497,7 @@ html[data-tema="kveld"] .tomt .links button, html[data-tema="jul"] .tomt .links 
     </div>
   </div>
   <a class="missing" href="kontakt/"><b>Mangler det noe?</b><span>Foreslå et arrangement eller meld fra om en feil →</span></a>
+  <div class="missing2"><b>Mangler det noe?</b><a href="kontakt/">Tips oss om et arrangement</a> eller meld fra om en feil. Arrangerer du selv? <a href="arrangor/">Slik kommer du med →</a></div>
 
   <footer>
     <div>Programmet hentes automatisk flere ganger om dagen fra Tikkio (blant annet Terminalen Byscene og Løvenvold Theater) og fra programmene til Parken kulturhus, Dampsentralen og Fabrikken Kulturscene. Enkelte andre arrangementer legges inn for hånd. Priser vises der arrangøren har publisert dem. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div>
