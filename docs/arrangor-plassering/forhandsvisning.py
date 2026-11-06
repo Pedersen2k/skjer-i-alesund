@@ -28,8 +28,10 @@ ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=
 extra = r"""
 <style>
 .pv-p1, .pv-p2, .pv-p3, .pv-p4, .pv-p5, .pv-p6 { }
-body:not(.v-p1):not(.v-p6):not(.v-p7) .pv-p1, body:not(.v-p2) .pv-p2, body:not(.v-p3) .pv-p3, body:not(.v-p4) .pv-p4,
-body:not(.v-p5):not(.v-p7) .pv-p5, body:not(.v-p6):not(.v-p7) .pv-p6 { display: none !important; }
+body:not(.v-p1):not(.v-p6):not(.v-p7):not(.v-p7mob) .pv-p1, body:not(.v-p2) .pv-p2, body:not(.v-p3) .pv-p3, body:not(.v-p4) .pv-p4,
+body:not(.v-p5):not(.v-p7):not(.v-p7pc) .pv-p5, body:not(.v-p6):not(.v-p7):not(.v-p7mob) .pv-p6 { display: none !important; }
+body.v-p7mob .pv-p1 { display: inline-flex !important; }
+body.v-p7mob .missing.orig { display: none; }
 body.v-p6 .missing.orig { display: none; }
 /* P7: P5 på PC, P6 på mobil (samme grense som mobilmenyen, 640 px) */
 @media (min-width: 641px) { body.v-p7 .pv-p1, body.v-p7 .pv-p6 { display: none !important; } }
@@ -40,7 +42,7 @@ body.v-p6 .missing.orig { display: none; }
 .arrbtn .ls { display: none; }
 @media (max-width: 520px) { .arrbtn .ll { display: none; } .arrbtn .ls { display: inline; } }
 /* Koordinatene øverst til venstre får ikke plass ved siden av en knapp til på smale telefoner */
-@media (max-width: 440px) { body.v-p1 .topbar > .eyebrow, body.v-p6 .topbar > .eyebrow, body.v-p7 .topbar > .eyebrow { display: none; } }
+@media (max-width: 440px) { body.v-p1 .topbar > .eyebrow, body.v-p6 .topbar > .eyebrow, body.v-p7 .topbar > .eyebrow, body.v-p7mob .topbar > .eyebrow { display: none; } }
 
 /* P2 lenke i ingressen */
 .lede .pv-p2 a { color: var(--accent); font-weight: 600; white-space: nowrap; }
@@ -80,7 +82,7 @@ body.v-p6 .missing.orig { display: none; }
 body { padding-bottom: 150px; }
 </style>
 <nav class="pick" aria-label="Velg forslag og tema">
-  <div class="seg" role="group" aria-label="Forslag"><button type="button" data-v="na">Nå</button><button type="button" data-v="p1">P1</button><button type="button" data-v="p2">P2</button><button type="button" data-v="p3">P3</button><button type="button" data-v="p4">P4</button><button type="button" data-v="p5">P5</button><button type="button" data-v="p6">P6</button><button type="button" data-v="p7">P7</button></div>
+  <div class="seg" role="group" aria-label="Forslag"><button type="button" data-v="na">Nå</button><button type="button" data-v="p1">P1</button><button type="button" data-v="p2">P2</button><button type="button" data-v="p3">P3</button><button type="button" data-v="p4">P4</button><button type="button" data-v="p5">P5</button><button type="button" data-v="p6">P6</button><button type="button" data-v="p7">P7</button><button type="button" data-v="p7pc">P7 PC</button><button type="button" data-v="p7mob">P7 mobil</button></div>
   <div class="seg" role="group" aria-label="Tema"><button type="button" data-t="kveld">Mørkt</button><button type="button" data-t="jul">Jul</button><button type="button" data-t="lys">Lyst</button></div>
   <p id="ptxt"></p>
 </nav>
@@ -94,7 +96,9 @@ body { padding-bottom: 150px; }
     p4: "P4 Eget kort over lista, som kinostripa. Mest synlig, men tar plass fra programmet.",
     p5: "P5 «Tips oss» og «For arrangører» som to små kort øverst, i stedet for boksen nederst.",
     p6: "P6 = P1, pluss at «Mangler det noe?»-boksen nederst får to lenker: tips oss og for arrangører.",
-    p7: "P7 = P5 på PC (to små kort øverst) og P6 på mobil (knapp i toppstripa + lenke nederst). Bytt bredde på vinduet for å se begge.",
+    p7: "P7 = P5 på PC (to små kort øverst) og P6 på mobil (knapp i toppstripa + lenke nederst). Velger selv etter bredden på vinduet (under 640 px = mobil).",
+    p7pc: "P7 slik den blir på PC: to små kort øverst, «Mangler det noe?» og «For arrangører». (Vises her uansett bredde.)",
+    p7mob: "P7 slik den blir på mobil: «Arrangør»-knapp i toppstripa og lenke i «Mangler det noe?»-boksen nederst.",
   };
   const ICON = `__ICON__`;
   const topr = document.querySelector(".topr"), lang = document.getElementById("langbtn");
@@ -112,7 +116,7 @@ body { padding-bottom: 150px; }
   const head = document.querySelector("header.top");
   head.appendChild(document.querySelector(".arrcard")); head.appendChild(document.querySelector(".arrduo"));
 
-  const v = () => (Object.keys(TXT).includes(location.hash.slice(1)) ? location.hash.slice(1) : "p7");
+  const v = () => (Object.keys(TXT).includes(location.hash.slice(1)) ? location.hash.slice(1) : "p7pc");
   function setTema(t) {
     document.querySelectorAll('link[href="tema-kveld.css"],link[href="tema-jul.css"]').forEach(l => l.remove());
     const root = document.documentElement;
