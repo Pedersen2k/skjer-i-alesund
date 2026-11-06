@@ -329,7 +329,7 @@ def listing(path, h1, lede, events, empty, cats_present, about="", lead=""):
 {day_list(events, up) if events else f'<p class="empty">{escape(empty)}</p>'}
   </main>
   {links_nav(up, path, cats_present)}
-  <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a></div></footer>"""
+  <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a> · <a href="{up}arrangor/">For arrangører</a></div></footer>"""
     return body
 
 
@@ -447,7 +447,7 @@ def ikveld_page(events, today):
   </main>
   <script>{IKVELD_JS.replace("__LABELS__", json.dumps(CAT_LABEL, ensure_ascii=False))}</script>
   {links_nav(up, "i-kveld/", {e["cat"] for e in events})}
-  <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a></div></footer>"""
+  <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett. <a href="{up}kontakt/">Kontakt og om siden</a> · <a href="{up}arrangor/">For arrangører</a></div></footer>"""
     evs = occurrences(events, today, today)
     desc = describe(evs, "Hva skjer i Ålesund i kveld") if evs else f"Hva skjer i Ålesund i kveld, {day_text(today)}? Konserter, standup, show og klubb, med klokkeslett og billettpriser."
     return page("i-kveld/", f"Hva skjer i Ålesund i kveld? {day_text(today).capitalize()} | {SITE}", desc, body,
@@ -506,12 +506,117 @@ def kontakt_page():
   <section class="about">
     <h2>Om siden</h2>
     <p>Skjer i Ålesund samler konserter, standup, show, barnearrangementer, klubbkvelder og AaFK-hjemmekamper i Ålesund på ett sted, med billettpriser. Programmet hentes automatisk flere ganger om dagen fra Tikkio, Parken kulturhus, Dampsentralen, Fabrikken Kulturscene og AaFK, og enkelte arrangementer legges inn for hånd. Vi finner ikke på noe: alt kommer fra arrangørenes egne sider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</p>
-    <p>Er du arrangør og mangler på siden? Send oss en lenke til arrangementet, så legger vi det inn.</p>
+    <p>Er du arrangør og mangler på siden? Se <a href="../arrangor/">For arrangører</a>, eller send oss en lenke til arrangementet, så legger vi det inn.</p>
     <h2>Personvern</h2>
     <p>Skjemaet sender bare det du skriver til oss, via tjenesten Web3Forms, og vi bruker det kun til å svare deg eller rette opp i programmet. E-post og navn er valgfritt. Siden teller besøk med GoatCounter, som ikke bruker informasjonskapsler og ikke lagrer personopplysninger.</p>
   </section>
   </main>
   <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</div></footer>"""
+
+
+ARR_SOURCES = ["Tikkio", "Parken kulturhus", "Dampsentralen", "Fabrikken Kulturscene", "O'Connor's", "Liv &amp; Røre Moa", "Viti (Jugendstilsenteret og Sunnmøre museum)", "AaFK"]
+
+
+def arrangor_page(all_events):
+    """For arrangører: hvordan man kommer med, hva man får, skjema for å sende inn arrangementer, og «lenk til oss».
+    Tallene kommer fra events.json; ingenting er oppdiktet."""
+    n = len(all_events)
+    venues = len({e["venue"] for e in all_events if e.get("venue")})
+    snippet = escape('<a href="https://kaskjerda.no/">Se alt som skjer i Ålesund på kaskjerda.no</a>')
+    cats = [("konsert", "Konsert"), ("standup", "Standup"), ("show", "Show, teater, dans"), ("barn", "Barn og familie"), ("klubb", "Klubb og DJ"),
+            ("happening", "Happening, marked, foredrag"), ("quiz", "Quiz"), ("julebord", "Julebord"), ("sport", "Sport")]
+    cat_opts = "".join(f"<option>{escape(l)}</option>" for _, l in cats)
+    return f"""  <header class="top">
+    <p class="eyebrow">For arrangører</p>
+    <h1>Få arrangementet ditt på Skjer i Ålesund</h1>
+    <p class="lede">Gratis, og vi lenker alltid rett til din egen billettside. Vi selger ikke billetter og tar ingen provisjon.</p>
+    <p class="arr-facts"><b>{n}</b> arrangementer fra <b>{venues}</b> steder i Ålesund akkurat nå · oppdateres hver andre time</p>
+    <p><a class="btn" href="#send">Send inn et arrangement</a></p>
+  </header>
+  <main class="arr">
+  <section>
+    <h2>Slik kommer du med</h2>
+    <ol class="arr-steps">
+      <li><b>Selger du billetter på Tikkio?</b> Da kommer arrangementet med av seg selv, med pris, utsolgt-status og alle forestillinger. Du trenger ikke gjøre noe.</li>
+      <li><b>Har du en egen programside?</b> Vi henter allerede automatisk fra {", ".join(ARR_SOURCES[1:-1])} og {ARR_SOURCES[-1]}. Send oss lenken til programmet ditt, så ser vi om vi kan hente det på samme måte.</li>
+      <li><b>Ellers</b> Fyll ut skjemaet under. Vi sjekker opplysningene mot billettsiden din og legger det inn for hånd.</li>
+    </ol>
+  </section>
+  <section>
+    <h2>Dette får du</h2>
+    <ul class="arr-get">
+      <li><b>Egen side for arrangementet</b> Med dato, tid, sted, pris og billettknapp, og «Legg i kalender» og «Del».</li>
+      <li><b>Synlig i Google</b> Som arrangement (strukturerte data), og på sidene for dag, helg, kategori og scene.</li>
+      <li><b>Eget delingsbilde</b> Vises når lenken deles på Messenger, Facebook eller SMS.</li>
+      <li><b>Med i Helgeposten</b> Oversikten over helgen som deles på Instagram og Facebook hver torsdag.</li>
+      <li><b>Utsolgt og «få billetter igjen»</b> Vises når billettsiden din sier det (Tikkio og Parken).</li>
+      <li><b>Turister finner deg også</b> De neste 14 dagene ligger på engelsk på <a href="../en/">kaskjerda.no/en</a>.</li>
+    </ul>
+  </section>
+  <section id="send">
+    <h2>Send inn et arrangement</h2>
+    <p class="arr-need">Vi trenger tittel, dato og klokkeslett, sted, vanlig billettpris og en lenke til billettsiden. Har det flere datoer, skriv alle.</p>
+    <form id="aform" class="kform" action="https://api.web3forms.com/submit" method="post">
+      <input type="hidden" name="access_key" value="{WEB3FORMS_KEY}">
+      <input type="hidden" name="subject" value="Arrangør: nytt arrangement fra kaskjerda.no">
+      <input type="hidden" name="from_name" value="kaskjerda.no (arrangør)">
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" style="display:none">
+      <label>Arrangør <input name="Arrangør" maxlength="150" required autocomplete="organization"></label>
+      <label>Tittel på arrangementet <input name="Arrangement" maxlength="150" required></label>
+      <div class="arr-two">
+        <label>Dato(er) og klokkeslett <input name="Dato" maxlength="200" required placeholder="F.eks. fre 4. des kl. 20:00"></label>
+        <label>Sted <input name="Sted" maxlength="150" required></label>
+      </div>
+      <div class="arr-two">
+        <label>Vanlig billettpris <input name="Pris" maxlength="100" placeholder="F.eks. 350 kr, eller gratis"></label>
+        <label>Kategori <select name="Kategori">{cat_opts}</select></label>
+      </div>
+      <label>Lenke til billetter eller arrangementet <input name="Lenke" type="url" placeholder="https://" maxlength="300" required></label>
+      <label>Noe mer vi bør vite? (valgfritt) <textarea name="Melding" rows="4" maxlength="3000"></textarea></label>
+      <label>E-posten din, så vi kan svare <input name="email" type="email" maxlength="150" required autocomplete="email"></label>
+      <label class="arr-check"><input type="checkbox" name="Bilde og tekst" value="Ja, dere kan bruke bilde og tekst fra billettsiden"> Dere kan gjerne bruke bildet og beskrivelsen fra billettsiden vår</label>
+      <button class="btn" type="submit">Send inn</button>
+      <p id="astatus" class="small" role="status"></p>
+    </form>
+  </section>
+  <section>
+    <h2>Lenk gjerne til oss</h2>
+    <p>En lenke fra nettsiden din hjelper publikum med å finne resten av programmet i byen, og den hjelper oss i Google. Kopier denne:</p>
+    <div class="arr-snip"><code id="asnip">{snippet}</code><button type="button" class="act" id="acopy">Kopier</button></div>
+  </section>
+  <section class="about">
+    <h2>Spørsmål og svar</h2>
+    <h3>Koster det noe?</h3>
+    <p>Nei. Det er gratis å være med, og vi tar ingen del av billettsalget.</p>
+    <h3>Hvor kommer tallene fra?</h3>
+    <p>Fra billettsiden din. Vi finner ikke på datoer eller priser. Står det noe annet hos deg enn hos oss, er det din side som gjelder, og vi retter det så fort vi får beskjed.</p>
+    <h3>Noe er feil, eller vi vil ikke være med</h3>
+    <p>Send en melding via <a href="../kontakt/">kontaktskjemaet</a>, så retter eller fjerner vi det.</p>
+    <h3>Kan vi betale for å bli fremhevet?</h3>
+    <p>Ikke nå. Programmet er det samme for alle, sortert etter dato.</p>
+  </section>
+  <script>
+  (function () {{
+    const f = document.getElementById("aform"), st = document.getElementById("astatus");
+    f.onsubmit = async e => {{
+      e.preventDefault(); st.textContent = "Sender …";
+      try {{
+        const r = await fetch(f.action, {{ method: "POST", headers: {{ Accept: "application/json" }}, body: new FormData(f) }});
+        const j = await r.json();
+        if (!j.success) throw 0;
+        f.reset(); st.textContent = "Takk! Vi sjekker arrangementet og legger det inn.";
+        try {{ window.goatcounter && goatcounter.count({{ path: "arrangor/sendt", event: true }}); }} catch {{}}
+      }} catch {{ st.textContent = "Det gikk ikke å sende. Prøv igjen litt senere."; }}
+    }};
+    const b = document.getElementById("acopy");
+    b.onclick = async () => {{
+      try {{ await navigator.clipboard.writeText(document.getElementById("asnip").textContent); b.textContent = "Kopiert"; }} catch {{ b.textContent = "Marker og kopier"; }}
+      setTimeout(() => b.textContent = "Kopier", 2500);
+    }};
+  }})();
+  </script>
+  </main>
+  <footer><div>Programmet hentes automatisk flere ganger om dagen fra arrangørenes billettsider. <a href="../kontakt/">Kontakt og om siden</a></div></footer>"""
 
 
 def quiz_week(evs, today):
@@ -1075,6 +1180,11 @@ def main():
     write("kontakt/", page("kontakt/", f"Kontakt og om siden | {SITE}", "Kontakt Skjer i Ålesund: foreslå et arrangement, rapporter en feil eller si hei. Om siden og personvern.", kontakt_page()))
     pages.append(("kontakt/", updated[:10]))
 
+    write("arrangor/", page("arrangor/", f"For arrangører: få arrangementet ditt på kaskjerda.no | {SITE}",
+                            f"Gratis for arrangører i Ålesund: send inn konserter, show og happenings, så kommer de med på Skjer i Ålesund med pris, dato og lenke til billettsiden din. {len(all_events)} arrangementer nå.",
+                            arrangor_page(all_events)))
+    pages.append(("arrangor/", updated[:10]))
+
     # Delte lenker til arrangementer som er over, havner her
     write("404.html", page("404.html", f"Fant ikke siden | {SITE}", "Arrangementet er over eller finnes ikke lenger.",
                            f"""  <header class="top"><h1>Fant ikke siden</h1>
@@ -1608,6 +1718,22 @@ html[data-tema="kveld"] .ikveld .it .bt { color: var(--gold); }
 .kform #kevent { display: grid; gap: 14px; }
 .kform #kevent[hidden] { display: none; }
 .kform .btn { border: 0; cursor: pointer; justify-self: start; }
+.arr-facts { font: 500 14px/1.4 var(--font-mono); color: var(--muted); margin: 10px 0 14px; }
+.arr-facts b { color: var(--fg); }
+.arr section { max-width: 640px; margin: 0 0 30px; }
+.arr h2 { font: 800 22px/1.2 var(--font-display); margin: 0 0 12px; }
+.arr-steps, .arr-get { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 15px; line-height: 1.5; }
+.arr-get { list-style: none; padding: 0; }
+.arr-get li { padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.arr-get b, .arr-steps b { display: block; }
+.arr-need { font-size: 15px; line-height: 1.5; color: var(--muted); margin: 0 0 14px; }
+.arr-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.kform .arr-check { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
+.kform .arr-check input { width: 20px; height: 20px; flex: none; margin: 1px 0 0; }
+.arr-snip { display: flex; gap: 8px; align-items: stretch; flex-wrap: wrap; }
+.arr-snip code { flex: 1 1 280px; min-width: 0; overflow-wrap: anywhere; font: 500 13px/1.5 var(--font-mono); padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.arr-snip .act { min-height: 44px; }
+.about h3 { font: 700 15px/1.3 var(--font-body); margin: 16px 0 4px; }
 .about { max-width: 640px; margin-top: 32px; }
 .about h2 { font: 700 18px/1.2 var(--font-display); margin: 22px 0 8px; }
 .about p { font-size: 15px; line-height: 1.55; }
