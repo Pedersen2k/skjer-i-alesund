@@ -677,8 +677,9 @@ def build_events(raw, overrides):
             "date": (o["date"] if o.get("date") and first["start"].date().isoformat() == o.get("fromDate", first["start"].date().isoformat()) else first["start"].date().isoformat()),
             "time": ov_time,
             "title": o.get("title") or first["title"],
-            "venue": venue,
-            "address": first.get("address", ""),
+            # «venue»/«address» i en overstyring retter stedet når kilden oppgir feil sted (id-en beholder kildens sted)
+            "venue": o.get("venue") or venue,
+            "address": o.get("address", first.get("address", "")),
             "cat": cat,
             **({"_chk": chk} if chk else {}),
             "price": price, "priceMin": price_min,

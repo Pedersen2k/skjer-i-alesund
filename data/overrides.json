@@ -219,7 +219,10 @@
   },
   "parken-43180": {
     "cat": "konsert",
-    "title": "Ålesund symfoniorkester – Adventskonsert"
+    "title": "Ålesund symfoniorkester – Adventskonsert",
+    "venue": "Ålesund kirke",
+    "address": "Kirkegata 2, 6004 Ålesund",
+    "note": "Konserten er i Ålesund kirke (billetter hos Parken). Nøtteknekkeren, Guilmants orgelsymfoni og julesanger med barnekoret 123.klang og allsang. Gratis for barn i følge med voksen."
   },
   "peter-pan": {
     "cat": "barn"
