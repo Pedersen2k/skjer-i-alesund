@@ -28,8 +28,10 @@ LISTING = "https://tikkio.com/locations/151197-alesund"
 PARKEN = "https://www.parkenkulturhus.no"
 PARKEN_VENUE = "Parken kulturhus"
 PARKEN_ADDRESS = "Parkgata 3B, 6003 Ålesund"
-AAFK_TEAMS = [("https://www.aafk.no/terminliste", "Aalesund"),
-              ("https://www.aafk.no/lag/aalesund-fk-kvinner-senior-a/terminliste", "AaFK Kvinner")]
+# (terminliste, lag, pause til): et lag med en dato hentes ikke før den datoen (sesongpause, ingen varsel om tom liste).
+AAFK_TEAMS = [("https://www.aafk.no/terminliste", "Aalesund", None),
+              ("https://www.aafk.no/lag/aalesund-fk-kvinner-senior-a/terminliste", "AaFK Kvinner",
+               datetime.date(2027, 2, 1))]  # sesongen 2026 er ferdig (siste hjemmekamp 7. nov)
 AAFK_VENUE = "Color Line Stadion"
 DAMP = "https://www.dampsentralen.no"
 DAMP_VENUE = "Dampsentralen"
@@ -574,7 +576,10 @@ def fetch_aafk():
     """Hjemmekamper fra terminlistene til AaFK (herrer og kvinner). Billettprisene ligger i TicketCo og hentes ikke."""
     today = datetime.datetime.now(TZ).date()
     events = []
-    for url, team in AAFK_TEAMS:
+    for url, team, pause in AAFK_TEAMS:
+        if pause and today < pause:
+            print(f"AaFK: {team} er satt på pause til {pause.isoformat()}", file=sys.stderr)
+            continue
         try:
             page = get(url)
         except Exception as e:
