@@ -71,7 +71,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-09T18:24:11Z",
+  "updatedAt": "2026-11-09T19:52:45Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 1,
   "sources": [
@@ -1092,6 +1092,22 @@
     "2026-11-29T12:00"
    ],
    "addedAt": "2026-11-09T07:06:57Z"
+  },
+  {
+   "id": "for-var-jord-borgund-kyrkje-2026",
+   "date": "2026-11-28",
+   "time": "18:00",
+   "title": "For vår Jord – julekonsert",
+   "price": "",
+   "priceMin": null,
+   "venue": "Borgund Kirke",
+   "address": "Borgundgavlen 30, 6015 Ålesund",
+   "cat": "konsert",
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Julekonsert med Anita Skorgan, Karoline Krüger og Sara Skorgan Teigen. Billetter på Eventim (pris ikke lesbar herfra). Kilde: kyrkja.alesund.no.",
+   "url": "https://www.eventim.no/artist/for-var-jord/",
+   "addedAt": "2026-11-09T19:52:45Z"
   },
   {
    "id": "the-good-the-bad-and-the-zugly-terminalen-byscene",
