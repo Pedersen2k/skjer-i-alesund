@@ -64,12 +64,16 @@
    "parken-47866-parken-kulturhus": [
     "2026-10-19T12:59:56Z",
     "2026-11-06T19:59:11Z"
+   ],
+   "musikkbingo-dampsentralen": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-09T18:24:11Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-09T07:06:57Z",
+  "updatedAt": "2026-11-09T18:24:11Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 12,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -697,22 +701,6 @@
     "2026-11-21T17:00"
    ],
    "addedAt": "2026-10-28T16:02:24Z"
-  },
-  {
-   "id": "musikkbingo-dampsentralen",
-   "date": "2026-11-20",
-   "time": "19:00",
-   "title": "MUSIKKBINGO",
-   "venue": "Dampsentralen",
-   "address": "",
-   "cat": "quiz",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk-lcmek",
-   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "oconnors-2026-11-20-pitch-en-venn-o-connor-s",
@@ -1989,7 +1977,7 @@
    "cat": "konsert",
    "price": "200 kr",
    "priceMin": 200,
-   "soldOut": false,
+   "soldOut": true,
    "note": "Rabatt: Billett barn/ungdom 100 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67312-til-deg-som-venter-andre-konsert-venterommet",
@@ -2768,6 +2756,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66896-motorpsycho-terminalen",
    "addedAt": "2026-10-21T12:45:40Z"
+  },
+  {
+   "id": "ylva-maskulin-tour-terminalen-byscene",
+   "date": "2027-03-12",
+   "time": "20:00",
+   "title": "Ylva – Maskulin Tour",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "462 kr",
+   "priceMin": 462,
+   "soldOut": false,
+   "note": "Rabatt: DNB-kunde 369 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67158-ylva-maskulin-tour",
+   "addedAt": "2026-11-09T18:24:11Z"
   },
   {
    "id": "parken-51055-parken-kulturhus",
