@@ -850,5 +850,20 @@
     "uncertain": false,
     "note": "Dans til Mona Jill Trio kl. 20–23:30, med spekemat. Swing, tango, svensk bugg eller linedance. Bindende påmelding på SMS (se arrangøren). Kilde: Bypatrioten.",
     "url": "https://www.vardehuset.no/"
+  },
+  {
+    "id": "for-var-jord-borgund-kyrkje-2026",
+    "date": "2026-11-28",
+    "time": "18:00",
+    "title": "For vår Jord – julekonsert",
+    "price": "",
+    "priceMin": null,
+    "venue": "Borgund Kirke",
+    "address": "",
+    "cat": "konsert",
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Julekonsert med Anita Skorgan, Karoline Krüger og Sara Skorgan Teigen. Billetter på Eventim (pris ikke lesbar herfra). Kilde: kyrkja.alesund.no.",
+    "url": "https://www.eventim.no/artist/for-var-jord/"
   }
 ]
