@@ -505,21 +505,6 @@
     "url": "https://www.voxing.no/"
   },
   {
-    "id": "kulturkafe-sobra-kurt-sagen-2026",
-    "date": "2026-11-07",
-    "time": "13:00",
-    "title": "Kulturkafé på Sobra scene: Kurt Sagen Kvartett",
-    "venue": "Sobra Scene",
-    "address": "Korsegata 6, 6002 Ålesund",
-    "cat": "konsert",
-    "price": "Gratis",
-    "priceMin": 0,
-    "soldOut": false,
-    "uncertain": false,
-    "note": "Akustisk jazz med bossa nova og samba. Dørene åpner 12:30. Salg av kaker og kaffe. Kilde: Bypatrioten.",
-    "url": "https://www.sobrascene.no/"
-  },
-  {
     "id": "nordtriptychon-alesund-kirke-2026",
     "date": "2026-11-08",
     "time": "19:00",
@@ -564,21 +549,6 @@
     "url": "https://www.alesundfilmklubb.com/"
   },
   {
-    "id": "trygve-seim-andreas-utnem-sobra-2026",
-    "date": "2026-12-06",
-    "time": "20:00",
-    "title": "Trygve Seim og Andreas Utnem",
-    "venue": "Sobra Scene",
-    "address": "Korsegata 6, 6002 Ålesund",
-    "cat": "konsert",
-    "price": "300 kr",
-    "priceMin": 300,
-    "soldOut": false,
-    "uncertain": false,
-    "note": "Saxofon og piano: improvisasjoner over julesanger fra hele verden. Dørene åpner 19:30. Kilde: Bypatrioten.",
-    "url": "https://www.sobrascene.no/"
-  },
-  {
     "id": "julekonsert-spjelkavik-kirke-gjallarhorn-2026",
     "date": "2026-12-08",
     "time": "19:00",
@@ -606,21 +576,6 @@
     "uncertain": false,
     "note": "Film av Wim Wenders, tillatt for alle. Student/under 18 år 50 kr. Dørene åpner 18:30. Medlemskap 150 kr (første film inkludert), sesongkort 400 kr. Kilde: Bypatrioten og Ålesund Filmklubb.",
     "url": "https://www.alesundfilmklubb.com/"
-  },
-  {
-    "id": "alesund-bobler-2027",
-    "date": "2027-01-30",
-    "time": "18:00",
-    "title": "Ålesund bobler!",
-    "venue": "Fabrikken Kulturscene",
-    "address": "Molovegen 22, 6004 Ålesund",
-    "cat": "happening",
-    "price": "995 kr",
-    "priceMin": 995,
-    "soldOut": false,
-    "uncertain": true,
-    "note": "Vino Bar og Fabrikken inviterer til boblesmaking fra hele verden, kl. 18–21. 18 år. Vino Bars billettside har «kl. 1300» i navnet, mens beskrivelsen sier 18–21; sjekk tid hos arrangør.",
-    "url": "https://vinobar.no/product/alesund-bobler-lordag-30-01-2027-kl-1300/"
   },
   {
     "id": "weniff-2027",
@@ -709,36 +664,6 @@
       "2026-12-04T20:00",
       "2026-12-05T20:00"
     ]
-  },
-  {
-    "id": "vin-til-julemat-anders-goransson-vino-bar",
-    "date": "2026-11-18",
-    "time": "18:00",
-    "title": "Vin til julemat med Anders Gøransson",
-    "venue": "Vino Bar",
-    "address": "Apotekergata 10, 6004 Ålesund",
-    "cat": "happening",
-    "price": "1495 kr",
-    "priceMin": 1495,
-    "soldOut": false,
-    "uncertain": false,
-    "note": "Smaksprøver av pinnekjøtt, ribbe og lutefisk med fem viner valgt av kokk og sommelier Anders Gøransson, kl. 18–20.",
-    "url": "https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-18-11-2026-kl-1800/"
-  },
-  {
-    "id": "vin-til-julemat-mindor-klauseth-vino-bar",
-    "date": "2026-12-02",
-    "time": "18:00",
-    "title": "Vin til julemat med Mindor Klauseth",
-    "venue": "Vino Bar",
-    "address": "Apotekergata 10, 6004 Ålesund",
-    "cat": "happening",
-    "price": "1495 kr",
-    "priceMin": 1495,
-    "soldOut": false,
-    "uncertain": false,
-    "note": "Kokk Mindor Klauseth lager smaksprøver av pinnekjøtt, ribbe og lutefisk, og sommelier Øyvind Tveit har valgt fem viner til, kl. 18–20.",
-    "url": "https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-02-12-2026-kl-1800/"
   },
   {
     "id": "julelystenning-devoldfabrikken",
