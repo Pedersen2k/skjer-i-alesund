@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-10T14:30:06Z",
+  "updatedAt": "2026-11-10T15:57:02Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -321,7 +321,7 @@
      "start": "2026-11-10T15:45:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/78452a2f-9193-4f6f-9e59-c558ca1a6131",
+     "url": "",
      "club": true
     },
     {
@@ -830,7 +830,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/05bb07a6-c7c7-42ff-9c7c-7ae407a26b0f",
+     "url": "",
      "club": false
     },
     {
@@ -1688,7 +1688,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/99c0e540-844d-40b3-8c93-0a2587c442ea",
+     "url": "",
      "club": false
     }
    ]
