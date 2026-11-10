@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-09T19:56:57Z",
+  "updatedAt": "2026-11-10T07:11:01Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -72,13 +72,6 @@
    "premiere": "2026-10-23",
    "shows": [
     {
-     "start": "2026-11-09T21:00:00",
-     "screen": "3",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/785fdb54-d935-41a2-a8d8-c5c520902ac1",
-     "club": false
-    },
-    {
      "start": "2026-11-10T21:00:00",
      "screen": "3",
      "tags": [],
@@ -114,15 +107,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/eb4b617f94d0ff88352912d08252a7d22ada253a-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-02",
    "shows": [
-    {
-     "start": "2026-11-09T18:30:00",
-     "screen": "3",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-10T18:30:00",
      "screen": "3",
@@ -213,13 +197,6 @@
    "premiere": "2026-09-11",
    "shows": [
     {
-     "start": "2026-11-09T15:45:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
      "start": "2026-11-10T15:45:00",
      "screen": "3",
      "tags": [],
@@ -276,15 +253,6 @@
    "premiere": "2026-11-06",
    "shows": [
     {
-     "start": "2026-11-09T20:45:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-10T20:45:00",
      "screen": "Sal 2",
      "tags": [
@@ -324,15 +292,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f73aa5f1d8a24cb412b69b828e2f56dcd502c171-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-09-25",
    "shows": [
-    {
-     "start": "2026-11-09T14:40:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-10T14:40:00",
      "screen": "Sal 5",
@@ -513,34 +472,6 @@
    "premiere": "2026-11-06",
    "shows": [
     {
-     "start": "2026-11-09T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-09T15:30:00",
-     "screen": "4",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-09T17:30:00",
-     "screen": "4",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-10T12:00:00",
      "screen": "Sal 6",
      "tags": [
@@ -711,16 +642,6 @@
    "premiere": "2026-10-23",
    "shows": [
     {
-     "start": "2026-11-09T12:45:00",
-     "screen": "1 isense",
-     "tags": [
-      "Norsk tale",
-      "Utekstet"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-10T12:45:00",
      "screen": "1 isense",
      "tags": [
@@ -753,36 +674,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/0054744e1f36936a0b20e8ec95cf475d967bb7a6-1080x1514.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-30",
    "shows": [
-    {
-     "start": "2026-11-09T12:00:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-09T14:30:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-09T17:15:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-09T19:30:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-11-10T12:00:00",
      "screen": "3",
@@ -878,15 +769,6 @@
    "premiere": "2026-10-16",
    "shows": [
     {
-     "start": "2026-11-09T17:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-10T17:00:00",
      "screen": "Sal 5",
      "tags": [
@@ -951,15 +833,6 @@
    "premiere": "2026-10-23",
    "shows": [
     {
-     "start": "2026-11-09T16:15:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-10T16:15:00",
      "screen": "Sal 6",
      "tags": [
@@ -981,15 +854,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/a7dc76dfccdd99ba7baf997317d7a807c1bccba9-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-09",
    "shows": [
-    {
-     "start": "2026-11-09T21:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "https://www.odeonkino.no/booking/kjop/48bae75d-7afe-45bc-8f52-ff269a27eeab",
-     "club": false
-    },
     {
      "start": "2026-11-10T19:15:00",
      "screen": "Sal 5",
@@ -1031,42 +895,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/4fe030b928d64fd21116e82118c14e872c70ee09-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-11-09T12:15:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-09T14:45:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-09T18:00:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-09T20:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-10T12:15:00",
      "screen": "Sal 2",
@@ -1206,15 +1034,6 @@
    "premiere": "2026-09-18",
    "shows": [
     {
-     "start": "2026-11-09T19:15:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-10T21:30:00",
      "screen": "Sal 5",
      "tags": [
@@ -1278,15 +1097,6 @@
    "premiere": "2026-10-23",
    "shows": [
     {
-     "start": "2026-11-09T14:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-10T14:00:00",
      "screen": "Sal 6",
      "tags": [
@@ -1327,13 +1137,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/08c062fc034ea81b413d46721ded439a550abcb4-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-09",
    "shows": [
-    {
-     "start": "2026-11-09T12:30:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-11-11T12:30:00",
      "screen": "4",
@@ -1526,15 +1329,6 @@
    "premiere": "2026-10-02",
    "shows": [
     {
-     "start": "2026-11-09T21:15:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "https://www.odeonkino.no/booking/kjop/0fe61275-5ebd-42d1-a323-2fb1ca4226fb",
-     "club": false
-    },
-    {
      "start": "2026-11-10T21:15:00",
      "screen": "Sal 6",
      "tags": [
@@ -1583,15 +1377,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/87e8cca69961cc03bd033d51dcf4e73da65744c2-1500x2104.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-30",
    "shows": [
-    {
-     "start": "2026-11-09T18:15:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-10T18:15:00",
      "screen": "Sal 6",
