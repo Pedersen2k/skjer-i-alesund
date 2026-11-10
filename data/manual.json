@@ -700,7 +700,7 @@
   },
   {
     "id": "julematmarked-devoldfabrikken",
-    "date": "2026-12-12",
+    "date": "2026-12-19",
     "time": "11:00",
     "title": "Julematmarked på Devoldfabrikken",
     "venue": "Devoldfabrikken",
@@ -709,11 +709,11 @@
     "price": "Pris hos arrangør",
     "priceMin": null,
     "soldOut": false,
-    "uncertain": true,
-    "note": "Lokalmat, julegodt og spiselige gaver direkte fra produsentene, lørdag 11–16 og søndag 12–17. I Langevåg (Sula). Usikker dato: Devoldfabrikkens egen side sier 12.–13. desember, Bypatrioten sier 19.–20. desember. Sjekk hos arrangøren.",
+    "uncertain": false,
+    "note": "Lokalmat, julegodt og spiselige gaver direkte fra produsentene, lørdag 19. desember 11–16 og søndag 20. desember 12–17. I Langevåg (Sula). Flyttet fra 12.–13. desember.",
     "url": "https://devoldfabrikken.no/hva-skjer/julematmarked-pa-devoldfabrikken/",
     "moreShows": [
-      "2026-12-13T12:00"
+      "2026-12-20T12:00"
     ]
   },
   {
