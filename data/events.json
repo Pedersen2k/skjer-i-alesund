@@ -88,12 +88,20 @@
    "alesund-bobler-2027": [
     "2026-11-01T21:47:04Z",
     "2026-11-10T14:26:19Z"
+   ],
+   "julelystenning-devoldfabrikken": [
+    "2026-11-10T08:20:11Z",
+    "2026-11-10T16:08:32Z"
+   ],
+   "julematmarked-devoldfabrikken": [
+    "2026-11-10T08:20:11Z",
+    "2026-11-10T16:08:32Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T16:03:12Z",
+  "updatedAt": "2026-11-10T16:08:32Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 3,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -237,18 +245,18 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "julelystenning-devoldfabrikken",
+   "id": "julelystenning-pa-devoldfabrikken-devoldfabrikken",
    "date": "2026-11-12",
    "time": "18:00",
    "title": "Julelystenning på Devoldfabrikken",
    "venue": "Devoldfabrikken",
    "address": "Geilneset 16, 6030 Langevåg",
    "cat": "happening",
-   "price": "Pris hos arrangør",
+   "price": "",
    "priceMin": null,
    "soldOut": false,
+   "note": "Pipa, klokketårnet og byggene tennes i julelys kl. 18, lystog fra Kantina 18.15, og butikkene har langåpent til 20. I Langevåg (Sula).",
    "uncertain": false,
-   "note": "Pipen, klokketårnet og bygningene tennes i julelys kl. 18, og senteret har langåpent. I Langevåg (Sula). Bypatrioten oppgir 13. nov, Devoldfabrikkens egen side 12. nov.",
    "url": "https://devoldfabrikken.no/hva-skjer/julelystenning-pa-devoldfabrikken/",
    "addedAt": "2026-11-10T08:20:11Z"
   },
@@ -601,6 +609,29 @@
    "addedAt": "2026-11-05T21:18:22Z"
   },
   {
+   "id": "lag-din-egen-nisse-hos-siws-keramikk-devoldfabrikken",
+   "date": "2026-11-15",
+   "time": "13:00",
+   "title": "Lag din egen nisse hos Siws keramikk",
+   "venue": "Devoldfabrikken",
+   "address": "Geilneset 16, 6030 Langevåg",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Smånissekurs hos Siws keramikk: én nisse 200 kr, to for 300 kr. Påmelding på SMS (se arrangørens side). I Langevåg (Sula). Også kl. 14:00 og 15:00. Flere forestillinger: 19. nov.",
+   "uncertain": false,
+   "url": "https://devoldfabrikken.no/hva-skjer/lag-din-egen-nisse-hos-siws-keramikk-2/",
+   "moreShows": [
+    "2026-11-15T14:00",
+    "2026-11-15T15:00",
+    "2026-11-19T15:00",
+    "2026-11-19T16:00",
+    "2026-11-19T17:00"
+   ],
+   "addedAt": "2026-11-10T16:08:32Z"
+  },
+  {
    "id": "parken-50876-parken-kulturhus",
    "date": "2026-11-15",
    "time": "18:00",
@@ -629,6 +660,22 @@
     "2026-11-16T18:00"
    ],
    "addedAt": "2026-10-22T12:10:15Z"
+  },
+  {
+   "id": "julekortfotografering-med-fotograf-lene-cs-devoldfabrikken",
+   "date": "2026-11-15",
+   "time": "",
+   "title": "Julekortfotografering med fotograf Lene CS",
+   "venue": "Devoldfabrikken",
+   "address": "Geilneset 16, 6030 Langevåg",
+   "cat": "happening",
+   "price": "900 kr",
+   "priceMin": 900,
+   "soldOut": false,
+   "note": "I Langevåg (Sula).",
+   "uncertain": false,
+   "url": "https://devoldfabrikken.no/hva-skjer/julekortfotografering-med-fotograf-lene-cs/",
+   "addedAt": "2026-11-10T16:08:32Z"
   },
   {
    "id": "rigget-for-fremtiden-fagseminar-for-naeringslivet-dampsentra",
@@ -1142,6 +1189,25 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "olsmaking-og-historiefortelling-pa-kaab-bryggeri-devoldfabri",
+   "date": "2026-11-26",
+   "time": "19:00",
+   "title": "Ølsmaking og historiefortelling på KaaB Bryggeri",
+   "venue": "Devoldfabrikken",
+   "address": "Geilneset 16, 6030 Langevåg",
+   "cat": "happening",
+   "price": "423 kr",
+   "priceMin": 423,
+   "soldOut": false,
+   "note": "Ølsmaking og historiefortelling i brygghuset til KaaB Bryggeri på Devoldfabrikken, kl. 19:00–23:00 (smakingen tar ca. 2 timer, ankomst 19:00–19:15). Billetter på Tikkio, begrenset antall. I Langevåg (Sula). 18 år. Flere forestillinger: 20. jan.",
+   "uncertain": false,
+   "url": "https://devoldfabrikken.no/hva-skjer/olsmaking-og-historiefortelling-pa-kaab-bryggeri/",
+   "moreShows": [
+    "2027-01-20T19:00"
+   ],
+   "addedAt": "2026-11-10T16:08:32Z"
+  },
+  {
    "id": "chris-medina-eirik-naess-jul-hos-oss-alesund-kirke-2026",
    "date": "2026-11-26",
    "time": "19:00",
@@ -1244,14 +1310,14 @@
    "venue": "Devoldfabrikken",
    "address": "Geilneset 16, 6030 Langevåg",
    "cat": "happening",
-   "price": "Pris hos arrangør",
+   "price": "",
    "priceMin": null,
    "soldOut": false,
+   "note": "Julegaver og håndverk fra lokale designere. Lørdag 10–18, søndag 12–17 (tider: Bypatrioten). I Langevåg (Sula). Flere forestillinger: 29. nov.",
    "uncertain": false,
-   "note": "Julegaver og håndverk fra lokale designere. Lørdag 10–18, søndag 12–17 (tider: Bypatrioten). I Langevåg (Sula).",
    "url": "https://devoldfabrikken.no/hva-skjer/designernes-julemarked/",
    "moreShows": [
-    "2026-11-29T12:00"
+    "2026-11-29"
    ],
    "addedAt": "2026-11-10T08:20:11Z"
   },
@@ -2309,18 +2375,18 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "julematmarked-devoldfabrikken",
+   "id": "julematmarked-pa-devoldfabrikken-devoldfabrikken",
    "date": "2026-12-19",
    "time": "11:00",
    "title": "Julematmarked på Devoldfabrikken",
    "venue": "Devoldfabrikken",
    "address": "Geilneset 16, 6030 Langevåg",
    "cat": "happening",
-   "price": "Pris hos arrangør",
+   "price": "",
    "priceMin": null,
    "soldOut": false,
+   "note": "Lokalmat direkte fra produsentene: kaffe, bakst, kjøtt, grønnsaker og mer. Lørdag 11–16, søndag 12–17. I Langevåg (Sula). Flere forestillinger: 20. des.",
    "uncertain": false,
-   "note": "Lokalmat, julegodt og spiselige gaver direkte fra produsentene, lørdag 19. desember 11–16 og søndag 20. desember 12–17. I Langevåg (Sula). Flyttet fra 12.–13. desember.",
    "url": "https://devoldfabrikken.no/hva-skjer/julematmarked-pa-devoldfabrikken/",
    "moreShows": [
     "2026-12-20T12:00"
