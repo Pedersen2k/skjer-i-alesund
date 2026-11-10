@@ -68,16 +68,12 @@
    "musikkbingo-dampsentralen": [
     "2026-10-19T12:59:56Z",
     "2026-11-10T08:20:11Z"
-   ],
-   "livrore-dj-liv-rore-moa": [
-    "2026-10-19T12:59:56Z",
-    "2026-11-10T08:41:18Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T08:41:18Z",
+  "updatedAt": "2026-11-10T08:59:48Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -412,6 +408,35 @@
     "2026-12-05T20:00",
     "2026-12-11T20:00",
     "2026-12-12T20:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "livrore-dj-liv-rore-moa",
+   "date": "2026-11-13",
+   "time": "23:00",
+   "title": "DJ hver helg",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "klubb",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Nattklubb fredag og lørdag kl. 23–03, hver helg til 19. des. DJ-er: Sierra, Nic, Bigs og Hamy.",
+   "uncertain": false,
+   "url": "https://livrore.no/dj-hver-helg-pa-liv-rore/",
+   "moreShows": [
+    "2026-11-14T23:00",
+    "2026-11-20T23:00",
+    "2026-11-21T23:00",
+    "2026-11-27T23:00",
+    "2026-11-28T23:00",
+    "2026-12-04T23:00",
+    "2026-12-05T23:00",
+    "2026-12-11T23:00",
+    "2026-12-12T23:00",
+    "2026-12-18T23:00",
+    "2026-12-19T23:00"
    ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
@@ -1874,7 +1899,7 @@
    "id": "julekonsert-med-velledalskoret-og-posh-trio-lovenvold-theate",
    "date": "2026-12-13",
    "time": "17:00",
-   "title": "Julekonsert med Velledalskoret og Posh trio",
+   "title": "Julekonsert med Velledalskoret og POSH trio",
    "venue": "Løvenvold Theater",
    "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
    "cat": "konsert",
