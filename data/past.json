@@ -1199,6 +1199,23 @@
    "url": "https://www.vitimusea.no/arrangement/torader-i-nordvest-2026",
    "addedAt": "2026-10-29T11:55:20Z",
    "last": "2026-11-08"
+  },
+  {
+   "id": "parken-45760-parken-kulturhus",
+   "date": "2026-11-10",
+   "time": "19:00",
+   "title": "Bak lukkede dører",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "show",
+   "price": "417–460 kr",
+   "priceMin": 417,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/45760-bak-lukkede-dorer/",
+   "addedAt": "2026-10-21T12:45:40Z",
+   "last": "2026-11-10"
   }
  ]
 }
