@@ -52,6 +52,9 @@ VINOBAR_ADDRESS = "Apotekergata 10, 6004 Ålesund"
 SOBRA = "https://www.sobrascene.no"
 SOBRA_VENUE = "Sobra Scene"
 SOBRA_ADDRESS = "Korsegata 6, 6002 Ålesund"
+DEVOLD = "https://devoldfabrikken.no"
+DEVOLD_VENUE = "Devoldfabrikken"
+DEVOLD_ADDRESS = "Geilneset 16, 6030 Langevåg"
 VITI = "https://www.vitimusea.no"
 # Viti har museer i flere kommuner. Bare de i Ålesund er med: (navn hos Viti) -> (navn på siden, adresse)
 VITI_MUSEUMS = {"Jugendstilsenteret og KUBE": ("Jugendstilsenteret og KUBE", "Apotekergata 16, Ålesund"),
@@ -565,6 +568,83 @@ def fetch_forum():
     return raw
 
 
+def fetch_devold():
+    """«Hva skjer» på Devoldfabrikken i Langevåg (Sula; rett utenfor Ålesund, eieren vil ha det med fast). WordPress/Elementor:
+    oversikten lenker til /hva-skjer/<slug>/, og hver side har tittel, en datolinje («12. november 2026», «19-20. desember 2026»,
+    «28. og 29. november 2026») og fritekst med klokkeslett («kl. 19:00», «Lørdag 19. desember kl. 11.00–16.00 og søndag
+    20. desember kl. 12-17», «kl. 13.00, 14.00 og 15.00») og pris («Pris: 423,-»). Bare «Pris:» leses som pris, så standpriser
+    o.l. ikke blir billettpris. Gir None hvis siden ikke kunne leses."""
+    today = datetime.datetime.now(TZ).date()
+    try:
+        listing = get(DEVOLD + "/hva-skjer/")
+    except Exception as e:
+        warn(f"Klarte ikke å hente «Hva skjer» hos Devoldfabrikken: {e}")
+        return None
+    slugs = list(dict.fromkeys(re.findall(r'href="https://devoldfabrikken\.no/hva-skjer/([^"/?#]+)/"', listing)))
+    months = r"(" + "|".join(MONTHS) + r")[a-zæøå]*"
+    raw, bad = [], 0
+    for sl in slugs:
+        url = f"{DEVOLD}/hva-skjer/{sl}/"
+        try:
+            page = get(url)
+            time.sleep(0.5)
+        except Exception as e:
+            print("feil:", url, e, file=sys.stderr)
+            bad += 1
+            continue
+        text = page_text(page)
+        if "Hva skjer på Devoldfabrikken >" not in text:
+            continue
+        body = text.split("Hva skjer på Devoldfabrikken >", 1)[1].split("\nFlere hendelser\n")[0].strip().split("\n")
+        if len(body) < 2:
+            continue
+        title, when, desc = body[0], body[1], " ".join(body[2:])
+        m = re.match(r"(\d{1,2})\.?(?:\s*(?:-|–|og)\s*(\d{1,2}))?\.\s*" + months + r"\s+(\d{4})", when, re.I)
+        if not m:
+            continue
+        mo, y = MONTHS.index(m.group(3).lower()[:3]) + 1, int(m.group(4))
+        try:
+            days = [datetime.date(y, mo, d) for d in range(int(m.group(1)), int(m.group(2) or m.group(1)) + 1)]
+        except ValueError:
+            continue
+        if len(days) > 3:  # lange perioder er ikke enkeltarrangementer
+            continue
+        hm = r"(\d{1,2})(?:[.:](\d{2}))?"
+        # Ett klokkeslett eller flere etter hverandre («kl. 13.00, 14.00 og 15.00»); «til kl. 23:00» er sluttid og telles ikke
+        kl = r"(?<!til )\b(?:kl\.?|klokken)\s*(\d{1,2}(?:[.:]\d{2})?(?:\s*(?:,|og)\s*\d{1,2}[.:]\d{2})*)"
+        slots_of = lambda txt: [(int(h), int(mi or 0)) for h, mi in re.findall(hm, txt)]
+        # Egen tid per dag («19. desember kl. 11.00–16.00 og søndag 20. desember kl. 12-17»)
+        per_day = {int(d): slots_of(x) for d, _, x in re.findall(r"(\d{1,2})\.\s*" + months + r"\s+(?:\d{4}\s+)?" + kl, desc, re.I)}
+        # Ellers første klokkeslett i teksten
+        t = re.search(kl, desc, re.I)
+        times = slots_of(t.group(1)) if t else []
+        amount = re.search(r"Pris:\s*(\d[\d\s]*?)\s*(?:kr|,-)", desc, re.I)
+        kr = int(re.sub(r"\D", "", amount.group(1))) if amount else None
+        price = (f"{kr} kr", kr, "") if amount \
+            else ("Gratis", 0, "") if re.search(r"Pris:\s*Gratis|gratis inngang", desc, re.I) else ("", None, "")
+        age = re.search(r"Aldersgrense:\s*(\d{1,2})", desc)
+        ticket = re.search(r"https://tikkio\.com/events/\d+[^\s\"<]*", page)
+        for d in days:
+            if d < today:
+                continue
+            slots = per_day.get(d.day) or times or [None]
+            for slot in slots:
+                if slot and not (0 <= slot[0] < 24 and 0 <= slot[1] < 60):
+                    slot = None
+                raw.append({"name": title, "venue": DEVOLD_VENUE, "address": DEVOLD_ADDRESS,
+                            "start": datetime.datetime(d.year, d.month, d.day, *(slot or (0, 0)), tzinfo=TZ),
+                            "url": ticket.group(0) if ticket else url, "tickets": [], "soldOut": False, "noTime": not slot,
+                            "price": price, "cat": cat_rule(title) if cat_rule(title) not in (None, "klubb") else "happening",
+                            "note": "I Langevåg (Sula)." + (f" {age.group(1)} år." if age else "")})
+    if slugs and bad == len(slugs):
+        warn("Klarte ikke å lese noen av arrangementsidene hos Devoldfabrikken. Sjekk om devoldfabrikken.no har endret siden.")
+        return None
+    if not slugs:
+        warn("Fant ingen arrangementer på «Hva skjer» hos Devoldfabrikken. Sjekk om devoldfabrikken.no har endret siden.")
+    print(f"Devoldfabrikken: {len(raw)} arrangementer", file=sys.stderr)
+    return raw
+
+
 def fetch_vinobar():
     """Vinkurs og smakinger hos Vino Bar (Apotekergata 10). Arrangementene er produkter i nettbutikken (WooCommerce), og den åpne
     Store-API-en gir navn («Vinkurs Spania Rundt – 26.11.2026 kl. 1800»), pris og om det er utsolgt. Arrangementer på andre steder
@@ -1038,6 +1118,11 @@ def main():
         forum = [e for e in old["events"] if e["venue"] == FORUM_VENUE and e["date"] >= today]
     else:
         forum = build_events(forum_raw, overrides)
+    devold_raw = fetch_devold()
+    if devold_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
+        devold = [e for e in old["events"] if e["venue"] == DEVOLD_VENUE and e["date"] >= today]
+    else:
+        devold = build_events(devold_raw, overrides)
     # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
     seen = {(e["date"], norm_key(e["title"])) for e in events}
     events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
@@ -1049,6 +1134,7 @@ def main():
     events += [e for e in forum if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in vinobar if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in sobra if (e["date"], norm_key(e["title"])) not in seen]
+    events += [e for e in devold if (e["date"], norm_key(e["title"])) not in seen]
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
     events += [e for e in map(roll_forward, manual) if e["date"] >= today and e["id"] not in parken_ids]
