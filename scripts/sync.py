@@ -1057,6 +1057,42 @@ def update_past(old_events, new_events, today):
     return len(kept)
 
 
+def url_key(url):
+    """Lenken uten det som endres med tittelen: Tikkio har tittelen i adressen («/events/66161-karpe-...»), men nummeret står fast."""
+    m = re.match(r"https://tikkio\.com/events/(\d+)", url or "")
+    return "tikkio:" + m.group(1) if m else (url or "")
+
+
+def update_renamed(old_events, new_events, today):
+    """Når en arrangør endrer tittelen, får arrangementet ny id og ny adresse (arrangement/<id>/). Gamle id-er huskes i
+    data/renamed.json (gammel id -> ny id), så pages.py kan sende folk og Google videre fra den gamle adressen. Arrangementet
+    kjennes igjen på samme lenke og dato (som «addedAt» i main()). Glemmes PAST_DAYS dager etter siste dato, som past.json."""
+    path = DATA / "renamed.json"
+    renamed = json.loads(path.read_text()) if path.exists() else {}
+    ids = {e["id"] for e in new_events}
+    by_key = {}
+    for e in new_events:
+        if e.get("url"):
+            by_key.setdefault((url_key(e["url"]), e["date"]), []).append(e)
+    for e in old_events:
+        hits = by_key.get((url_key(e.get("url")), e["date"]), []) if e.get("url") else []
+        if e["id"] not in ids and len(hits) == 1 and hits[0]["id"] != e["id"]:
+            renamed[e["id"]] = {"to": hits[0]["id"], "last": last_date(hits[0])}
+    # Bytter den nye tittelen igjen, skal også de eldste adressene peke på den nyeste
+    for _ in range(5):
+        for old_id, r in renamed.items():
+            if r["to"] in renamed and renamed[r["to"]]["to"] != old_id:
+                r["to"] = renamed[r["to"]]["to"]
+    live = {e["id"]: e for e in new_events}
+    for r in renamed.values():
+        if r["to"] in live:
+            r["last"] = last_date(live[r["to"]])
+    cutoff = (today - datetime.timedelta(days=PAST_DAYS)).isoformat()
+    kept = {i: r for i, r in sorted(renamed.items()) if i not in ids and r["to"] != i and r["last"] >= cutoff}
+    path.write_text(json.dumps(kept, ensure_ascii=False, indent=1) + "\n")
+    return kept
+
+
 def gone_limit():
     t = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=30)
     return t.replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -1069,7 +1105,7 @@ def main():
     old = json.loads(old_path.read_text()) if old_path.exists() else {"events": [], "meta": {}}
     first_seen = {e["id"]: e.get("addedAt") for e in old["events"]}
     # Endres tittelen (og dermed id-en), kjenner vi arrangementet igjen på lenke og dato, så det ikke ser nytt ut
-    seen_url = {(e["url"], e["date"]): e.get("addedAt") for e in old["events"] if e.get("url")}
+    seen_url = {(url_key(e["url"]), e["date"]): e.get("addedAt") for e in old["events"] if e.get("url")}
     # Arrangementer som har falt ut en kort stund (en side som ikke svarte), husket i 30 dager: id -> [addedAt, borte siden]
     gone = {i: v for i, v in old["meta"].get("gone", {}).items() if v[1] >= gone_limit()}
     for i, (added_at, _) in gone.items():
@@ -1212,7 +1248,7 @@ def main():
     added = 0
     check = []
     for e in events:
-        known = first_seen.get(e["id"]) or seen_url.get((e["url"], e["date"]))
+        known = first_seen.get(e["id"]) or seen_url.get((url_key(e["url"]), e["date"]))
         is_new = not known and e["id"] not in first_seen and e["id"] not in fresh_source and not e.get("addedAt")
         e["addedAt"] = known or e.get("addedAt") or (now if is_new else seeded_at)
         added += is_new
@@ -1246,6 +1282,7 @@ def main():
         warn(f"Antall arrangementer falt fra {before} til {len(events)}. Sjekk om Tikkio eller Parken har endret sidene sine.")
     old_path.write_text(json.dumps({"meta": meta, "events": events}, ensure_ascii=False, indent=1) + "\n")
     update_past(old["events"], events, datetime.datetime.now(TZ).date())
+    update_renamed(old["events"], events, datetime.datetime.now(TZ).date())
     print(f"{len(events)} arrangementer, {meta['lastAdded']} nye")
 
 

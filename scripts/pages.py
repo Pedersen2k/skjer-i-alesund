@@ -1138,6 +1138,18 @@ def main():
             n_past += 1
     print(f"Arrangementer som er over: {n_past} sider", file=sys.stderr)
 
+    # Arrangementer som har byttet tittel (og dermed adresse): den gamle adressen sender videre til den nye (data/renamed.json)
+    renamed_path = ROOT / "data" / "renamed.json"
+    n_moved = 0
+    if renamed_path.exists():
+        for old_id, r in json.loads(renamed_path.read_text()).items():
+            target = OUT / "arrangement" / r["to"] / "index.html"
+            if not target.exists() or (OUT / "arrangement" / old_id / "index.html").exists():
+                continue
+            write(f"arrangement/{old_id}/", moved_page(f"{BASE}arrangement/{r['to']}/"))
+            n_moved += 1
+    print(f"Videresendinger fra gamle adresser: {n_moved}", file=sys.stderr)
+
     # Kalenderabonnement: kalender/alle.ics og én per kategori
     (OUT / "kalender").mkdir()
     feeds = {"alle": ("Skjer i Ålesund", events)}
@@ -1376,6 +1388,21 @@ def event_page(e, events, path, image=None):
   <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a><a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
     trail = [(SITE, BASE), (CATS.get(c, CATS["happening"])[1], BASE + cat_path), (e["title"], BASE + path)]
     return page(path, title, desc[:300], body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail), event_ld(e, image[0] if image else None)]}, image=image)
+
+
+def moved_page(url):
+    """Liten side på en gammel adresse som sender videre til den nye. Google behandler meta refresh med 0 sekunder som en
+    permanent viderekobling, og canonical peker også dit."""
+    u = escape(url)
+    return f"""<!doctype html>
+<html lang="nb"><head><meta charset="utf-8">
+<title>Flyttet | Skjer i Ålesund</title>
+<link rel="canonical" href="{u}">
+<meta http-equiv="refresh" content="0; url={u}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>location.replace({json.dumps(url)});</script>
+</head><body><p>Arrangementet har fått ny adresse: <a href="{u}">{u}</a></p></body></html>
+"""
 
 
 def past_event_page(e, events, path, weekend):
