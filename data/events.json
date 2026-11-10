@@ -72,10 +72,26 @@
    "beat-for-beat-quiz-dampsentralen": [
     "2026-11-04T12:00:26Z",
     "2026-11-10T11:58:45Z"
+   ],
+   "vin-til-julemat-anders-goransson-vino-bar": [
+    "2026-11-10T08:20:11Z",
+    "2026-11-10T14:26:19Z"
+   ],
+   "vin-til-julemat-mindor-klauseth-vino-bar": [
+    "2026-11-10T08:20:11Z",
+    "2026-11-10T14:26:19Z"
+   ],
+   "trygve-seim-andreas-utnem-sobra-2026": [
+    "2026-11-01T21:47:04Z",
+    "2026-11-10T14:26:19Z"
+   ],
+   "alesund-bobler-2027": [
+    "2026-11-01T21:47:04Z",
+    "2026-11-10T14:26:19Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T14:19:50Z",
+  "updatedAt": "2026-11-10T14:26:19Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 1,
   "sources": [
@@ -86,7 +102,9 @@
    "livrore",
    "oconnors",
    "parken",
+   "sobra",
    "tikkio",
+   "vinobar",
    "viti"
   ]
  },
@@ -395,7 +413,7 @@
    "time": "20:00",
    "title": "Julebord på Fabrikken",
    "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
+   "address": "",
    "cat": "julebord",
    "price": "1350 kr",
    "priceMin": 1350,
@@ -629,7 +647,7 @@
    "addedAt": "2026-11-10T11:58:45Z"
   },
   {
-   "id": "vin-til-julemat-anders-goransson-vino-bar",
+   "id": "vin-til-julmat-m-anders-goransson-vino-bar",
    "date": "2026-11-18",
    "time": "18:00",
    "title": "Vin til julemat med Anders Gøransson",
@@ -639,8 +657,8 @@
    "price": "1495 kr",
    "priceMin": 1495,
    "soldOut": false,
-   "uncertain": false,
    "note": "Smaksprøver av pinnekjøtt, ribbe og lutefisk med fem viner valgt av kokk og sommelier Anders Gøransson, kl. 18–20.",
+   "uncertain": false,
    "url": "https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-18-11-2026-kl-1800/",
    "addedAt": "2026-11-10T08:20:11Z"
   },
@@ -650,7 +668,7 @@
    "time": "20:00",
    "title": "Visekveld på Fabrikken",
    "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
+   "address": "",
    "cat": "konsert",
    "price": "",
    "priceMin": null,
@@ -674,6 +692,22 @@
    "note": "Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.",
    "uncertain": true,
    "url": "https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-whdzpxt35o/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "california-pinot-noir-smaking-med-jeanette-vino-bar",
+   "date": "2026-11-19",
+   "time": "18:00",
+   "title": "California Pinot Noir-smaking med Jeanette!",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "1495 kr",
+   "priceMin": 1495,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/california-pinot-noir-smaking-med-jeanette-%f0%9f%a5%82-19-11-2026-kl-1800/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1049,7 +1083,7 @@
    "time": "20:00",
    "title": "Kontrabass og heimelaga lyrikk med Arne Hjeltnes og Roger Allan Ivin",
    "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
+   "address": "",
    "cat": "show",
    "price": "",
    "priceMin": null,
@@ -1057,6 +1091,22 @@
    "note": "Dørene åpner 19.00.",
    "uncertain": false,
    "url": "https://billetto.no/e/arne-hjeltnes-og-roger-a-ivin-kontrabass-og-heimelaga-lyrikk-onsdag-25-november-billetter-1994042",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "vinkurs-spania-rundt-vino-bar",
+   "date": "2026-11-26",
+   "time": "18:00",
+   "title": "Vinkurs Spania Rundt",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "995 kr",
+   "priceMin": 995,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/vinkurs-spania-rundt-26-11-2026-kl-1800/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -1312,7 +1362,7 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.vitimusea.no/arrangement/foredrag-spor-etter-dei-foerste-sunnmoeringane",
-   "addedAt": "2026-11-10T14:19:50Z"
+   "addedAt": "2026-11-10T14:26:19Z"
   },
   {
    "id": "mannskoret-varde-julekonsert-borgund-kirke",
@@ -1403,7 +1453,7 @@
    "addedAt": "2026-10-27T07:56:21Z"
   },
   {
-   "id": "vin-til-julemat-mindor-klauseth-vino-bar",
+   "id": "vin-til-julmat-m-mindor-klauseth-vino-bar",
    "date": "2026-12-02",
    "time": "18:00",
    "title": "Vin til julemat med Mindor Klauseth",
@@ -1413,8 +1463,8 @@
    "price": "1495 kr",
    "priceMin": 1495,
    "soldOut": false,
-   "uncertain": false,
    "note": "Kokk Mindor Klauseth lager smaksprøver av pinnekjøtt, ribbe og lutefisk, og sommelier Øyvind Tveit har valgt fem viner til, kl. 18–20.",
+   "uncertain": false,
    "url": "https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-02-12-2026-kl-1800/",
    "addedAt": "2026-11-10T08:20:11Z"
   },
@@ -1700,20 +1750,20 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "trygve-seim-andreas-utnem-sobra-2026",
+   "id": "sobra-trygve-seim-og-andreas-utnem-sobra-scene",
    "date": "2026-12-06",
    "time": "20:00",
    "title": "Trygve Seim og Andreas Utnem",
    "venue": "Sobra Scene",
    "address": "Korsegata 6, 6002 Ålesund",
    "cat": "konsert",
-   "price": "300 kr",
-   "priceMin": 300,
+   "price": "",
+   "priceMin": null,
    "soldOut": false,
+   "note": "Saxofon og piano: improvisasjoner over julesanger fra hele verden. Dørene åpner 19:30. Bypatrioten oppgir 300 kr.",
    "uncertain": false,
-   "note": "Saxofon og piano: improvisasjoner over julesanger fra hele verden. Dørene åpner 19:30. Kilde: Bypatrioten.",
-   "url": "https://www.sobrascene.no/",
-   "addedAt": "2026-11-01T21:47:04Z"
+   "url": "https://billetto.no/e/trygve-seim-andreas-utnem-billetter-2040778",
+   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "parken-48003-parken-kulturhus",
@@ -1783,7 +1833,7 @@
    "time": "20:00",
    "title": "Juleoperapub",
    "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
+   "address": "",
    "cat": "konsert",
    "price": "",
    "priceMin": null,
@@ -2101,7 +2151,7 @@
    "time": "20:00",
    "title": "Julevisekveld på Fabrikken",
    "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
+   "address": "",
    "cat": "konsert",
    "price": "",
    "priceMin": null,
@@ -2181,7 +2231,7 @@
    "time": "20:00",
    "title": "Raindogs – celebrating Tom Waits",
    "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
+   "address": "",
    "cat": "konsert",
    "price": "",
    "priceMin": null,
@@ -2251,7 +2301,7 @@
    "time": "20:00",
    "title": "Haakons Julequiz",
    "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
+   "address": "",
    "cat": "quiz",
    "price": "",
    "priceMin": null,
@@ -2259,6 +2309,22 @@
    "note": "Dørene åpner 19.00.",
    "uncertain": false,
    "url": "https://billetto.no/e/haakons-julequiz-fredag-18-desember-billetter-1964344",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "sparkling-afternoon-vino-bar",
+   "date": "2026-12-19",
+   "time": "15:00",
+   "title": "Sparkling Afternoon",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "995 kr",
+   "priceMin": 995,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/sparkling-afternoon-19-12-2026-kl-1500/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -2376,7 +2442,7 @@
    "time": "21:00",
    "title": "Den store romjulsfesten – 2. juledag",
    "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
+   "address": "",
    "cat": "konsert",
    "price": "",
    "priceMin": null,
@@ -2416,6 +2482,22 @@
    "note": "Rabatt: DNB-kunde 499 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/65476-vassendgutane-terminalen-byscene",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "vinkurs-engelske-bobler-vino-bar",
+   "date": "2026-12-28",
+   "time": "18:00",
+   "title": "Vinkurs Engelske bobler!",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "995 kr",
+   "priceMin": 995,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/vinkurs-engelske-bobler-28-12-2026-kl-18-00/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -2535,6 +2617,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "introduksjon-i-vinens-verden-vino-bar",
+   "date": "2027-01-16",
+   "time": "16:00",
+   "title": "Introduksjon i vinens verden",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "795 kr",
+   "priceMin": 795,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/introduksjon-i-vinens-verden-16-01-2027-kl-16-00/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "parken-51384-parken-kulturhus",
    "date": "2027-01-17",
    "time": "18:00",
@@ -2551,6 +2649,22 @@
    "addedAt": "2026-11-06T19:59:11Z"
   },
   {
+   "id": "vinkurs-med-tema-nizza-docg-vino-bar",
+   "date": "2027-01-22",
+   "time": "18:00",
+   "title": "Vinkurs med Tema NIZZA DOCG",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "795 kr",
+   "priceMin": 795,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/vinkurs-med-tema-nizza-docg-22-01-2027-kl-1800/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
    "id": "slomosa-terminalen-byscene",
    "date": "2027-01-22",
    "time": "20:00",
@@ -2564,6 +2678,22 @@
    "note": "Rabatt: DNB-kunde 336 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66201-slomosa-terminalen",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "vinsmaking-m-foredrag-om-keiser-wilhelms-vino-bar",
+   "date": "2027-01-23",
+   "time": "12:00",
+   "title": "Vinsmaking m/foredrag om Keiser Wilhelms",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "995 kr",
+   "priceMin": 995,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/vinsmaking-m-foredrag-om-keiser-wilhelms-23-01-2027-kl-1200/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -2615,6 +2745,35 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "alesund-bobler-fabrikken-kulturscene",
+   "date": "2027-01-30",
+   "time": "13:00",
+   "title": "Ålesund bobler!",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "happening",
+   "price": "995 kr",
+   "priceMin": 995,
+   "soldOut": false,
+   "shows": [
+    [
+     "2027-01-30T13:00",
+     ""
+    ],
+    [
+     "2027-01-30T18:00",
+     "sold"
+    ]
+   ],
+   "note": "Smaking av musserende vin fra over 20 importører og produsenter. Arrangert av Vino Bar og Fabrikken Kulturscene.",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/alesund-bobler-lordag-30-01-2027-kl-1300/",
+   "moreShows": [
+    "2027-01-30T18:00"
+   ],
+   "addedAt": "2026-11-01T21:47:04Z"
+  },
+  {
    "id": "humorgalla-pa-lovenvold-theater-lovenvold-theater",
    "date": "2027-01-30",
    "time": "17:30",
@@ -2629,22 +2788,6 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66909-humorgalla-pa-lovenvold-theater",
    "addedAt": "2026-10-21T06:13:20Z"
-  },
-  {
-   "id": "alesund-bobler-2027",
-   "date": "2027-01-30",
-   "time": "18:00",
-   "title": "Ålesund bobler!",
-   "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
-   "cat": "happening",
-   "price": "995 kr",
-   "priceMin": 995,
-   "soldOut": false,
-   "uncertain": true,
-   "note": "Vino Bar og Fabrikken inviterer til boblesmaking fra hele verden, kl. 18–21. 18 år. Vino Bars billettside har «kl. 1300» i navnet, mens beskrivelsen sier 18–21; sjekk tid hos arrangør.",
-   "url": "https://vinobar.no/product/alesund-bobler-lordag-30-01-2027-kl-1300/",
-   "addedAt": "2026-11-01T21:47:04Z"
   },
   {
    "id": "iver-kleive-knut-reiersrud-vidunderligst-av-alt-pa-jord-spje",
@@ -2686,7 +2829,7 @@
    "time": "21:00",
    "title": "Ingen Kim, ingen kos – en hyllest til Kim Larsen",
    "venue": "Fabrikken Kulturscene",
-   "address": "Molovegen 22, 6004 Ålesund",
+   "address": "",
    "cat": "konsert",
    "price": "",
    "priceMin": null,
@@ -2713,6 +2856,22 @@
    "note": "Ordinær 299–330 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/64290-men-har-du-provd-yoga-et-standupshow-om-a-skli-pa-isen",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "johan-reyneke-kommer-til-vino-bar-vino-bar",
+   "date": "2027-02-11",
+   "time": "18:00",
+   "title": "Johan Reyneke kommer til Vino Bar!",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "1195 kr",
+   "priceMin": 1195,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/johan-reyneke-kommer-til-vino-bar-11-02-2027-kl-1800/",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
