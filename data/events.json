@@ -91,9 +91,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T14:26:19Z",
+  "updatedAt": "2026-11-10T15:52:19Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1961,25 +1961,6 @@
    "addedAt": "2026-10-27T07:56:21Z"
   },
   {
-   "id": "julematmarked-devoldfabrikken",
-   "date": "2026-12-12",
-   "time": "11:00",
-   "title": "Julematmarked på Devoldfabrikken",
-   "venue": "Devoldfabrikken",
-   "address": "Geilneset 16, 6030 Langevåg",
-   "cat": "happening",
-   "price": "Pris hos arrangør",
-   "priceMin": null,
-   "soldOut": false,
-   "uncertain": true,
-   "note": "Lokalmat, julegodt og spiselige gaver direkte fra produsentene, lørdag 11–16 og søndag 12–17. I Langevåg (Sula). Usikker dato: Devoldfabrikkens egen side sier 12.–13. desember, Bypatrioten sier 19.–20. desember. Sjekk hos arrangøren.",
-   "url": "https://devoldfabrikken.no/hva-skjer/julematmarked-pa-devoldfabrikken/",
-   "moreShows": [
-    "2026-12-13T12:00"
-   ],
-   "addedAt": "2026-11-10T08:20:11Z"
-  },
-  {
    "id": "den-vesle-bygda-som-gloymde-at-det-var-jul-arbeideren-2026",
    "date": "2026-12-12",
    "time": "12:00",
@@ -2310,6 +2291,25 @@
    "uncertain": false,
    "url": "https://billetto.no/e/haakons-julequiz-fredag-18-desember-billetter-1964344",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "julematmarked-devoldfabrikken",
+   "date": "2026-12-19",
+   "time": "11:00",
+   "title": "Julematmarked på Devoldfabrikken",
+   "venue": "Devoldfabrikken",
+   "address": "Geilneset 16, 6030 Langevåg",
+   "cat": "happening",
+   "price": "Pris hos arrangør",
+   "priceMin": null,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Lokalmat, julegodt og spiselige gaver direkte fra produsentene, lørdag 19. desember 11–16 og søndag 20. desember 12–17. I Langevåg (Sula). Flyttet fra 12.–13. desember.",
+   "url": "https://devoldfabrikken.no/hva-skjer/julematmarked-pa-devoldfabrikken/",
+   "moreShows": [
+    "2026-12-20T12:00"
+   ],
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "sparkling-afternoon-vino-bar",
