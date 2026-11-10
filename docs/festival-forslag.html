@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Festivalside: forslag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a171b;--surface:#13252d;--surface2:#183039;--fg:#e8f1ef;--muted:#8fa8ab;--line:#25414a;--accent:#ff8a6b;--ink:#1a0b07;--sea:#5ab7bf;--gold:#f7c873;--few:#ffb547;
+  --head:"Bricolage Grotesque",system-ui,sans-serif;--body:Figtree,system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:radial-gradient(130% 480px at 50% 0,#17434d 0%,rgba(10,23,27,0) 100%),var(--bg);color:var(--fg);font:16px/1.5 var(--body)}
+a{color:inherit}
+.picker{position:sticky;top:0;z-index:50;background:rgba(10,23,27,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.picker b{font:500 12px var(--mono);color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-right:4px}
+.picker button{font:600 14px var(--body);background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.picker button[aria-pressed=true]{background:var(--gold);color:#10282f;border-color:var(--gold)}
+.picker .why{flex-basis:100%;color:var(--muted);font-size:14px}
+.v{display:none}.v.on{display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.crumbs{font:500 12px var(--mono);color:var(--muted);padding:18px 0 0}
+.crumbs a{text-decoration:none}
+h1,h2,h3{font-family:var(--head);margin:0;line-height:1.08}
+.eyebrow{font:500 12px var(--mono);color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:12px;background:var(--accent);color:var(--ink);font:700 16px var(--body);text-decoration:none;border:0}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.muted{color:var(--muted)}
+.tag{display:inline-block;font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:6px;padding:3px 7px;color:var(--muted)}
+.soon{color:var(--muted);font-style:italic}
+section{padding:28px 0}
+.sechd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.sechd h2{font-size:26px}
+.cd{display:flex;gap:8px}
+.cd div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 10px;min-width:62px;text-align:center}
+.cd strong{display:block;font:800 26px var(--head)}
+.cd span{font:500 10px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.faq details{border-top:1px solid var(--line);padding:14px 0}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";color:var(--gold);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:8px 0 0;color:var(--muted)}
+.src{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding:16px 0 40px}
+.mapbox{border-radius:14px;border:1px solid var(--line);background:
+ repeating-linear-gradient(45deg,#112229 0 10px,#13252d 10px 20px);min-height:170px;display:flex;align-items:center;justify-content:center;color:var(--muted);font:500 12px var(--mono);text-align:center;padding:16px}
+
+/* ---------- A: Plakat ---------- */
+#A .hero{padding:34px 0 26px;text-align:center;position:relative;overflow:hidden}
+#A .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 90' preserveAspectRatio='none'%3E%3Cpath d='M0 90V60l40-20 30 15V30l25-18 25 18v28l35-22 30 22V20l20-14 20 14v40l40-24 35 24V35l28-20 28 20v25l40-18 40 18V25l22-16 22 16v35l35-20 35 20V40l30-22 30 22v20l45-25 30 25V30l25-18 25 18v30l40-20 40 20V45l30-20 30 20v15l50-28 40 28V35l25-15 25 15v55z' fill='%23112a31'/%3E%3C/svg%3E") bottom/100% 90px no-repeat;opacity:.9;pointer-events:none}
+#A .hero > *{position:relative;z-index:1}
+#A .dates{font:800 clamp(20px,4vw,30px) var(--head);color:var(--gold);margin-top:6px}
+#A h1{font-size:clamp(48px,11vw,110px);letter-spacing:-.02em;margin:10px 0 4px;background:linear-gradient(90deg,#ff8a6b,#f7c873);-webkit-background-clip:text;background-clip:text;color:transparent}
+#A .place{font-size:18px}
+#A .lineup{margin:26px auto 0;max-width:760px}
+#A .day{margin-bottom:18px}
+#A .day .dl{font:500 12px var(--mono);color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+#A .head1{font:800 clamp(40px,9vw,78px) var(--head);line-height:1;margin:4px 0}
+#A .rest{font:600 clamp(18px,3.6vw,26px) var(--head);line-height:1.35}
+#A .rest span{white-space:nowrap}
+#A .rest i{color:var(--accent);font-style:normal;padding:0 6px}
+#A .more{color:var(--muted);font-size:14px}
+#A .ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+#A .cdrow{display:flex;justify-content:center;margin-top:20px}
+#A .passes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+#A .pass{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+#A .pass.best{border-color:var(--gold);background:linear-gradient(160deg,#2a2a17,#13252d 60%)}
+#A .pass h3{font-size:20px}
+#A .pass .p{font:800 32px var(--head);margin:8px 0 2px}
+#A .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:720px){#A .grid2{grid-template-columns:1fr}}
+#A .facts{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:0}
+#A .facts dt{font:500 12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-top:3px}
+#A .facts dd{margin:0}
+
+/* ---------- B: Program først ---------- */
+#B .top{display:grid;grid-template-columns:1fr 340px;gap:28px;padding-top:22px;align-items:start}
+@media(max-width:860px){#B .top{grid-template-columns:1fr}}
+#B h1{font-size:clamp(36px,6vw,56px);margin:8px 0}
+#B .sub{font-size:18px;color:var(--muted)}
+#B .tabs{display:flex;gap:6px;margin:22px 0 0;position:sticky;top:57px;background:var(--bg);padding:8px 0;z-index:5}
+#B .tabs button{flex:1;min-height:52px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:700 15px var(--body);cursor:pointer;text-align:left;padding:6px 14px}
+#B .tabs button small{display:block;font:500 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+#B .tabs button[aria-pressed=true]{border-color:var(--gold);background:#2a2a17}
+#B .tl{margin-top:10px}
+#B .row{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+#B .row .t{font:500 15px var(--mono);color:var(--gold)}
+#B .row .a{font:700 19px var(--head)}
+#B .row.hl .a{font-size:26px}
+#B .row .x{font-size:13px;color:var(--muted)}
+#B .box{position:sticky;top:72px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
+#B .box h2{font-size:20px;margin-bottom:12px}
+#B .opt{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+#B .opt:last-of-type{border:0}
+#B .opt b{font:800 20px var(--head)}
+#B .box .btn{width:100%;margin-top:14px}
+#B .info{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+#B .info div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+#B .info h3{font-size:16px;margin-bottom:6px}
+#B .info p{margin:0;color:var(--muted);font-size:15px}
+@media(max-width:860px){#B .box{position:static}}
+
+/* ---------- C: Guide ---------- */
+#C article{max-width:720px;margin:0 auto}
+#C h1{font-size:clamp(34px,6vw,54px);margin:14px 0 10px}
+#C .lead{font-size:20px;line-height:1.5}
+#C .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:22px 0}
+#C .quick div{background:var(--surface);padding:12px 14px}
+#C .quick span{display:block;font:500 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+#C .quick b{font:700 16px var(--body)}
+@media(max-width:600px){#C .quick{grid-template-columns:1fr 1fr}}
+#C h2{font-size:28px;margin:34px 0 10px}
+#C p{margin:0 0 12px}
+#C table{width:100%;border-collapse:collapse;font-size:15px}
+#C th,#C td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+#C th{font:500 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+#C td b{font-family:var(--head);font-size:18px}
+#C .toc{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0}
+#C .toc a{font-size:14px;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--muted)}
+#C .stickybuy{position:sticky;bottom:0;background:rgba(19,37,45,.96);border-top:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:5}
+#C .stickybuy .btn{min-height:44px}
+
+/* ---------- D: Nedtelling og billetter ---------- */
+#D .hero{margin-top:18px;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(160deg,#1d4c56 0%,#122a31 55%,#0d1d22 100%);border:1px solid var(--line);padding:30px 24px 26px}
+#D .hero::before{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#f7c873 0%,rgba(247,200,115,.15) 45%,transparent 70%)}
+#D .hero > *{position:relative}
+#D h1{font-size:clamp(40px,8vw,76px);margin:8px 0}
+#D .bigcd{display:flex;gap:10px;margin:18px 0}
+#D .bigcd div{background:rgba(10,23,27,.55);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px 14px;min-width:78px;text-align:center}
+#D .bigcd strong{display:block;font:800 clamp(28px,6vw,44px) var(--head)}
+#D .bigcd span{font:500 10px var(--mono);color:var(--muted);text-transform:uppercase}
+#D .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:780px){#D .cards{grid-template-columns:1fr}}
+#D .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px}
+#D .card.best{border:2px solid var(--gold)}
+#D .card .rib{align-self:flex-start;background:var(--gold);color:#10282f;font:700 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:3px 8px}
+#D .card h3{font-size:22px}
+#D .card .p{font:800 36px var(--head)}
+#D .card ul{margin:4px 0 10px;padding-left:18px;color:var(--muted);font-size:15px}
+#D .card .btn{margin-top:auto}
+#D .art{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+#D .art div{aspect-ratio:1/1;border-radius:16px;background:linear-gradient(160deg,var(--c1),var(--c2));display:flex;flex-direction:column;justify-content:flex-end;padding:12px;border:1px solid var(--line)}
+#D .art b{font:800 19px var(--head);line-height:1.1}
+#D .art span{font:500 11px var(--mono);color:rgba(232,241,239,.75);text-transform:uppercase}
+#D .art .big{grid-column:span 2;aspect-ratio:auto;min-height:160px}
+#D .art .big b{font-size:34px}
+#D .art .tba{background:transparent;border:1px dashed var(--line);align-items:center;justify-content:center;text-align:center;color:var(--muted)}
+@media(max-width:420px){#D .art .big{grid-column:span 2}}
+</style>
+</head>
+<body>
+
+<div class="picker" role="toolbar" aria-label="Velg forslag">
+  <b>Festivalside</b>
+  <button data-v="A" aria-pressed="true">A Plakat</button>
+  <button data-v="B">B Program først</button>
+  <button data-v="C">C Guide</button>
+  <button data-v="D">D Billetter først</button>
+  <div class="why" id="why"></div>
+</div>
+
+<!-- ================= A ================= -->
+<div class="v on" id="A" data-why="Som en festivalplakat: navnet stort, artistene etter størrelse, så billetter og praktisk info. Føles som en ekte festival. Mitt forslag.">
+ <div class="wrap">
+  <div class="crumbs"><a href="#">Skjer i Ålesund</a> › <a href="#">Festivaler</a> › Ålesund Live 2027</div>
+  <div class="hero">
+    <div class="eyebrow">Festival · Skutvika havn</div>
+    <h1>Ålesund Live</h1>
+    <div class="dates">Fredag 18. og lørdag 19. juni 2027</div>
+    <div class="lineup">
+      <div class="day"><div class="dl">Fredag 18. juni</div>
+        <div class="head1">Tobias Sten</div>
+        <div class="rest"><span>Maria Mena</span><i>·</i><span>Kjartan Lauritzen</span><i>·</i><span>Zimmermann</span><i>·</i><span>Ramón</span><i>·</i><span>Sebb Ottesen</span></div></div>
+      <div class="day"><div class="dl">Lørdag 19. juni</div>
+        <div class="head1">Karpe</div>
+        <div class="more">Flere artister annonseres</div></div>
+    </div>
+    <div class="ctas"><a class="btn" href="#">Kjøp billett hos Tikkio</a><a class="btn ghost" href="#">★ Lagre i Mine</a></div>
+    <div class="cdrow"><div class="cd" data-cd></div></div>
+  </div>
+
+  <section>
+    <div class="sechd"><h2>Billetter</h2><span class="tag">Fra Tikkio</span></div>
+    <div class="passes">
+      <div class="pass"><span class="tag">Fredag</span><h3>Dagspass fredag</h3><div class="p">999 kr</div><div class="muted">Tobias Sten og resten av fredagen</div></div>
+      <div class="pass"><span class="tag">Lørdag</span><h3>Dagspass lørdag</h3><div class="p">1399 kr</div><div class="muted">Karpe</div></div>
+      <div class="pass best"><span class="tag" style="color:var(--gold);border-color:var(--gold)">Begge dager</span><h3>2-dagerspass</h3><div class="p">1999 kr</div><div class="muted">Sparer 399 kr mot to dagspass</div></div>
+    </div>
+    <p class="muted" style="font-size:14px;margin-top:10px">Egne billetter for under 18. Gebyr 15 kr per billett (maks 30 kr per ordre). Ledsager med ledsagerbevis går gratis.</p>
+  </section>
+
+  <section class="grid2">
+    <div>
+      <h2 style="font-size:26px;margin-bottom:14px">Praktisk</h2>
+      <dl class="facts">
+        <dt>Dører</dt><dd>Kl. 16:30</dd>
+        <dt>Slutt</dt><dd>Kl. 23:30 lørdag</dd>
+        <dt>Alder</dt><dd>Ingen aldersgrense. Under 15 år må ha med en voksen og foresattskjema.</dd>
+        <dt>Sted</dt><dd>Skutvika havn, Ålesund</dd>
+        <dt>Arrangør</dt><dd>Momentium Live · alesundlive.no</dd>
+      </dl>
+    </div>
+    <div class="mapbox">Kart over Skutvika<br>(OpenStreetMap, må tillates)</div>
+  </section>
+
+  <section class="faq">
+    <h2 style="font-size:26px;margin-bottom:8px">Spørsmål og svar</h2>
+    <details open><summary>Når er Ålesund Live 2027?</summary><p>Fredag 18. og lørdag 19. juni 2027 på Skutvika havn. Dørene åpner kl. 16:30.</p></details>
+    <details><summary>Hva koster billett?</summary><p>Fredag 999 kr, lørdag 1399 kr og 2-dagerspass 1999 kr, pluss 15 kr i gebyr.</p></details>
+    <details><summary>Er det aldersgrense?</summary><p>Nei. Barn under 15 år må være sammen med en voksen og ha med foresattskjema.</p></details>
+    <details><summary>Når går Karpe på scenen?</summary><p>Spilletidene er ikke kunngjort ennå. Vi oppdaterer siden når de kommer.</p></details>
+  </section>
+  <div class="src">Alt på siden er hentet fra arrangørens billettside hos Tikkio. Sjekk alltid hos arrangøren før du kjøper. Sist sjekket 10. nov. 2026.</div>
+ </div>
+</div>
+
+<!-- ================= B ================= -->
+<div class="v" id="B" data-why="Som en festival-app: dagvelger øverst og programmet som tidslinje, med en fast billettboks ved siden av på PC. Best når spilletidene er kjent.">
+ <div class="wrap">
+  <div class="crumbs"><a href="#">Skjer i Ålesund</a> › <a href="#">Festivaler</a> › Ålesund Live 2027</div>
+  <div class="top">
+    <div>
+      <div class="eyebrow">18.–19. juni 2027 · Skutvika havn</div>
+      <h1>Ålesund Live 2027</h1>
+      <div class="sub">To kvelder med konserter ved sjøen, med Karpe og Tobias Sten på toppen.</div>
+      <div class="tabs" role="tablist">
+        <button data-d="fre" aria-pressed="true"><small>Fredag 18. juni</small>6 artister</button>
+        <button data-d="lor"><small>Lørdag 19. juni</small>Karpe ++</button>
+      </div>
+      <div class="tl" data-day="fre">
+        <div class="row"><div class="t">16:30</div><div><div class="a">Dørene åpner</div></div></div>
+        <div class="row hl"><div class="t">–:–</div><div><div class="a">Tobias Sten</div><div class="x">Spilletid ikke kunngjort</div></div></div>
+        <div class="row"><div class="t">–:–</div><div><div class="a">Maria Mena</div></div></div>
+        <div class="row"><div class="t">–:–</div><div><div class="a">Kjartan Lauritzen</div></div></div>
+        <div class="row"><div class="t">–:–</div><div><div class="a">Zimmermann</div></div></div>
+        <div class="row"><div class="t">–:–</div><div><div class="a">Ramón</div></div></div>
+        <div class="row"><div class="t">–:–</div><div><div class="a">Sebb Ottesen</div></div></div>
+      </div>
+      <div class="tl" data-day="lor" hidden>
+        <div class="row hl"><div class="t">–:–</div><div><div class="a">Karpe</div><div class="x">Spilletid ikke kunngjort</div></div></div>
+        <div class="row"><div class="t"></div><div><div class="a soon" style="font-weight:500">Flere artister annonseres</div></div></div>
+        <div class="row"><div class="t">23:30</div><div><div class="a">Slutt</div></div></div>
+      </div>
+    </div>
+    <aside class="box">
+      <h2>Billetter</h2>
+      <div class="opt"><span>Fredag</span><b>999 kr</b></div>
+      <div class="opt"><span>Lørdag</span><b>1399 kr</b></div>
+      <div class="opt"><span>Begge dager</span><b>1999 kr</b></div>
+      <a class="btn" href="#">Kjøp hos Tikkio</a>
+      <div class="cd" data-cd style="margin-top:14px;justify-content:center"></div>
+    </aside>
+  </div>
+  <section>
+    <div class="info">
+      <div><h3>Dører og tider</h3><p>Dørene åpner kl. 16:30. Lørdag slutter kl. 23:30.</p></div>
+      <div><h3>Alder</h3><p>Ingen aldersgrense. Under 15 år med voksen og foresattskjema.</p></div>
+      <div><h3>Komme seg dit</h3><p>Kart og veibeskrivelse til Skutvika havn.</p></div>
+      <div><h3>Arrangør</h3><p>Momentium Live (alesundlive.no).</p></div>
+    </div>
+  </section>
+  <section class="faq">
+    <h2 style="font-size:24px;margin-bottom:8px">Spørsmål og svar</h2>
+    <details><summary>Når er Ålesund Live 2027?</summary><p>Fredag 18. og lørdag 19. juni 2027 på Skutvika havn.</p></details>
+    <details><summary>Hva koster billett?</summary><p>Fredag 999 kr, lørdag 1399 kr og 2-dagerspass 1999 kr.</p></details>
+    <details><summary>Er det aldersgrense?</summary><p>Nei, men under 15 år må ha med en voksen.</p></details>
+  </section>
+  <div class="src">Hentet fra arrangørens billettside hos Tikkio. Sist sjekket 10. nov. 2026.</div>
+ </div>
+</div>
+
+<!-- ================= C ================= -->
+<div class="v" id="C" data-why="Som en guide i en avis: rolig tekst som svarer på det folk googler, med en hurtigrute øverst og fast kjøpsknapp nederst på mobil. Sterkest for Google.">
+ <div class="wrap"><article>
+  <div class="crumbs"><a href="#">Skjer i Ålesund</a> › <a href="#">Festivaler</a> › Ålesund Live 2027</div>
+  <h1>Ålesund Live 2027: program, billetter og praktisk info</h1>
+  <p class="lead">Ålesund Live er 18. og 19. juni 2027 på Skutvika havn. Karpe spiller lørdag, og Tobias Sten, Maria Mena, Kjartan Lauritzen, Zimmermann, Ramón og Sebb Ottesen spiller fredag. Billetter fra 999 kr.</p>
+  <div class="quick">
+    <div><span>Når</span><b>18.–19. juni</b></div>
+    <div><span>Hvor</span><b>Skutvika havn</b></div>
+    <div><span>Pris</span><b>Fra 999 kr</b></div>
+    <div><span>Dører</span><b>16:30</b></div>
+  </div>
+  <nav class="toc"><a href="#c-prog">Program</a><a href="#c-bill">Billetter</a><a href="#c-prak">Praktisk</a><a href="#c-faq">Spørsmål</a></nav>
+  <h2 id="c-prog">Program</h2>
+  <table>
+    <tr><th>Dag</th><th>Artister</th></tr>
+    <tr><td>Fredag 18. juni</td><td><b>Tobias Sten</b><br>Maria Mena, Kjartan Lauritzen, Zimmermann, Ramón, Sebb Ottesen</td></tr>
+    <tr><td>Lørdag 19. juni</td><td><b>Karpe</b><br><span class="soon">Flere artister annonseres</span></td></tr>
+  </table>
+  <p class="muted" style="font-size:14px;margin-top:8px">Spilletidene er ikke kunngjort ennå.</p>
+  <h2 id="c-bill">Billetter og priser</h2>
+  <table>
+    <tr><th>Billett</th><th>Pris</th><th>Status</th></tr>
+    <tr><td>Fredag</td><td>999 kr</td><td>I salg</td></tr>
+    <tr><td>Lørdag</td><td>1399 kr</td><td>I salg</td></tr>
+    <tr><td>2-dagerspass</td><td>1999 kr</td><td>I salg</td></tr>
+  </table>
+  <p class="muted" style="font-size:14px;margin-top:8px">Pluss 15 kr i gebyr per billett. Egne billetter for under 18.</p>
+  <h2 id="c-prak">Praktisk</h2>
+  <p>Dørene åpner kl. 16:30, og lørdag slutter kl. 23:30. Det er ingen aldersgrense, men barn under 15 år må ha med en voksen og et foresattskjema fra arrangøren. Ledsager med ledsagerbevis går gratis.</p>
+  <div class="mapbox" style="margin:14px 0">Kart over Skutvika havn</div>
+  <h2 id="c-faq">Spørsmål og svar</h2>
+  <div class="faq">
+    <details><summary>Når spiller Karpe på Ålesund Live?</summary><p>Lørdag 19. juni 2027. Klokkeslettet er ikke kunngjort ennå.</p></details>
+    <details><summary>Får man refusjon hvis en artist avlyser?</summary><p>Nei, ifølge arrangøren bare hvis hele arrangementet avlyses.</p></details>
+    <details><summary>Er det aldersgrense?</summary><p>Nei. Under 15 år må være sammen med en voksen.</p></details>
+  </div>
+  <div class="src">Kilde: arrangørens billettside hos Tikkio. Sist sjekket 10. nov. 2026.</div>
+ </article></div>
+ <div class="stickybuy"><div><b>Ålesund Live</b><div class="muted" style="font-size:13px">18.–19. juni · fra 999 kr</div></div><a class="btn" href="#">Kjøp billett</a></div>
+</div>
+
+<!-- ================= D ================= -->
+<div class="v" id="D" data-why="Nedtellingen og billettvalget er hovedsaken, artistene som fliser under. Mest «salg», minst tekst. Passer best nær festivalen.">
+ <div class="wrap">
+  <div class="crumbs"><a href="#">Skjer i Ålesund</a> › <a href="#">Festivaler</a> › Ålesund Live 2027</div>
+  <div class="hero">
+    <div class="eyebrow">18.–19. juni 2027 · Skutvika havn, Ålesund</div>
+    <h1>Ålesund Live</h1>
+    <div class="bigcd" data-cd></div>
+    <a class="btn" href="#">Se billetter</a>
+  </div>
+  <section>
+    <div class="sechd"><h2>Velg billett</h2></div>
+    <div class="cards">
+      <div class="card"><h3>Fredag</h3><div class="p">999 kr</div><ul><li>Tobias Sten</li><li>Maria Mena, Kjartan Lauritzen m.fl.</li></ul><a class="btn ghost" href="#">Kjøp fredag</a></div>
+      <div class="card best"><span class="rib">Best verdi</span><h3>Begge dager</h3><div class="p">1999 kr</div><ul><li>Fredag og lørdag</li><li>Sparer 399 kr</li></ul><a class="btn" href="#">Kjøp 2-dagerspass</a></div>
+      <div class="card"><h3>Lørdag</h3><div class="p">1399 kr</div><ul><li>Karpe</li><li>Flere annonseres</li></ul><a class="btn ghost" href="#">Kjøp lørdag</a></div>
+    </div>
+  </section>
+  <section>
+    <div class="sechd"><h2>Artister</h2></div>
+    <div class="art">
+      <div class="big" style="--c1:#7d3a2c;--c2:#2a1a1f"><span>Lørdag</span><b>Karpe</b></div>
+      <div class="big" style="--c1:#1d5560;--c2:#122a31"><span>Fredag</span><b>Tobias Sten</b></div>
+      <div style="--c1:#4a3a6b;--c2:#1a1a2e"><span>Fredag</span><b>Maria Mena</b></div>
+      <div style="--c1:#5a4a1d;--c2:#1e1a10"><span>Fredag</span><b>Kjartan Lauritzen</b></div>
+      <div style="--c1:#2c5a3a;--c2:#10221a"><span>Fredag</span><b>Zimmermann</b></div>
+      <div style="--c1:#6b2c4a;--c2:#22101a"><span>Fredag</span><b>Ramón</b></div>
+      <div style="--c1:#2c3f6b;--c2:#10162a"><span>Fredag</span><b>Sebb Ottesen</b></div>
+      <div class="tba"><b style="font-size:15px">Flere artister annonseres</b></div>
+    </div>
+  </section>
+  <section class="faq">
+    <details><summary>Praktisk info</summary><p>Dører kl. 16:30. Ingen aldersgrense, under 15 år med voksen. Arrangør Momentium Live.</p></details>
+    <details><summary>Spørsmål og svar</summary><p>Når er det? 18.–19. juni 2027. Hva koster det? Fra 999 kr.</p></details>
+  </section>
+  <div class="src">Hentet fra arrangørens billettside hos Tikkio. Sist sjekket 10. nov. 2026.</div>
+ </div>
+</div>
+
+<script>
+const btns=[...document.querySelectorAll('.picker button')],why=document.getElementById('why');
+function show(v){btns.forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));document.querySelectorAll('.v').forEach(x=>x.classList.toggle('on',x.id===v));why.textContent=document.getElementById(v).dataset.why;try{history.replaceState(null,'','#'+v)}catch(e){}scrollTo(0,0)}
+btns.forEach(b=>b.onclick=()=>show(b.dataset.v));
+show(/^#[ABCD]$/.test(location.hash)?location.hash.slice(1):'A');
+document.querySelectorAll('#B .tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#B .tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('#B .tl').forEach(t=>t.hidden=t.dataset.day!==b.dataset.d)});
+const target=new Date('2027-06-18T16:30:00+02:00');
+function cd(){let s=Math.max(0,(target-new Date())/1000);const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);
+ const html=`<div><strong>${d}</strong><span>dager</span></div><div><strong>${h}</strong><span>timer</span></div><div><strong>${m}</strong><span>min</span></div>`;
+ document.querySelectorAll('[data-cd]').forEach(e=>e.innerHTML=html)}
+cd();setInterval(cd,30000);
+</script>
+</body>
+</html>

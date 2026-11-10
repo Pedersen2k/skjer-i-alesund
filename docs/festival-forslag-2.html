@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Festivalside runde 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500;700&family=Anton&family=Rubik+Mono+One&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a171b;--fg:#e8f1ef;--muted:#8fa8ab;--line:#25414a;--gold:#f7c873;--accent:#ff8a6b;
+ --head:"Bricolage Grotesque",system-ui,sans-serif;--body:Figtree,system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);overflow-x:hidden}
+a{color:inherit}
+h1,h2,h3{margin:0;line-height:1}
+.picker{position:sticky;top:0;z-index:100;background:rgba(10,23,27,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.picker b{font:500 12px var(--mono);color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-right:4px}
+.picker button{font:600 14px var(--body);background:#13252d;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.picker button[aria-pressed=true]{background:var(--gold);color:#10282f;border-color:var(--gold)}
+.picker .why{flex-basis:100%;color:var(--muted);font-size:14px}
+.v{display:none;position:relative;overflow:hidden}.v.on{display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px;position:relative}
+.crumbs{font:500 12px var(--mono);opacity:.75;padding:16px 0 0;position:relative;z-index:3}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:999px;font:800 17px var(--body);text-decoration:none;border:0;cursor:pointer}
+/* felles nedre del */
+.body section{padding:30px 0}
+.body h2{font-size:clamp(28px,5vw,40px);margin-bottom:16px}
+.passes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.passes{grid-template-columns:1fr}}
+.pass{border-radius:22px;padding:20px;position:relative}
+.pass .d{font:700 12px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.pass .n{font:800 22px var(--head);margin:6px 0 4px}
+.pass .p{font:800 44px var(--head);line-height:1}
+.pass .s{font-size:14px;margin-top:6px;opacity:.8}
+.pass .badge{position:absolute;top:-12px;right:14px;transform:rotate(6deg);font:800 13px var(--body);padding:6px 12px;border-radius:999px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:760px){.facts{grid-template-columns:1fr 1fr}}
+.fact{border-radius:18px;padding:14px 16px}
+.fact span{display:block;font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.fact b{font:800 18px var(--head);display:block;margin-top:4px}
+.faq details{padding:14px 0;border-top:1px solid currentColor;border-color:rgba(255,255,255,.15)}
+.faq summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";font-weight:900}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:8px 0 0;opacity:.8}
+.src{font-size:13px;opacity:.7;padding:10px 0 40px}
+.cd{display:flex;gap:8px;flex-wrap:wrap}
+.cd div{text-align:center;min-width:70px;padding:8px 10px;border-radius:14px}
+.cd strong{display:block;font:800 30px var(--head);line-height:1.1}
+.cd span{font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.08em;opacity:.75}
+.nw{white-space:nowrap}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ======== E: Rispostr (risograf-plakat) ======== */
+#E{background:#fff3e2;color:#1d1a3a}
+#E .hero{padding:26px 0 40px;position:relative}
+#E .halftone{position:absolute;inset:0;background-image:radial-gradient(#ff4f8b 1.6px,transparent 1.8px);background-size:14px 14px;opacity:.28;-webkit-mask:radial-gradient(70% 60% at 80% 20%,#000,transparent);mask:radial-gradient(70% 60% at 80% 20%,#000,transparent)}
+#E .sun{position:absolute;right:-40px;top:40px;width:260px;height:260px;border-radius:50%;background:#ffcf33;mix-blend-mode:multiply}
+#E .sun2{position:absolute;right:-20px;top:52px;width:260px;height:260px;border-radius:50%;background:#ff4f8b;mix-blend-mode:multiply;opacity:.55}
+#E .kick{font:700 13px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#ff4f8b;position:relative}
+#E h1{font:400 clamp(64px,17vw,180px)/.92 Anton,var(--head);text-transform:uppercase;letter-spacing:-.01em;position:relative;margin:22px 0 0;color:#1d1a3a;text-shadow:5px 5px 0 #ff4f8b,10px 10px 0 #2fb9c4}
+#E .when{display:inline-block;margin-top:22px;background:#1d1a3a;color:#ffcf33;font:800 clamp(18px,3.8vw,28px) var(--head);padding:8px 16px;transform:rotate(-2deg);position:relative}
+#E .stick{position:absolute;z-index:4;background:#2fb9c4;color:#fff;font:900 15px/1.05 var(--body);width:112px;height:112px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(12deg);right:6%;bottom:12px;box-shadow:4px 4px 0 #1d1a3a;animation:wob 3s ease-in-out infinite}
+@media(max-width:700px){#E .stick{width:92px;height:92px;font-size:13px;right:2%;top:30px;bottom:auto}}
+@keyframes wob{50%{transform:rotate(4deg) scale(1.06)}}
+#E .lu{margin-top:34px;position:relative}
+#E .dl{font:700 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#ff4f8b;margin-top:18px}
+#E .h1x{font:400 clamp(54px,13vw,120px)/.9 Anton,var(--head);text-transform:uppercase}
+#E .rest{font:400 clamp(24px,5.4vw,44px)/1.05 Anton,var(--head);text-transform:uppercase;color:#2fb9c4}
+#E .rest i{color:#ff4f8b;font-style:normal;padding:0 .2em}
+#E .more{font:700 15px var(--body);margin-top:6px}
+#E .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+#E .b1{background:#ff4f8b;color:#fff;box-shadow:4px 4px 0 #1d1a3a}
+#E .b2{background:#fff;color:#1d1a3a;border:2px solid #1d1a3a;box-shadow:4px 4px 0 #1d1a3a}
+#E .pass{background:#fff;border:2px solid #1d1a3a;box-shadow:6px 6px 0 #1d1a3a}
+#E .pass:nth-child(2){background:#ffcf33}
+#E .pass .d{color:#ff4f8b}
+#E .pass .badge{background:#2fb9c4;color:#fff;border:2px solid #1d1a3a}
+#E .fact{background:#fff;border:2px solid #1d1a3a}
+#E .cd div{background:#1d1a3a;color:#ffcf33}
+#E .body h2{font:400 clamp(36px,7vw,60px)/1 Anton;text-transform:uppercase}
+#E .faq details{border-color:rgba(29,26,58,.25)}
+
+/* ======== F: Solnedgang i Skutvika ======== */
+#F{background:#120a2a}
+#F .top{background:linear-gradient(180deg,#1a0f3d 0%,#5b1f6e 40%,#e2456b 75%,#ff9a52 92%,#ffd36e 100%)}
+#F .scene{position:relative;height:300px;margin:10px -16px 0;overflow:hidden}
+#F .sunb{position:absolute;left:50%;top:40px;width:300px;height:300px;margin-left:-150px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff2b0,#ffb547 55%,#ff6a5a);box-shadow:0 0 120px 40px rgba(255,150,90,.45);animation:rise 6s ease-out both}
+#F .sunb::after{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-linear-gradient(180deg,transparent 0 58%,#e2456b 58% 62%,transparent 62% 70%,#e2456b 70% 76%,transparent 76% 84%,#e2456b 84% 92%)}
+@keyframes rise{from{transform:translateY(120px);opacity:.6}}
+#F .city{position:absolute;left:0;right:0;top:150px;height:80px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80V50l30-14 22 12V24l18-14 18 14v26l26-18 22 18V14l14-10 14 10v40l30-20 26 20V30l20-16 20 16v22l30-14 30 14V20l16-12 16 12v34l26-16 26 16V36l22-18 22 18v18l34-20 22 20V26l18-14 18 14v28l30-16 30 16V42l22-16 22 16v12l38-22 30 22V30l18-12 18 12v24l30-18 30 18V20l20-14 20 14v34l24-16 24 16v26z' fill='%23120a2a'/%3E%3C/svg%3E") bottom/100% 80px no-repeat}
+#F .water{position:absolute;left:0;right:0;top:230px;bottom:0;background:#120a2a}
+#F .refl{position:absolute;left:0;right:0;top:230px;bottom:0;background:repeating-linear-gradient(180deg,rgba(255,180,90,.35) 0 3px,transparent 3px 11px);-webkit-mask:linear-gradient(90deg,transparent 30%,#000 50%,transparent 70%);mask:linear-gradient(90deg,transparent 30%,#000 50%,transparent 70%);animation:shim 4s linear infinite}
+@keyframes shim{to{background-position:0 22px}}
+#F .scene .cd{position:absolute;left:0;right:0;bottom:16px;margin:0}
+#F .hero{position:relative;z-index:2;text-align:center;padding:36px 0 0}
+#F .kick{font:700 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#ffd36e}
+#F h1{font:400 clamp(56px,13vw,140px)/.95 Shrikhand,var(--head);color:#fff;margin:10px 0 0;text-shadow:0 6px 30px rgba(255,90,120,.6)}
+#F .when{font:800 clamp(18px,3.6vw,26px) var(--head);color:#ffe6b0;margin-top:8px}
+#F .lu{margin:26px auto 0;max-width:720px}
+#F .dl{font:700 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#ffd36e;margin-top:14px}
+#F .h1x{font:800 clamp(40px,9vw,78px)/1 var(--head);color:#fff}
+#F .rest{font:700 clamp(17px,3.4vw,24px)/1.4 var(--head);color:#ffe6f0}
+#F .rest i{color:#ffd36e;font-style:normal;padding:0 6px}
+#F .more{color:#ffd9e4;font-size:14px}
+#F .ctas{margin-top:22px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+#F .b1{background:#fff;color:#5b1f6e;box-shadow:0 10px 30px rgba(255,90,120,.5)}
+#F .b2{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.4)}
+#F .body{position:relative;z-index:2}
+#F .pass{background:linear-gradient(160deg,#2a1450,#1a0f3d);border:1px solid #4a2a7a}
+#F .pass:nth-child(2){background:linear-gradient(160deg,#e2456b,#ff9a52);border:0;color:#fff}
+#F .pass .d{color:#ffd36e}
+#F .pass:nth-child(2) .d{color:#fff}
+#F .pass .badge{background:#ffd36e;color:#5b1f6e}
+#F .fact{background:#1f1240;border:1px solid #3a2264}
+#F .cd{justify-content:center}
+#F .cd div{background:rgba(18,10,42,.55);border:1px solid rgba(255,255,255,.18);color:#fff}
+
+/* ======== G: Armbåndet ======== */
+#G{background:#0d0d12}
+#G .hero{padding:28px 0 30px}
+#G .band{position:relative;margin:26px -40px 0;transform:rotate(-4deg);background:linear-gradient(90deg,#ff3d7f,#ff8a3d,#ffd23d,#3dffb0,#3db8ff,#a13dff,#ff3d7f);background-size:200% 100%;animation:slide 8s linear infinite;padding:20px 60px;box-shadow:0 20px 50px rgba(255,61,127,.35)}
+@keyframes slide{to{background-position:200% 0}}
+#G .band::before,#G .band::after{content:"";position:absolute;top:0;bottom:0;width:22px;background:repeating-linear-gradient(180deg,#0d0d12 0 6px,transparent 6px 12px)}
+#G .band::before{left:28px}#G .band::after{right:28px}
+#G h1{font:400 clamp(44px,11vw,118px)/.9 "Rubik Mono One",var(--head);color:#0d0d12;letter-spacing:-.02em;text-align:center}
+#G .bsub{text-align:center;font:700 clamp(13px,2.6vw,17px) var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#0d0d12;margin-top:6px}
+#G .kick{font:700 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#3dffb0;margin-top:10px}
+#G .lu{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:46px}
+@media(max-width:700px){#G .lu{grid-template-columns:1fr}}
+#G .day{border-radius:26px;padding:22px;position:relative;overflow:hidden}
+#G .day.fr{background:#ff3d7f;color:#0d0d12}
+#G .day.lr{background:#3db8ff;color:#0d0d12}
+#G .day::after{content:attr(data-big);position:absolute;right:-6px;bottom:-30px;font:400 130px/1 "Rubik Mono One";opacity:.12}
+#G .dl{font:700 12px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+#G .h1x{font:400 clamp(30px,6vw,50px)/1 "Rubik Mono One";margin:10px 0}
+#G .rest{font:800 19px/1.5 var(--body)}
+#G .rest span{display:inline-block;background:rgba(13,13,18,.12);border-radius:999px;padding:2px 12px;margin:3px 2px}
+#G .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+#G .b1{background:#ffd23d;color:#0d0d12}
+#G .b2{background:transparent;color:#fff;border:2px solid #fff}
+#G .body h2{font:400 clamp(26px,5vw,38px) "Rubik Mono One"}
+#G .pass{background:#1a1a24;border:2px solid #2a2a38}
+#G .pass:nth-child(1){border-color:#ff3d7f}#G .pass:nth-child(3){border-color:#3db8ff}
+#G .pass:nth-child(2){background:linear-gradient(135deg,#ff3d7f,#ffd23d,#3db8ff);color:#0d0d12;border:0}
+#G .pass .d{color:#3dffb0}#G .pass:nth-child(2) .d{color:#0d0d12}
+#G .pass .badge{background:#0d0d12;color:#ffd23d}
+#G .fact{background:#1a1a24}
+#G .cd div{background:#1a1a24;border:2px solid #3dffb0}
+
+/* ======== H: Lysshow ======== */
+#H{background:#05060c}
+#H .stage{position:absolute;inset:0;height:720px;overflow:hidden;pointer-events:none}
+#H .beam{position:absolute;bottom:-40px;width:180px;height:900px;transform-origin:50% 100%;background:linear-gradient(0deg,rgba(255,255,255,.0),var(--bc) 30%,rgba(255,255,255,0) 100%);filter:blur(6px);opacity:.55;mix-blend-mode:screen}
+#H .b1x{left:8%;--bc:rgba(61,184,255,.55);animation:swing 5s ease-in-out infinite alternate}
+#H .b2x{left:40%;--bc:rgba(255,61,200,.5);animation:swing 6.5s ease-in-out infinite alternate-reverse}
+#H .b3x{left:72%;--bc:rgba(255,210,61,.45);animation:swing 4.5s ease-in-out infinite alternate}
+@keyframes swing{from{transform:rotate(-28deg)}to{transform:rotate(26deg)}}
+#H .crowd{position:absolute;left:0;right:0;top:640px;height:80px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80V52c10-14 22-14 30 0 6-22 22-22 28 0 8-12 22-12 28 2l6-40 8 0 4 36c8-12 22-12 28 0 8-18 24-18 30 0 6-10 20-10 26 2 10-16 24-16 30 0l8-34 8 0 4 32c8-12 22-12 28 0 6-20 22-20 28 0 8-12 22-12 28 0 6-16 20-16 28 0 8-10 20-10 26 2l8-38 8 0 2 34c10-14 22-14 30 0 6-18 22-18 28 0 8-12 22-12 30 0V80z' fill='%2305060c'/%3E%3C/svg%3E") bottom/100% 80px repeat-x}
+#H .hero{position:relative;z-index:2;text-align:center;padding:40px 0 0;min-height:720px}
+#H .kick{font:700 13px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#3db8ff}
+#H h1{font:900 clamp(58px,14vw,150px)/.9 var(--body);letter-spacing:-.04em;margin:10px 0 0;background:linear-gradient(180deg,#fff 30%,#9fb8ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 30px rgba(120,160,255,.5))}
+#H .when{font:800 clamp(18px,3.6vw,26px) var(--head);color:#ffd23d;margin-top:10px}
+#H .lu{margin-top:26px}
+#H .dl{font:700 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#ff3dc8;margin-top:14px}
+#H .h1x{font:900 clamp(40px,9vw,80px)/1 var(--body);letter-spacing:-.03em;color:#fff;text-shadow:0 0 24px rgba(255,61,200,.6)}
+#H .rest{font:700 clamp(17px,3.4vw,24px)/1.45 var(--body);color:#cfd8ff}
+#H .rest i{color:#ff3dc8;font-style:normal;padding:0 6px}
+#H .more{color:#9aa6d6;font-size:14px}
+#H .eq{display:flex;gap:4px;justify-content:center;height:34px;align-items:flex-end;margin:20px 0 0}
+#H .eq i{width:6px;border-radius:3px;background:linear-gradient(0deg,#3db8ff,#ff3dc8);animation:eq 1s ease-in-out infinite alternate}
+@keyframes eq{from{height:6px}to{height:34px}}
+#H .ctas{margin-top:20px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+#H .b1{background:linear-gradient(90deg,#ff3dc8,#3db8ff);color:#fff;box-shadow:0 0 30px rgba(255,61,200,.5)}
+#H .b2{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+#H .body{position:relative;z-index:2}
+#H .pass{background:#0e1020;border:1px solid #23284a}
+#H .pass:nth-child(2){border:1px solid #ff3dc8;box-shadow:0 0 40px rgba(255,61,200,.25)}
+#H .pass .d{color:#3db8ff}
+#H .pass .badge{background:#ff3dc8;color:#fff}
+#H .fact{background:#0e1020;border:1px solid #23284a}
+#H .cd{justify-content:center;margin-top:16px}
+#H .cd div{background:#0e1020;border:1px solid #23284a;color:#fff}
+
+/* ======== I: Rullende tekst og klistremerker ======== */
+#I{background:#ffd23d;color:#111}
+#I .marq{overflow:hidden;white-space:nowrap;border-block:3px solid #111;background:#111;color:#ffd23d}
+#I .marq div{display:inline-block;font:400 clamp(40px,9vw,84px)/1.1 Anton;text-transform:uppercase;padding:6px 0;animation:mq 22s linear infinite}
+#I .marq.rev{background:#ff4f8b;color:#111}
+#I .marq.rev div{animation-direction:reverse;animation-duration:28s}
+#I .marq b{padding:0 .4em;font-weight:400}
+#I .marq b::after{content:"✦";padding-left:.8em;font-size:.6em;vertical-align:middle}
+@keyframes mq{to{transform:translateX(-50%)}}
+#I .hero{padding:24px 0 30px;position:relative}
+#I .kick{font:700 13px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+#I h1{font:400 clamp(64px,17vw,190px)/.92 Anton;text-transform:uppercase;margin:24px 0 0}
+#I .when{font:800 clamp(18px,3.8vw,28px) var(--head);margin-top:10px}
+#I .stk{position:absolute;font:900 15px/1.1 var(--body);text-align:center;display:flex;align-items:center;justify-content:center;border:3px solid #111;box-shadow:4px 4px 0 #111}
+#I .s1{right:4%;top:24px;width:118px;height:118px;border-radius:50%;background:#ff4f8b;color:#fff;transform:rotate(10deg);animation:wob 3.2s ease-in-out infinite}
+#I .s2{right:22%;top:170px;background:#3db8ff;padding:8px 14px;border-radius:10px;transform:rotate(-6deg)}
+@media(max-width:700px){#I .s1{width:92px;height:92px;font-size:13px;top:10px;right:2%}#I .s2{display:none}}
+#I .lu{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:24px}
+@media(max-width:700px){#I .lu{grid-template-columns:1fr}}
+#I .day{background:#fff;border:3px solid #111;box-shadow:6px 6px 0 #111;border-radius:20px;padding:18px}
+#I .day:nth-child(2){background:#111;color:#ffd23d}
+#I .dl{font:700 12px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+#I .h1x{font:400 clamp(44px,10vw,80px)/.95 Anton;text-transform:uppercase;margin:6px 0}
+#I .rest{font:800 18px/1.5 var(--body)}
+#I .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+#I .b1{background:#111;color:#ffd23d;box-shadow:4px 4px 0 #ff4f8b}
+#I .b2{background:#fff;color:#111;border:3px solid #111}
+#I .body h2{font:400 clamp(36px,7vw,60px)/1 Anton;text-transform:uppercase}
+#I .pass{background:#fff;border:3px solid #111;box-shadow:6px 6px 0 #111}
+#I .pass:nth-child(2){background:#ff4f8b;color:#fff}
+#I .pass .badge{background:#111;color:#ffd23d}
+#I .fact{background:#fff;border:3px solid #111}
+#I .cd div{background:#111;color:#ffd23d}
+#I .faq details{border-color:rgba(17,17,17,.3)}
+</style>
+</head>
+<body>
+
+<div class="picker" role="toolbar" aria-label="Velg forslag">
+  <b>Runde 2</b>
+  <button data-v="E">E Risoplakat</button>
+  <button data-v="F">F Solnedgang</button>
+  <button data-v="G">G Armbåndet</button>
+  <button data-v="H">H Lysshow</button>
+  <button data-v="I">I Rullende tekst</button>
+  <div class="why" id="why"></div>
+</div>
+
+<!-- E -->
+<div class="v" id="E" data-why="E: en trykt konsertplakat i risograf-stil. Rosa, gult og turkis som overlapper, raster, store blokkbokstaver og et klistremerke som vipper. Lekent og veldig «plakat», men lyst og lett å lese.">
+ <div class="wrap">
+  <div class="crumbs">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+  <div class="hero">
+   <div class="halftone"></div><div class="sun"></div><div class="sun2"></div>
+   <div class="kick">Festival · Skutvika havn</div>
+   <h1>Ålesund<br>Live</h1>
+   <div class="when">18. + 19. juni 2027</div>
+   <div class="lu">
+    <div class="dl">Fredag 18. juni</div><div class="h1x">Tobias Sten</div>
+    <div class="rest"><span class="nw">Maria Mena</span> <i>/</i> <span class="nw">Kjartan Lauritzen</span> <i>/</i> <span class="nw">Zimmermann</span> <i>/</i> <span class="nw">Ramón</span> <i>/</i> <span class="nw">Sebb Ottesen</span></div>
+    <div class="dl">Lørdag 19. juni</div><div class="h1x">Karpe</div>
+    <div class="more">+ flere artister annonseres</div>
+   </div>
+   <div class="ctas"><a class="btn b1" href="#">Kjøp billett</a><a class="btn b2" href="#">★ Lagre</a></div>
+   <div class="stick">Begge dager<br>1999 kr</div>
+  </div>
+ </div>
+ <div class="wrap body" data-body></div>
+</div>
+
+<!-- F -->
+<div class="v" id="F" data-why="F: solnedgang over Skutvika. Himmelen går fra lilla til oransje, sola stiger opp bak jugendsilhuetten og speiler seg i sjøen. Mest «wow» ved første blikk, og den eneste som er tydelig Ålesund.">
+ <div class="top"><div class="wrap">
+  <div class="crumbs" style="color:#ffe6b0">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+  <div class="hero">
+   <div class="kick">Skutvika havn · Ålesund</div>
+   <h1>Ålesund Live</h1>
+   <div class="when">Fredag 18. og lørdag 19. juni 2027</div>
+   <div class="lu">
+    <div class="dl">Lørdag</div><div class="h1x">Karpe</div>
+    <div class="dl">Fredag</div><div class="h1x">Tobias Sten</div>
+    <div class="rest"><span class="nw">Maria Mena</span> <i>·</i> <span class="nw">Kjartan Lauritzen</span> <i>·</i> <span class="nw">Zimmermann</span> <i>·</i> <span class="nw">Ramón</span> <i>·</i> <span class="nw">Sebb Ottesen</span></div>
+    <div class="more">Flere artister annonseres</div>
+   </div>
+   <div class="ctas"><a class="btn b1" href="#">Kjøp billett hos Tikkio</a><a class="btn b2" href="#">★ Lagre i Mine</a></div>
+   <div class="scene"><div class="sunb"></div><div class="city"></div><div class="water"></div><div class="refl"></div><div class="cd" data-cd></div></div>
+  </div>
+ </div></div>
+ <div class="wrap body" data-body></div>
+</div>
+
+<!-- G -->
+<div class="v" id="G" data-why="G: et festivalarmbånd i regnbuefarger går skrått over toppen og glir sakte. Hver dag får sitt eget fargekort, og artistene står som små «piller». Mest pop og festivalfølelse.">
+ <div class="wrap">
+  <div class="crumbs">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+  <div class="hero">
+   <div class="kick">18.–19. juni 2027 · Skutvika havn</div>
+   <div class="band"><h1>ÅLESUND LIVE</h1><div class="bsub">2027 · 2 dager · ved sjøen</div></div>
+   <div class="lu">
+    <div class="day fr" data-big="FRE"><div class="dl">Fredag 18. juni</div><div class="h1x">Tobias Sten</div>
+     <div class="rest"><span>Maria Mena</span><span>Kjartan Lauritzen</span><span>Zimmermann</span><span>Ramón</span><span>Sebb Ottesen</span></div></div>
+    <div class="day lr" data-big="LØR"><div class="dl">Lørdag 19. juni</div><div class="h1x">Karpe</div>
+     <div class="rest"><span>+ flere annonseres</span></div></div>
+   </div>
+   <div class="ctas"><a class="btn b1" href="#">Kjøp billett</a><a class="btn b2" href="#">★ Lagre</a></div>
+  </div>
+ </div>
+ <div class="wrap body" data-body></div>
+</div>
+
+<!-- H -->
+<div class="v" id="H" data-why="H: scenelys som sveiper over en mørk himmel, publikum i silhuett nederst og en liten equalizer som hopper. Føles som å stå foran scenen. Kul på mobil om kvelden.">
+ <div class="stage"><div class="beam b1x"></div><div class="beam b2x"></div><div class="beam b3x"></div><div class="crowd"></div></div>
+ <div class="wrap">
+  <div class="crumbs" style="color:#9aa6d6">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+  <div class="hero">
+   <div class="kick">Skutvika havn · Ålesund</div>
+   <h1>ÅLESUND LIVE</h1>
+   <div class="when">18.–19. juni 2027</div>
+   <div class="eq" aria-hidden="true"><i></i><i style="animation-delay:-.3s"></i><i style="animation-delay:-.6s"></i><i style="animation-delay:-.1s"></i><i style="animation-delay:-.8s"></i><i style="animation-delay:-.4s"></i><i style="animation-delay:-.7s"></i><i style="animation-delay:-.2s"></i><i style="animation-delay:-.5s"></i></div>
+   <div class="lu">
+    <div class="dl">Lørdag 19. juni</div><div class="h1x">KARPE</div>
+    <div class="dl">Fredag 18. juni</div><div class="h1x">TOBIAS STEN</div>
+    <div class="rest"><span class="nw">Maria Mena</span> <i>·</i> <span class="nw">Kjartan Lauritzen</span> <i>·</i> <span class="nw">Zimmermann</span> <i>·</i> <span class="nw">Ramón</span> <i>·</i> <span class="nw">Sebb Ottesen</span></div>
+    <div class="more">Flere artister annonseres</div>
+   </div>
+   <div class="ctas"><a class="btn b1" href="#">Kjøp billett</a><a class="btn b2" href="#">★ Lagre i Mine</a></div>
+   <div class="cd" data-cd></div>
+  </div>
+ </div>
+ <div class="wrap body" data-body></div>
+</div>
+
+<!-- I -->
+<div class="v" id="I" data-why="I: knallgult med rullende tekstbånd med artistnavnene, tykke svarte kanter og klistremerker. Frekk og morsom, som en festivalnettside. Tydeligst forskjell fra resten av siden.">
+ <div class="marq" aria-hidden="true"><div><b>Karpe</b><b>Tobias Sten</b><b>Maria Mena</b><b>Kjartan Lauritzen</b><b>Zimmermann</b><b>Ramón</b><b>Sebb Ottesen</b><b>Karpe</b><b>Tobias Sten</b><b>Maria Mena</b><b>Kjartan Lauritzen</b><b>Zimmermann</b><b>Ramón</b><b>Sebb Ottesen</b></div></div>
+ <div class="wrap">
+  <div class="crumbs">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+  <div class="hero">
+   <div class="kick">Festival · Skutvika havn</div>
+   <h1>Ålesund<br>Live 27</h1>
+   <div class="when">Fredag 18. + lørdag 19. juni</div>
+   <div class="stk s1">Fra<br>999 kr</div>
+   <div class="stk s2">Ingen aldersgrense!</div>
+   <div class="lu">
+    <div class="day"><div class="dl">Fredag 18. juni</div><div class="h1x">Tobias Sten</div><div class="rest">Maria Mena · Kjartan Lauritzen · Zimmermann · Ramón · Sebb Ottesen</div></div>
+    <div class="day"><div class="dl">Lørdag 19. juni</div><div class="h1x">Karpe</div><div class="rest">+ flere annonseres</div></div>
+   </div>
+   <div class="ctas"><a class="btn b1" href="#">Kjøp billett</a><a class="btn b2" href="#">★ Lagre</a></div>
+  </div>
+ </div>
+ <div class="marq rev" aria-hidden="true"><div><b>18.–19. juni</b><b>Skutvika havn</b><b>Dører 16:30</b><b>2-dagerspass 1999 kr</b><b>18.–19. juni</b><b>Skutvika havn</b><b>Dører 16:30</b><b>2-dagerspass 1999 kr</b></div></div>
+ <div class="wrap body" data-body></div>
+</div>
+
+<template id="tpl">
+ <section>
+  <h2>Billetter</h2>
+  <div class="passes">
+   <div class="pass"><div class="d">Fredag</div><div class="n">Dagspass</div><div class="p">999 kr</div><div class="s">Tobias Sten m.fl.</div></div>
+   <div class="pass"><span class="badge">Spar 399 kr</span><div class="d">Begge dager</div><div class="n">2-dagerspass</div><div class="p">1999 kr</div><div class="s">Fredag og lørdag</div></div>
+   <div class="pass"><div class="d">Lørdag</div><div class="n">Dagspass</div><div class="p">1399 kr</div><div class="s">Karpe</div></div>
+  </div>
+  <p class="src" style="padding:12px 0 0">Gebyr 15 kr per billett (maks 30 kr per ordre). Egne billetter for under 18. Ledsager med ledsagerbevis går gratis.</p>
+ </section>
+ <section>
+  <h2>Praktisk</h2>
+  <div class="facts">
+   <div class="fact"><span>Dører</span><b>16:30</b></div>
+   <div class="fact"><span>Slutt lørdag</span><b>23:30</b></div>
+   <div class="fact"><span>Alder</span><b>Ingen grense</b></div>
+   <div class="fact"><span>Sted</span><b>Skutvika havn</b></div>
+  </div>
+ </section>
+ <section class="faq">
+  <h2>Spørsmål</h2>
+  <details><summary>Når spiller Karpe?</summary><p>Lørdag 19. juni 2027. Klokkeslettet er ikke kunngjort ennå.</p></details>
+  <details><summary>Er det aldersgrense?</summary><p>Nei. Under 15 år må være sammen med en voksen og ha med foresattskjema.</p></details>
+  <details><summary>Får jeg pengene tilbake hvis en artist avlyser?</summary><p>Nei, ifølge arrangøren bare hvis hele arrangementet avlyses.</p></details>
+ </section>
+ <div class="src">Alt er hentet fra arrangørens billettside hos Tikkio (Momentium Live). Sist sjekket 10. nov. 2026.</div>
+</template>
+
+<script>
+const tpl=document.getElementById('tpl');
+document.querySelectorAll('[data-body]').forEach(b=>b.appendChild(tpl.content.cloneNode(true)));
+document.querySelectorAll('#E .body section:first-child, #G .body section:first-child, #I .body section:first-child').forEach(s=>{const c=document.createElement('div');c.className='cd';c.dataset.cd='';c.style.margin='0 0 18px';s.prepend(c)});
+const btns=[...document.querySelectorAll('.picker button')],why=document.getElementById('why');
+function show(v){btns.forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));document.querySelectorAll('.v').forEach(x=>x.classList.toggle('on',x.id===v));why.textContent=document.getElementById(v).dataset.why;try{history.replaceState(null,'','#'+v)}catch(e){}scrollTo(0,0)}
+btns.forEach(b=>b.onclick=()=>show(b.dataset.v));
+show(/^#[EFGHI]$/.test(location.hash)?location.hash.slice(1):'E');
+const target=new Date('2027-06-18T16:30:00+02:00');
+function cd(){let s=Math.max(0,(target-new Date())/1000);const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);
+ const html=`<div><strong>${d}</strong><span>dager</span></div><div><strong>${h}</strong><span>timer</span></div><div><strong>${m}</strong><span>min</span></div>`;
+ document.querySelectorAll('[data-cd]').forEach(e=>e.innerHTML=html)}
+cd();setInterval(cd,30000);
+</script>
+</body>
+</html>
