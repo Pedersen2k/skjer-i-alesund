@@ -68,10 +68,14 @@
    "musikkbingo-dampsentralen": [
     "2026-10-19T12:59:56Z",
     "2026-11-10T08:20:11Z"
+   ],
+   "livrore-dj-liv-rore-moa": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-10T08:41:18Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T08:33:30Z",
+  "updatedAt": "2026-11-10T08:41:18Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 1,
   "sources": [
@@ -154,6 +158,30 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "brosundet-etter-seks-2026",
+   "date": "2026-11-11",
+   "time": "18:00",
+   "title": "Brosundet ETTER SEKS",
+   "venue": "Hotel Brosundet",
+   "address": "Apotekergata 1-5, 6004 Ålesund",
+   "cat": "konsert",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Akustisk konsert foran peisen hver onsdag kl. 18–20, mat fra egen meny 16–22. 11.11 Rikke og Svein, 18.11 Ståle Heggset og Geir Harald, 25.11 Sofie Laxxa, 2.12 Gutta Boys, 9.12 Danielle Langedal, 16.12 Rikke og Svein, 30.12 Elise Nærø. Fortsetter til påske.",
+   "url": "https://www.brosundet.no/aktiviteter/brosundet-etter-seks",
+   "moreShows": [
+    "2026-11-18T18:00",
+    "2026-11-25T18:00",
+    "2026-12-02T18:00",
+    "2026-12-09T18:00",
+    "2026-12-16T18:00",
+    "2026-12-30T18:00"
+   ],
+   "addedAt": "2026-11-10T08:41:18Z"
+  },
+  {
    "id": "viti-fagsamling-og-nettverkstreff-for-handverkarar-2026-sunn",
    "date": "2026-11-12",
    "time": "12:00",
@@ -217,8 +245,8 @@
    "priceMin": null,
    "soldOut": false,
    "uncertain": false,
-   "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Billetter og pris: spør hotellet. Datoer og tid: Bypatrioten (Thons egen side nevner ikke showet).",
-   "url": "https://www.thonhotels.no/hoteller/norge/alesund/thon-hotel-alesund/",
+   "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Dørene åpner 18:00, 15 år. Billetter på Billetto (Bypatrioten oppgir 550–599 kr + avgift). Datoer og tid: Bypatrioten (Thons egen side nevner ikke showet).",
+   "url": "https://billetto.no/e/jul-pa-molja-fredrik-steen-jorunn-torsheim-billetter-1901018",
    "moreShows": [
     "2026-11-13T18:30",
     "2026-11-14T18:30",
@@ -384,35 +412,6 @@
     "2026-12-05T20:00",
     "2026-12-11T20:00",
     "2026-12-12T20:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "livrore-dj-liv-rore-moa",
-   "date": "2026-11-13",
-   "time": "23:00",
-   "title": "DJ hver helg",
-   "venue": "Liv & Røre Moa",
-   "address": "Langelandsvegen 35, 6010 Ålesund",
-   "cat": "klubb",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Nattklubb fredag og lørdag kl. 23–03, hver helg til 19. des. DJ-er: Sierra, Nic, Bigs og Hamy.",
-   "uncertain": false,
-   "url": "https://livrore.no/dj-hver-helg-pa-liv-rore/",
-   "moreShows": [
-    "2026-11-14T23:00",
-    "2026-11-20T23:00",
-    "2026-11-21T23:00",
-    "2026-11-27T23:00",
-    "2026-11-28T23:00",
-    "2026-12-04T23:00",
-    "2026-12-05T23:00",
-    "2026-12-11T23:00",
-    "2026-12-12T23:00",
-    "2026-12-18T23:00",
-    "2026-12-19T23:00"
    ],
    "addedAt": "2026-10-19T12:59:56Z"
   },
