@@ -717,6 +717,21 @@
     ]
   },
   {
+    "id": "olsmaking-pa-kaab",
+    "date": "2026-11-26",
+    "time": "19:00",
+    "title": "Ølsmaking på KaaB",
+    "venue": "KaaB Bryggeri",
+    "address": "",
+    "cat": "happening",
+    "price": "423 kr",
+    "priceMin": 423,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Ølsmaking hos Kaab Bryggeri. Dørene åpner 19:00, slutt 23:00. 18 år. I Langevåg (Sula). Servicegebyr 15 kr per billett.",
+    "url": "https://tikkio.com/events/67279"
+  },
+  {
     "id": "adventsbasar-hessatun",
     "date": "2026-11-23",
     "time": "18:00",
