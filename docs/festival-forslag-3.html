@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Festivalside runde 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500;700&family=Anton&family=Rubik+Mono+One&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a171b;--fg:#e8f1ef;--muted:#8fa8ab;--line:#25414a;--gold:#f7c873;
+ --head:"Bricolage Grotesque",system-ui,sans-serif;--body:Figtree,system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);overflow-x:hidden}
+a{color:inherit}
+h1,h2,h3{margin:0;line-height:1}
+.picker{position:sticky;top:0;z-index:100;background:rgba(10,23,27,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.picker b{font:500 12px var(--mono);color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-right:4px}
+.picker button{font:600 14px var(--body);background:#13252d;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.picker button[aria-pressed=true]{background:var(--gold);color:#10282f;border-color:var(--gold)}
+.picker .why{flex-basis:100%;color:var(--muted);font-size:14px}
+.v{display:none;position:relative;overflow:hidden;background:var(--k-bg);color:var(--k-fg)}.v.on{display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px;position:relative}
+.crumbs{font:500 12px var(--mono);opacity:.75;padding:16px 0 0;position:relative;z-index:3}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:var(--k-r,999px);font:800 17px var(--body);text-decoration:none;border:0;cursor:pointer;background:var(--k-a1);color:var(--k-a1ink);transition:transform .15s}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:transparent;color:var(--k-fg);border:2px solid currentColor}
+.nw{white-space:nowrap}
+.ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ---------- felles nedre del (B-program + D-billetter) ---------- */
+.body section{padding:30px 0}
+.body h2{font:var(--k-h2,800 clamp(28px,5vw,40px) var(--head));margin-bottom:16px;text-transform:var(--k-tt,none)}
+.tabs{display:flex;gap:8px;position:sticky;top:57px;z-index:6;padding:8px 0;background:var(--k-bg)}
+.tabs button{flex:1;min-height:58px;text-align:left;padding:8px 16px;border-radius:var(--k-cr,18px);border:2px solid var(--k-line);background:var(--k-card);color:var(--k-fg);font:800 17px var(--body);cursor:pointer;transition:transform .2s}
+.tabs button small{display:block;font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.tabs button[aria-pressed=true]{background:var(--k-a2);color:var(--k-a2ink);border-color:var(--k-a2);transform:translateY(-2px)}
+.prog{margin-top:8px}
+.row{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--k-line);opacity:0;transform:translateY(10px);animation:in .45s ease forwards}
+@keyframes in{to{opacity:1;transform:none}}
+.row .t{font:700 15px var(--mono);color:var(--k-a2)}
+.row .a{font:800 20px var(--head)}
+.row.hl .a{font:var(--k-hl,800 30px var(--head));text-transform:var(--k-tt,none)}
+.row .x{font-size:13px;opacity:.65}
+.row .star{background:none;border:0;color:var(--k-fg);font-size:22px;cursor:pointer;opacity:.6;width:44px;height:44px}
+.row .star.on{color:var(--k-a1);opacity:1;animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.5) rotate(-12deg)}}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+@media(max-width:780px){.cards{grid-template-columns:1fr}}
+.card{background:var(--k-card);border:2px solid var(--k-line);border-radius:var(--k-cr,22px);padding:20px;display:flex;flex-direction:column;gap:6px;position:relative;transition:transform .2s}
+.card:hover{transform:translateY(-4px) rotate(-.5deg)}
+.card.best{background:var(--k-best,var(--k-a2));color:var(--k-a2ink);border-color:transparent}
+.card .rib{position:absolute;top:-13px;right:16px;background:var(--k-a1);color:var(--k-a1ink);font:800 12px var(--body);padding:6px 12px;border-radius:999px;transform:rotate(5deg)}
+.card .d{font:700 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.card .p{font:800 44px var(--head);line-height:1}
+.card ul{margin:4px 0 12px;padding-left:18px;font-size:15px;opacity:.85}
+.card .btn{margin-top:auto;min-height:48px}
+.card.best .btn{background:var(--k-a2ink);color:var(--k-a2)}
+.small{font-size:13px;opacity:.7;margin-top:10px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:760px){.facts{grid-template-columns:1fr 1fr}}
+.fact{background:var(--k-card);border:2px solid var(--k-line);border-radius:var(--k-cr,18px);padding:14px 16px}
+.fact span{display:block;font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.fact b{font:800 18px var(--head);display:block;margin-top:4px}
+.faq details{padding:14px 0;border-top:1px solid var(--k-line)}
+.faq summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";font-weight:900;color:var(--k-a1)}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:8px 0 0;opacity:.8}
+.src{font-size:13px;opacity:.65;padding:10px 0 90px}
+.cd{display:flex;gap:8px;flex-wrap:wrap}
+.cd div{text-align:center;min-width:70px;padding:8px 10px;border-radius:14px;background:var(--k-cdbg,rgba(0,0,0,.35));border:1px solid rgba(255,255,255,.15)}
+.cd strong{display:block;font:800 30px var(--head);line-height:1.1}
+.cd span{font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.08em;opacity:.75}
+.buybar{position:sticky;bottom:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 16px;background:var(--k-bar,rgba(0,0,0,.85));backdrop-filter:blur(8px);transform:translateY(100%);transition:transform .3s}
+.buybar.show{transform:none}
+.buybar .btn{min-height:44px;padding:0 20px}
+.buybar small{display:block;opacity:.7;font-size:13px}
+
+/* ===== J: Fjordkveld ===== */
+#J{--k-bg:#120a2a;--k-fg:#fff;--k-card:#1f1240;--k-line:#3a2264;--k-a1:#fff;--k-a1ink:#5b1f6e;--k-a2:#ff9a52;--k-a2ink:#2a0f1f;--k-best:linear-gradient(160deg,#e2456b,#ff9a52);--k-bar:rgba(18,10,42,.9)}
+#J .top{background:linear-gradient(180deg,#1a0f3d 0%,#5b1f6e 40%,#e2456b 75%,#ff9a52 92%,#ffd36e 100%);text-align:center}
+#J .kick{font:700 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#ffd36e;padding-top:30px}
+#J h1{font:400 clamp(56px,13vw,140px)/.95 Shrikhand,var(--head);margin:10px 0 0;text-shadow:0 6px 30px rgba(255,90,120,.6)}
+#J h1 span{display:inline-block;animation:drop .7s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes drop{from{transform:translateY(-60px) rotate(-8deg);opacity:0}}
+#J .when{font:800 clamp(18px,3.6vw,26px) var(--head);color:#ffe6b0;margin-top:8px}
+#J .lu .dl{font:700 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#ffd36e;margin-top:18px}
+#J .lu .h{font:800 clamp(40px,9vw,78px)/1 var(--head)}
+#J .lu .r{font:700 clamp(17px,3.4vw,24px)/1.4 var(--head);color:#ffe6f0}
+#J .lu .r i{color:#ffd36e;font-style:normal;padding:0 4px}
+#J .ctas{justify-content:center}
+#J .scene{position:relative;height:320px;margin:10px -16px 0;overflow:hidden}
+#J .sun{position:absolute;left:50%;top:40px;width:300px;height:300px;margin-left:-150px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff2b0,#ffb547 55%,#ff6a5a);box-shadow:0 0 120px 40px rgba(255,150,90,.45);animation:rise 6s ease-out both}
+@keyframes rise{from{transform:translateY(120px)}}
+#J .city{position:absolute;left:0;right:0;top:150px;height:90px}
+#J .city svg{width:100%;height:100%;display:block}
+#J .win{animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.15}}
+#J .water{position:absolute;left:0;right:0;top:240px;bottom:0;background:#120a2a}
+#J .refl{position:absolute;left:0;right:0;top:240px;bottom:0;background:repeating-linear-gradient(180deg,rgba(255,180,90,.4) 0 3px,transparent 3px 11px);-webkit-mask:linear-gradient(90deg,transparent 30%,#000 50%,transparent 70%);mask:linear-gradient(90deg,transparent 30%,#000 50%,transparent 70%);animation:shim 4s linear infinite}
+@keyframes shim{to{background-position:0 22px}}
+#J .boat{position:absolute;top:226px;left:-80px;width:70px;animation:sail 26s linear infinite}
+@keyframes sail{to{transform:translateX(calc(100vw + 160px))}}
+#J .bird{position:absolute;font-size:18px;color:#2a0f1f;animation:fly 14s linear infinite}
+@keyframes fly{from{transform:translate(-40px,0)}50%{transform:translate(50vw,-30px)}to{transform:translate(110vw,10px)}}
+#J .scene .cd{position:absolute;left:0;right:0;bottom:14px;justify-content:center}
+
+/* ===== K: Konfetti ===== */
+#K{--k-bg:#0d0d12;--k-fg:#fff;--k-card:#1a1a24;--k-line:#2a2a38;--k-a1:#ffd23d;--k-a1ink:#0d0d12;--k-a2:#3dffb0;--k-a2ink:#0d0d12;--k-best:linear-gradient(135deg,#ff3d7f,#ffd23d,#3db8ff);--k-h2:400 clamp(24px,5vw,36px) "Rubik Mono One";--k-hl:400 clamp(24px,5vw,34px) "Rubik Mono One";--k-cr:26px}
+#K canvas{position:fixed;inset:0;pointer-events:none;z-index:90}
+#K .kick{font:700 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#3dffb0;margin-top:20px}
+#K .band{position:relative;margin:24px -40px 0;transform:rotate(-4deg);background:linear-gradient(90deg,#ff3d7f,#ff8a3d,#ffd23d,#3dffb0,#3db8ff,#a13dff,#ff3d7f);background-size:200% 100%;animation:slide 8s linear infinite;padding:20px 60px;box-shadow:0 20px 50px rgba(255,61,127,.35)}
+@keyframes slide{to{background-position:200% 0}}
+#K h1{font:400 clamp(40px,10.5vw,112px)/.9 "Rubik Mono One";color:#0d0d12;text-align:center}
+#K .bsub{text-align:center;font:700 clamp(12px,2.6vw,17px) var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#0d0d12;margin-top:6px}
+#K .pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:44px}
+#K .pill{border-radius:999px;padding:10px 20px;font:800 clamp(17px,3.4vw,24px) var(--body);color:#0d0d12;animation:bounce .6s cubic-bezier(.3,1.8,.5,1) both;cursor:default;transition:transform .2s}
+#K .pill:hover{transform:scale(1.08) rotate(-3deg)}
+#K .pill.big{font:400 clamp(26px,6vw,46px) "Rubik Mono One";padding:14px 26px}
+@keyframes bounce{from{transform:scale(0) rotate(-20deg)}}
+#K .ctas{justify-content:center}
+#K .hint{text-align:center;font-size:13px;opacity:.6;margin-top:8px}
+
+/* ===== L: Fra dag til natt ===== */
+#L{--k-bg:#0b0820;--k-fg:#fff;--k-card:rgba(255,255,255,.07);--k-line:rgba(255,255,255,.16);--k-a1:#ff3dc8;--k-a1ink:#fff;--k-a2:#ffd23d;--k-a2ink:#1a0f3d;--k-best:linear-gradient(160deg,#ff3dc8,#3db8ff);--k-bar:rgba(11,8,32,.9);--p:0}
+#L .skyfix{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;overflow:hidden;
+ background:linear-gradient(180deg,
+  color-mix(in srgb,#3a8fd6 calc((1 - var(--p))*100%),#05060c) 0%,
+  color-mix(in srgb,#ffb27a calc((1 - var(--p))*100%),#1a0f3d) 60%,
+  color-mix(in srgb,#ffd9a0 calc((1 - var(--p))*100%),#2a0f3d) 100%)}
+#L .lsun{position:absolute;left:50%;width:220px;height:220px;margin-left:-110px;border-radius:50%;background:radial-gradient(circle,#fff6c8,#ffb547 60%,#ff6a5a);top:calc(18% + var(--p)*70%);box-shadow:0 0 100px 30px rgba(255,170,90,.5);opacity:calc(1 - var(--p)*.9)}
+#L .stars{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 10% 20%,#fff,transparent),radial-gradient(1px 1px at 30% 10%,#fff,transparent),radial-gradient(1.5px 1.5px at 55% 25%,#fff,transparent),radial-gradient(1px 1px at 75% 8%,#fff,transparent),radial-gradient(1.5px 1.5px at 88% 30%,#fff,transparent),radial-gradient(1px 1px at 20% 40%,#fff,transparent),radial-gradient(1px 1px at 65% 45%,#fff,transparent),radial-gradient(1.5px 1.5px at 42% 5%,#fff,transparent);opacity:var(--p)}
+#L .beam{position:absolute;bottom:-40px;width:160px;height:110vh;transform-origin:50% 100%;background:linear-gradient(0deg,transparent,var(--bc) 30%,transparent);filter:blur(6px);mix-blend-mode:screen;opacity:calc((var(--p) - .45)*1.6)}
+#L .b1{left:10%;--bc:rgba(61,184,255,.6);animation:swing 5s ease-in-out infinite alternate}
+#L .b2{left:45%;--bc:rgba(255,61,200,.55);animation:swing 6s ease-in-out infinite alternate-reverse}
+#L .b3{left:78%;--bc:rgba(255,210,61,.5);animation:swing 4.4s ease-in-out infinite alternate}
+@keyframes swing{from{transform:rotate(-26deg)}to{transform:rotate(24deg)}}
+#L .lcity{position:absolute;left:0;right:0;bottom:0;height:90px}
+#L .lcity svg{width:100%;height:100%;display:block}
+#L .lwin{opacity:var(--p)}
+#L .content{position:relative;z-index:2}
+#L .hero{text-align:center;padding:40px 0 60px;min-height:88vh;display:flex;flex-direction:column;justify-content:center}
+#L .kick{font:700 13px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+#L h1{font:900 clamp(56px,14vw,150px)/.9 var(--body);letter-spacing:-.04em;margin:10px 0 0;text-shadow:0 6px 40px rgba(0,0,0,.35)}
+#L .when{font:800 clamp(18px,3.6vw,26px) var(--head);margin-top:10px}
+#L .lu .h{font:900 clamp(38px,8vw,72px)/1 var(--body);letter-spacing:-.03em;margin-top:14px}
+#L .lu .r{font:700 clamp(16px,3.2vw,22px)/1.4 var(--body);opacity:.9}
+#L .lu .r i{font-style:normal;padding:0 4px;opacity:.7}
+#L .ctas{justify-content:center}
+#L .scrollhint{margin-top:26px;font:700 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.75;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+#L .body section{background:rgba(11,8,32,.55);backdrop-filter:blur(6px);border-radius:24px;padding:24px 18px;margin:0 0 18px}
+#L .tabs{background:transparent}
+
+/* ===== M: Bokstavlek ===== */
+#M{--k-bg:#ffd23d;--k-fg:#111;--k-card:#fff;--k-line:#111;--k-a1:#111;--k-a1ink:#ffd23d;--k-a2:#ff4f8b;--k-a2ink:#fff;--k-best:#ff4f8b;--k-h2:400 clamp(36px,7vw,60px)/1 Anton;--k-hl:400 clamp(30px,6vw,46px) Anton;--k-tt:uppercase;--k-cdbg:#111;--k-bar:#111;--k-cr:20px}
+#M .cd div{color:#ffd23d;border:0}
+#M .card,#M .fact,#M .tabs button{border-width:3px;box-shadow:5px 5px 0 #111}
+#M .buybar{color:#ffd23d}
+#M .buybar .btn{background:#ffd23d;color:#111}
+#M .hero{padding:24px 0 10px}
+#M .kick{font:700 13px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+#M h1{font:400 clamp(60px,15vw,200px)/.95 Anton;text-transform:uppercase;margin:.3em 0 0;display:flex;flex-wrap:wrap;gap:0 .25em}
+#M h1 .w{display:inline-flex}
+#M h1 .ch{display:inline-block;animation:jump .8s cubic-bezier(.3,1.7,.5,1) both,wave 2.4s ease-in-out infinite;cursor:default}
+#M h1 .ch:hover{color:#ff4f8b}
+@keyframes jump{from{transform:translateY(80px) scale(.4);opacity:0}}
+@keyframes wave{0%,100%{translate:0 0}50%{translate:0 -8px}}
+#M .when{display:inline-block;margin-top:14px;background:#111;color:#ffd23d;font:800 clamp(18px,3.8vw,28px) var(--head);padding:8px 16px;transform:rotate(-1.5deg)}
+#M .rows{margin:28px -16px 0}
+#M .mrow{overflow:hidden;white-space:nowrap;border-top:3px solid #111;padding:4px 0}
+#M .mrow:last-child{border-bottom:3px solid #111}
+#M .mrow div{display:inline-block;animation:mq 26s linear infinite}
+#M .mrow.r div{animation-direction:reverse;animation-duration:32s}
+#M .mrow b{display:inline-block;font:400 clamp(38px,8vw,72px)/1.15 Anton;text-transform:uppercase;padding:0 .35em;transition:transform .2s,color .2s}
+#M .mrow b:hover{transform:scale(1.15) rotate(-3deg);color:#ff4f8b}
+#M .mrow:hover div{animation-play-state:paused}
+#M .mrow b.k{color:#ff4f8b}
+#M .mrow em{font-style:normal;font-size:.5em;vertical-align:middle}
+@keyframes mq{to{transform:translateX(-50%)}}
+#M .s1{position:absolute;right:4%;top:60px;width:118px;height:118px;border-radius:50%;background:#ff4f8b;color:#fff;font:900 15px/1.1 var(--body);text-align:center;display:flex;align-items:center;justify-content:center;border:3px solid #111;box-shadow:4px 4px 0 #111;transform:rotate(10deg);animation:spin 12s linear infinite}
+@keyframes spin{to{transform:rotate(370deg)}}
+#M .hero{position:relative}
+@media(max-width:700px){#M .s1{width:84px;height:84px;font-size:12px;top:auto;bottom:-62px;right:2%}}
+#M .s1{z-index:5}
+
+/* ===== N: Hologram-billett ===== */
+#N{--k-bg:#05060c;--k-fg:#fff;--k-card:#0e1020;--k-line:#23284a;--k-a1:linear-gradient(90deg,#ff3dc8,#3db8ff);--k-a1ink:#fff;--k-a2:#3db8ff;--k-a2ink:#05060c;--k-best:linear-gradient(135deg,#ff3dc8,#7a5cff,#3db8ff);--k-bar:rgba(5,6,12,.92)}
+#N .btn{background:linear-gradient(90deg,#ff3dc8,#3db8ff);color:#fff}
+#N .card.best .btn{background:#05060c;color:#fff}
+#N .hero{padding:30px 0 20px;text-align:center}
+#N .kick{font:700 13px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#3db8ff}
+#N .stagew{perspective:1000px;margin:26px auto 0;max-width:620px}
+#N .ticket{position:relative;border-radius:26px;padding:26px 26px 22px;text-align:left;transform-style:preserve-3d;transition:transform .12s;background:#10132a;border:1px solid rgba(255,255,255,.15);box-shadow:0 30px 80px rgba(61,184,255,.25);overflow:hidden;--mx:50%;--my:50%}
+#N .ticket::before{content:"";position:absolute;inset:0;background:conic-gradient(from 0deg at var(--mx) var(--my),#ff3dc8,#ffd23d,#3dffb0,#3db8ff,#a13dff,#ff3dc8);opacity:.28;mix-blend-mode:color-dodge}
+#N .ticket::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.35),transparent 45%)}
+#N .ticket > *{position:relative;z-index:1}
+#N .tt{display:flex;justify-content:space-between;font:700 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+#N .ticket h1{font:900 clamp(44px,10vw,88px)/.92 var(--body);letter-spacing:-.04em;margin:16px 0 6px;transform:translateZ(40px)}
+#N .ticket .when{font:800 20px var(--head);color:#ffd23d}
+#N .perf{border-top:2px dashed rgba(255,255,255,.3);margin:18px -26px 0;position:relative}
+#N .perf::before,#N .perf::after{content:"";position:absolute;top:-14px;width:28px;height:28px;border-radius:50%;background:#05060c}
+#N .perf::before{left:-14px}#N .perf::after{right:-14px}
+#N .tl{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:16px;transform:translateZ(25px)}
+#N .tl .dl{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#3db8ff}
+#N .tl .h{font:900 clamp(24px,5vw,36px)/1 var(--body);margin:4px 0}
+#N .tl .r{font-size:14px;opacity:.85}
+#N .bar{height:44px;margin-top:16px;background:repeating-linear-gradient(90deg,#fff 0 2px,transparent 2px 5px,#fff 5px 6px,transparent 6px 10px,#fff 10px 13px,transparent 13px 15px);opacity:.55;border-radius:4px}
+#N .ctas{justify-content:center}
+#N .tip{font-size:13px;opacity:.55;margin-top:10px}
+</style>
+</head>
+<body>
+
+<div class="picker" role="toolbar" aria-label="Velg forslag">
+  <b>Runde 3</b>
+  <button data-v="J">J Fjordkveld</button>
+  <button data-v="K">K Konfetti</button>
+  <button data-v="L">L Dag til natt</button>
+  <button data-v="M">M Bokstavlek</button>
+  <button data-v="N">N Hologram-billett</button>
+  <div class="why" id="why"></div>
+</div>
+
+<!-- J -->
+<div class="v" id="J" data-why="J (F videre): solnedgangen med en båt som seiler forbi, måker og vinduer som blinker i jugendhusene. Bokstavene i tittelen faller på plass. Under: program per dag fra B og billettkort fra D. Kjøpsknappen kommer opp nederst når du har scrollet forbi toppen.">
+ <div class="top"><div class="wrap">
+  <div class="crumbs" style="text-align:left">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+  <div class="kick">Skutvika havn · Ålesund</div>
+  <h1 data-split>Ålesund Live</h1>
+  <div class="when">Fredag 18. og lørdag 19. juni 2027</div>
+  <div class="lu">
+   <div class="dl">Lørdag</div><div class="h">Karpe</div>
+   <div class="dl">Fredag</div><div class="h">Tobias Sten</div>
+   <div class="r"><span class="nw">Maria Mena</span> <i>·</i> <span class="nw">Kjartan Lauritzen</span> <i>·</i> <span class="nw">Zimmermann</span> <i>·</i> <span class="nw">Ramón</span> <i>·</i> <span class="nw">Sebb Ottesen</span></div>
+  </div>
+  <div class="ctas"><a class="btn" href="#" data-buy>Kjøp billett hos Tikkio</a><a class="btn ghost" href="#">★ Lagre i Mine</a></div>
+  <div class="scene">
+   <div class="sun"></div>
+   <div class="bird" style="top:60px;animation-delay:-3s">⌄</div><div class="bird" style="top:90px;animation-delay:-8s;font-size:14px">⌄</div>
+   <div class="city" data-city="win"></div>
+   <div class="water"></div><div class="refl"></div>
+   <svg class="boat" viewBox="0 0 70 26"><path d="M2 14h66l-8 10H10z" fill="#120a2a"/><path d="M30 2v12M30 2l14 12H30" stroke="#120a2a" stroke-width="2" fill="#2a0f1f"/><circle cx="20" cy="18" r="1.6" fill="#ffd36e"/><circle cx="30" cy="18" r="1.6" fill="#ffd36e"/><circle cx="40" cy="18" r="1.6" fill="#ffd36e"/></svg>
+   <div class="cd" data-cd></div>
+  </div>
+ </div></div>
+ <div class="wrap body" data-body></div>
+ <div class="buybar"><div><b>Ålesund Live</b><small>18.–19. juni · fra 999 kr</small></div><a class="btn" href="#" data-buy>Kjøp billett</a></div>
+</div>
+
+<!-- K -->
+<div class="v" id="K" data-why="K (G videre): regnbuearmbåndet, artistene spretter inn som piller, og trykk på «Kjøp billett» (eller stjernene i programmet) sender ut konfetti. Lekent, men programmet og billettene under er ryddige.">
+ <canvas id="conf"></canvas>
+ <div class="wrap">
+  <div class="crumbs">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+  <div class="kick">18.–19. juni 2027 · Skutvika havn</div>
+  <div class="band"><h1>ÅLESUND LIVE</h1><div class="bsub">2027 · 2 dager · ved sjøen</div></div>
+  <div class="pills">
+   <span class="pill big" style="background:#3db8ff;animation-delay:.1s">Karpe</span>
+   <span class="pill big" style="background:#ff3d7f;animation-delay:.2s">Tobias Sten</span>
+   <span class="pill" style="background:#ffd23d;animation-delay:.35s">Maria Mena</span>
+   <span class="pill" style="background:#3dffb0;animation-delay:.45s">Kjartan Lauritzen</span>
+   <span class="pill" style="background:#a13dff;color:#fff;animation-delay:.55s">Zimmermann</span>
+   <span class="pill" style="background:#ff8a3d;animation-delay:.65s">Ramón</span>
+   <span class="pill" style="background:#fff;animation-delay:.75s">Sebb Ottesen</span>
+   <span class="pill" style="background:transparent;color:#fff;border:2px dashed #555;animation-delay:.85s">+ flere annonseres</span>
+  </div>
+  <div class="ctas"><a class="btn" href="#" data-buy data-confetti>Kjøp billett</a><a class="btn ghost" href="#">★ Lagre</a></div>
+  <div class="hint">Prøv å trykke på «Kjøp billett»</div>
+ </div>
+ <div class="wrap body" data-body></div>
+ <div class="buybar"><div><b>Ålesund Live</b><small>18.–19. juni · fra 999 kr</small></div><a class="btn" href="#" data-buy data-confetti>Kjøp billett</a></div>
+</div>
+
+<!-- L -->
+<div class="v" id="L" data-why="L (F + H): siden starter i dagslys over Ålesund. Når du scroller, går sola ned, stjernene kommer, vinduene tennes og scenelysene skrur seg på. Hele siden er én kveld. Mest «wow», og en fin historie: fra ettermiddag til konsert.">
+ <div class="skyfix" aria-hidden="true"><div class="stars"></div><div class="lsun"></div><div class="beam b1"></div><div class="beam b2"></div><div class="beam b3"></div><div class="lcity" data-city="lwin"></div></div>
+ <div class="content">
+  <div class="wrap">
+   <div class="crumbs">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+   <div class="hero">
+    <div class="kick">Skutvika havn · Ålesund</div>
+    <h1>Ålesund Live</h1>
+    <div class="when">18.–19. juni 2027</div>
+    <div class="lu">
+     <div class="h">Karpe</div><div class="h">Tobias Sten</div>
+     <div class="r"><span class="nw">Maria Mena</span> <i>·</i> <span class="nw">Kjartan Lauritzen</span> <i>·</i> <span class="nw">Zimmermann</span> <i>·</i> <span class="nw">Ramón</span> <i>·</i> <span class="nw">Sebb Ottesen</span></div>
+    </div>
+    <div class="ctas"><a class="btn" href="#" data-buy>Kjøp billett</a><a class="btn ghost" href="#">★ Lagre i Mine</a></div>
+    <div class="scrollhint">↓ Scroll inn i kvelden</div>
+   </div>
+  </div>
+  <div class="wrap body" data-body></div>
+ </div>
+ <div class="buybar"><div><b>Ålesund Live</b><small>18.–19. juni · fra 999 kr</small></div><a class="btn" href="#" data-buy>Kjøp billett</a></div>
+</div>
+
+<!-- M -->
+<div class="v" id="M" data-why="M (I videre): knallgult, bokstavene i tittelen hopper inn én og én og bølger, artistnavnene ruller i to retninger (stopper og vokser når du peker på dem), og klistremerket snurrer. Tykke svarte kanter også på program og billetter.">
+ <div class="wrap">
+  <div class="crumbs">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+  <div class="hero">
+   <div class="kick">Festival · Skutvika havn</div>
+   <h1 data-letters>Ålesund Live</h1>
+   <div class="when">Fredag 18. + lørdag 19. juni 2027</div>
+   <div class="s1">2 dager<br>1999 kr</div>
+  </div>
+  <div class="rows">
+   <div class="mrow"><div><b class="k">Karpe</b><b><em>✦</em></b><b>Tobias Sten</b><b><em>✦</em></b><b>Maria Mena</b><b><em>✦</em></b><b class="k">Karpe</b><b><em>✦</em></b><b>Tobias Sten</b><b><em>✦</em></b><b>Maria Mena</b><b><em>✦</em></b></div></div>
+   <div class="mrow r"><div><b>Kjartan Lauritzen</b><b><em>✦</em></b><b class="k">Zimmermann</b><b><em>✦</em></b><b>Ramón</b><b><em>✦</em></b><b>Sebb Ottesen</b><b><em>✦</em></b><b>Kjartan Lauritzen</b><b><em>✦</em></b><b class="k">Zimmermann</b><b><em>✦</em></b><b>Ramón</b><b><em>✦</em></b><b>Sebb Ottesen</b><b><em>✦</em></b></div></div>
+  </div>
+  <div class="ctas"><a class="btn" href="#" data-buy>Kjøp billett</a><a class="btn ghost" href="#">★ Lagre</a></div>
+ </div>
+ <div class="wrap body" data-body></div>
+ <div class="buybar"><div><b>Ålesund Live</b><small>18.–19. juni · fra 999 kr</small></div><a class="btn" href="#" data-buy>Kjøp billett</a></div>
+</div>
+
+<!-- N -->
+<div class="v" id="N" data-why="N (H videre): toppen er en festivalbillett i hologram som vipper når du beveger musa eller telefonen, og regnbueglansen følger fingeren. Mørk scenestemning resten av siden.">
+ <div class="wrap">
+  <div class="crumbs">Skjer i Ålesund › Festivaler › Ålesund Live 2027</div>
+  <div class="hero">
+   <div class="kick">Skutvika havn · Ålesund</div>
+   <div class="stagew"><div class="ticket" id="ticket">
+    <div class="tt"><span>Festivalpass</span><span>2027</span></div>
+    <h1>Ålesund Live</h1>
+    <div class="when">18.–19. juni · Skutvika havn</div>
+    <div class="perf"></div>
+    <div class="tl">
+     <div><div class="dl">Fredag 18.</div><div class="h">Tobias Sten</div><div class="r">Maria Mena, Kjartan Lauritzen, Zimmermann, Ramón, Sebb Ottesen</div></div>
+     <div><div class="dl">Lørdag 19.</div><div class="h">Karpe</div><div class="r">+ flere annonseres</div></div>
+    </div>
+    <div class="bar"></div>
+   </div></div>
+   <div class="tip">Beveg musa eller vipp telefonen</div>
+   <div class="ctas"><a class="btn" href="#" data-buy>Kjøp billett</a><a class="btn ghost" href="#">★ Lagre i Mine</a></div>
+   <div class="cd" data-cd style="justify-content:center;margin-top:18px"></div>
+  </div>
+ </div>
+ <div class="wrap body" data-body></div>
+ <div class="buybar"><div><b>Ålesund Live</b><small>18.–19. juni · fra 999 kr</small></div><a class="btn" href="#" data-buy>Kjøp billett</a></div>
+</div>
+
+<template id="tpl">
+ <section>
+  <h2>Program</h2>
+  <div class="tabs"><button data-d="fre" aria-pressed="true"><small>Fredag 18. juni</small>Tobias Sten ++</button><button data-d="lor"><small>Lørdag 19. juni</small>Karpe ++</button></div>
+  <div class="prog" data-day="fre">
+   <div class="row"><div class="t">16:30</div><div><div class="a">Dørene åpner</div></div><span></span></div>
+   <div class="row hl" style="animation-delay:.05s"><div class="t">–:–</div><div><div class="a">Tobias Sten</div><div class="x">Spilletid ikke kunngjort</div></div><button class="star" aria-label="Lagre">★</button></div>
+   <div class="row" style="animation-delay:.1s"><div class="t">–:–</div><div><div class="a">Maria Mena</div></div><button class="star" aria-label="Lagre">★</button></div>
+   <div class="row" style="animation-delay:.15s"><div class="t">–:–</div><div><div class="a">Kjartan Lauritzen</div></div><button class="star" aria-label="Lagre">★</button></div>
+   <div class="row" style="animation-delay:.2s"><div class="t">–:–</div><div><div class="a">Zimmermann</div></div><button class="star" aria-label="Lagre">★</button></div>
+   <div class="row" style="animation-delay:.25s"><div class="t">–:–</div><div><div class="a">Ramón</div></div><button class="star" aria-label="Lagre">★</button></div>
+   <div class="row" style="animation-delay:.3s"><div class="t">–:–</div><div><div class="a">Sebb Ottesen</div></div><button class="star" aria-label="Lagre">★</button></div>
+  </div>
+  <div class="prog" data-day="lor" hidden>
+   <div class="row"><div class="t">–:–</div><div><div class="a">Dørene åpner</div><div class="x">Ikke kunngjort</div></div><span></span></div>
+   <div class="row hl" style="animation-delay:.05s"><div class="t">–:–</div><div><div class="a">Karpe</div><div class="x">Spilletid ikke kunngjort</div></div><button class="star" aria-label="Lagre">★</button></div>
+   <div class="row" style="animation-delay:.1s"><div class="t"></div><div><div class="a" style="opacity:.6;font-weight:600">Flere artister annonseres</div></div><span></span></div>
+   <div class="row" style="animation-delay:.15s"><div class="t">23:30</div><div><div class="a">Slutt</div></div><span></span></div>
+  </div>
+ </section>
+ <section>
+  <h2>Billetter</h2>
+  <div class="cards">
+   <div class="card"><div class="d">Fredag</div><div class="p">999 kr</div><ul><li>Tobias Sten</li><li>Maria Mena, Kjartan Lauritzen m.fl.</li></ul><a class="btn ghost" href="#" data-buy>Kjøp fredag</a></div>
+   <div class="card best"><span class="rib">Spar 399 kr</span><div class="d">Begge dager</div><div class="p">1999 kr</div><ul><li>Fredag og lørdag</li><li>Hele festivalen</li></ul><a class="btn" href="#" data-buy>Kjøp 2-dagerspass</a></div>
+   <div class="card"><div class="d">Lørdag</div><div class="p">1399 kr</div><ul><li>Karpe</li><li>Flere annonseres</li></ul><a class="btn ghost" href="#" data-buy>Kjøp lørdag</a></div>
+  </div>
+  <div class="small">Gebyr 15 kr per billett (maks 30 kr per ordre). Egne billetter for under 18. Ledsager med ledsagerbevis går gratis.</div>
+ </section>
+ <section>
+  <h2>Praktisk</h2>
+  <div class="facts">
+   <div class="fact"><span>Dører fredag</span><b>16:30</b></div>
+   <div class="fact"><span>Slutt lørdag</span><b>23:30</b></div>
+   <div class="fact"><span>Alder</span><b>Ingen grense</b></div>
+   <div class="fact"><span>Sted</span><b>Skutvika havn</b></div>
+  </div>
+ </section>
+ <section class="faq">
+  <h2>Spørsmål</h2>
+  <details><summary>Når spiller Karpe på Ålesund Live?</summary><p>Lørdag 19. juni 2027. Klokkeslettet er ikke kunngjort ennå.</p></details>
+  <details><summary>Hva koster billett?</summary><p>Fredag 999 kr, lørdag 1399 kr og begge dager 1999 kr, pluss gebyr.</p></details>
+  <details><summary>Er det aldersgrense?</summary><p>Nei. Under 15 år må være sammen med en voksen og ha med foresattskjema.</p></details>
+  <details><summary>Får jeg pengene tilbake hvis en artist avlyser?</summary><p>Nei, ifølge arrangøren bare hvis hele arrangementet avlyses.</p></details>
+ </section>
+ <div class="src">Alt er hentet fra arrangørens billettside hos Tikkio (Momentium Live). Sist sjekket 10. nov. 2026.</div>
+</template>
+
+<script>
+const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// felles innhold
+const tpl=document.getElementById('tpl');
+document.querySelectorAll('[data-body]').forEach(b=>b.appendChild(tpl.content.cloneNode(true)));
+document.querySelectorAll('.tabs').forEach(t=>{const sec=t.parentElement;t.querySelectorAll('button').forEach(b=>b.onclick=()=>{t.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));sec.querySelectorAll('.prog').forEach(p=>{const on=p.dataset.day===b.dataset.d;p.hidden=!on;if(on)p.querySelectorAll('.row').forEach(r=>{r.style.animation='none';r.offsetHeight;r.style.animation=''})})})});
+document.querySelectorAll('.star').forEach(s=>s.onclick=e=>{s.classList.toggle('on');if(s.closest('#K')&&s.classList.contains('on'))burst(e.clientX,e.clientY,40)});
+// skyline med vinduer
+function city(cls){let p='M0 90',w='';let x=0;const r=n=>{let s=Math.sin(n*12.9898)*43758.5453;return s-Math.floor(s)};let i=0;
+ while(x<1200){const bw=28+r(i)*34,h=30+r(i+1)*44,top=90-h;const kind=r(i+2);
+  p+=`V${top+12}`; if(kind<.5)p+=`l${bw/2} -14 l${bw/2} 14`; else if(kind<.75)p+=`h${bw*.3}v-16h${bw*.4}v16h${bw*.3}`; else p+=`q${bw/2} -22 ${bw} 0`;
+  for(let k=0;k<3;k++){const wx=x+6+k*(bw-12)/3,wy=top+22+r(i+k+5)*(h-30);if(r(i+k+9)>.35)w+=`<rect class="${cls}" x="${wx.toFixed(1)}" y="${wy.toFixed(1)}" width="4" height="5" fill="#ffd36e" style="animation-delay:-${(r(i+k)*3).toFixed(2)}s"/>`}
+  x+=bw;i+=3}
+ return `<svg viewBox="0 0 1200 90" preserveAspectRatio="none"><path d="${p}V90H0z" fill="#120a2a"/>${w}</svg>`}
+document.querySelectorAll('[data-city]').forEach(c=>c.innerHTML=city(c.dataset.city));
+document.querySelector('#L .lcity path').setAttribute('fill','#05060c');
+// J: bokstaver faller
+document.querySelectorAll('[data-split]').forEach(h=>{let i=0;h.innerHTML=h.textContent.split(' ').map(w=>`<span class="nw">${[...w].map(c=>`<span style="animation-delay:${(i++)*.05}s">${c}</span>`).join('')}</span>`).join(' ')});
+// M: bokstaver hopper
+document.querySelectorAll('[data-letters]').forEach(h=>{let n=0;h.innerHTML=h.textContent.split(' ').map(w=>`<span class="w">${[...w].map(c=>`<span class="ch" style="animation-delay:${(n++)*.06}s,${n*.12}s">${c}</span>`).join('')}</span>`).join(' ')});
+// nedtelling
+const target=new Date('2027-06-18T16:30:00+02:00');
+function cd(){let s=Math.max(0,(target-new Date())/1000);const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);
+ const html=`<div><strong>${d}</strong><span>dager</span></div><div><strong>${h}</strong><span>timer</span></div><div><strong>${m}</strong><span>min</span></div>`;
+ document.querySelectorAll('[data-cd]').forEach(e=>e.innerHTML=html)}
+cd();setInterval(cd,30000);
+// konfetti
+const cv=document.getElementById('conf'),cx=cv.getContext('2d');let parts=[],raf=0;
+function size(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio;cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}size();addEventListener('resize',size);
+const COLS=['#ff3d7f','#ffd23d','#3dffb0','#3db8ff','#a13dff','#ff8a3d'];
+function burst(x,y,n=120){if(REDUCE)return;for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,sp=4+Math.random()*9;parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-6,r:Math.random()*6+4,c:COLS[i%COLS.length],rot:Math.random()*6,vr:(Math.random()-.5)*.4,life:120})}if(!raf)tick()}
+function tick(){cx.clearRect(0,0,innerWidth,innerHeight);parts=parts.filter(p=>p.life-->0&&p.y<innerHeight+40);for(const p of parts){p.vy+=.28;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.rot);cx.fillStyle=p.c;cx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);cx.restore()}raf=parts.length?requestAnimationFrame(tick):0}
+document.querySelectorAll('[data-confetti],#K [data-buy]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();burst(e.clientX,e.clientY)}));
+document.querySelectorAll('[data-buy]').forEach(b=>b.addEventListener('click',e=>e.preventDefault()));
+// L: dag til natt
+function lscroll(){const L=document.getElementById('L');if(!L.classList.contains('on'))return;const max=Math.max(1,L.offsetHeight-innerHeight*1.2);const p=Math.min(1,Math.max(0,scrollY/max*1.6));L.style.setProperty('--p',p.toFixed(3))}
+addEventListener('scroll',lscroll,{passive:true});
+// N: hologram
+const tk=document.getElementById('ticket');
+function tilt(px,py){tk.style.transform=`rotateY(${(px-.5)*24}deg) rotateX(${(.5-py)*18}deg)`;tk.style.setProperty('--mx',px*100+'%');tk.style.setProperty('--my',py*100+'%')}
+if(!REDUCE){document.getElementById('N').addEventListener('pointermove',e=>{const r=tk.getBoundingClientRect();tilt(Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)),Math.min(1,Math.max(0,(e.clientY-r.top)/r.height)))});
+ addEventListener('deviceorientation',e=>{if(e.gamma==null)return;tilt(.5+Math.max(-30,Math.min(30,e.gamma))/60,.5+Math.max(-30,Math.min(30,e.beta-40))/60)});
+ let t0=0;(function idle(t){if(!document.getElementById('N').matches(':hover')&&document.getElementById('N').classList.contains('on')){t0+=.012;tilt(.5+Math.sin(t0)*.25,.5+Math.cos(t0*.8)*.2)}requestAnimationFrame(idle)})()}
+// kjøpslinje nederst
+function bars(){document.querySelectorAll('.v.on .buybar').forEach(b=>b.classList.toggle('show',scrollY>520))}
+addEventListener('scroll',bars,{passive:true});
+// velger
+const btns=[...document.querySelectorAll('.picker button')],why=document.getElementById('why');
+function show(v){btns.forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));document.querySelectorAll('.v').forEach(x=>x.classList.toggle('on',x.id===v));why.textContent=document.getElementById(v).dataset.why;try{history.replaceState(null,'','#'+v)}catch(e){}scrollTo(0,0);lscroll();bars()}
+btns.forEach(b=>b.onclick=()=>show(b.dataset.v));
+show(/^#[JKLMN]$/.test(location.hash)?location.hash.slice(1):'J');
+</script>
+</body>
+</html>
