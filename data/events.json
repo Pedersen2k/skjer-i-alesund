@@ -67,13 +67,13 @@
    ],
    "musikkbingo-dampsentralen": [
     "2026-10-19T12:59:56Z",
-    "2026-11-09T18:24:11Z"
+    "2026-11-10T08:20:11Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T07:06:27Z",
+  "updatedAt": "2026-11-10T08:20:11Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 13,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -203,7 +203,7 @@
    "uncertain": false,
    "note": "Pipen, klokketårnet og bygningene tennes i julelys kl. 18, og senteret har langåpent. I Langevåg (Sula). Bypatrioten oppgir 13. nov, Devoldfabrikkens egen side 12. nov.",
    "url": "https://devoldfabrikken.no/hva-skjer/julelystenning-pa-devoldfabrikken/",
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "jul-pa-molja-thon-hotel-alesund",
@@ -229,7 +229,7 @@
     "2026-12-05T18:30",
     "2026-12-11T18:30"
    ],
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "parken-47679-parken-kulturhus",
@@ -581,7 +581,7 @@
    "uncertain": false,
    "note": "Smaksprøver av pinnekjøtt, ribbe og lutefisk med fem viner valgt av kokk og sommelier Anders Gøransson, kl. 18–20.",
    "url": "https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-18-11-2026-kl-1800/",
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "visekveld-pa-fabrikken-fabrikken-kulturscene",
@@ -854,7 +854,7 @@
     "2026-12-04T20:00",
     "2026-12-05T20:00"
    ],
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "rave-in-white-stisema-terminalen-byscene",
@@ -948,7 +948,7 @@
    "uncertain": false,
    "note": "Nasjonalforeningen, Hessa Helselag, holder sin årlige adventsbasar. Kilde: Bypatrioten.",
    "url": "https://www.facebook.com/Hessahelselag",
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate",
@@ -1091,23 +1091,7 @@
    "moreShows": [
     "2026-11-29T12:00"
    ],
-   "addedAt": "2026-11-09T07:06:57Z"
-  },
-  {
-   "id": "for-var-jord-borgund-kyrkje-2026",
-   "date": "2026-11-28",
-   "time": "18:00",
-   "title": "For vår Jord – julekonsert",
-   "price": "",
-   "priceMin": null,
-   "venue": "Borgund Kirke",
-   "address": "Borgundgavlen 30, 6015 Ålesund",
-   "cat": "konsert",
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Julekonsert med Anita Skorgan, Karoline Krüger og Sara Skorgan Teigen. Billetter på Eventim (pris ikke lesbar herfra). Kilde: kyrkja.alesund.no.",
-   "url": "https://www.eventim.no/artist/for-var-jord/",
-   "addedAt": "2026-11-09T19:52:45Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "the-good-the-bad-and-the-zugly-terminalen-byscene",
@@ -1304,7 +1288,7 @@
    "uncertain": false,
    "note": "Kokk Mindor Klauseth lager smaksprøver av pinnekjøtt, ribbe og lutefisk, og sommelier Øyvind Tveit har valgt fem viner til, kl. 18–20.",
    "url": "https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-02-12-2026-kl-1800/",
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "julekonsert-med-allsang-volsdalen-kirke-2026",
@@ -1336,7 +1320,7 @@
    "note": "",
    "uncertain": false,
    "url": "https://www.vitimusea.no/arrangement/lansering-aarbok-for-sunnmoere-2026-102-aargang",
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "livrore-2026-12-03-musikkquiz-med-oystein-liv-rore-moa",
@@ -1384,7 +1368,7 @@
    "uncertain": false,
    "note": "Dans til Mona Jill Trio kl. 20–23:30, med spekemat. Swing, tango, svensk bugg eller linedance. Bindende påmelding på SMS (se arrangøren). Kilde: Bypatrioten.",
    "url": "https://www.vardehuset.no/",
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "skruk-medan-vi-ventar-alesund-kirke-2026",
@@ -1432,7 +1416,7 @@
    "uncertain": false,
    "note": "Sy julepynt av restestoff og gamle juleduker, kl. 11–14. Kilde: Bypatrioten.",
    "url": "https://alesundsbiblioteka.no/biblioteka/alesund/",
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "aafk-2026-12-05-aalesund-bodo-glimt",
@@ -1729,7 +1713,7 @@
    "uncertain": false,
    "note": "Elever fra kulturskolen med sang, klaver, blås, stryk, gitar og perkusjon, solo og i samspill, kl. 18:30–20. Gratis inngang. Kilde: Bypatrioten.",
    "url": "https://www.spjelkavik.kyrkjelyd.no/",
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "parken-49005-parken-kulturhus",
@@ -1799,7 +1783,7 @@
    "moreShows": [
     "2026-12-13T12:00"
    ],
-   "addedAt": "2026-11-09T07:06:57Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "den-vesle-bygda-som-gloymde-at-det-var-jul-arbeideren-2026",
@@ -2787,7 +2771,7 @@
    "note": "Rabatt: DNB-kunde 369 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67158-ylva-maskulin-tour",
-   "addedAt": "2026-11-09T18:24:11Z"
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "parken-51055-parken-kulturhus",
