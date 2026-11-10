@@ -568,6 +568,26 @@ def fetch_forum():
     return raw
 
 
+def tikkio_organizer(url, cache):
+    """Dato -> billettlenke for arrangementene på en arrangørside hos Tikkio (fra JSON-LD-lista)."""
+    if url not in cache:
+        cache[url] = {}
+        try:
+            page = get(url)
+            time.sleep(0.5)
+            for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', page, re.S):
+                for it in json.loads(m.group(1)).get("itemListElement") or []:
+                    it = it.get("item", it)
+                    offer = it.get("offers") or {}
+                    offer = offer[0] if isinstance(offer, list) else offer
+                    if it.get("startDate") and offer.get("url"):
+                        day = datetime.datetime.fromisoformat(it["startDate"]).astimezone(TZ).date()
+                        cache[url].setdefault(day, offer["url"])
+        except Exception as e:
+            print("feil:", url, e, file=sys.stderr)
+    return cache[url]
+
+
 def fetch_devold():
     """«Hva skjer» på Devoldfabrikken i Langevåg (Sula; rett utenfor Ålesund, eieren vil ha det med fast). WordPress/Elementor:
     oversikten lenker til /hva-skjer/<slug>/, og hver side har tittel, en datolinje («12. november 2026», «19-20. desember 2026»,
@@ -582,7 +602,7 @@ def fetch_devold():
         return None
     slugs = list(dict.fromkeys(re.findall(r'href="https://devoldfabrikken\.no/hva-skjer/([^"/?#]+)/"', listing)))
     months = r"(" + "|".join(MONTHS) + r")[a-zæøå]*"
-    raw, bad = [], 0
+    raw, bad, org_cache = [], 0, {}
     for sl in slugs:
         url = f"{DEVOLD}/hva-skjer/{sl}/"
         try:
@@ -624,16 +644,22 @@ def fetch_devold():
             else ("Gratis", 0, "") if re.search(r"Pris:\s*Gratis|gratis inngang", desc, re.I) else ("", None, "")
         age = re.search(r"Aldersgrense:\s*(\d{1,2})", desc)
         ticket = re.search(r"https://tikkio\.com/events/\d+[^\s\"<]*", page)
+        # Lenker siden bare til arrangørsiden på Tikkio (KaaB), finnes billettlenken per dato der
+        org = re.search(r"https://tikkio\.com/organizer/\d+[\w-]*", page)
+        by_day = tikkio_organizer(org.group(0), org_cache) if org and not ticket else {}
         for d in days:
             if d < today:
                 continue
+            tik = by_day.get(d)
+            status = tikkio_event(tik) if tik else {"soldOut": False, "few": False}
             slots = per_day.get(d.day) or times or [None]
             for slot in slots:
                 if slot and not (0 <= slot[0] < 24 and 0 <= slot[1] < 60):
                     slot = None
                 raw.append({"name": title, "venue": DEVOLD_VENUE, "address": DEVOLD_ADDRESS,
                             "start": datetime.datetime(d.year, d.month, d.day, *(slot or (0, 0)), tzinfo=TZ),
-                            "url": ticket.group(0) if ticket else url, "tickets": [], "soldOut": False, "noTime": not slot,
+                            "url": tik or (ticket.group(0) if ticket else url), "tickets": [], "noTime": not slot,
+                            "soldOut": status["soldOut"], "few": status["few"],
                             "price": price, "cat": cat_rule(title) if cat_rule(title) not in (None, "klubb") else "happening",
                             "note": "I Langevåg (Sula)." + (f" {age.group(1)} år." if age else "")})
     if slugs and bad == len(slugs):
