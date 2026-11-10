@@ -91,9 +91,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T15:58:31Z",
+  "updatedAt": "2026-11-10T16:03:12Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1156,6 +1156,22 @@
    "note": "Med Lars Støvland. Tiårsjubileum for juleturneen. Rabatt: Student 225 kr, barn under 16 år 75 kr.",
    "url": "https://secure.tickster.com/no/lnnyulljpvcjp60/products",
    "addedAt": "2026-11-06T11:41:20Z"
+  },
+  {
+   "id": "olsmaking-pa-kaab",
+   "date": "2026-11-26",
+   "time": "19:00",
+   "title": "Ølsmaking på KaaB",
+   "venue": "KaaB Bryggeri",
+   "address": "",
+   "cat": "happening",
+   "price": "423 kr",
+   "priceMin": 423,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Ølsmaking hos Kaab Bryggeri. Dørene åpner 19:00, slutt 23:00. 18 år. I Langevåg (Sula). Servicegebyr 15 kr per billett.",
+   "url": "https://tikkio.com/events/67279",
+   "addedAt": "2026-11-10T16:03:12Z"
   },
   {
    "id": "parken-49740-parken-kulturhus",
