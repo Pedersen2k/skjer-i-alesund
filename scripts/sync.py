@@ -46,6 +46,12 @@ FABRIKKEN_VENUE = "Fabrikken Kulturscene"
 FORUM = "https://forumaalesund.no"
 FORUM_VENUE = "Forum Ålesund"
 FORUM_ADDRESS = "Kongensgate 24, 6002 Ålesund"
+VINOBAR = "https://vinobar.no"
+VINOBAR_VENUE = "Vino Bar"
+VINOBAR_ADDRESS = "Apotekergata 10, 6004 Ålesund"
+SOBRA = "https://www.sobrascene.no"
+SOBRA_VENUE = "Sobra Scene"
+SOBRA_ADDRESS = "Korsegata 6, 6002 Ålesund"
 VITI = "https://www.vitimusea.no"
 # Viti har museer i flere kommuner. Bare de i Ålesund er med: (navn hos Viti) -> (navn på siden, adresse)
 VITI_MUSEUMS = {"Jugendstilsenteret og KUBE": ("Jugendstilsenteret og KUBE", "Apotekergata 16, Ålesund"),
@@ -559,6 +565,91 @@ def fetch_forum():
     return raw
 
 
+def fetch_vinobar():
+    """Vinkurs og smakinger hos Vino Bar (Apotekergata 10). Arrangementene er produkter i nettbutikken (WooCommerce), og den åpne
+    Store-API-en gir navn («Vinkurs Spania Rundt – 26.11.2026 kl. 1800»), pris og om det er utsolgt. Arrangementer på andre steder
+    står i beskrivelsen: Fabrikken Kulturscene får det stedet, Molde er ikke med. Gir None hvis siden ikke kunne leses."""
+    today = datetime.datetime.now(TZ).date()
+    try:
+        items = json.loads(get(VINOBAR + "/wp-json/wc/store/v1/products?per_page=100"))
+    except Exception as e:
+        warn(f"Klarte ikke å hente arrangementene til Vino Bar: {e}")
+        return None
+    raw = []
+    for it in items:
+        name = html.unescape(it.get("name", ""))
+        m = re.search(r"(\d{1,2})\.(\d{1,2})\.(20\d\d)\s*(?:kl\.?\s*(\d{1,2})[.:]?(\d{2}))?", name)
+        if not m:
+            continue  # ikke et arrangement (gavekort o.l.)
+        d = datetime.date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+        if d < today:
+            continue
+        text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", it.get("short_description", "") + " " + it.get("description", ""))))
+        if re.search(r"\bMolde\b|Seilet", name + " " + text[:400], re.I):
+            continue
+        venue, address = (FABRIKKEN_VENUE, "") if re.search(r"Fabrikken", text[:400], re.I) else (VINOBAR_VENUE, VINOBAR_ADDRESS)
+        title = re.sub(r"\s*[–-]?\s*(?:(?:man|tirs|ons|tors|fre|lør|søn)dag\s+)?\d{1,2}\.\d{1,2}\.20\d\d.*$", "", name, flags=re.I)
+        title = re.sub(r"[\U0001F000-\U0001FFFF☀-➿]\s*", "", title).strip(" «»–-")
+        price = (it.get("prices") or {}).get("price")
+        minor = int((it.get("prices") or {}).get("currency_minor_unit") or 0)
+        kr = int(price) // 10 ** minor if price and price.isdigit() else None
+        hm = m.group(4) is not None
+        raw.append({"name": title, "venue": venue, "address": address,
+                    "start": datetime.datetime(d.year, d.month, d.day, int(m.group(4)) if hm else 0, int(m.group(5)) if hm else 0, tzinfo=TZ),
+                    "url": it.get("permalink") or VINOBAR, "tickets": [], "soldOut": not it.get("is_in_stock", True), "noTime": not hm,
+                    "cat": "happening", "price": (f"{kr} kr", kr, "") if kr else ("", None, "")})
+    print(f"Vino Bar: {len(raw)} arrangementer", file=sys.stderr)
+    return raw
+
+
+def fetch_sobra():
+    """Programmet til Sobra Scene (Korsegata 6). Siden er Wix, og Wix Events legger arrangementene som JSON i HTML-en
+    («"events":{"events":[...]}»): tittel, start (UTC), sted og billettlenke (ofte Billetto). Pris står ikke der.
+    Gir None hvis siden ikke kunne leses."""
+    today = datetime.datetime.now(TZ).date()
+    try:
+        page = get(SOBRA + "/program")
+    except Exception as e:
+        warn(f"Klarte ikke å hente programmet til Sobra Scene: {e}")
+        return None
+    dec, found = json.JSONDecoder(), {}
+    for m in re.finditer(r'"events":\{"events":\[', page):
+        try:
+            for ev in dec.raw_decode(page[m.end() - 1:])[0]:
+                found[ev.get("id")] = ev
+        except ValueError:
+            continue
+    if not found:
+        warn("Fant ikke arrangementene hos Sobra Scene. Sjekk om sobrascene.no har endret siden.")
+        return None
+    raw = []
+    for ev in found.values():
+        conf = (ev.get("scheduling") or {}).get("config") or {}
+        if conf.get("scheduleTbd") or not conf.get("startDate"):
+            continue
+        st = datetime.datetime.fromisoformat(conf["startDate"].replace("Z", "+00:00")).astimezone(TZ)
+        if st.date() < today:
+            continue
+        loc = (ev.get("location") or {}).get("name", "")
+        if loc and "sobra" not in loc.lower():
+            continue  # arrangementer andre steder
+        reg = ev.get("registration") or {}
+        ticket = (reg.get("external") or {}).get("registration", "")
+        ticket = re.sub(r"\?utm_.*$", "", ticket)
+        text = f"{ev.get('description', '')} {ev.get('about', '')}"
+        free = re.search(r"\bgratis\b|fri inngang", text, re.I)
+        raw.append({"name": html.unescape(ev.get("title", "")).strip(), "venue": SOBRA_VENUE, "address": SOBRA_ADDRESS, "start": st,
+                    "url": ticket if safe_ticket(ticket) else f"{SOBRA}/event-details/{ev.get('slug', '')}",
+                    "tickets": [], "soldOut": False, "group": "sobra-" + (ev.get("slug") or ev.get("id", "")),
+                    "price": ("Gratis", 0, "") if free else ("", None, "")})
+    print(f"Sobra Scene: {len(raw)} arrangementer", file=sys.stderr)
+    return raw
+
+
+def safe_ticket(url):
+    return bool(re.match(r"https://[\w.-]+/", url or ""))
+
+
 def viti_price(text):
     """Pris fra fritekstblokken til arrangementet («Pris: 60 kr», «Inngang: Vaksen kr 80» o.l.). Gir None hvis den ikke står der."""
     m = re.search(r"(?:Pris|Inngang)\s*:\s*([^\n]+)", text)
@@ -929,6 +1020,19 @@ def main():
         fabrikken = [e for e in old["events"] if e["venue"] == FABRIKKEN_VENUE and e["date"] >= today]
     else:
         fabrikken = build_events(fab_raw, overrides)
+    vino_raw = fetch_vinobar()
+    if vino_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
+        vinobar = [e for e in old["events"] if e["url"].startswith(VINOBAR) and e["date"] >= today]
+    else:
+        vinobar = build_events(vino_raw, overrides)
+    # Vino Bar arrangerer noe på Fabrikken (Ålesund bobler); Vino Bar har pris og status, så den versjonen vinner
+    vino_keys = {(e["date"], norm_key(e["title"])) for e in vinobar}
+    fabrikken = [e for e in fabrikken if (e["date"], norm_key(e["title"])) not in vino_keys]
+    sobra_raw = fetch_sobra()
+    if sobra_raw is None:
+        sobra = [e for e in old["events"] if e["venue"] == SOBRA_VENUE and e["date"] >= today and not e["url"].startswith("https://tikkio")]
+    else:
+        sobra = build_events(sobra_raw, overrides)
     forum_raw = fetch_forum()
     if forum_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         forum = [e for e in old["events"] if e["venue"] == FORUM_VENUE and e["date"] >= today]
@@ -943,6 +1047,8 @@ def main():
     events += [e for e in fabrikken if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in livrore if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in forum if (e["date"], norm_key(e["title"])) not in seen]
+    events += [e for e in vinobar if (e["date"], norm_key(e["title"])) not in seen]
+    events += [e for e in sobra if (e["date"], norm_key(e["title"])) not in seen]
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
     events += [e for e in map(roll_forward, manual) if e["date"] >= today and e["id"] not in parken_ids]
@@ -968,6 +1074,11 @@ def main():
         fresh_source |= {e["id"] for e in fabrikken}
     if livrore and "livrore" not in sources:
         fresh_source |= {e["id"] for e in livrore}
+    for name, evs in (("vinobar", vinobar), ("sobra", sobra)):
+        if evs and name not in sources:
+            fresh_source |= {e["id"] for e in evs}
+        if evs:
+            sources.add(name)
     if forum and "forum" not in sources:
         fresh_source |= {e["id"] for e in forum}
     if forum:
