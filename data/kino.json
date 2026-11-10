@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-10T16:38:00Z",
+  "updatedAt": "2026-11-10T18:00:45Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -134,7 +134,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/dcbd6390-b0e0-431b-9342-8bc1444d0790",
+     "url": "",
      "club": false
     },
     {
@@ -474,10 +474,10 @@
      "club": false
     },
     {
-     "start": "2026-11-13T20:45:00",
+     "start": "2026-11-13T21:00:00",
      "screen": "1 isense",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/60ca3466-2f0d-475d-b38a-16dc4262fdc7",
+     "url": "https://www.odeonkino.no/booking/kjop/91b994fd-bda4-438e-ae3e-559e18488e2a",
      "club": false
     },
     {
@@ -1848,7 +1848,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/0cd5e988-b9f0-4ea9-9a31-c2c6409162a3",
+     "url": "",
      "club": false
     },
     {
@@ -1940,15 +1940,19 @@
     {
      "start": "2026-11-13T15:30:00",
      "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/daeeb925-a214-4533-82cc-ec4d010656d3",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/c8a80939-3d66-47a3-9e64-aab780c8d1e7",
      "club": false
     },
     {
      "start": "2026-11-13T18:15:00",
      "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/3d9a6eee-018c-448a-b93e-c25a767ef76d",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/4f608f42-ffe2-4fb4-97f1-410bc34fadd2",
      "club": false
     },
     {
@@ -1972,8 +1976,10 @@
     {
      "start": "2026-11-14T18:30:00",
      "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/9d6fb670-5385-4925-a93e-61bcf887c7d9",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/43f145d0-a4ef-4e0a-a3e1-5b3038bfc744",
      "club": false
     },
     {
@@ -2006,8 +2012,10 @@
     {
      "start": "2026-11-15T18:30:00",
      "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/15eb900c-1a73-42d3-b023-8c8ae9e9ee2c",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/789ba4f8-af27-4426-9058-18ae3375bf6c",
      "club": false
     },
     {
@@ -2022,22 +2030,28 @@
     {
      "start": "2026-11-16T12:00:00",
      "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/397823b5-397e-4d19-849a-3b4342025c27",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/338ee1a0-4fad-4931-b168-98ca998212a8",
      "club": false
     },
     {
      "start": "2026-11-16T14:45:00",
      "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/7940dd31-71a4-47c5-a6e5-56af28b2f059",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/b53f3c81-02a3-48cf-bbd0-2a916543289e",
      "club": false
     },
     {
      "start": "2026-11-16T17:30:00",
      "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/9ab65d44-379f-4686-8603-848a2ac70419",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/b4c85b9f-54b1-4f87-93ba-d3b945d6241b",
      "club": false
     },
     {
@@ -2059,15 +2073,19 @@
     {
      "start": "2026-11-17T14:45:00",
      "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/be421d27-2c90-4330-b923-4c8400b4dcd4",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/fadc04da-0dfd-43ac-865a-7e8a37a94886",
      "club": false
     },
     {
      "start": "2026-11-17T17:30:00",
      "screen": "1 isense",
-     "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/3fc8af28-ea6a-459a-b32f-ab1b2de67c2e",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/968f7b02-45b2-4735-b76a-9a30a5ca1bac",
      "club": false
     },
     {
@@ -2773,7 +2791,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/fb6e9413-78ef-4d98-8744-1d8cfd20212f",
+     "url": "",
      "club": false
     },
     {
