@@ -676,8 +676,8 @@
     "priceMin": null,
     "soldOut": false,
     "uncertain": false,
-    "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Billetter og pris: spør hotellet. Datoer og tid: Bypatrioten (Thons egen side nevner ikke showet).",
-    "url": "https://www.thonhotels.no/hoteller/norge/alesund/thon-hotel-alesund/",
+    "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Dørene åpner 18:00, 15 år. Billetter på Billetto (Bypatrioten oppgir 550–599 kr + avgift). Datoer og tid: Bypatrioten (Thons egen side nevner ikke showet).",
+    "url": "https://billetto.no/e/jul-pa-molja-fredrik-steen-jorunn-torsheim-billetter-1901018",
     "moreShows": [
       "2026-11-13T18:30",
       "2026-11-14T18:30",
@@ -865,5 +865,28 @@
     "uncertain": false,
     "note": "Julekonsert med Anita Skorgan, Karoline Krüger og Sara Skorgan Teigen. Billetter på Eventim (pris ikke lesbar herfra). Kilde: kyrkja.alesund.no.",
     "url": "https://www.eventim.no/artist/for-var-jord/"
+  },
+  {
+    "id": "brosundet-etter-seks-2026",
+    "date": "2026-11-11",
+    "time": "18:00",
+    "title": "Brosundet ETTER SEKS",
+    "venue": "Hotel Brosundet",
+    "address": "Apotekergata 1-5, 6004 Ålesund",
+    "cat": "konsert",
+    "price": "Gratis",
+    "priceMin": 0,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Akustisk konsert foran peisen hver onsdag kl. 18–20, mat fra egen meny 16–22. 11.11 Rikke og Svein, 18.11 Ståle Heggset og Geir Harald, 25.11 Sofie Laxxa, 2.12 Gutta Boys, 9.12 Danielle Langedal, 16.12 Rikke og Svein, 30.12 Elise Nærø. Fortsetter til påske.",
+    "url": "https://www.brosundet.no/aktiviteter/brosundet-etter-seks",
+    "moreShows": [
+      "2026-11-18T18:00",
+      "2026-11-25T18:00",
+      "2026-12-02T18:00",
+      "2026-12-09T18:00",
+      "2026-12-16T18:00",
+      "2026-12-30T18:00"
+    ]
   }
 ]
