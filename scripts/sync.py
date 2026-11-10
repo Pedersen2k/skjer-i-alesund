@@ -43,6 +43,9 @@ LIVRORE_VENUE = "Liv & Røre Moa"
 LIVRORE_ADDRESS = "Langelandsvegen 35, 6010 Ålesund"
 FABRIKKEN = "https://www.fabrikkenkulturscene.no"
 FABRIKKEN_VENUE = "Fabrikken Kulturscene"
+FORUM = "https://forumaalesund.no"
+FORUM_VENUE = "Forum Ålesund"
+FORUM_ADDRESS = "Kongensgate 24, 6002 Ålesund"
 VITI = "https://www.vitimusea.no"
 # Viti har museer i flere kommuner. Bare de i Ålesund er med: (navn hos Viti) -> (navn på siden, adresse)
 VITI_MUSEUMS = {"Jugendstilsenteret og KUBE": ("Jugendstilsenteret og KUBE", "Apotekergata 16, Ålesund"),
@@ -488,6 +491,74 @@ def fetch_fabrikken():
     return raw
 
 
+def fetch_forum():
+    """Programmet til Forum Ålesund (forumaalesund.no/program; galleri, liten scene og kafé i Kongensgate 24, fra folkene bak Dråpe).
+    Bare det under «Nå» og «Kommer» leses. Hver arrangementsside har et schema.org-Event med dato, og feltene «Når» (klokkeslett)
+    og «Inngang» (pris). Utstillinger (ExhibitionEvent) er ikke med. Gir None hvis siden ikke kunne leses."""
+    today = datetime.datetime.now(TZ).date()
+    try:
+        listing = get(FORUM + "/program")
+    except Exception as e:
+        warn(f"Klarte ikke å hente programmet til Forum Ålesund: {e}")
+        return None
+    current = listing.split(">Tidligere</h2>")[0]
+    slugs = list(dict.fromkeys(re.findall(r'href="/program/([^"/?#]+)"', current)))
+    if ">Kommer</h2>" not in listing and ">Nå</h2>" not in listing:
+        warn("Fant ikke programlista hos Forum Ålesund. Sjekk om forumaalesund.no har endret siden.")
+        return None
+    field = lambda page, label: (re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " · ", m.group(1)))).strip(" ·")
+                                 if (m := re.search(rf'<dt[^>]*>{label}</dt>\s*<dd[^>]*>(.*?)</dd>', page, re.S)) else "")
+    raw, bad = [], 0
+    for sl in slugs:
+        url = f"{FORUM}/program/{sl}"
+        try:
+            try:
+                page = get(url)
+            except OSError:  # siden har kuttet forbindelsen av og til; prøv én gang til
+                time.sleep(5)
+                page = get(url)
+            time.sleep(0.5)
+            ld = next((d for d in (json.loads(x) for x in re.findall(r'<script type="application/ld\+json"[^>]*>(.*?)</script>', page, re.S))
+                       if isinstance(d, dict) and "Event" in str(d.get("@type"))), None)
+        except Exception as e:
+            print("feil:", url, e, file=sys.stderr)
+            bad += 1
+            continue
+        if not ld or "Exhibition" in str(ld.get("@type")) or not ld.get("startDate"):
+            continue
+        first = datetime.date.fromisoformat(ld["startDate"][:10])
+        last = datetime.date.fromisoformat((ld.get("endDate") or ld["startDate"])[:10])
+        if (last - first).days > 3:  # lange perioder er ikke enkeltarrangementer
+            continue
+        when, entry = field(page, "Når"), field(page, "Inngang")
+        # «kl. 19:30», «kl. 18–22»; uten tid i «Når» brukes beskrivelsen («fra kl. 18:00»)
+        hm = re.search(r"kl\.?\s*(\d{1,2})(?:[:.](\d{2}))?", when) or re.search(r"kl\.?\s*(\d{1,2})[:.](\d{2})", ld.get("description", ""))
+        doors = re.search(r"Dør\w*\s+(?:åpner\s+)?(?:kl\.?\s*)?(\d{1,2})[:.](\d{2})", entry, re.I)
+        amount = re.match(r"(\d[\d\s]*)\s*(?:kr|,-)", entry)
+        price = (f"{int(amount.group(1).replace(' ', ''))} kr", int(amount.group(1).replace(" ", "")), "") if amount \
+            else ("Gratis", 0, "") if re.match(r"gratis", entry, re.I) else ("", None, "")
+        kind = m.group(1).strip().lower() if (m := re.search(r'<p class="eyebrow[^"]*">([^<]+)<', page)) else ""  # «Konsert», «Verksted» …
+        title = html.unescape(ld.get("name", "")).strip()
+        # Forum merker det meste som «Konsert», også samtaler, verksted og kvelder som Forum Build; tittelen går foran
+        other = re.search(r"verksted|talk|samtale|foredrag|workshop|build|mesterskap|konkurranse|championship", f"{kind} {title}", re.I)
+        cat = "happening" if other else "konsert" if kind == "konsert" else None
+        title = re.sub(r"^Konsert:\s*", "", title) or title  # kategorien står allerede på kortet
+        d = first
+        while d <= last:
+            if d >= today:
+                raw.append({"name": title, "venue": FORUM_VENUE, "address": FORUM_ADDRESS,
+                            "start": datetime.datetime(d.year, d.month, d.day, int(hm.group(1)) if hm else 0, int(hm.group(2) or 0) if hm else 0, tzinfo=TZ),
+                            "url": url, "tickets": [], "soldOut": False, "noTime": not hm, "group": "forum-" + sl, "price": price,
+                            **({"cat": cat} if cat else {}),
+                            "note": f"Dørene åpner {int(doors.group(1)):02d}.{doors.group(2)}." if doors and hm and doors.group(0) not in when else ""})
+            d += datetime.timedelta(days=1)
+    if slugs and bad == len(slugs):
+        warn("Klarte ikke å lese noen av arrangementsidene hos Forum Ålesund. Sjekk om forumaalesund.no har endret siden.")
+        return None
+    print(f"Forum Ålesund: {len(raw)} arrangementer", file=sys.stderr)
+    return raw
+
+
 def viti_price(text):
     """Pris fra fritekstblokken til arrangementet («Pris: 60 kr», «Inngang: Vaksen kr 80» o.l.). Gir None hvis den ikke står der."""
     m = re.search(r"(?:Pris|Inngang)\s*:\s*([^\n]+)", text)
@@ -858,6 +929,11 @@ def main():
         fabrikken = [e for e in old["events"] if e["venue"] == FABRIKKEN_VENUE and e["date"] >= today]
     else:
         fabrikken = build_events(fab_raw, overrides)
+    forum_raw = fetch_forum()
+    if forum_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
+        forum = [e for e in old["events"] if e["venue"] == FORUM_VENUE and e["date"] >= today]
+    else:
+        forum = build_events(forum_raw, overrides)
     # Samme arrangement kan ligge både på Tikkio og hos Parken; Tikkio har billettprisene
     seen = {(e["date"], norm_key(e["title"])) for e in events}
     events += [e for e in parken if (e["date"], norm_key(e["title"])) not in seen]
@@ -866,6 +942,7 @@ def main():
     events += [e for e in viti if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in fabrikken if (e["date"], norm_key(e["title"])) not in seen]
     events += [e for e in livrore if (e["date"], norm_key(e["title"])) not in seen]
+    events += [e for e in forum if (e["date"], norm_key(e["title"])) not in seen]
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
     events += [e for e in map(roll_forward, manual) if e["date"] >= today and e["id"] not in parken_ids]
@@ -891,6 +968,10 @@ def main():
         fresh_source |= {e["id"] for e in fabrikken}
     if livrore and "livrore" not in sources:
         fresh_source |= {e["id"] for e in livrore}
+    if forum and "forum" not in sources:
+        fresh_source |= {e["id"] for e in forum}
+    if forum:
+        sources.add("forum")
     if livrore:
         sources.add("livrore")
     if fabrikken:
