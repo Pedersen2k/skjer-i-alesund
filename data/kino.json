@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-10T12:03:08Z",
+  "updatedAt": "2026-11-10T14:24:31Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -568,7 +568,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/66f423f7-09f0-4f93-8a35-0e90a8f8c7dd",
+     "url": "",
      "club": false
     },
     {
@@ -1127,6 +1127,26 @@
    ]
   },
   {
+   "id": "UAV20191951",
+   "title": "Lukket førpremiere",
+   "age": null,
+   "minutes": null,
+   "genres": [],
+   "poster": "",
+   "premiere": "0001-01-01",
+   "shows": [
+    {
+     "start": "2026-11-24T18:00:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/0e003fe7-a31e-4b22-b218-fcbdfd02a595",
+     "club": false
+    }
+   ]
+  },
+  {
    "id": "EDI20251399",
    "title": "Markens grøde",
    "age": 12,
@@ -1148,7 +1168,7 @@
      "start": "2026-11-10T14:30:00",
      "screen": "1 isense",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/ed654f36-5b49-44d2-92b6-c8489f68b39a",
+     "url": "",
      "club": true
     },
     {
@@ -1819,7 +1839,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/29a5d8d9-0f6d-4aa7-a7ec-16fe62ccbf47",
+     "url": "",
      "club": false
     },
     {
@@ -2235,7 +2255,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/b6dad3e5-b8d5-4e0b-9e40-7833cfd5afc0",
+     "url": "",
      "club": false
     },
     {
