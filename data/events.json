@@ -68,12 +68,16 @@
    "musikkbingo-dampsentralen": [
     "2026-10-19T12:59:56Z",
     "2026-11-10T08:20:11Z"
+   ],
+   "beat-for-beat-quiz-dampsentralen": [
+    "2026-11-04T12:00:26Z",
+    "2026-11-10T11:58:45Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T10:04:19Z",
+  "updatedAt": "2026-11-10T11:58:45Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 4,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -369,10 +373,10 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "beat-for-beat-quiz-dampsentralen",
+   "id": "beat-for-beat-inspirert-quiz-dampsentralen",
    "date": "2026-11-13",
    "time": "20:00",
-   "title": "BEAT FOR BEAT QUIZ",
+   "title": "BEAT FOR BEAT INSPIRERT QUIZ",
    "venue": "Dampsentralen",
    "address": "",
    "cat": "quiz",
@@ -590,6 +594,22 @@
     "2026-11-16T18:00"
    ],
    "addedAt": "2026-10-22T12:10:15Z"
+  },
+  {
+   "id": "rigget-for-fremtiden-fagseminar-for-naeringslivet-dampsentra",
+   "date": "2026-11-17",
+   "time": "20:30",
+   "title": "Rigget for fremtiden - Fagseminar for næringslivet",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-6fypx-j3xch",
+   "addedAt": "2026-11-10T11:58:45Z"
   },
   {
    "id": "vin-til-julemat-anders-goransson-vino-bar",
@@ -1363,6 +1383,22 @@
    "addedAt": "2026-10-30T13:23:27Z"
   },
   {
+   "id": "fagdag-fiskeri-2026-dampsentralen",
+   "date": "2026-12-03",
+   "time": "08:30",
+   "title": "Fagdag fiskeri 2026",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-sxhy9",
+   "addedAt": "2026-11-10T11:58:45Z"
+  },
+  {
    "id": "viti-lansering-aarbok-for-sunnmoere-2026-102-aargang-sunnmor",
    "date": "2026-12-03",
    "time": "18:00",
@@ -1963,7 +1999,7 @@
    "id": "viti-babyomvisning-i-jugendstilsenteret-jugendstilsenteret-o",
    "date": "2026-12-16",
    "time": "12:00",
-   "title": "Babyomvisning i Jugendstilsenteret",
+   "title": "Mini på museet: Babyomvisning i Jugendstilsenteret",
    "venue": "Jugendstilsenteret og KUBE",
    "address": "Apotekergata 16, Ålesund",
    "cat": "barn",
@@ -2249,6 +2285,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67162-egil-olsen-julekonsert",
    "addedAt": "2026-10-28T11:55:09Z"
+  },
+  {
+   "id": "cowork-sunnmore-2026-dampsentralen",
+   "date": "2026-12-21",
+   "time": "08:00",
+   "title": "Cowork Sunnmøre 2026",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-bp7tw-r3emt-78w9k-k7ttk",
+   "addedAt": "2026-11-10T11:58:45Z"
   },
   {
    "id": "romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby",
@@ -3028,6 +3080,24 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66161-karpe-alesund-live",
    "addedAt": "2026-10-27T16:49:40Z"
+  },
+  {
+   "id": "parken-51292-parken-kulturhus",
+   "date": "2027-11-06",
+   "time": "19:00",
+   "title": "Erlend Osnes",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "405–475 kr",
+   "priceMin": 405,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51292-erlend-osnes/",
+   "addedAt": "2026-11-10T11:58:45Z"
   }
  ]
 }
