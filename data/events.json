@@ -91,15 +91,19 @@
    ],
    "julelystenning-devoldfabrikken": [
     "2026-11-10T08:20:11Z",
-    "2026-11-10T16:08:32Z"
+    "2026-11-10T16:13:41Z"
+   ],
+   "olsmaking-pa-kaab": [
+    "2026-11-10T16:03:12Z",
+    "2026-11-10T16:13:41Z"
    ],
    "julematmarked-devoldfabrikken": [
     "2026-11-10T08:20:11Z",
-    "2026-11-10T16:08:32Z"
+    "2026-11-10T16:13:41Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T16:08:32Z",
+  "updatedAt": "2026-11-10T16:13:41Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 3,
   "sources": [
@@ -629,7 +633,7 @@
     "2026-11-19T16:00",
     "2026-11-19T17:00"
    ],
-   "addedAt": "2026-11-10T16:08:32Z"
+   "addedAt": "2026-11-10T16:13:41Z"
   },
   {
    "id": "parken-50876-parken-kulturhus",
@@ -675,7 +679,7 @@
    "note": "I Langevåg (Sula).",
    "uncertain": false,
    "url": "https://devoldfabrikken.no/hva-skjer/julekortfotografering-med-fotograf-lene-cs/",
-   "addedAt": "2026-11-10T16:08:32Z"
+   "addedAt": "2026-11-10T16:13:41Z"
   },
   {
    "id": "rigget-for-fremtiden-fagseminar-for-naeringslivet-dampsentra",
@@ -1199,13 +1203,24 @@
    "price": "423 kr",
    "priceMin": 423,
    "soldOut": false,
-   "note": "Ølsmaking og historiefortelling i brygghuset til KaaB Bryggeri på Devoldfabrikken, kl. 19:00–23:00 (smakingen tar ca. 2 timer, ankomst 19:00–19:15). Billetter på Tikkio, begrenset antall. I Langevåg (Sula). 18 år. Flere forestillinger: 20. jan.",
+   "few": true,
+   "shows": [
+    [
+     "2026-11-26T19:00",
+     "few"
+    ],
+    [
+     "2027-01-20T19:00",
+     "few"
+    ]
+   ],
+   "note": "Ølsmaking og historiefortelling i brygghuset til KaaB Bryggeri på Devoldfabrikken, kl. 19:00–23:00 (smakingen tar ca. 2 timer, ankomst 19:00–19:15). Billetter på Tikkio, begrenset antall. I Langevåg (Sula). 18 år.",
    "uncertain": false,
-   "url": "https://devoldfabrikken.no/hva-skjer/olsmaking-og-historiefortelling-pa-kaab-bryggeri/",
+   "url": "https://tikkio.com/events/67279-olsmaking-pa-kaab",
    "moreShows": [
     "2027-01-20T19:00"
    ],
-   "addedAt": "2026-11-10T16:08:32Z"
+   "addedAt": "2026-11-10T16:13:41Z"
   },
   {
    "id": "chris-medina-eirik-naess-jul-hos-oss-alesund-kirke-2026",
@@ -1222,22 +1237,6 @@
    "note": "Med Lars Støvland. Tiårsjubileum for juleturneen. Rabatt: Student 225 kr, barn under 16 år 75 kr.",
    "url": "https://secure.tickster.com/no/lnnyulljpvcjp60/products",
    "addedAt": "2026-11-06T11:41:20Z"
-  },
-  {
-   "id": "olsmaking-pa-kaab",
-   "date": "2026-11-26",
-   "time": "19:00",
-   "title": "Ølsmaking på KaaB",
-   "venue": "KaaB Bryggeri",
-   "address": "",
-   "cat": "happening",
-   "price": "423 kr",
-   "priceMin": 423,
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Ølsmaking hos Kaab Bryggeri. Dørene åpner 19:00, slutt 23:00. 18 år. I Langevåg (Sula). Servicegebyr 15 kr per billett.",
-   "url": "https://tikkio.com/events/67279",
-   "addedAt": "2026-11-10T16:03:12Z"
   },
   {
    "id": "parken-49740-parken-kulturhus",
