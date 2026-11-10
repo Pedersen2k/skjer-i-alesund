@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03",
+ "updated": "2026-11-10",
  "searchConsole": {
   "date": "2026-11-03",
   "clicks": 132,
@@ -159,6 +159,36 @@
    "tag": "drift",
    "title": "Vakt for overstyringer (#160, #161)",
    "text": "Utdatert dato-override fjernet. Varsel når kilden endrer dato eller tid."
+  },
+  {
+   "when": "6. nov.",
+   "tag": "side",
+   "title": "Siden «For arrangører» (#173)",
+   "text": "Skjema for arrangører, «Lenk gjerne til oss» og lenker fra forsiden (P7)."
+  },
+  {
+   "when": "9. nov.",
+   "tag": "data",
+   "title": "Juleprogram og AaFK Kvinner på pause (#175, #176, #177)",
+   "text": "12 nye julearrangementer. AaFK Kvinner hentes ikke før 1. feb. 2027."
+  },
+  {
+   "when": "10. nov.",
+   "tag": "drift",
+   "title": "Planlagte kjøringer i gang igjen etter låsingen",
+   "text": "GitHub startet ingen planlagte kjøringer 6.–10. nov. Fikset ved å slå workflowene av og på. Første planlagte kjøring 09:24."
+  },
+  {
+   "when": "10. nov.",
+   "tag": "drift",
+   "title": "Vakt fire ganger om dagen",
+   "text": "Kl. 10:41, 14:41, 19:41 og 22:41. Push-varsel til eieren hvis oppdateringen stopper eller feiler."
+  },
+  {
+   "when": "10. nov.",
+   "tag": "data",
+   "title": "Gjennomgang av julekilder (#179)",
+   "text": "Brosundet ETTER SEKS lagt til (gratis, onsdager). Jul på Molja lenker til Billetto."
   }
  ],
  "waiting": [
@@ -271,16 +301,22 @@
    "Kategorier, særlig ballett og film"
   ],
   [
-   "Hver uke i nov.",
-   "Claude",
-   "Julebord og julearrangementer",
-   "Scandic Parken, MS Bruvik, Hotel 1904, Quality-hotellene"
-  ],
-  [
    "Mid-nov.",
    "Claude",
    "Sjekk av data/past.json",
    "Første Actions-kjøring etter #153 er ikke sett"
+  ],
+  [
+   "Mandager til 21. des.",
+   "Claude",
+   "Julearrangementer som mangler",
+   "Bypatrioten, Fjord Norway, Atlanterhavsparken, julegrantenning, Ålesund kirke. Legger inn det som kan bekreftes og merger. Julebord: Scandic Parken, MS Bruvik, Hotel 1904, Quality-hotellene"
+  ],
+  [
+   "4 ganger daglig",
+   "Automatisk",
+   "Vakt: oppdateres siden?",
+   "Push-varsel hvis planlagte kjøringer stopper eller feiler. Skrus av etter jul"
   ]
  ],
  "next": [
@@ -307,6 +343,10 @@
   [
    "Tillatelse",
    "Sjekk Tikkios vilkår eller spør scenene før siden promoteres bredt."
+  ],
+  [
+   "Julegrantenning og Atlanterhavsparken",
+   "Ingen kilde for 2026 ennå. Grantenningen pleier å være 1. søndag i advent (29. nov.)."
   ]
  ]
 }
