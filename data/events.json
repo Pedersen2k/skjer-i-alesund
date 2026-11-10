@@ -71,9 +71,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-10T08:59:48Z",
+  "updatedAt": "2026-11-10T09:09:16Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1097,6 +1097,22 @@
     "2026-12-06T16:00"
    ],
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "birk-bream-rumi-rafael-venterommet-terminalen",
+   "date": "2026-11-27",
+   "time": "19:00",
+   "title": "Birk Bream & Rumi Rafael",
+   "venue": "Venterommet, Terminalen",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "149 kr",
+   "priceMin": 149,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67446-bream-rumi-rafael-venetrommet",
+   "addedAt": "2026-11-10T09:09:16Z"
   },
   {
    "id": "designernes-julemarked-devoldfabrikken",
