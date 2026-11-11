@@ -1216,6 +1216,23 @@
    "url": "https://www.parkenkulturhus.no/program/45760-bak-lukkede-dorer/",
    "addedAt": "2026-10-21T12:45:40Z",
    "last": "2026-11-10"
+  },
+  {
+   "id": "viti-paa-dagtid-innblikk-i-vitis-tekstilsamlinger-jugendstil",
+   "date": "2026-11-11",
+   "time": "12:00",
+   "title": "På dagtid: Innblikk i Vitis tekstilsamlinger",
+   "venue": "Jugendstilsenteret og KUBE",
+   "address": "Apotekergata 16, Ålesund",
+   "cat": "happening",
+   "price": "60 kr",
+   "priceMin": 60,
+   "soldOut": false,
+   "note": "Kunstnere og kunststudenter gratis.",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/paa-dagtid-innblikk-i-vitis-tekstilsamlinger",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-11"
   }
  ]
 }

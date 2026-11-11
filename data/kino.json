@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-11T10:14:37Z",
+  "updatedAt": "2026-11-11T12:09:32Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -771,7 +771,7 @@
       "Norsk tale",
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/23282241-8907-4738-b504-4e2657f3d741",
+     "url": "",
      "club": false
     },
     {
@@ -975,6 +975,27 @@
    ]
   },
   {
+   "id": "EDI20261679",
+   "title": "Kaizers Orchestra - Live - Dine gamle dager er nå",
+   "age": null,
+   "minutes": 116,
+   "genres": [],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/9103642db6dc71b38a311853b5a07c0ff5d6026a-1080x1920.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-11-27",
+   "shows": [
+    {
+     "start": "2026-11-27T18:00:00",
+     "screen": "Sal 2",
+     "tags": [
+      "Utekstet",
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/e3a664ed-4be5-4235-b8e9-6ebb5cd5976c",
+     "club": false
+    }
+   ]
+  },
+  {
    "id": "EDI20260975",
    "title": "Lille spøkelset Laban skøyer igjen",
    "age": 0,
@@ -993,7 +1014,7 @@
       "Norsk tale",
       "Utekstet"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/5816951e-1b58-4781-bedc-0578643b6b6d",
+     "url": "",
      "club": false
     },
     {
@@ -1073,7 +1094,7 @@
      "start": "2026-11-11T12:00:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/97d15b19-d28b-4ee3-8ac6-e3191054e912",
+     "url": "",
      "club": true
     },
     {
@@ -1672,7 +1693,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/6861700b-7a49-423f-9814-8fc960b4e334",
+     "url": "",
      "club": false
     },
     {
@@ -2117,7 +2138,7 @@
      "start": "2026-11-11T12:30:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/4f6d7115-1153-466a-bc8f-788417ee90d3",
+     "url": "",
      "club": true
     },
     {
@@ -2552,7 +2573,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/53374dac-d51f-49f7-aa15-bc78495c9766",
+     "url": "",
      "club": false
     },
     {

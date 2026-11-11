@@ -104,12 +104,16 @@
    "parken-45760-parken-kulturhus": [
     "2026-10-21T12:45:40Z",
     "2026-11-10T20:01:51Z"
+   ],
+   "viti-paa-dagtid-innblikk-i-vitis-tekstilsamlinger-jugendstil": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-11T12:05:01Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-11T10:10:27Z",
+  "updatedAt": "2026-11-11T12:05:01Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -125,22 +129,6 @@
   ]
  },
  "events": [
-  {
-   "id": "viti-paa-dagtid-innblikk-i-vitis-tekstilsamlinger-jugendstil",
-   "date": "2026-11-11",
-   "time": "12:00",
-   "title": "På dagtid: Innblikk i Vitis tekstilsamlinger",
-   "venue": "Jugendstilsenteret og KUBE",
-   "address": "Apotekergata 16, Ålesund",
-   "cat": "happening",
-   "price": "60 kr",
-   "priceMin": 60,
-   "soldOut": false,
-   "note": "Kunstnere og kunststudenter gratis.",
-   "uncertain": false,
-   "url": "https://www.vitimusea.no/arrangement/paa-dagtid-innblikk-i-vitis-tekstilsamlinger",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "filmvisning-how-to-live-on-earth-pir-cowork",
    "date": "2026-11-11",
@@ -2596,6 +2584,7 @@
    "price": "250 kr",
    "priceMin": 250,
    "soldOut": false,
+   "few": true,
    "note": "Rabatt: PRESALE BILLETTER 180 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67324-e39-vol5-nyttars-molo",
