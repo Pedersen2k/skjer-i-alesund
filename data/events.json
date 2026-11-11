@@ -108,10 +108,14 @@
    "viti-paa-dagtid-innblikk-i-vitis-tekstilsamlinger-jugendstil": [
     "2026-10-19T12:59:56Z",
     "2026-11-11T12:05:01Z"
+   ],
+   "filmvisning-how-to-live-on-earth-pir-cowork": [
+    "2026-10-22T12:10:15Z",
+    "2026-11-11T22:15:10Z"
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-11T20:10:19Z",
+  "updatedAt": "2026-11-11T22:15:10Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -129,22 +133,6 @@
   ]
  },
  "events": [
-  {
-   "id": "filmvisning-how-to-live-on-earth-pir-cowork",
-   "date": "2026-11-11",
-   "time": "17:30",
-   "title": "Filmvisning: How to live on earth",
-   "venue": "Pir Cowork",
-   "address": "Keiser Wilhelms g. 22, 6003 Ålesund",
-   "cat": "show",
-   "price": "100 kr",
-   "priceMin": 100,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/67117-filmvisning-how-to-live-on-earth",
-   "addedAt": "2026-10-22T12:10:15Z"
-  },
   {
    "id": "parken-41531-parken-kulturhus",
    "date": "2026-11-11",
