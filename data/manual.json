@@ -78,6 +78,24 @@
     ]
   },
   {
+    "id": "julebord-pa-alnes",
+    "date": "2026-11-13",
+    "time": "19:00",
+    "title": "Julebord på Alnes",
+    "venue": "Alnes fyr og opplevelsessenter",
+    "address": "Alnesgard, 6055 Godøya",
+    "cat": "julebord",
+    "price": "600 kr",
+    "priceMin": 600,
+    "soldOut": false,
+    "note": "Stor julebuffet og live underholdning på Alnes fyr (Godøya, Giske). Fire fredager i november og desember; bedrifter, lag, foreninger og private grupper er velkomne. Prisen er per person. Facebook-arrangementet til Alnes fyr viser fredag 13. november, Bypatrioten 20. november kl. 19:00; de andre fredagene står ikke noe sted ennå. Bestill hos Alnes fyr (post@alnesfyr.no, tlf. 908 54 449). Kilde: Bypatrioten.",
+    "uncertain": true,
+    "url": "https://www.facebook.com/events/2059622078252059/",
+    "moreShows": [
+      "2026-11-20T19:00"
+    ]
+  },
+  {
     "id": "lutefiskaften-quality-hotel-alesund",
     "date": "2026-11-06",
     "time": "",
