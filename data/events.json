@@ -107,9 +107,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-11T08:23:55Z",
+  "updatedAt": "2026-11-11T10:10:27Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1879,6 +1879,22 @@
    "note": "Gjallarhorn Brass med Sunnmøre Senior Storband og Nørvøy Ungdomskorps som gjester. Billetter selges i døra, pris står ikke oppgitt. Kilde: Bypatrioten.",
    "url": "https://www.spjelkavik.kyrkjelyd.no/",
    "addedAt": "2026-11-01T21:47:04Z"
+  },
+  {
+   "id": "neon-ion-venterommet-terminalen",
+   "date": "2026-12-09",
+   "time": "18:00",
+   "title": "Neon Ion",
+   "venue": "Venterommet, Terminalen",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "199 kr",
+   "priceMin": 199,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67495-neon-ion-venterommet",
+   "addedAt": "2026-11-11T10:10:27Z"
   },
   {
    "id": "parken-45560-parken-kulturhus",
