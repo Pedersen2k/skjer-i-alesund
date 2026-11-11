@@ -111,7 +111,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-11T18:02:32Z",
+  "updatedAt": "2026-11-11T19:44:02Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 1,
   "sources": [
@@ -378,6 +378,25 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47677-christine-koht/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "julebord-pa-alnes",
+   "date": "2026-11-13",
+   "time": "19:00",
+   "title": "Julebord på Alnes",
+   "venue": "Alnes fyr og opplevelsessenter",
+   "address": "Alnesgard, 6055 Godøya",
+   "cat": "julebord",
+   "price": "600 kr",
+   "priceMin": 600,
+   "soldOut": false,
+   "note": "Stor julebuffet og live underholdning på Alnes fyr (Godøya, Giske). Fire fredager i november og desember; bedrifter, lag, foreninger og private grupper er velkomne. Prisen er per person. Facebook-arrangementet til Alnes fyr viser fredag 13. november, Bypatrioten 20. november kl. 19:00; de andre fredagene står ikke noe sted ennå. Bestill hos Alnes fyr (post@alnesfyr.no, tlf. 908 54 449). Kilde: Bypatrioten.",
+   "uncertain": true,
+   "url": "https://www.facebook.com/events/2059622078252059/",
+   "moreShows": [
+    "2026-11-20T19:00"
+   ],
+   "addedAt": "2026-11-11T19:44:02Z"
   },
   {
    "id": "forum-artist-in-residence-uke-45-forum-alesund",
@@ -1492,7 +1511,7 @@
     ],
     [
      "2026-12-03T17:30",
-     "few"
+     "sold"
     ],
     [
      "2026-12-04T17:30",
@@ -2599,8 +2618,7 @@
    "cat": "konsert",
    "price": "250 kr",
    "priceMin": 250,
-   "soldOut": false,
-   "few": true,
+   "soldOut": true,
    "note": "Rabatt: PRESALE BILLETTER 180 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67324-e39-vol5-nyttars-molo",
