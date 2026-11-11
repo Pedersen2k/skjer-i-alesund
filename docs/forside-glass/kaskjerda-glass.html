@@ -1,0 +1,972 @@
+<title>Kaskjerda Glass</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one app, two shapes. Phone = glass top bar + floating glass tab bar + bottom sheets.
+   PC = glass top bar with liquid lens, sticky glass filter column, card grid, side panel for details.
+   Behind everything: "byens humør", soft colour fields drawn from the categories you are looking at. */
+:root{
+  color-scheme: dark;
+  --bg:#06141a; --bg2:#0b222b; --fg:#eef7f8; --muted:#9fb9be; --faint:#6d8a90;
+  --glass:rgba(255,255,255,.075); --glass-2:rgba(255,255,255,.13); --glass-strong:rgba(14,36,44,.62);
+  --line:rgba(255,255,255,.16); --line-hi:rgba(255,255,255,.42); --shadow:0 18px 50px -18px rgba(0,0,0,.65);
+  --ink-on-accent:#03181d; --accent:#5fe0e6; --now:#7bf0a3; --sold:#ff7a85; --few:#ffc861;
+  --k-konsert:#4fd6dd; --k-standup:#ff9256; --k-show:#b994ff; --k-barn:#74e6a0;
+  --k-klubb:#ff72b9; --k-happening:#ffd45e; --k-quiz:#93a9ff; --k-sport:#62b4ff; --k-julebord:#ff6b72;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --r-xl:30px; --r-l:22px; --r-m:16px; --pill:999px;
+  --spring:cubic-bezier(.34,1.42,.5,1); --ease:cubic-bezier(.2,.8,.2,1);
+  --mood-alpha:.9;
+}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
+  color-scheme: light;
+  --bg:#e7f0f1; --bg2:#f6fafa; --fg:#0a2329; --muted:#4b666c; --faint:#6f878c;
+  --glass:rgba(255,255,255,.52); --glass-2:rgba(255,255,255,.72); --glass-strong:rgba(255,255,255,.78);
+  --line:rgba(255,255,255,.85); --line-hi:rgba(255,255,255,1); --shadow:0 18px 44px -20px rgba(16,52,60,.35);
+  --ink-on-accent:#ffffff; --accent:#0d8790; --now:#13924a; --sold:#c42b3a; --few:#a86400;
+  --k-konsert:#0f97a0; --k-standup:#e2631f; --k-show:#7a52d6; --k-barn:#1f9d55;
+  --k-klubb:#d23d8c; --k-happening:#c09000; --k-quiz:#4f67e0; --k-sport:#1f72d1; --k-julebord:#cf2f39;
+  --mood-alpha:.55;
+}}
+:root[data-theme="light"]{
+  color-scheme: light;
+  --bg:#e7f0f1; --bg2:#f6fafa; --fg:#0a2329; --muted:#4b666c; --faint:#6f878c;
+  --glass:rgba(255,255,255,.52); --glass-2:rgba(255,255,255,.72); --glass-strong:rgba(255,255,255,.78);
+  --line:rgba(255,255,255,.85); --line-hi:rgba(255,255,255,1); --shadow:0 18px 44px -20px rgba(16,52,60,.35);
+  --ink-on-accent:#ffffff; --accent:#0d8790; --now:#13924a; --sold:#c42b3a; --few:#a86400;
+  --k-konsert:#0f97a0; --k-standup:#e2631f; --k-show:#7a52d6; --k-barn:#1f9d55;
+  --k-klubb:#d23d8c; --k-happening:#c09000; --k-quiz:#4f67e0; --k-sport:#1f72d1; --k-julebord:#cf2f39;
+  --mood-alpha:.55;
+}
+:root[data-theme="dark"]{ color-scheme: dark; }
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 var(--body);-webkit-font-smoothing:antialiased;overflow:hidden}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:10px}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* stage + scroller: the stage is the "screen" (also the phone frame in preview) */
+#stage{position:fixed;inset:0;transform:translateZ(0);overflow:hidden;background:var(--bg);container:app / inline-size}
+#scroller{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;overscroll-behavior:contain}
+#mood{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:var(--mood-alpha);transition:opacity .6s}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>")}
+
+/* preview chrome (only on wide windows) */
+body.phone{background:radial-gradient(1200px 700px at 30% 20%, var(--bg2), var(--bg))}
+body.phone #stage{inset:auto;left:50%;top:50%;width:390px;height:min(844px, calc(100% - 40px));translate:-50% -50%;border-radius:52px;box-shadow:0 0 0 10px #0b0f12,0 0 0 11px rgba(255,255,255,.18),0 40px 120px -30px rgba(0,0,0,.7)}
+body.phone #stage::after{content:"";position:absolute;top:10px;left:50%;translate:-50% 0;width:118px;height:32px;border-radius:20px;background:#000;z-index:200;pointer-events:none}
+body.phone #scroller{padding-top:44px}
+.pvbar{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:300;display:none;gap:4px;padding:4px;border-radius:var(--pill);background:var(--glass-strong);border:1px solid var(--line);backdrop-filter:blur(18px) saturate(170%);-webkit-backdrop-filter:blur(18px) saturate(170%);box-shadow:var(--shadow)}
+.pvbar span{font-size:12px;color:var(--muted);padding:6px 6px 6px 10px}
+.pvbar button{font-size:13px;font-weight:600;padding:7px 14px;border-radius:var(--pill)}
+.pvbar button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+@media (min-width:1000px){ .pvbar{display:flex} }
+
+/* ── glass material ── */
+.glass{position:relative;background:var(--glass);border:1px solid var(--line);
+  backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+  box-shadow:inset 0 1px 0 var(--line-hi), inset 0 -10px 24px -18px rgba(255,255,255,.18), var(--shadow)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(155deg, rgba(255,255,255,.22), rgba(255,255,255,0) 38%, rgba(255,255,255,0) 70%, rgba(255,255,255,.08));mix-blend-mode:soft-light}
+
+/* ── top bar ── */
+.top{position:sticky;top:0;z-index:50;padding-top:10px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+.topin{display:flex;align-items:center;gap:12px;padding:8px 8px 8px 14px;border-radius:24px;max-width:1360px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0;flex:none}
+.brand svg{width:30px;height:32px;flex:none}
+.brand b{font:800 19px/1 var(--display);letter-spacing:-.02em;white-space:nowrap}
+.brand b i{font-style:normal;color:var(--accent)}
+.topr{margin-left:auto;display:flex;align-items:center;gap:6px}
+.iconbtn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;transition:background .2s}
+.iconbtn:hover{background:var(--glass-2)}
+.iconbtn svg{width:20px;height:20px}
+.searchpill{display:flex;align-items:center;gap:10px;height:42px;padding:0 10px 0 14px;border-radius:var(--pill);color:var(--muted);width:min(300px,26cqi);transition:background .2s}
+.searchpill:hover{background:var(--glass-2)}
+.searchpill svg{width:18px;height:18px;flex:none}
+.searchpill span{flex:1;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.searchpill kbd{font:600 11px var(--body);border:1px solid var(--line);border-radius:7px;padding:2px 6px}
+.minebtn{display:flex;align-items:center;gap:7px;height:42px;padding:0 15px;border-radius:var(--pill);font-weight:700;transition:background .2s,color .2s}
+.minebtn svg{width:18px;height:18px}
+.minebtn[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.minebtn .n{font-variant-numeric:tabular-nums;min-width:1ch}
+.minebtn.bump{animation:bump .5s var(--spring)}
+@keyframes bump{40%{transform:scale(1.18)}}
+
+/* ── segmented control with liquid lens ── */
+.seg{position:relative;display:flex;padding:4px;border-radius:var(--pill);background:rgba(0,0,0,.18);box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+:root[data-theme="light"] .seg{background:rgba(10,35,41,.07)}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]) .seg{background:rgba(10,35,41,.07)} }
+.seg button{position:relative;z-index:1;flex:1;white-space:nowrap;padding:9px 16px;border-radius:var(--pill);font-weight:600;font-size:14px;color:var(--muted);transition:color .25s}
+.seg button[aria-pressed="true"]{color:var(--fg)}
+.lens{position:absolute;z-index:0;top:4px;bottom:4px;left:0;width:0;border-radius:var(--pill);
+  background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.12));border:1px solid var(--line-hi);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.7),0 6px 18px -6px rgba(0,0,0,.45);
+  backdrop-filter:blur(6px) saturate(200%);-webkit-backdrop-filter:blur(6px) saturate(200%);
+  transition:left .55s var(--spring), width .55s var(--spring)}
+.lens.go{animation:squish .55s var(--ease)}
+@keyframes squish{30%{transform:scaleX(1.12) scaleY(.86)}65%{transform:scaleX(.97) scaleY(1.04)}}
+.topseg{flex:none;margin:0 auto}
+
+/* ── page ── */
+.wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 140px}
+.hero{display:grid;gap:16px;grid-template-columns:1fr;align-items:stretch}
+.hello{padding:6px 4px}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+.live{width:8px;height:8px;border-radius:50%;background:var(--now);box-shadow:0 0 0 0 var(--now);animation:ping 2.2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--now) 70%,transparent)}80%,100%{box-shadow:0 0 0 10px transparent}}
+.hello h1{font:800 clamp(34px,7.4cqi,72px)/.95 var(--display);letter-spacing:-.035em;margin:12px 0 10px;text-wrap:balance}
+.hello h1 em{font-style:normal;background:linear-gradient(100deg,var(--k-konsert),var(--k-show) 45%,var(--k-klubb) 75%,var(--k-standup));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:sheen 9s ease-in-out infinite alternate}
+@keyframes sheen{to{background-position:100% 0}}
+.hello p{margin:0;color:var(--muted);max-width:52ch;font-size:16px}
+.hello p b{color:var(--fg);font-variant-numeric:tabular-nums}
+
+/* next up */
+.next{border-radius:var(--r-xl);padding:18px;display:flex;flex-direction:column;gap:10px;overflow:hidden;cursor:pointer;text-align:left;width:100%}
+.next .glowb{position:absolute;width:220px;height:220px;right:-60px;top:-80px;border-radius:50%;background:var(--c);filter:blur(50px);opacity:.55;pointer-events:none}
+.next .lab{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cd{font:700 13px var(--body);font-variant-numeric:tabular-nums;padding:5px 10px;border-radius:var(--pill);background:color-mix(in srgb,var(--now) 18%,transparent);color:var(--now)}
+.next h2{font:800 26px/1.05 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance;position:relative}
+.next .meta{color:var(--muted);display:flex;gap:6px 14px;flex-wrap:wrap;position:relative}
+.next .meta b{color:var(--fg)}
+.next .go{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative}
+.cta{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:var(--pill);background:var(--fg);color:var(--bg);font-weight:700;text-decoration:none;white-space:nowrap}
+.cta svg{width:16px;height:16px}
+
+/* pulse: 7/14 day stacked bars */
+.pulse{border-radius:var(--r-xl);padding:16px 14px 12px}
+.pulse .ph{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px 10px}
+.pulse .ph h3{margin:0;font:700 15px var(--display)}
+.pulse .ph span{font-size:12px;color:var(--muted)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0 8px;border-radius:16px;transition:background .25s,transform .3s var(--spring)}
+.day:hover{background:var(--glass-2)}
+.day:active{transform:scale(.94)}
+.day[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.day[aria-pressed="true"] .wd,.day[aria-pressed="true"] .cnt{color:var(--bg)}
+.bars{height:64px;width:16px;display:flex;flex-direction:column-reverse;border-radius:8px;overflow:hidden;background:rgba(127,127,127,.14)}
+.bars i{display:block;width:100%;transition:height .6s var(--spring)}
+.wd{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.dn{font:700 17px/1 var(--display);font-variant-numeric:tabular-nums}
+.cnt{font-size:11px;color:var(--faint);font-variant-numeric:tabular-nums}
+.day.wknd .wd{color:var(--accent)}
+.day.today .dn{text-decoration:underline 2px var(--now);text-underline-offset:4px}
+.days .more14{display:none}
+
+/* category chips (bubbles) */
+.cats{display:flex;flex-wrap:wrap;gap:8px}
+.chip{--c:var(--accent);display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 13px 0 8px;border-radius:var(--pill);font-weight:600;font-size:14px;
+  background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);
+  transition:background .3s, color .3s, transform .35s var(--spring), box-shadow .3s}
+.chip:active{transform:scale(.93)}
+.chip .ic{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c);transition:background .3s,color .3s}
+.chip .ic svg{width:14px;height:14px}
+.chip .n{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--c);color:var(--ink-on-accent);border-color:transparent;box-shadow:0 8px 24px -8px var(--c)}
+.chip[aria-pressed="true"] .ic{background:rgba(255,255,255,.3);color:var(--ink-on-accent)}
+.chip[aria-pressed="true"] .n{color:inherit;opacity:.75}
+.chip[disabled]{opacity:.4}
+.mcats{margin-top:4px}
+
+/* ── main layout ── */
+.main{display:grid;grid-template-columns:1fr;gap:22px;margin-top:22px}
+.side{display:none}
+.filters h4{margin:0 0 10px;font:600 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.fsec{padding:16px 0;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.fsec:first-of-type{border-top:0;padding-top:4px}
+.fhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.fhead h3{margin:0;font:800 22px var(--display);letter-spacing:-.02em}
+.linkbtn{font-size:13px;font-weight:600;color:var(--accent)}
+.linkbtn[hidden]{display:none}
+/* price */
+.pricev{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.pricev b{font:800 22px var(--display);font-variant-numeric:tabular-nums}
+.pricev span{font-size:12px;color:var(--muted)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:30px;background:transparent}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:8px;background:linear-gradient(90deg,var(--accent) var(--p,100%),rgba(127,127,127,.22) var(--p,100%))}
+input[type=range]::-moz-range-track{height:8px;border-radius:8px;background:linear-gradient(90deg,var(--accent) var(--p,100%),rgba(127,127,127,.22) var(--p,100%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:22px;margin-top:-7px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.65));border:1px solid rgba(255,255,255,.9);box-shadow:0 4px 12px rgba(0,0,0,.35);transition:transform .3s var(--spring)}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25,1.15)}
+input[type=range]::-moz-range-thumb{width:30px;height:22px;border-radius:12px;background:#fff;border:0;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.ticks{display:flex;justify-content:space-between;font-size:11px;color:var(--faint);padding:0 4px}
+/* toggles */
+.tgl{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:8px 0;font-weight:600;text-align:left}
+.tgl small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.sw{flex:none;width:50px;height:30px;border-radius:var(--pill);background:rgba(127,127,127,.3);position:relative;transition:background .3s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3);transition:left .4s var(--spring),width .2s}
+.tgl:active .sw::after{width:30px}
+.tgl[aria-pressed="true"] .sw{background:var(--now)}
+.tgl[aria-pressed="true"] .sw::after{left:23px}
+.tgl[aria-pressed="true"]:active .sw::after{left:17px}
+/* venues */
+.venues{display:flex;flex-direction:column;gap:2px}
+.venue{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:12px;text-align:left;font-size:14px;transition:background .2s}
+.venue:hover{background:var(--glass-2)}
+.venue span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+.venue[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.venue[aria-pressed="true"] span:last-child{color:inherit}
+.jbtile{display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--r-l);text-decoration:none;margin-top:6px;--c:var(--k-julebord);overflow:hidden}
+.jbtile .ic{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 26%,transparent);color:var(--c);flex:none}
+.jbtile .ic svg{width:20px;height:20px}
+.jbtile b{display:block;font:700 15px var(--display)}
+.jbtile small{color:var(--muted)}
+
+/* ── list ── */
+.listhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:4px 4px 6px}
+.listhead h2{margin:0;font:800 clamp(24px,4cqi,32px) var(--display);letter-spacing:-.02em}
+.listhead p{margin:0;color:var(--muted);font-size:14px}
+.active{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 6px}
+.ach{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 6px 0 12px;border-radius:var(--pill);font-size:13px;font-weight:600;background:var(--glass-2);border:1px solid var(--line)}
+.ach svg{width:14px;height:14px;opacity:.7}
+.dsec{margin-top:18px}
+.dhead{position:sticky;top:var(--stick,80px);z-index:20;display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:var(--pill);margin:0 0 12px;font-weight:700}
+.dhead .dd{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--fg);color:var(--bg);font:800 15px var(--display);font-variant-numeric:tabular-nums}
+.dhead .rel{color:var(--now);font-weight:700}
+.dhead .c{color:var(--muted);font-weight:500;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+
+/* card */
+.card{--c:var(--accent);--mx:80%;--my:0%;border-radius:var(--r-l);padding:14px 14px 14px 16px;display:grid;gap:8px;overflow:hidden;text-align:left;width:100%;cursor:pointer;
+  transition:transform .45s var(--spring), box-shadow .3s; animation:rise .6s var(--ease) both; animation-delay:calc(var(--i,0) * 35ms)}
+@keyframes rise{from{opacity:.001;transform:translateY(14px) scale(.98)}}
+.card:hover{transform:translateY(-3px)}
+.card:active{transform:scale(.985)}
+.card .glowc{position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(260px 180px at var(--mx) var(--my), color-mix(in srgb,var(--c) 34%,transparent), transparent 70%);transition:opacity .3s}
+.card .edge{position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:var(--c);box-shadow:0 0 14px var(--c)}
+.ctop{display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative}
+.ctag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
+.ctag svg{width:14px;height:14px}
+.new{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:var(--pill);background:color-mix(in srgb,var(--now) 18%,transparent);color:var(--now)}
+.star{width:44px;height:44px;margin:-10px -8px -10px 0;border-radius:50%;display:grid;place-items:center;color:var(--muted);transition:color .2s,transform .4s var(--spring)}
+.star svg{width:22px;height:22px}
+.star[aria-pressed="true"]{color:var(--few)}
+.star[aria-pressed="true"] svg{fill:currentColor}
+.star.pop{animation:pop .5s var(--spring)}
+@keyframes pop{40%{transform:scale(1.5) rotate(-12deg)}}
+.cmain{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;position:relative}
+.ctime{min-width:58px;padding:6px 0;text-align:center;border-radius:14px;background:color-mix(in srgb,var(--c) 14%,transparent)}
+.ctime b{display:block;font:800 19px/1.05 var(--display);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.ctime span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.ctitle{min-width:0}
+.ctitle h3{margin:0;font:700 18px/1.15 var(--display);letter-spacing:-.01em;text-wrap:balance;overflow-wrap:anywhere}
+.ctitle .v{margin-top:4px;color:var(--muted);font-size:14px;display:flex;align-items:center;gap:5px}
+.ctitle .v svg{width:13px;height:13px;flex:none}
+.cfoot{display:flex;align-items:center;gap:6px;flex-wrap:wrap;position:relative}
+.price{font-weight:700;font-variant-numeric:tabular-nums}
+.price.free{color:var(--now)}
+.price.unk{font-weight:500;color:var(--muted);font-size:13px}
+.pill{font-size:12px;font-weight:700;padding:3px 9px;border-radius:var(--pill)}
+.pill.few{background:color-mix(in srgb,var(--few) 18%,transparent);color:var(--few)}
+.pill.sold{background:color-mix(in srgb,var(--sold) 18%,transparent);color:var(--sold)}
+.pill.more{background:var(--glass-2);color:var(--muted);font-weight:600}
+.pill.rel{background:color-mix(in srgb,var(--now) 18%,transparent);color:var(--now)}
+.pill.past{background:var(--glass-2);color:var(--muted);font-weight:600}
+.card.started{opacity:.6}
+.dot{width:4px;height:4px;border-radius:50%;background:var(--faint)}
+.card.isSold .ctitle h3{opacity:.75}
+
+.empty{border-radius:var(--r-xl);padding:34px 22px;text-align:center;margin-top:18px}
+.empty .orb{width:84px;height:84px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.75),rgba(255,255,255,.08) 60%),conic-gradient(var(--k-konsert),var(--k-show),var(--k-klubb),var(--k-standup),var(--k-happening),var(--k-konsert));animation:spin 12s linear infinite;filter:saturate(1.2)}
+@keyframes spin{to{rotate:360deg}}
+.empty h3{margin:0 0 6px;font:800 22px var(--display)}
+.empty p{margin:0 0 16px;color:var(--muted)}
+.empty .acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.ghost{display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:var(--pill);font-weight:700;border:1px solid var(--line);background:var(--glass)}
+
+.foot{margin-top:40px;padding:22px 4px;color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
+.foot a{color:var(--muted)}
+
+/* ── tab bar (phone) ── */
+.tabbar{position:fixed;z-index:60;left:50%;translate:-50% 0;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:2px;padding:6px;border-radius:32px;width:min(calc(100% - 24px),400px)}
+.tabbar .tab{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 0 6px;border-radius:24px;font-size:11px;font-weight:600;color:var(--muted);transition:color .25s}
+.tabbar .tab svg{width:23px;height:23px}
+.tabbar .tab[aria-pressed="true"]{color:var(--fg)}
+.tabbar .tab .badge{position:absolute;top:2px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:var(--ink-on-accent);font-size:11px;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.tabbar .tab .badge:empty{display:none}
+.tabbar .lens{top:6px;bottom:6px;border-radius:24px}
+.orbbtn{position:relative;z-index:1;width:56px;height:56px;flex:none;border-radius:50%;display:grid;place-items:center;margin:0 4px;color:var(--ink-on-accent);
+  background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.7),transparent 45%),linear-gradient(140deg,var(--k-konsert),var(--k-show) 55%,var(--k-klubb));box-shadow:0 10px 26px -8px var(--k-show),inset 0 1px 1px rgba(255,255,255,.7);transition:transform .4s var(--spring)}
+.orbbtn:active{transform:scale(.9)}
+.orbbtn svg{width:24px;height:24px}
+
+/* ── sheets & panels ── */
+.scrim{position:absolute;inset:0;z-index:80;background:rgba(2,10,13,.45);opacity:0;pointer-events:none;transition:opacity .35s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:absolute;z-index:90;left:0;right:0;bottom:0;max-height:88%;display:flex;flex-direction:column;border-radius:var(--r-xl) var(--r-xl) 0 0;background:var(--glass-strong);border:1px solid var(--line);
+  backdrop-filter:blur(30px) saturate(190%);-webkit-backdrop-filter:blur(30px) saturate(190%);box-shadow:0 -20px 60px -20px rgba(0,0,0,.5);
+  transform:translateY(105%);transition:transform .5s var(--spring);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet.on{transform:none}
+.sheet.drag{transition:none}
+.grab{flex:none;padding:10px 0 4px;display:grid;place-items:center;cursor:grab;touch-action:none}
+.grab i{width:40px;height:5px;border-radius:3px;background:var(--faint);opacity:.7}
+.sbody{overflow-y:auto;padding:4px max(18px,env(safe-area-inset-left,0px)) 24px max(18px,env(safe-area-inset-right,0px));overscroll-behavior:contain}
+.sfoot{flex:none;padding:12px 18px calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.sfoot .cta{flex:1;justify-content:center}
+
+/* detail */
+.dt{position:relative}
+.dt .wash{position:absolute;left:-18px;right:-18px;top:-40px;height:200px;background:radial-gradient(70% 100% at 20% 0%, color-mix(in srgb,var(--c) 45%,transparent), transparent 70%);pointer-events:none}
+.dt .ctag{position:relative;margin-top:6px}
+.dt h2{position:relative;font:800 clamp(28px,8cqi,40px)/1 var(--display);letter-spacing:-.03em;margin:10px 0 16px;text-wrap:balance;overflow-wrap:anywhere}
+.facts{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fact{padding:12px 14px;border-radius:var(--r-m);background:var(--glass);border:1px solid var(--line)}
+.fact small{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.fact b{font:700 16px/1.25 var(--display);overflow-wrap:anywhere}
+.fact a{color:var(--accent);font-size:13px;font-weight:600;text-decoration:none;display:inline-block;margin-top:4px}
+.fact.wide{grid-column:1/-1}
+.shows{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.show{font-size:13px;font-weight:600;padding:6px 10px;border-radius:12px;background:var(--glass-2);font-variant-numeric:tabular-nums}
+.show.sold{text-decoration:line-through;color:var(--sold);background:color-mix(in srgb,var(--sold) 12%,transparent)}
+.show.few{color:var(--few);background:color-mix(in srgb,var(--few) 14%,transparent)}
+.dnote{position:relative;margin:14px 0 0;color:var(--muted);line-height:1.55}
+.srcline{margin-top:14px;font-size:12px;color:var(--faint)}
+.sfoot .ghost{padding:0 16px}
+.sfoot .ghost svg{width:18px;height:18px}
+.ghost[aria-pressed="true"]{color:var(--few)}
+.ghost[aria-pressed="true"] svg{fill:currentColor}
+.toast{position:absolute;z-index:120;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));translate:-50% 20px;opacity:0;padding:10px 16px;border-radius:var(--pill);font-weight:600;font-size:14px;pointer-events:none;transition:opacity .3s, translate .4s var(--spring);white-space:nowrap}
+.toast.on{opacity:1;translate:-50% 0}
+
+/* search overlay */
+.spot{position:absolute;z-index:100;left:50%;top:calc(12px + env(safe-area-inset-top,0px));translate:-50% -20px;width:min(calc(100% - 24px),640px);max-height:calc(100% - 120px);display:flex;flex-direction:column;border-radius:26px;opacity:0;pointer-events:none;transition:opacity .25s,translate .45s var(--spring);background:var(--glass-strong);backdrop-filter:blur(30px) saturate(190%);-webkit-backdrop-filter:blur(30px) saturate(190%)}
+.spot.on{opacity:1;translate:-50% 0;pointer-events:auto}
+body.phone .spot{top:56px}
+.spot .sin{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 16px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.spot .sin svg{width:20px;height:20px;color:var(--muted);flex:none}
+.spot input{flex:1;min-width:0;height:46px;border:0;background:transparent;font-size:18px;outline:none}
+.spot input::placeholder{color:var(--faint)}
+.sres{overflow-y:auto;padding:8px}
+.shint{padding:10px 10px 4px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sugs{display:flex;flex-wrap:wrap;gap:6px;padding:6px 8px 10px}
+.sug{height:34px;padding:0 12px;border-radius:var(--pill);background:var(--glass-2);font-size:14px;font-weight:600}
+.srow{--c:var(--accent);display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;width:100%;padding:8px 10px;border-radius:16px;text-align:left}
+.srow:hover,.srow.sel{background:var(--glass-2)}
+.srow .ic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c)}
+.srow .ic svg{width:18px;height:18px}
+.srow b{display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.srow small{color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.srow > span:nth-child(2){min-width:0}
+.srow em{font-style:normal;font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap}
+.srow mark{background:color-mix(in srgb,var(--accent) 30%,transparent);color:inherit;border-radius:4px}
+.snone{padding:24px 12px;text-align:center;color:var(--muted)}
+
+/* fly star */
+.fly{position:absolute;z-index:150;width:22px;height:22px;color:var(--few);pointer-events:none}
+.fly svg{width:100%;height:100%;fill:currentColor}
+
+/* ── phone shape ── */
+@container app (max-width: 899px){
+  .topin{padding:6px 6px 6px 12px;border-radius:22px;flex-wrap:wrap;row-gap:8px}
+  .brand b{font-size:17px}
+  .topseg{order:3;flex:1 1 100%;margin:0}
+  .topseg button{padding:8px 4px;font-size:13px}
+  .searchpill,.minebtn{display:none}
+  .wrap{padding-block:14px 130px}
+  .hello h1{font-size:clamp(34px,11cqi,52px)}
+  .hello p{font-size:15px}
+  .next h2{font-size:23px}
+  .bars{height:44px;width:12px}
+  .dn{font-size:15px}
+  .day{padding:6px 0}
+  .filters{display:none}
+  .main{margin-top:18px}
+  .dhead{font-size:14px}
+  .card .star{margin-right:-10px}
+}
+@container app (min-width: 900px){
+  .tabbar,.mcats,.mfilt{display:none!important}
+  .hero{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-rows:auto auto}
+  .hello{grid-column:1;grid-row:1 / span 2;align-self:center;padding:8px 8px 8px 4px}
+  .hello h1{font-size:clamp(48px,6cqi,84px)}
+  .next{grid-column:2;grid-row:1}
+  .pulse{grid-column:2;grid-row:2}
+  .main{grid-template-columns:300px minmax(0,1fr);align-items:start;gap:26px}
+  .side{display:block;position:sticky;top:var(--stick,90px)}
+  .filters{border-radius:var(--r-xl);padding:18px;max-height:calc(100cqb - 120px);overflow:auto}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+  .sheet{left:auto;top:12px;right:12px;bottom:12px;width:min(460px,42%);max-height:none;border-radius:var(--r-xl);transform:translateX(110%)}
+  .sheet.on{transform:none}
+  .grab{display:none}
+  .toast{bottom:28px}
+}
+@container app (min-width: 1200px){
+  .days{grid-template-columns:repeat(14,1fr);gap:4px}
+  .days .more14{display:flex}
+  .bars{width:12px}
+}
+@container app (max-width: 360px){
+  .topseg button{font-size:12px}
+  .brand b{display:none}
+}
+.vt-out{animation:vtout .18s ease forwards}
+@keyframes vtout{to{opacity:.0;transform:translateY(6px)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+}
+</style>
+
+<div id="stage">
+  <canvas id="mood" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div id="scroller">
+    <header class="top" id="top">
+      <div class="topin glass">
+        <a class="brand" href="https://kaskjerda.no/" aria-label="Skjer i Ålesund, forsiden">
+          <svg viewBox="0 0 48 52" aria-hidden="true"><circle cx="24" cy="6" r="3.5" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path d="M7 44V24h5c0-6 4-10 8-11.5L24 11l4 1.5c4 1.5 8 5.5 8 11.5h5v20Z" fill="var(--accent)"/><circle cx="15" cy="30" r="2" fill="var(--bg)"/><circle cx="33" cy="30" r="2" fill="var(--bg)"/><path d="M19.5 44v-8a4.5 4.5 0 0 1 9 0v8Z" fill="var(--bg)"/><path d="M4 49c3.5-2.5 6.5-2.5 10 0s6.5 2.5 10 0 6.5-2.5 10 0 6.5 2.5 10 0" fill="none" stroke="var(--k-show)" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <b>Skjer i <i>Ålesund</i></b>
+        </a>
+        <div class="seg topseg" id="when" role="group" aria-label="Når">
+          <span class="lens" aria-hidden="true"></span>
+          <button type="button" data-w="ikveld">I kveld</button>
+          <button type="button" data-w="imorgen">I morgen</button>
+          <button type="button" data-w="helg">Helgen</button>
+          <button type="button" data-w="uke">7 dager</button>
+          <button type="button" data-w="alt">Alt</button>
+        </div>
+        <div class="topr">
+          <button class="searchpill glass" type="button" id="openSearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Søk etter artist, sted, show …</span><kbd>⌘K</kbd></button>
+          <button class="minebtn glass" type="button" id="mineTop" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1-4.5-4.3 6.1-.8Z"/></svg>Mine <span class="n" id="mineN">0</span></button>
+          <button class="iconbtn" type="button" id="themeBtn" aria-label="Bytt mellom mørkt og lyst"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero">
+        <div class="hello">
+          <div class="eyebrow"><span class="live" aria-hidden="true"></span><span id="clock">Ålesund</span></div>
+          <h1 id="greet">Hva skjer i <em>Ålesund?</em></h1>
+          <p id="sub">Konserter, standup, show og happenings, samlet på ett sted.</p>
+        </div>
+        <button class="next glass" type="button" id="next" style="--c:var(--accent)"></button>
+        <section class="pulse glass" aria-label="Byens puls">
+          <div class="ph"><h3>Byens puls</h3><span id="pulseNote">Trykk en dag</span></div>
+          <div class="days" id="days"></div>
+        </section>
+        <div class="cats mcats" id="mcats" role="group" aria-label="Kategorier"></div>
+      </section>
+
+      <div class="main">
+        <aside class="side">
+          <div class="filters glass" id="filters"></div>
+        </aside>
+        <section aria-live="polite">
+          <div class="listhead"><h2 id="lh">De neste 7 dagene</h2><p id="lc"></p></div>
+          <div class="active" id="active"></div>
+          <div id="list"></div>
+          <footer class="foot">
+            <span>Priser og datoer hentes fra arrangørene. Sjekk alltid hos arrangøren før du kjøper billett.</span>
+            <span><a href="https://kaskjerda.no/kontakt/">Tips oss</a> · <a href="https://kaskjerda.no/arrangor/">For arrangører</a> · <a href="https://kaskjerda.no/en/">English</a></span>
+          </footer>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <nav class="tabbar glass" id="tabbar" aria-label="Hovedmeny">
+    <span class="lens" aria-hidden="true"></span>
+    <button class="tab" type="button" data-tab="utforsk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5Z"/></svg>Utforsk</button>
+    <button class="tab" type="button" data-tab="ikveld"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>I kveld<span class="badge" id="tonightN"></span></button>
+    <button class="orbbtn" type="button" id="orb" aria-label="Søk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    <button class="tab" type="button" data-tab="mine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1-4.5-4.3 6.1-.8Z"/></svg>Mine<span class="badge" id="mineBadge"></span></button>
+    <button class="tab" type="button" data-tab="filter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filter<span class="badge" id="filtN"></span></button>
+  </nav>
+
+  <div class="scrim" id="scrim"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Detaljer">
+    <div class="grab" id="grab"><i></i></div>
+    <div class="sbody" id="sbody"></div>
+    <div class="sfoot" id="sfoot"></div>
+  </div>
+  <div class="spot glass" id="spot" role="dialog" aria-modal="true" aria-label="Søk">
+    <div class="sin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Artist, sted, show …" autocomplete="off" aria-label="Søk"><button class="iconbtn" type="button" id="closeSearch" aria-label="Lukk søk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="sres" id="sres"></div>
+  </div>
+  <div class="toast glass" id="toast" role="status"></div>
+</div>
+
+<div class="pvbar" id="pvbar" role="group" aria-label="Forhåndsvisning"><span>Vis som</span><button type="button" data-pv="pc">PC</button><button type="button" data-pv="mobil">Mobil</button></div>
+
+<script>
+const DATA = [{"id":"filmvisning-how-to-live-on-earth-pir-cowork","date":"2026-11-11","time":"17:30","title":"Filmvisning: How to live on earth","venue":"Pir Cowork","address":"Keiser Wilhelms g. 22, 6003 Ålesund","cat":"show","price":"100 kr","priceMin":100,"url":"https://tikkio.com/events/67117-filmvisning-how-to-live-on-earth","addedAt":"2026-10-22T12:10:15Z"},{"id":"parken-41531-parken-kulturhus","date":"2026-11-11","time":"18:00","title":"Yoga Piano","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"115–230 kr","priceMin":115,"note":"Flere forestillinger: 15. des.","url":"https://www.parkenkulturhus.no/program/41531-yoga-piano/","moreShows":["2026-12-15T18:00"],"addedAt":"2026-10-19T12:59:56Z"},{"id":"brosundet-etter-seks-2026","date":"2026-11-11","time":"18:00","title":"Brosundet ETTER SEKS","venue":"Hotel Brosundet","address":"Apotekergata 1-5, 6004 Ålesund","cat":"konsert","price":"Gratis","note":"Akustisk konsert foran peisen hver onsdag kl. 18–20, mat fra egen meny 16–22. 11.11 Rikke og Svein, 18.11 Ståle Heggset og Geir Harald, 25.11 Sofie Laxxa, 2.12 Gutta Boys, 9.12 Danielle Langedal, 16.12 Rikke og Svein, 30.12 Elise Nærø. Fortsetter til påske.","url":"https://www.brosundet.no/aktiviteter/brosundet-etter-seks","moreShows":["2026-11-18T18:00","2026-11-25T18:00","2026-12-02T18:00","2026-12-09T18:00","2026-12-16T18:00","2026-12-30T18:00"],"addedAt":"2026-11-10T08:41:18Z"},{"id":"viti-fagsamling-og-nettverkstreff-for-handverkarar-2026-sunn","date":"2026-11-12","time":"12:00","title":"Fagsamling og Nettverkstreff for handverkarar 2026","venue":"Sunnmøre museum","address":"Museumsvegen 12, 6015 Ålesund","cat":"happening","note":"Flere forestillinger: 13. nov.","url":"https://www.vitimusea.no/arrangement/fagsamling-og-nettverkstreff-for-handverkarar-2026","moreShows":["2026-11-13T09:00"],"addedAt":"2026-10-29T16:05:46Z"},{"id":"bjorn-bjarte-lovenvold-theater","date":"2026-11-12","time":"18:00","title":"Bjørn & Bjarte","venue":"Løvenvold Theater","address":"Løvenvoldgata 11, 6002 Ålesund","cat":"show","price":"699 kr","priceMin":699,"few":true,"note":"Flyttet fra 11. november.","url":"https://tikkio.com/events/62711-bjorn-bjarte-lovenvold-theater","addedAt":"2026-10-19T12:59:56Z"},{"id":"julelystenning-pa-devoldfabrikken-devoldfabrikken","date":"2026-11-12","time":"18:00","title":"Julelystenning på Devoldfabrikken","venue":"Devoldfabrikken","address":"Geilneset 16, 6030 Langevåg","cat":"happening","note":"Pipa, klokketårnet og byggene tennes i julelys kl. 18, lystog fra Kantina 18.15, og butikkene har langåpent til 20. I Langevåg (Sula).","url":"https://devoldfabrikken.no/hva-skjer/julelystenning-pa-devoldfabrikken/","addedAt":"2026-11-10T08:20:11Z"},{"id":"jul-pa-molja-thon-hotel-alesund","date":"2026-11-12","time":"18:30","title":"Jul på Molja","venue":"Thon Hotel Ålesund","address":"Molovegen 6, 6004 Ålesund","cat":"show","price":"Pris hos arrangør","note":"Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Dørene åpner 18:00, 15 år. Billetter på Billetto (Bypatrioten oppgir 550–599 kr + avgift). Datoer og tid: Bypatrioten (Thons egen side nevner ikke showet).","url":"https://billetto.no/e/jul-pa-molja-fredrik-steen-jorunn-torsheim-billetter-1901018","moreShows":["2026-11-13T18:30","2026-11-14T18:30","2026-11-21T18:30","2026-11-27T18:30","2026-11-28T18:30","2026-12-04T18:30","2026-12-05T18:30","2026-12-11T18:30"],"addedAt":"2026-11-10T08:20:11Z"},{"id":"parken-47679-parken-kulturhus","date":"2026-11-12","time":"19:00","title":"Anders Jektvik","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"450 kr","priceMin":450,"few":true,"url":"https://www.parkenkulturhus.no/program/47679-anders-jektvik/","addedAt":"2026-10-19T12:59:56Z"},{"id":"oconnors-2026-11-12-pubquiz-hos-o-8217-connor-8217-o-connor-","date":"2026-11-12","time":"19:00","title":"Pubquiz","venue":"O'Connor's","address":"Brunholmgata 10, 6004 Ålesund","cat":"quiz","price":"50 kr","priceMin":50,"note":"Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. 19:00 og 50 kr. Sjekk hos O'Connor's.","url":"https://oconnors.no/alesund/event/pubquiz-hos-oconnors-alesund-g8ey3ii23t/","addedAt":"2026-10-19T12:59:56Z"},{"id":"livrore-2026-11-12-torsdagers-quiz-med-oystein-ok-liv-rore-m","date":"2026-11-12","time":"19:00","title":"Torsdager Quiz med Øystein Oksnes","venue":"Liv & Røre Moa","address":"Langelandsvegen 35, 6010 Ålesund","cat":"quiz","price":"50 kr","priceMin":50,"note":"Aldersgrense 20 år.","url":"https://livrore.no/event/torsdagers-quiz-med-oystein-oksnes-aemmm0arto/","addedAt":"2026-10-19T12:59:56Z"},{"id":"juleinspirert-tapasbuffet-hotel-1904","date":"2026-11-13","time":"18:00","title":"Juleinspirert tapasbuffét","venue":"Hotel 1904","address":"Løvenvoldgata 8, 6002 Ålesund","cat":"julebord","price":"995 kr","priceMin":995,"note":"Hver fredag og lørdag i november og desember, kl. 18–22. Prisen er per person; endelig meny kommer. Bestill bord på nett hos hotellet. Siste dato står ikke på siden, vi viser til og med 19. desember.","url":"https://1904.no/kalender/juleinspirert-tapas-buff%C3%A9t","moreShows":["2026-11-14T18:00","2026-11-20T18:00","2026-11-21T18:00","2026-11-27T18:00","2026-11-28T18:00","2026-12-04T18:00","2026-12-05T18:00","2026-12-11T18:00","2026-12-12T18:00","2026-12-18T18:00","2026-12-19T18:00"],"addedAt":"2026-10-26T20:53:51Z"},{"id":"sofia-emelia-robert-botn-drape-alesund-kaffehus","date":"2026-11-13","time":"18:30","title":"Sofia Emelia & Robert Botn","venue":"Dråpe Ålesund Kaffehus","address":"Storgata 4, 6002 Ålesund","cat":"konsert","price":"150 kr","priceMin":150,"url":"https://tikkio.com/events/66424-sofia-emelia-robert-botnxeno-sounds","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-47677-parken-kulturhus","date":"2026-11-13","time":"19:00","title":"Christine Koht","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"show","price":"450 kr","priceMin":450,"few":true,"url":"https://www.parkenkulturhus.no/program/47677-christine-koht/","addedAt":"2026-10-19T12:59:56Z"},{"id":"forum-artist-in-residence-uke-45-forum-alesund","date":"2026-11-13","time":"19:30","title":"Duo Araia","venue":"Forum Ålesund","address":"Kongensgate 24, 6002 Ålesund","cat":"konsert","note":"Dørene åpner 19.00.","url":"https://forumaalesund.no/program/artist-in-residence-uke-45","addedAt":"2026-10-19T12:59:56Z"},{"id":"beat-for-beat-inspirert-quiz-dampsentralen","date":"2026-11-13","time":"20:00","title":"BEAT FOR BEAT INSPIRERT QUIZ","venue":"Dampsentralen","cat":"quiz","price":"500 kr","priceMin":500,"url":"https://tikkio.com/events/67361","addedAt":"2026-11-04T12:00:26Z"},{"id":"julebord-pa-fabrikken-fabrikken-kulturscene","date":"2026-11-13","time":"20:00","title":"Julebord på Fabrikken","venue":"Fabrikken Kulturscene","cat":"julebord","price":"1350 kr","priceMin":1350,"note":"Julemat, dinnershow og fest. Prisen er per person. Dørene åpner 19.00. Flere forestillinger: 14. nov, 20. nov, 21. nov, 27. nov, 28. nov m.fl.","url":"https://billetto.no/e/julebord-pa-fabrikken-billetter-1994054","moreShows":["2026-11-14T20:00","2026-11-20T20:00","2026-11-21T20:00","2026-11-27T20:00","2026-11-28T20:00","2026-12-04T20:00","2026-12-05T20:00","2026-12-11T20:00","2026-12-12T20:00"],"addedAt":"2026-10-19T12:59:56Z"},{"id":"livrore-dj-liv-rore-moa","date":"2026-11-13","time":"23:00","title":"DJ hver helg","venue":"Liv & Røre Moa","address":"Langelandsvegen 35, 6010 Ålesund","cat":"klubb","note":"Nattklubb fredag og lørdag kl. 23–03, hver helg til 19. des. DJ-er: Sierra, Nic, Bigs og Hamy.","url":"https://livrore.no/dj-hver-helg-pa-liv-rore/","moreShows":["2026-11-14T23:00","2026-11-20T23:00","2026-11-21T23:00","2026-11-27T23:00","2026-11-28T23:00","2026-12-04T23:00","2026-12-05T23:00","2026-12-11T23:00","2026-12-12T23:00","2026-12-18T23:00","2026-12-19T23:00"],"addedAt":"2026-10-19T12:59:56Z"},{"id":"julebuffet-brasserie-normandie-scandic-parken","date":"2026-11-13","title":"Julebuffet i Brasserie Normandie","venue":"Scandic Parken","address":"Storgata 16, 6002 Ålesund","cat":"julebord","note":"Stor varm julebuffet, dessertbuffet og kaffe, og trubadur i lobbybaren om kvelden. Også 20., 21. og 27. nov og 4. og 11. des. Pris og klokkeslett står ikke på hotellets side; bestilling på e-post til Scandic Parken.","url":"https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026","moreShows":["2026-11-20","2026-11-21","2026-11-27","2026-12-04","2026-12-11"],"addedAt":"2026-10-26T20:53:51Z"},{"id":"afterwork-christmas-edition-quality-hotel-waterfront","date":"2026-11-13","title":"Afterwork – Christmas Edition","venue":"Quality Hotel Waterfront","cat":"julebord","price":"795 kr","priceMin":795,"note":"Juletapasbuffet med ribbe, pinnekjøtt, julepølser og kålrabistappe, pluss asiatisk ribbe, julesild, bolinhos med pinnekjøtt og mer, og dessertbuffet med sjokoladefontene. Fredager og lørdager til 12. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.","url":"https://www.strawberry.no/hotell/norge/alesund/quality-hotel-waterfront-alesund/pakketilbud/julebord/","moreShows":["2026-11-14","2026-11-20","2026-11-21","2026-11-27","2026-11-28","2026-12-04","2026-12-05","2026-12-11","2026-12-12"],"addedAt":"2026-10-26T21:12:29Z"},{"id":"viti-dans-for-unge-vaksne-aalesunda-sunnmore-museum","date":"2026-11-14","time":"12:00","title":"Dans for unge vaksne - Ålesund","venue":"Sunnmøre museum","address":"Museumsvegen 12, 6015 Ålesund","cat":"happening","url":"https://www.vitimusea.no/arrangement/dans-for-unge-vaksne-aalesunda","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-49079-parken-kulturhus","date":"2026-11-14","time":"15:00","title":"Vitenshitshow","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"barn","price":"320 kr","priceMin":320,"note":"Med Dennis Siva og Stian Sandø.","url":"https://www.parkenkulturhus.no/program/49079-vitenshitshow/","addedAt":"2026-10-19T12:59:56Z"},{"id":"sult-venterommet-terminalen","date":"2026-11-14","time":"19:00","title":"SULT","venue":"Venterommet, Terminalen","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"250 kr","priceMin":250,"note":"Rabatt: Studentbillett / ÅSS 179 kr.","url":"https://tikkio.com/events/66198-sult-venterommet-terminalen","addedAt":"2026-10-19T12:59:56Z"},{"id":"dj-hver-lordag-bryt-tapas","date":"2026-11-14","time":"21:00","title":"DJ Dadsh hver lørdag","venue":"Bryt Tapas","address":"Notenesgata 1, 6002 Ålesund","cat":"klubb","note":"DJ Dadsh spiller på Bryt Tapas hver lørdag fra kl. 21:00, fra 7. november til 19. desember. Bord kan bestilles hos Bryt.","url":"https://www.bryttapas.no/","moreShows":["2026-11-21T21:00","2026-11-28T21:00","2026-12-05T21:00","2026-12-12T21:00","2026-12-19T21:00"],"addedAt":"2026-11-05T21:18:22Z"},{"id":"klubb-e39-terminalen-byscene","date":"2026-11-14","time":"23:00","title":"KLUBB E39","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"klubb","price":"50 kr","priceMin":50,"url":"https://tikkio.com/events/67510-klubb-e39-terminalen","addedAt":"2026-11-11T18:02:32Z"},{"id":"lag-din-egen-nisse-hos-siws-keramikk-devoldfabrikken","date":"2026-11-15","time":"13:00","title":"Lag din egen nisse hos Siws keramikk","venue":"Devoldfabrikken","address":"Geilneset 16, 6030 Langevåg","cat":"happening","note":"Smånissekurs hos Siws keramikk: én nisse 200 kr, to for 300 kr. Påmelding på SMS (se arrangørens side). I Langevåg (Sula). Også kl. 14:00 og 15:00. Flere forestillinger: 19. nov.","url":"https://devoldfabrikken.no/hva-skjer/lag-din-egen-nisse-hos-siws-keramikk-2/","moreShows":["2026-11-15T14:00","2026-11-15T15:00","2026-11-19T15:00","2026-11-19T16:00","2026-11-19T17:00"],"addedAt":"2026-11-10T16:13:41Z"},{"id":"parken-50876-parken-kulturhus","date":"2026-11-15","time":"18:00","title":"Tonje Glimmerdal","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"Gratis","soldOut":true,"url":"https://www.parkenkulturhus.no/program/50876-tonje-glimmerdal/","moreShows":["2026-11-16T18:00"],"shows":[["2026-11-15T18:00","sold"],["2026-11-16T18:00","sold"]],"addedAt":"2026-10-22T12:10:15Z"},{"id":"julekortfotografering-med-fotograf-lene-cs-devoldfabrikken","date":"2026-11-15","title":"Julekortfotografering med fotograf Lene CS","venue":"Devoldfabrikken","address":"Geilneset 16, 6030 Langevåg","cat":"happening","price":"900 kr","priceMin":900,"note":"I Langevåg (Sula).","url":"https://devoldfabrikken.no/hva-skjer/julekortfotografering-med-fotograf-lene-cs/","addedAt":"2026-11-10T16:13:41Z"},{"id":"rigget-for-fremtiden-fagseminar-for-naeringslivet-dampsentra","date":"2026-11-17","time":"20:30","title":"Rigget for fremtiden - Fagseminar for næringslivet","venue":"Dampsentralen","cat":"konsert","url":"https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-6fypx-j3xch","addedAt":"2026-11-10T11:58:45Z"},{"id":"vin-til-julmat-m-anders-goransson-vino-bar","date":"2026-11-18","time":"18:00","title":"Vin til julemat med Anders Gøransson","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"1495 kr","priceMin":1495,"note":"Smaksprøver av pinnekjøtt, ribbe og lutefisk med fem viner valgt av kokk og sommelier Anders Gøransson, kl. 18–20.","url":"https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-18-11-2026-kl-1800/","addedAt":"2026-11-10T08:20:11Z"},{"id":"visekveld-pa-fabrikken-fabrikken-kulturscene","date":"2026-11-18","time":"20:00","title":"Visekveld på Fabrikken","venue":"Fabrikken Kulturscene","cat":"konsert","note":"Dørene åpner 19.00.","url":"https://billetto.no/e/visekveld-pa-fabrikken-onsdag-18-november-billetter-1993424","addedAt":"2026-10-19T12:59:56Z"},{"id":"livrore-2026-11-19-musikkquiz-med-oystein-liv-rore-moa","date":"2026-11-19","time":"18:00","title":"Musikkquiz med Øystein","venue":"Liv & Røre Moa","address":"Langelandsvegen 35, 6010 Ålesund","cat":"quiz","price":"75 kr","priceMin":75,"note":"Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.","url":"https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-whdzpxt35o/","addedAt":"2026-10-19T12:59:56Z"},{"id":"california-pinot-noir-smaking-med-jeanette-vino-bar","date":"2026-11-19","time":"18:00","title":"California Pinot Noir-smaking med Jeanette!","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"1495 kr","priceMin":1495,"url":"https://vinobar.no/product/california-pinot-noir-smaking-med-jeanette-%f0%9f%a5%82-19-11-2026-kl-1800/","addedAt":"2026-10-19T12:59:56Z"},{"id":"nar-barokken-moter-nord-sobra-scene","date":"2026-11-19","time":"18:30","title":"Når Barokken møter Nord","venue":"Sobra Scene","address":"Korsegata 6, 6002 Ålesund","cat":"konsert","price":"250 kr","priceMin":250,"note":"Rabatt: Under 20 100 kr.","url":"https://tikkio.com/events/65879-nar-barokken-moter-nord","addedAt":"2026-10-19T12:59:56Z"},{"id":"juleshow-pa-lovenvold-vol-4-lovenvold-theater","date":"2026-11-19","time":"18:30","title":"Juleshow på Løvenvold Vol. 4","venue":"Løvenvold Theater","address":"Løvenvoldgata 11, 6002 Ålesund","cat":"standup","price":"699 kr","priceMin":699,"note":"Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 20. nov, 21. nov, 26. nov, 27. nov, 28. nov m.fl.","url":"https://tikkio.com/events/62681-juleshow-pa-lovenvold-vol-4-1911","moreShows":["2026-11-20T17:30","2026-11-20T20:00","2026-11-21T17:30","2026-11-21T20:00","2026-11-26T17:30","2026-11-27T17:30","2026-11-27T20:00","2026-11-28T17:30","2026-11-28T20:00","2026-12-03T17:30","2026-12-04T17:30","2026-12-04T20:00","2026-12-05T17:30","2026-12-05T20:00","2026-12-10T17:30","2026-12-11T17:30","2026-12-11T20:00","2026-12-12T17:30","2026-12-12T20:00","2026-12-17T17:30","2026-12-18T17:30","2026-12-18T20:00"],"addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-51238-parken-kulturhus","date":"2026-11-20","time":"18:00","title":"Ålesund ballettskole / Kulturskolen","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"130–230 kr","priceMin":130,"note":"Flere forestillinger: 21. nov.","url":"https://www.parkenkulturhus.no/program/51238-alesund-ballettskole-kulturskolen/","moreShows":["2026-11-21T17:00"],"addedAt":"2026-10-28T16:02:24Z"},{"id":"oconnors-2026-11-20-pitch-en-venn-o-connor-s","date":"2026-11-20","time":"19:00","title":"Pitch en venn","venue":"O'Connor's","address":"Brunholmgata 10, 6004 Ålesund","cat":"konsert","url":"https://oconnors.no/alesund/event/pitch-en-venn-nykndcoaql/","addedAt":"2026-10-30T14:11:01Z"},{"id":"valkyrien-allstars-terminalen-byscene","date":"2026-11-20","time":"20:00","title":"Valkyrien Allstars","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"400 kr","priceMin":400,"note":"Rabatt: DNB-kunde 320 kr.","url":"https://tikkio.com/events/65468-valkyrien-allstars-terminalen-byscene","addedAt":"2026-10-19T12:59:56Z"},{"id":"julegilde-quality-hotel-alesund","date":"2026-11-20","title":"Julegilde på Skansekaia","venue":"Quality Hotel Ålesund","address":"Sorenskriver Bulls gate 7, 6002 Ålesund","cat":"julebord","price":"745 kr","priceMin":745,"note":"Buffet med varme, tradisjonelle retter og dessert, deretter DJ og dans. Fredager: også 27. nov, 4. og 11. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.","url":"https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/","moreShows":["2026-11-27","2026-12-04","2026-12-11"],"addedAt":"2026-10-26T21:12:29Z"},{"id":"viti-loerdagsomvisning-i-jugendstilsenteret-jugendstilsenter","date":"2026-11-21","time":"12:00","title":"Lørdagsomvisning i Jugendstilsenteret","venue":"Jugendstilsenteret og KUBE","address":"Apotekergata 16, Ålesund","cat":"happening","price":"120 kr","priceMin":120,"note":"Inkludert i inngangsbillett (120,-). Kunstnere og kunststudenter gratis.","url":"https://www.vitimusea.no/arrangement/loerdagsomvisning-i-jugendstilsenteret-","addedAt":"2026-10-19T12:59:56Z"},{"id":"juleverksted-alesund-cupcakekrans-thon-hotel-baronen","date":"2026-11-21","time":"12:45","title":"Juleverksted – cupcakekrans","venue":"Thon Hotel Baronen","address":"Kanalvegen 1, 6010 Ålesund","cat":"happening","price":"599 kr","priceMin":599,"note":"Rabatt: LITEN krans - 1 billett 349 kr.","url":"https://tikkio.com/events/66657-juleverksted-cupcakekrans","addedAt":"2026-10-19T12:59:56Z"},{"id":"viti-familiedag-design-din-egen-jugendplakat-jugendstilsente","date":"2026-11-21","time":"13:00","title":"Familiedag: Design din egen jugendplakat","venue":"Jugendstilsenteret og KUBE","address":"Apotekergata 16, Ålesund","cat":"barn","price":"120 kr","priceMin":120,"note":"Gratis for barn i følge med en voksen som betaler inngang (120,-)","url":"https://www.vitimusea.no/arrangement/familiedag-design-din-egen-jugendplakat","addedAt":"2026-10-19T12:59:56Z"},{"id":"jazzsirkelen-arnt-inge-saeter-2026","date":"2026-11-21","time":"14:00","title":"Jazzsirkelen: Jazzkafé med Arnt-Inge Sæter kvartett","venue":"Quality Hotel Ålesund","address":"Sorenskriver Bulls gate 7, 6002 Ålesund","cat":"konsert","price":"Pris hos arrangør","note":"Swingjazz fra Molde. Billetter i døra, pris står ikke oppgitt. Kilde: Bypatrioten.","url":"https://jazzsirkelen.no/","addedAt":"2026-11-01T21:47:04Z"},{"id":"kristiansen-spjelkavik-kirke","date":"2026-11-21","time":"16:30","title":"Kristiansen // Vemøy","venue":"Spjelkavik kirke","address":"Vestmoa 20, 6018 Ålesund","cat":"konsert","price":"218 kr","priceMin":218,"url":"https://tikkio.com/events/66594-kristiansen-vemoy","addedAt":"2026-10-19T12:59:56Z"},{"id":"julebuffet-thon-hotel-alesund","date":"2026-11-21","time":"20:00","title":"Julebuffet på Thon Hotel Ålesund","venue":"Thon Hotel Ålesund","address":"Molovegen 6, 6004 Ålesund","cat":"julebord","price":"795 kr","priceMin":795,"note":"Ribbe, pinnekjøtt, medisterkaker og julepølser, kalde retter og desserter, fra kl. 20. Barn 6–12 år 350 kr, under 6 år gratis. Bordbestilling: alesund@thon.no. Kilde: Bypatrioten.","url":"https://www.thonhotels.no/hoteller/norge/alesund/thon-hotel-alesund/","moreShows":["2026-11-27T20:00","2026-11-28T20:00","2026-12-04T20:00","2026-12-05T20:00"],"addedAt":"2026-11-10T08:20:11Z"},{"id":"rave-in-white-stisema-terminalen-byscene","date":"2026-11-21","time":"23:00","title":"Rave in White | Stisema","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"150 kr","priceMin":150,"note":"Rabatt: Early Bird 50 kr, ÅSS / Student-billett 100 kr.","url":"https://tikkio.com/events/67209-white-rave-stisema-terminalen","addedAt":"2026-10-28T09:59:36Z"},{"id":"klubb-damp-dampsentralen","date":"2026-11-21","time":"23:00","title":"KLUBB DAMP","venue":"Dampsentralen","cat":"klubb","note":"Flere forestillinger: 28. nov, 5. des, 12. des, 19. des.","url":"https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh","moreShows":["2026-11-28T23:00","2026-12-05T23:00","2026-12-12T23:00","2026-12-19T23:00"],"addedAt":"2026-10-19T12:59:56Z"},{"id":"julebuffet-quality-hotel-alesund","date":"2026-11-21","title":"Julebuffet på Skansekaia","venue":"Quality Hotel Ålesund","address":"Sorenskriver Bulls gate 7, 6002 Ålesund","cat":"julebord","price":"845 kr","priceMin":845,"note":"Stor julebuffet med varme og kalde klassikere, ribbe, julesild og desserter, og DJ. Lørdager: også 28. nov, 5. og 12. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.","url":"https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/","moreShows":["2026-11-28","2026-12-05","2026-12-12"],"addedAt":"2026-10-26T21:12:29Z"},{"id":"aafk-2026-11-22-aalesund-rosenborg","date":"2026-11-22","time":"17:00","title":"Aalesund – Rosenborg","venue":"Color Line Stadion","cat":"sport","note":"Fotball. Pris og billetter hos AaFK (TicketCo).","url":"https://aafk.ticketco.events/no/nb","addedAt":"2026-10-19T12:59:56Z","home":"Aalesund","away":"Rosenborg","league":"Eliteserien"},{"id":"adventsbasar-hessatun","date":"2026-11-23","time":"18:00","title":"Adventsbasar på Hessatun","venue":"Hessatun","address":"Hessavegen 65, 6006 Ålesund","cat":"happening","price":"Pris hos arrangør","note":"Nasjonalforeningen, Hessa Helselag, holder sin årlige adventsbasar. Kilde: Bypatrioten.","url":"https://www.facebook.com/Hessahelselag","addedAt":"2026-11-10T08:20:11Z"},{"id":"erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate","date":"2026-11-24","time":"18:00","title":"Erlend Gunstveit - A Very Nashville Christmas","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"konsert","price":"399 kr","priceMin":399,"url":"https://tikkio.com/events/66682-erlend-gunstveit-my-nashville-christmas-to-you","addedAt":"2026-10-19T12:59:56Z"},{"id":"inkluderingskveld-2026-dampsentralen","date":"2026-11-25","time":"18:00","title":"INKLUDERINGSKVELD 2026","venue":"Dampsentralen","cat":"happening","note":"Arrangert av Ålesund idrettsråd.","url":"https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk","addedAt":"2026-10-19T12:59:56Z"},{"id":"kontrabass-og-heimelaga-lyrikk-med-arne-hjeltnes-og-roger-al","date":"2026-11-25","time":"20:00","title":"Kontrabass og heimelaga lyrikk med Arne Hjeltnes og Roger Allan Ivin","venue":"Fabrikken Kulturscene","cat":"show","note":"Dørene åpner 19.00.","url":"https://billetto.no/e/arne-hjeltnes-og-roger-a-ivin-kontrabass-og-heimelaga-lyrikk-onsdag-25-november-billetter-1994042","addedAt":"2026-10-19T12:59:56Z"},{"id":"vinkurs-spania-rundt-vino-bar","date":"2026-11-26","time":"18:00","title":"Vinkurs Spania Rundt","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"995 kr","priceMin":995,"url":"https://vinobar.no/product/vinkurs-spania-rundt-26-11-2026-kl-1800/","addedAt":"2026-10-19T12:59:56Z"},{"id":"oconnors-2026-11-26-pubquiz-hos-o-8217-connor-8217-o-connor-","date":"2026-11-26","time":"19:00","title":"Pubquiz","venue":"O'Connor's","address":"Brunholmgata 10, 6004 Ålesund","cat":"quiz","price":"50 kr","priceMin":50,"note":"Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. 19:00 og 50 kr. Sjekk hos O'Connor's.","url":"https://oconnors.no/alesund/event/pubquiz-hos-oconnors-alesund-dsfnlinvjc/","addedAt":"2026-10-19T12:59:56Z"},{"id":"livrore-2026-11-26-torsdagers-quiz-med-oystein-ok-liv-rore-m","date":"2026-11-26","time":"19:00","title":"Torsdager Quiz med Øystein Oksnes","venue":"Liv & Røre Moa","address":"Langelandsvegen 35, 6010 Ålesund","cat":"quiz","price":"50 kr","priceMin":50,"note":"Aldersgrense 20 år.","url":"https://livrore.no/event/torsdagers-quiz-med-oystein-oksnes-neynxwdqrh/","addedAt":"2026-10-19T12:59:56Z"},{"id":"olsmaking-og-historiefortelling-pa-kaab-bryggeri-devoldfabri","date":"2026-11-26","time":"19:00","title":"Ølsmaking og historiefortelling på KaaB Bryggeri","venue":"Devoldfabrikken","address":"Geilneset 16, 6030 Langevåg","cat":"happening","price":"423 kr","priceMin":423,"few":true,"note":"Ølsmaking og historiefortelling i brygghuset til KaaB Bryggeri på Devoldfabrikken, kl. 19:00–23:00 (smakingen tar ca. 2 timer, ankomst 19:00–19:15). Billetter på Tikkio, begrenset antall. I Langevåg (Sula). 18 år.","url":"https://tikkio.com/events/67279-olsmaking-pa-kaab","moreShows":["2027-01-20T19:00"],"shows":[["2026-11-26T19:00","few"],["2027-01-20T19:00","few"]],"addedAt":"2026-11-10T16:13:41Z"},{"id":"chris-medina-eirik-naess-jul-hos-oss-alesund-kirke-2026","date":"2026-11-26","time":"19:00","title":"Chris Medina & Eirik Næss – «Jul Hos Oss»","venue":"Ålesund kirke","address":"Kirkegata 2, 6004 Ålesund","cat":"konsert","price":"475 kr","priceMin":475,"note":"Med Lars Støvland. Tiårsjubileum for juleturneen. Rabatt: Student 225 kr, barn under 16 år 75 kr.","url":"https://secure.tickster.com/no/lnnyulljpvcjp60/products","addedAt":"2026-11-06T11:41:20Z"},{"id":"parken-49740-parken-kulturhus","date":"2026-11-27","time":"18:00","title":"Putti Plutti Pott","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"barn","price":"350 kr","priceMin":350,"note":"Flere forestillinger: 28. nov, 29. nov, 3. des, 4. des, 5. des m.fl.","url":"https://www.parkenkulturhus.no/program/49740-putti-plutti-pott/","moreShows":["2026-11-28T13:00","2026-11-28T16:00","2026-11-29T13:00","2026-11-29T16:00","2026-12-03T18:00","2026-12-04T18:00","2026-12-05T13:00","2026-12-05T16:00","2026-12-06T13:00","2026-12-06T16:00"],"addedAt":"2026-10-19T12:59:56Z"},{"id":"forum-sca-regional-november-2026-forum-alesund","date":"2026-11-27","time":"18:00","title":"SCA regionale mesterskap","venue":"Forum Ålesund","address":"Kongensgate 24, 6002 Ålesund","cat":"happening","note":"Barista Championship fredag, Brewers Cup lørdag. Påmelding for deltakere via SCA Norway innen 22. november. Flere forestillinger: 28. nov.","url":"https://forumaalesund.no/program/sca-regional-november-2026","moreShows":["2026-11-28T18:00"],"addedAt":"2026-10-19T12:59:56Z"},{"id":"birk-bream-rumi-rafael-venterommet-terminalen","date":"2026-11-27","time":"19:00","title":"Birk Bream & Rumi Rafael","venue":"Venterommet, Terminalen","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"149 kr","priceMin":149,"url":"https://tikkio.com/events/67446-bream-rumi-rafael-venetrommet","addedAt":"2026-11-10T09:09:16Z"},{"id":"designernes-julemarked-devoldfabrikken","date":"2026-11-28","time":"10:00","title":"Designernes julemarked","venue":"Devoldfabrikken","address":"Geilneset 16, 6030 Langevåg","cat":"happening","note":"Julegaver og håndverk fra lokale designere. Lørdag 10–18, søndag 12–17 (tider: Bypatrioten). I Langevåg (Sula). Flere forestillinger: 29. nov.","url":"https://devoldfabrikken.no/hva-skjer/designernes-julemarked/","moreShows":["2026-11-29"],"addedAt":"2026-11-10T08:20:11Z"},{"id":"for-var-jord-borgund-kyrkje-2026","date":"2026-11-28","time":"18:00","title":"For vår Jord – julekonsert","venue":"Borgund Kirke","address":"Borgundgavlen 30, 6015 Ålesund","cat":"konsert","note":"Julekonsert med Anita Skorgan, Karoline Krüger og Sara Skorgan Teigen. Billetter på Eventim (pris ikke lesbar herfra). Kilde: kyrkja.alesund.no.","url":"https://www.eventim.no/artist/for-var-jord/","addedAt":"2026-11-10T08:33:30Z"},{"id":"the-good-the-bad-and-the-zugly-terminalen-byscene","date":"2026-11-28","time":"19:00","title":"The Good The Bad and The Zugly","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"425 kr","priceMin":425,"note":"Support: Daufødt. Rabatt: DNB-kunde 340 kr.","url":"https://tikkio.com/events/63692-the-good-the-bad-and-the-zugly-terminalen","addedAt":"2026-10-19T12:59:56Z"},{"id":"julebord-pa-ms-bruvik","date":"2026-11-28","time":"19:30","title":"Julebord på MS Bruvik","venue":"MS Bruvik","cat":"julebord","soldOut":true,"note":"Helaftens julebord på fjorden: tradisjonell julemat, dessert og kaffe. Fra Ålesund kl. 19:30, tilbake 23:30 (fra Langevåg kl. 19:00). Cruise Service melder at billettene ikke er i salg lenger.","url":"https://www.cruise-service.no/en/event-details-1/julebord-pa-ms-bruvik-2","addedAt":"2026-10-26T20:53:51Z"},{"id":"jul-pa-garden-med-nissebesok-sondag-29-11-26-borgund-dyreklu","date":"2026-11-29","time":"12:00","title":"Jul på gården med nissebesøk, søndag 29.11.26, Borgund Dyreklubb","venue":"Borgund Dyreklubb","cat":"klubb","price":"270 kr","priceMin":270,"note":"Rabatt: Årskort Enkeltbillett / Årskort må vises ved inngangen 39 kr, Enkeltbillett (barn/voksen) 91 kr.","url":"https://tikkio.com/events/67286-jul-pa-garden-med-nissebesok-sondag-291126","addedAt":"2026-11-01T08:08:26Z"},{"id":"zimmermann-julekonsert-lovenvold-theater","date":"2026-11-29","time":"17:00","title":"Zimmermann – julekonsert","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"konsert","price":"449 kr","priceMin":449,"soldOut":true,"url":"https://tikkio.com/events/66251-ekstra-zimmermann-julekonsert","moreShows":["2026-11-29T19:30"],"shows":[["2026-11-29T17:00","sold"],["2026-11-29T19:30","sold"]],"addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-43180-parken-kulturhus","date":"2026-11-29","time":"17:00","title":"Ålesund symfoniorkester – Adventskonsert","venue":"Ålesund kirke","address":"Kirkegata 2, 6004 Ålesund","cat":"konsert","price":"105–280 kr","priceMin":105,"note":"Konserten er i Ålesund kirke (billetter hos Parken). Nøtteknekkeren, Guilmants orgelsymfoni og julesanger med barnekoret 123.klang og allsang. Gratis for barn i følge med voksen.","url":"https://www.parkenkulturhus.no/program/43180-alesund-symfoniorkester/","addedAt":"2026-10-19T12:59:56Z"},{"id":"viti-foredrag-spor-etter-dei-foerste-sunnmoeringane-sunnmore","date":"2026-11-29","time":"17:00","title":"Foredrag: Spor etter dei første Sunnmøringane","venue":"Sunnmøre museum","address":"Museumsvegen 12, 6015 Ålesund","cat":"happening","url":"https://www.vitimusea.no/arrangement/foredrag-spor-etter-dei-foerste-sunnmoeringane","addedAt":"2026-11-10T14:26:19Z"},{"id":"mannskoret-varde-julekonsert-borgund-kirke","date":"2026-11-29","time":"17:30","title":"Mannskoret Varde Julekonsert","venue":"Borgund Kirke","address":"Borgundgavlen 30, 6015 Ålesund","cat":"konsert","price":"300 kr","priceMin":300,"url":"https://tikkio.com/events/67215-mannskoret-varde-julekonsert","addedAt":"2026-10-28T14:09:45Z"},{"id":"alesund-filmklubb-north-by-northwest-2026","date":"2026-11-30","time":"19:15","title":"Ålesund Filmklubb: North by Northwest","venue":"Løvenvold Theater","address":"Løvenvoldgata 11, 6002 Ålesund","cat":"show","price":"100 kr","priceMin":100,"note":"Hitchcock-klassiker, 12 år, norsk tekst. Student/under 18 år 50 kr. Dørene åpner 18:30. Medlemskap 150 kr (første film inkludert), sesongkort 400 kr. Kilde: Bypatrioten og Ålesund Filmklubb.","url":"https://www.alesundfilmklubb.com/","addedAt":"2026-11-01T21:47:04Z"},{"id":"notteknekkeren-arbeideren-kulturhus","date":"2026-12-01","time":"17:30","title":"Nøtteknekkeren","venue":"Arbeideren kulturhus","address":"Lorkenesgata 2, 6002 Ålesund","cat":"show","price":"299 kr","priceMin":299,"few":true,"note":"Premiere 1. desember.","url":"https://tikkio.com/events/66795-notteknekkeren-premiere-gr1","moreShows":["2026-12-02T17:30","2026-12-03T17:30","2026-12-04T17:30"],"shows":[["2026-12-01T17:30","sold"],["2026-12-02T17:30","sold"],["2026-12-03T17:30","few"],["2026-12-04T17:30","few"]],"addedAt":"2026-10-19T12:59:56Z"},{"id":"deilig-er-jorden-alesund-kirke-2026","date":"2026-12-01","time":"18:00","title":"Deilig er jorden","venue":"Ålesund kirke","address":"Kirkegata 2, 6004 Ålesund","cat":"konsert","note":"Førjulskonsert med kjente julesanger; 10-årsjubileum. Rein Alexander med Elisabeth Andreassen og Kim Rysstad. Billetter på Eventim.","url":"https://www.eventim.no/event/deilig-er-jorden-aalesund-kirke-21549755/","addedAt":"2026-10-27T07:56:21Z"},{"id":"vin-til-julmat-m-mindor-klauseth-vino-bar","date":"2026-12-02","time":"18:00","title":"Vin til julemat med Mindor Klauseth","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"1495 kr","priceMin":1495,"note":"Kokk Mindor Klauseth lager smaksprøver av pinnekjøtt, ribbe og lutefisk, og sommelier Øyvind Tveit har valgt fem viner til, kl. 18–20.","url":"https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-02-12-2026-kl-1800/","addedAt":"2026-11-10T08:20:11Z"},{"id":"julekonsert-med-allsang-volsdalen-kirke-2026","date":"2026-12-02","time":"19:00","title":"Julekonsert med allsang","venue":"Volsdalen kirke","address":"Borgundvegen 124, 6007 Ålesund","cat":"konsert","price":"Gratis","note":"Volsdalen Salme- og lovsangkor inviterer til tradisjonell julekonsert med allsang. Dørene åpner 18:00. Gratis kaffe og kaker i kirken og menighetshuset etterpå.","url":"https://www.volsdalen.menighet.no/","addedAt":"2026-10-30T13:23:27Z"},{"id":"fagdag-fiskeri-2026-dampsentralen","date":"2026-12-03","time":"08:30","title":"Fagdag fiskeri 2026","venue":"Dampsentralen","cat":"konsert","url":"https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-sxhy9","addedAt":"2026-11-10T11:58:45Z"},{"id":"viti-lansering-aarbok-for-sunnmoere-2026-102-aargang-sunnmor","date":"2026-12-03","time":"18:00","title":"Lansering: Årbok for Sunnmøre 2026, 102. årgang","venue":"Sunnmøre museum","address":"Museumsvegen 12, 6015 Ålesund","cat":"happening","price":"Gratis","url":"https://www.vitimusea.no/arrangement/lansering-aarbok-for-sunnmoere-2026-102-aargang","addedAt":"2026-11-10T08:20:11Z"},{"id":"livrore-2026-12-03-musikkquiz-med-oystein-liv-rore-moa","date":"2026-12-03","time":"18:00","title":"Musikkquiz med Øystein","venue":"Liv & Røre Moa","address":"Langelandsvegen 35, 6010 Ålesund","cat":"quiz","price":"75 kr","priceMin":75,"note":"Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.","url":"https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-xtcn6lg85c/","addedAt":"2026-10-19T12:59:56Z"},{"id":"julekonsert-spjelkavik-kyrkje-spjelkavik-kirke","date":"2026-12-04","time":"18:30","title":"Julekonsert i Spjelkavik kyrkje","venue":"Spjelkavik kirke","address":"Vestmoa 20, 6018 Ålesund","cat":"konsert","price":"375 kr","priceMin":375,"note":"Rabatt: Barn Spjelkavik 218 kr.","url":"https://tikkio.com/events/66724-julekonsert-spjelkavik-kyrkje","addedAt":"2026-10-19T12:59:56Z"},{"id":"julefest-for-danseglade-varde","date":"2026-12-04","time":"20:00","title":"Julefest for danseglade","venue":"Kulturhuset Varde","address":"Borgundvegen 393, 6015 Ålesund","cat":"happening","price":"300 kr","priceMin":300,"note":"Dans til Mona Jill Trio kl. 20–23:30, med spekemat. Swing, tango, svensk bugg eller linedance. Bindende påmelding på SMS (se arrangøren). Kilde: Bypatrioten.","url":"https://www.vardehuset.no/","addedAt":"2026-11-10T08:20:11Z"},{"id":"skruk-medan-vi-ventar-alesund-kirke-2026","date":"2026-12-04","time":"21:00","title":"SKRUK – Medan vi ventar","venue":"Ålesund kirke","address":"Kirkegata 2, 6004 Ålesund","cat":"konsert","price":"490 kr","priceMin":490,"note":"Rabatt: Student 250 kr. Barn under 12 år gratis.","url":"https://ebillett.no/skruk","addedAt":"2026-10-27T07:56:21Z"},{"id":"julemarked-hatlane-skole-2026","date":"2026-12-05","time":"11:00","title":"Julemarked på Hatlane skole","venue":"Hatlane skole","address":"Smedgarden 5, 6016 Ålesund","cat":"happening","price":"Gratis","note":"Kl. 11–16. Lokalt håndverk, kunst, design og lokalmat, kafé med julekaker. Arrangert av Hatlane skolekorps.","url":"https://www.hatlaneskolekorps.no/","addedAt":"2026-10-27T07:56:21Z"},{"id":"vi-syr-julepynt-alesund-bibliotek","date":"2026-12-05","time":"11:00","title":"Vi syr julepynt","venue":"Ålesund bibliotek","address":"Keiser Wilhelms gate 16, 6003 Ålesund","cat":"happening","price":"Pris hos arrangør","note":"Sy julepynt av restestoff og gamle juleduker, kl. 11–14. Kilde: Bypatrioten.","url":"https://alesundsbiblioteka.no/biblioteka/alesund/","addedAt":"2026-11-10T08:20:11Z"},{"id":"aafk-2026-12-05-aalesund-bodo-glimt","date":"2026-12-05","time":"16:00","title":"Aalesund – Bodø/Glimt","venue":"Color Line Stadion","cat":"sport","note":"Fotball. Pris og billetter hos AaFK (TicketCo).","url":"https://aafk.ticketco.events/no/nb","addedAt":"2026-10-19T12:59:56Z","home":"Aalesund","away":"Bodø/Glimt","league":"Eliteserien"},{"id":"christmas-party-dampsentralen","date":"2026-12-05","time":"18:00","title":"CHRISTMAS PARTY","venue":"Dampsentralen","cat":"julebord","price":"999 kr","priceMin":999,"note":"Julebord: kjøp bord hos Dampsentralen.","url":"https://tikkio.com/events/66419","addedAt":"2026-10-19T12:59:56Z"},{"id":"kamelen-terminalen-byscene","date":"2026-12-05","time":"20:00","title":"Kamelen","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"490 kr","priceMin":490,"note":"Rabatt: ÅSS / Studentbillett 390 kr, DNB-kunde 392 kr.","url":"https://tikkio.com/events/65855-kamelen-terminalen-byscene","addedAt":"2026-10-19T12:59:56Z"},{"id":"parkens-store-julebord-beatles-scandic-parken","date":"2026-12-05","title":"Parkens store julebord – Beatles-kveld","venue":"Scandic Parken","address":"Storgata 16, 6002 Ålesund","cat":"julebord","note":"Beatles-tributeband i Bankettsalen. Prisen inkluderer underholdning, stor varm julematbuffet, kaldtbord med blant annet spekemat og sjømat, kake- og dessertbord og kaffe. Pris og klokkeslett står ikke på hotellets side; bestilling på e-post til Scandic Parken.","url":"https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026","addedAt":"2026-10-26T20:53:51Z"},{"id":"julemarked-spjelkavikhallen-2026","date":"2026-12-05","title":"Julemarked i Spjelkavika","venue":"Spjelkavikhallen","cat":"happening","price":"Gratis","note":"«Jul i Spjelkavika»: julemarked med over 40 utstillere i fjor, i Spjelkavikhallen ved Spjelkavik ungdomsskole, med Spjelkavik Røde Kors. Også søndag 6. des. Åpningstider står ikke i kunngjøringen.","url":"https://spjelkavika.no/2026/08/31/inviterer-til-julemarked-2026/","moreShows":["2026-12-06"],"addedAt":"2026-10-27T07:56:21Z"},{"id":"viti-foerjulssondag-paa-sunnmore-museum-sunnmore-museum","date":"2026-12-06","time":"12:00","title":"Førjulssøndag på Sunnmøre museum","venue":"Sunnmøre museum","address":"Museumsvegen 12, 6015 Ålesund","cat":"happening","price":"150 kr","priceMin":150,"url":"https://www.vitimusea.no/arrangement/foerjulssondag-paa-sunnmore-museum","addedAt":"2026-11-03T13:17:40Z"},{"id":"familiejulebord-quality-hotel-alesund","date":"2026-12-06","time":"14:00","title":"Familiejulebord på Skansekaia","venue":"Quality Hotel Ålesund","address":"Sorenskriver Bulls gate 7, 6002 Ålesund","cat":"julebord","price":"625 kr","priceMin":625,"note":"Kl. 14–17, også 13. des. Voksne 625 kr, barn 4–11 år 295 kr, gratis for barn 0–3 år. Med juleverksted for barna og besøk av julenissen.","url":"https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/","moreShows":["2026-12-13T14:00"],"addedAt":"2026-10-26T21:12:29Z"},{"id":"marie-lovas-duo-lovenvold-theater","date":"2026-12-06","time":"17:00","title":"Marie Løvås Duo","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"konsert","price":"299 kr","priceMin":299,"url":"https://tikkio.com/events/66907-marie-lovas","addedAt":"2026-10-19T12:59:56Z"},{"id":"sobra-trygve-seim-og-andreas-utnem-sobra-scene","date":"2026-12-06","time":"20:00","title":"Trygve Seim og Andreas Utnem","venue":"Sobra Scene","address":"Korsegata 6, 6002 Ålesund","cat":"konsert","note":"Saxofon og piano: improvisasjoner over julesanger fra hele verden. Dørene åpner 19:30. Bypatrioten oppgir 300 kr.","url":"https://billetto.no/e/trygve-seim-andreas-utnem-billetter-2040778","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-48003-parken-kulturhus","date":"2026-12-08","time":"19:00","title":"Ylvis & Calle","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"show","price":"680 kr","priceMin":680,"few":true,"url":"https://www.parkenkulturhus.no/program/48003-ylvis-calle/","moreShows":["2026-12-08T21:00"],"shows":[["2026-12-08T19:00","few"],["2026-12-08T21:00","few"]],"addedAt":"2026-10-19T12:59:56Z"},{"id":"julekonsert-spjelkavik-kirke-gjallarhorn-2026","date":"2026-12-08","time":"19:00","title":"Julekonsert i Spjelkavik kirke","venue":"Spjelkavik kirke","address":"Vestmoa 20, 6018 Ålesund","cat":"konsert","price":"Pris hos arrangør","note":"Gjallarhorn Brass med Sunnmøre Senior Storband og Nørvøy Ungdomskorps som gjester. Billetter selges i døra, pris står ikke oppgitt. Kilde: Bypatrioten.","url":"https://www.spjelkavik.kyrkjelyd.no/","addedAt":"2026-11-01T21:47:04Z"},{"id":"neon-ion-venterommet-terminalen","date":"2026-12-09","time":"18:00","title":"Neon Ion","venue":"Venterommet, Terminalen","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"199 kr","priceMin":199,"url":"https://tikkio.com/events/67495-neon-ion-venterommet","addedAt":"2026-11-11T10:10:27Z"},{"id":"parken-45560-parken-kulturhus","date":"2026-12-09","time":"19:00","title":"Emil Solli-Tangen","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"625 kr","priceMin":625,"url":"https://www.parkenkulturhus.no/program/45560-emil-solli-tangen/","addedAt":"2026-10-19T12:59:56Z"},{"id":"juleoperapub-fabrikken-kulturscene","date":"2026-12-09","time":"20:00","title":"Juleoperapub","venue":"Fabrikken Kulturscene","cat":"konsert","note":"Dørene åpner 19.00.","url":"https://billetto.no/e/juleoperapub-onsdag-6-desember-billetter-1993418","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-44479-parken-kulturhus","date":"2026-12-10","time":"19:00","title":"Alexandra Rotan","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"650 kr","priceMin":650,"few":true,"url":"https://www.parkenkulturhus.no/program/44479-alexandra-rotan/","addedAt":"2026-10-19T12:59:56Z"},{"id":"oconnors-2026-12-10-pubquiz-hos-o-8217-connor-8217-o-connor-","date":"2026-12-10","time":"19:00","title":"Pubquiz","venue":"O'Connor's","address":"Brunholmgata 10, 6004 Ålesund","cat":"quiz","price":"50 kr","priceMin":50,"note":"Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. 19:00 og 50 kr. Sjekk hos O'Connor's.","url":"https://oconnors.no/alesund/event/pubquiz-hos-oconnors-alesund-vlacrugxjg/","addedAt":"2026-10-19T12:59:56Z"},{"id":"livrore-2026-12-10-torsdagers-quiz-med-oystein-ok-liv-rore-m","date":"2026-12-10","time":"19:00","title":"Torsdager Quiz med Øystein Oksnes","venue":"Liv & Røre Moa","address":"Langelandsvegen 35, 6010 Ålesund","cat":"quiz","price":"50 kr","priceMin":50,"note":"Aldersgrense 20 år.","url":"https://livrore.no/event/torsdagers-quiz-med-oystein-oksnes-wdeywo3ne8/","addedAt":"2026-10-19T12:59:56Z"},{"id":"den-store-julekonserten-kulturskolen","date":"2026-12-11","time":"18:30","title":"Den store julekonserten – Ålesund kulturskole","venue":"Spjelkavik kirke","address":"Vestmoa 20, 6018 Ålesund","cat":"konsert","price":"Gratis","note":"Elever fra kulturskolen med sang, klaver, blås, stryk, gitar og perkusjon, solo og i samspill, kl. 18:30–20. Gratis inngang. Kilde: Bypatrioten.","url":"https://www.spjelkavik.kyrkjelyd.no/","addedAt":"2026-11-10T08:20:11Z"},{"id":"parken-49005-parken-kulturhus","date":"2026-12-11","time":"19:00","title":"Gjermund Larsen trio","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"390 kr","priceMin":390,"url":"https://www.parkenkulturhus.no/program/49005-gjermund-larsen-trio/","addedAt":"2026-10-19T12:59:56Z"},{"id":"leprous-terminalen-byscene","date":"2026-12-11","time":"20:00","title":"Leprous","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"530 kr","priceMin":530,"note":"18 år. Rabatt: DNB-kunde 424 kr.","url":"https://tikkio.com/events/64795-leprous-terminalen-byscene","addedAt":"2026-10-19T12:59:56Z"},{"id":"julemarkedet-i-alesund-sentrum-2026","date":"2026-12-12","time":"11:00","title":"Julemarkedet i Ålesund sentrum","venue":"Korsatunnelen","address":"6003 Ålesund","cat":"happening","price":"Gratis","note":"Bypatriotens store julemarked med lokal mat, håndverk og aktiviteter for store og små, og gratis bytog. Lørdag kl. 11–16, søndag 13. des kl. 13–16.","url":"https://bypatrioten.com/event/julemarkedet-i-alesund-sentrum-2026/","moreShows":["2026-12-13T13:00"],"addedAt":"2026-10-27T07:56:21Z"},{"id":"den-vesle-bygda-som-gloymde-at-det-var-jul-arbeideren-2026","date":"2026-12-12","time":"12:00","title":"Den vesle bygda som gløymde at det var jul","venue":"Arbeideren kulturhus","address":"Lorkenesgata 2, 6002 Ålesund","cat":"barn","price":"Pris hos arrangør","note":"Teatret Vårt, familieforestilling fra 4 år, ca. 45 min, basert på Alf Prøysen. Del av Jul på Arbeideren. Også lørdag 12. des kl. 14:00 og søndag 13. des kl. 12:00 og 14:00.","url":"https://teatretvart.no/program/den-vesle-bygda-som-gloymde-at-det-var-jul","moreShows":["2026-12-12T14:00","2026-12-13T12:00","2026-12-13T14:00"],"addedAt":"2026-10-30T13:23:27Z"},{"id":"viti-familiedag-jul-i-apotekergaarden-jugendstilsenteret-og-","date":"2026-12-12","time":"13:00","title":"Familiedag: Jul i Apotekergården","venue":"Jugendstilsenteret og KUBE","address":"Apotekergata 16, Ålesund","cat":"barn","price":"120 kr","priceMin":120,"note":"Gratis for barn i følge med en voksen som betaler inngang (120,-)","url":"https://www.vitimusea.no/arrangement/familiedag-jul-i-apotekergaarden","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-49425-parken-kulturhus","date":"2026-12-12","time":"19:00","title":"Velvet Christmas","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"205–380 kr","priceMin":205,"few":true,"url":"https://www.parkenkulturhus.no/program/49425-velvet-christmas/","addedAt":"2026-10-19T12:59:56Z"},{"id":"parkens-store-julebord-abba-scandic-parken","date":"2026-12-12","title":"Parkens store julebord – ABBA-kveld","venue":"Scandic Parken","address":"Storgata 16, 6002 Ålesund","cat":"julebord","soldOut":true,"note":"Absolute Abba i Bankettsalen, med julematbuffet, kaldtbord, dessertbord og kaffe. Hotellet melder at kvelden er full.","url":"https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026","addedAt":"2026-10-26T20:53:51Z"},{"id":"julekonsert-med-velledalskoret-og-posh-trio-lovenvold-theate","date":"2026-12-13","time":"17:00","title":"Julekonsert med Velledalskoret og POSH trio","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"konsert","price":"300 kr","priceMin":300,"url":"https://tikkio.com/events/67191-julekonsert-med-velledalskoret-og-posh-trio","addedAt":"2026-10-28T11:55:09Z"},{"id":"parken-44202-parken-kulturhus","date":"2026-12-13","time":"19:00","title":"Christel Alsos","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"670 kr","priceMin":670,"url":"https://www.parkenkulturhus.no/program/44202-christel-alsos/","addedAt":"2026-10-19T12:59:56Z"},{"id":"alesund-filmklubb-perfect-days-2026","date":"2026-12-14","time":"19:15","title":"Ålesund Filmklubb: Perfect Days","venue":"Løvenvold Theater","address":"Løvenvoldgata 11, 6002 Ålesund","cat":"show","price":"100 kr","priceMin":100,"note":"Film av Wim Wenders, tillatt for alle. Student/under 18 år 50 kr. Dørene åpner 18:30. Medlemskap 150 kr (første film inkludert), sesongkort 400 kr. Kilde: Bypatrioten og Ålesund Filmklubb.","url":"https://www.alesundfilmklubb.com/","addedAt":"2026-11-01T21:47:04Z"},{"id":"viti-babyomvisning-i-jugendstilsenteret-jugendstilsenteret-o","date":"2026-12-16","time":"12:00","title":"Mini på museet: Babyomvisning i Jugendstilsenteret","venue":"Jugendstilsenteret og KUBE","address":"Apotekergata 16, Ålesund","cat":"barn","price":"60 kr","priceMin":60,"url":"https://www.vitimusea.no/arrangement/babyomvisning-i-jugendstilsenteret","addedAt":"2026-10-19T12:59:56Z"},{"id":"til-deg-som-venter-kl-18-00-venterommet-terminalen","date":"2026-12-16","time":"17:30","title":"TIL DEG SOM VENTER – Kl. 18:00","venue":"Venterommet, Terminalen","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"200 kr","priceMin":200,"soldOut":true,"note":"Rabatt: Billett barn/ungdom 100 kr.","url":"https://tikkio.com/events/67159-mia-og-emilie-venterommet","addedAt":"2026-10-30T11:54:01Z"},{"id":"parken-44201-parken-kulturhus","date":"2026-12-16","time":"19:00","title":"Adam Douglas","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"670 kr","priceMin":670,"url":"https://www.parkenkulturhus.no/program/44201-adam-douglas/","addedAt":"2026-10-19T12:59:56Z"},{"id":"julevisekveld-pa-fabrikken-fabrikken-kulturscene","date":"2026-12-16","time":"20:00","title":"Julevisekveld på Fabrikken","venue":"Fabrikken Kulturscene","cat":"konsert","note":"Dørene åpner 19.00.","url":"https://billetto.no/e/julevisekveld-pa-fabrikken-onsdag-16-desember-billetter-1993425","addedAt":"2026-10-19T12:59:56Z"},{"id":"til-deg-som-venter-kl-20-00-venterommet-terminalen","date":"2026-12-16","time":"20:30","title":"TIL DEG SOM VENTER – Kl. 20:00","venue":"Venterommet, Terminalen","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"200 kr","priceMin":200,"soldOut":true,"note":"Rabatt: Billett barn/ungdom 100 kr.","url":"https://tikkio.com/events/67312-til-deg-som-venter-andre-konsert-venterommet","addedAt":"2026-11-06T10:14:44Z"},{"id":"parken-43586-parken-kulturhus","date":"2026-12-17","time":"18:00","title":"Christmas With Nordic Tenors 2026","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"690 kr","priceMin":690,"url":"https://www.parkenkulturhus.no/program/43586-christmas-with-nordic-tenors-2026/","addedAt":"2026-10-19T12:59:56Z"},{"id":"livrore-2026-12-17-musikkquiz-med-oystein-liv-rore-moa","date":"2026-12-17","time":"18:00","title":"Musikkquiz med Øystein","venue":"Liv & Røre Moa","address":"Langelandsvegen 35, 6010 Ålesund","cat":"quiz","price":"75 kr","priceMin":75,"note":"Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.","url":"https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-pm20s7yfwv/","addedAt":"2026-10-19T12:59:56Z"},{"id":"bigbang-terminalen-byscene","date":"2026-12-17","time":"20:00","title":"Bigbang","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"520 kr","priceMin":520,"note":"Rabatt: Kulturtilbud 364 kr, DNB-kunde 416 kr.","url":"https://tikkio.com/events/64530-bigbang-terminalen-byscene","addedAt":"2026-10-19T12:59:56Z"},{"id":"raindogs-celebrating-tom-waits-fabrikken-kulturscene","date":"2026-12-17","time":"20:00","title":"Raindogs – celebrating Tom Waits","venue":"Fabrikken Kulturscene","cat":"konsert","note":"Dørene åpner 19.00.","url":"https://billetto.no/e/raindogs-celebrating-tom-waits-fabrikken-17-desember-billetter-1921343","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-46011-parken-kulturhus","date":"2026-12-18","time":"19:00","title":"Eva Weel Skram","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"655 kr","priceMin":655,"few":true,"url":"https://www.parkenkulturhus.no/program/46011-eva-weel-skram/","addedAt":"2026-10-19T12:59:56Z"},{"id":"quiz-pa-damp-dampsentralen","date":"2026-12-18","time":"19:00","title":"QUIZ PÅ DAMP","venue":"Dampsentralen","cat":"quiz","price":"400 kr","priceMin":400,"url":"https://tikkio.com/events/67015","addedAt":"2026-10-19T12:59:56Z"},{"id":"hjem-til-jul-alesund-kirke-2026","date":"2026-12-18","time":"19:00","title":"Hjem til jul","venue":"Ålesund kirke","address":"Kirkegata 2, 6004 Ålesund","cat":"konsert","price":"150 kr","priceMin":150,"note":"Julekonsert med lokale sangere og musikere, i samarbeid med Kirkens Bymisjon. Også lørdag 19. des kl. 16:00 og 19:00. Pris 150 kr pluss avgift. Dørene åpner ca. 60 min før.","url":"https://billetto.no/e/hjem-til-jul-alesund-kirke-billetter-1988046","moreShows":["2026-12-19T16:00","2026-12-19T19:00"],"addedAt":"2026-10-27T07:56:21Z"},{"id":"haakons-julequiz-fabrikken-kulturscene","date":"2026-12-18","time":"20:00","title":"Haakons Julequiz","venue":"Fabrikken Kulturscene","cat":"quiz","note":"Dørene åpner 19.00.","url":"https://billetto.no/e/haakons-julequiz-fredag-18-desember-billetter-1964344","addedAt":"2026-10-19T12:59:56Z"},{"id":"julematmarked-pa-devoldfabrikken-devoldfabrikken","date":"2026-12-19","time":"11:00","title":"Julematmarked på Devoldfabrikken","venue":"Devoldfabrikken","address":"Geilneset 16, 6030 Langevåg","cat":"happening","note":"Lokalmat direkte fra produsentene: kaffe, bakst, kjøtt, grønnsaker og mer. Lørdag 11–16, søndag 12–17. I Langevåg (Sula). Flere forestillinger: 20. des.","url":"https://devoldfabrikken.no/hva-skjer/julematmarked-pa-devoldfabrikken/","moreShows":["2026-12-20T12:00"],"addedAt":"2026-11-10T08:20:11Z"},{"id":"sparkling-afternoon-vino-bar","date":"2026-12-19","time":"15:00","title":"Sparkling Afternoon","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"995 kr","priceMin":995,"url":"https://vinobar.no/product/sparkling-afternoon-19-12-2026-kl-1500/","addedAt":"2026-10-19T12:59:56Z"},{"id":"darling-west-juleturne-26-lovenvold-theater","date":"2026-12-19","time":"16:00","title":"Darling West – juleturné","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"konsert","price":"520 kr","priceMin":520,"url":"https://tikkio.com/events/66944-ekstrakonsert-darling-west-juleturne-26","moreShows":["2026-12-19T19:00"],"shows":[["2026-12-19T16:00",""],["2026-12-19T19:00","sold"]],"addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-48634-parken-kulturhus","date":"2026-12-19","time":"19:00","title":"Anita Valderhaug m/gjester","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"450 kr","priceMin":450,"url":"https://www.parkenkulturhus.no/program/48634-anita-valderhaug-m-gjester/","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-46386-parken-kulturhus","date":"2026-12-20","time":"18:00","title":"Snowing on my Piano","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"450 kr","priceMin":450,"url":"https://www.parkenkulturhus.no/program/46386-snowing-on-my-piano/","addedAt":"2026-10-19T12:59:56Z"},{"id":"egil-olsen-lovenvold-theater","date":"2026-12-20","time":"19:00","title":"Egil Olsen","venue":"Løvenvold Theater","address":"Løvenvoldgata 11, 6002 Ålesund","cat":"konsert","price":"399 kr","priceMin":399,"url":"https://tikkio.com/events/67162-egil-olsen-julekonsert","addedAt":"2026-10-28T11:55:09Z"},{"id":"cowork-sunnmore-2026-dampsentralen","date":"2026-12-21","time":"08:00","title":"Cowork Sunnmøre 2026","venue":"Dampsentralen","cat":"konsert","url":"https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-bp7tw-r3emt-78w9k-k7ttk","addedAt":"2026-11-10T11:58:45Z"},{"id":"romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby","date":"2026-12-26","time":"20:00","title":"Romjulsdans med Steinar Engelbrektson og Sissel Lunde Sundby","venue":"Quality Hotel Ålesund","address":"Sorenskriver Bulls gate 7, 6002 Ålesund","cat":"happening","price":"380 kr","priceMin":380,"url":"https://tikkio.com/events/66898-romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby","addedAt":"2026-10-19T12:59:56Z"},{"id":"den-store-romjulsfesten-2-juledag-fabrikken-kulturscene","date":"2026-12-26","time":"21:00","title":"Den store romjulsfesten – 2. juledag","venue":"Fabrikken Kulturscene","cat":"konsert","note":"Dørene åpner 19.00.","url":"https://billetto.no/e/den-store-romjulsfesten-billetter-1933953","addedAt":"2026-10-19T12:59:56Z"},{"id":"klubb-damp-2-juledag-dampsentralen","date":"2026-12-26","time":"22:00","title":"KLUBB DAMP 2.JULEDAG","venue":"Dampsentralen","cat":"klubb","url":"https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-bp7tw-r3emt-78w9k-w27fw","addedAt":"2026-10-19T12:59:56Z"},{"id":"vassendgutane-terminalen-byscene","date":"2026-12-27","time":"20:00","title":"Vassendgutane","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"624 kr","priceMin":624,"note":"Rabatt: DNB-kunde 499 kr.","url":"https://tikkio.com/events/65476-vassendgutane-terminalen-byscene","addedAt":"2026-10-19T12:59:56Z"},{"id":"vinkurs-engelske-bobler-vino-bar","date":"2026-12-28","time":"18:00","title":"Vinkurs Engelske bobler!","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"995 kr","priceMin":995,"url":"https://vinobar.no/product/vinkurs-engelske-bobler-28-12-2026-kl-18-00/","addedAt":"2026-10-19T12:59:56Z"},{"id":"e39-vol-5-nyttars-molo-molo","date":"2026-12-31","time":"22:00","title":"E39 - Vol.5 Nyttårs MOLO","venue":"MOLO","address":"Keiser Wilhelms g. 2B, 6003 Ålesund","cat":"konsert","price":"250 kr","priceMin":250,"few":true,"note":"Rabatt: PRESALE BILLETTER 180 kr.","url":"https://tikkio.com/events/67324-e39-vol5-nyttars-molo","addedAt":"2026-11-02T16:13:47Z"},{"id":"parken-45587-parken-kulturhus","date":"2027-01-07","time":"19:00","title":"John Hammersmark","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"show","price":"445–545 kr","priceMin":445,"url":"https://www.parkenkulturhus.no/program/45587-john-hammersmark/","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-47759-parken-kulturhus","date":"2027-01-13","time":"19:00","title":"Ny dato! Tuva & Ronny","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"480 kr","priceMin":480,"url":"https://www.parkenkulturhus.no/program/47759-ny-dato-tuva-ronny/","addedAt":"2026-10-19T12:59:56Z"},{"id":"musikkprat-med-musikkprisen-panelsamtale-med-juryen-venterom","date":"2027-01-14","time":"18:00","title":"Musikkprat med Musikkprisen, panelsamtale med juryen","venue":"Venterommet, Terminalen","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","url":"https://tikkio.com/events/67343-bransjeprat-med-musikkprisen-panelsamtale-med-juryen-terminalen-byscene","addedAt":"2026-11-03T13:48:40Z"},{"id":"parken-49634-parken-kulturhus","date":"2027-01-14","time":"19:00","title":"Odd Nordstoga","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"655 kr","priceMin":655,"few":true,"url":"https://www.parkenkulturhus.no/program/49634-odd-nordstoga/","addedAt":"2026-10-19T12:59:56Z"},{"id":"finale-musikkprisen-2026-terminalen-byscene","date":"2027-01-15","time":"18:00","title":"Finale Musikkprisen 2026","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"150 kr","priceMin":150,"url":"https://tikkio.com/events/67344-finale-musikkprisen-2026-terminalen-byscene","addedAt":"2026-11-03T13:48:40Z"},{"id":"parken-49424-parken-kulturhus","date":"2027-01-15","time":"19:00","title":"The Show Must Go On – Åge Sten Nilsen","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"show","price":"595 kr","priceMin":595,"few":true,"url":"https://www.parkenkulturhus.no/program/49424-the-show-must-go-on/","addedAt":"2026-10-19T12:59:56Z"},{"id":"introduksjon-i-vinens-verden-vino-bar","date":"2027-01-16","time":"16:00","title":"Introduksjon i vinens verden","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"795 kr","priceMin":795,"url":"https://vinobar.no/product/introduksjon-i-vinens-verden-16-01-2027-kl-16-00/","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-51384-parken-kulturhus","date":"2027-01-17","time":"18:00","title":"Ole Reinlund","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"385 kr","priceMin":385,"url":"https://www.parkenkulturhus.no/program/51384-ole-reinlund/","addedAt":"2026-11-06T19:59:11Z"},{"id":"vinkurs-med-tema-nizza-docg-vino-bar","date":"2027-01-22","time":"18:00","title":"Vinkurs med Tema NIZZA DOCG","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"795 kr","priceMin":795,"url":"https://vinobar.no/product/vinkurs-med-tema-nizza-docg-22-01-2027-kl-1800/","addedAt":"2026-10-19T12:59:56Z"},{"id":"slomosa-terminalen-byscene","date":"2027-01-22","time":"20:00","title":"Slomosa","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"420 kr","priceMin":420,"note":"Rabatt: DNB-kunde 336 kr.","url":"https://tikkio.com/events/66201-slomosa-terminalen","addedAt":"2026-10-19T12:59:56Z"},{"id":"vinsmaking-m-foredrag-om-keiser-wilhelms-vino-bar","date":"2027-01-23","time":"12:00","title":"Vinsmaking m/foredrag om Keiser Wilhelms","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"995 kr","priceMin":995,"url":"https://vinobar.no/product/vinsmaking-m-foredrag-om-keiser-wilhelms-23-01-2027-kl-1200/","addedAt":"2026-10-19T12:59:56Z"},{"id":"hoyt-lavt-badesken-og-rune-nilson-lovenvold-theater","date":"2027-01-23","time":"18:00","title":"Høyt & Lavt – BAdesKen og Rune Nilson","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"standup","price":"495 kr","priceMin":495,"url":"https://tikkio.com/events/66356-hoyt-lavt-badesken-og-rune-nilson","addedAt":"2026-10-19T12:59:56Z"},{"id":"aktiv-dodshjelp-terminalen-byscene","date":"2027-01-23","time":"19:00","title":"Aktiv Dödshjelp","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"375 kr","priceMin":375,"note":"Rabatt: DNB-kunde 300 kr.","url":"https://tikkio.com/events/64253-aktiv-dodshjelp-terminalen-byscene","addedAt":"2026-10-19T12:59:56Z"},{"id":"baerre-bjarne-et-musikalsk-standupshow-lovenvold-theater","date":"2027-01-29","time":"18:00","title":"«Bærre Bjarne» – musikalsk standupshow","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"standup","price":"599 kr","priceMin":599,"url":"https://tikkio.com/events/65985-baerre-bjarne-bjarne-brondbo","addedAt":"2026-10-19T12:59:56Z"},{"id":"alesund-bobler-fabrikken-kulturscene","date":"2027-01-30","time":"13:00","title":"Ålesund bobler!","venue":"Fabrikken Kulturscene","cat":"happening","price":"995 kr","priceMin":995,"note":"Smaking av musserende vin fra over 20 importører og produsenter. Arrangert av Vino Bar og Fabrikken Kulturscene.","url":"https://vinobar.no/product/alesund-bobler-lordag-30-01-2027-kl-1300/","moreShows":["2027-01-30T18:00"],"shows":[["2027-01-30T13:00",""],["2027-01-30T18:00","sold"]],"addedAt":"2026-11-01T21:47:04Z"},{"id":"humorgalla-pa-lovenvold-theater-lovenvold-theater","date":"2027-01-30","time":"17:30","title":"Humorgalla på Løvenvold Theater","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"standup","price":"435 kr","priceMin":435,"note":"Rabatt: Early Bird 395 kr.","url":"https://tikkio.com/events/66909-humorgalla-pa-lovenvold-theater","addedAt":"2026-10-21T06:13:20Z"},{"id":"iver-kleive-knut-reiersrud-vidunderligst-av-alt-pa-jord-spje","date":"2027-02-04","time":"18:30","title":"Iver Kleive & Knut Reiersrud – «Vidunderligst av alt på jord»","venue":"Spjelkavik kirke","address":"Vestmoa 20, 6018 Ålesund","cat":"konsert","price":"428 kr","priceMin":428,"note":"Redusert billett 270 kr.","url":"https://tikkio.com/events/66980-iver-kleive-knut-reiersrud-vidunderligst-av-alt-pa-jord","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-49087-parken-kulturhus","date":"2027-02-05","time":"19:00","title":"Finn tre feil","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"show","price":"500–590 kr","priceMin":500,"few":true,"url":"https://www.parkenkulturhus.no/program/49087-finn-tre-feil/","addedAt":"2026-10-19T12:59:56Z"},{"id":"ingen-kim-ingen-kos-en-hyllest-til-kim-larsen-fabrikken-kult","date":"2027-02-05","time":"21:00","title":"Ingen Kim, ingen kos – en hyllest til Kim Larsen","venue":"Fabrikken Kulturscene","cat":"konsert","note":"Dørene åpner 19.30. Flere forestillinger: 6. feb.","url":"https://billetto.no/e/ingen-kim-ingen-kos-en-hyllest-til-kim-larsen-billetter-1933945","moreShows":["2027-02-06T21:00"],"addedAt":"2026-10-19T12:59:56Z"},{"id":"men-har-du-provd-yoga-et-standupshow-om-a-skli-pa-isen-loven","date":"2027-02-06","time":"18:00","title":"«Men har du prøvd yoga?» – standup","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"standup","price":"330 kr","priceMin":330,"note":"Ordinær 299–330 kr.","url":"https://tikkio.com/events/64290-men-har-du-provd-yoga-et-standupshow-om-a-skli-pa-isen","addedAt":"2026-10-19T12:59:56Z"},{"id":"johan-reyneke-kommer-til-vino-bar-vino-bar","date":"2027-02-11","time":"18:00","title":"Johan Reyneke kommer til Vino Bar!","venue":"Vino Bar","address":"Apotekergata 10, 6004 Ålesund","cat":"happening","price":"1195 kr","priceMin":1195,"url":"https://vinobar.no/product/johan-reyneke-kommer-til-vino-bar-11-02-2027-kl-1800/","addedAt":"2026-10-19T12:59:56Z"},{"id":"nils-ingar-aadne-tenk-det-lovenvold-theater","date":"2027-02-12","time":"18:00","title":"Nils-Ingar Aadne – «Tenk det»","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"standup","price":"495 kr","priceMin":495,"url":"https://tikkio.com/events/65545-nils-ingar-aadne-tenk-det","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-49633-parken-kulturhus","date":"2027-02-12","time":"19:00","title":"Hvis Gud Vil","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"show","price":"585–625 kr","priceMin":585,"few":true,"url":"https://www.parkenkulturhus.no/program/49633-hvis-gud-vil/","addedAt":"2026-10-19T12:59:56Z"},{"id":"janove-terminalen-byscene","date":"2027-02-12","time":"20:00","title":"Janove","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"699 kr","priceMin":699,"note":"Rabatt: DNB-kunde 556 kr.","url":"https://tikkio.com/events/66757-janove-terminalen","addedAt":"2026-10-19T12:59:56Z"},{"id":"soulsisters-jazzy-night-terminalen-byscene","date":"2027-02-13","time":"19:00","title":"Soulsisters Jazzy Night","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"499 kr","priceMin":499,"url":"https://tikkio.com/events/66383-soulsisters-jazzy-night-terminalen","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-49672-parken-kulturhus","date":"2027-02-13","time":"19:00","title":"Gospelfest","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"175–375 kr","priceMin":175,"few":true,"url":"https://www.parkenkulturhus.no/program/49672-gospelfest/","addedAt":"2026-10-19T12:59:56Z"},{"id":"lille-caesar-lovenvold-theater","date":"2027-02-13","time":"20:00","title":"Lille Caesar","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"show","price":"355 kr","priceMin":355,"note":"Rabatt: Studentbillett 295 kr.","url":"https://tikkio.com/events/64257-lille-caesar","addedAt":"2026-10-19T12:59:56Z"},{"id":"andre-ulveseter-uten-sammenheng-for-ovrig-lovenvold-theater","date":"2027-02-18","time":"17:30","title":"André Ulveseter – «Uten sammenheng for øvrig»","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"standup","price":"499 kr","priceMin":499,"url":"https://tikkio.com/events/66636-andre-ulveseter","addedAt":"2026-10-19T12:59:56Z"},{"id":"rotlaus-terminalen-byscene","date":"2027-02-26","time":"20:00","title":"Rotlaus","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"595 kr","priceMin":595,"note":"Rabatt: DNB-kunde 476 kr.","url":"https://tikkio.com/events/65937-rotlaus-terminalen-byscene","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-47488-parken-kulturhus","date":"2027-03-03","time":"18:00","title":"Kakejazz","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"261–320 kr","priceMin":261,"soldOut":true,"url":"https://www.parkenkulturhus.no/program/47488-kakejazz/","addedAt":"2026-10-19T12:59:56Z"},{"id":"weniff-2027","date":"2027-03-04","title":"WENIFF 2027 – Ålesunds egen filmfestival","venue":"Løvenvold Theater","address":"Løvenvoldgata 11, 6002 Ålesund","cat":"happening","price":"Pris hos arrangør","note":"14. utgave av kortfilmfestivalen, 4.–7. mars, med FilmLab, masterclass, bransjetreff, filmquiz og festivalfest. Klokkeslett og priser står ikke på Bypatriotens side. Kilde: Bypatrioten.","url":"https://weniff.com/","moreShows":["2027-03-05","2027-03-06","2027-03-07"],"addedAt":"2026-11-01T21:47:04Z"},{"id":"parken-48873-parken-kulturhus","date":"2027-03-05","time":"18:30","title":"Iselin Guttormsen kommer!","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"standup","price":"585 kr","priceMin":585,"few":true,"url":"https://www.parkenkulturhus.no/program/48873-iselin-guttormsen-kommer/","addedAt":"2026-10-19T12:59:56Z"},{"id":"motorpsycho-terminalen-byscene","date":"2027-03-05","time":"20:00","title":"Motorpsycho","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"450 kr","priceMin":450,"note":"Rabatt: DNB-kunde 360 kr.","url":"https://tikkio.com/events/66896-motorpsycho-terminalen","addedAt":"2026-10-21T12:45:40Z"},{"id":"ylva-maskulin-tour-terminalen-byscene","date":"2027-03-12","time":"20:00","title":"Ylva – Maskulin Tour","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"462 kr","priceMin":462,"note":"Rabatt: DNB-kunde 369 kr.","url":"https://tikkio.com/events/67158-ylva-maskulin-tour","addedAt":"2026-11-10T08:20:11Z"},{"id":"parken-51055-parken-kulturhus","date":"2027-03-13","time":"19:00","title":"Halvor Johansson","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"standup","price":"350–450 kr","priceMin":350,"few":true,"url":"https://www.parkenkulturhus.no/program/51055-halvor-johansson/","addedAt":"2026-10-21T06:13:20Z"},{"id":"synne-vo-her-vil-e-vaer-norgesturne-terminalen-byscene","date":"2027-03-19","time":"20:00","title":"Synne Vo – «Her vil e vær»","venue":"Terminalen Byscene","address":"Keiser Wilhelms g. 6, 6003 Ålesund","cat":"konsert","price":"699 kr","priceMin":699,"note":"Rabatt: DBN-kunde 559 kr.","url":"https://tikkio.com/events/66142-synne-vo-her-vil-e-vaer-norgesturne-terminalen-byscene","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-48778-parken-kulturhus","date":"2027-04-02","time":"19:00","title":"Balletak på bransjen","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"standup","price":"425 kr","priceMin":425,"few":true,"url":"https://www.parkenkulturhus.no/program/48778-balletak-pa-bransjen/","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-48269-parken-kulturhus","date":"2027-04-03","time":"19:00","title":"Jørn Hoel & Steinar Albrigtsen","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"480 kr","priceMin":480,"url":"https://www.parkenkulturhus.no/program/48269-jorn-hoel-steinar-albrigtsen/","addedAt":"2026-10-19T12:59:56Z"},{"id":"hans-magne-skard-skruball-lovenvold-theater","date":"2027-04-09","time":"17:30","title":"Hans Magne Skard – «Skruball»","venue":"Løvenvold Theater","address":"Løvenvoldgata, Storgata 11, 6002 Ålesund","cat":"konsert","price":"325 kr","priceMin":325,"url":"https://tikkio.com/events/67120-hans-magne-skard-skruball","addedAt":"2026-10-23T20:01:48Z"},{"id":"parken-50848-parken-kulturhus","date":"2027-04-29","time":"19:00","title":"UFO-klarlig","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"show","price":"499 kr","priceMin":499,"url":"https://www.parkenkulturhus.no/program/50848-ufo-klarlig/","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-51230-parken-kulturhus","date":"2027-04-30","time":"19:00","title":"Bjarte Hjelmeland","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"show","price":"630 kr","priceMin":630,"few":true,"url":"https://www.parkenkulturhus.no/program/51230-bjarte-hjelmeland/","addedAt":"2026-10-30T10:02:13Z"},{"id":"parken-48673-parken-kulturhus","date":"2027-05-13","time":"19:00","title":"Chopin – klaverets poet","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"150–390 kr","priceMin":150,"url":"https://www.parkenkulturhus.no/program/48673-chopin-klaverets-poet/","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-47917-parken-kulturhus","date":"2027-05-20","time":"19:00","title":"Russland – vår dystre nåtid","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"happening","price":"450 kr","priceMin":450,"url":"https://www.parkenkulturhus.no/program/47917-russland-var-dystre-natid/","addedAt":"2026-10-19T12:59:56Z"},{"id":"parken-45656-parken-kulturhus","date":"2027-05-22","time":"20:00","title":"Pulse of Floyd","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"580 kr","priceMin":580,"few":true,"url":"https://www.parkenkulturhus.no/program/45656-pulse-of-floyd/","addedAt":"2026-10-19T12:59:56Z"},{"id":"alesund-live-tobias-sten","date":"2027-06-18","title":"Ålesund Live: Tobias Sten","venue":"Skutvika","address":"Skutvika, Ålesund","cat":"konsert","price":"999 kr","priceMin":999,"note":"Dørene åpner kl. 16:30. Fredagspass 999 kr, 2-dagerspass (med Karpe lørdag) 1999 kr. Flere artister annonseres.","url":"https://tikkio.com/events/66161-karpe-alesund-live","addedAt":"2026-10-27T16:49:40Z"},{"id":"alesund-live-karpe","date":"2027-06-19","title":"Ålesund Live: Karpe","venue":"Skutvika","address":"Skutvika, Ålesund","cat":"konsert","price":"1399 kr","priceMin":1399,"note":"Lørdagspass 1399 kr, 2-dagerspass (med Tobias Sten fredag) 1999 kr. Flere artister annonseres.","url":"https://tikkio.com/events/66161-karpe-alesund-live","addedAt":"2026-10-27T16:49:40Z"},{"id":"parken-51292-parken-kulturhus","date":"2027-11-06","time":"19:00","title":"Erlend Osnes","venue":"Parken kulturhus","address":"Parkgata 3B, 6003 Ålesund","cat":"konsert","price":"405–475 kr","priceMin":405,"few":true,"url":"https://www.parkenkulturhus.no/program/51292-erlend-osnes/","addedAt":"2026-11-10T11:58:45Z"}];
+const UPDATED = "2026-11-11T18:02:32Z";
+</script>
+<script>
+(() => {
+"use strict";
+const $ = s => document.querySelector(s);
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const store = { get(k, d){ try{ const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } }, set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} } };
+
+/* ── categories ── */
+const ICON = {
+  konsert:'<path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
+  standup:'<rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>',
+  show:'<path d="M12 3l2.4 5.9L20.5 11l-6.1 2.1L12 19l-2.4-5.9L3.5 11l6.1-2.1Z"/>',
+  barn:'<path d="M12 3a6 6 0 0 1 6 6c0 4-3 7.5-6 7.5S6 13 6 9a6 6 0 0 1 6-6Z"/><path d="M12 16.5c0 2.5-2.5 2.5-2.5 4.5"/>',
+  klubb:'<path d="M3.5 15v-3a8.5 8.5 0 0 1 17 0v3"/><rect x="2.5" y="13" width="4" height="6" rx="1.5"/><rect x="17.5" y="13" width="4" height="6" rx="1.5"/>',
+  happening:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+  quiz:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.4v.6M12 17h.01"/>',
+  sport:'<circle cx="12" cy="12" r="9"/><path d="m12 7.5 3.8 2.8-1.5 4.4H9.7l-1.5-4.4Z"/>',
+  julebord:'<path d="M12 3 6.5 11h3L6 16.5h12L14.5 11h3Z"/><path d="M12 16.5V21"/>'
+};
+const CAT = { konsert:"Konsert", standup:"Standup", show:"Show", barn:"Barn og familie", klubb:"Klubb", happening:"Happening", quiz:"Quiz", sport:"Sport", julebord:"Julebord" };
+const CATORDER = ["konsert","standup","show","klubb","barn","happening","quiz","sport"];
+const ic = (c, extra="") => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}>${ICON[c]||ICON.happening}</svg>`;
+const PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>';
+const STAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17l-5.4 2.8 1.1-6.1-4.5-4.3 6.1-.8Z"/></svg>';
+const X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+
+/* ── time (Europe/Oslo, independent of the phone's zone) ── */
+const fmt = new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Oslo",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"});
+function now(){ const p = Object.fromEntries(fmt.formatToParts(new Date()).map(x=>[x.type,x.value])); return { date:`${p.year}-${p.month}-${p.day}`, min:+p.hour*60 + +p.minute, hh:p.hour, mm:p.minute }; }
+const WD = ["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"];
+const MO = ["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"];
+const d2 = s => { const [y,m,d] = s.split("-").map(Number); return new Date(Date.UTC(y,m-1,d)); };
+const iso = dt => dt.toISOString().slice(0,10);
+const add = (s,n) => { const t = d2(s); t.setUTCDate(t.getUTCDate()+n); return iso(t); };
+const wday = s => d2(s).getUTCDay();
+const dnum = s => +s.slice(8);
+const dlong = s => `${WD[wday(s)]} ${dnum(s)}. ${MO[+s.slice(5,7)-1]}`;
+const dshort = s => `${WD[wday(s)].slice(0,3)} ${dnum(s)}. ${MO[+s.slice(5,7)-1].slice(0,3)}`;
+const toMin = t => t ? (+t.slice(0,2))*60 + +t.slice(3,5) : null;
+function relLabel(s, today){ const n = (d2(s)-d2(today))/864e5; return n===0?"I dag":n===1?"I morgen":null; }
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+/* ── data ── */
+const ALL = DATA.map(e => {
+  const occ = [[e.date, e.time||""]];
+  (e.moreShows||[]).forEach(x => occ.push([x.slice(0,10), x.slice(11,16)]));
+  const shows = {}; (e.shows||[]).forEach(([x,st]) => shows[x] = st);
+  const price = !e.price || e.price === "Pris hos arrangør" ? null : e.price;
+  return { ...e, title: e.title || `${e.home} – ${e.away}`, occ, showSt: shows, priceTxt: price, search: fold([e.title, e.venue, CAT[e.cat], e.note, e.home, e.away].join(" ")) };
+});
+const JB = ALL.filter(e => e.cat === "julebord");
+const EV = ALL.filter(e => e.cat !== "julebord");
+function fold(s){ return (s||"").toLowerCase().replace(/æ/g,"ae").replace(/ø/g,"o").replace(/å/g,"a").replace(/aa/g,"a").normalize("NFD").replace(/[̀-ͯ]/g,""); }
+
+/* ── state ── */
+const favs = new Set(store.get("glass-favs", []));
+const state = { when:"uke", day:null, cats:new Set(), max:null, free:false, avail:false, venue:null, mine:false };
+
+function range(){
+  const t = now().date;
+  if (state.day) return [state.day, state.day];
+  switch(state.when){
+    case "ikveld": return [t,t];
+    case "imorgen": return [add(t,1), add(t,1)];
+    case "helg": { const w = wday(t); const fri = w===0 ? add(t,-2) : w===6 ? add(t,-1) : add(t,(5-w+7)%7); return [w>=5||w===0 ? t : fri, add(fri,2)]; }
+    case "uke": return [t, add(t,6)];
+    default: return [t, "9999"];
+  }
+}
+function firstIn(e, a, b){
+  const n = now();
+  for (const [d,tm] of e.occ){ if (d < a || d > b) continue; if (d < n.date) continue; return [d,tm]; }
+  return null;
+}
+function upcoming(e){ const n = now(); return e.occ.some(([d]) => d >= n.date); }
+function base(e, skip={}){
+  if (!skip.cats && state.cats.size && !state.cats.has(e.cat)) return false;
+  if (!skip.price){
+    if (state.free && e.priceMin !== 0) return false;
+    if (state.max != null && !(e.priceMin != null && e.priceMin <= state.max)) return false;
+  }
+  if (state.avail && e.soldOut) return false;
+  if (!skip.venue && state.venue && e.venue !== state.venue) return false;
+  if (state.mine && !favs.has(e.id)) return false;
+  return true;
+}
+function rows(skip={}, r=range()){
+  const out = [];
+  for (const e of EV){ if (!base(e, skip)) continue; const f = firstIn(e, r[0], r[1]); if (f) out.push({ e, d:f[0], t:f[1] }); }
+  out.sort((x,y) => x.d < y.d ? -1 : x.d > y.d ? 1 : (x.t||"99") < (y.t||"99") ? -1 : 1);
+  return out;
+}
+
+/* ── liquid lens ── */
+function placeLens(group, btn, squish=true){
+  const lens = group.querySelector(".lens"); if (!lens) return;
+  if (!btn){ lens.style.opacity = 0; return; }
+  lens.style.opacity = 1;
+  const gr = group.getBoundingClientRect(), br = btn.getBoundingClientRect();
+  lens.style.left = (br.left - gr.left) + "px"; lens.style.width = br.width + "px";
+  if (squish && !REDUCE){ lens.classList.remove("go"); void lens.offsetWidth; lens.classList.add("go"); }
+}
+
+/* ── render: hero ── */
+function renderHero(){
+  const n = now();
+  const h = +n.hh, part = h < 5 ? "natt" : h < 11 ? "morgen" : h < 17 ? "ettermiddag" : "kveld";
+  $("#clock").textContent = `${cap(WD[wday(n.date)])} ${dnum(n.date)}. ${MO[+n.date.slice(5,7)-1]} · ${n.hh}:${n.mm}`;
+  const tonight = EV.filter(e => upcoming(e) && e.occ.some(([d,tm]) => d === n.date && (toMin(tm) ?? 0) >= n.min - 30));
+  const tomorrow = EV.filter(e => e.occ.some(([d]) => d === add(n.date,1)));
+  const word = { natt:"i natt", morgen:"i dag", ettermiddag:"i dag", kveld:"i kveld" }[part];
+  const greet = { natt:"Sent ute?", morgen:"God morgen,", ettermiddag:"God ettermiddag,", kveld:"God kveld," }[part];
+  const cnt = tonight.length;
+  $("#greet").innerHTML = cnt ? `${greet} <em>${cnt} ${cnt===1?"ting skjer":"ting skjer"} ${word}.</em>` : `${greet} <em>${tomorrow.length} ting i morgen.</em>`;
+  const week = rows({}, [n.date, add(n.date,6)]).length;
+  $("#sub").innerHTML = `<b data-count="${week}">${week}</b> arrangementer de neste sju dagene, fra ${new Set(EV.filter(upcoming).map(e=>e.venue)).size} scener. Programmet sjekkes hver andre time.`;
+  $("#tonightN").textContent = cnt || "";
+  // next up
+  let nx = null;
+  for (const e of EV){ for (const [d,tm] of e.occ){ if (!tm) continue; const m = toMin(tm); const key = d + tm;
+    if (d > n.date || (d === n.date && m > n.min)) { if (!nx || key < nx.key) nx = { e, d, tm, key }; break; } } }
+  const el = $("#next");
+  if (!nx){ el.hidden = true; return; }
+  el.hidden = false; el.style.setProperty("--c", `var(--k-${nx.e.cat})`); el.dataset.id = nx.e.id;
+  const mins = nx.d === n.date ? toMin(nx.tm) - n.min : null;
+  const cd = mins != null ? (mins < 60 ? `om ${mins} min` : `om ${Math.floor(mins/60)} t ${mins%60} min`) : `${relLabel(nx.d,n.date)||dshort(nx.d)} kl. ${nx.tm}`;
+  el.innerHTML = `<span class="glowb" aria-hidden="true"></span>
+    <span class="lab"><span class="ctag" style="--c:var(--k-${nx.e.cat})">${ic(nx.e.cat)}Neste opp</span><span class="cd">${cd}</span></span>
+    <h2>${esc(nx.e.title)}</h2>
+    <span class="meta"><span><b>${nx.tm}</b> ${relLabel(nx.d,n.date)?.toLowerCase()||dshort(nx.d)}</span><span>${esc(nx.e.venue)}</span>${nx.e.priceTxt?`<span>${esc(nx.e.priceTxt)}</span>`:""}</span>
+    <span class="go"><span class="ctag" style="--c:var(--muted)">${nx.e.soldOut?"Utsolgt":nx.e.few?"Få billetter igjen":"Trykk for detaljer"}</span><span class="cta">Se mer ${ARROW}</span></span>`;
+}
+
+/* ── render: pulse ── */
+function renderPulse(){
+  const n = now(), box = $("#days");
+  const skipRange = { };
+  let html = "";
+  const counts = [];
+  for (let i=0;i<14;i++){
+    const d = add(n.date,i);
+    const by = {}; let tot = 0;
+    for (const e of EV){ if (!base(e, skipRange)) continue; if (e.occ.some(([x]) => x === d)) { by[e.cat] = (by[e.cat]||0)+1; tot++; } }
+    counts.push([d,by,tot]);
+  }
+  const max = Math.max(4, ...counts.map(c=>c[2]));
+  counts.forEach(([d,by,tot],i) => {
+    const w = wday(d);
+    const bars = CATORDER.filter(c=>by[c]).map(c => `<i style="height:${by[c]/max*100}%;background:var(--k-${c})"></i>`).join("");
+    html += `<button class="day${w===5||w===6||w===0?" wknd":""}${i===0?" today":""}${i>=7?" more14":""}" type="button" data-d="${d}" aria-pressed="${state.day===d}" aria-label="${dlong(d)}: ${tot} arrangementer"><span class="wd">${i===0?"i dag":WD[w].slice(0,3)}</span><span class="bars">${bars}</span><span class="dn">${dnum(d)}</span><span class="cnt">${tot}</span></button>`;
+  });
+  box.innerHTML = html;
+  $("#pulseNote").textContent = state.day ? "Trykk igjen for å gå tilbake" : "Fargene er kategoriene";
+}
+
+/* ── render: filters ── */
+function catCounts(){ const r = range(); const c = {}; for (const e of EV){ if (!base(e,{cats:true})) continue; if (firstIn(e,r[0],r[1])) c[e.cat] = (c[e.cat]||0)+1; } return c; }
+function chipsHtml(){
+  const c = catCounts();
+  return CATORDER.map(k => `<button class="chip" type="button" data-cat="${k}" style="--c:var(--k-${k})" aria-pressed="${state.cats.has(k)}" ${!c[k] && !state.cats.has(k) ? "disabled" : ""}><span class="ic">${ic(k)}</span>${CAT[k]}<span class="n">${c[k]||0}</span></button>`).join("");
+}
+const STEPS = [0,100,200,300,400,500,700,1000,null];
+function renderFilters(){
+  $("#mcats").innerHTML = chipsHtml();
+  const r = range();
+  const vc = {}; for (const e of EV){ if (!base(e,{venue:true})) continue; if (firstIn(e,r[0],r[1])) vc[e.venue] = (vc[e.venue]||0)+1; }
+  let vs = Object.entries(vc).sort((a,b)=>b[1]-a[1]).slice(0,9);
+  if (state.venue && !vs.some(v=>v[0]===state.venue)) vs.unshift([state.venue, vc[state.venue]||0]);
+  const idx = state.max == null ? STEPS.length-1 : STEPS.indexOf(state.max);
+  const jbUp = JB.filter(upcoming);
+  const jbMin = Math.min(...jbUp.filter(e=>e.priceMin).map(e=>e.priceMin));
+  const active = activeCount();
+  $("#filters").innerHTML = `
+    <div class="fhead"><h3>Filtrer</h3><button class="linkbtn" type="button" data-reset ${active?"":"hidden"}>Nullstill</button></div>
+    <div class="fsec"><h4>Hva</h4><div class="cats">${chipsHtml()}</div></div>
+    <div class="fsec"><h4>Pris</h4>
+      <div class="pricev"><b id="pv">${state.free ? "Gratis" : state.max==null ? "Alle priser" : "Opp til " + state.max + " kr"}</b><span>${state.max==null&&!state.free?"også ukjent pris":""}</span></div>
+      <input type="range" id="price" min="0" max="${STEPS.length-1}" step="1" value="${state.free?0:idx}" style="--p:${(state.free?0:idx)/(STEPS.length-1)*100}%" aria-label="Makspris">
+      <div class="ticks"><span>Gratis</span><span>500</span><span>Alle</span></div>
+    </div>
+    <div class="fsec">
+      <button class="tgl" type="button" data-t="avail" aria-pressed="${state.avail}"><span>Bare ledige billetter<small>Skjul utsolgte</small></span><span class="sw" aria-hidden="true"></span></button>
+      <button class="tgl" type="button" data-t="mine" aria-pressed="${state.mine}"><span>Bare mine<small>${favs.size} lagret med ★</small></span><span class="sw" aria-hidden="true"></span></button>
+    </div>
+    <div class="fsec"><h4>Scener</h4><div class="venues">${vs.map(([v,n]) => `<button class="venue" type="button" data-v="${esc(v)}" aria-pressed="${state.venue===v}"><span>${esc(v)}</span><span>${n}</span></button>`).join("") || `<span class="cnt">Ingen scener med disse filtrene</span>`}</div></div>
+    ${jbUp.length ? `<a class="jbtile glass" href="https://kaskjerda.no/julebord/"><span class="ic">${ic("julebord")}</span><span><b>${jbUp.length} julebord i Ålesund</b><small>Fra ${jbMin} kr · egen side</small></span></a>` : ""}`;
+}
+function activeCount(){ return state.cats.size + (state.max!=null||state.free?1:0) + (state.avail?1:0) + (state.venue?1:0) + (state.mine?1:0); }
+
+/* ── render: list ── */
+let firstRender = true;
+function renderList(){
+  const n = now(), r = rows(), list = $("#list");
+  const titles = { ikveld:"I kveld", imorgen:"I morgen", helg:"Denne helgen", uke:"De neste 7 dagene", alt:"Hele programmet" };
+  $("#lh").textContent = state.mine ? "Mine arrangementer" : state.day ? cap(dlong(state.day)) : titles[state.when];
+  $("#lc").textContent = r.length ? `${r.length} ${r.length===1?"arrangement":"arrangementer"}` : "";
+  // active chips
+  const act = [];
+  state.cats.forEach(c => act.push([`cat:${c}`, CAT[c]]));
+  if (state.free) act.push(["price","Gratis"]); else if (state.max!=null) act.push(["price",`Til ${state.max} kr`]);
+  if (state.avail) act.push(["avail","Ledige billetter"]);
+  if (state.venue) act.push(["venue", state.venue]);
+  if (state.mine) act.push(["mine","★ Mine"]);
+  $("#active").innerHTML = act.map(([k,l]) => `<button class="ach" type="button" data-rm="${esc(k)}" aria-label="Fjern ${esc(l)}">${esc(l)}${X}</button>`).join("");
+  if (!r.length){ list.innerHTML = emptyHtml(); return; }
+  let html = "", cur = null, i = 0, grp = [];
+  const flush = () => { if (!cur) return; const rl = relLabel(cur,n.date);
+    html += `<section class="dsec"><h3 class="dhead glass"><span class="dd">${dnum(cur)}</span><span>${cap(WD[wday(cur)])}${rl?` <span class="rel">· ${rl}</span>`:""}</span><span class="c">${MO[+cur.slice(5,7)-1].slice(0,3)} · ${grp.length}</span></h3><div class="grid">${grp.join("")}</div></section>`; grp = []; };
+  for (const x of r){ if (x.d !== cur){ flush(); cur = x.d; } grp.push(card(x, i++, n)); }
+  flush();
+  list.innerHTML = html;
+  firstRender = false;
+}
+function card({e,d,t}, i, n){
+  const isToday = d === n.date, m = toMin(t);
+  let rel = "";
+  if (isToday && m != null){ const diff = m - n.min; rel = diff > 0 && diff <= 120 ? `<span class="pill rel">om ${diff < 60 ? diff + " min" : Math.floor(diff/60) + " t " + (diff%60) + " min"}</span>` : diff <= 0 ? `<span class="pill past">startet ${t}</span>` : ""; }
+  const extra = e.occ.filter(([x]) => x > d).length;
+  const st = e.showSt[`${d}T${t}`];
+  const sold = e.soldOut || st === "sold", few = !sold && (e.few || st === "few");
+  const price = e.priceMin === 0 ? `<span class="price free">Gratis</span>` : e.priceTxt ? `<span class="price">${esc(e.priceTxt)}</span>` : `<span class="price unk">Pris hos arrangør</span>`;
+  const isNew = e.addedAt && (Date.now() - Date.parse(e.addedAt)) < 4*864e5;
+  return `<article class="card glass${sold?" isSold":""}${isToday && m!=null && m <= n.min ? " started":""}" style="--c:var(--k-${e.cat});--i:${Math.min(i,14)}" data-id="${e.id}" tabindex="0" role="button" aria-label="${esc(e.title)}, ${dlong(d)} ${t||""}">
+    <span class="glowc" aria-hidden="true"></span><span class="edge" aria-hidden="true"></span>
+    <div class="ctop"><span class="ctag">${ic(e.cat)}${CAT[e.cat]}${isNew?` <span class="new">Ny</span>`:""}</span><button class="star" type="button" data-star="${e.id}" aria-pressed="${favs.has(e.id)}" aria-label="Lagre i Mine">${STAR}</button></div>
+    <div class="cmain"><div class="ctime"><b>${t || "–"}</b><span>${dshort(d).split(" ").slice(0,1)}</span></div>
+      <div class="ctitle"><h3>${esc(e.title)}</h3><div class="v">${PIN}${esc(e.venue)}</div></div></div>
+    <div class="cfoot">${price}${sold?`<span class="pill sold">Utsolgt</span>`:few?`<span class="pill few">Få igjen</span>`:""}${rel}${extra?`<span class="pill more">+${extra} ${extra===1?"dato":"datoer"}</span>`:""}</div>
+  </article>`;
+}
+function emptyHtml(){
+  // suggest the single change that gives most hits
+  const tries = [];
+  if (state.day || state.when !== "alt") tries.push(["Vis alle datoer", () => { state.day = null; state.when = "alt"; }, (() => { const s = {...state}; return rows({}, [now().date,"9999"]).length; })()]);
+  if (state.cats.size) tries.push(["Alle kategorier", () => state.cats.clear(), rows({cats:true}).length]);
+  if (state.max!=null || state.free) tries.push(["Alle priser", () => { state.max = null; state.free = false; }, rows({price:true}).length]);
+  if (state.venue) tries.push(["Alle scener", () => state.venue = null, rows({venue:true}).length]);
+  const best = tries.filter(t=>t[2]>0).sort((a,b)=>b[2]-a[2])[0];
+  emptyFix = best ? best[1] : null;
+  return `<div class="empty glass"><div class="orb" aria-hidden="true"></div><h3>${state.mine && !favs.size ? "Ingen lagret ennå" : "Stille her akkurat nå"}</h3>
+    <p>${state.mine && !favs.size ? "Trykk ★ på et arrangement, så havner det her." : best ? `Men ${best[2]} ting dukker opp hvis du velger «${best[0].toLowerCase()}».` : "Prøv et annet filter."}</p>
+    <div class="acts">${best?`<button class="cta" type="button" data-fix>${best[0]} · ${best[2]}</button>`:""}${activeCount()>1?`<button class="ghost" type="button" data-reset>Nullstill alt</button>`:""}</div></div>`;
+}
+let emptyFix = null;
+
+/* ── full render with transition ── */
+function syncControls(){
+  const wb = [...document.querySelectorAll("#when button")];
+  wb.forEach(b => b.setAttribute("aria-pressed", !state.day && b.dataset.w === state.when));
+  placeLens($("#when"), wb.find(b => b.getAttribute("aria-pressed")==="true"));
+  const tab = state.mine ? "mine" : (!state.day && state.when==="ikveld") ? "ikveld" : "utforsk";
+  const tb = [...document.querySelectorAll("#tabbar .tab")];
+  tb.forEach(b => b.setAttribute("aria-pressed", b.dataset.tab === tab));
+  placeLens($("#tabbar"), tb.find(b => b.dataset.tab === tab));
+  $("#mineN").textContent = favs.size; $("#mineBadge").textContent = favs.size || "";
+  $("#mineTop").setAttribute("aria-pressed", state.mine);
+  $("#filtN").textContent = activeCount() || "";
+}
+function render(animate=true){
+  const go = () => { renderPulse(); renderFilters(); renderList(); syncControls(); mood.target(); };
+  if (animate && !REDUCE && document.startViewTransition && !firstRender) document.startViewTransition(go);
+  else go();
+}
+
+/* ── detail sheet ── */
+let openId = null;
+function openDetail(id){
+  const e = ALL.find(x => x.id === id); if (!e) return; openId = id;
+  const n = now();
+  const occ = e.occ.filter(([d]) => d >= n.date);
+  const first = occ[0] || e.occ[0];
+  const shows = occ.map(([d,t]) => { const st = e.showSt[`${d}T${t}`]; return `<span class="show ${st||""}">${dshort(d)} ${t}${st==="few"?" · få igjen":""}</span>`; }).join("");
+  const map = e.address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.address)}` : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.venue + ", Ålesund")}`;
+  const priceTxt = e.priceMin === 0 ? "Gratis" : e.priceTxt || "Pris hos arrangør";
+  $("#sbody").innerHTML = `<div class="dt" style="--c:var(--k-${e.cat})"><span class="wash" aria-hidden="true"></span>
+    <span class="ctag">${ic(e.cat)}${CAT[e.cat]}</span>
+    <h2>${esc(e.title)}</h2>
+    <div class="facts">
+      <div class="fact"><small>Når</small><b>${cap(dshort(first[0]))}${first[1]?` kl. ${first[1]}`:""}</b></div>
+      <div class="fact"><small>Pris</small><b>${esc(priceTxt)}</b>${e.soldOut?`<div><span class="pill sold">Utsolgt</span></div>`:e.few?`<div><span class="pill few">Få billetter igjen</span></div>`:""}</div>
+      <div class="fact wide"><small>Hvor</small><b>${esc(e.venue)}</b>${e.address?`<div class="cnt">${esc(e.address)}</div>`:""}<a href="${map}" target="_blank" rel="noopener">Vis på kart ↗</a></div>
+      ${occ.length > 1 ? `<div class="fact wide"><small>${occ.length} forestillinger</small><div class="shows">${shows}</div></div>` : ""}
+    </div>
+    ${e.note ? `<p class="dnote">${esc(e.note)}</p>` : ""}
+    <p class="srcline">Fra arrangørens side. Sjekk alltid hos arrangøren før du kjøper billett.</p></div>`;
+  $("#sfoot").innerHTML = `<button class="ghost" type="button" data-star="${e.id}" aria-pressed="${favs.has(e.id)}" aria-label="Lagre i Mine">${STAR}</button><button class="ghost" type="button" data-copy="${esc(e.url||"")}">Kopier lenke</button>${e.url?`<a class="cta" href="${esc(e.url)}" target="_blank" rel="noopener">${e.soldOut?"Se hos arrangør":"Billetter"} ${ARROW}</a>`:""}`;
+  $("#sheet").classList.add("on"); $("#scrim").classList.add("on");
+  $("#sbody").scrollTop = 0;
+}
+function closeAll(){ $("#sheet").classList.remove("on"); $("#scrim").classList.remove("on"); $("#spot").classList.remove("on"); openId = null; }
+
+/* drag sheet down to close (phone) */
+(() => { const sh = $("#sheet"), gr = $("#grab"); let y0 = null, dy = 0;
+  gr.addEventListener("pointerdown", ev => { y0 = ev.clientY; dy = 0; sh.classList.add("drag"); gr.setPointerCapture(ev.pointerId); });
+  gr.addEventListener("pointermove", ev => { if (y0 == null) return; dy = Math.max(0, ev.clientY - y0); sh.style.transform = `translateY(${dy}px)`; });
+  const end = () => { if (y0 == null) return; sh.classList.remove("drag"); sh.style.transform = ""; if (dy > 90) closeAll(); y0 = null; };
+  gr.addEventListener("pointerup", end); gr.addEventListener("pointercancel", end);
+})();
+
+/* ── favourites with a flying star ── */
+function toggleFav(id, btn){
+  const on = !favs.has(id);
+  on ? favs.add(id) : favs.delete(id); store.set("glass-favs", [...favs]);
+  document.querySelectorAll(`[data-star="${CSS.escape(id)}"]`).forEach(b => b.setAttribute("aria-pressed", on));
+  if (btn && !REDUCE){ btn.classList.remove("pop"); void btn.offsetWidth; btn.classList.add("pop"); }
+  if (on && btn && !REDUCE) flyStar(btn);
+  toast(on ? "Lagt i ★ Mine" : "Fjernet fra Mine");
+  syncControls();
+  if (state.mine) render();
+  else renderFilters();
+}
+function flyStar(from){
+  const stage = $("#stage").getBoundingClientRect();
+  const wide = $("#scroller").clientWidth >= 900;
+  const to = wide ? $("#mineTop") : document.querySelector('#tabbar [data-tab="mine"]');
+  if (!to) return;
+  const a = from.getBoundingClientRect(), b = to.getBoundingClientRect();
+  const f = document.createElement("div"); f.className = "fly"; f.innerHTML = STAR;
+  f.style.left = (a.left - stage.left + a.width/2 - 11) + "px"; f.style.top = (a.top - stage.top + a.height/2 - 11) + "px";
+  $("#stage").appendChild(f);
+  const dx = b.left + b.width/2 - a.left - a.width/2, dy = b.top + b.height/2 - a.top - a.height/2;
+  f.animate([{ transform:"translate(0,0) scale(1)" },{ transform:`translate(${dx*.5}px,${dy*.5 - 80}px) scale(1.6) rotate(140deg)` },{ transform:`translate(${dx}px,${dy}px) scale(.5) rotate(300deg)`, opacity:.3 }], { duration:700, easing:"cubic-bezier(.5,0,.4,1)" }).onfinish = () => { f.remove(); to.classList.remove("bump"); void to.offsetWidth; to.classList.add("bump"); };
+}
+let tt;
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("on"), 1800); }
+
+/* ── search (folded ø/æ/å, accents, the note too, small synonym list) ── */
+const SYN = { nutcracker:"notteknekker", christmas:"jul", comedy:"standup", "stand up":"standup", concert:"konsert", kids:"barn", family:"barn", football:"aalesund", fotball:"aalesund", aafk:"aalesund" };
+function openSearch(){ $("#spot").classList.add("on"); $("#scrim").classList.add("on"); $("#q").value = ""; runSearch(); setTimeout(() => $("#q").focus(), 60); }
+function runSearch(){
+  const raw = $("#q").value.trim(); let q = fold(raw);
+  Object.entries(SYN).forEach(([k,v]) => { if (q.includes(k)) q = q.replace(k, v); });
+  const box = $("#sres");
+  if (!q){
+    const pop = ["Juleshow","Standup","Quiz","Parken","Terminalen","Gratis","Barn","AaFK"];
+    box.innerHTML = `<div class="shint">Forslag</div><div class="sugs">${pop.map(p=>`<button class="sug" type="button" data-sug="${p}">${p}</button>`).join("")}</div><div class="shint">Neste opp</div>` + EV.filter(upcoming).slice().sort((a,b)=> (a.occ.find(o=>o[0]>=now().date)||[""])[0] < (b.occ.find(o=>o[0]>=now().date)||[""])[0] ? -1 : 1).slice(0,6).map(e => srow(e)).join("");
+    return;
+  }
+  const words = q.split(/\s+/);
+  const hits = EV.filter(e => upcoming(e) && (words.every(w => e.search.includes(w)) || (q === "gratis" && e.priceMin === 0)));
+  box.innerHTML = hits.length ? `<div class="shint">${hits.length} treff</div>` + hits.slice(0,40).map(e => srow(e, raw)).join("") : `<div class="snone">Fant ingenting på «${esc(raw)}». Prøv et artistnavn, en scene eller «quiz».</div>`;
+}
+function srow(e, raw){
+  const n = now(); const o = e.occ.find(([d]) => d >= n.date) || e.occ[0];
+  let t = esc(e.title);
+  if (raw){ const i = fold(e.title).indexOf(fold(raw)); if (i >= 0 && fold(e.title).length === e.title.length) t = esc(e.title.slice(0,i)) + "<mark>" + esc(e.title.slice(i, i+raw.length)) + "</mark>" + esc(e.title.slice(i+raw.length)); }
+  return `<button class="srow" type="button" data-open="${e.id}" style="--c:var(--k-${e.cat})"><span class="ic">${ic(e.cat)}</span><span><b>${t}</b><small>${esc(e.venue)}</small></span><em>${relLabel(o[0],n.date)||dshort(o[0])}</em></button>`;
+}
+
+/* ── mood background: soft fields in the colours of what you are looking at ── */
+const mood = (() => {
+  const cv = $("#mood"), ctx = cv.getContext("2d");
+  let W=0,H=0, blobs = [], raf = null, last = 0;
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const hex = h => { h = h.replace("#",""); return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]; };
+  function size(){ const r = cv.getBoundingClientRect(); W = cv.width = Math.max(1, Math.round(r.width/3)); H = cv.height = Math.max(1, Math.round(r.height/3)); }
+  function target(){
+    const r = rows(); const c = {}; r.forEach(x => c[x.e.cat] = (c[x.e.cat]||0)+1);
+    let list = Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    if (!list.length) list = [["konsert",1],["show",1]];
+    const tot = list.reduce((s,x)=>s+x[1],0);
+    const cols = list.map(([k,v]) => ({ rgb:hex(css("--k-"+k)), w: .45 + .55*v/tot }));
+    while (cols.length < 5) cols.push({ ...cols[cols.length % list.length], w:cols[0].w*.6 });
+    cols.forEach((col,i) => { const b = blobs[i] || (blobs[i] = { x:Math.random(), y:Math.random()*.8, vx:(Math.random()-.5)*.00012, vy:(Math.random()-.5)*.0001, rgb:col.rgb.slice(), r:.3 });
+      b.to = col.rgb; b.rt = .22 + col.w*.28; });
+    if (REDUCE) draw(0);
+  }
+  function draw(dt){
+    ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation = "source-over";
+    for (const b of blobs){
+      for (let k=0;k<3;k++) b.rgb[k] += (b.to[k]-b.rgb[k]) * Math.min(1, dt*.0025);
+      b.r += (b.rt - b.r) * Math.min(1, dt*.002);
+      b.x += b.vx*dt; b.y += b.vy*dt;
+      if (b.x < -.1 || b.x > 1.1) b.vx *= -1; if (b.y < -.1 || b.y > 1) b.vy *= -1;
+      const R = b.r * Math.max(W,H) * 1.1, g = ctx.createRadialGradient(b.x*W, b.y*H, 0, b.x*W, b.y*H, R);
+      const [r,gg,bb] = b.rgb.map(Math.round);
+      g.addColorStop(0, `rgba(${r},${gg},${bb},.55)`); g.addColorStop(.5, `rgba(${r},${gg},${bb},.18)`); g.addColorStop(1, `rgba(${r},${gg},${bb},0)`);
+      ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    }
+  }
+  function loop(t){ const dt = Math.min(64, t - (last||t)); last = t; draw(dt); raf = requestAnimationFrame(loop); }
+  function start(){ size(); target(); if (REDUCE){ blobs.forEach(b=>{b.rgb=b.to.slice(); b.r=b.rt;}); draw(0); return; } cancelAnimationFrame(raf); last = 0; raf = requestAnimationFrame(loop); }
+  addEventListener("resize", () => { size(); if (REDUCE) draw(0); });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) cancelAnimationFrame(raf); else if (!REDUCE){ last = 0; raf = requestAnimationFrame(loop); } });
+  return { start, target, size };
+})();
+
+/* ── events ── */
+document.addEventListener("click", ev => {
+  const t = ev.target.closest("button, a, [data-id]"); if (!t) return;
+  if (t.dataset.star){ ev.stopPropagation(); toggleFav(t.dataset.star, t); return; }
+  if (t.dataset.w){ state.when = t.dataset.w; state.day = null; state.mine = false; render(); return; }
+  if (t.dataset.d){ state.day = state.day === t.dataset.d ? null : t.dataset.d; render(); scrollToList(); return; }
+  if (t.dataset.cat){ state.cats.has(t.dataset.cat) ? state.cats.delete(t.dataset.cat) : state.cats.add(t.dataset.cat); render(); return; }
+  if (t.dataset.v){ state.venue = state.venue === t.dataset.v ? null : t.dataset.v; render(); return; }
+  if (t.dataset.t){ state[t.dataset.t] = !state[t.dataset.t]; render(); return; }
+  if (t.dataset.rm){ const k = t.dataset.rm; if (k.startsWith("cat:")) state.cats.delete(k.slice(4)); else if (k==="price"){ state.max=null; state.free=false; } else state[k] = k==="venue" ? null : false; render(); return; }
+  if ("reset" in t.dataset){ state.cats.clear(); state.max=null; state.free=false; state.avail=false; state.venue=null; state.mine=false; render(); return; }
+  if ("fix" in t.dataset){ emptyFix && emptyFix(); render(); return; }
+  if (t.dataset.tab){ const k = t.dataset.tab;
+    if (k === "filter"){ openFilterSheet(); return; }
+    state.mine = k === "mine"; state.day = null; if (k === "ikveld") state.when = "ikveld"; else if (k === "utforsk" && state.when === "ikveld") state.when = "uke";
+    render(); $("#scroller").scrollTo({ top: 0 }); return; }
+  if (t.id === "mineTop"){ state.mine = !state.mine; render(); return; }
+  if (t.id === "orb" || t.id === "openSearch"){ openSearch(); return; }
+  if (t.id === "closeSearch"){ closeAll(); return; }
+  if (t.dataset.sug){ $("#q").value = t.dataset.sug; runSearch(); return; }
+  if (t.dataset.open){ $("#spot").classList.remove("on"); openDetail(t.dataset.open); return; }
+  if (t.dataset.copy != null){ const u = t.dataset.copy; (navigator.clipboard?.writeText(u) || Promise.reject()).then(() => toast("Lenken er kopiert"), () => toast(u)); return; }
+  if (t.id === "themeBtn"){ const r = document.documentElement; const dark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; r.dataset.theme = dark ? "light" : "dark"; store.set("glass-theme", r.dataset.theme); setTimeout(() => mood.target(), 30); return; }
+  if (t.dataset.pv){ setPreview(t.dataset.pv); return; }
+  if (t.id === "next" || t.dataset.id){ openDetail(t.dataset.id); return; }
+});
+$("#scrim").addEventListener("click", closeAll);
+document.addEventListener("keydown", ev => {
+  if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === "k"){ ev.preventDefault(); openSearch(); }
+  else if (ev.key === "Escape") closeAll();
+  else if (ev.key === "Enter" && ev.target.matches?.(".card")) openDetail(ev.target.dataset.id);
+});
+$("#q").addEventListener("input", runSearch);
+document.addEventListener("input", ev => { if (ev.target.id !== "price") return;
+  const i = +ev.target.value; state.free = i === 0; state.max = i === 0 || i === STEPS.length-1 ? null : STEPS[i];
+  ev.target.style.setProperty("--p", i/(STEPS.length-1)*100 + "%");
+  $("#pv").textContent = state.free ? "Gratis" : state.max==null ? "Alle priser" : "Opp til " + state.max + " kr";
+  clearTimeout(window.__pt); window.__pt = setTimeout(() => { renderList(); renderPulse(); syncControls(); mood.target(); $("#mcats").innerHTML = chipsHtml(); }, 120);
+});
+// specular light follows the pointer on cards
+document.addEventListener("pointermove", ev => { const c = ev.target.closest?.(".card"); if (!c) return; const r = c.getBoundingClientRect(); c.style.setProperty("--mx", (ev.clientX-r.left)+"px"); c.style.setProperty("--my", (ev.clientY-r.top)+"px"); }, { passive:true });
+
+function openFilterSheet(){
+  // the filter panel is reused inside the sheet on phones
+  const f = $("#filters");
+  $("#sbody").innerHTML = ""; $("#sbody").appendChild(f); f.style.display = "block"; f.classList.remove("glass"); f.style.padding = "0";
+  const n = rows().length;
+  $("#sfoot").innerHTML = `<button class="cta" type="button" id="showN">Vis ${n} ${n===1?"arrangement":"arrangementer"}</button>`;
+  $("#sheet").classList.add("on"); $("#scrim").classList.add("on"); openId = "filter";
+}
+const _render = render;
+// keep the filter sheet's button count fresh
+const obs = new MutationObserver(() => { const b = $("#showN"); if (b){ const n = rows().length; b.textContent = `Vis ${n} ${n===1?"arrangement":"arrangementer"}`; } });
+obs.observe($("#list"), { childList:true });
+document.addEventListener("click", ev => { if (ev.target.closest("#showN")){ closeAll(); scrollToList(); } });
+const _close = closeAll;
+function restoreFilters(){ const f = $("#filters"); if (f.parentElement !== $(".side")){ $(".side").appendChild(f); f.style.display = ""; f.style.padding = ""; f.classList.add("glass"); } }
+$("#scrim").addEventListener("click", restoreFilters);
+document.addEventListener("keydown", ev => { if (ev.key === "Escape") restoreFilters(); });
+new MutationObserver(() => { if (!$("#sheet").classList.contains("on")) setTimeout(restoreFilters, 400); }).observe($("#sheet"), { attributes:true, attributeFilter:["class"] });
+
+function scrollToList(){ const el = $(".listhead"); const s = $("#scroller"); s.scrollTo({ top: el.getBoundingClientRect().top - s.getBoundingClientRect().top + s.scrollTop - stickH() + 4 }); }
+function stickH(){ return $("#top").offsetHeight + 8; }
+new ResizeObserver(() => { document.documentElement.style.setProperty("--stick", stickH() + "px"); syncControls(); }).observe($("#top"));
+
+/* ── preview: PC / Mobil ── */
+function setPreview(m){
+  document.body.classList.toggle("phone", m === "mobil");
+  document.querySelectorAll("#pvbar button").forEach(b => b.setAttribute("aria-pressed", b.dataset.pv === m));
+  try{ history.replaceState(null, "", m === "mobil" ? "#mobil" : "#pc"); }catch(e){}
+  setTimeout(() => { mood.size(); syncControls(); }, 60);
+}
+function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c])); }
+
+/* boot */
+const th = store.get("glass-theme", null); if (th) document.documentElement.dataset.theme = th;
+setPreview(location.hash === "#mobil" ? "mobil" : "pc");
+const n0 = now(); if (n0.min >= 16*60 && rows({}, [n0.date,n0.date]).some(x => (toMin(x.t)||0) > n0.min)) state.when = "uke";
+render(false); renderHero(); mood.start();
+setInterval(() => { renderHero(); if (!openId) renderList(); }, 60000);
+addEventListener("hashchange", () => setPreview(location.hash === "#mobil" ? "mobil" : "pc"));
+})();
+</script>
