@@ -1,6 +1,16 @@
 {
   "include": [
-    "christmas-party-dampsentralen"
+    "christmas-party-dampsentralen",
+    "kristiansen-spjelkavik-kirke",
+    "egil-olsen-lovenvold-theater",
+    "parken-45560-parken-kulturhus",
+    "parken-44479-parken-kulturhus",
+    "parken-49005-parken-kulturhus",
+    "parken-44202-parken-kulturhus",
+    "parken-44201-parken-kulturhus",
+    "parken-46011-parken-kulturhus",
+    "parken-48634-parken-kulturhus",
+    "parken-46386-parken-kulturhus"
   ],
   "exclude": []
 }
