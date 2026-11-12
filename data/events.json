@@ -114,10 +114,12 @@
     "2026-11-11T22:15:10Z"
    ]
   },
-  "tikkioChecked": [],
-  "updatedAt": "2026-11-12T10:15:03Z",
+  "tikkioChecked": [
+   "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs"
+  ],
+  "updatedAt": "2026-11-12T12:07:58Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -601,15 +603,16 @@
    "cat": "konsert",
    "price": "Gratis",
    "priceMin": 0,
-   "soldOut": true,
+   "soldOut": false,
+   "few": true,
    "shows": [
     [
      "2026-11-15T18:00",
-     "sold"
+     "few"
     ],
     [
      "2026-11-16T18:00",
-     "sold"
+     "few"
     ]
    ],
    "statusSrc": "parken",
@@ -3124,7 +3127,9 @@
    "cat": "konsert",
    "price": "261–320 kr",
    "priceMin": 261,
-   "soldOut": true,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/47488-kakejazz/",
@@ -3183,6 +3188,24 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66896-motorpsycho-terminalen",
    "addedAt": "2026-10-21T12:45:40Z"
+  },
+  {
+   "id": "parken-51479-parken-kulturhus",
+   "date": "2027-03-06",
+   "time": "14:30",
+   "title": "Dyrene i Hakkebakkeskogen",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "barn",
+   "price": "470 kr",
+   "priceMin": 470,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51479-dyrene-i-hakkebakkeskogen/",
+   "addedAt": "2026-11-12T12:07:58Z"
   },
   {
    "id": "ylva-maskulin-tour-terminalen-byscene",
@@ -3283,6 +3306,24 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67120-hans-magne-skard-skruball",
    "addedAt": "2026-10-23T20:01:48Z"
+  },
+  {
+   "id": "parken-51478-parken-kulturhus",
+   "date": "2027-04-28",
+   "time": "19:00",
+   "title": "Hamlet",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "200–325 kr",
+   "priceMin": 200,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51478-hamlet/",
+   "addedAt": "2026-11-12T12:07:58Z"
   },
   {
    "id": "parken-50848-parken-kulturhus",
