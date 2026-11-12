@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-12T08:30:04Z",
+  "updatedAt": "2026-11-12T10:19:32Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -1822,7 +1822,8 @@
    "age": 15,
    "minutes": 110,
    "genres": [
-    "Drama"
+    "Drama",
+    "Thriller"
    ],
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/c3450b07490826a3a8ddbcfa8395fd77d634841d-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-04",
@@ -2241,20 +2242,20 @@
     },
     {
      "start": "2026-11-19T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "https://www.odeonkino.no/booking/kjop/366c655f-c2c5-4e74-a670-0a7bb0cc5bbe",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T12:00:00",
      "screen": "Sal 5",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/8a196763-083b-4a02-bd61-a3215d3974af",
+     "club": false
+    },
+    {
+     "start": "2026-11-19T12:00:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/366c655f-c2c5-4e74-a670-0a7bb0cc5bbe",
      "club": false
     },
     {

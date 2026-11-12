@@ -115,9 +115,9 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-12T08:25:12Z",
+  "updatedAt": "2026-11-12T10:15:03Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -344,22 +344,6 @@
    "addedAt": "2026-11-11T19:44:02Z"
   },
   {
-   "id": "forum-artist-in-residence-uke-45-forum-alesund",
-   "date": "2026-11-13",
-   "time": "19:30",
-   "title": "Duo Araia",
-   "venue": "Forum Ålesund",
-   "address": "Kongensgate 24, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Dørene åpner 19.00.",
-   "uncertain": false,
-   "url": "https://forumaalesund.no/program/artist-in-residence-uke-45",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
    "id": "beat-for-beat-inspirert-quiz-dampsentralen",
    "date": "2026-11-13",
    "time": "20:00",
@@ -429,6 +413,22 @@
     "2026-12-18T23:00",
     "2026-12-19T23:00"
    ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "forum-artist-in-residence-uke-45-forum-alesund",
+   "date": "2026-11-13",
+   "time": "",
+   "title": "Duo Araia",
+   "venue": "Forum Ålesund",
+   "address": "Kongensgate 24, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://forumaalesund.no/program/artist-in-residence-uke-45",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -2543,6 +2543,22 @@
    "uncertain": false,
    "url": "https://billetto.no/e/den-store-romjulsfesten-billetter-1933953",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "klubb-2-juledag-terminalen-byscene",
+   "date": "2026-12-26",
+   "time": "22:00",
+   "title": "KLUBB 2. juledag",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "klubb",
+   "price": "250 kr",
+   "priceMin": 250,
+   "soldOut": false,
+   "note": "Rabatt: DNB-kunde 100 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67508-klubb-2-juledag-terminalen",
+   "addedAt": "2026-11-12T10:15:03Z"
   },
   {
    "id": "klubb-damp-2-juledag-dampsentralen",
