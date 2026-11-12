@@ -117,7 +117,7 @@
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-12T14:25:58Z",
+  "updatedAt": "2026-11-12T16:14:32Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -155,18 +155,18 @@
    "addedAt": "2026-10-29T16:05:46Z"
   },
   {
-   "id": "bjorn-bjarte-lovenvold-theater",
+   "id": "bjorn-bjarte-lovenvold-theater-lovenvold-theater",
    "date": "2026-11-12",
    "time": "18:00",
-   "title": "Bjørn & Bjarte",
+   "title": "Bjørn & Bjarte / Løvenvold Theater",
    "venue": "Løvenvold Theater",
    "address": "Løvenvoldgata 11, 6002 Ålesund",
-   "cat": "show",
+   "cat": "konsert",
    "price": "699 kr",
    "priceMin": 699,
    "soldOut": false,
    "few": true,
-   "note": "Flyttet fra 11. november.",
+   "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/62711-bjorn-bjarte-lovenvold-theater",
    "addedAt": "2026-10-19T12:59:56Z"
@@ -261,6 +261,22 @@
    "note": "Aldersgrense 20 år.",
    "uncertain": false,
    "url": "https://livrore.no/event/torsdagers-quiz-med-oystein-oksnes-aemmm0arto/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "bjorn-bjarte-lovenvold-theater",
+   "date": "2026-11-13",
+   "time": "18:00",
+   "title": "Bjørn & Bjarte",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata 11, 6002 Ålesund",
+   "cat": "show",
+   "price": "699 kr",
+   "priceMin": 699,
+   "soldOut": true,
+   "note": "Flyttet fra 11. november.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/62710-bjorn-bjarte-lovenvold-theater",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -612,7 +628,7 @@
     ],
     [
      "2026-11-16T18:00",
-     "few"
+     "sold"
     ]
    ],
    "statusSrc": "parken",
@@ -1705,7 +1721,7 @@
    "price": "999 kr",
    "priceMin": 999,
    "soldOut": false,
-   "note": "Julebord: kjøp bord hos Dampsentralen. Rabatt: Christmas Club // Viktoria Isern 799 kr.",
+   "note": "Julebord: kjøp bord hos Dampsentralen. Rabatt: Christmas Club // Cowork 799 kr, Christmas Club // Viktoria Isern 799 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66419",
    "addedAt": "2026-10-19T12:59:56Z"
