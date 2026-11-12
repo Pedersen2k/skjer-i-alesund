@@ -1,0 +1,239 @@
+<title>Rabattmerket</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Sju måter å vise rabatter på kortene. Ekte arrangementer og ekte billettyper fra events.json 12. nov. Ett mørkt tema, som forsiden har for de fleste. */
+:root {
+  --bg: #0a171b; --surface: #13252d; --phone: #081316; --fg: #e8f1ef; --muted: #8fa8ab; --line: #25414a;
+  --gold: #f7c873; --sea: #5ab7bf; --accent: #ff8a6b; --amber: #ffb547;
+  --deal: #7fd8ad; --deal-bg: #0f2e25; --deal-line: #2c6150; --on-gold: #1a1405;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-barn: #6cc98a; --c-klubb: #ec78ab; --c-show: #b49cf0; --c-happening: #d9b84a;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--font-body); padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1480px; margin: 0 auto; display: grid; gap: 28px; }
+header h1 { font: 800 clamp(28px, 4vw, 42px)/1.05 var(--font-display); margin: 0 0 10px; text-wrap: balance; }
+header p { margin: 0; max-width: 78ch; color: var(--muted); }
+header p + p { margin-top: 8px; }
+header b { color: var(--fg); font-weight: 600; }
+.ctl { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.ctl > span { font-size: 13px; color: var(--muted); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 18px; padding: 2px; }
+.seg button { border: 0; background: transparent; color: var(--muted); font: 600 13px var(--font-body); padding: 6px 12px; border-radius: 99px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--gold); color: var(--on-gold); }
+.seg button:focus-visible, .who button:focus-visible, .fchips button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.ctl output { font: 600 13px var(--font-mono); color: var(--fg); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 30px 22px; align-items: start; }
+.opt { display: grid; gap: 12px; min-width: 0; }
+.opt h2 { margin: 0; font: 800 21px/1.1 var(--font-display); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.opt h2 span { font: 700 13px var(--font-mono); color: var(--bg); background: var(--gold); border-radius: 6px; padding: 2px 7px; }
+.opt h2 em { font: 600 12px var(--font-body); font-style: normal; color: var(--deal); border: 1px solid var(--deal-line); border-radius: 99px; padding: 2px 8px; }
+.why { margin: 0; color: var(--muted); font-size: 14px; min-height: 4.6em; }
+.pros { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.pros li::before { content: "+ "; color: var(--sea); font-weight: 700; }
+.pros li.minus::before { content: "– "; color: var(--accent); }
+.phone { border: 1px solid var(--line); border-radius: 26px; padding: 14px 12px 18px; background: var(--phone); max-height: 640px; overflow-y: auto; overscroll-behavior: contain; }
+.day { font: 800 15px/1 var(--font-display); margin: 14px 2px 8px; color: var(--fg); }
+.day:first-child { margin-top: 2px; }
+.events { display: grid; gap: 8px; }
+
+/* Kortet, som på forsiden */
+.ev { position: relative; overflow: hidden; background: linear-gradient(135deg, color-mix(in srgb, var(--c) 20%, var(--surface)), var(--surface) 62%); border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 12px; padding: 11px 14px 12px; display: grid; grid-template-columns: 1fr auto; gap: 5px 12px; }
+.ev h3 { margin: 0; font: 700 17px/1.25 var(--font-display); letter-spacing: -0.01em; text-wrap: balance; min-width: 0; }
+.meta { grid-column: 1; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; color: var(--muted); align-items: center; }
+.meta .t { font-family: var(--font-mono); color: var(--fg); }
+.tag { font: 600 11px/1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--c); }
+.side { grid-row: 1 / span 2; grid-column: 2; display: flex; flex-direction: column; gap: 6px; align-items: end; }
+.fav { color: var(--muted); font-size: 20px; line-height: 1; padding: 4px; }
+.price { font: 600 13px/1.2 var(--font-mono); color: var(--fg); white-space: nowrap; text-align: right; }
+.note { grid-column: 1 / -1; font-size: 12.5px; color: var(--muted); }
+.actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 16px; font: 600 13px/1.4 var(--font-body); }
+.actions a { color: var(--gold); text-decoration: none; }
+.actions span { color: var(--sea); }
+.ic { width: 12px; height: 12px; flex: none; }
+
+/* A: pille under prisen */
+.pillA { display: inline-flex; gap: 4px; align-items: center; font: 700 10.5px/1 var(--font-body); color: var(--deal); background: var(--deal-bg); border: 1px solid var(--deal-line); border-radius: 99px; padding: 4px 7px; white-space: nowrap; }
+.pillA b { font: 700 10.5px var(--font-mono); }
+/* B: rabattlinje med brikker */
+.rowB { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.rowB > span { display: inline-flex; gap: 5px; align-items: center; font: 600 12px/1 var(--font-body); color: var(--deal); border: 1px solid var(--deal-line); border-radius: 8px; padding: 5px 8px; }
+.rowB > span b { font: 700 12px var(--font-mono); color: var(--fg); }
+/* C: prisspenn */
+.priceC small { display: block; font: 600 10.5px/1.3 var(--font-body); color: var(--deal); }
+.priceC .lo { color: var(--deal); }
+/* D: billettstubb */
+.ev.stubD { padding-right: 0; grid-template-columns: 1fr auto auto; }
+.ev.stubD .side { grid-column: 2; }
+.ev.stubD .actions, .ev.stubD .note { grid-column: 1 / 3; }
+.stubD .stub { grid-column: 3; grid-row: 1 / span 3; align-self: stretch; margin: -11px 0 -12px; width: 64px; border-left: 2px dashed var(--deal-line); background: var(--deal-bg); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; text-align: center; padding: 6px 4px; position: relative; }
+.stubD .stub::before, .stubD .stub::after { content: ""; position: absolute; left: -8px; width: 14px; height: 14px; border-radius: 50%; background: var(--phone); }
+.stubD .stub::before { top: -7px; } .stubD .stub::after { bottom: -7px; }
+.stub small { font: 700 9.5px/1.1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--deal); }
+.stub b { font: 700 15px/1 var(--font-mono); color: var(--fg); }
+.stub i { font: 500 9.5px/1 var(--font-body); font-style: normal; color: var(--muted); }
+/* E: din pris */
+.who { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; align-items: center; }
+.who > span { font-size: 12.5px; color: var(--muted); width: 100%; }
+.who button { font: 600 12.5px var(--font-body); color: var(--fg); background: transparent; border: 1px solid var(--line); border-radius: 99px; padding: 7px 11px; cursor: pointer; }
+.who button[aria-pressed="true"] { background: var(--deal); border-color: var(--deal); color: var(--bg); }
+.yourE { display: grid; justify-items: end; gap: 2px; }
+.yourE small { font: 700 10px/1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--deal); }
+.yourE b { font: 700 15px/1 var(--font-mono); color: var(--deal); }
+.yourE s { font: 500 11px/1 var(--font-mono); color: var(--muted); }
+.ev.dim { opacity: .62; }
+/* F: filter */
+.fbar { display: grid; gap: 8px; margin: 0 0 10px; }
+.fbar .fake { font-size: 13px; color: var(--muted); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.fchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.fchips button { font: 600 12.5px var(--font-body); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 99px; padding: 7px 11px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.fchips button i { font: 700 11px var(--font-mono); font-style: normal; color: var(--muted); }
+.fchips button[aria-pressed="true"] { border-color: var(--deal); color: var(--deal); background: var(--deal-bg); }
+.fchips button[aria-pressed="true"] i { color: var(--deal); }
+.fcap { font-size: 12.5px; color: var(--muted); }
+/* G: early bird */
+.bandG { grid-column: 1 / -1; grid-row: 1; margin: -11px -14px 6px; padding: 5px 14px; background: linear-gradient(90deg, #12493a, #0f2e2500); color: var(--deal); font: 700 11px/1.2 var(--font-body); text-transform: uppercase; letter-spacing: .06em; display: flex; justify-content: space-between; gap: 8px; }
+.bandG span { text-transform: none; letter-spacing: 0; font-weight: 600; color: var(--muted); }
+.ev.topG .side { grid-row: 2 / span 2; }
+.src { font-size: 11px; color: var(--muted); grid-column: 1 / -1; }
+footer { color: var(--muted); font-size: 13px; max-width: 78ch; display: grid; gap: 8px; }
+footer b { color: var(--fg); }
+@media (max-width: 420px) { .grid { grid-template-columns: 1fr; } .why { min-height: 0; } }
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Rabattmerket på kortene</h1>
+  <p>Sju forslag, med ekte arrangementer og ekte billettyper fra Tikkio og Ålesund kirke (programmet 12. november). Merket kommer bare der billettsiden selv har en rimeligere billettype. I dag står disse bare i notatet som «Rabatt: …».</p>
+  <p><b>Det jeg fant:</b> 26 arrangementer har en rimeligere billettype. 12 av dem har bare <b>DNB-kunde</b> (20 % hos Terminalen). Student/ÅSS: 6. Barn og ungdom: 5. Early bird/presale: 3. Noen er ikke rabatter i det hele tatt («LITEN krans» på cupcake-verkstedet, årskort hos Borgund Dyreklubb, «Kulturtilbud» uten forklaring). De skal ikke få merke, så sync.py må sortere billettypene i grupper.</p>
+  <p>Bryteren under viser hva som skjer om DNB-kunde er med eller ikke. Med DNB får nesten alle konserter på Terminalen merket, og et bankmerke på kortene kan se ut som reklame.</p>
+</header>
+<div class="ctl">
+  <span>Ta med DNB-kunde:</span>
+  <div class="seg" id="dnb"><button aria-pressed="false" data-v="0">Nei</button><button aria-pressed="true" data-v="1">Ja</button></div>
+  <output id="count"></output>
+</div>
+<div class="grid" id="grid"></div>
+<footer>
+  <p><b>Prisen har gått ned:</b> jeg gikk gjennom historikken til events.json og fant ingen arrangementer der laveste pris har sunket. Det skjer sjelden. Det vanlige er at early bird blir borte og prisen går opp. Derfor viser G early bird «så lenge det varer», og vi kan heller si fra når den er borte (merket forsvinner av seg selv neste kjøring).</p>
+  <p><b>Uansett forslag:</b> merket viser bare billettyper som står på billettsiden. Teksten er kort («Student», «Under 20», «Barn», «Early bird», «DNB-kunde»), prisen er billettsidens. Arrangementer uten rabatt ser ut som i dag.</p>
+</footer>
+</div>
+
+<script>
+// Ekte data fra data/events.json 12. nov. d = rabatter [gruppe, pris].
+const TAGI = `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-7 7z"/><circle cx="7.5" cy="8.5" r="1.4"/></svg>`;
+const PIN = `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#5ab7bf" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>`;
+const DAYS = [
+  ["Fredag 14. nov", [
+    { t: "SULT", v: "Venterommet, Terminalen", c: "konsert", time: "19:00", p: 250, d: [["student", 179]] },
+    { t: "Vitenshitshow", v: "Parken kulturhus", c: "barn", time: "15:00", p: 320 }]],
+  ["Torsdag 19. nov", [
+    { t: "Når Barokken møter Nord", v: "Sobra Scene", c: "konsert", time: "18:30", p: 250, d: [["ung", 100, "Under 20"]] },
+    { t: "Juleshow på Løvenvold Vol. 4", v: "Løvenvold Theater", c: "standup", time: "18:30", p: 699 }]],
+  ["Fredag 20. nov", [
+    { t: "Valkyrien Allstars", v: "Terminalen Byscene", c: "konsert", time: "20:00", p: 400, d: [["dnb", 320]] }]],
+  ["Lørdag 21. nov", [
+    { t: "Rave in White | Stisema", v: "Terminalen Byscene", c: "konsert", time: "23:00", p: 150, d: [["early", 50], ["student", 100]] },
+    { t: "Kristiansen // Vemøy", v: "Spjelkavik kirke", c: "konsert", time: "16:30", p: 218 }]],
+  ["Torsdag 26. nov", [
+    { t: "Chris Medina & Eirik Næss – «Jul Hos Oss»", v: "Ålesund kirke", c: "konsert", time: "19:00", p: 475, d: [["student", 225], ["ung", 75, "Barn under 16"]] }]],
+  ["Fredag 4. des", [
+    { t: "SKRUK – Medan vi ventar", v: "Ålesund kirke", c: "konsert", time: "21:00", p: 490, d: [["student", 250], ["ung", 0, "Barn under 12"]] }]],
+  ["Lørdag 5. des", [
+    { t: "Kamelen", v: "Terminalen Byscene", c: "konsert", time: "20:00", p: 490, d: [["student", 390], ["dnb", 392]] }]],
+  ["Lørdag 30. jan", [
+    { t: "Humorgalla på Løvenvold Theater", v: "Løvenvold Theater", c: "standup", time: "17:30", p: 435, d: [["early", 395]] }]],
+  ["Lørdag 13. feb", [
+    { t: "Lille Caesar", v: "Løvenvold Theater", c: "show", time: "20:00", p: 355, d: [["student", 295]] }]],
+];
+const NAME = { student: "Student", ung: "Barn", early: "Early bird", dnb: "DNB-kunde" };
+const TAG = { konsert: "Konsert", standup: "Standup", barn: "Barn og familie", klubb: "Klubb", show: "Show" };
+let DNB = true;
+const kr = n => n === 0 ? "gratis" : `${n} kr`;
+const deals = e => (e.d || []).filter(([g]) => DNB || g !== "dnb").map(([g, p, lab]) => ({ g, p, lab: lab || NAME[g] }));
+const best = e => deals(e).slice().sort((a, b) => a.p - b.p)[0];
+
+function card(e, o = {}) {
+  return `<article class="ev ${o.cls?.(e) || ""}" style="--c:var(--c-${e.c})">
+    ${o.top?.(e) || ""}
+    <h3>${e.t}</h3>
+    <div class="side"><span class="fav">☆</span>${o.price ? o.price(e) : `<span class="price">${kr(e.p)}</span>`}${o.side?.(e) || ""}</div>
+    <div class="meta"><span class="tag">${TAG[e.c]}</span><span style="display:inline-flex;gap:3px;align-items:center">${PIN}${e.v}</span><span class="t">kl. ${e.time}</span></div>
+    ${o.below?.(e) || ""}
+    ${o.stub?.(e) || ""}
+    <div class="actions"><a href="#">Se program og billetter →</a><span>Legg i kalender</span><span>Del</span></div>
+  </article>`;
+}
+const list = (o, filter = () => true, pre = "") => pre + DAYS.map(([d, es]) => [d, es.filter(filter)]).filter(([, es]) => es.length)
+  .map(([d, es]) => `<div class="day">${d}</div><div class="events">${es.map(e => card(e, o)).join("")}</div>`).join("");
+
+// E og F har egen tilstand
+let WHO = "", FIL = "";
+const WHOS = [["", "Vis vanlig pris"], ["student", "Student"], ["ung", "Barn/ungdom"], ["dnb", "DNB-kunde"]];
+const mine = e => deals(e).find(x => x.g === WHO);
+
+const OPTS = [
+  ["A", "Pille under prisen", "Én liten mintgrønn pille under prisen med den billigste rabatten: «Student 179 kr». Har kortet flere, står «+1».",
+    ["Minst endring, samme plass som «Få billetter igjen»", "Rolig på lange lister"], ["Bare én rabatt synes på kortet", "To piller (få igjen + rabatt) kan bli trangt"],
+    () => list({ side: e => { const b = best(e), n = deals(e).length; return b ? `<span class="pillA">${b.lab} <b>${kr(b.p)}</b>${n > 1 ? ` +${n - 1}` : ""}</span>` : ""; } })],
+  ["B", "Rabattlinje med brikker", "Alle rabatter som små brikker på egen linje under stedet, med en prislapp-ikon foran.",
+    ["Viser alt, ingen klikk", "Lett å skanne etter «Student»"], ["Kortet blir én linje høyere", "Mye grønt når mange har DNB"],
+    () => list({ below: e => deals(e).length ? `<div class="rowB">${deals(e).map(x => `<span>${TAGI}${x.lab} <b>${kr(x.p)}</b></span>`).join("")}</div>` : "" })],
+  ["C", "Prisspenn", "Prisen blir et spenn, «179–250 kr», og det laveste er grønt. En liten linje under sier hvem det gjelder.",
+    ["Ingen nye elementer i kortet", "Ligner «130–230 kr» som vi allerede viser for Parken"], ["Kan leses som at alle kan få 179 kr", "Spennet sier ikke hvem uten linja under"],
+    () => list({ price: e => { const b = best(e); return b && b.p > 0 ? `<span class="price priceC"><span class="lo">${b.p}</span>–${e.p} kr<small>${b.lab.toLowerCase()}</small></span>` : `<span class="price">${kr(e.p)}</span>`; } })],
+  ["D", "Billettstubb", "Kort med rabatt får en avrivbar stubb på høyre kant, med «Student» og prisen. Ser ut som en billett.",
+    ["Mest lekent, passer med billettstilen", "Synes godt uten å rope"], ["Tar 64 px bredde på mobil, tittelen får mindre plass", "Bare én rabatt får plass"],
+    () => list({ cls: e => best(e) ? "stubD" : "", stub: e => { const b = best(e); return b ? `<div class="stub"><small>${b.lab}</small><b>${b.p === 0 ? "0" : b.p}</b><i>${b.p === 0 ? "gratis" : "kr"}</i></div>` : ""; } })],
+  ["E", "Din pris", "Du velger én gang hvem du er (student, barn/ungdom, DNB-kunde). Da viser kortene din pris, med vanlig pris overstreket. Valget huskes i nettleseren, som ★ Mine.",
+    ["Mest nyttig for studenter og familier", "Lista blir ikke fullere for dem som ikke velger"], ["Én knapperad til øverst", "Folk må finne valget før de får nytte av det"],
+    () => `<div class="who"><span>Hvem kjøper billett?</span>${WHOS.filter(([g]) => DNB || g !== "dnb").map(([g, l]) => `<button data-who="${g}" aria-pressed="${WHO === g}">${l}</button>`).join("")}</div>`
+      + list({ price: e => { const m = WHO && mine(e); return m ? `<span class="yourE"><small>Din pris</small><b>${kr(m.p)}</b><s>${e.p} kr</s></span>` : `<span class="price">${kr(e.p)}</span>`; },
+        cls: e => WHO && !mine(e) ? "dim" : "" })],
+  ["F", "Filter: «Rabatt for meg»", "Ingen merker på kortene, men et filter i filterraden. Trykk «Student», og lista viser bare arrangementer med studentbillett, med prisen under.",
+    ["Ingenting nytt på kortene", "Kan kombineres med A"], ["Ingen ser rabattene uten å trykke", "Én knapperad til i filteret (eller et valg i «Pris»)"],
+    () => {
+      const groups = ["student", "ung", "early", "dnb"].filter(g => DNB || g !== "dnb");
+      const all = DAYS.flatMap(d => d[1]);
+      const cnt = g => all.filter(e => deals(e).some(x => x.g === g)).length;
+      const lab = { student: "Student", ung: "Barn/ungdom", early: "Early bird", dnb: "DNB-kunde" };
+      const pre = `<div class="fbar"><div class="fake">Søk i ${all.length} arrangementer …</div><div class="fchips">${groups.map(g => `<button data-fil="${g}" aria-pressed="${FIL === g}">${lab[g]} <i>${cnt(g)}</i></button>`).join("")}</div>${FIL ? `<div class="fcap">${cnt(FIL)} arrangementer med ${lab[FIL].toLowerCase()}-billett</div>` : ""}</div>`;
+      return list({ side: e => { const m = FIL && deals(e).find(x => x.g === FIL); return m ? `<span class="pillA">${m.lab} <b>${kr(m.p)}</b></span>` : ""; } },
+        e => !FIL || deals(e).some(x => x.g === FIL), pre);
+    }],
+  ["G", "Early bird på toppen", "Early bird og presale får en egen linje øverst i kortet, «så lenge det varer». Andre rabatter vises som A. Merket forsvinner når billettsiden fjerner early bird.",
+    ["Gir fart: kjøp nå før prisen går opp", "Bare 3 kort i dag, så det skiller seg ut"], ["Vi vet ikke når early bird slutter, bare at den finnes nå", "Kortet blir litt høyere"],
+    () => list({ cls: e => deals(e).some(x => x.g === "early") ? "topG" : "",
+      top: e => { const x = deals(e).find(x => x.g === "early"); return x ? `<div class="bandG">Early bird ${kr(x.p)}<span>så lenge det varer</span></div>` : ""; },
+      side: e => { const r = deals(e).filter(x => x.g !== "early").sort((a, b) => a.p - b.p)[0]; return r ? `<span class="pillA">${r.lab} <b>${kr(r.p)}</b></span>` : ""; } })],
+];
+const PICK = { A: "Min anbefaling", E: "Neste steg" };
+
+function render() {
+  if (!DNB && WHO === "dnb") WHO = "";
+  if (!DNB && FIL === "dnb") FIL = "";
+  const scroll = [...document.querySelectorAll(".phone")].map(p => p.scrollTop);
+  document.getElementById("grid").innerHTML = OPTS.map(([k, h, why, plus, minus, fn]) => `<section class="opt">
+    <h2><span>${k}</span>${h}${PICK[k] ? `<em>${PICK[k]}</em>` : ""}</h2><p class="why">${why}</p>
+    <ul class="pros">${plus.map(x => `<li>${x}</li>`).join("")}${minus.map(x => `<li class="minus">${x}</li>`).join("")}</ul>
+    <div class="phone">${fn()}</div></section>`).join("");
+  document.querySelectorAll(".phone").forEach((p, i) => p.scrollTop = scroll[i] || 0);
+  const n = DAYS.flatMap(d => d[1]), f = n.filter(e => deals(e).length).length;
+  document.getElementById("count").textContent = `${f} av ${n.length} kort her får merket`;
+}
+document.getElementById("dnb").onclick = ev => {
+  const b = ev.target.closest("[data-v]"); if (!b) return; DNB = b.dataset.v === "1";
+  document.querySelectorAll("#dnb button").forEach(x => x.setAttribute("aria-pressed", x === b)); render();
+};
+document.getElementById("grid").onclick = ev => {
+  const w = ev.target.closest("[data-who]"); if (w) { WHO = w.dataset.who; render(); return; }
+  const f = ev.target.closest("[data-fil]"); if (f) { FIL = FIL === f.dataset.fil ? "" : f.dataset.fil; render(); }
+};
+render();
+</script>
