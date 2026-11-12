@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<title>Solnedgang fra Aksla – PC</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#ffffff}a:hover{color:#ffd166}
+@keyframes sun{50%{transform:translateY(-6px)}}
+@keyframes shimmer{50%{opacity:.35}}
+@keyframes twinkle{50%{opacity:.3}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="min-height: 1700px; position: relative; overflow: hidden; box-sizing: border-box; padding: 24px; background: #1d0b33; color: #ffffff; font-family: 'DM Sans', system-ui, sans-serif; display: flex; flex-direction: column; gap: 32px">
+
+<div style="position: relative; min-height: 520px; margin: -24px -24px 0; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 48px">
+<svg aria-hidden="true" viewBox="0 0 780 300" preserveAspectRatio="xMidYMax slice" style="position: absolute; inset: 0; width: 100%; height: 100%">
+<defs>
+<linearGradient id="skyC2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d0b33"/><stop offset=".45" stop-color="#5a1a7a"/><stop offset=".7" stop-color="#e0457b"/><stop offset=".88" stop-color="#ff9a4a"/><stop offset="1" stop-color="#ffd27a"/></linearGradient>
+<linearGradient id="seaC2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a4a"/><stop offset=".3" stop-color="#7a2470"/><stop offset="1" stop-color="#1d0b33"/></linearGradient>
+<pattern id="lightsC2" width="12" height="10" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.3" fill="#ffe08a"/><circle cx="9" cy="8" r="1" fill="#ffffff"/></pattern>
+</defs>
+<rect width="780" height="175" fill="url(#skyC2)"/>
+<circle cx="560" cy="158" r="44" fill="{{accent}}" style="animation: sun 6s ease-in-out infinite"/>
+<path d="M0 172L70 128l60 30 80-52 70 44 70-30 80 42 80-22 100 26 100-42 70 28v22Z" fill="#5a1a66"/>
+<rect y="172" width="780" height="128" fill="url(#seaC2)"/>
+<path d="M510 184h100M530 196h60M490 210h140M540 224h44" stroke="#ffe9a8" stroke-width="3" stroke-linecap="round" style="animation: shimmer 3s ease-in-out infinite"/>
+<ellipse cx="140" cy="206" rx="190" ry="14" fill="#3a1260"/>
+<ellipse cx="690" cy="198" rx="160" ry="10" fill="#4a1a66"/>
+<path d="M0 300V246q160-34 340-24 130 8 220 30 50 14 70 48Z" fill="#1d0b33"/>
+<path d="M0 300V246q160-34 340-24 130 8 220 30 50 14 70 48Z" fill="url(#lightsC2)" style="animation: twinkle 4s ease-in-out infinite"/>
+</svg>
+
+<nav aria-label="Hovedmeny" style="position: relative; align-self: center; max-width: 100%; box-sizing: border-box; padding: 8px 10px 8px 14px; border-radius: 36px; border: 1px solid rgba(255,255,255,.3); background: rgba(29,11,51,.5); -webkit-backdrop-filter: blur(28px) saturate(180%); backdrop-filter: blur(28px) saturate(180%); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 12px 34px rgba(0,0,0,.3); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 6px">
+<div style="display: flex; align-items: center; gap: 10px; margin-right: 16px">
+<svg aria-hidden="true" viewBox="0 0 120 120" style="width: 42px; height: 42px"><defs><clipPath id="lgC2"><circle cx="60" cy="60" r="58"/></clipPath></defs><g clip-path="url(#lgC2)"><rect width="120" height="120" fill="#ff9a5a"/><circle cx="78" cy="50" r="15" fill="#fff1bf"/><path d="M0 62l18-16 14 10 20-22 22 24 16-12 30 18v10H0Z" fill="#8e2f6e"/><rect y="70" width="120" height="50" fill="#4a1a5e"/><path d="M0 120V96q40-14 70-8 22 5 30 32Z" fill="#1d0b33"/></g></svg>
+<div style="font: 800 15px Unbounded, sans-serif; letter-spacing: .3px">KA SKJER DA?</div>
+</div>
+<a href="#" style="height: 44px; padding: 0 16px; border-radius: 22px; background: rgba(255,255,255,.18); text-decoration: none; display: flex; align-items: center; font-weight: 700; font-size: 15px">Utforsk</a>
+<a href="#" style="height: 44px; padding: 0 16px; border-radius: 22px; text-decoration: none; display: flex; align-items: center; font-weight: 500; font-size: 15px">Kalender</a>
+<a href="#" style="height: 44px; padding: 0 16px; border-radius: 22px; text-decoration: none; display: flex; align-items: center; font-weight: 500; font-size: 15px">Tips oss</a>
+<a href="#" style="height: 44px; padding: 0 16px; border-radius: 22px; text-decoration: none; display: flex; align-items: center; font-weight: 500; font-size: 15px">For arrangører</a>
+<a href="#" style="height: 44px; padding: 0 16px; border-radius: 22px; text-decoration: none; display: flex; align-items: center; font-weight: 500; font-size: 15px">EN</a>
+<a href="#" style="height: 44px; padding: 0 18px; border-radius: 22px; background: {{accent}}; color: #2a1a00; text-decoration: none; display: flex; align-items: center; gap: 8px; font: 700 12px Unbounded, sans-serif"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>Mine {{savedCount}}</a>
+</nav>
+
+<div style="position: relative; width: 100%; max-width: 1280px; margin: 0 auto">
+<div style="max-width: 600px; box-sizing: border-box; padding: 32px; border-radius: 40px; border: 1px solid rgba(255,255,255,.3); background: rgba(29,11,51,.55); -webkit-backdrop-filter: blur(28px) saturate(180%); backdrop-filter: blur(28px) saturate(180%); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 20px 50px rgba(0,0,0,.35); display: flex; flex-direction: column; gap: 16px; align-items: flex-start">
+<h1 style="margin: 0; font: 800 clamp(28px, 4.2vw, 52px)/1.1 Unbounded, sans-serif; letter-spacing: -1px">Byen våkner når sola går ned</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.5; color: rgba(255,255,255,.9)">Konserter, standup, show og happenings i Ålesund, samlet på ett sted.</p>
+<a href="#plan" style="height: 52px; padding: 0 24px; border-radius: 26px; background: {{accent}}; color: #2a1a00; text-decoration: none; display: flex; align-items: center; font: 700 13px Unbounded, sans-serif">Se hva som skjer i kveld</a>
+</div>
+</div>
+</div>
+
+<div id="plan" style="position: relative; width: 100%; max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px">
+<h2 style="margin: 0; font: 800 28px Unbounded, sans-serif; letter-spacing: -.5px">Helgeplanleggeren</h2>
+<div style="font-size: 15px; color: rgba(255,255,255,.85)">{{countLabel}}</div>
+</div>
+<div role="group" aria-label="Kategorier" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+<span style="font-size: 14px; color: rgba(255,255,255,.85); margin-right: 8px">Velg så mange du vil:</span>
+<sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="height: 44px; padding: 0 16px; border-radius: 22px; border: 1.5px solid {{c.color}}; background: {{c.bg}}; color: {{c.fg}}; display: flex; align-items: center; gap: 6px; font: 700 14px 'DM Sans', sans-serif; cursor: pointer; transition: background .25s, color .25s">
+<svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display: {{c.checkDisplay}}"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>{{c.label}}
+</button>
+</sc-for>
+</div>
+
+<div style="overflow-x: auto">
+<div style="min-width: 920px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-flow: row dense; gap: 14px; align-items: start">
+<div style="grid-column: 1; grid-row: 1; height: 48px; padding: 0 18px; border-radius: 24px; background: #ffd166; color: #2a1a00; display: flex; align-items: center; justify-content: space-between; font: 700 13px Unbounded, sans-serif">TOR 12 <span style="font: 700 13px 'DM Sans', sans-serif">i kveld</span></div>
+<div style="grid-column: 2; grid-row: 1; height: 48px; padding: 0 18px; border-radius: 24px; background: rgba(255,255,255,.14); display: flex; align-items: center; font: 700 13px Unbounded, sans-serif">FRE 13</div>
+<div style="grid-column: 3; grid-row: 1; height: 48px; padding: 0 18px; border-radius: 24px; background: rgba(255,255,255,.14); display: flex; align-items: center; font: 700 13px Unbounded, sans-serif">LØR 14</div>
+<div style="grid-column: 4; grid-row: 1; height: 48px; padding: 0 18px; border-radius: 24px; background: rgba(255,255,255,.14); display: flex; align-items: center; font: 700 13px Unbounded, sans-serif">SØN 15</div>
+<sc-for list="{{ events }}" as="ev" hint-placeholder-count="8">
+<div style="grid-column: {{ev.col}}; padding: 14px 14px 16px 18px; border-radius: 28px; border: 1px solid rgba(255,255,255,.26); background: rgba(255,255,255,.08); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 10px 28px rgba(0,0,0,.3); display: flex; flex-direction: column; gap: 6px; animation: rise .5s both">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<span style="display: flex; align-items: center; gap: 8px; font: 700 14px Unbounded, sans-serif"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 5px; background: {{ev.color}}; box-shadow: 0 0 12px {{ev.color}}"></span>{{ev.time}}</span>
+<button onClick="{{ ev.star }}" aria-label="Lagre arrangement" style="width: 44px; height: 44px; border-radius: 22px; border: 0; background: rgba(255,255,255,.12); color: #ffd166; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="{{ev.starFill}}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></button>
+</div>
+<div style="font: 700 18px/1.25 'DM Sans', sans-serif">{{ev.title}}</div>
+<div style="font-size: 14px; color: rgba(255,255,255,.85)">{{ev.venue}}</div>
+<div style="font: 700 13px 'DM Sans', sans-serif; color: {{ev.color}}">{{ev.cat}} · {{ev.price}}</div>
+</div>
+</sc-for>
+</div>
+</div>
+<p style="display: {{emptyDisplay}}; margin: 0; padding: 32px; text-align: center; border-radius: 28px; border: 1px dashed rgba(255,255,255,.4); font-size: 16px">Ingenting i disse kategoriene. Velg flere, eller fjern et valg.</p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#ffd166","options":["#ffd166","#ffe9a8","#ffb86b"]},"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+state = { on: {}, saved: {} };
+renderVals() {
+const EV = [
+['12','18:00','Bjørn & Bjarte','Show','Løvenvold Theater','699 kr'],
+['12','18:00','Julelystenning på Devoldfabrikken','Happening','Devoldfabrikken','pris hos arrangør'],
+['12','18:30','Jul på Molja','Show','Thon Hotel Ålesund','pris hos arrangør'],
+['12','19:00','Anders Jektvik','Konsert','Parken kulturhus','450 kr'],
+['12','Kveld','Pubquiz','Quiz',"O'Connor's",'50 kr'],
+['13','18:30','Sofia Emelia & Robert Botn','Konsert','Dråpe Ålesund Kaffehus','150 kr'],
+['13','19:00','Christine Koht','Show','Parken kulturhus','450 kr'],
+['13','23:00','DJ hver helg','Klubb','Liv & Røre Moa','pris hos arrangør'],
+['14','15:00','Vitenshitshow','Barn','Parken kulturhus','320 kr'],
+['14','19:00','SULT','Konsert','Venterommet, Terminalen','250 kr'],
+['14','23:00','KLUBB E39','Klubb','Terminalen Byscene','50 kr'],
+['15','13:00','Lag din egen nisse hos Siws keramikk','Happening','Devoldfabrikken','200 kr'],
+['15','18:00','Tonje Glimmerdal','Konsert','Parken kulturhus','utsolgt']
+];
+const COL = { Konsert: '#5eead4', Show: '#ffb86b', Klubb: '#c4a5ff', Barn: '#ffe08a', Happening: '#ff9db0', Quiz: '#8fd3ff' };
+const s = this.state;
+const any = Object.values(s.on).some(Boolean);
+const list = EV.filter((e) => !any || s.on[e[3]]);
+return {
+accent: this.props.accent ?? '#ffd166',
+countLabel: list.length + ' arrangement torsdag til søndag',
+cats: Object.keys(COL).map((c) => ({ label: c, color: COL[c], on: !!s.on[c], checkDisplay: s.on[c] ? 'block' : 'none', bg: s.on[c] ? COL[c] : 'rgba(29,11,51,.55)', fg: s.on[c] ? '#1d0b33' : '#ffffff', pick: () => this.setState({ on: { ...s.on, [c]: !s.on[c] } }) })),
+events: list.map((e) => {
+const k = e[0] + e[2];
+return { col: String(Number(e[0]) - 11), time: e[1], title: e[2], cat: e[3], venue: e[4], price: e[5], color: COL[e[3]], starFill: s.saved[k] ? '#ffd166' : 'none', star: () => this.setState({ saved: { ...s.saved, [k]: !s.saved[k] } }) };
+}),
+emptyDisplay: list.length ? 'none' : 'block',
+savedCount: String(Object.values(s.saved).filter(Boolean).length)
+};
+}
+}
+</script>
+</body>
+</html>

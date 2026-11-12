@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<title>Jugendpastell – mobil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#14323a}a:hover{color:#b8483e}
+.ns::-webkit-scrollbar{display:none}
+@keyframes driftA{to{transform:translate(50px,-40px) scale(1.15)}}
+@keyframes flow{to{stroke-dashoffset:-64}}
+@keyframes pulse{50%{opacity:.55}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes pop{from{opacity:0;transform:scale(.96)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #e6f1ef; color: #14323a; font-family: 'DM Sans', system-ui, sans-serif">
+<div aria-hidden="true" style="position: absolute; width: 300px; height: 300px; left: -100px; top: 380px; border-radius: 50%; background: #ffc9b5; filter: blur(80px); opacity: .8; animation: driftA 15s ease-in-out infinite alternate"></div>
+<div aria-hidden="true" style="position: absolute; width: 300px; height: 300px; right: -110px; top: 520px; border-radius: 50%; background: #ffe39a; filter: blur(80px); opacity: .8; animation: driftA 19s ease-in-out infinite alternate-reverse"></div>
+<div aria-hidden="true" style="position: absolute; width: 260px; height: 260px; right: -60px; top: -60px; border-radius: 50%; background: #b5dcf3; filter: blur(70px); opacity: .9"></div>
+
+<div class="ns" style="position: absolute; inset: 0; overflow-y: auto; scrollbar-width: none; box-sizing: border-box; padding: 20px 16px 110px; display: flex; flex-direction: column; gap: 16px">
+
+<div style="display: flex; align-items: center; justify-content: space-between">
+<div style="display: flex; align-items: center; gap: 10px">
+<svg aria-hidden="true" viewBox="0 0 120 120" style="width: 42px; height: 42px"><circle cx="60" cy="60" r="58" fill="{{accent}}"/><g fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M38 96V52h44v44"/><path d="M34 52q26-30 52 0"/><path d="M60 30V17"/><path d="M52 96V80a8 8 0 0116 0v16"/><circle cx="60" cy="58" r="7"/><path d="M26 96h68"/></g></svg>
+<div style="font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 21px; letter-spacing: -.3px">Ka skjer da?</div>
+</div>
+<button onClick="{{ openMenu }}" aria-label="Åpne meny" style="width: 48px; height: 48px; border-radius: 24px; border: 1px solid rgba(255,255,255,.9); background: rgba(255,255,255,.55); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%); box-shadow: 0 6px 20px rgba(20,50,58,.12); color: #14323a; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+</div>
+
+<svg aria-hidden="true" viewBox="0 0 780 200" preserveAspectRatio="xMidYMax slice" style="width: 390px; height: 180px; margin: 0 -16px; flex-shrink: 0">
+<defs><pattern id="wB" width="14" height="18" patternUnits="userSpaceOnUse"><rect x="4" y="5" width="6" height="9" rx="3" fill="#ffffff" fill-opacity=".9"/></pattern></defs>
+<circle cx="545" cy="40" r="24" fill="#ffd27a" style="animation: pulse 5s ease-in-out infinite"/>
+<path d="M0 150V110L80 60l70 40 90-60 90 55 90-40 100 45 90-55 90 45 80-30v90Z" fill="#bcd6d8"/>
+<path d="M20 150V80Q55 52 90 80V150Z" fill="#9fd3bd"/>
+<path d="M94 150V62l28-26 28 26V150Z" fill="#f2c46a"/>
+<path d="M154 150V90h84v60Z" fill="#f6e3b4"/><path d="M150 90l10-18h72l10 18Z" fill="#b8483e"/>
+<path d="M242 150V50h34v100Z" fill="#8fb7d6"/><path d="M238 50l21-40 21 40Z" fill="#3f6f8f"/>
+<path d="M280 150V78q10-2 12-14 26-24 52 0 2 12 12 14V150Z" fill="#ef9f97"/>
+<path d="M360 150V96Q390 70 420 96V150Z" fill="#f6e3b4"/>
+<path d="M424 150V84h20l25-30 25 30h20V150Z" fill="#9fd3bd"/>
+<path d="M518 150V58h30v92Z" fill="#f2c46a"/><path d="M515 58q18-34 36 0Z" fill="#1f5c4d"/>
+<path d="M552 150V88q10-2 12-14 28-24 56 0 2 12 12 14V150Z" fill="#8fb7d6"/>
+<path d="M636 150V72l29-24 29 24V150Z" fill="#ef9f97"/>
+<path d="M698 150V92Q731 66 764 92V150Z" fill="#f2c46a"/>
+<g fill="url(#wB)"><rect x="28" y="90" width="56" height="54"/><rect x="168" y="108" width="56" height="36"/><rect x="294" y="90" width="56" height="54"/><rect x="434" y="90" width="70" height="54"/><rect x="560" y="108" width="70" height="36"/><rect x="700" y="108" width="56" height="36"/><rect x="98" y="72" width="42" height="72"/><rect x="252" y="54" width="14" height="90"/><rect x="364" y="108" width="56" height="36"/><rect x="518" y="72" width="28" height="72"/><rect x="644" y="90" width="42" height="54"/></g>
+<rect y="150" width="780" height="50" fill="#9cc9dc"/>
+<path d="M0 160h780M0 172h780M0 186h780" stroke="#ffffff" stroke-opacity=".8" stroke-width="2" stroke-linecap="round" stroke-dasharray="18 46" style="animation: flow 7s linear infinite"/>
+</svg>
+
+<div style="margin-top: -44px; padding: 20px; border-radius: 32px; border: 1px solid rgba(255,255,255,.9); background: rgba(255,255,255,.6); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); box-shadow: 0 12px 34px rgba(20,50,58,.14); display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 30px; letter-spacing: -.6px; line-height: 1.1">Finn noe å gjøre</h1>
+<p style="margin: 0; font-size: 15px; color: #33525a">{{countLabel}}</p>
+</div>
+<div role="group" aria-label="Når" style="display: flex; padding: 4px; gap: 4px; border-radius: 26px; background: rgba(20,50,58,.08)">
+<sc-for list="{{ whens }}" as="w" hint-placeholder-count="3">
+<button onClick="{{ w.pick }}" style="flex: 1 1 0; height: 44px; border-radius: 22px; border: 0; background: {{w.bg}}; color: {{w.fg}}; font: 700 14px 'DM Sans', sans-serif; cursor: pointer; transition: background .25s, color .25s">{{w.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div class="ns" style="display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; flex-shrink: 0">
+<sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.pick }}" style="flex-shrink: 0; width: 78px; height: 78px; border-radius: 26px; border: 1px solid rgba(255,255,255,.9); background: {{c.bg}}; color: {{c.fg}}; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: 0 6px 18px rgba(20,50,58,.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font: 700 12px 'DM Sans', sans-serif; cursor: pointer; transition: background .25s, color .25s">
+<svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{c.icon}}"/></svg>{{c.label}}
+</button>
+</sc-for>
+</div>
+
+<div class="ns" style="display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px 8px; flex-shrink: 0">
+<sc-for list="{{ events }}" as="ev" hint-placeholder-count="3">
+<div style="flex-shrink: 0; width: 236px; height: 250px; box-sizing: border-box; padding: 18px; border-radius: 32px; background: {{ev.color}}; box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 26px rgba(20,50,58,.14); display: flex; flex-direction: column; gap: 10px; animation: rise .5s both">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<span style="font: 700 14px 'DM Sans', sans-serif; padding: 7px 12px; border-radius: 16px; background: rgba(255,255,255,.7)">{{ev.when}}</span>
+<button onClick="{{ ev.star }}" aria-label="Lagre arrangement" style="width: 44px; height: 44px; border-radius: 22px; border: 0; background: rgba(255,255,255,.7); color: #14323a; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="{{ev.starFill}}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></button>
+</div>
+<div style="font: 700 23px/1.12 Fraunces, Georgia, serif; letter-spacing: -.3px">{{ev.title}}</div>
+<div style="font-size: 14px">{{ev.venue}}</div>
+<div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; font: 700 13px 'DM Sans', sans-serif">
+<span>{{ev.cat}}</span>
+<span style="padding: 5px 10px; border-radius: 12px; background: #14323a; color: #ffffff">{{ev.price}}</span>
+</div>
+</div>
+</sc-for>
+<p style="display: {{emptyDisplay}}; flex: 1 1 0; margin: 0; padding: 28px 20px; text-align: center; border-radius: 28px; border: 1.5px dashed #6b8a90; font-size: 15px">Ingenting her akkurat nå. Prøv en annen kategori.</p>
+</div>
+</div>
+
+<label style="position: absolute; left: 16px; right: 16px; bottom: 20px; height: 60px; box-sizing: border-box; padding: 0 8px 0 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,.95); background: rgba(255,255,255,.62); -webkit-backdrop-filter: blur(28px) saturate(200%); backdrop-filter: blur(28px) saturate(200%); box-shadow: 0 14px 36px rgba(20,50,58,.22); display: flex; align-items: center; gap: 10px">
+<svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 18a7 7 0 100-14 7 7 0 000 14zM20 20l-4-4"/></svg>
+<input type="search" aria-label="Søk i arrangement" placeholder="Søk konsert, sted, artist" style="flex: 1 1 0; min-width: 0; background: transparent; border: 0; outline: 0; color: #14323a; font: 500 15px 'DM Sans', sans-serif">
+<a href="#" style="height: 44px; padding: 0 16px; border-radius: 22px; background: {{accent}}; color: #ffffff; text-decoration: none; display: flex; align-items: center; gap: 6px; font: 700 14px 'DM Sans', sans-serif">Mine {{savedCount}}</a>
+</label>
+
+<div style="display: {{menuDisplay}}; position: absolute; inset: 0; box-sizing: border-box; padding: 20px 16px; background: rgba(230,241,239,.72); -webkit-backdrop-filter: blur(30px) saturate(180%); backdrop-filter: blur(30px) saturate(180%); flex-direction: column; gap: 12px; animation: pop .3s both">
+<div style="display: flex; justify-content: flex-end">
+<button onClick="{{ closeMenu }}" aria-label="Lukk meny" style="width: 48px; height: 48px; border-radius: 24px; border: 0; background: #14323a; color: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+<nav aria-label="Hovedmeny" style="display: flex; flex-direction: column; gap: 10px; margin-top: 24px">
+<a href="#" style="padding: 18px 22px; border-radius: 28px; background: rgba(255,255,255,.75); border: 1px solid #ffffff; text-decoration: none; font: 700 30px Fraunces, Georgia, serif">Utforsk</a>
+<a href="#" style="padding: 18px 22px; border-radius: 28px; background: rgba(255,255,255,.75); border: 1px solid #ffffff; text-decoration: none; font: 700 30px Fraunces, Georgia, serif">Kalender</a>
+<a href="#" style="padding: 18px 22px; border-radius: 28px; background: rgba(255,255,255,.75); border: 1px solid #ffffff; text-decoration: none; font: 700 30px Fraunces, Georgia, serif">Mine lagrede</a>
+<a href="#" style="padding: 18px 22px; border-radius: 28px; background: rgba(255,255,255,.75); border: 1px solid #ffffff; text-decoration: none; font: 700 30px Fraunces, Georgia, serif">Tips oss</a>
+<a href="#" style="padding: 18px 22px; border-radius: 28px; background: rgba(255,255,255,.75); border: 1px solid #ffffff; text-decoration: none; font: 700 30px Fraunces, Georgia, serif">For arrangører</a>
+<a href="#" style="padding: 18px 22px; border-radius: 28px; background: rgba(255,255,255,.75); border: 1px solid #ffffff; text-decoration: none; font: 700 30px Fraunces, Georgia, serif">In English</a>
+</nav>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#b8483e","options":["#b8483e","#1f5c4d","#2f5f86"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+state = { when: 'kveld', cat: 'Alle', saved: {}, menu: false };
+renderVals() {
+const EV = [
+['12','18:00','Bjørn & Bjarte','Show','Løvenvold Theater','699 kr'],
+['12','18:00','Julelystenning på Devoldfabrikken','Happening','Devoldfabrikken','Se arrangør'],
+['12','18:30','Jul på Molja','Show','Thon Hotel Ålesund','Se arrangør'],
+['12','19:00','Anders Jektvik','Konsert','Parken kulturhus','450 kr'],
+['12','Kveld','Pubquiz','Quiz',"O'Connor's",'50 kr'],
+['13','18:30','Sofia Emelia & Robert Botn','Konsert','Dråpe Ålesund Kaffehus','150 kr'],
+['13','19:00','Christine Koht','Show','Parken kulturhus','450 kr'],
+['13','23:00','DJ hver helg','Klubb','Liv & Røre Moa','Se arrangør'],
+['14','15:00','Vitenshitshow','Barn','Parken kulturhus','320 kr'],
+['14','19:00','SULT','Konsert','Venterommet, Terminalen','250 kr'],
+['14','23:00','KLUBB E39','Klubb','Terminalen Byscene','50 kr'],
+['15','13:00','Lag din egen nisse hos Siws keramikk','Happening','Devoldfabrikken','200 kr'],
+['15','18:00','Tonje Glimmerdal','Konsert','Parken kulturhus','Utsolgt']
+];
+const DAY = { '12': 'Tor', '13': 'Fre', '14': 'Lør', '15': 'Søn' };
+const CAT = {
+Alle: ['#ffffff', 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z'],
+Konsert: ['#bfe3d6', 'M9 18V5l11-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM20 16a3 3 0 11-6 0 3 3 0 016 0z'],
+Show: ['#ffd9a8', 'M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z'],
+Klubb: ['#d9ccf5', 'M13 2L4 14h7l-1 8 9-12h-7z'],
+Barn: ['#ffe9a8', 'M12 15a6 6 0 100-12 6 6 0 000 12zM12 15v6M10 21h4'],
+Happening: ['#f9c6c0', 'M5 21V4M5 4h13l-3 4.5 3 4.5H5'],
+Quiz: ['#c3def2', 'M9 9a3 3 0 115 2.2c-1 .8-2 1.5-2 2.8M12 18h.01M12 22a10 10 0 100-20 10 10 0 000 20z']
+};
+const s = this.state;
+const days = { kveld: ['12'], morgen: ['13'], helg: ['14', '15'] }[s.when];
+const list = EV.filter((e) => days.includes(e[0]) && (s.cat === 'Alle' || e[3] === s.cat));
+return {
+accent: this.props.accent ?? '#b8483e',
+countLabel: list.length + ' arrangement å velge mellom',
+whens: [['kveld', 'I kveld'], ['morgen', 'I morgen'], ['helg', 'Helga']].map((w) => ({ label: w[1], pick: () => this.setState({ when: w[0] }), bg: s.when === w[0] ? '#14323a' : 'transparent', fg: s.when === w[0] ? '#ffffff' : '#14323a' })),
+cats: Object.keys(CAT).map((c) => ({ label: c, icon: CAT[c][1], pick: () => this.setState({ cat: c }), bg: s.cat === c ? '#14323a' : 'rgba(255,255,255,.6)', fg: s.cat === c ? '#ffffff' : '#14323a' })),
+events: list.map((e) => {
+const k = e[0] + e[2];
+return { when: DAY[e[0]] + ' ' + e[1], title: e[2], cat: e[3], venue: e[4], price: e[5], color: CAT[e[3]][0], starFill: s.saved[k] ? '#14323a' : 'none', star: () => this.setState({ saved: { ...s.saved, [k]: !s.saved[k] } }) };
+}),
+emptyDisplay: list.length ? 'none' : 'block',
+savedCount: String(Object.values(s.saved).filter(Boolean).length),
+menuDisplay: s.menu ? 'flex' : 'none',
+openMenu: () => this.setState({ menu: true }),
+closeMenu: () => this.setState({ menu: false })
+};
+}
+}
+</script>
+</body>
+</html>
