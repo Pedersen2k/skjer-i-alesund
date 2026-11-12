@@ -1,0 +1,418 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<title>Kom tilbake-forslag</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Forslag til fire ting som kan trekke folk tilbake til kaskjerda.no: «Siste sjanse», ★ Mine som kalender, den levende byen og «Helgen min» som bilde.
+   Hver mobil er 390 px bred og bruker ekte arrangementer fra data/events.json (11. nov. 2026). Mørkt kveldstema som på siden, med vilje bare ett tema. */
+:root {
+  --bg:#0a171b; --surface:#13252d; --surface-2:#0f1f26; --fg:#e8f1ef; --muted:#8fa8ab; --line:#25414a;
+  --gold:#f7c873; --sea:#5ab7bf; --accent:#ff8a6b; --accent-ink:#1a0b07; --few:#ffb547; --few-bg:#3a2a10; --few-line:#6b4c17; --now:#7ee0a1; --snow:#f4f1e6; --house:#06110f; --hill:#1a3540;
+  --font-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+html { background:var(--bg); scroll-behavior:smooth; }
+body { margin:0; background:var(--bg); color:var(--fg); font:400 15px/1.5 var(--font-body);
+  padding-block:24px 72px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+button { font:inherit; color:inherit; cursor:pointer; }
+a { color:inherit; }
+:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+.wrap { max-width:1680px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr); gap:44px; }
+header h1 { font:800 clamp(28px,4.2vw,42px)/1.05 var(--font-display); margin:0 0 10px; text-wrap:balance; }
+header p, .lead { margin:0 0 8px; max-width:78ch; color:var(--muted); }
+header p b, .lead b { color:var(--fg); }
+.toc { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.toc a { text-decoration:none; border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:9px 14px; font-weight:600; font-size:14px; }
+.toc a:hover { border-color:var(--gold); color:var(--gold); }
+section { display:grid; grid-template-columns:minmax(0,1fr); gap:16px; scroll-margin-top:16px; }
+section > h2 { font:800 clamp(24px,3vw,32px)/1.1 var(--font-display); margin:0; }
+section > h2 small { font:700 11px/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:8px; }
+.grid { display:flex; flex-wrap:wrap; gap:36px 26px; align-items:flex-start; }
+.opt { width:390px; max-width:100%; min-width:0; display:grid; gap:10px; align-content:start; }
+.opt h3 { font:800 20px/1.15 var(--font-display); margin:0; }
+.opt h3 small { display:block; font:500 13.5px/1.45 var(--font-body); color:var(--muted); margin-top:4px; }
+.pick { font:700 11px/1 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--gold); }
+.phone { position:relative; border:1px solid var(--line); border-radius:24px; padding:14px 12px 18px; min-height:420px; overflow:hidden; display:grid; gap:10px; align-content:start;
+  background:radial-gradient(130% 300px at 50% 0,#17434d 0%,rgba(10,23,27,0) 100%),var(--bg); }
+.demo { border:1px dashed var(--line); border-radius:14px; padding:12px 14px; display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; max-width:820px; }
+.demo .lab { font:700 11px/1 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.seg { display:flex; flex-wrap:wrap; gap:6px; }
+.seg button { border:1px solid var(--line); background:var(--surface); border-radius:10px; min-height:40px; padding:0 12px; font-weight:600; font-size:14px; }
+.seg button[aria-pressed="true"] { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.demo input[type=range] { width:220px; max-width:100%; accent-color:var(--gold); }
+.demo output { font:700 15px var(--font-mono); color:var(--gold); min-width:5ch; }
+
+/* Liten kopi av forsiden */
+.mh { font:800 22px/1 var(--font-display); margin:2px 0 2px; }
+.mh span { background:linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.mbar { display:flex; gap:8px; }
+.mbar .search { flex:1; min-width:0; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--muted); padding:10px 12px; font-size:14px; }
+.mbar .mine { position:relative; border:1px solid var(--line); border-radius:12px; background:var(--surface); padding:0 12px; font-weight:600; font-size:14px; display:grid; place-items:center; white-space:nowrap; }
+.mbar .mine.on { background:var(--gold); color:#10282f; border-color:var(--gold); }
+.mbar .mine i { position:absolute; top:-4px; right:-4px; width:12px; height:12px; border-radius:50%; background:var(--few); border:2px solid var(--bg); }
+.chips { display:flex; flex-wrap:wrap; gap:6px; }
+.chips span { border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:7px 11px; font-size:13px; font-weight:600; color:var(--muted); }
+.chips span.hot { border-color:var(--few-line); background:var(--few-bg); color:var(--few); }
+.ghost { height:58px; border-radius:12px; background:var(--surface); border:1px solid var(--line); opacity:.4; }
+.ev { --c:var(--sea); position:relative; background:linear-gradient(135deg, color-mix(in srgb, var(--c) 20%, #13252d), #13252d 62%); border:1px solid var(--line); border-left:4px solid var(--c);
+  border-radius:12px; padding:11px 12px; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2px 10px; align-items:center; }
+.ev .tag { font:600 10.5px/1.2 var(--font-body); text-transform:uppercase; letter-spacing:.06em; color:var(--c); grid-column:1/-1; }
+.ev b { font:700 16px/1.2 var(--font-body); min-width:0; text-wrap:balance; }
+.ev .m { font-size:13px; color:var(--muted); grid-column:1; }
+.ev .m em { font-style:normal; font-family:var(--font-mono); color:var(--fg); font-weight:600; }
+.ev .side { grid-column:2; grid-row:2 / span 2; text-align:right; display:grid; gap:5px; justify-items:end; }
+.pr { font:600 13.5px var(--font-mono); white-space:nowrap; }
+.pill { display:inline-block; font:700 10.5px/1 var(--font-body); background:var(--few-bg); border:1px solid var(--few-line); color:var(--few); border-radius:999px; padding:4px 8px; white-space:nowrap; }
+.pill.sold { background:#3a1a14; border-color:#6b2c20; color:var(--accent); }
+.pill.cd { background:color-mix(in srgb, var(--gold) 14%, var(--surface)); border-color:color-mix(in srgb, var(--gold) 50%, var(--line)); color:var(--gold); font-family:var(--font-mono); padding:6px 9px; font-size:11.5px; }
+.pill.cd.far { background:var(--surface-2); border-color:var(--line); color:var(--muted); }
+.btn { white-space:nowrap; border:0; border-radius:10px; padding:0 14px; min-height:42px; font-weight:700; font-size:14px; display:inline-flex; align-items:center; gap:6px; text-decoration:none; background:var(--accent); color:var(--accent-ink); }
+.btn.alt { background:transparent; border:1px solid var(--line); color:var(--fg); }
+.box { border:1px solid var(--line); background:var(--surface); border-radius:14px; padding:12px; display:grid; gap:8px; }
+.box.hot { border-color:var(--few-line); background:linear-gradient(180deg, color-mix(in srgb, var(--few) 10%, var(--surface)), var(--surface)); }
+.kick { font:700 11px/1.2 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--few); display:flex; align-items:center; gap:7px; }
+.kick::before { content:""; width:8px; height:8px; border-radius:50%; background:var(--few); box-shadow:0 0 0 0 var(--few); animation:puls 2s infinite; }
+@keyframes puls { 70% { box-shadow:0 0 0 7px transparent; } 100% { box-shadow:0 0 0 0 transparent; } }
+.row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2px 10px; align-items:center; padding:8px 0; border-top:1px solid var(--line); }
+.row:first-of-type { border-top:0; }
+.row b { font-weight:700; font-size:15px; line-height:1.25; }
+.row .m { font-size:12.5px; color:var(--muted); grid-column:1; }
+.row .r { grid-column:2; grid-row:1 / span 2; text-align:right; display:grid; gap:4px; justify-items:end; }
+.row .when { font:700 13px var(--font-mono); color:var(--fg); }
+.row.gone b { text-decoration:line-through; color:var(--muted); }
+.more { background:none; border:0; padding:6px 0 0; color:var(--gold); font-weight:700; font-size:14px; text-align:left; }
+.strip { width:100%; text-align:left; border:1px solid var(--few-line); background:var(--few-bg); border-radius:12px; padding:12px; display:flex; align-items:center; gap:10px; font-weight:600; font-size:14px; color:var(--fg); min-height:46px; }
+.strip b { color:var(--few); }
+.strip .car { margin-left:auto; color:var(--few); transition:transform .2s; }
+.strip[aria-expanded="true"] .car { transform:rotate(180deg); }
+.tick { border:1px solid var(--few-line); background:var(--few-bg); border-radius:12px; padding:10px 12px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; min-height:52px; }
+.tick .lbl { font:700 10.5px/1 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--few); }
+.tick .txt { min-width:0; font-size:14px; line-height:1.25; animation:inn .45s; }
+.tick .txt b { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tick .txt span { color:var(--muted); font-size:12.5px; }
+.tick .dots { display:flex; gap:4px; }
+.tick .dots i { width:6px; height:6px; border-radius:50%; background:var(--few-line); }
+.tick .dots i.on { background:var(--few); }
+@keyframes inn { from { opacity:0; transform:translateY(6px); } }
+.rib { position:absolute; top:-1px; right:10px; background:var(--few); color:#2a1a02; font:800 10px/1 var(--font-mono); letter-spacing:.06em; text-transform:uppercase; padding:5px 7px 6px; border-radius:0 0 7px 7px; }
+.note { font-size:13px; color:var(--muted); }
+.note b { color:var(--fg); }
+
+/* Mine */
+.hero { border:1px solid color-mix(in srgb, var(--gold) 45%, var(--line)); border-radius:16px; padding:14px; display:grid; gap:8px; background:linear-gradient(160deg, color-mix(in srgb, var(--c, var(--sea)) 26%, #13252d), #13252d 70%); }
+.hero .k { font:700 11px/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+.hero b.t { font:800 24px/1.1 var(--font-display); text-wrap:balance; }
+.cdt { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+.cdt div { background:#0a171bcc; border:1px solid var(--line); border-radius:10px; padding:8px 4px; text-align:center; }
+.cdt b { display:block; font:700 24px/1 var(--font-mono); font-variant-numeric:tabular-nums; color:var(--gold); }
+.cdt span { font-size:11px; color:var(--muted); }
+.acts { display:flex; flex-wrap:wrap; gap:8px; }
+.sub { font:700 11px/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+.news { border:1px solid var(--few-line); background:var(--few-bg); border-radius:14px; padding:12px; display:grid; gap:8px; }
+.news p { margin:0; font-size:14px; line-height:1.35; display:grid; grid-template-columns:auto minmax(0,1fr); gap:8px; }
+.news p::before { content:""; width:8px; height:8px; border-radius:50%; background:var(--few); margin-top:6px; }
+.news p.sold::before { background:var(--accent); }
+.news p span { color:var(--muted); }
+.stub { display:grid; grid-template-columns:64px minmax(0,1fr); border-radius:12px; overflow:hidden; border:1px solid var(--line); background:var(--surface); }
+.stub .d { background:color-mix(in srgb, var(--c) 30%, #0f1f26); border-right:2px dashed var(--bg); padding:10px 4px; text-align:center; display:grid; align-content:center; }
+.stub .d b { font:800 26px/1 var(--font-display); }
+.stub .d span { font:700 10.5px/1.3 var(--font-mono); text-transform:uppercase; color:var(--c); letter-spacing:.06em; }
+.stub .b { padding:10px 12px; display:grid; gap:2px; min-width:0; }
+.stub .b b { font-size:15.5px; line-height:1.2; }
+.stub .b .m { font-size:12.5px; color:var(--muted); }
+.stub .b .f { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+.mon { font:800 17px/1 var(--font-display); color:var(--gold); margin:6px 0 0; display:flex; align-items:center; gap:10px; }
+.mon::after { content:""; flex:1; height:1px; background:var(--line); }
+.remind { width:100%; text-align:left; border:1px solid color-mix(in srgb, var(--gold) 45%, var(--line)); background:color-mix(in srgb, var(--gold) 10%, var(--surface)); border-radius:12px; padding:10px 12px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; font-size:14px; line-height:1.3; min-height:52px; }
+.remind .st { color:var(--gold); font-size:18px; }
+.remind span { color:var(--muted); font-size:12.5px; display:block; }
+
+/* Byen */
+.sky { position:relative; border-radius:16px; overflow:hidden; border:1px solid var(--line); line-height:0; }
+.sky svg { width:100%; height:auto; display:block; }
+.sky .cap { position:absolute; left:10px; top:10px; line-height:1.2; background:#0a171bcc; border:1px solid #25414a; border-radius:10px; padding:7px 10px; font-size:13px; font-weight:600; backdrop-filter:blur(4px); }
+.sky .cap b { color:var(--gold); font-family:var(--font-mono); }
+.win { cursor:pointer; }
+.win rect.g { filter:drop-shadow(0 0 5px var(--wc)); animation:blink 3.2s ease-in-out infinite; }
+.win:nth-of-type(odd) rect.g { animation-delay:-1.4s; }
+.win.past rect.g { opacity:.28; filter:none; animation:none; }
+.win.sel rect.g { stroke:#fff; stroke-width:2; }
+@keyframes blink { 50% { opacity:.78; } }
+.bld { cursor:pointer; }
+.bld .body { fill:var(--house); stroke:var(--line); stroke-width:1; }
+.bld.today .body { stroke:var(--gold); }
+.bld.sel .body { fill:#102a31; stroke:var(--gold); stroke-width:2; }
+.pop { animation:inn .25s; }
+.empty { color:var(--muted); font-size:14px; text-align:center; padding:10px 0; }
+.legend { display:grid; gap:6px; }
+.legend .l { display:grid; grid-template-columns:26px 48px minmax(0,1fr); gap:8px; align-items:baseline; font-size:14px; line-height:1.3; }
+.legend .n { width:24px; height:24px; border-radius:50%; display:grid; place-items:center; font:700 12px var(--font-mono); color:#10282f; background:var(--wc); align-self:center; }
+.legend em { font-style:normal; font:600 13px var(--font-mono); }
+.legend .past { opacity:.45; }
+.legend span { color:var(--muted); font-size:12.5px; }
+
+/* Helgen min: bilder i 9:16 */
+.picker { display:flex; flex-wrap:wrap; gap:6px; max-width:900px; }
+.picker button { border:1px solid var(--line); background:var(--surface); border-radius:999px; min-height:40px; padding:0 13px; font-size:13.5px; font-weight:600; color:var(--muted); }
+.picker button[aria-pressed="true"] { border-color:var(--gold); color:var(--gold); background:color-mix(in srgb, var(--gold) 12%, var(--surface)); }
+.sopt { width:288px; max-width:100%; display:grid; gap:10px; align-content:start; }
+.sopt h3 { font:800 20px/1.15 var(--font-display); margin:0; }
+.sopt h3 small { display:block; font:500 13.5px/1.45 var(--font-body); color:var(--muted); margin-top:4px; }
+.story { position:relative; width:288px; max-width:100%; aspect-ratio:9/16; border-radius:18px; overflow:hidden; border:1px solid var(--line); display:flex; flex-direction:column; padding:26px 20px 18px; gap:12px; }
+.story .foot { margin-top:auto; font:700 13px var(--font-mono); letter-spacing:.04em; display:flex; justify-content:space-between; align-items:center; position:relative; z-index:1; }
+.story .foot span { color:var(--gold); }
+.story h4 { margin:0; font:800 40px/.95 var(--font-display); text-wrap:balance; position:relative; z-index:1; }
+.story h4 span { background:linear-gradient(90deg,#ff8a6b,#f7c873); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.story .span { font:700 12.5px var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--gold); position:relative; z-index:1; }
+.story .list { display:grid; gap:11px; position:relative; z-index:1; }
+.story .it { display:grid; gap:1px; }
+.story .it .w { font:700 12.5px var(--font-mono); text-transform:uppercase; letter-spacing:.06em; color:var(--c); }
+.story .it b { font:700 18px/1.15 var(--font-body); text-wrap:balance; }
+.story .it span { font-size:13px; color:#b8cdd0; }
+.sA { background:linear-gradient(180deg,#14303f 0%,#0b1a24 70%,#0a171b 100%); }
+.sA .town { position:absolute; inset:auto 0 0 0; line-height:0; opacity:.95; }
+.sA .town svg { width:100%; height:auto; display:block; }
+.sA .moon { position:absolute; right:14px; top:14px; width:34px; height:34px; border-radius:50%; background:var(--snow); box-shadow:0 0 40px 10px #f4f1e655; }
+.sA h4 { font-size:37px; padding-right:30px; } .sA .foot { background:#06110fe6; margin:0 -20px -18px; padding:9px 20px 14px; }
+.sB { background:radial-gradient(120% 60% at 50% 0,#17434d,#0a171b 70%); }
+.sB .tk { display:grid; grid-template-columns:62px minmax(0,1fr); background:#f3ead8; color:#17242a; border-radius:10px; overflow:hidden; box-shadow:0 10px 22px #0008; }
+.sB .tk:nth-child(odd) { transform:rotate(-2deg); } .sB .tk:nth-child(even) { transform:rotate(1.6deg); }
+.sB .tk .d { background:var(--c); color:#0a171b; padding:9px 4px; text-align:center; border-right:2px dashed #f3ead8; display:grid; align-content:center; }
+.sB .tk .d b { font:800 17px/1 var(--font-display); text-transform:uppercase; } .sB .tk .d span { font:700 12.5px var(--font-mono); }
+.sB .tk .b { padding:9px 11px; min-width:0; } .sB .tk .b b { font:700 16px/1.15 var(--font-body); display:block; } .sB .tk .b span { font-size:12.5px; color:#51636a; }
+.sC { background:#0a171b; padding-top:22px; }
+.sC .day { display:grid; grid-template-columns:54px minmax(0,1fr); gap:10px; padding:10px 0; border-top:1px solid var(--line); position:relative; z-index:1; }
+.sC .day > b { font:800 26px/1 var(--font-display); color:var(--gold); text-transform:uppercase; } .sC .day > b small { display:block; font:700 12px var(--font-mono); color:var(--muted); margin-top:4px; }
+.sC .day .x { display:grid; gap:8px; } .sC .day .x div b { font:700 16.5px/1.15 var(--font-body); display:block; } .sC .day .x div span { font-size:12.5px; color:#b8cdd0; } .sC .day .x div em { font:700 12.5px var(--font-mono); font-style:normal; color:var(--c); }
+.sC .day .fri { color:var(--muted); font-size:14px; align-self:center; }
+.sD { background:linear-gradient(160deg,#3b1d4a 0%,#12303a 55%,#0a171b 100%); }
+.sD h4 { font-size:46px; }
+.sD .ask { align-self:flex-start; background:#fff; color:#17242a; border-radius:14px; padding:10px 14px; font:700 15px/1.2 var(--font-body); transform:rotate(-2deg); box-shadow:0 10px 22px #0008; position:relative; z-index:1; }
+.sD .ask small { display:block; font:600 11.5px var(--font-body); color:#6a7a80; margin-top:3px; }
+.sE { background:var(--gold); color:#10282f; }
+.sE .num { font:800 150px/.8 var(--font-display); letter-spacing:-.04em; } .sE h4 { font-size:28px; color:#10282f; }
+.sE .it .w { color:#7a4a12; } .sE .it span { color:#3d5057; } .sE .foot span { color:#10282f; } .sE .list { border-top:2px solid #10282f; padding-top:12px; }
+@media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } html { scroll-behavior:auto; } }
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Fire ting som kan trekke folk tilbake</h1>
+  <p>Forslag til <b>Siste sjanse</b>, <b>★ Mine som kalender</b>, <b>den levende byen</b> og <b>«Helgen min» som bilde</b>. Alle mobilene bruker ekte arrangementer fra programmet slik det var onsdag 11. november kl. 21:15, og de fleste kan trykkes på. Ingenting er endret på selve siden.</p>
+  <p>Vi vet bare om et arrangement har «få billetter igjen» eller er utsolgt, ikke hvor mange billetter som er igjen. Derfor står det aldri et antall billetter i forslagene.</p>
+  <nav class="toc" aria-label="Delene"><a href="#siste-sjanse">1 Siste sjanse</a><a href="#mine">2 Mine som kalender</a><a href="#byen">4 Den levende byen</a><a href="#helgen-min">7 Helgen min som bilde</a></nav>
+</header>
+
+<section id="siste-sjanse">
+  <h2><small>Del 1</small>Siste sjanse</h2>
+  <p class="lead">Viser det som snart er utsolgt. Samme regel som merket «Få billetter igjen» har i dag: Parken sitt merke teller bare de siste 14 dagene. Akkurat nå gir det <b id="n1"></b> arrangementer. Er det ingen, vises ingenting.</p>
+  <div class="grid" id="g1"></div>
+</section>
+
+<section id="mine">
+  <h2><small>Del 2</small>★ Mine som «min kalender»</h2>
+  <p class="lead">Eksempel med fem lagrede arrangementer. Nedtellingene går på ekte. Alt skjer i nettleseren, uten innlogging: siden husker statusen fra forrige besøk og sammenligner. Det betyr at beskjeden kommer når du åpner siden, ikke som varsel på telefonen.</p>
+  <div class="grid" id="g2"></div>
+</section>
+
+<section id="byen">
+  <h2><small>Del 4</small>Den levende byen</h2>
+  <p class="lead">Ålesund-silhuetten fra delingsbildene, øverst på forsiden. <b>Hvert vindu som lyser er ett arrangement</b>, i fargen til kategorien. Når arrangementet har startet, dempes lyset. Himmelen og månen følger klokka. Prøv dag og klokkeslett her, og trykk på vinduene:</p>
+  <div class="demo">
+    <span class="lab">Prøv</span>
+    <div class="seg" id="daySeg"></div>
+    <label class="lab" for="hr">Klokka</label>
+    <input type="range" id="hr" min="15" max="24" step="0.5" value="17">
+    <output id="hrOut" for="hr">17:00</output>
+  </div>
+  <div class="grid" id="g4"></div>
+</section>
+
+<section id="helgen-min">
+  <h2><small>Del 7</small>«Helgen min» som bilde</h2>
+  <p class="lead">En knapp «Lag helgebilde» i ★ Mine lager et bilde i 9:16 av det du har lagret til helgen, klart til Instagram-story eller Snapchat. På mobil åpnes delearket med bildet, på PC lagres det. Teksten er stor, som du ba om 5. november, og bildet tar maks fem arrangementer. Velg hva som er lagret, så endrer alle bildene seg:</p>
+  <div class="picker" id="pick"></div>
+  <div class="grid" id="g7"></div>
+</section>
+</div>
+
+<script>
+const EV = [{"id":"filmvisning-how-to-live-on-earth-pir-cowork","date":"2026-11-11","time":"17:30","title":"Filmvisning: How to live on earth","venue":"Pir Cowork","cat":"show","price":"100 kr"},{"id":"parken-41531-parken-kulturhus","date":"2026-11-11","time":"18:00","title":"Yoga Piano","venue":"Parken kulturhus","cat":"konsert","price":"115–230 kr"},{"id":"brosundet-etter-seks-2026","date":"2026-11-11","time":"18:00","title":"Brosundet ETTER SEKS","venue":"Hotel Brosundet","cat":"konsert","price":"Gratis","more":["2026-11-18T18:00"]},{"id":"viti-fagsamling-og-nettverkstreff-for-handverkarar-2026-sunn","date":"2026-11-12","time":"12:00","title":"Fagsamling og Nettverkstreff for handverkarar 2026","venue":"Sunnmøre museum","cat":"happening","more":["2026-11-13T09:00"]},{"id":"bjorn-bjarte-lovenvold-theater","date":"2026-11-12","time":"18:00","title":"Bjørn & Bjarte","venue":"Løvenvold Theater","cat":"show","price":"699 kr","few":true},{"id":"julelystenning-pa-devoldfabrikken-devoldfabrikken","date":"2026-11-12","time":"18:00","title":"Julelystenning på Devoldfabrikken","venue":"Devoldfabrikken","cat":"happening"},{"id":"jul-pa-molja-thon-hotel-alesund","date":"2026-11-12","time":"18:30","title":"Jul på Molja","venue":"Thon Hotel Ålesund","cat":"show","price":"Pris hos arrangør","more":["2026-11-13T18:30","2026-11-14T18:30"]},{"id":"parken-47679-parken-kulturhus","date":"2026-11-12","time":"19:00","title":"Anders Jektvik","venue":"Parken kulturhus","cat":"konsert","price":"450 kr","few":true,"statusSrc":"parken"},{"id":"oconnors-2026-11-12-pubquiz-hos-o-8217-connor-8217-o-connor-","date":"2026-11-12","time":"19:00","title":"Pubquiz","venue":"O'Connor's","cat":"quiz","price":"50 kr"},{"id":"livrore-2026-11-12-torsdagers-quiz-med-oystein-ok-liv-rore-m","date":"2026-11-12","time":"19:00","title":"Torsdager Quiz med Øystein Oksnes","venue":"Liv & Røre Moa","cat":"quiz","price":"50 kr"},{"id":"sofia-emelia-robert-botn-drape-alesund-kaffehus","date":"2026-11-13","time":"18:30","title":"Sofia Emelia & Robert Botn","venue":"Dråpe Ålesund Kaffehus","cat":"konsert","price":"150 kr"},{"id":"parken-47677-parken-kulturhus","date":"2026-11-13","time":"19:00","title":"Christine Koht","venue":"Parken kulturhus","cat":"show","price":"450 kr","few":true,"statusSrc":"parken"},{"id":"forum-artist-in-residence-uke-45-forum-alesund","date":"2026-11-13","time":"19:30","title":"Duo Araia","venue":"Forum Ålesund","cat":"konsert"},{"id":"beat-for-beat-inspirert-quiz-dampsentralen","date":"2026-11-13","time":"20:00","title":"BEAT FOR BEAT INSPIRERT QUIZ","venue":"Dampsentralen","cat":"quiz","price":"500 kr"},{"id":"livrore-dj-liv-rore-moa","date":"2026-11-13","time":"23:00","title":"DJ hver helg","venue":"Liv & Røre Moa","cat":"klubb","more":["2026-11-14T23:00"]},{"id":"viti-dans-for-unge-vaksne-aalesunda-sunnmore-museum","date":"2026-11-14","time":"12:00","title":"Dans for unge vaksne - Ålesund","venue":"Sunnmøre museum","cat":"happening"},{"id":"parken-49079-parken-kulturhus","date":"2026-11-14","time":"15:00","title":"Vitenshitshow","venue":"Parken kulturhus","cat":"barn","price":"320 kr"},{"id":"sult-venterommet-terminalen","date":"2026-11-14","time":"19:00","title":"SULT","venue":"Venterommet, Terminalen","cat":"konsert","price":"250 kr"},{"id":"dj-hver-lordag-bryt-tapas","date":"2026-11-14","time":"21:00","title":"DJ Dadsh hver lørdag","venue":"Bryt Tapas","cat":"klubb"},{"id":"klubb-e39-terminalen-byscene","date":"2026-11-14","time":"23:00","title":"KLUBB E39","venue":"Terminalen Byscene","cat":"klubb","price":"50 kr"},{"id":"lag-din-egen-nisse-hos-siws-keramikk-devoldfabrikken","date":"2026-11-15","time":"13:00","title":"Lag din egen nisse hos Siws keramikk","venue":"Devoldfabrikken","cat":"happening","more":["2026-11-15T14:00","2026-11-15T15:00"]},{"id":"parken-50876-parken-kulturhus","date":"2026-11-15","time":"18:00","title":"Tonje Glimmerdal","venue":"Parken kulturhus","cat":"konsert","price":"Gratis","soldOut":true,"shows":[["2026-11-15T18:00","sold"],["2026-11-16T18:00","sold"]],"statusSrc":"parken","more":["2026-11-16T18:00"]},{"id":"julekortfotografering-med-fotograf-lene-cs-devoldfabrikken","date":"2026-11-15","title":"Julekortfotografering med fotograf Lene CS","venue":"Devoldfabrikken","cat":"happening","price":"900 kr"},{"id":"rigget-for-fremtiden-fagseminar-for-naeringslivet-dampsentra","date":"2026-11-17","time":"20:30","title":"Rigget for fremtiden - Fagseminar for næringslivet","venue":"Dampsentralen","cat":"konsert"},{"id":"vin-til-julmat-m-anders-goransson-vino-bar","date":"2026-11-18","time":"18:00","title":"Vin til julemat med Anders Gøransson","venue":"Vino Bar","cat":"happening","price":"1495 kr"},{"id":"visekveld-pa-fabrikken-fabrikken-kulturscene","date":"2026-11-18","time":"20:00","title":"Visekveld på Fabrikken","venue":"Fabrikken Kulturscene","cat":"konsert"},{"id":"olsmaking-og-historiefortelling-pa-kaab-bryggeri-devoldfabri","date":"2026-11-26","time":"19:00","title":"Ølsmaking og historiefortelling på KaaB Bryggeri","venue":"Devoldfabrikken","cat":"happening","price":"423 kr","few":true,"shows":[["2026-11-26T19:00","few"],["2027-01-20T19:00","few"]]},{"id":"zimmermann-julekonsert-lovenvold-theater","date":"2026-11-29","time":"17:00","title":"Zimmermann – julekonsert","venue":"Løvenvold Theater","cat":"konsert","price":"449 kr","soldOut":true,"shows":[["2026-11-29T17:00","sold"],["2026-11-29T19:30","sold"]]},{"id":"notteknekkeren-arbeideren-kulturhus","date":"2026-12-01","time":"17:30","title":"Nøtteknekkeren","venue":"Arbeideren kulturhus","cat":"show","price":"299 kr","few":true,"shows":[["2026-12-01T17:30","sold"],["2026-12-02T17:30","sold"],["2026-12-03T17:30","sold"],["2026-12-04T17:30","few"]]},{"id":"parken-48003-parken-kulturhus","date":"2026-12-08","time":"19:00","title":"Ylvis & Calle","venue":"Parken kulturhus","cat":"show","price":"680 kr","few":true,"shows":[["2026-12-08T19:00","few"],["2026-12-08T21:00","few"]],"statusSrc":"parken"},{"id":"parken-44479-parken-kulturhus","date":"2026-12-10","time":"19:00","title":"Alexandra Rotan","venue":"Parken kulturhus","cat":"konsert","price":"650 kr","few":true,"statusSrc":"parken"},{"id":"parken-49425-parken-kulturhus","date":"2026-12-12","time":"19:00","title":"Velvet Christmas","venue":"Parken kulturhus","cat":"konsert","price":"205–380 kr","few":true,"statusSrc":"parken"},{"id":"til-deg-som-venter-kl-18-00-venterommet-terminalen","date":"2026-12-16","time":"17:30","title":"TIL DEG SOM VENTER – Kl. 18:00","venue":"Venterommet, Terminalen","cat":"konsert","price":"200 kr","soldOut":true},{"id":"til-deg-som-venter-kl-20-00-venterommet-terminalen","date":"2026-12-16","time":"20:30","title":"TIL DEG SOM VENTER – Kl. 20:00","venue":"Venterommet, Terminalen","cat":"konsert","price":"200 kr","soldOut":true},{"id":"parken-46011-parken-kulturhus","date":"2026-12-18","time":"19:00","title":"Eva Weel Skram","venue":"Parken kulturhus","cat":"konsert","price":"655 kr","few":true,"statusSrc":"parken"},{"id":"darling-west-juleturne-26-lovenvold-theater","date":"2026-12-19","time":"16:00","title":"Darling West – juleturné","venue":"Løvenvold Theater","cat":"konsert","price":"520 kr","shows":[["2026-12-19T16:00",""],["2026-12-19T19:00","sold"]]},{"id":"e39-vol-5-nyttars-molo-molo","date":"2026-12-31","time":"22:00","title":"E39 - Vol.5 Nyttårs MOLO","venue":"MOLO","cat":"konsert","price":"250 kr","soldOut":true}];
+const CAT = { konsert:["Konsert","#5ab7bf"], standup:["Standup","#f08a4b"], show:["Show","#ab93e6"], barn:["Barn og familie","#6cc98a"], klubb:["Klubb","#ec78ab"], happening:["Happening","#d9b84a"], quiz:["Quiz","#b497e0"] };
+const WD = ["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"], WS = ["søn","man","tir","ons","tor","fre","lør"];
+const MO = ["jan.","feb.","mars","apr.","mai","juni","juli","aug.","sep.","okt.","nov.","des."], MOL = ["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"];
+const T0 = Date.now(), BASE = new Date(2026, 10, 11, 21, 15), TODAY = new Date(2026, 10, 11);
+const now = () => new Date(BASE.getTime() + Date.now() - T0);
+const D = iso => { const [d, t] = iso.split("T"), [y, m, dd] = d.split("-").map(Number), [h, mi] = (t || "00:00").split(":").map(Number); return new Date(y, m - 1, dd, h, mi); };
+const dayDiff = iso => Math.round((D(iso.slice(0, 10)) - TODAY) / 864e5);
+const hm = iso => iso.split("T")[1] || "";
+const dato = iso => D(iso).getDate() + ". " + MO[D(iso).getMonth()];
+const rel = iso => { const n = dayDiff(iso); return n === 0 ? "i kveld" : n === 1 ? "i morgen" : n < 7 ? WD[D(iso).getDay()] : WS[D(iso).getDay()] + " " + dato(iso); };
+const om = iso => { const n = dayDiff(iso); return n === 0 ? "i dag" : n === 1 ? "i morgen" : "om " + n + " dager"; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const col = e => CAT[e.cat] ? CAT[e.cat][1] : "#5ab7bf";
+const find = t => EV.find(e => e.title.startsWith(t));
+const occ = e => [e.date + (e.time ? "T" + e.time : ""), ...(e.more || [])];
+// Neste forestilling som ikke er utsolgt, og statusen dens
+const next = e => { const s = (e.shows || []).find(x => x[1] !== "sold"); return s ? { iso: s[0], few: s[1] === "few" } : { iso: occ(e)[0], few: !!e.few }; };
+const price = e => e.price && e.price !== "Pris hos arrangør" ? e.price : "";
+const $ = s => document.querySelector(s);
+const top_ = (mine, dot) => `<div class="mh">Skjer i <span>Ålesund</span></div><div class="mbar"><div class="search">Søk i 184 arrangementer …</div><div class="mine${mine ? " on" : ""}">★ Mine${mine ? " 5" : ""}${dot ? "<i></i>" : ""}</div></div>`;
+const ghosts = n => '<div class="ghost"></div>'.repeat(n);
+const opt = (id, title, sub, body, pick) => `<div class="opt" id="${id}">${pick ? `<div class="pick">Claudes favoritt</div>` : ""}<h3>${title}<small>${sub}</small></h3><div class="phone">${body}</div></div>`;
+
+/* ---------- Del 1: Siste sjanse ---------- */
+const LAST = EV.filter(e => e.few && !e.soldOut && (e.statusSrc !== "parken" || dayDiff(next(e).iso) <= 14)).map(e => ({ e, iso: next(e).iso })).sort((a, b) => a.iso < b.iso ? -1 : 1);
+const GONE = EV.filter(e => e.soldOut && dayDiff(e.date) >= 0 && dayDiff(e.date) <= 7);
+$("#n1").textContent = LAST.length;
+const lrow = ({ e, iso }) => `<div class="row"><b>${esc(e.title)}</b><span class="m">${esc(e.venue)}${price(e) ? " · " + price(e) : ""}</span><span class="r"><span class="when">${rel(iso)} ${hm(iso)}</span><span class="pill">Få igjen</span></span></div>`;
+const card = ({ e, iso }, extra = "") => `<div class="ev" style="--c:${col(e)}">${extra}<span class="tag">${CAT[e.cat][0]}</span><b>${esc(e.title)}</b><span class="m"><em>${rel(iso)} ${hm(iso)}</em> · ${esc(e.venue)}</span><span class="side"><span class="pr">${price(e)}</span><span class="pill">Få billetter igjen</span></span></div>`;
+$("#g1").innerHTML =
+  opt("s-a", "A Stripe som kinostripa", "Én linje øverst. Trykk for å åpne. Tar minst plass og ligner noe siden allerede har.",
+    top_() + `<button class="strip" aria-expanded="false" id="sa"><span><b>Siste sjanse:</b> ${LAST.length} har få billetter igjen</span><span class="car">▾</span></button><div class="box hot" id="sal" hidden>${LAST.map(lrow).join("")}</div>` + ghosts(4), true) +
+  opt("s-b", "B Boks med de tre første", "Alltid åpen, viser de tre som er nærmest i tid. Mer synlig, men skyver programmet ned.",
+    top_() + `<div class="box hot"><div class="kick">Siste sjanse</div>${LAST.slice(0, 3).map(lrow).join("")}<button class="more">Se alle ${LAST.length} →</button></div>` + ghosts(2)) +
+  opt("s-c", "C Rullende linje", "Én om gangen, bytter hvert fjerde sekund. Liten og levende, men lett å overse.",
+    top_() + `<div class="tick" id="sc"></div>` + ghosts(5)) +
+  opt("s-d", "D Filter og merke i lista", "Ingen ny boks. En knapp «Få igjen» i filterraden, og kortene får en liten flik øverst.",
+    top_() + `<div class="chips"><span>I dag</span><span>Denne helgen</span><span class="hot">Få igjen ${LAST.length}</span><span>Gratis</span></div>` + LAST.slice(0, 3).map(x => card(x, '<span class="rib">Siste sjanse</span>')).join("")) +
+  opt("s-e", "E Med «nettopp utsolgt»", "Som B, men viser også det som ble utsolgt denne uka. Det minner folk på å være tidlig ute neste gang.",
+    top_() + `<div class="box hot"><div class="kick">Siste sjanse denne uka</div>${LAST.filter(x => dayDiff(x.iso) <= 7).map(lrow).join("")}${GONE.map(e => `<div class="row gone"><b>${esc(e.title)}</b><span class="m">${esc(e.venue)} · ${rel(e.date)}</span><span class="r"><span class="pill sold">Utsolgt</span></span></div>`).join("")}</div>` + ghosts(2));
+$("#sa").onclick = function () { const o = this.getAttribute("aria-expanded") !== "true"; this.setAttribute("aria-expanded", o); $("#sal").hidden = !o; };
+let ti = 0;
+const tick = () => { const x = LAST[ti % LAST.length]; $("#sc").innerHTML = `<span class="lbl">Få igjen</span><span class="txt"><b>${esc(x.e.title)}</b><span>${rel(x.iso)} ${hm(x.iso)} · ${esc(x.e.venue)}</span></span><span class="dots">${LAST.map((_, i) => `<i class="${i === ti % LAST.length ? "on" : ""}"></i>`).join("")}</span>`; ti++; };
+tick(); setInterval(tick, 4000);
+
+/* ---------- Del 2: Mine ---------- */
+const FAV = ["Christine Koht", "SULT", "Nøtteknekkeren", "Ylvis", "Darling West"].map(find).map(e => ({ e, iso: next(e).iso }));
+const stat = e => { const s = e.shows || [], sold = s.filter(x => x[1] === "sold"), n = next(e);
+  if (sold.length && sold.every(x => x[0].slice(0, 10) === n.iso.slice(0, 10))) return `<span class="pill sold">${sold.map(x => hm(x[0])).join(", ")} utsolgt</span>`;
+  if (sold.length) return `<span class="pill">Få igjen ${dato(n.iso)}</span>`;
+  return n.few && (e.statusSrc !== "parken" || dayDiff(n.iso) <= 14) ? '<span class="pill">Få billetter igjen</span>' : ""; };
+const cdp = iso => `<span class="pill cd${dayDiff(iso) > 7 ? " far" : ""}">${om(iso)}</span>`;
+const mcard = ({ e, iso }) => `<div class="ev" style="--c:${col(e)}"><span class="tag">${CAT[e.cat][0]}</span><b>${esc(e.title)}</b><span class="m"><em>${WS[D(iso).getDay()]} ${dato(iso)} ${hm(iso)}</em> · ${esc(e.venue)}</span><span class="side">${cdp(iso)}${stat(e)}</span></div>`;
+const f0 = FAV[0];
+const hero = `<div class="hero" style="--c:${col(f0.e)}"><span class="k">Neste for deg</span><b class="t">${esc(f0.e.title)}</b><span class="m" style="color:var(--muted);font-size:14px">${WD[D(f0.iso).getDay()]} ${dato(f0.iso)} kl. ${hm(f0.iso)} · ${esc(f0.e.venue)}</span><div class="cdt" data-cd="${f0.iso}"></div><div class="acts"><span class="btn">Billetter</span><span class="btn alt">Legg i kalender</span></div></div>`;
+const news = `<div class="news"><div class="kick">Nytt om dine siden sist</div><p class="sold"><span><b style="color:var(--fg)">Nøtteknekkeren:</b> 1., 2. og 3. des. er utsolgt. Få billetter igjen 4. des.</span></p><p class="sold"><span><b style="color:var(--fg)">Darling West:</b> kl. 19:00 er utsolgt. Kl. 16:00 har billetter.</span></p><div class="acts"><span class="btn">Se billetter</span><span class="btn alt">OK</span></div></div>`;
+const stub = ({ e, iso }) => `<div class="stub" style="--c:${col(e)}"><div class="d"><b>${D(iso).getDate()}</b><span>${WS[D(iso).getDay()]}<br>${hm(iso)}</span></div><div class="b"><b>${esc(e.title)}</b><span class="m">${esc(e.venue)}${price(e) ? " · " + price(e) : ""}</span><span class="f">${cdp(iso)}${stat(e)}</span></div></div>`;
+let lastMo = -1;
+const book = FAV.map(x => { const m = D(x.iso).getMonth(), h = m !== lastMo ? `<div class="mon">${MOL[m][0].toUpperCase() + MOL[m].slice(1)}</div>` : ""; lastMo = m; return h + stub(x); }).join("");
+$("#g2").innerHTML =
+  opt("m-a", "A Nedtelling på kortene", "Minst endring: hvert kort i Mine får «om 2 dager» og status.", top_(true) + FAV.map(mcard).join("")) +
+  opt("m-b", "B «Neste for deg» øverst", "Det neste du skal på får et stort felt med nedtelling som går. Resten kommer under.", top_(true) + hero + `<div class="sub">Deretter</div>` + FAV.slice(1).map(mcard).join(""), true) +
+  opt("m-c", "C Beskjed når noe endrer seg", "Når noe du har lagret blir utsolgt eller får få billetter, står det øverst neste gang du åpner siden. «★ Mine» får en prikk på forsiden.", top_(true, true) + news + FAV.slice(0, 3).map(mcard).join(""), true) +
+  opt("m-d", "D Billettbok", "Mine ser ut som en bunke billetter, delt på måned. Mer personlig, og den penest å ta skjermbilde av.", top_(true) + book) +
+  opt("m-e", "E Påminnelse på forsiden", "En tynn linje på forsiden, bare for den som har lagret noe. Trykk åpner Mine. Kan brukes sammen med A–D.",
+    top_(false, true) + `<button class="remind"><span class="st">★</span><span><b>${esc(f0.e.title)}</b> ${om(f0.iso)}<span>${WD[D(f0.iso).getDay()]} kl. ${hm(f0.iso)} · ${esc(f0.e.venue)}</span></span><span style="color:var(--gold)">→</span></button>` + ghosts(5));
+const cd = () => document.querySelectorAll("[data-cd]").forEach(el => { let s = Math.max(0, Math.floor((D(el.dataset.cd) - now()) / 1000));
+  const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+  el.innerHTML = [[d, "dager"], [h, "timer"], [m, "min"], [s % 60, "sek"]].map(x => `<div><b>${String(x[0]).padStart(2, "0")}</b><span>${x[1]}</span></div>`).join(""); });
+cd(); setInterval(cd, 1000);
+
+/* ---------- Del 4: Byen (samme generator som scripts/delingsbilde.py) ---------- */
+const rng = seed => () => (seed = seed * 16807 % 2147483647) / 2147483647;
+function city(w, h, seed) {
+  const r = rng(seed), b = [], caps = [], slots = []; let x = -10;
+  while (x < w) {
+    const bw = 46 + r() * 64, top = h * (.38 + r() * .34), k = r(); let p, c;
+    if (k < .45) { const pk = top - 26 - r() * 34; p = `M${x},${h}V${top}L${x + bw / 2},${pk}L${x + bw},${top}V${h}Z`; c = `M${x - 2},${top + 2}L${x + bw / 2},${pk - 2}L${x + bw + 2},${top + 2}`; if (r() < .35) p += `M${x + bw / 2 - 2},${pk}v-18h4v18Z`; }
+    else if (k < .7) { const s = 12 + r() * 6; p = `M${x},${h}V${top - s}H${x + bw * .2}V${top - 2 * s}H${x + bw * .8}V${top - s}H${x + bw}V${h}Z`; c = `M${x + bw * .2},${top - 2 * s}H${x + bw * .8}`; }
+    else if (k < .85) { const t = top - 60 - r() * 30; p = `M${x},${h}V${top}H${x + bw * .35}V${t + 22}L${x + bw * .5},${t}L${x + bw * .65},${t + 22}V${top}H${x + bw}V${h}Z`; c = `M${x + bw * .33},${t + 23}L${x + bw * .5},${t - 1}L${x + bw * .67},${t + 23}`; }
+    else { p = `M${x},${h}V${top}Q${x + bw / 2},${top - 46} ${x + bw},${top}V${h}Z`; c = `M${x},${top}Q${x + bw / 2},${top - 46} ${x + bw},${top}`; }
+    b.push(p); caps.push(c);
+    for (let wy = top + 16; wy < h - 30; wy += 30) for (let wx = x + 10; wx < x + bw - 16; wx += 22) { r(); if (wx > 6 && wx < w - 18) slots.push([Math.round(wx), Math.round(wy)]); }
+    x += bw + (r() < .25 ? 6 : 0);
+  }
+  return { b, caps, slots };
+}
+const mix = (a, b, t) => "#" + [1, 3, 5].map(i => Math.round(parseInt(a.substr(i, 2), 16) * (1 - t) + parseInt(b.substr(i, 2), 16) * t).toString(16).padStart(2, "0")).join("");
+const SKY = [[15, "#4f8aa6", "#f0b27a"], [17, "#234b66", "#8a5568"], [19, "#14303f", "#0b1a24"], [24, "#0a1620", "#070f13"]];
+const sky = hr => { let i = SKY.findIndex(s => s[0] >= hr); if (i <= 0) i = 1; const a = SKY[i - 1], b = SKY[i], t = Math.min(1, Math.max(0, (hr - a[0]) / (b[0] - a[0]))); return [mix(a[1], b[1], t), mix(a[2], b[2], t)]; };
+let uid = 0;
+// evs: [{e, t (timer som tall)}]. Returnerer SVG med ett vindu per arrangement.
+function scene(w, h, ch, evs, hr, o = {}) {
+  const c = city(w, ch, o.seed || 3), oy = h - ch, id = "s" + uid++, [s1, s2] = sky(hr), k = (hr - 15) / 9;
+  const r = rng(o.pick || 11), pool = c.slots.map(s => [r(), s]).sort((a, b) => a[0] - b[0]).map(x => x[1]), chosen = [];
+  for (const gap of [46, 30, 0]) for (const s of pool) { if (chosen.length >= evs.length) break; if (!chosen.includes(s) && chosen.every(q => Math.hypot(q[0] - s[0], q[1] - s[1]) >= gap)) chosen.push(s); }
+  const rs = rng(7), stars = Array.from({ length: 34 }, () => `<circle cx="${(rs() * w).toFixed(0)}" cy="${(rs() * oy * 1.1).toFixed(0)}" r="${(.5 + rs()).toFixed(1)}" fill="#fff" opacity="${(Math.max(0, k - .15) * (.3 + rs() * .6)).toFixed(2)}"/>`).join("");
+  const mx = w * (.5 + .38 * k), my = 30 + 26 * Math.pow((k - .55) / .55, 2);
+  const wins = evs.map((v, i) => { const [x, y] = chosen[i] || [20 + i * 30, oy + 60], past = v.t < hr, cl = col(v.e);
+    return `<g class="win${past ? " past" : ""}${o.sel === i ? " sel" : ""}" data-i="${i}" style="--wc:${cl}" role="button" tabindex="0" aria-label="${esc(v.e.title)}"><circle cx="${x + 6}" cy="${y + oy + 8}" r="19" fill="transparent"/><rect class="g" x="${x}" y="${y + oy}" width="12" height="16" rx="3" fill="${cl}"/>${o.num ? `<circle cx="${x + 6}" cy="${y + oy - 9}" r="8" fill="${cl}" opacity="${past ? .4 : 1}"/><text x="${x + 6}" y="${y + oy - 5.5}" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="10" fill="#10282f">${i + 1}</text>` : ""}</g>`; }).join("");
+  const dark = c.slots.filter(s => !chosen.slice(0, evs.length).includes(s)).map(s => `<rect x="${s[0]}" y="${s[1] + oy}" width="9" height="13" rx="3" fill="#10252b"/>`).join("");
+  let wave = `M0,${h - 8}`; for (let i = 0; i < w; i += 80) wave += `C${i + 27},${h - 16} ${i + 53},${h - 16} ${i + 80},${h - 8}`;
+  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s1}"/><stop offset=".75" stop-color="${s2}"/><stop offset="1" stop-color="#0a171b"/></linearGradient></defs>
+  ${o.bare ? "" : `<rect width="${w}" height="${h}" fill="url(#${id})"/>${stars}<circle cx="${mx}" cy="${my}" r="26" fill="#f4f1e6" opacity=".14"/><circle cx="${mx}" cy="${my}" r="13" fill="#f4f1e6"/>`}
+  <g transform="translate(0 ${oy})"><path d="M${w * .18},${ch}C${w * .3},${ch * .25} ${w * .42},${ch * .02} ${w * .55},${ch * .05}C${w * .68},${ch * .08} ${w * .8},${ch * .3} ${w * .95},${ch}Z" fill="#1a3540"/>
+  <path d="${c.b.join("")}" fill="#06110f"/><path d="${c.caps.join("")}" fill="none" stroke="#f4f1e6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g>${dark}${wins}
+  <path d="${wave}" fill="none" stroke="#5ab7bf" stroke-width="3" stroke-linecap="round"/></svg>`;
+}
+const DAYS = ["2026-11-11", "2026-11-12", "2026-11-13", "2026-11-14"];
+const onDay = d => EV.flatMap(e => occ(e).filter(o => o.slice(0, 10) === d && hm(o)).map(o => ({ e, iso: o, t: +hm(o).slice(0, 2) + hm(o).slice(3) / 60 }))).sort((a, b) => a.t - b.t);
+const st = { day: "2026-11-12", hr: 17, selA: -1, selC: -1, wk: "2026-11-11" };
+const dname = d => dayDiff(d) === 0 ? "I kveld" : dayDiff(d) === 1 ? "I morgen" : WD[D(d).getDay()][0].toUpperCase() + WD[D(d).getDay()].slice(1);
+const klokke = h => String(Math.floor(h) % 24).padStart(2, "0") + ":" + (h % 1 ? "30" : "00");
+const popCard = (v, hr) => `<div class="ev pop" style="--c:${col(v.e)}"><span class="tag">${CAT[v.e.cat][0]}</span><b>${esc(v.e.title)}</b><span class="m"><em>${v.t < hr ? "startet " : "kl. "}${hm(v.iso)}</em> · ${esc(v.e.venue)}</span><span class="side"><span class="pr">${price(v.e)}</span></span></div>`;
+$("#daySeg").innerHTML = DAYS.map(d => `<button data-d="${d}">${WS[D(d).getDay()]} ${D(d).getDate()}.</button>`).join("");
+// Uka som by: ett hus per dag
+function week() {
+  const days = Array.from({ length: 7 }, (_, i) => { const d = new Date(2026, 10, 11 + i); return `2026-11-${String(d.getDate()).padStart(2, "0")}`; });
+  const W = 366, H = 250, bw = 44, gap = (W - 7 * bw) / 8;
+  const g = days.map((d, i) => { const ev = onDay(d), rows = Math.max(1, Math.ceil(ev.length / 2)), bh = 30 + rows * 22, x = gap + i * (bw + gap), y = H - 34 - bh, k = i % 3;
+    const roof = k === 0 ? `L${x + bw / 2},${y - 22}L${x + bw},${y}` : k === 1 ? `V${y - 10}H${x + 10}V${y - 20}H${x + bw - 10}V${y - 10}H${x + bw}V${y}` : `Q${x + bw / 2},${y - 30} ${x + bw},${y}`;
+    const wn = ev.map((v, j) => `<rect x="${x + 8 + (j % 2) * 16}" y="${y + 12 + Math.floor(j / 2) * 22}" width="12" height="14" rx="3" fill="${col(v.e)}"/>`).join("");
+    return `<g class="bld${i === 0 ? " today" : ""}${st.wk === d ? " sel" : ""}" data-d="${d}" role="button" tabindex="0" aria-label="${WD[D(d).getDay()]} ${D(d).getDate()}. ${ev.length} arrangementer"><path class="body" d="M${x},${H - 34}V${y}${roof}V${H - 34}Z"/>${wn}<text x="${x + bw / 2}" y="${H - 18}" text-anchor="middle" font-family="Figtree,sans-serif" font-weight="700" font-size="12" fill="${st.wk === d ? "#f7c873" : "#e8f1ef"}">${WS[D(d).getDay()]}</text><text x="${x + bw / 2}" y="${H - 5}" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10.5" fill="#8fa8ab">${D(d).getDate()}.</text></g>`; }).join("");
+  const ev = onDay(st.wk);
+  return `<div class="sky"><svg viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="#0b1a24"/><circle cx="318" cy="34" r="13" fill="#f4f1e6"/>${g}</svg></div><div class="sub">${dname(st.wk)} · ${ev.length} arrangementer</div><div class="legend">${ev.map(v => `<div class="l" style="--wc:${col(v.e)}"><span class="n"></span><em>${hm(v.iso)}</em><div>${esc(v.e.title)}<span> · ${esc(v.e.venue)}</span></div></div>`).join("")}</div>`;
+}
+function draw4() {
+  const ev = onDay(st.day), left = ev.filter(v => v.t >= st.hr).length;
+  document.querySelectorAll("#daySeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.d === st.day));
+  $("#hrOut").textContent = klokke(st.hr);
+  const cap = `<div class="cap">${dname(st.day)} · <b>${left}</b> ${left === 1 ? "vindu lyser" : "vinduer lyser"}</div>`;
+  $("#b-a .phone").innerHTML = `<div class="mh">Skjer i <span>Ålesund</span></div><div class="sky" data-v="A">${scene(366, 170, 130, ev, st.hr, { sel: st.selA })}${cap}</div>${st.selA >= 0 && ev[st.selA] ? popCard(ev[st.selA], st.hr) : `<div class="empty">Trykk på et vindu som lyser</div>`}<div class="mbar"><div class="search">Søk i 184 arrangementer …</div><div class="mine">★ Mine</div></div>${ghosts(2)}`;
+  $("#b-b .phone").innerHTML = `<div class="mh">Skjer i <span>Ålesund</span></div>` + week() + ghosts(1);
+  $("#b-c .phone").innerHTML = `<div class="mh">Hva skjer ${dname(st.day).toLowerCase()}?</div><div class="sky" data-v="C">${scene(366, 250, 200, ev, st.hr, { num: true, seed: 5, pick: 4, sel: st.selC })}${cap}</div><div class="legend">${ev.map((v, i) => `<div class="l${v.t < st.hr ? " past" : ""}" style="--wc:${col(v.e)}"><span class="n">${i + 1}</span><em>${hm(v.iso)}</em><div>${esc(v.e.title)}<span> · ${esc(v.e.venue)}${v.t < st.hr ? " · startet" : ""}</span></div></div>`).join("")}</div>`;
+}
+$("#g4").innerHTML =
+  opt("b-a", "A Byen øverst på forsiden", "Et lite bilde over søkefeltet. Trykk på et vindu, så kommer arrangementet opp under. Viser bare i dag.", "", true) +
+  opt("b-b", "B Uka som by", "Ett hus per dag de neste sju dagene. Jo flere arrangementer, jo høyere hus. Trykk på et hus for å se dagen. Lettest å treffe med fingeren.", "") +
+  opt("b-c", "C Stor by på «I kveld»-siden", "Vinduene har tall som står igjen i lista under, så ingen trenger å treffe et lite vindu. Passer på i-kveld/, ikke forsiden.", "");
+draw4();
+$("#daySeg").onclick = e => { const b = e.target.closest("button"); if (b) { st.day = b.dataset.d; st.selA = st.selC = -1; draw4(); } };
+$("#hr").oninput = e => { st.hr = +e.target.value; draw4(); };
+const hit = e => { const w = e.target.closest(".win"), b = e.target.closest(".bld");
+  if (w) { const v = w.closest(".sky").dataset.v, i = +w.dataset.i; if (v === "A") st.selA = i; else st.selC = i; draw4(); }
+  else if (b) { st.wk = b.dataset.d; draw4(); } };
+$("#g4").addEventListener("click", hit);
+$("#g4").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); hit(e); } });
+
+/* ---------- Del 7: Helgen min ---------- */
+const WE = ["2026-11-13", "2026-11-14", "2026-11-15"];
+const POOL = WE.flatMap(d => onDay(d)).filter(v => !v.e.soldOut);
+const key = v => v.e.id + "|" + v.iso;
+const sel = new Set(POOL.filter(v => /^(Christine Koht|SULT|KLUBB E39)/.test(v.e.title)).map(key));
+const kort = t => t.replace(/ - Ålesund$/, "").replace(/ hos Siws keramikk$/, "").replace(/^BEAT FOR BEAT INSPIRERT QUIZ$/, "Beat for beat-quiz").replace(/^KLUBB E39$/, "Klubb E39");
+function draw7() {
+  $("#pick").innerHTML = POOL.map(v => `<button data-k="${esc(key(v))}" aria-pressed="${sel.has(key(v))}">${sel.has(key(v)) ? "★" : "☆"} ${WS[D(v.iso).getDay()]} ${hm(v.iso)} ${esc(kort(v.e.title))}</button>`).join("");
+  const my = POOL.filter(v => sel.has(key(v))), n = my.length;
+  const it = v => `<div class="it" style="--c:${col(v.e)}"><span class="w">${WS[D(v.iso).getDay()]} ${hm(v.iso)}</span><b>${esc(kort(v.e.title))}</b><span>${esc(v.e.venue)}</span></div>`;
+  const foot = `<div class="foot"><span>kaskjerda.no</span>Skjer i Ålesund</div>`, span = `<div class="span">13.–15. november</div>`;
+  const none = `<div class="it"><span>Ingenting lagret til helgen ennå</span></div>`;
+  const A = `<div class="story sA"><div class="moon"></div><h4>Helgen <span>min</span></h4>${span}<div class="list">${my.map(it).join("") || none}</div><div class="town">${scene(288, 96, 92, [], 21, { seed: 9, bare: true })}</div>${foot}</div>`;
+  const B = `<div class="story sB"><h4>Helgen <span>min</span></h4>${span}<div class="list" style="gap:14px">${my.map(v => `<div class="tk" style="--c:${col(v.e)}"><div class="d"><b>${WS[D(v.iso).getDay()]}</b><span>${hm(v.iso)}</span></div><div class="b"><b>${esc(kort(v.e.title))}</b><span>${esc(v.e.venue)}</span></div></div>`).join("") || none}</div>${foot}</div>`;
+  const C = `<div class="story sC"><h4 style="font-size:32px">Helgen <span>min</span></h4><div>${WE.map(d => { const x = my.filter(v => v.iso.slice(0, 10) === d); return `<div class="day"><b>${WS[D(d).getDay()]}<small>${D(d).getDate()}. nov.</small></b>${x.length ? `<div class="x">${x.map(v => `<div style="--c:${col(v.e)}"><em>${hm(v.iso)}</em><b>${esc(kort(v.e.title))}</b><span>${esc(v.e.venue)}</span></div>`).join("")}</div>` : `<span class="fri">Ledig</span>`}</div>`; }).join("")}</div>${foot}</div>`;
+  const Dd = `<div class="story sD"><h4>Blir du <span>med?</span></h4><div class="span">Jeg skal på dette i helgen</div><div class="list">${my.map(it).join("") || none}</div><div class="ask">Svar på storyen<small>så tar vi følge</small></div>${foot}</div>`;
+  const E = `<div class="story sE"><div class="num">${n}</div><h4>ting jeg skal på i helgen</h4><div class="list">${my.map(it).join("") || none}</div>${foot}</div>`;
+  const so = (t, s, b, p) => `<div class="sopt">${p ? `<div class="pick">Claudes favoritt</div>` : ""}<h3>${t}<small>${s}</small></h3>${b}</div>`;
+  $("#g7").innerHTML = so("A Vinterbyen", "Samme by og måne som delingsbildene, så det henger sammen med resten.", A, true) + so("B Billetter", "Hvert arrangement som en billett i kategorifargen. Leken og lett å lese.", B) +
+    so("C Timeplan", "Fredag, lørdag og søndag under hverandre. Viser også at du har en ledig dag.", C) + so("D «Blir du med?»", "Laget for svar på story. Den som er best til å spre siden, fordi venner svarer.", Dd, true) + so("E Det store tallet", "Gult og annerledes enn alt annet i feeden. Skiller seg mest ut.", E);
+}
+draw7();
+$("#pick").onclick = e => { const b = e.target.closest("button"); if (!b) return; const k = b.dataset.k; if (sel.has(k)) sel.delete(k); else if (sel.size < 5) sel.add(k); draw7(); };
+</script>
+
+</body></html>
