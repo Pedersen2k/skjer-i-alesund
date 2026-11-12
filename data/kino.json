@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-12T16:19:13Z",
+  "updatedAt": "2026-11-12T18:04:42Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -109,7 +109,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/36a5a757-1924-479b-9dcd-3b5261896588",
+     "url": "",
      "club": false
     },
     {
@@ -746,7 +746,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/3bd1e6f1-75b4-4e35-b8d9-f2bd47be9beb",
+     "url": "",
      "club": false
     },
     {
@@ -1029,7 +1029,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/2842a482-b18c-4841-b97b-d75539e24abc",
+     "url": "",
      "club": true
     },
     {
@@ -1580,7 +1580,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/9247ab85-4595-4f41-8458-e7020f23269a",
+     "url": "",
      "club": false
     },
     {
@@ -2178,7 +2178,7 @@
     "Drama",
     "Komedie"
    ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/38737a7ca32b8125125a68d3c6dcd30fa90624bd-1500x2143.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/36f2aeb3c5e2f75e430c2f28cb3bd64c5175221d-1080x1514.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
     {
@@ -2365,7 +2365,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/ca14f8e2-8071-421e-8d34-ee066505014f",
+     "url": "",
      "club": false
     },
     {

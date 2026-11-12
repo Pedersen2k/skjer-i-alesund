@@ -1250,6 +1250,24 @@
    "url": "https://www.vitimusea.no/arrangement/paa-dagtid-innblikk-i-vitis-tekstilsamlinger",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-11"
+  },
+  {
+   "id": "bjorn-bjarte-lovenvold-theater-lovenvold-theater",
+   "date": "2026-11-12",
+   "time": "18:00",
+   "title": "Bjørn & Bjarte / Løvenvold Theater",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "699 kr",
+   "priceMin": 699,
+   "soldOut": false,
+   "few": true,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/62711-bjorn-bjarte-lovenvold-theater",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-12"
   }
  ]
 }

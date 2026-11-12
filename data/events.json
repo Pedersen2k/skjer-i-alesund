@@ -112,14 +112,18 @@
    "filmvisning-how-to-live-on-earth-pir-cowork": [
     "2026-10-22T12:10:15Z",
     "2026-11-11T22:15:10Z"
+   ],
+   "bjorn-bjarte-lovenvold-theater-lovenvold-theater": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-12T18:00:17Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-12T16:14:32Z",
+  "updatedAt": "2026-11-12T18:00:17Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 3,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -153,23 +157,6 @@
     "2026-11-13T09:00"
    ],
    "addedAt": "2026-10-29T16:05:46Z"
-  },
-  {
-   "id": "bjorn-bjarte-lovenvold-theater-lovenvold-theater",
-   "date": "2026-11-12",
-   "time": "18:00",
-   "title": "Bjørn & Bjarte / Løvenvold Theater",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata 11, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "699 kr",
-   "priceMin": 699,
-   "soldOut": false,
-   "few": true,
-   "note": "",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/62711-bjorn-bjarte-lovenvold-theater",
-   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "julelystenning-pa-devoldfabrikken-devoldfabrikken",
@@ -514,6 +501,23 @@
    "uncertain": false,
    "url": "https://www.vitimusea.no/arrangement/dans-for-unge-vaksne-aalesunda",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "flyttet-dato-bjorn-bjarte-lovenvold-theater-lovenvold-theate",
+   "date": "2026-11-14",
+   "time": "15:00",
+   "title": "FLYTTET DATO Bjørn & Bjarte / Løvenvold Theater",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "699 kr",
+   "priceMin": 699,
+   "soldOut": false,
+   "few": true,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/62711-bjorn-bjarte-lovenvold-theater",
+   "addedAt": "2026-11-12T18:00:17Z"
   },
   {
    "id": "parken-49079-parken-kulturhus",
@@ -3002,6 +3006,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "parken-51526-parken-kulturhus",
+   "date": "2027-02-11",
+   "time": "20:00",
+   "title": "Oscar Danielson",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "350 kr",
+   "priceMin": 350,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51526-oscar-danielson/",
+   "addedAt": "2026-11-12T18:00:17Z"
+  },
+  {
    "id": "nils-ingar-aadne-tenk-det-lovenvold-theater",
    "date": "2027-02-12",
    "time": "18:00",
@@ -3322,6 +3342,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67120-hans-magne-skard-skruball",
    "addedAt": "2026-10-23T20:01:48Z"
+  },
+  {
+   "id": "parken-51493-parken-kulturhus",
+   "date": "2027-04-23",
+   "time": "20:00",
+   "title": "William Sundman Sääf",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "180–325 kr",
+   "priceMin": 180,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51493-william-sundman-saaf/",
+   "addedAt": "2026-11-12T18:00:17Z"
   },
   {
    "id": "parken-51478-parken-kulturhus",
