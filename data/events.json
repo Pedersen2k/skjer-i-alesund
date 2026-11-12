@@ -115,7 +115,7 @@
    ]
   },
   "tikkioChecked": [],
-  "updatedAt": "2026-11-11T22:15:10Z",
+  "updatedAt": "2026-11-12T06:14:56Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -133,49 +133,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-41531-parken-kulturhus",
-   "date": "2026-11-11",
-   "time": "18:00",
-   "title": "Yoga Piano",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "115–230 kr",
-   "priceMin": 115,
-   "soldOut": false,
-   "note": "Flere forestillinger: 15. des.",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/41531-yoga-piano/",
-   "moreShows": [
-    "2026-12-15T18:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "brosundet-etter-seks-2026",
-   "date": "2026-11-11",
-   "time": "18:00",
-   "title": "Brosundet ETTER SEKS",
-   "venue": "Hotel Brosundet",
-   "address": "Apotekergata 1-5, 6004 Ålesund",
-   "cat": "konsert",
-   "price": "Gratis",
-   "priceMin": 0,
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Akustisk konsert foran peisen hver onsdag kl. 18–20, mat fra egen meny 16–22. 11.11 Rikke og Svein, 18.11 Ståle Heggset og Geir Harald, 25.11 Sofie Laxxa, 2.12 Gutta Boys, 9.12 Danielle Langedal, 16.12 Rikke og Svein, 30.12 Elise Nærø. Fortsetter til påske.",
-   "url": "https://www.brosundet.no/aktiviteter/brosundet-etter-seks",
-   "moreShows": [
-    "2026-11-18T18:00",
-    "2026-11-25T18:00",
-    "2026-12-02T18:00",
-    "2026-12-09T18:00",
-    "2026-12-16T18:00",
-    "2026-12-30T18:00"
-   ],
-   "addedAt": "2026-11-10T08:41:18Z"
-  },
   {
    "id": "viti-fagsamling-og-nettverkstreff-for-handverkarar-2026-sunn",
    "date": "2026-11-12",
@@ -711,6 +668,29 @@
    "uncertain": false,
    "url": "https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-18-11-2026-kl-1800/",
    "addedAt": "2026-11-10T08:20:11Z"
+  },
+  {
+   "id": "brosundet-etter-seks-2026",
+   "date": "2026-11-18",
+   "time": "18:00",
+   "title": "Brosundet ETTER SEKS",
+   "venue": "Hotel Brosundet",
+   "address": "Apotekergata 1-5, 6004 Ålesund",
+   "cat": "konsert",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Akustisk konsert foran peisen hver onsdag kl. 18–20, mat fra egen meny 16–22. 11.11 Rikke og Svein, 18.11 Ståle Heggset og Geir Harald, 25.11 Sofie Laxxa, 2.12 Gutta Boys, 9.12 Danielle Langedal, 16.12 Rikke og Svein, 30.12 Elise Nærø. Fortsetter til påske.",
+   "url": "https://www.brosundet.no/aktiviteter/brosundet-etter-seks",
+   "moreShows": [
+    "2026-11-25T18:00",
+    "2026-12-02T18:00",
+    "2026-12-09T18:00",
+    "2026-12-16T18:00",
+    "2026-12-30T18:00"
+   ],
+   "addedAt": "2026-11-10T08:41:18Z"
   },
   {
    "id": "visekveld-pa-fabrikken-fabrikken-kulturscene",
@@ -2173,6 +2153,22 @@
    "note": "Film av Wim Wenders, tillatt for alle. Student/under 18 år 50 kr. Dørene åpner 18:30. Medlemskap 150 kr (første film inkludert), sesongkort 400 kr. Kilde: Bypatrioten og Ålesund Filmklubb.",
    "url": "https://www.alesundfilmklubb.com/",
    "addedAt": "2026-11-01T21:47:04Z"
+  },
+  {
+   "id": "parken-41531-parken-kulturhus",
+   "date": "2026-12-15",
+   "time": "18:00",
+   "title": "Yoga Piano",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "115–230 kr",
+   "priceMin": 115,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/41531-yoga-piano/",
+   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "viti-babyomvisning-i-jugendstilsenteret-jugendstilsenteret-o",
