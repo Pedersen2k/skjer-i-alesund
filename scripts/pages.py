@@ -34,7 +34,7 @@ FRONT_DESC = "Hva skjer i Ålesund i dag og i helgen? Konserter, standup, show, 
 ICON_LINKS = ('<link rel="icon" href="{up}favicon.svg" type="image/svg+xml">\n<link rel="icon" href="{up}favicon-48.png" type="image/png" sizes="48x48">\n'
               '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">\n<link rel="manifest" href="{up}manifest.webmanifest">')
 CAT_TEXT = {
-    "konsert": "Konserter i Ålesund spenner fra symfoniorkester og kor til band, visesang og jazz. Oversikten henter dato, scene og billettpris fra arrangørenes egne billettsider, så du slipper å lete på flere steder.",
+    "konsert": "Konserter i Ålesund spenner fra symfoniorkester og kor til band, visesang og jazz, på scener som Parken kulturhus, Terminalen Byscene, Løvenvold Theater og Fabrikken Kulturscene og i kirkene. Oversikten henter dato, scene og billettpris fra arrangørenes egne billettsider, så du slipper å lete på flere steder.",
     "standup": "Standup og humor i Ålesund: turnerende komikere og lokale kvelder. Her ser du hvor og når det er show, og hva billettene koster.",
     "show": "Show, revy og teater i Ålesund. Se hva som går på scenene i byen, med datoer og billettpriser.",
     "barn": "Arrangementer for barn og familie i Ålesund, fra barneteater til familieforestillinger. Sjekk aldersanbefaling hos arrangøren.",
@@ -45,6 +45,8 @@ CAT_TEXT = {
     "sport": "Hjemmekamper for Aalesunds FK på Color Line Stadion, for både herrer og damer, med avspark og lenke til billetter.",
 }
 MONTH_PAGES = {}
+YEAR_PAGES = {}  # «Konserter 2027» → konserter-2027/ (settes i main(), år etter i år med minst KONSERT_YEAR_MIN konserter)
+KONSERT_YEAR_MIN = 5
 JUL_NAV = False  # settes i main(): Jul i Ålesund vises i snarveiene fra 1. november
 
 WD = ["mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag", "søndag"]
@@ -311,6 +313,7 @@ def links_nav(up, current, extra):
     if JUL_NAV:
         items.insert(5, ("jul-i-alesund/", "Jul i Ålesund"))
     items += [(p, l) for l, p in MONTH_PAGES.items()]
+    items += [(p, l) for l, p in YEAR_PAGES.items()]
     items += [(p, v) for v, p in VENUE_PAGES.items()]
     return '<nav class="more"><h2>Mer fra programmet</h2><div class="row">' + "".join(
         f'<a class="chip" href="{up}{p}"{" aria-current=\"page\"" if p == current else ""}>{escape(l)}</a>' for p, l in items) + "</div></nav>"
@@ -938,6 +941,69 @@ def list_desc(label, evs, noun="arrangementer", examples=3, per=""):
             + " Datoer og lenker, oppdatert flere ganger om dagen.")
 
 
+def konsert_names(evs, n=3):
+    """Eksempler til beskrivelser av konsertsider: de dyreste billettene først (som regel de største navnene), unike korte navn."""
+    names = []
+    for e in sorted(evs, key=lambda e: -(e.get("priceMin") or 0)):
+        t = re.sub(r"(?i)^(flyttet dato|ny dato)!?\s*", "", e["title"])
+        t = re.sub(r"^Ålesund Live:\s*", "", t)
+        nm = short_name(re.split(r"\s/\s", t)[0])
+        if nm and nm not in names and not nm.isupper():
+            names.append(nm)
+        if len(names) == n:
+            break
+    return names
+
+
+def and_list(xs):
+    return ", ".join(xs[:-1]) + " og " + xs[-1] if len(xs) > 1 else (xs[0] if xs else "")
+
+
+def konsert_meta(label, evs, year_text):
+    """Tittel og beskrivelse for konserter/ og konserter-<år>/: antall, datospenn, scener, eksempler og laveste pris."""
+    title = f"{label} {year_text}: program og billetter | {SITE}"
+    if not evs:
+        return title, f"{label} {year_text}: oversikt med datoer og billettpriser, oppdatert flere ganger om dagen."
+    days = [e["date"][:10] for e in evs]
+    first, last = datetime.date.fromisoformat(min(days)), datetime.date.fromisoformat(max(days))
+    venues = [v for v, _ in sorted(((v, sum(e["venue"] == v for e in evs)) for v in {e["venue"] for e in evs}), key=lambda x: -x[1])]
+    prices = [e["priceMin"] for e in evs if isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] > 0]
+    short = [short_name(v, 20).replace(" kulturhus", "").replace(" Byscene", "").replace(" Theater", "") for v in venues[:3]]
+    sc = ", ".join(short) + " m.fl." if len(venues) > 3 else and_list(short)
+    names = konsert_names(evs)
+    span = (range_text(first, last) if first.year == last.year
+            else f"{first.day}. {MO[first.month - 1]} {first.year}–{last.day}. {MO[last.month - 1]} {last.year}")
+    desc = (f"{label} {year_text}: {len(evs)} konserter {span}"
+            + (f" på {sc}" if sc else "")
+            + (f", blant annet {and_list(names)}" if names else "") + "."
+            + (f" Billetter fra {min(prices)} kr." if prices else "") + " Oppdatert flere ganger om dagen.")
+    return title, desc[:300]
+
+
+def konsert_facts(evs, up, year_pages, jul_page=None):
+    """Kort, datadrevet tekst øverst på konsertsidene: hvor konsertene er, hva de koster, og lenker videre."""
+    if not evs:
+        return ""
+    counts = {}
+    for e in evs:
+        counts[e["venue"]] = counts.get(e["venue"], 0) + 1
+    top = sorted(counts.items(), key=lambda x: -x[1])[:5]
+    def vlink(v):
+        return f'<a href="{up}{VENUE_PAGES[v]}">{escape(v)}</a>' if v in VENUE_PAGES else escape(v)
+    prices = sorted(e["priceMin"] for e in evs if isinstance(e.get("priceMin"), (int, float)))
+    paid = [p for p in prices if p > 0]
+    free = sum(p == 0 for p in prices)
+    out = (f'<p class="lede jbfacts"><b>Hvor er det konserter i Ålesund?</b> Konsertene er fordelt på {len(counts)} steder, '
+           f'flest på {and_list([f"{vlink(v)} ({n})" for v, n in top])}.'
+           + (f" Billettene koster fra {paid[0]} til {paid[-1]} kr" + (f", og {free} er gratis." if free else ".") if paid else "") + "</p>")
+    links = [(p, l) for l, p in year_pages.items()]
+    if jul_page:
+        links.insert(0, jul_page)
+    if links:
+        out += '<nav class="more"><div class="row">' + "".join(f'<a class="chip" href="{up}{p}">{escape(l)}</a>' for p, l in links) + "</div></nav>"
+    return out
+
+
 def front_html(src, events, today, extra_links=()):
     """Forsiden bygger lista med JavaScript. Her legges de neste ukene også inn som vanlig HTML og JSON-LD,
     så søkemotorer og delingstjenester ser innholdet uten å kjøre scriptet. Scriptet bytter ut lista når programmet er hentet."""
@@ -1003,6 +1069,11 @@ def main():
     has_jul = any(is_jul(e, cfg) for e in all_events)
     extra = ([("jul-i-alesund/", "Jul i Ålesund")] if has_jul else []) + ([("julebord/", "Julebord")] if any(e["cat"] == "julebord" for e in all_events) else []) \
         + [(p, h1.replace(" i Ålesund", "")) for p, (h1, _, _) in themes.items()]
+    YEAR_PAGES.clear()
+    for y in sorted({e["date"][:4] for e in events if e["cat"] == "konsert"}):
+        if int(y) > today.year and sum(e["cat"] == "konsert" and e["date"][:4] == y for e in events) >= KONSERT_YEAR_MIN:
+            YEAR_PAGES[f"Konserter {y}"] = f"konserter-{y}/"
+    extra = [(p, l) for l, p in YEAR_PAGES.items()] + extra
     index = (ROOT / "index.html").read_text()
     (OUT / "index.html").write_text(front_html(index, events, today, extra))
     # Undersidene bruker samme stil og ikon som forsiden, hentet rett fra index.html
@@ -1091,6 +1162,23 @@ def main():
                          evs, "Ingen julebord registrert akkurat nå. Julebordene for neste sesong kommer i oktober.", f"Julebord i Ålesund {today.year}",
                          about=CAT_TEXT[k], lead=julebord_facts(evs, today.year) + julemeny_html() + jul_links("../", p + "/", themes),
                          desc=list_desc(f"Julebord i Ålesund {today.year}", evs, "julebord", 3, " per person") if evs else None, jul=True)
+            continue
+        if k == "konsert":
+            years = sorted({e["date"][:4] for e in evs})
+            ytext = f"{years[0]} og {years[-1]}" if len(years) > 1 else (years[0] if years else str(today.year))
+            ktitle, kdesc = konsert_meta("Konserter i Ålesund", evs, ytext)
+            jl = ("julekonserter-i-alesund/", "Julekonserter") if "julekonserter-i-alesund/" in themes else None
+            listing_page(p + "/", ktitle, h1, f"{what}: {len(evs)} kommende konserter, med datoer og billettpriser.",
+                         evs, "Ingen kommende konserter akkurat nå. Se hele programmet.", what, about=CAT_TEXT[k],
+                         lead=konsert_facts(evs, "../", YEAR_PAGES, jl), desc=kdesc)
+            for label, yp in YEAR_PAGES.items():
+                y = yp.split("-")[1].strip("/")
+                evs_y = [e for e in evs if e["date"][:4] == y]
+                ytitle, ydesc = konsert_meta("Konserter i Ålesund", evs_y, y)
+                listing_page(yp, ytitle, f"Konserter i Ålesund {y}",
+                             f"Konsertene i Ålesund i {y} som allerede er lagt ut: {len(evs_y)} konserter, med datoer og billettpriser. Nye kommer til etter hvert som scenene slipper programmet.",
+                             evs_y, "", f"Konserter i Ålesund {y}", about=CAT_TEXT[k],
+                             lead=konsert_facts(evs_y, "../", {"Alle konserter": "konserter/"}), desc=ydesc)
             continue
         listing_page(p + "/", f"{h1} – program og billettpriser | {SITE}", h1,
                      f"{what}: {len(evs)} kommende {'arrangement' if len(evs) == 1 else 'arrangementer'}, " + ("med avspark og billettlenker." if k == "sport" else "med datoer og billettpriser."),
@@ -1385,7 +1473,7 @@ def event_page(e, events, path, image=None):
   {f'<section class="also"><h2>Samme dag</h2><div class="events">{"".join(card(x, up) for x in same_day)}</div></section>' if same_day else ""}
   {f'<section class="also"><h2>Mer på {venue}</h2><div class="events">{"".join(card(x, up) for x in same_venue)}</div></section>' if same_venue else ""}
   </main>
-  <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a><a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
+  <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a>{f'<a class="chip" href="{up}konserter-{e["date"][:4]}/">Konserter i {e["date"][:4]}</a>' if c == "konsert" and f"konserter-{e['date'][:4]}/" in YEAR_PAGES.values() else ""}<a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
     trail = [(SITE, BASE), (CATS.get(c, CATS["happening"])[1], BASE + cat_path), (e["title"], BASE + path)]
     return page(path, title, desc[:300], body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail), event_ld(e, image[0] if image else None)]}, image=image)
 
@@ -1441,7 +1529,7 @@ def past_event_page(e, events, path, weekend):
   {block("Mer: " + CAT_LABEL[c].lower(), same_cat)}
   {block("Denne helgen", wk)}
   </main>
-  <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a><a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
+  <nav class="more"><div class="row"><a class="chip" href="{up}{cat_path}">Flere: {CAT_LABEL[c]}</a>{f'<a class="chip" href="{up}konserter-{e["date"][:4]}/">Konserter i {e["date"][:4]}</a>' if c == "konsert" and f"konserter-{e['date'][:4]}/" in YEAR_PAGES.values() else ""}<a class="chip" href="{up}denne-helgen/">Denne helgen</a><a class="chip" href="{up}">Hele programmet</a></div></nav>"""
     trail = [(SITE, BASE), (CATS.get(c, CATS["happening"])[1], BASE + cat_path), (e["title"], BASE + path)]
     return page(path, title, desc, body, {"@context": "https://schema.org", "@graph": [breadcrumb_ld(trail)]})
 
@@ -1687,6 +1775,7 @@ html[data-tema="kveld"] .ikveld .it .bt { color: var(--gold); }
 .sub a.title { text-decoration: none; }
 .sub a.title:hover { text-decoration: underline; }
 .sub .facts { margin: 0 0 6px; font-size: 14px; color: var(--muted); }
+.jbfacts a { color: inherit; text-decoration-color: var(--sea); text-underline-offset: 2px; }
 .sub h1 { font-size: clamp(32px, 7vw, 52px); }
 .sub .ev { grid-template-columns: 1fr auto; }
 .sub .ev .side { grid-row: 1; }
