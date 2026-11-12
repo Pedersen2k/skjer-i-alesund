@@ -117,9 +117,9 @@
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-12T12:07:58Z",
+  "updatedAt": "2026-11-12T14:25:58Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 2,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1705,7 +1705,7 @@
    "price": "999 kr",
    "priceMin": 999,
    "soldOut": false,
-   "note": "Julebord: kjøp bord hos Dampsentralen.",
+   "note": "Julebord: kjøp bord hos Dampsentralen. Rabatt: Christmas Club // Viktoria Isern 799 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66419",
    "addedAt": "2026-10-19T12:59:56Z"
