@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<title>Fjordglass – PC</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#ffffff}a:hover{color:#5eead4}
+@keyframes driftA{to{transform:translate(120px,-80px) scale(1.2)}}
+@keyframes driftB{to{transform:translate(-100px,90px) scale(.85)}}
+@keyframes flow{to{stroke-dashoffset:-64}}
+@keyframes twinkle{50%{opacity:.25}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+<div style="min-height: 1400px; position: relative; overflow: hidden; box-sizing: border-box; padding: 24px; background: #06121f; color: #ffffff; font-family: Inter, system-ui, sans-serif">
+<div aria-hidden="true" style="position: absolute; width: 520px; height: 520px; left: -120px; top: 420px; border-radius: 50%; background: {{accent}}; filter: blur(130px); opacity: .38; animation: driftA 16s ease-in-out infinite alternate"></div>
+<div aria-hidden="true" style="position: absolute; width: 520px; height: 520px; right: -140px; top: 120px; border-radius: 50%; background: #6d4bff; filter: blur(130px); opacity: .42; animation: driftB 19s ease-in-out infinite alternate"></div>
+<div aria-hidden="true" style="position: absolute; width: 460px; height: 460px; left: 40%; bottom: -160px; border-radius: 50%; background: #ff5d8f; filter: blur(140px); opacity: .28; animation: driftA 23s ease-in-out infinite alternate-reverse"></div>
+
+<div style="position: relative; max-width: 1360px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+
+<aside style="flex: 1 1 240px; box-sizing: border-box; padding: 20px; border-radius: 32px; border: 1px solid rgba(255,255,255,.24); background: rgba(255,255,255,.08); -webkit-backdrop-filter: blur(28px) saturate(180%); backdrop-filter: blur(28px) saturate(180%); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 14px 40px rgba(0,0,0,.3); display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: center; gap: 10px">
+<svg aria-hidden="true" viewBox="0 0 120 120" style="width: 44px; height: 44px"><rect width="120" height="120" rx="32" fill="#12304a"/><path d="M18 78V46q14-14 28 0v32Z" fill="#f2b84b"/><path d="M48 78V40l5-4q9-12 18 0l5 4v38Z" fill="#ef8f86"/><path d="M78 78V50q13-13 26 0v28Z" fill="#8fd0b5"/><path d="M14 92q8-6 15 0t15 0 15 0 15 0 15 0 15 0" stroke="#fff" fill="none" stroke-width="4" stroke-linecap="round"/></svg>
+<div style="font-family: Sora, sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -.3px">Ka skjer da?</div>
+</div>
+<nav aria-label="Hovedmeny" style="display: flex; flex-direction: column; gap: 4px">
+<a href="#" style="height: 44px; padding: 0 14px; border-radius: 22px; background: #ffffff; color: #06121f; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 22a10 10 0 100-20 10 10 0 000 20zM15.5 8.5l-2 5-5 2 2-5z"/></svg>Utforsk</a>
+<a href="#" style="height: 44px; padding: 0 14px; border-radius: 22px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 15px"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h14a1 1 0 011 1v13a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1zM4 10h16M8 3v4M16 3v4"/></svg>Kalender</a>
+<a href="#" style="height: 44px; padding: 0 14px; border-radius: 22px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 15px"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>Mine <span style="margin-left: auto; min-width: 22px; height: 22px; border-radius: 11px; background: #ffd166; color: #2a1a00; font: 700 12px/22px Inter, sans-serif; text-align: center">{{savedCount}}</span></a>
+<a href="#" style="height: 44px; padding: 0 14px; border-radius: 22px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 15px"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Tips oss</a>
+<a href="#" style="height: 44px; padding: 0 14px; border-radius: 22px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 15px"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-8z"/></svg>For arrangører</a>
+</nav>
+<div style="height: 1px; background: rgba(255,255,255,.2)"></div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="font: 600 12px Inter, sans-serif; letter-spacing: 1.2px; color: rgba(255,255,255,.8); padding: 0 14px 6px">KATEGORI</div>
+<sc-for list="{{ cats }}" as="c" hint-placeholder-count="7">
+<button onClick="{{ c.pick }}" style="height: 44px; padding: 0 14px; border-radius: 22px; border: 0; background: {{c.bg}}; color: #ffffff; display: flex; align-items: center; gap: 10px; font: 500 15px Inter, sans-serif; cursor: pointer; text-align: left; transition: background .25s">
+<span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 5px; background: {{c.dot}}"></span>{{c.label}}<span style="margin-left: auto; font-size: 13px; color: rgba(255,255,255,.8)">{{c.count}}</span>
+</button>
+</sc-for>
+</div>
+<div style="display: flex; gap: 8px">
+<button style="flex: 1 1 0; height: 44px; border-radius: 22px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.1); color: #ffffff; font: 600 13px Inter, sans-serif; cursor: pointer">English</button>
+<button style="flex: 1 1 0; height: 44px; border-radius: 22px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.1); color: #ffffff; font: 600 13px Inter, sans-serif; cursor: pointer">Lyst tema</button>
+</div>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 12px 4px 0">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: Sora, sans-serif; font-weight: 800; font-size: clamp(34px, 5vw, 56px); letter-spacing: -1.5px; line-height: 1.05">Ka skjer i Ålesund?</h1>
+<p style="margin: 0; font-size: 17px; color: rgba(255,255,255,.82)">Konserter, standup, show og happenings i byen, samlet på ett sted.</p>
+</div>
+<label style="flex: 0 1 300px; height: 48px; padding: 0 18px; border-radius: 24px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.1); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); display: flex; align-items: center; gap: 10px">
+<svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 18a7 7 0 100-14 7 7 0 000 14zM20 20l-4-4"/></svg>
+<input type="search" aria-label="Søk i arrangement" placeholder="Søk i arrangement" style="flex: 1 1 0; min-width: 0; background: transparent; border: 0; outline: 0; color: #ffffff; font: 500 15px Inter, sans-serif">
+</label>
+</div>
+
+<svg aria-hidden="true" viewBox="0 0 1560 200" preserveAspectRatio="xMidYMax slice" style="width: 100%; height: 220px; border-radius: 32px; -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent)">
+<defs>
+<pattern id="wA2" width="14" height="18" patternUnits="userSpaceOnUse"><rect x="4" y="5" width="6" height="9" rx="3" fill="#ffd98a"/></pattern>
+<g id="skyA2">
+<path d="M0 150V110L80 60l70 40 90-60 90 55 90-40 100 45 90-55 90 45 80-30v90Z" fill="#0d2238"/>
+<path d="M20 150V80Q55 52 90 80V150Z" fill="#1f4a5c"/>
+<path d="M94 150V62l28-26 28 26V150Z" fill="#2c3f63"/>
+<path d="M154 150V90h84v60ZM150 90l10-18h72l10 18Z" fill="#24456a"/>
+<path d="M242 150V50h34v100ZM238 50l21-40 21 40Z" fill="#1b3350"/>
+<path d="M280 150V78q10-2 12-14 26-24 52 0 2 12 12 14V150Z" fill="#2a5068"/>
+<path d="M360 150V96Q390 70 420 96V150Z" fill="#2c3f63"/>
+<path d="M424 150V84h20l25-30 25 30h20V150Z" fill="#1f4a5c"/>
+<path d="M518 150V58h30v92ZM515 58q18-34 36 0Z" fill="#24456a"/>
+<path d="M552 150V88q10-2 12-14 28-24 56 0 2 12 12 14V150Z" fill="#1b3350"/>
+<path d="M636 150V72l29-24 29 24V150Z" fill="#2a5068"/>
+<path d="M698 150V92Q731 66 764 92V150Z" fill="#2c3f63"/>
+<g fill="url(#wA2)"><rect x="28" y="90" width="56" height="54"/><rect x="168" y="108" width="56" height="36"/><rect x="294" y="90" width="56" height="54"/><rect x="434" y="90" width="70" height="54"/><rect x="560" y="108" width="70" height="36"/><rect x="700" y="108" width="56" height="36"/><rect x="98" y="72" width="42" height="72"/><rect x="252" y="54" width="14" height="90"/><rect x="364" y="108" width="56" height="36"/><rect x="518" y="72" width="28" height="72"/><rect x="644" y="90" width="42" height="54"/></g>
+</g>
+</defs>
+<use href="#skyA2" style="animation: twinkle 9s ease-in-out infinite"/>
+<use href="#skyA2" transform="translate(780 0)"/>
+<rect y="150" width="1560" height="50" fill="#081a2c"/>
+<path d="M0 160h1560M0 172h1560M0 186h1560" stroke="#ffd98a" stroke-opacity=".55" stroke-width="2" stroke-linecap="round" stroke-dasharray="18 46" style="animation: flow 6s linear infinite"/>
+</svg>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+<div role="group" aria-label="Når" style="display: flex; padding: 4px; gap: 4px; border-radius: 26px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.08); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px)">
+<sc-for list="{{ whens }}" as="w" hint-placeholder-count="3">
+<button onClick="{{ w.pick }}" style="height: 44px; padding: 0 18px; border-radius: 22px; border: 0; background: {{w.bg}}; color: {{w.fg}}; font: 600 14px Inter, sans-serif; cursor: pointer; transition: background .25s, color .25s">{{w.label}}</button>
+</sc-for>
+</div>
+<div role="group" aria-label="Pris" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ prices }}" as="p" hint-placeholder-count="4">
+<button onClick="{{ p.pick }}" style="height: 44px; padding: 0 16px; border-radius: 22px; border: 1px solid rgba(255,255,255,.28); background: {{p.bg}}; color: {{p.fg}}; font: 600 14px Inter, sans-serif; cursor: pointer; transition: background .25s, color .25s">{{p.label}}</button>
+</sc-for>
+</div>
+<div style="margin-left: auto; font-size: 15px; color: rgba(255,255,255,.82)">{{countLabel}}</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 16px">
+<sc-for list="{{ events }}" as="ev" hint-placeholder-count="8">
+<div style="padding: 18px; border-radius: 28px; border: 1px solid rgba(255,255,255,.24); background: rgba(255,255,255,.1); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 30px rgba(0,0,0,.25); display: flex; flex-direction: column; gap: 10px; animation: rise .5s both">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="font: 700 13px Sora, sans-serif; padding: 6px 12px; border-radius: 14px; background: rgba(255,255,255,.16)">{{ev.when}}</span>
+<button onClick="{{ ev.star }}" aria-label="Lagre arrangement" style="width: 44px; height: 44px; border-radius: 22px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.1); color: #ffd166; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="{{ev.starFill}}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></button>
+</div>
+<div style="font: 700 19px/1.25 Sora, sans-serif; min-height: 48px">{{ev.title}}</div>
+<div style="font-size: 14px; color: rgba(255,255,255,.82)">{{ev.venue}}</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: auto">
+<span style="display: flex; align-items: center; gap: 6px; font: 600 13px Inter, sans-serif; color: {{ev.color}}"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 4px; background: {{ev.color}}"></span>{{ev.cat}}</span>
+<span style="margin-left: auto; font: 600 13px Inter, sans-serif">{{ev.price}}</span>
+<span style="display: {{ev.noteDisplay}}; font: 600 12px Inter, sans-serif; padding: 4px 10px; border-radius: 12px; background: #ffd166; color: #2a1a00">{{ev.note}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+<p style="display: {{emptyDisplay}}; margin: 0; padding: 32px; text-align: center; border-radius: 28px; border: 1px dashed rgba(255,255,255,.35); font-size: 16px">Ingen treff med disse filtrene. Prøv et annet valg.</p>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#12b5a6","options":["#12b5a6","#3b82f6","#ff7a59"]},"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+state = { when: 'alle', cat: 'Alle', price: 'alle', saved: {} };
+renderVals() {
+const EV = [
+['12','18:00','Bjørn & Bjarte','Show','Løvenvold Theater','699 kr','Få billetter'],
+['12','18:00','Julelystenning på Devoldfabrikken','Happening','Devoldfabrikken','Pris hos arrangør',''],
+['12','18:30','Jul på Molja','Show','Thon Hotel Ålesund','Pris hos arrangør',''],
+['12','19:00','Anders Jektvik','Konsert','Parken kulturhus','450 kr','Få billetter'],
+['12','Kveld','Pubquiz','Quiz',"O'Connor's",'50 kr',''],
+['13','18:30','Sofia Emelia & Robert Botn','Konsert','Dråpe Ålesund Kaffehus','150 kr',''],
+['13','19:00','Christine Koht','Show','Parken kulturhus','450 kr','Få billetter'],
+['13','23:00','DJ hver helg','Klubb','Liv & Røre Moa','Pris hos arrangør',''],
+['14','15:00','Vitenshitshow','Barn','Parken kulturhus','320 kr',''],
+['14','19:00','SULT','Konsert','Venterommet, Terminalen','250 kr',''],
+['14','23:00','KLUBB E39','Klubb','Terminalen Byscene','50 kr',''],
+['15','13:00','Lag din egen nisse hos Siws keramikk','Happening','Devoldfabrikken','200 kr',''],
+['15','18:00','Tonje Glimmerdal','Konsert','Parken kulturhus','Utsolgt',''],
+['18','18:00','Brosundet ETTER SEKS','Konsert','Hotel Brosundet','Gratis','']
+];
+const DAY = { '12': 'Tor 12. nov', '13': 'Fre 13. nov', '14': 'Lør 14. nov', '15': 'Søn 15. nov', '18': 'Ons 18. nov' };
+const COL = { Alle: '#ffffff', Konsert: '#5eead4', Show: '#ffb86b', Klubb: '#c4a5ff', Barn: '#ffe08a', Happening: '#ff9db0', Quiz: '#8fd3ff' };
+const s = this.state;
+const num = (p) => (p === 'Gratis' ? 0 : parseInt(p, 10));
+const okWhen = (e) => s.when === 'alle' || (s.when === 'kveld' ? e[0] === '12' : ['13', '14', '15'].includes(e[0]));
+const okPrice = (e) => s.price === 'alle' || (s.price === 'gratis' ? num(e[5]) === 0 : num(e[5]) < Number(s.price));
+const base = EV.filter((e) => okWhen(e) && okPrice(e));
+const list = base.filter((e) => s.cat === 'Alle' || e[3] === s.cat);
+const on = (v) => (v ? '#ffffff' : 'rgba(255,255,255,.08)');
+const fg = (v) => (v ? '#06121f' : '#ffffff');
+return {
+accent: this.props.accent ?? '#12b5a6',
+countLabel: list.length + ' arrangement',
+whens: [['alle', 'Alle dager'], ['kveld', 'I kveld'], ['helg', 'Denne helgen']].map((w) => ({ label: w[1], pick: () => this.setState({ when: w[0] }), bg: s.when === w[0] ? '#ffffff' : 'transparent', fg: fg(s.when === w[0]) })),
+prices: [['alle', 'Alle priser'], ['gratis', 'Gratis'], ['300', 'Under 300 kr'], ['500', 'Under 500 kr']].map((p) => ({ label: p[1], pick: () => this.setState({ price: p[0] }), bg: on(s.price === p[0]), fg: fg(s.price === p[0]) })),
+cats: Object.keys(COL).map((c) => ({ label: c, dot: COL[c], count: String(c === 'Alle' ? base.length : base.filter((e) => e[3] === c).length), pick: () => this.setState({ cat: c }), bg: s.cat === c ? 'rgba(255,255,255,.2)' : 'transparent' })),
+events: list.map((e) => {
+const k = e[0] + e[2];
+return { when: DAY[e[0]] + ' · ' + e[1], title: e[2], cat: e[3], venue: e[4], price: e[5], note: e[6], noteDisplay: e[6] ? 'inline-block' : 'none', color: COL[e[3]], starFill: s.saved[k] ? '#ffd166' : 'none', star: () => this.setState({ saved: { ...s.saved, [k]: !s.saved[k] } }) };
+}),
+emptyDisplay: list.length ? 'none' : 'block',
+savedCount: String(Object.values(s.saved).filter(Boolean).length)
+};
+}
+}
+</script>
+</body>
+</html>
