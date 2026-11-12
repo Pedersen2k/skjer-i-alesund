@@ -1341,7 +1341,7 @@ def event_page(e, events, path, image=None):
     tail = " · utsolgt" if e.get("soldOut") else " · gratis" if pt == "Gratis" else f" · {pt}" if pt != "Pris hos arrangør" else ""
     title = f"{e['title']} – {e['venue']} {d.day}. {MO[d.month - 1][:3]}.{tail}"
     n_more = len(e.get("moreShows", []))
-    desc = f"{e['title']} på {e['venue']}, {d.day}. {MO[d.month - 1]} {d.year}" + (f" kl. {e['time']}" if e.get("time") else "") + ". " + (
+    desc = f"{e['title']} {'i' if re.search(r'kirke|kyrkje', e['venue'].lower()) else 'på'} {e['venue']}, {d.day}. {MO[d.month - 1]} {d.year}" + (f" kl. {e['time']}" if e.get("time") else "") + ". " + (
         "Utsolgt. " if e.get("soldOut") else "Gratis inngang. " if pt == "Gratis"
         else f"Billetter fra {pt}{' – få igjen' if e.get('few') and few_ok(e, d) else ''}. " if pt != "Pris hos arrangør" else "") + (
         f"{n_more + 1} datoer. " if n_more else "") + (
