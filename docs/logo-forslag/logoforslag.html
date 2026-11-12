@@ -1,0 +1,382 @@
+<title>Logoforslag Ålesund</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: kontaktark med logokort i grupper per motiv; hvert kort viser merket stort, i en glasstopp (pc), på mobil, som fane-ikon og app-ikon. Mørkt først, som kaskjerda.no. */
+:root {
+  --bg: #0a171b; --surface: #13252d; --fg: #e8f1ef; --muted: #8fa8ab; --line: #25414a;
+  --accent: #ff8a6b; --accent-ink: #1a0b07; --sea: #5ab7bf; --gold: #f7c873; --snow: #ffffff; --night: #0c2329;
+  --glass: rgba(19, 37, 45, .55); --glass-line: rgba(255, 255, 255, .14);
+  --blob1: #1f6f78; --blob2: #ff8a6b; --blob3: #f7c873;
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) {
+  --bg: #eef3f2; --surface: #ffffff; --fg: #13262b; --muted: #56706f; --line: #cfdcda;
+  --accent: #c8432b; --accent-ink: #ffffff; --sea: #1f6f78; --gold: #c98a12; --snow: #ffffff; --night: #0f2a31;
+  --glass: rgba(255, 255, 255, .55); --glass-line: rgba(255, 255, 255, .8);
+  --blob1: #8fd3d6; --blob2: #ffb39e; --blob3: #ffe0a3; color-scheme: light; } }
+:root[data-theme="light"] {
+  --bg: #eef3f2; --surface: #ffffff; --fg: #13262b; --muted: #56706f; --line: #cfdcda;
+  --accent: #c8432b; --accent-ink: #ffffff; --sea: #1f6f78; --gold: #c98a12; --snow: #ffffff; --night: #0f2a31;
+  --glass: rgba(255, 255, 255, .55); --glass-line: rgba(255, 255, 255, .8);
+  --blob1: #8fd3d6; --blob2: #ffb39e; --blob3: #ffe0a3; color-scheme: light; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body); margin: 0; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; }
+/* merkefarger, overstyres i app-ikonet */
+.mk { --ink: var(--fg); --a: var(--accent); --s: var(--sea); --g: var(--gold); --cut: var(--accent-ink); display: block; }
+
+.intro { display: grid; gap: 10px; max-width: 70ch; }
+.eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--sea); }
+h1 { font: 800 clamp(34px, 6vw, 56px)/1 var(--font-display); letter-spacing: -.03em; margin: 0; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--accent); }
+.intro p { margin: 0; color: var(--muted); }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding-block: 12px; margin-top: 18px; border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+.seg button { font: 600 13px/1 var(--font-body); border: 0; background: none; color: var(--muted); padding: 8px 12px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.seg-l { font: 500 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.grp { display: inline-flex; align-items: center; gap: 8px; }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+h2 { font: 800 24px/1.1 var(--font-display); letter-spacing: -.02em; margin: 40px 0 4px; }
+.sec-d { color: var(--muted); margin: 0 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 16px; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: grid; gap: 14px; min-width: 0; }
+.top { display: grid; grid-template-columns: 112px 1fr; gap: 14px; align-items: center; }
+.big { width: 112px; height: 112px; border-radius: 14px; background: var(--bg); display: grid; place-items: center; }
+.big .mk { width: 92px; height: 92px; }
+.lbl { font: 500 12px/1 var(--font-mono); color: var(--accent); letter-spacing: .06em; }
+.nm { font: 800 20px/1.1 var(--font-display); letter-spacing: -.01em; margin: 4px 0 6px; }
+.ds { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* glasstopp (pc) */
+.stage { position: relative; border-radius: 14px; overflow: hidden; background: var(--bg); padding: 18px 12px; isolation: isolate; }
+.stage::before, .stage::after { content: ""; position: absolute; z-index: -1; border-radius: 50%; filter: blur(22px); opacity: .75; }
+.stage::before { width: 55%; height: 140%; left: -8%; top: -30%; background: var(--blob1); }
+.stage::after { width: 45%; height: 120%; right: -6%; top: -10%; background: radial-gradient(circle at 30% 40%, var(--blob2), transparent 60%), radial-gradient(circle at 70% 70%, var(--blob3), transparent 65%); }
+.glassbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 16px; background: var(--glass); border: 1px solid var(--glass-line); backdrop-filter: blur(18px) saturate(1.6); -webkit-backdrop-filter: blur(18px) saturate(1.6); box-shadow: 0 8px 24px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.2); }
+.lock { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.lock .mk { width: 44px; height: 44px; flex: none; }
+.wm { font: 800 22px/1 var(--font-display); letter-spacing: -.025em; white-space: nowrap; }
+.wm em { font-style: normal; color: var(--accent); }
+.wm small { display: block; font: 500 10px/1 var(--font-mono); letter-spacing: .08em; color: var(--muted); margin-top: 4px; text-transform: lowercase; }
+.pills { display: flex; gap: 6px; }
+.pills span { font: 600 12px/1 var(--font-body); padding: 7px 10px; border-radius: 999px; background: var(--glass); border: 1px solid var(--glass-line); white-space: nowrap; }
+@container (max-width: 420px) { .pills span:not(:last-child) { display: none; } }
+.card { container-type: inline-size; }
+
+/* små størrelser */
+.sizes { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: end; }
+.phone { border: 1px solid var(--line); border-radius: 12px; background: var(--bg); padding: 8px 10px; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.phone .mk { width: 30px; height: 30px; flex: none; }
+.phone .wm { font-size: 17px; }
+.phone .ham { margin-left: auto; width: 18px; height: 12px; border-block: 2px solid var(--muted); position: relative; flex: none; }
+.phone .ham::after { content: ""; position: absolute; left: 0; right: 0; top: 3px; border-top: 2px solid var(--muted); }
+.tab { display: flex; align-items: center; gap: 6px; padding: 7px 9px; border-radius: 9px 9px 0 0; background: var(--bg); border: 1px solid var(--line); border-bottom: 0; font: 500 11px/1 var(--font-body); color: var(--muted); }
+.tab .mk { width: 16px; height: 16px; }
+.app { width: 52px; height: 52px; border-radius: 13px; background: linear-gradient(160deg, #1f6f78, #0b2a31 70%); display: grid; place-items: center; box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
+.app .mk { width: 40px; height: 40px; --ink: #ffffff; --a: #ff9c80; --s: #a9e6ea; --g: #f7c873; --cut: #12343b; }
+.cap { font: 500 10px/1 var(--font-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: 5px; text-align: center; }
+@container (max-width: 380px) { .sizes { grid-template-columns: 1fr auto; } .sizes > :first-child { grid-column: 1 / -1; } }
+
+.foot { margin-top: 40px; color: var(--muted); font-size: 14px; max-width: 70ch; }
+
+/* animasjoner */
+@keyframes ripple { 0%,100% { transform: translateX(0); } 50% { transform: translateX(2.5px); } }
+@keyframes beamL { 0%,45%,100% { opacity: .05; } 15%,30% { opacity: .55; } }
+@keyframes beamR { 0%,50%,95%,100% { opacity: .05; } 65%,80% { opacity: .55; } }
+@keyframes eq { 0%,100% { transform: translateY(0); } 50% { transform: translateY(var(--h, 8px)); } }
+@keyframes flick { 0%,100% { opacity: .2; } 40%,70% { opacity: 1; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes dots { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 40% { transform: translateY(-4px); } 55% { transform: translateY(0); } 65% { transform: translateY(-1.5px); } }
+@keyframes draw { 0% { stroke-dashoffset: 1; } 45%,80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+@keyframes sail { 0%,100% { transform: translateX(-5px); } 50% { transform: translateX(5px); } }
+@keyframes glint { 0%,70% { transform: translateX(-70px) skewX(-20deg); } 100% { transform: translateX(80px) skewX(-20deg); } }
+@keyframes rays { to { transform: rotate(30deg); } }
+.an-ripple { animation: ripple 3s ease-in-out infinite; }
+.an-beamL { animation: beamL 4s linear infinite; }
+.an-beamR { animation: beamR 4s linear infinite; }
+.an-eq { animation: eq 1.4s ease-in-out infinite; }
+.an-flick { animation: flick 3.2s ease-in-out infinite; }
+.an-spin { transform-box: fill-box; transform-origin: center; animation: spin 24s linear infinite; }
+.an-dots { animation: dots 1.2s ease-in-out infinite; }
+.an-bounce { animation: bounce 2.4s ease-in-out infinite; }
+.an-draw { stroke-dasharray: 1; animation: draw 6s ease-in-out infinite; }
+.an-sail { animation: sail 6s ease-in-out infinite; }
+.an-glint { animation: glint 4.5s ease-in-out infinite; }
+.an-rays { transform-box: view-box; transform-origin: 32px 42px; animation: rays 8s linear infinite; }
+.still .mk * { animation: none !important; }
+.still .an-draw { stroke-dashoffset: 0; }
+</style>
+
+<div class="wrap" id="root">
+  <header class="intro">
+    <span class="eyebrow">Kaskjerda.no · logorunde 1</span>
+    <h1>Ålesund i <em>vektor</em></h1>
+    <p>18 logoforslag tegnet som SVG, med motiver fra Brosundet, jugendstilhusene og utsikten fra Aksla. Hvert kort viser merket stort, i en glasstopp slik den kan se ut på pc, i mobiltoppen, som fane-ikon og som app-ikon på hjemskjermen. Bokstaven på kortet er navnet du kan bruke når du sier hva du liker.</p>
+  </header>
+
+  <div class="bar">
+    <div class="grp"><span class="seg-l">Tema</span><div class="seg" id="theme"><button type="button" data-v="dark">Mørkt</button><button type="button" data-v="light">Lyst</button></div></div>
+    <div class="grp"><span class="seg-l">Navn</span><div class="seg" id="name"><button type="button" data-v="skjer" aria-pressed="true">Skjer i Ålesund</button><button type="button" data-v="ka">Ka skjer da?</button></div></div>
+    <div class="grp"><span class="seg-l">Bevegelse</span><div class="seg" id="anim"><button type="button" data-v="on" aria-pressed="true">På</button><button type="button" data-v="off">Av</button></div></div>
+  </div>
+
+  <main id="out"></main>
+
+  <p class="foot">Alt er tegnet for hånd i SVG med fargene fra dagens nettside, så hvert merke er bare noen få hundre byte og blir skarpt i alle størrelser. Fargene følger temaet (mørkt, lyst og app-ikon). Bevegelsen er rolig og stopper for dem som har slått av animasjoner på telefonen.</p>
+</div>
+
+<script>
+let uid = 0;
+const S = (body, extra = "") => `<svg class="mk" viewBox="0 0 64 64" aria-hidden="true" ${extra}>${body}</svg>`;
+
+/* Brosundet-husene brukes i flere merker */
+const LEFT = "M4 38V22l5-6 5 6v-3l5-6 5 6v19Z";
+const RIGHT = "M60 38V20l-5-6-5 6v2l-5-6-5 6v16Z";
+const LWIN = " M7.5 25h3v4h-3Z M17.5 23h3v4h-3Z M7.5 31h3v4h-3Z M17.5 30h3v4h-3Z";
+const RWIN = " M53.5 23h3v4h-3Z M43.5 25h3v4h-3Z M53.5 30h3v4h-3Z M43.5 31h3v4h-3Z";
+const WAVE = (y, w = 2.4, cls = "") => `<path class="${cls}" d="M2 ${y}c4-2.6 7-2.6 11 0s7 2.6 11 0 7-2.6 11 0 7 2.6 11 0 7-2.6 11 0 5 2 6 1" fill="none" stroke="var(--s)" stroke-width="${w}" stroke-linecap="round"/>`;
+
+const LOGOS = [
+  /* ---------- Brosundet og sjøen ---------- */
+  { g: 0, id: "A", name: "Brosundet speilet", desc: "Husene på begge sider av sundet og brua mellom, speilet i vannet. Vannet krusér seg rolig.",
+    svg: () => { const c = ++uid; return S(`
+      <defs><clipPath id="c${c}"><rect x="0" y="38" width="64" height="22"/></clipPath></defs>
+      <path d="${LEFT}${LWIN}" fill="var(--ink)" fill-rule="evenodd"/>
+      <path d="${RIGHT}${RWIN}" fill="var(--ink)" fill-rule="evenodd"/>
+      <path d="M24 28h16v3h-1.5a6.5 5 0 0 0-13 0H24Z" fill="var(--a)"/>
+      <g clip-path="url(#c${c})" opacity=".3"><g transform="translate(0 76) scale(1 -1)">
+        <path d="${LEFT}" fill="var(--ink)"/><path d="${RIGHT}" fill="var(--ink)"/></g></g>
+      <rect x="2" y="37.6" width="60" height="1.6" rx=".8" fill="var(--s)"/>
+      <g class="an-ripple"><path d="M8 45h9M28 49h9M45 45h10M14 54h8M38 56h9" stroke="var(--s)" stroke-width="2" stroke-linecap="round"/></g>`); } },
+
+  { g: 0, id: "B", name: "Molja fyr", desc: "Det lille fyret ytterst på moloen ved Brosundet. Lyset sveiper til venstre og høyre.",
+    svg: () => S(`
+      <path class="an-beamL" d="M32 22.5 2 15v15Z" fill="var(--g)"/>
+      <path class="an-beamR" d="M32 22.5 62 15v15Z" fill="var(--g)"/>
+      <path d="M26 52l2-24h8l2 24Z" fill="var(--ink)"/>
+      <path d="M27.2 38h9.6l.45 5.5H26.75Z" fill="var(--a)"/>
+      <path d="M30 52v-5a2 2 0 0 1 4 0v5Z" fill="var(--a)"/>
+      <rect x="25" y="26" width="14" height="2.6" rx="1" fill="var(--ink)"/>
+      <rect x="28.5" y="19" width="7" height="7" fill="var(--g)"/>
+      <path d="M32 19v7" stroke="var(--ink)" stroke-width="1"/>
+      <path d="M27 19l5-6 5 6Z" fill="var(--a)"/><circle cx="32" cy="11.6" r="1.4" fill="var(--a)"/>
+      <path d="M8 52h44l4 3.5H6Z" fill="var(--ink)" opacity=".45"/>
+      <g class="an-ripple">${WAVE(59.5)}</g>`) },
+
+  { g: 0, id: "C", name: "Båten i sundet", desc: "En kystbåt glir forbi bysilhuetten. Båten seiler sakte fram og tilbake.",
+    svg: () => S(`
+      <path d="M4 42V30l4-4 4 4v-3l5-6 5 6v3l4-4 4 4v-6l4-6 4 6v6l4-4 4 4v-2l4-5 4 5v14Z" fill="var(--s)" opacity=".45"/>
+      <g class="an-sail">
+        <path d="M12 44h40l-5 8H18Z" fill="var(--ink)"/>
+        <path d="M19 44v-5h24v5Z" fill="var(--ink)"/>
+        <path d="M23 39v-4h14v4Z" fill="var(--ink)"/>
+        <path d="M38 35v-6h4v6Z" fill="var(--a)"/>
+        <path d="M21 40.5h2.4v2h-2.4Zm4 0h2.4v2h-2.4Zm4 0h2.4v2h-2.4Zm4 0h2.4v2h-2.4Zm4 0h2.4v2h-2.4Z" fill="var(--g)"/>
+        <path d="M14 47.5h36" stroke="var(--a)" stroke-width="1.6"/>
+      </g>
+      <g class="an-ripple">${WAVE(57)}</g>`) },
+
+  { g: 0, id: "D", name: "Stempelet", desc: "Et rundt stempel med Brosundet i midten og «Ka skjer da? · Ålesund» rundt. Teksten går sakte rundt.",
+    svg: () => { const c = ++uid; return S(`
+      <defs><path id="t${c}" d="M32 7.5a24.5 24.5 0 1 1 0 49a24.5 24.5 0 1 1 0-49"/></defs>
+      <circle cx="32" cy="32" r="30" fill="none" stroke="var(--ink)" stroke-width="2"/>
+      <circle cx="32" cy="32" r="19.5" fill="none" stroke="var(--ink)" stroke-width="1.2"/>
+      <g class="an-spin"><text font-family="JetBrains Mono, monospace" font-size="5.6" font-weight="500" fill="var(--ink)" letter-spacing=".4"><textPath href="#t${c}" textLength="150" lengthAdjust="spacing">KA SKJER DA? • ÅLESUND • KASKJERDA.NO •</textPath></text></g>
+      <path d="M19 40V31l4-4 4 4v-2l4-5 4 5v2l4-4 4 4v-2l3-3 3 3v11Z" fill="var(--a)"/>
+      <path d="M17 44c3-2 5-2 7.5 0s5 2 7.5 0 5-2 7.5 0 5 2 7.5 0" fill="none" stroke="var(--s)" stroke-width="2" stroke-linecap="round"/>`); } },
+
+  { g: 0, id: "E", name: "Strektegningen", desc: "Brosundet tegnet med én sammenhengende strek. Streken tegner seg selv, igjen og igjen.",
+    svg: () => S(`
+      <path class="an-draw" pathLength="1" d="M2 48H7V30l5-6 5 6v-4l6-8 6 8v22h4V26a4.5 4.5 0 0 1 9 0v22h4V30l5-6 5 6v-3l3-3 3 3v21h1" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M37.5 21.5V15" stroke="var(--a)" stroke-width="2.2" stroke-linecap="round"/><circle cx="37.5" cy="13" r="2" fill="var(--a)"/>
+      <path d="M22 34h2v4h-2Zm24 0h2v4h-2Z" fill="var(--g)"/>
+      <path d="M6 55c4-2.4 7-2.4 11 0s7 2.4 11 0 7-2.4 11 0 7 2.4 11 0 6-2.4 8-1" fill="none" stroke="var(--s)" stroke-width="2.2" stroke-linecap="round"/>`) },
+
+  /* ---------- Jugendstilen ---------- */
+  { g: 1, id: "F", name: "Å-gavlen", desc: "Bokstaven Å bygget som en jugendgavl: ringen er tårnkula, tverrstreken er vindusraden og døra står åpen.",
+    svg: () => S(`
+      <circle cx="32" cy="7.5" r="4.5" fill="none" stroke="var(--a)" stroke-width="3"/>
+      <path d="M12 58V37c0-10 10-17 20-23 10 6 20 13 20 23v21Z M27 58v-8a5 5 0 0 1 10 0v8Z M19 38h26v4H19Z M35 28.5a3 3 0 1 1-6 0a3 3 0 1 1 6 0Z" fill="var(--ink)" fill-rule="evenodd"/>
+      <path d="M12 37c-5 0-7-4-5-7s5-1 4 1" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M52 37c5 0 7-4 5-7s-5-1-4 1" fill="none" stroke="var(--a)" stroke-width="2" stroke-linecap="round"/>`) },
+
+  { g: 1, id: "G", name: "Tårnrekka", desc: "Fem tårntak fra byen (løkkuppel, spir, kule, rundtak og trappegavl) som hopper som lydstolper på en equalizer.",
+    svg: () => { const c = ++uid; const t = (x, top, body, col, h, d) =>
+      `<g class="an-eq" style="--h:${h}px;animation-delay:${d}s"><rect x="${x}" y="${body}" width="8" height="${70 - body}" fill="${col}"/><path d="${top}" fill="${col}"/></g>`;
+      return S(`<defs><clipPath id="c${c}"><rect x="0" y="0" width="64" height="56"/></clipPath></defs>
+      <g clip-path="url(#c${c})">
+        ${t(4, "M4 30c0-4 4-5 4-10 0 5 4 6 4 10Z", 30, "var(--ink)", 7, 0)}
+        ${t(16, "M16 24l4-13 4 13Z", 24, "var(--a)", 10, -.5)}
+        ${t(28, "M28 34l4-6 4 6Z M33.6 26a1.6 1.6 0 1 1-3.2 0a1.6 1.6 0 1 1 3.2 0Z", 34, "var(--s)", 6, -.9)}
+        ${t(40, "M40 24a4 4 0 0 1 8 0Z", 24, "var(--g)", 9, -.3)}
+        ${t(52, "M52 30v-3h2v-3h4v3h2v3Z", 30, "var(--ink)", 8, -1.1)}
+      </g>
+      <rect x="2" y="56" width="60" height="2.4" rx="1.2" fill="var(--ink)"/>`); } },
+
+  { g: 1, id: "H", name: "Vinduene lyser", desc: "Tre gavler der vinduene tennes og slukkes én etter én, som en kveld i sentrum. Passer forsideforslaget «Byen lyser».",
+    svg: () => { const w = []; const xs = [[8,12],[14,12],[22,24],[28,24],[36,28],[42,28],[50,34],[55,34]];
+      let k = 0; for (const [x, top] of xs) for (let y = top + 6; y < 54; y += 7) { k++; w.push(`<rect class="an-flick" style="animation-delay:${-(k * 0.73) % 3.2}s" x="${x}" y="${y}" width="3" height="4" rx=".6" fill="var(--g)"/>`); }
+      return S(`<path d="M4 58V32l7-8 7 8V26l8-10 8 10v6l7-8 7 8v-2l5-5 5 5V58Z" fill="var(--s)"/>
+      ${w.join("")}<rect x="2" y="57" width="60" height="2.4" rx="1.2" fill="var(--ink)"/>`); } },
+
+  { g: 1, id: "I", name: "Apotektårnet", desc: "Tårnet med kuppel på det gamle apoteket, i dag Jugendstilsenteret, med to piskesnert-svinger på sidene.",
+    svg: () => S(`
+      <path d="M31 15v-5h2v5Z" fill="var(--ink)"/><circle cx="32" cy="8" r="2" fill="var(--a)"/>
+      <path d="M23.5 27c0-7 4.5-10.5 8.5-12.5 4 2 8.5 5.5 8.5 12.5Z" fill="var(--a)"/>
+      <path d="M21 27h22v3.2H21Z" fill="var(--ink)"/>
+      <path d="M24 60V30h16v30Z M28.5 47v-6a3.5 3.5 0 0 1 7 0v6Z M28.5 36h7v2.4h-7Z M27 60v-6h10v6Z" fill="var(--ink)" fill-rule="evenodd"/>
+      <path d="M24 42c-8 0-12-6-8.5-10 2.8-3.2 7-1 5.5 2" fill="none" stroke="var(--s)" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M40 42c8 0 12-6 8.5-10-2.8-3.2-7-1-5.5 2" fill="none" stroke="var(--s)" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M14 60h36" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>`) },
+
+  { g: 1, id: "J", name: "Byen som reiste seg", desc: "Trappegavl foran en jugend-sol. Sentrum ble bygget opp igjen i jugendstil etter bybrannen i 1904. Strålene dreier sakte.",
+    svg: () => { const r = []; for (let i = 0; i <= 12; i++) { const a = Math.PI + i * Math.PI / 12; r.push(`M${(32 + 12 * Math.cos(a)).toFixed(1)} ${(42 + 12 * Math.sin(a)).toFixed(1)}L${(32 + 29 * Math.cos(a)).toFixed(1)} ${(42 + 29 * Math.sin(a)).toFixed(1)}`); }
+      return S(`<g class="an-rays"><path d="${r.join("")}" stroke="var(--g)" stroke-width="2.2" stroke-linecap="round"/></g>
+      <circle cx="32" cy="42" r="9" fill="var(--a)"/>
+      <path d="M14 60V42h4v-4h4v-4h4l6-7 6 7h4v4h4v4h4v18Z M30 60v-7a2 2 0 0 1 4 0v7Z M20 46h3v4h-3Z M41 46h3v4h-3Z M30.5 37h3v4h-3Z" fill="var(--ink)" fill-rule="evenodd"/>
+      <rect x="8" y="59" width="48" height="2" rx="1" fill="var(--ink)"/>`); } },
+
+  /* ---------- Fra Aksla ---------- */
+  { g: 2, id: "K", name: "Utsikten fra Aksla", desc: "Utsikten fra Fjellstua i et rundt vindu: Sunnmørsalpene med snø, øyene med byen og havet foran.",
+    svg: () => { const c = ++uid; return S(`
+      <defs><clipPath id="c${c}"><circle cx="32" cy="32" r="28"/></clipPath></defs>
+      <g clip-path="url(#c${c})">
+        <rect width="64" height="64" fill="var(--s)" opacity=".16"/>
+        <circle cx="45" cy="19" r="5" fill="var(--g)"/>
+        <path d="M2 40l9-10 4 4 9-13 6 8 6-6 8 10 6-6 12 13v4H2Z" fill="var(--s)" opacity=".75"/>
+        <path d="M21.6 24.4 24 21l2.6 3.6-2.6-1Zm11.4-1.4 3-3 2.4 3-2.4-.8Z" fill="var(--snow)"/>
+        <rect y="42" width="64" height="22" fill="var(--s)"/>
+        <path d="M6 48h30l-3 3H8Z" fill="var(--ink)"/>
+        <path d="M10 48v-3l2-2 2 2v-1l2-2 2 2v4Zm10 0v-4l2-2 2 2v-1l2-2 2 2v5Z" fill="var(--ink)"/>
+        <path d="M42 53h14l-2 2H44Z" fill="var(--ink)" opacity=".8"/>
+      </g>
+      <circle cx="32" cy="32" r="28" fill="none" stroke="var(--ink)" stroke-width="2.6"/>`); } },
+
+  { g: 2, id: "L", name: "418 trinn", desc: "Trappene i siksak opp Aksla til Fjellstua. En liten prikk går hele veien opp.",
+    svg: () => { const p = "M8 57 L28 50 L14 43 L34 36 L22 29 L42 22"; return S(`
+      <path d="M2 60C14 54 22 38 34 28 42 21 50 17 62 16V60Z" fill="var(--s)" opacity=".25"/>
+      <path d="${p}" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-dasharray="2.2 1.4" stroke-linejoin="round"/>
+      <path d="M40 22v-6l5.5-4.5L51 16v6Z" fill="var(--ink)"/>
+      <path d="M43.5 17h2.4v2.6h-2.4Zm3.2 0h2.4v2.6h-2.4Z" fill="var(--g)"/>
+      <circle r="2.6" fill="var(--a)"><animateMotion dur="7s" repeatCount="indefinite" path="${p}"/></circle>
+      <text x="61" y="56" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500" fill="var(--ink)">418</text>`); } },
+
+  { g: 2, id: "M", name: "Fjell og by", desc: "Sunnmørsalpene som én tydelig strek, med byen og bølgene under. Rolig og enkel, også i liten størrelse.",
+    svg: () => S(`
+      <path d="M3 38 11 27l4 5 8-16 6 11 5-6 7 10 6-7 14 16" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M19.8 22.5 23 16l3.2 5.8M31.5 24.2 34 21l2.7 3.8" fill="none" stroke="var(--s)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M14 49v-4l3-3 3 3v-2l3.5-3.5L27 43v2l3-3 3 3v4Zm22 0v-3l2.5-2.5L41 46v-1l3-3 3 3v4Z" fill="var(--a)"/>
+      <g class="an-ripple">${WAVE(54, 2.4)}${WAVE(59.5, 2)}</g>`) },
+
+  { g: 2, id: "N", name: "Måsen", desc: "En måke som flakser over takene, med sola bak. Byen sett ovenfra, slik måkene ser den.",
+    svg: () => S(`
+      <circle cx="47" cy="27" r="7" fill="var(--a)"/>
+      <path d="M5 58V41l8-9 8 9v-5l9-10 9 10v4l8-8 8 8v18" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M21 13c3-3 6-3 9 1 3-4 6-4 9-1" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <animate attributeName="d" dur="1.6s" repeatCount="indefinite" values="M21 13c3-3 6-3 9 1 3-4 6-4 9-1;M21 19c3-1 6-2 9 -5 3 3 6 4 9 5;M21 13c3-3 6-3 9 1 3-4 6-4 9-1"/></path>
+      <path d="M10 25c1.5-1.4 3-1.4 4.5.4 1.5-1.8 3-1.8 4.5-.4" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round" opacity=".6"/>
+      <path d="M17 49h3v4h-3Zm26 0h3v4h-3Z" fill="var(--g)"/>`) },
+
+  /* ---------- Merker og symboler ---------- */
+  { g: 3, id: "O", name: "Snakkeboblen", desc: "«Ka skjer da?» som en snakkeboble der toppen er en rekke gavler. Prikkene hopper som når noen skriver.",
+    svg: () => S(`
+      <path d="M8 50V26l6-6 6 6 6-8 6 8 6-6 6 6 6-6 6 6v24H26l-8 8v-8Z" fill="var(--a)"/>
+      <circle class="an-dots" cx="22" cy="38" r="3.4" fill="var(--cut)"/>
+      <circle class="an-dots" style="animation-delay:.15s" cx="32" cy="38" r="3.4" fill="var(--cut)"/>
+      <circle class="an-dots" style="animation-delay:.3s" cx="42" cy="38" r="3.4" fill="var(--cut)"/>`) },
+
+  { g: 3, id: "P", name: "Kartnåla", desc: "En kartnål med en jugendgavl skåret ut. «Her skjer det», i Ålesund. Nåla hopper lett.",
+    svg: () => S(`
+      <ellipse cx="32" cy="60" rx="9" ry="2" fill="var(--ink)" opacity=".25"/>
+      <g class="an-bounce"><path d="M32 58S14 41 14 27a18 18 0 0 1 36 0c0 14-18 31-18 31Z M23 36V28l4.5-4.5L32 28v-2l4.5-4.5L41 26v10Z M30 36v-4a2 2 0 0 1 4 0v4Z" fill="var(--a)" fill-rule="evenodd"/></g>`) },
+
+  { g: 3, id: "Q", name: "Billetten", desc: "En billett med bysilhuetten stanset ut, og perforering mot stubben. Passer at siden handler om billetter.",
+    svg: () => S(`
+      <g transform="rotate(-8 32 32)">
+      <path d="M4 16h56v10a6 6 0 0 0 0 12v10H4V38a6 6 0 0 0 0-12Z M9 43V35l4-4 4 4v-3l5-5 5 5v3l4-4 4 4v8Z M44.3 19h1.6v3.4h-1.6Z M44.3 25h1.6v3.4h-1.6Z M44.3 31h1.6v3.4h-1.6Z M44.3 37h1.6v3.4h-1.6Z M44.3 43h1.6v2.4h-1.6Z" fill="var(--a)" fill-rule="evenodd"/>
+      <path d="M9 21h20" stroke="var(--cut)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M50 24h6M50 28h4M50 32h6M50 36h3" stroke="var(--cut)" stroke-width="1.8" stroke-linecap="round"/>
+      </g>`) },
+
+  { g: 3, id: "R", name: "Glassbrikka", desc: "Et app-ikon i glass: kveldshimmel over Brosundet, med en lysstripe som glir over. Laget for den nye glasstoppen.",
+    svg: () => { const c = ++uid; return S(`
+      <defs>
+        <linearGradient id="sky${c}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#27406e"/><stop offset=".55" stop-color="#c8607a"/><stop offset="1" stop-color="#f7c873"/></linearGradient>
+        <clipPath id="sq${c}"><rect x="3" y="3" width="58" height="58" rx="15"/></clipPath>
+      </defs>
+      <g clip-path="url(#sq${c})">
+        <rect x="3" y="3" width="58" height="58" fill="url(#sky${c})"/>
+        <circle cx="44" cy="20" r="5" fill="#fff4d6"/>
+        <path d="M3 46V31l5-6 5 6v-3l5-6 5 6v18Zm22 0V27a4 4 0 0 1 8 0v19Zm8 0V32l6-7 6 7v-2l4-4 4 4v-2l3-3v21Z" fill="#0a171b"/>
+        <path d="M30 18v5" stroke="#0a171b" stroke-width="1.6"/>
+        <path d="M7 34h2v3H7Zm9-2h2v3h-2Zm11 0h2v3h-2Zm11 2h2v3h-2Zm8 0h2v3h-2Zm8-2h2v3h-2Z" fill="#f7c873"/>
+        <rect x="3" y="46" width="58" height="15" fill="#1f6f78"/>
+        <path d="M8 52h10M26 55h12M44 51h10" stroke="#8fd3d6" stroke-width="1.6" stroke-linecap="round"/>
+        <rect x="3" y="3" width="58" height="26" fill="#fff" opacity=".12"/>
+        <rect class="an-glint" x="10" y="-6" width="10" height="80" fill="#fff" opacity=".22"/>
+      </g>
+      <rect x="3.6" y="3.6" width="56.8" height="56.8" rx="14.5" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1.2"/>`); } },
+];
+
+const GROUPS = [
+  ["Brosundet og sjøen", "Kanalen, fyret, båtene og bølgene."],
+  ["Jugendstilen", "Gavlene, tårnene og ornamentene som gjør sentrum til sentrum."],
+  ["Fra Aksla", "Utsikten, trappene og fjellene bak byen."],
+  ["Merker og symboler", "Landemerkene satt inn i en ting siden handler om: prat, kart, billett og app."],
+];
+
+let nameMode = "skjer";
+function wm(small) {
+  const t = nameMode === "skjer" ? "Skjer i <em>Ålesund</em>" : "Ka skjer <em>da?</em>";
+  const sub = nameMode === "skjer" ? "kaskjerda.no" : "skjer i ålesund";
+  return `<span class="wm">${t}${small ? "" : `<small>${sub}</small>`}</span>`;
+}
+function render() {
+  uid = 0;
+  document.getElementById("out").innerHTML = GROUPS.map((g, gi) => `
+    <section><h2>${g[0]}</h2><p class="sec-d">${g[1]}</p><div class="grid">
+    ${LOGOS.filter(l => l.g === gi).map(l => `
+      <article class="card" id="${l.id}">
+        <div class="top"><div class="big">${l.svg()}</div>
+          <div><div class="lbl">${l.id}</div><div class="nm">${l.name}</div><p class="ds">${l.desc}</p></div></div>
+        <div class="stage"><div class="glassbar"><div class="lock">${l.svg()}${wm(false)}</div>
+          <div class="pills"><span>I kveld</span><span>Helgen</span><span>★ Mine</span></div></div></div>
+        <div class="sizes">
+          <div><div class="phone">${l.svg()}${wm(true)}<span class="ham"></span></div><div class="cap">Mobil</div></div>
+          <div><div class="tab">${l.svg()}kaskjerda.no</div><div class="cap">Fane</div></div>
+          <div><div class="app">${l.svg()}</div><div class="cap">App</div></div>
+        </div>
+      </article>`).join("")}
+    </div></section>`).join("");
+  applyAnim();
+}
+
+const root = document.documentElement;
+let animOn = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+function applyAnim() {
+  document.getElementById("root").classList.toggle("still", !animOn);
+  document.querySelectorAll("svg.mk").forEach(s => { try { animOn ? s.unpauseAnimations() : s.pauseAnimations(); } catch (e) {} });
+  setSeg("anim", animOn ? "on" : "off");
+}
+function setSeg(id, v) { document.querySelectorAll(`#${id} button`).forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === v))); }
+function curTheme() { const t = root.getAttribute("data-theme"); return t || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"); }
+
+document.getElementById("theme").onclick = e => { const b = e.target.closest("button"); if (!b) return; root.setAttribute("data-theme", b.dataset.v); setSeg("theme", b.dataset.v); };
+document.getElementById("name").onclick = e => { const b = e.target.closest("button"); if (!b) return; nameMode = b.dataset.v; setSeg("name", nameMode); render(); };
+document.getElementById("anim").onclick = e => { const b = e.target.closest("button"); if (!b) return; animOn = b.dataset.v === "on"; applyAnim(); };
+
+setSeg("theme", curTheme());
+render();
+</script>
