@@ -1268,6 +1268,25 @@
    "url": "https://tikkio.com/events/62711-bjorn-bjarte-lovenvold-theater",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-12"
+  },
+  {
+   "id": "parken-47679-parken-kulturhus",
+   "date": "2026-11-12",
+   "time": "19:00",
+   "title": "Anders Jektvik",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "450 kr",
+   "priceMin": 450,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/47679-anders-jektvik/",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-12"
   }
  ]
 }

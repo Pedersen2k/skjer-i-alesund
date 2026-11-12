@@ -116,12 +116,16 @@
    "bjorn-bjarte-lovenvold-theater-lovenvold-theater": [
     "2026-10-19T12:59:56Z",
     "2026-11-12T18:00:17Z"
+   ],
+   "parken-47679-parken-kulturhus": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-12T20:03:44Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-12T19:23:39Z",
+  "updatedAt": "2026-11-12T20:03:44Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -199,24 +203,6 @@
     "2026-12-11T18:30"
    ],
    "addedAt": "2026-11-10T08:20:11Z"
-  },
-  {
-   "id": "parken-47679-parken-kulturhus",
-   "date": "2026-11-12",
-   "time": "19:00",
-   "title": "Anders Jektvik",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "450 kr",
-   "priceMin": 450,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47679-anders-jektvik/",
-   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "oconnors-2026-11-12-pubquiz-hos-o-8217-connor-8217-o-connor-",
