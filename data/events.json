@@ -128,13 +128,17 @@
    "livrore-2026-11-12-torsdagers-quiz-med-oystein-ok-liv-rore-m": [
     "2026-10-19T12:59:56Z",
     "2026-11-12T21:56:54Z"
+   ],
+   "flyttet-dato-bjorn-bjarte-lovenvold-theater-lovenvold-theate": [
+    "2026-11-12T18:00:17Z",
+    "2026-11-13T08:25:03Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-13T06:11:09Z",
+  "updatedAt": "2026-11-13T08:25:03Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -446,17 +450,16 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "flyttet-dato-bjorn-bjarte-lovenvold-theater-lovenvold-theate",
+   "id": "dato-bjorn-bjarte-lovenvold-theater-lovenvold-theater",
    "date": "2026-11-14",
    "time": "15:00",
-   "title": "FLYTTET DATO Bjørn & Bjarte / Løvenvold Theater",
+   "title": "DATO Bjørn & Bjarte / Løvenvold Theater",
    "venue": "Løvenvold Theater",
    "address": "Løvenvoldgata 11, 6002 Ålesund",
    "cat": "konsert",
    "price": "699 kr",
    "priceMin": 699,
    "soldOut": false,
-   "few": true,
    "note": "",
    "uncertain": false,
    "url": "https://tikkio.com/events/62711-bjorn-bjarte-lovenvold-theater",
