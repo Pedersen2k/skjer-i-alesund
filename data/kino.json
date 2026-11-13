@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-13T10:16:44Z",
+  "updatedAt": "2026-11-13T12:10:03Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -922,7 +922,7 @@
      "start": "2026-11-13T12:00:00",
      "screen": "1 isense",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/ad6acd3f-0182-4fd3-9b6e-9274b6ed1859",
+     "url": "",
      "club": true
     },
     {
@@ -1216,7 +1216,7 @@
      "start": "2026-11-13T12:30:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/3eff54a1-1887-40af-9be0-b671399dab6d",
+     "url": "",
      "club": false
     },
     {
@@ -1423,7 +1423,7 @@
      "start": "2026-11-13T12:00:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/774d54d2-7c3b-452f-9028-c5e821016165",
+     "url": "",
      "club": false
     },
     {
@@ -1939,7 +1939,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/d9956a2d-86ab-47fe-a438-649da6db9b5d",
+     "url": "",
      "club": false
     }
    ]
@@ -1962,7 +1962,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/d396b1df-9827-4437-b440-7e07c4b946a5",
+     "url": "",
      "club": false
     },
     {
@@ -2017,20 +2017,20 @@
     },
     {
      "start": "2026-11-19T12:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "https://www.odeonkino.no/booking/kjop/8a196763-083b-4a02-bd61-a3215d3974af",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T12:00:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/366c655f-c2c5-4e74-a670-0a7bb0cc5bbe",
+     "club": false
+    },
+    {
+     "start": "2026-11-19T12:00:00",
+     "screen": "Sal 5",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/8a196763-083b-4a02-bd61-a3215d3974af",
      "club": false
     },
     {

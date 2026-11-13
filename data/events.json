@@ -132,15 +132,19 @@
    "flyttet-dato-bjorn-bjarte-lovenvold-theater-lovenvold-theate": [
     "2026-11-12T18:00:17Z",
     "2026-11-13T08:25:03Z"
+   ],
+   "dato-bjorn-bjarte-lovenvold-theater-lovenvold-theater": [
+    "2026-11-12T18:00:17Z",
+    "2026-11-13T12:04:57Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-13T10:11:47Z",
+  "updatedAt": "2026-11-13T12:04:57Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -450,10 +454,10 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "dato-bjorn-bjarte-lovenvold-theater-lovenvold-theater",
+   "id": "matine-bjorn-bjarte-lovenvold-theater-lovenvold-theater",
    "date": "2026-11-14",
    "time": "15:00",
-   "title": "DATO Bjørn & Bjarte / Løvenvold Theater",
+   "title": "MATINÉ Bjørn & Bjarte / Løvenvold Theater",
    "venue": "Løvenvold Theater",
    "address": "Løvenvoldgata 11, 6002 Ålesund",
    "cat": "konsert",
@@ -2526,7 +2530,8 @@
    "price": "250 kr",
    "priceMin": 250,
    "soldOut": false,
-   "note": "Rabatt: DNB-kunde 100 kr.",
+   "few": true,
+   "note": "Rabatt: DNB-kunde 199 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67508-klubb-2-juledag-terminalen",
    "addedAt": "2026-11-12T10:15:03Z"
