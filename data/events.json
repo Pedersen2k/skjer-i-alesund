@@ -138,9 +138,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-13T08:25:03Z",
+  "updatedAt": "2026-11-13T10:11:47Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -3290,6 +3290,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67120-hans-magne-skard-skruball",
    "addedAt": "2026-10-23T20:01:48Z"
+  },
+  {
+   "id": "kakkmaddafakka-terminalen-byscene",
+   "date": "2027-04-10",
+   "time": "20:00",
+   "title": "Kakkmaddafakka",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "499 kr",
+   "priceMin": 499,
+   "soldOut": false,
+   "note": "Rabatt: DNB-kunde 399 kr, ÅSS / Studentbillett 399 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67496-kakkmaddafakka-terminalen",
+   "addedAt": "2026-11-13T10:11:47Z"
   },
   {
    "id": "parken-51493-parken-kulturhus",
