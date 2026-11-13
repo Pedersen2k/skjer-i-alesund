@@ -140,13 +140,21 @@
    "viti-fagsamling-og-nettverkstreff-for-handverkarar-2026-sunn": [
     "2026-10-29T16:05:46Z",
     "2026-11-13T14:24:54Z"
+   ],
+   "sofia-emelia-robert-botn-drape-alesund-kaffehus": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-13T20:03:49Z"
+   ],
+   "parken-47677-parken-kulturhus": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-13T20:03:49Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-13T17:58:35Z",
+  "updatedAt": "2026-11-13T20:03:49Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -164,22 +172,6 @@
   ]
  },
  "events": [
-  {
-   "id": "bjorn-bjarte-lovenvold-theater",
-   "date": "2026-11-13",
-   "time": "18:00",
-   "title": "Bjørn & Bjarte",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata 11, 6002 Ålesund",
-   "cat": "show",
-   "price": "699 kr",
-   "priceMin": 699,
-   "soldOut": true,
-   "note": "Flyttet fra 11. november.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/62710-bjorn-bjarte-lovenvold-theater",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "juleinspirert-tapasbuffet-hotel-1904",
    "date": "2026-11-13",
@@ -210,22 +202,6 @@
    "addedAt": "2026-10-26T20:53:51Z"
   },
   {
-   "id": "sofia-emelia-robert-botn-drape-alesund-kaffehus",
-   "date": "2026-11-13",
-   "time": "18:30",
-   "title": "Sofia Emelia & Robert Botn",
-   "venue": "Dråpe Ålesund Kaffehus",
-   "address": "Storgata 4, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "150 kr",
-   "priceMin": 150,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/66424-sofia-emelia-robert-botnxeno-sounds",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
    "id": "jul-pa-molja-thon-hotel-alesund",
    "date": "2026-11-13",
    "time": "18:30",
@@ -249,24 +225,6 @@
     "2026-12-11T18:30"
    ],
    "addedAt": "2026-11-10T08:20:11Z"
-  },
-  {
-   "id": "parken-47677-parken-kulturhus",
-   "date": "2026-11-13",
-   "time": "19:00",
-   "title": "Christine Koht",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "show",
-   "price": "450 kr",
-   "priceMin": 450,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/47677-christine-koht/",
-   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "julebord-pa-alnes",
@@ -472,6 +430,22 @@
    "note": "Med Dennis Siva og Stian Sandø.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49079-vitenshitshow/",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "bjorn-bjarte-lovenvold-theater",
+   "date": "2026-11-14",
+   "time": "18:00",
+   "title": "Bjørn & Bjarte",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata 11, 6002 Ålesund",
+   "cat": "show",
+   "price": "699 kr",
+   "priceMin": 699,
+   "soldOut": true,
+   "note": "Flyttet fra 11. november.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/62709-bjorn-bjarte-lovenvold-theater",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -3304,7 +3278,7 @@
    "id": "parken-51493-parken-kulturhus",
    "date": "2027-04-23",
    "time": "20:00",
-   "title": "William Sundman Sääf",
+   "title": "Lydhør: William Sundman Sääf",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "konsert",
@@ -3313,7 +3287,7 @@
    "soldOut": false,
    "note": "",
    "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51493-william-sundman-saaf/",
+   "url": "https://www.parkenkulturhus.no/program/51493-lydhor-william-sundman-saaf/",
    "addedAt": "2026-11-12T18:00:17Z"
   },
   {
