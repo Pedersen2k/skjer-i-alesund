@@ -1270,6 +1270,23 @@
    "last": "2026-11-12"
   },
   {
+   "id": "julelystenning-pa-devoldfabrikken-devoldfabrikken",
+   "date": "2026-11-12",
+   "time": "18:00",
+   "title": "Julelystenning på Devoldfabrikken",
+   "venue": "Devoldfabrikken",
+   "address": "Geilneset 16, 6030 Langevåg",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Pipa, klokketårnet og byggene tennes i julelys kl. 18, lystog fra Kantina 18.15, og butikkene har langåpent til 20. I Langevåg (Sula).",
+   "uncertain": false,
+   "url": "https://devoldfabrikken.no/hva-skjer/julelystenning-pa-devoldfabrikken/",
+   "addedAt": "2026-11-10T08:20:11Z",
+   "last": "2026-11-12"
+  },
+  {
    "id": "livrore-2026-11-12-torsdagers-quiz-med-oystein-ok-liv-rore-m",
    "date": "2026-11-12",
    "time": "19:00",

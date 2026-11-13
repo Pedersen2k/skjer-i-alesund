@@ -134,7 +134,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-12T21:56:54Z",
+  "updatedAt": "2026-11-13T06:11:09Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -154,8 +154,8 @@
  "events": [
   {
    "id": "viti-fagsamling-og-nettverkstreff-for-handverkarar-2026-sunn",
-   "date": "2026-11-12",
-   "time": "12:00",
+   "date": "2026-11-13",
+   "time": "09:00",
    "title": "Fagsamling og Nettverkstreff for handverkarar 2026",
    "venue": "Sunnmøre museum",
    "address": "Museumsvegen 12, 6015 Ålesund",
@@ -163,55 +163,10 @@
    "price": "",
    "priceMin": null,
    "soldOut": false,
-   "note": "Flere forestillinger: 13. nov.",
+   "note": "",
    "uncertain": false,
    "url": "https://www.vitimusea.no/arrangement/fagsamling-og-nettverkstreff-for-handverkarar-2026",
-   "moreShows": [
-    "2026-11-13T09:00"
-   ],
    "addedAt": "2026-10-29T16:05:46Z"
-  },
-  {
-   "id": "julelystenning-pa-devoldfabrikken-devoldfabrikken",
-   "date": "2026-11-12",
-   "time": "18:00",
-   "title": "Julelystenning på Devoldfabrikken",
-   "venue": "Devoldfabrikken",
-   "address": "Geilneset 16, 6030 Langevåg",
-   "cat": "happening",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Pipa, klokketårnet og byggene tennes i julelys kl. 18, lystog fra Kantina 18.15, og butikkene har langåpent til 20. I Langevåg (Sula).",
-   "uncertain": false,
-   "url": "https://devoldfabrikken.no/hva-skjer/julelystenning-pa-devoldfabrikken/",
-   "addedAt": "2026-11-10T08:20:11Z"
-  },
-  {
-   "id": "jul-pa-molja-thon-hotel-alesund",
-   "date": "2026-11-12",
-   "time": "18:30",
-   "title": "Jul på Molja",
-   "venue": "Thon Hotel Ålesund",
-   "address": "Molovegen 6, 6004 Ålesund",
-   "cat": "show",
-   "price": "Pris hos arrangør",
-   "priceMin": null,
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Dørene åpner 18:00, 15 år. Billetter på Billetto (Bypatrioten oppgir 550–599 kr + avgift). Datoer og tid: Bypatrioten (Thons egen side nevner ikke showet).",
-   "url": "https://billetto.no/e/jul-pa-molja-fredrik-steen-jorunn-torsheim-billetter-1901018",
-   "moreShows": [
-    "2026-11-13T18:30",
-    "2026-11-14T18:30",
-    "2026-11-21T18:30",
-    "2026-11-27T18:30",
-    "2026-11-28T18:30",
-    "2026-12-04T18:30",
-    "2026-12-05T18:30",
-    "2026-12-11T18:30"
-   ],
-   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "bjorn-bjarte-lovenvold-theater",
@@ -273,6 +228,31 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66424-sofia-emelia-robert-botnxeno-sounds",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "jul-pa-molja-thon-hotel-alesund",
+   "date": "2026-11-13",
+   "time": "18:30",
+   "title": "Jul på Molja",
+   "venue": "Thon Hotel Ålesund",
+   "address": "Molovegen 6, 6004 Ålesund",
+   "cat": "show",
+   "price": "Pris hos arrangør",
+   "priceMin": null,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Dørene åpner 18:00, 15 år. Billetter på Billetto (Bypatrioten oppgir 550–599 kr + avgift). Datoer og tid: Bypatrioten (Thons egen side nevner ikke showet).",
+   "url": "https://billetto.no/e/jul-pa-molja-fredrik-steen-jorunn-torsheim-billetter-1901018",
+   "moreShows": [
+    "2026-11-14T18:30",
+    "2026-11-21T18:30",
+    "2026-11-27T18:30",
+    "2026-11-28T18:30",
+    "2026-12-04T18:30",
+    "2026-12-05T18:30",
+    "2026-12-11T18:30"
+   ],
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "parken-47677-parken-kulturhus",

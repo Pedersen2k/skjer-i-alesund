@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-12T22:01:09Z",
+  "updatedAt": "2026-11-13T06:16:12Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -27,28 +27,6 @@
    ]
   },
   {
-   "id": "MER20240096",
-   "title": "Butterfly",
-   "age": 12,
-   "minutes": 117,
-   "genres": [
-    "Drama"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/d17fc9757f9f8959c40a6392d1f0a8e7848289f9-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-09-25",
-   "shows": [
-    {
-     "start": "2026-11-12T12:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "WAB20240262",
    "title": "Clayface",
    "age": 15,
@@ -62,13 +40,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/22ed50ebf0c5bc8143fe7606704caead1ff02875-1500x2223.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-23",
    "shows": [
-    {
-     "start": "2026-11-12T21:00:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-13T21:30:00",
      "screen": "4",
@@ -103,15 +74,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/eb4b617f94d0ff88352912d08252a7d22ada253a-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-02",
    "shows": [
-    {
-     "start": "2026-11-12T18:30:00",
-     "screen": "3",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-16T14:00:00",
      "screen": "3",
@@ -284,13 +246,6 @@
    "premiere": "2026-09-11",
    "shows": [
     {
-     "start": "2026-11-12T15:45:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
      "start": "2026-11-13T15:10:00",
      "screen": "3",
      "tags": [],
@@ -399,15 +354,6 @@
    "premiere": "2026-11-06",
    "shows": [
     {
-     "start": "2026-11-12T20:45:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-13T21:00:00",
      "screen": "1 isense",
      "tags": [],
@@ -487,15 +433,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f73aa5f1d8a24cb412b69b828e2f56dcd502c171-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-09-25",
    "shows": [
-    {
-     "start": "2026-11-12T14:40:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-14T14:45:00",
      "screen": "Sal 5",
@@ -721,34 +658,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6709e48a4ac96bb7821de663e44feff52c689458-1190x1684.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-06",
    "shows": [
-    {
-     "start": "2026-11-12T12:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-12T15:30:00",
-     "screen": "4",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-12T17:30:00",
-     "screen": "4",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-13T13:30:00",
      "screen": "Sal 5",
@@ -1010,36 +919,6 @@
    "premiere": "2026-10-30",
    "shows": [
     {
-     "start": "2026-11-12T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-12T14:30:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-12T17:15:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-12T19:30:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
      "start": "2026-11-13T12:00:00",
      "screen": "1 isense",
      "tags": [],
@@ -1255,15 +1134,6 @@
    "premiere": "2026-10-16",
    "shows": [
     {
-     "start": "2026-11-12T17:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-13T15:30:00",
      "screen": "Sal 5",
      "tags": [
@@ -1457,15 +1327,6 @@
    "premiere": "2026-10-09",
    "shows": [
     {
-     "start": "2026-11-12T21:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-13T21:30:00",
      "screen": "Sal 6",
      "tags": [
@@ -1558,40 +1419,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/4fe030b928d64fd21116e82118c14e872c70ee09-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-11-12T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-12T14:45:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-12T18:00:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-12T20:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-13T12:00:00",
      "screen": "4",
@@ -1840,51 +1667,6 @@
    ]
   },
   {
-   "id": "EDI20260642",
-   "title": "Resident Evil",
-   "age": 15,
-   "minutes": 93,
-   "genres": [
-    "Horror",
-    "Sci-Fi"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/45979c212a0db611920323256ec3d8265789d36e-1500x2104.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-09-18",
-   "shows": [
-    {
-     "start": "2026-11-12T19:15:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
-   "id": "EDI20260563",
-   "title": "Sangen fra skogene",
-   "age": 0,
-   "minutes": 93,
-   "genres": [
-    "Dokumentar"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/299654017bf4eea9a09d6f2c85a1f5139b0f90c7-1440x2057.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-10-23",
-   "shows": [
-    {
-     "start": "2026-11-12T16:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20250794",
    "title": "Sauen Shaun - Gårdens fårbannelse",
    "age": 0,
@@ -1931,13 +1713,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/08c062fc034ea81b413d46721ded439a550abcb4-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-09",
    "shows": [
-    {
-     "start": "2026-11-12T12:00:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-11-16T12:00:00",
      "screen": "Sal 6",
@@ -2282,24 +2057,6 @@
    "premiere": "2026-10-02",
    "shows": [
     {
-     "start": "2026-11-12T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-12T21:15:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-13T18:50:00",
      "screen": "Sal 6",
      "tags": [
@@ -2359,15 +2116,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/87e8cca69961cc03bd033d51dcf4e73da65744c2-1500x2104.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-30",
    "shows": [
-    {
-     "start": "2026-11-12T18:15:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-13T14:30:00",
      "screen": "Sal 2",
