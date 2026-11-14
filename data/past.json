@@ -1428,6 +1428,23 @@
    "last": "2026-11-13"
   },
   {
+   "id": "bjorn-bjarte-lovenvold-theater",
+   "date": "2026-11-14",
+   "time": "18:00",
+   "title": "Bjørn & Bjarte",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata 11, 6002 Ålesund",
+   "cat": "show",
+   "price": "699 kr",
+   "priceMin": 699,
+   "soldOut": true,
+   "note": "Flyttet fra 11. november.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/62709-bjorn-bjarte-lovenvold-theater",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-14"
+  },
+  {
    "id": "matine-bjorn-bjarte-lovenvold-theater-lovenvold-theater",
    "date": "2026-11-14",
    "time": "15:00",
