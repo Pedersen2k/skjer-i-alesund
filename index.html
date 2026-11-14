@@ -751,7 +751,7 @@ function julebordEntry() {
   const prices = JB.map(e => e.priceMin).filter(p => p > 0), from = prices.length ? `, fra ${Math.min(...prices)} kr` : "";
   const n = `${JB.length} julebord${from}`;
   if (JULSEASON) {
-    Object.assign($("jbbtn"), { innerHTML: `🎄 ${esc(n)} →`, hidden: false });
+    Object.assign($("jbbtn"), { innerHTML: "🎄 Julebord og julemiddag →", title: n, hidden: false });
     $("jbbtn").addEventListener("click", () => track("julebord/julekort"));
   } else {
     Object.assign($("jbstrip"), { innerHTML: `<div>🎄 <b>${JB.length} julebord</b> i Ålesund${from}</div><span>Se alle →</span>`, hidden: false });
