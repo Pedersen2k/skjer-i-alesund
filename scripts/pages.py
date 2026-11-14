@@ -1157,11 +1157,14 @@ def main():
         # Lages også uten arrangementer, så lenkene fra forsiden aldri blir døde
         evs = [e for e in all_events if e["cat"] == k]
         if k == "julebord":
-            listing_page(p + "/", f"Julebord i Ålesund {today.year}: alle julebord med pris og dato | {SITE}", f"Julebord i Ålesund {today.year}",
-                         f"{len(evs)} julebord med dato og pris per person, og julemenyer på restaurant.",
-                         evs, "Ingen julebord registrert akkurat nå. Julebordene for neste sesong kommer i oktober.", f"Julebord i Ålesund {today.year}",
+            jf = ROOT / "data" / "julebord.json"
+            nmeny = len(json.loads(jf.read_text()).get("julemeny", [])) if jf.exists() else 0
+            jname = f"Julebord og julemiddag i Ålesund {today.year}"
+            listing_page(p + "/", f"{jname}: pris og dato | {SITE}", jname,
+                         f"{len(evs)} julebord med dato og pris per person" + (f", og {nmeny} julemenyer på restaurant." if nmeny else "."),
+                         evs, "Ingen julebord registrert akkurat nå. Julebordene for neste sesong kommer i oktober.", jname,
                          about=CAT_TEXT[k], lead=julebord_facts(evs, today.year) + julemeny_html() + jul_links("../", p + "/", themes),
-                         desc=list_desc(f"Julebord i Ålesund {today.year}", evs, "julebord", 3, " per person") if evs else None, jul=True)
+                         desc=list_desc(jname, evs, "julebord", 3, " per person") if evs else None, jul=True)
             continue
         if k == "konsert":
             years = sorted({e["date"][:4] for e in evs})
