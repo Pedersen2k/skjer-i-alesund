@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-13T22:00:48Z",
+  "updatedAt": "2026-11-14T06:03:16Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -40,13 +40,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/22ed50ebf0c5bc8143fe7606704caead1ff02875-1500x2223.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-23",
    "shows": [
-    {
-     "start": "2026-11-13T21:30:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-16T21:15:00",
      "screen": "4",
@@ -95,31 +88,6 @@
    ]
   },
   {
-   "id": "WAB20240208",
-   "title": "Dune-maraton",
-   "age": 12,
-   "minutes": null,
-   "genres": [
-    "Action",
-    "Drama",
-    "Eventyr",
-    "Sci-Fi"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/bea29817dc83d0960eb015674176e74ea95183d1-595x841.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2024-02-26",
-   "shows": [
-    {
-     "start": "2026-11-13T17:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20251675",
    "title": "Ebenezer",
    "age": 12,
@@ -132,13 +100,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ece98fe1e9a1b24ef010288a35d3384c503d2f72-954x1350.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
-    {
-     "start": "2026-11-13T17:45:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-14T17:30:00",
      "screen": "3",
@@ -246,13 +207,6 @@
    "premiere": "2026-09-11",
    "shows": [
     {
-     "start": "2026-11-13T15:10:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
      "start": "2026-11-14T17:15:00",
      "screen": "Sal 5",
      "tags": [
@@ -353,13 +307,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/64c2d1b5a4e3cfc67b7676b3c854f89f431fac86-1295x1920.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-06",
    "shows": [
-    {
-     "start": "2026-11-13T21:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-14T21:00:00",
      "screen": "1 isense",
@@ -550,13 +497,6 @@
    "premiere": "2026-11-13",
    "shows": [
     {
-     "start": "2026-11-13T20:30:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-14T21:15:00",
      "screen": "4",
      "tags": [],
@@ -658,26 +598,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6709e48a4ac96bb7821de663e44feff52c689458-1190x1684.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-06",
    "shows": [
-    {
-     "start": "2026-11-13T13:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-13T16:45:00",
-     "screen": "Sal 6",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-14T10:30:00",
      "screen": "1 isense",
@@ -888,6 +808,26 @@
    ]
   },
   {
+   "id": "EDI20250597",
+   "title": "Love Actually",
+   "age": null,
+   "minutes": null,
+   "genres": [],
+   "poster": "",
+   "premiere": "2025-12-21",
+   "shows": [
+    {
+     "start": "2026-12-04T18:00:00",
+     "screen": "1 isense",
+     "tags": [
+      "Utekstet"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/b6fc056c-dcc9-487c-8fc6-674aa69106f5",
+     "club": false
+    }
+   ]
+  },
+  {
    "id": "UAV20191951",
    "title": "Lukket førpremiere",
    "age": null,
@@ -918,27 +858,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/0054744e1f36936a0b20e8ec95cf475d967bb7a6-1080x1514.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-30",
    "shows": [
-    {
-     "start": "2026-11-13T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-13T14:30:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-13T18:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-11-14T15:15:00",
      "screen": "Sal 6",
@@ -1134,15 +1053,6 @@
    "premiere": "2026-10-16",
    "shows": [
     {
-     "start": "2026-11-13T15:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-14T13:15:00",
      "screen": "4",
      "tags": [],
@@ -1212,13 +1122,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6be14bfa9aad17827d66f04f8ffce118b4efa17f-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
-    {
-     "start": "2026-11-13T12:30:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-14T12:00:00",
      "screen": "Sal 5",
@@ -1327,15 +1230,6 @@
    "premiere": "2026-10-09",
    "shows": [
     {
-     "start": "2026-11-13T21:30:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-14T21:30:00",
      "screen": "Sal 6",
      "tags": [
@@ -1419,31 +1313,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/4fe030b928d64fd21116e82118c14e872c70ee09-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-11-13T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-13T15:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-13T18:15:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-14T13:00:00",
      "screen": "Sal 2",
@@ -1662,6 +1531,29 @@
       "Utekstet"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/c4c120e3-8dd0-4993-8dd4-e4790d243bd5",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "EDI20261775",
+   "title": "PRZEPIS NA SWIETA",
+   "age": 12,
+   "minutes": 110,
+   "genres": [
+    "Familiefilm",
+    "Komedie"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/000abd65d0f87a02fc0596b71a2530dd83427106-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-12-04",
+   "shows": [
+    {
+     "start": "2026-12-04T20:30:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/4e9421c6-9063-42bc-b310-054ef7e29ff0",
      "club": false
     }
    ]
@@ -1925,26 +1817,6 @@
    ]
   },
   {
-   "id": "UIP20241680",
-   "title": "The Odyssey",
-   "age": 12,
-   "minutes": 172,
-   "genres": [],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/714c2df548403065609d371f42c15d648ba1c429-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-07-17",
-   "shows": [
-    {
-     "start": "2026-11-13T13:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20251703",
    "title": "Velkommen til familien",
    "age": 9,
@@ -1956,24 +1828,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/36f2aeb3c5e2f75e430c2f28cb3bd64c5175221d-1080x1514.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
-    {
-     "start": "2026-11-13T12:00:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-13T17:45:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-14T18:15:00",
      "screen": "Sal 2",
@@ -2057,15 +1911,6 @@
    "premiere": "2026-10-02",
    "shows": [
     {
-     "start": "2026-11-13T18:50:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-14T18:50:00",
      "screen": "Sal 6",
      "tags": [
@@ -2104,6 +1949,27 @@
    ]
   },
   {
+   "id": "UIP20241718",
+   "title": "Violent Night 2",
+   "age": 15,
+   "minutes": 110,
+   "genres": [
+    "Action",
+    "Komedie"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/516c1eee0a0e5b8a8de321d87f9752271cd37fe0-954x1350.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-12-04",
+   "shows": [
+    {
+     "start": "2026-12-04T17:45:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/b87a1b0e-acba-48bd-ada8-7b78c5ce1deb",
+     "club": false
+    }
+   ]
+  },
+  {
    "id": "EDI20260846",
    "title": "Wildwood",
    "age": 12,
@@ -2116,24 +1982,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/87e8cca69961cc03bd033d51dcf4e73da65744c2-1500x2104.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-30",
    "shows": [
-    {
-     "start": "2026-11-13T14:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-13T20:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-14T19:45:00",
      "screen": "Sal 5",
