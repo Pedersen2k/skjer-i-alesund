@@ -148,15 +148,19 @@
    "parken-47677-parken-kulturhus": [
     "2026-10-19T12:59:56Z",
     "2026-11-13T20:03:49Z"
+   ],
+   "viti-dans-for-unge-vaksne-aalesunda-sunnmore-museum": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-14T13:59:13Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-14T11:49:50Z",
+  "updatedAt": "2026-11-14T13:59:13Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -172,22 +176,6 @@
   ]
  },
  "events": [
-  {
-   "id": "viti-dans-for-unge-vaksne-aalesunda-sunnmore-museum",
-   "date": "2026-11-14",
-   "time": "12:00",
-   "title": "Dans for unge vaksne - Ålesund",
-   "venue": "Sunnmøre museum",
-   "address": "Museumsvegen 12, 6015 Ålesund",
-   "cat": "happening",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.vitimusea.no/arrangement/dans-for-unge-vaksne-aalesunda",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "matine-bjorn-bjarte-lovenvold-theater-lovenvold-theater",
    "date": "2026-11-14",
@@ -1406,6 +1394,22 @@
    "note": "Førjulskonsert med kjente julesanger; 10-årsjubileum. Rein Alexander med Elisabeth Andreassen og Kim Rysstad. Billetter på Eventim.",
    "url": "https://www.eventim.no/event/deilig-er-jorden-aalesund-kirke-21549755/",
    "addedAt": "2026-10-27T07:56:21Z"
+  },
+  {
+   "id": "smaking-icon-hadeland-vinglass-for-ulike-druer-vino-bar",
+   "date": "2026-12-02",
+   "time": "18:00",
+   "title": "Smaking ICON Hadeland – Vinglass for ulike druer",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "595 kr",
+   "priceMin": 595,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/smaking-icon-hadeland-vinglass-for-ulike-druer-02-12-2026-kl-1800/",
+   "addedAt": "2026-11-14T13:59:13Z"
   },
   {
    "id": "vin-til-julmat-m-mindor-klauseth-vino-bar",

@@ -1426,6 +1426,23 @@
    "url": "https://www.vitimusea.no/arrangement/fagsamling-og-nettverkstreff-for-handverkarar-2026",
    "addedAt": "2026-10-29T16:05:46Z",
    "last": "2026-11-13"
+  },
+  {
+   "id": "viti-dans-for-unge-vaksne-aalesunda-sunnmore-museum",
+   "date": "2026-11-14",
+   "time": "12:00",
+   "title": "Dans for unge vaksne - Ålesund",
+   "venue": "Sunnmøre museum",
+   "address": "Museumsvegen 12, 6015 Ålesund",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/dans-for-unge-vaksne-aalesunda",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-14"
   }
  ]
 }
