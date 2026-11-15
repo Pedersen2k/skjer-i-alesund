@@ -166,7 +166,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-15T08:17:05Z",
+  "updatedAt": "2026-11-15T09:56:58Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -217,8 +217,7 @@
    "cat": "konsert",
    "price": "Gratis",
    "priceMin": 0,
-   "soldOut": false,
-   "few": true,
+   "soldOut": true,
    "shows": [
     [
      "2026-11-15T18:00",
@@ -226,7 +225,7 @@
     ],
     [
      "2026-11-16T18:00",
-     "few"
+     "sold"
     ]
    ],
    "statusSrc": "parken",
