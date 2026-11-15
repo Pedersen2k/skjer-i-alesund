@@ -166,7 +166,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-15T14:00:45Z",
+  "updatedAt": "2026-11-15T15:02:16Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -725,11 +725,11 @@
    "venue": "Thon Hotel Ålesund",
    "address": "Molovegen 6, 6004 Ålesund",
    "cat": "show",
-   "price": "Pris hos arrangør",
-   "priceMin": null,
+   "price": "550 kr",
+   "priceMin": 550,
    "soldOut": false,
    "uncertain": false,
-   "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Dørene åpner 18:00, 15 år. Billetter på Billetto (Bypatrioten oppgir 550–599 kr + avgift). Datoer og tid: Bypatrioten (Thons egen side nevner ikke showet).",
+   "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Dørene åpner 18:00, 15 år. Billetter fra 550 kr på Billetto.",
    "url": "https://billetto.no/e/jul-pa-molja-fredrik-steen-jorunn-torsheim-billetter-1901018",
    "moreShows": [
     "2026-11-27T18:30",
