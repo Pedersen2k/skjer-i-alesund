@@ -463,7 +463,7 @@ WEB3FORMS_KEY = "4fdbd7cb-a640-4982-a1f4-6fefbf772424"  # offentlig nøkkel: kan
 def kontakt_page():
     return f"""  <header class="top">
     <h1>Kontakt og om siden</h1>
-    <p class="lede">Mangler det et arrangement, er noe feil, eller vil du bare si hei? Send en melding her.</p>
+    <p class="lede">Mangler det et arrangement, er noe feil, eller vil du bare si hei? Send en melding her, eller skriv til <a href="mailto:post@kaskjerda.no">post@kaskjerda.no</a>.</p>
   </header>
   <main>
   <form id="kform" class="kform" action="https://api.web3forms.com/submit" method="post">
@@ -509,7 +509,7 @@ def kontakt_page():
   <section class="about">
     <h2>Om siden</h2>
     <p>Skjer i Ålesund samler konserter, standup, show, barnearrangementer, klubbkvelder og AaFK-hjemmekamper i Ålesund på ett sted, med billettpriser. Programmet hentes automatisk flere ganger om dagen fra Tikkio, Parken kulturhus, Dampsentralen, Fabrikken Kulturscene og AaFK, og enkelte arrangementer legges inn for hånd. Vi finner ikke på noe: alt kommer fra arrangørenes egne sider. Datoer og priser kan endres, så sjekk alltid hos arrangøren før du kjøper billett.</p>
-    <p>Er du arrangør og mangler på siden? Se <a href="../arrangor/">For arrangører</a>, eller send oss en lenke til arrangementet, så legger vi det inn.</p>
+    <p>Er du arrangør og mangler på siden? Se <a href="../arrangor/">For arrangører</a>, eller send oss en lenke til arrangementet, så legger vi det inn. Du kan også skrive til <a href="mailto:post@kaskjerda.no">post@kaskjerda.no</a>.</p>
     <h2>Personvern</h2>
     <p>Skjemaet sender bare det du skriver til oss, via tjenesten Web3Forms, og vi bruker det kun til å svare deg eller rette opp i programmet. E-post og navn er valgfritt. Siden teller besøk med GoatCounter, som ikke bruker informasjonskapsler og ikke lagrer personopplysninger.</p>
   </section>
