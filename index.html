@@ -375,6 +375,16 @@ html[data-tema="kveld"] .tomt .links button, html[data-tema="jul"] .tomt .links 
 .tomt .mente small { color: var(--muted); font: 600 12.5px var(--font-mono); }
 .sokandre { margin: 4px 0 12px; font-size: 14px; color: var(--muted); }
 html[data-tema="kveld"] .tomt .mente button, html[data-tema="jul"] .tomt .mente button, html[data-tema="kveld"] .sokandre button, html[data-tema="jul"] .sokandre button { color: var(--gold, var(--sea)); }
+/* Forslag mens du skriver (bare PC) */
+.qwrap { position: relative; }
+.sqsug { position: absolute; z-index: 40; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 6px; list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 14px 34px #0005; max-height: 70vh; overflow: auto; }
+html[data-tema="jul"] .sqsug { background: #3a0b12; } html[data-tema="kveld"] .sqsug { background: #12333a; }
+.sqsug li button, .sqsug li a { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; width: 100%; min-height: 44px; padding: 6px 10px; border: 0; border-radius: 10px; background: none; color: var(--fg); font: 500 15px/1.25 var(--font-body); text-align: left; text-decoration: none; cursor: pointer; }
+.sqsug li button:hover, .sqsug li a:hover, .sqsug li .on { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.sqsug .ic { width: 18px; height: 18px; color: var(--muted); }
+.sqsug small { color: var(--muted); font: 600 12px var(--font-mono); white-space: nowrap; }
+.sqsug .hd { padding: 8px 10px 2px; font: 700 10.5px var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sqsug mark { background: none; color: var(--accent); font-weight: 800; }
 .ev.tomt-hit { outline: 2px solid var(--accent); outline-offset: 3px; transition: outline-color 1.6s; }
 @media (prefers-reduced-motion: reduce) { .tomt .art .spot { animation: none; } }
 /* ★ og overgang (prøves helgen 31. okt – 1. nov, se starFx() og #viewseg) */
@@ -1066,7 +1076,7 @@ function render() {
   document.querySelectorAll("#viewseg [data-view]").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === state.view));
   if (state.view === "kal") return renderCal();
   $("count").textContent = `${items.length} arrangement${items.length === 1 ? "" : "er"}`;
-  searchHint(); kinoHit();
+  searchHint(); kinoHit(); syncQUrl();
   if (!items.length) { const onlyNew = state.nyOnly && !state.favOnly && !state.q && !state.cats.size && !state.venue && state.price === "" && state.when === "alt";
     $("list").innerHTML = E.length && !onlyNew ? emptyHtml() : `<div class="empty">${!E.length ? "Ingen arrangementer er lagt inn ennå. De dukker opp her når programmet er hentet." : "Ingenting nytt siden sist. Trykk «Alle» for å se hele programmet."}</div>`; return; }
   const groups = new Map();
@@ -1373,6 +1383,66 @@ function expandShows(list) {
   return out;
 }
 
+// ?q= i adressen: siden åpnes med søket utfylt, og adressen følger søket så den kan kopieres og deles.
+// GoatCounter teller forsiden etter canonical-adressen, så søketeksten kommer ikke i statistikken.
+const Q0 = (new URLSearchParams(location.search).get("q") || "").slice(0, 80);
+function syncQUrl() {
+  if (!E.length) return;
+  const u = new URL(location.href), cur = u.searchParams.get("q") || "", want = $("q").value.trim();
+  if (cur === want) return;
+  want ? u.searchParams.set("q", want) : u.searchParams.delete("q");
+  try { history.replaceState(history.state, "", u); } catch {}
+}
+// Forslag mens du skriver: prøves bare på PC (bred skjerm og mus). Piltaster, Enter og Esc virker.
+const SUG_OK = matchMedia("(min-width: 641px) and (hover: hover) and (pointer: fine)");
+const SUG_IC = {
+  ev: `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>`,
+  sted: `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>`,
+  kat: `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h6"/></svg>`,
+  side: `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`,
+};
+const sugUl = document.createElement("ul");
+sugUl.className = "sqsug"; sugUl.id = "sqsug"; sugUl.hidden = true; sugUl.setAttribute("aria-label", "Forslag");
+$("q").parentElement.appendChild(sugUl);
+let sugAt = -1;
+const sugHi = (t, q) => { const i = t.toLowerCase().indexOf(q.toLowerCase()), n = q.length; return i < 0 ? esc(t) : esc(t.slice(0, i)) + "<mark>" + esc(t.slice(i, i + n)) + "</mark>" + esc(t.slice(i + n)); };
+function sugShow() {
+  const q = $("q").value.trim(); sugAt = -1;
+  if (!SUG_OK.matches || q.length < 2 || !E.length || document.activeElement !== $("q")) { sugUl.hidden = true; return; }
+  const evs = firstPerId(E.filter(e => e.d >= TODAY && sokMatch(e, q)).sort((a, b) => a.d - b.d)).slice(0, 4);
+  const venues = [...new Set(E.map(e => e.venue))].filter(v => sokHit(sokPrep(v), q)).slice(0, 2);
+  const cats = Object.entries(CATS).filter(([k, l]) => sokHit(sokPrep(l + " " + k), q)).slice(0, 2);
+  const jb = JB.filter(e => sokMatch(e, q)).length, fl = KINO.filter(f => sokHit(sokPrep(f.title), q)).length;
+  const rows = [];
+  if (evs.length) rows.push(`<li class="hd">Arrangementer</li>` + evs.map(e => `<li><button type="button" data-sev="${esc(e.id)}">${SUG_IC.ev}<span>${sugHi(e.title, q)}</span><small>${WD[e.d.getDay()]} ${e.d.getDate()}. ${MO[e.d.getMonth()]}</small></button></li>`).join(""));
+  if (venues.length || cats.length) rows.push(`<li class="hd">Steder og kategorier</li>` + venues.map(v => `<li><button type="button" data-sv="${esc(v)}">${SUG_IC.sted}<span>${sugHi(v, q)}</span><small>${E.filter(e => e.venue === v && e.d >= TODAY).length}</small></button></li>`).join("") + cats.map(([k, l]) => `<li><button type="button" data-sc="${k}">${SUG_IC.kat}<span>${sugHi(l, q)}</span><small>${E.filter(e => e.cat === k && e.d >= TODAY).length}</small></button></li>`).join(""));
+  if (jb || fl) rows.push(`<li class="hd">Andre sider</li>` + (jb ? `<li><a href="julebord/" data-sp="julebord">${SUG_IC.side}<span>Julebord</span><small>${jb}</small></a></li>` : "") + (fl ? `<li><a href="kino/" data-sp="kino">${SUG_IC.side}<span>Kino</span><small>${fl} ${fl === 1 ? "film" : "filmer"}</small></a></li>` : ""));
+  sugUl.innerHTML = rows.join(""); sugUl.hidden = !rows.length;
+}
+const sugItems = () => [...sugUl.querySelectorAll("button, a")];
+function sugMark(i) { const it = sugItems(); if (!it.length) return; sugAt = (i + it.length) % it.length; it.forEach((x, j) => x.classList.toggle("on", j === sugAt)); it[sugAt].scrollIntoView({ block: "nearest" }); }
+$("q").addEventListener("input", sugShow);
+$("q").addEventListener("focus", sugShow);
+$("q").addEventListener("keydown", ev => {
+  if (sugUl.hidden) return;
+  if (ev.key === "ArrowDown" || ev.key === "ArrowUp") { ev.preventDefault(); sugMark(sugAt + (ev.key === "ArrowDown" ? 1 : -1)); }
+  else if (ev.key === "Enter" && sugAt >= 0) { ev.preventDefault(); sugItems()[sugAt].click(); }
+  else if (ev.key === "Escape") sugUl.hidden = true;
+});
+document.addEventListener("mousedown", ev => { if (!ev.target.closest(".qwrap")) sugUl.hidden = true; });
+sugUl.addEventListener("click", ev => {
+  const b = ev.target.closest("button, a"); if (!b) return;
+  sugUl.hidden = true;
+  if (b.dataset.sp) { track("sok/forslag-side"); return; }
+  ev.preventDefault(); $("q").blur();
+  if (b.dataset.sev) {
+    track("sok/forslag-arrangement"); emptyApply({ when: "alt" });
+    const el = document.querySelector(`#list [data-eid="${CSS.escape(b.dataset.sev)}"]`);
+    if (el) { el.scrollIntoView({ block: "center", behavior: REDUCE.matches ? "auto" : "smooth" }); el.classList.add("tomt-hit"); setTimeout(() => el.classList.remove("tomt-hit"), 1800); }
+  } else if (b.dataset.sv) { track("sok/forslag-sted"); emptyApply({ venue: b.dataset.sv, q: "" }); }
+  else if (b.dataset.sc) { track("sok/forslag-kategori"); emptyApply({ cats: new Set([b.dataset.sc]), q: "" }); }
+});
+
 if (!$("list").firstElementChild) render(); // lista kan allerede være lagt inn som HTML av scripts/pages.py
 fetch("data/events.json", { cache: "no-cache" })
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
@@ -1381,6 +1451,7 @@ fetch("data/events.json", { cache: "no-cache" })
     const all = (data.events || []).map(x => ({ ...x, d: new Date(x.date + "T12:00") })).filter(e => !isNaN(e.d));
     JB = all.filter(e => e.cat === "julebord" && e.d >= TODAY);
     E = expandShows(all.filter(e => e.cat !== "julebord"));
+    if (Q0) { $("q").value = Q0; state.q = Q0.trim().toLowerCase(); }
     fillVenues(); julebordEntry(); showStatus(); render(); showShared(); showHashed(); addStructuredData();
   })
   .catch(() => { $("status").textContent = "Klarte ikke å hente programmet. Last siden på nytt."; });
