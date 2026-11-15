@@ -1316,7 +1316,8 @@ def en_price(e):
     if e.get("priceMin") == 0:
         return "Free"
     if e.get("price"):
-        return "NOK " + re.sub(r"\s*kr\b", "", e["price"]).strip()
+        p = re.sub(r"\s*kr\b", "", e["price"]).strip()
+        return ("from NOK " + p[4:]) if p.lower().startswith("fra ") else "NOK " + p
     return ""
 
 
@@ -1434,7 +1435,7 @@ def event_page(e, events, path, image=None):
     n_more = len(e.get("moreShows", []))
     desc = f"{e['title']} {'i' if re.search(r'kirke|kyrkje', e['venue'].lower()) else 'på'} {e['venue']}, {d.day}. {MO[d.month - 1]} {d.year}" + (f" kl. {e['time']}" if e.get("time") else "") + ". " + (
         "Utsolgt. " if e.get("soldOut") else "Gratis inngang. " if pt == "Gratis"
-        else f"Billetter fra {pt}{' – få igjen' if e.get('few') and few_ok(e, d) else ''}. " if pt != "Pris hos arrangør" else "") + (
+        else f"Billetter fra {re.sub(r'^fra ', '', pt, flags=re.I)}{' – få igjen' if e.get('few') and few_ok(e, d) else ''}. " if pt != "Pris hos arrangør" else "") + (
         f"{n_more + 1} datoer. " if n_more else "") + (
         "Se tider hos arrangør." if pt == "Gratis" else "Se tider og pris hos arrangør." if pt == "Pris hos arrangør" else "Se tider og kjøp billett hos arrangør.")
     venue = escape(e["venue"])
