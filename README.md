@@ -41,6 +41,10 @@ To faste Instagram-karuseller i tillegg til helgeposten, laget av `.github/workf
 
 Hver post kommer som et issue med bilder og ferdig bildetekst, så du får den på e-post. Bildene ligger i `uka/` på nettsiden og lages ved hver publisering. Julebord, utsolgte og usikre arrangementer og arrangementer for bedrifter (fagseminar o.l.) er aldri med. Grensene står øverst i `scripts/ukepost.py` (`BILLIG_MAX`, `BILLIG_MIN`, `BILLIG_SLIDES`, `INTERN`). Start en post for hånd under Actions → Ukepost → Run workflow.
 
+## Lørdagen i ett sveip
+
+Torsdag kveld (ca. kl. 19:47) lager `.github/workflows/panorama.yml` et issue «Lørdagen i ett sveip: …» med en sømløs Instagram-karusell for lørdagen som kommer: ett langt panorama der himmelen går fra ettermiddag til natt, og en rute går gjennom alle lørdagens arrangementer mens Ålesund-silhuetten fortsetter fra bilde til bilde. Om vinteren (30. oktober – februar) faller det snø, takene er hvite og nordlyset står over nattehimmelen; i julesesongen (1. november – 6. januar) er ruta en lysslynge. Bildene (`denne-helgen/panorama-1.png` osv. og hele stripa som `panorama.jpg`) lages av `scripts/panorama.py` ved hver publisering. Julebord, utsolgte og usikre arrangementer er ikke med, og med færre enn fire arrangementer lages det ingen post. Kan også startes under Actions → Panorama → Run workflow. Se bildene lokalt med `python3 scripts/panorama.py --bilder mappe`.
+
 ## Varsling og statistikk
 
 - **Varsling:** Feiler oppdateringen, svarer ikke Parken, eller faller antall arrangementer kraftig, lager jobben et issue med tittelen «Programoppdateringen trenger tilsyn», og GitHub sender deg e-post. Nye problemer legges til som kommentarer i samme issue (samme problem som sist gir ingen ny kommentar). Det lukkes automatisk neste gang alt går fint. Siden viser også selv et varsel hvis programmet er mer enn tre dager gammelt.
