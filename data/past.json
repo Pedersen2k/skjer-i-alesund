@@ -1528,6 +1528,23 @@
    "url": "https://www.vitimusea.no/arrangement/dans-for-unge-vaksne-aalesunda",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-14"
+  },
+  {
+   "id": "julekortfotografering-med-fotograf-lene-cs-devoldfabrikken",
+   "date": "2026-11-15",
+   "time": "",
+   "title": "Julekortfotografering med fotograf Lene CS",
+   "venue": "Devoldfabrikken",
+   "address": "Geilneset 16, 6030 Langevåg",
+   "cat": "happening",
+   "price": "900 kr",
+   "priceMin": 900,
+   "soldOut": false,
+   "note": "I Langevåg (Sula).",
+   "uncertain": false,
+   "url": "https://devoldfabrikken.no/hva-skjer/julekortfotografering-med-fotograf-lene-cs/",
+   "addedAt": "2026-11-10T16:13:41Z",
+   "last": "2026-11-15"
   }
  ]
 }
