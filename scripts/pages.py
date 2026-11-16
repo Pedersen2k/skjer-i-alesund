@@ -1149,6 +1149,12 @@ def main():
         image = (f"{BASE}denne-helgen/helgen.png?v={today.isoformat()}", helgepost.W, helgepost.H)
     except Exception as err:  # bildet skal aldri stoppe publiseringen
         print(f"Lager ikke helgebilde ({err!r})", file=sys.stderr)
+    # Ukepostene til Instagram («Uka i Ålesund» og «Under hundrelappen»), se scripts/ukepost.py. Bare bilder, ingen side.
+    try:
+        import ukepost
+        ukepost.render_all(today, OUT / "uka")
+    except Exception as err:
+        print(f"Lager ikke ukebilder ({err!r})", file=sys.stderr)
     listing_page("denne-helgen/", f"Hva skjer i Ålesund i helgen? {span} | {SITE}", "Skjer i Ålesund i helgen",
                  f"Alt vi har funnet i Ålesund {span}: konserter, standup, show, klubb og familie, med billettpriser.", weekend,
                  "Vi har ingen arrangementer registrert denne helgen ennå.", f"Hva skjer i Ålesund i helgen, {span}", image)

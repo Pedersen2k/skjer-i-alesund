@@ -32,6 +32,15 @@ Hver kveld (ca. kl. 22:50) lager `.github/workflows/nytt-i-dag.yml` et issue «N
 
 Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et issue med tittelen «Helgepost: …», så du får det på e-post. Det inneholder en ferdig tekst til Facebook-grupper, en bildetekst til Instagram og helgebildet (1080 × 1350), som ligger på `denne-helgen/helgen.png` og også er forhåndsvisningen når noen deler `denne-helgen/`. Er det mange arrangementer, blir linjene kompakte, og får heller ikke det plass, fortsetter lista på `helgen-2.png` osv., som du legger ut som karusell. Forrige ukes helgepost lukkes automatisk. Du kan lage en når som helst under Actions → Helgepost → Run workflow. Teksten og bildet lages av `scripts/helgepost.py`.
 
+## Ukeposter («Under hundrelappen» og «Uka i Ålesund»)
+
+To faste Instagram-karuseller i tillegg til helgeposten, laget av `.github/workflows/ukepost.yml` og `scripts/ukepost.py`:
+
+- **Søndag ettermiddag: «Under hundrelappen».** Det som er gratis eller koster høyst 100 kr hele neste uke, ett arrangement per bilde med prisen som blikkfang. Har uka færre enn tre, kommer det ingen post.
+- **Mandag morgen: «Uka i Ålesund».** Ett tips for hver dag mandag–torsdag, hver dag i sin farge. Er en dag tom, blir tipset kveldens kino. I samme e-post ligger dagsbildene i historieformat (1080 × 1920), til å legge ut i historien den dagen.
+
+Hver post kommer som et issue med bilder og ferdig bildetekst, så du får den på e-post. Bildene ligger i `uka/` på nettsiden og lages ved hver publisering. Julebord, utsolgte og usikre arrangementer og arrangementer for bedrifter (fagseminar o.l.) er aldri med. Grensene står øverst i `scripts/ukepost.py` (`BILLIG_MAX`, `BILLIG_MIN`, `BILLIG_SLIDES`, `INTERN`). Start en post for hånd under Actions → Ukepost → Run workflow.
+
 ## Varsling og statistikk
 
 - **Varsling:** Feiler oppdateringen, svarer ikke Parken, eller faller antall arrangementer kraftig, lager jobben et issue med tittelen «Programoppdateringen trenger tilsyn», og GitHub sender deg e-post. Nye problemer legges til som kommentarer i samme issue (samme problem som sist gir ingen ny kommentar). Det lukkes automatisk neste gang alt går fint. Siden viser også selv et varsel hvis programmet er mer enn tre dager gammelt.
