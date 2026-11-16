@@ -1,6 +1,6 @@
 name: Panorama
 
-# Torsdag kveld: «Lørdagen i ett sveip», en sømløs Instagram-karusell for lørdagen som kommer,
+# Torsdag kveld: «Helga i ett sveip», en sømløs Instagram-karusell for helga som kommer (fredag–søndag),
 # lagt i et issue (eieren får e-post). Bildene lages av «Oppdater og publiser» (scripts/panorama.py)
 # og ligger i denne-helgen/ på nettsiden. Kan også startes for hånd under Actions → Panorama → Run workflow.
 
@@ -34,7 +34,7 @@ jobs:
           TITLE: ${{ steps.post.outputs.title }}
         run: |
           # Forrige ukes panorama lukkes, så bare det nyeste er åpent
-          for num in $(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"Lørdagen i ett sveip:\" in:title" --json number --jq '.[].number'); do
+          for num in $(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"Helga i ett sveip:\" in:title" --json number --jq '.[].number'); do
             gh issue close "$num" --repo "$GITHUB_REPOSITORY" --comment "Erstattet av et nyere panorama."
           done
           # Tildeles eieren, så GitHub sender varsel på e-post uten at repoet må følges
