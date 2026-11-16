@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Skjer i Ålesund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap">
+<style>
+/* iPhone-modus for kaskjerda.no (når siden er åpnet fra hjemskjermen).
+   Oppsett: fanelinje nederst, navigasjonsstabel per fane, stor tittel som krymper, ark for filter.
+   Tekst i rem (følger Dynamic Type via -apple-system-body), kontroller i px som i iOS. */
+:root {
+  /* mørk (kveld) er standard */
+  --bg: #0a171b; --grouped: #0a171b; --cell: #13252d; --cell-hi: #1b323b;
+  --bar: rgba(10, 23, 27, .82); --fill: rgba(143, 168, 171, .16);
+  --fg: #e8f1ef; --fg2: #9db3b5; --fg3: #6f8a8e; --sep: #25414a;
+  --tint: #f7c873; --tint-ink: #10282f; --danger: #ff6b5e; --ok: #6cc98a;
+  --few: #ffb547; --few-bg: #3a2a10; --now: #6cc98a;
+  --c-konsert: #5ab7bf; --c-standup: #f08a4b; --c-show: #ab93e6; --c-barn: #6cc98a; --c-klubb: #ec78ab;
+  --c-happening: #d9b84a; --c-quiz: #b497e0; --c-julebord: #ef7a7f; --c-sport: #7aa7e6;
+  --shadow: 0 -1px 0 var(--sep);
+  --sat: env(safe-area-inset-top, 0px); --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px); --sar: env(safe-area-inset-right, 0px);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif;
+  --display: "Bricolage Grotesque", -apple-system, system-ui, sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) {
+  --bg: #ffffff; --grouped: #f2f4f3; --cell: #ffffff; --cell-hi: #e9eeed;
+  --bar: rgba(249, 250, 250, .86); --fill: rgba(31, 60, 66, .08);
+  --fg: #0f2226; --fg2: #4f6468; --fg3: #7a8c8f; --sep: #d3dcdb;
+  --tint: #1d6c75; --tint-ink: #ffffff; --danger: #d92d20; --ok: #2f8a4c;
+  --few: #9a5b00; --few-bg: #fff1d6; --now: #2f8a4c;
+  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167;
+  --c-happening: #8a6d12; --c-quiz: #7a4fb0; --c-julebord: #b3262d; --c-sport: #2b5fa8;
+  color-scheme: light; } }
+:root[data-theme="light"] {
+  --bg: #ffffff; --grouped: #f2f4f3; --cell: #ffffff; --cell-hi: #e9eeed;
+  --bar: rgba(249, 250, 250, .86); --fill: rgba(31, 60, 66, .08);
+  --fg: #0f2226; --fg2: #4f6468; --fg3: #7a8c8f; --sep: #d3dcdb;
+  --tint: #1d6c75; --tint-ink: #ffffff; --danger: #d92d20; --ok: #2f8a4c;
+  --few: #9a5b00; --few-bg: #fff1d6; --now: #2f8a4c;
+  --c-konsert: #1f6f78; --c-standup: #b5531c; --c-show: #6a4fa3; --c-barn: #2f8a4c; --c-klubb: #a83167;
+  --c-happening: #8a6d12; --c-quiz: #7a4fb0; --c-julebord: #b3262d; --c-sport: #2b5fa8;
+  color-scheme: light; }
+
+/* Dynamic Type: -apple-system-body gir brukerens tekststørrelse på iPhone; ellers 17 px */
+html { font-size: 17px; }
+@supports (font: -apple-system-body) { html { font: -apple-system-body; } }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; background: var(--bg); color: var(--fg); overflow: hidden;
+  -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+body { font-family: var(--font); line-height: 1.3; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--tint); outline-offset: 2px; border-radius: 6px; }
+svg.i { width: 1.1em; height: 1.1em; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* tekststiler (iOS: Large Title 34, Title1 28, Title3 20, Headline 17/600, Body 17, Subhead 15, Footnote 13, Caption 12) */
+.t-large { font: 800 min(2rem, 12vw)/1.12 var(--display); letter-spacing: -.01em; }
+.t-title1 { font: 700 min(1.647rem, 10vw)/1.15 var(--display); overflow-wrap: anywhere; }
+.t-title3 { font-size: 1.176rem; font-weight: 600; }
+.t-head { font-size: 1rem; font-weight: 600; }
+.t-sub { font-size: .882rem; }
+.t-foot { font-size: .765rem; }
+.t-cap { font-size: .706rem; }
+
+/* ---------- fanestabler ---------- */
+.app { position: fixed; inset: 0; }
+.stack { position: absolute; inset: 0; overflow: hidden; }
+.stack[hidden] { display: none !important; }
+.view { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; background: var(--bg);
+  -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+  padding-bottom: calc(49px + var(--sab) + 24px); transition: transform .38s cubic-bezier(.2,.8,.2,1), filter .38s; }
+.view.grouped { background: var(--grouped); }
+.view.under { transform: translateX(-28%); filter: brightness(.8); pointer-events: none; }
+.view.off { transform: translateX(100%); }
+.view.pushed { box-shadow: -8px 0 24px rgba(0,0,0,.25); }
+
+/* navigasjonslinje */
+.nav { position: sticky; top: 0; z-index: 5; padding-top: var(--sat); background: transparent;
+  transition: background .2s; }
+.nav.scrolled, .nav.always { background: var(--bar); -webkit-backdrop-filter: saturate(1.6) blur(18px); backdrop-filter: saturate(1.6) blur(18px);
+  box-shadow: 0 .5px 0 var(--sep); }
+.navrow { height: 44px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 0 max(8px, var(--sar)) 0 max(8px, var(--sal)); }
+.navrow .ttl { font-size: 17px; font-weight: 600; opacity: 0; transition: opacity .2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 56vw; }
+.nav.scrolled .ttl, .nav.always .ttl { opacity: 1; }
+.detail .nav { background: var(--grouped); }
+.navl, .navr { display: flex; align-items: center; gap: 2px; }
+.navr { justify-content: flex-end; }
+.nbtn { min-width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 2px;
+  color: var(--tint); font-size: 17px; padding: 0 6px; border-radius: 10px; position: relative; }
+.nbtn svg.i { width: 24px; height: 24px; }
+.nbtn.back { padding-left: 0; }
+.nbtn.back svg.i { width: 26px; height: 26px; stroke-width: 2.2; }
+.nbtn b { font-weight: 600; }
+.badge { position: absolute; top: 6px; right: 4px; min-width: 17px; height: 17px; border-radius: 9px; background: var(--tint); color: var(--tint-ink);
+  font: 600 11px/17px var(--font); text-align: center; padding: 0 4px; }
+.lhead { padding: 2px max(16px, var(--sar)) 10px max(16px, var(--sal)); }
+.lhead .sub { color: var(--fg2); margin-top: 2px; }
+
+/* søk og segmenter */
+.search { margin: 0 max(16px, var(--sar)) 10px max(16px, var(--sal)); display: flex; align-items: center; gap: 6px;
+  background: var(--fill); border-radius: 10px; min-height: 36px; padding: 0 8px; color: var(--fg3); }
+.search input { flex: 1; min-width: 0; border: 0; background: none; color: var(--fg); font: inherit; font-size: 1rem; padding: 7px 0; outline: none; }
+.search input::placeholder { color: var(--fg3); }
+.search .x { width: 28px; height: 28px; display: grid; place-items: center; color: var(--fg3); }
+.seg { margin: 0 max(16px, var(--sar)) 6px max(16px, var(--sal)); display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+  background: var(--fill); border-radius: 9px; padding: 2px; }
+.seg button { height: 32px; border-radius: 7px; font-size: 13px; font-weight: 500; color: var(--fg); }
+.seg button[aria-pressed="true"] { background: var(--cell-hi); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.18); }
+.fsum { margin: 4px max(16px, var(--sar)) 0 max(16px, var(--sal)); display: flex; flex-wrap: wrap; gap: 6px; }
+.fsum button { font-size: .765rem; padding: 5px 10px; border-radius: 99px; background: var(--fill); color: var(--fg); display: inline-flex; gap: 4px; align-items: center; min-height: 30px; }
+.fsum button svg.i { width: 12px; height: 12px; }
+
+/* lister */
+.sec { position: sticky; top: calc(44px + var(--sat)); z-index: 3; background: var(--bar);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  padding: 7px max(16px, var(--sar)) 6px max(16px, var(--sal)); font-size: .882rem; font-weight: 600; display: flex; justify-content: space-between; gap: 8px; }
+.sec small { color: var(--fg2); font-weight: 400; font-size: .765rem; white-space: nowrap; }
+html.ax .sec { flex-wrap: wrap; } html.ax .sec small { white-space: normal; }
+.rows { list-style: none; margin: 0; padding: 0; }
+.row { position: relative; display: flex; align-items: stretch; background: var(--bg); }
+.row + .row::before { content: ""; position: absolute; top: 0; right: 0; left: calc(max(16px, var(--sal)) + 4.1rem); border-top: .5px solid var(--sep); }
+.open { flex: 1; min-width: 0; display: grid; grid-template-columns: 3.4rem 1fr; gap: 0 .7rem; text-align: left;
+  padding: 11px 0 11px max(16px, var(--sal)); align-items: start; }
+.open:active { background: var(--cell-hi); }
+.tm { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 1rem; display: flex; flex-direction: column; gap: 4px; }
+.tm i { display: block; width: 22px; height: 4px; border-radius: 2px; background: var(--c); }
+.main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.main .t { font-size: 1rem; font-weight: 600; overflow-wrap: anywhere; }
+.main .s { font-size: .882rem; color: var(--fg2); }
+.main .s b { font-weight: 500; color: var(--fg); }
+.pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 3px; }
+.pill { font-size: .706rem; font-weight: 600; padding: 2px 7px; border-radius: 6px; background: var(--fill); color: var(--fg2); }
+.pill.few { background: var(--few-bg); color: var(--few); }
+.pill.sold { background: color-mix(in srgb, var(--danger) 16%, transparent); color: var(--danger); }
+.pill.free { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.star { width: 52px; flex: none; display: flex; align-items: center; justify-content: center; color: var(--fg3); padding-right: max(4px, var(--sar)); }
+.star svg { width: 24px; height: 24px; }
+.star[aria-pressed="true"] { color: var(--tint); }
+.star[aria-pressed="true"] svg { fill: currentColor; }
+html.ax .open { grid-template-columns: 1fr; gap: 4px; }
+html.ax .tm { flex-direction: row; align-items: center; gap: 8px; }
+html.ax .row + .row::before { left: max(16px, var(--sal)); }
+
+/* tom, laster, feil */
+.empty { text-align: center; padding: 48px 28px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.empty svg.big { width: 56px; height: 56px; color: var(--fg3); stroke-width: 1.4; margin-bottom: 6px; }
+.empty p { margin: 0; color: var(--fg2); max-width: 30ch; }
+.btn { min-height: 50px; border-radius: 14px; padding: 0 20px; font-size: 1rem; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.btn.fill { background: var(--tint); color: var(--tint-ink); }
+.btn.tinted { background: color-mix(in srgb, var(--tint) 16%, transparent); color: var(--tint); }
+.btn.small { min-height: 44px; font-size: .941rem; border-radius: 12px; }
+.banner { margin: 0 max(16px, var(--sar)) 10px max(16px, var(--sal)); padding: 10px 12px; border-radius: 12px; background: var(--few-bg); color: var(--few);
+  font-size: .882rem; display: flex; gap: 8px; align-items: flex-start; }
+.skel { padding: 12px max(16px, var(--sal)); display: grid; grid-template-columns: 3.4rem 1fr; gap: .7rem; }
+.skel span { display: block; height: .9rem; border-radius: 5px; background: var(--fill); }
+.skel div { display: grid; gap: 8px; }
+@media (prefers-reduced-motion: no-preference) { .skel span { animation: pulse 1.2s ease-in-out infinite alternate; } }
+@keyframes pulse { to { opacity: .45; } }
+
+/* inset grouped */
+.group { margin: 0 max(16px, var(--sar)) 0 max(16px, var(--sal)); background: var(--cell); border-radius: 12px; overflow: hidden; }
+.ghead { margin: 22px max(32px, calc(var(--sar) + 16px)) 7px max(32px, calc(var(--sal) + 16px)); font-size: .765rem; color: var(--fg2); text-transform: uppercase; letter-spacing: .03em; }
+.gfoot { margin: 7px max(32px, calc(var(--sar) + 16px)) 0 max(32px, calc(var(--sal) + 16px)); font-size: .765rem; color: var(--fg2); }
+.cell { width: 100%; min-height: 44px; display: flex; align-items: center; gap: 12px; padding: 10px 16px; text-align: left; position: relative; }
+.cell + .cell::before { content: ""; position: absolute; top: 0; right: 0; left: 16px; border-top: .5px solid var(--sep); }
+.cell.ic + .cell::before, .cell.ic + .cell.ic::before { left: 56px; }
+.cell:is(button, a):active { background: var(--cell-hi); }
+.cell .ico { width: 29px; height: 29px; border-radius: 7px; display: grid; place-items: center; flex: none; color: #fff; background: var(--c, var(--tint)); }
+.cell .ico svg.i { width: 18px; height: 18px; }
+.cell .lab { flex: 1; min-width: 0; }
+.cell .lab small { display: block; color: var(--fg2); font-size: .882rem; }
+.cell .val { color: var(--fg2); text-align: right; }
+.cell .chev { color: var(--fg3); width: 14px; height: 14px; stroke-width: 2.4; }
+.cell .chk { color: var(--tint); width: 20px; height: 20px; stroke-width: 2.6; }
+.cell.act { color: var(--tint); }
+.cell .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--c); flex: none; }
+
+/* arrangementsside */
+.dhead { padding: 4px max(16px, var(--sar)) 16px max(16px, var(--sal)); display: grid; gap: 8px; }
+.cat { font-size: .765rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--c); display: flex; align-items: center; gap: 6px; }
+.cat::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.times { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 16px; }
+.times span { min-height: 44px; min-width: 64px; padding: 6px 12px; border-radius: 10px; background: var(--fill); display: grid; place-items: center; text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; font-size: .941rem; line-height: 1.15; }
+.times span small { font-size: .706rem; font-weight: 600; }
+.times .few small { color: var(--few); } .times .sold { opacity: .55; } .times .sold small { color: var(--danger); }
+.note { padding: 12px 16px; font-size: .941rem; color: var(--fg); white-space: pre-line; }
+.buybar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; padding: 10px max(16px, var(--sar)) calc(10px + max(var(--sab), 8px)) max(16px, var(--sal));
+  background: var(--bar); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); box-shadow: var(--shadow); display: grid; gap: 6px; }
+.buybar .btn { width: 100%; }
+.buybar small { text-align: center; color: var(--fg2); font-size: .706rem; }
+.view.detail { padding-bottom: calc(120px + var(--sab)); }
+
+/* i kveld */
+.tl { padding: 4px max(16px, var(--sar)) 0 max(16px, var(--sal)); }
+.tlrow { display: grid; grid-template-columns: 3.6rem 1fr; gap: 12px; position: relative; padding: 8px 0; }
+.tlrow::before { content: ""; position: absolute; left: calc(3.6rem + 5px); top: 0; bottom: 0; border-left: 2px solid var(--sep); }
+.tlrow .h { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.059rem; padding-top: 12px; }
+.tlcard { margin-left: 18px; background: var(--cell); border-radius: 14px; padding: 12px 14px; text-align: left; display: grid; gap: 3px; position: relative; border-left: 4px solid var(--c); }
+.tlcard::before { content: ""; position: absolute; left: -24px; top: 18px; width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px var(--bg); }
+.tlrow.past { opacity: .55; }
+.rel { font-size: .765rem; font-weight: 600; color: var(--now); }
+.nowline { display: flex; align-items: center; gap: 8px; color: var(--now); font-weight: 700; font-size: .882rem; margin: 4px 0; font-variant-numeric: tabular-nums; }
+.nowline::after { content: ""; flex: 1; border-top: 2px solid var(--now); }
+html.ax .tlrow { grid-template-columns: 1fr; }
+html.ax .tlrow::before { display: none; }
+html.ax .tlcard { margin-left: 0; } html.ax .tlcard::before { display: none; }
+html.ax .tlrow .h { padding-top: 0; }
+
+/* mine: sveip */
+.swipe { position: relative; overflow: hidden; }
+.swipe .del { position: absolute; inset: 0 0 0 auto; width: 100%; background: var(--danger); color: #fff; display: flex; justify-content: flex-end; align-items: center; padding-right: 22px; font-weight: 600; font-size: 1rem; }
+.swipe .del span { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: .765rem; min-width: 56px; }
+.swipe .del svg.i { width: 22px; height: 22px; }
+.swipe .row { transition: transform .25s; touch-action: pan-y; }
+.swipe .row.drag { transition: none; }
+
+/* fanelinje */
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 7; display: grid; grid-template-columns: repeat(4, 1fr);
+  padding: 0 var(--sar) var(--sab) var(--sal); background: var(--bar); -webkit-backdrop-filter: saturate(1.6) blur(20px); backdrop-filter: saturate(1.6) blur(20px); box-shadow: var(--shadow); }
+.tabbar button { height: 49px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--fg3); font-size: 10px; font-weight: 500; position: relative; }
+.tabbar button svg.i { width: 26px; height: 26px; stroke-width: 1.7; }
+.tabbar button[aria-selected="true"] { color: var(--tint); }
+.tabbar button[aria-selected="true"] svg.i.fillon { fill: currentColor; }
+.tabbar .badge { top: 3px; right: calc(50% - 22px); background: var(--danger); color: #fff; }
+body.detailon .tabbar { display: none; }
+
+/* ark */
+.scrim { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.4); opacity: 0; transition: opacity .3s; }
+.scrim.on { opacity: 1; }
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 21; background: var(--grouped); border-radius: 14px 14px 0 0;
+  height: calc(100% - var(--sat) - 10px); transform: translateY(100%); transition: transform .38s cubic-bezier(.2,.8,.2,1);
+  display: flex; flex-direction: column; box-shadow: 0 -6px 30px rgba(0,0,0,.3); }
+.sheet.drag { transition: none; }
+.shead { flex: none; touch-action: none; padding: 6px max(8px, var(--sar)) 0 max(8px, var(--sal)); }
+.grab { width: 36px; height: 5px; border-radius: 3px; background: var(--fg3); opacity: .5; margin: 0 auto 2px; }
+.sbody { flex: 1; overflow-y: auto; padding-bottom: 12px; overscroll-behavior: contain; }
+.sfoot { flex: none; padding: 10px max(16px, var(--sar)) calc(10px + max(var(--sab), 8px)) max(16px, var(--sal)); box-shadow: var(--shadow); background: var(--grouped); }
+.sfoot .btn { width: 100%; }
+
+.toast { position: fixed; left: max(12px, var(--sal)); right: max(12px, var(--sar)); bottom: calc(49px + var(--sab) + 10px); z-index: 30;
+  background: var(--fg); color: var(--bg); border-radius: 14px; padding: 8px 8px 8px 16px; display: flex; align-items: center; gap: 10px;
+  font-size: .941rem; transform: translateY(20px); opacity: 0; transition: .25s; pointer-events: none; }
+.toast.on { transform: none; opacity: 1; pointer-events: auto; }
+.toast span { flex: 1; }
+.toast button { min-height: 44px; padding: 0 12px; font-weight: 700; color: var(--bg); }
+body.detailon .toast { bottom: calc(120px + var(--sab)); }
+
+@media (prefers-reduced-motion: reduce) { .view, .sheet, .scrim, .toast, .swipe .row { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="stack" id="st-program" role="tabpanel" aria-label="Program"></div>
+  <div class="stack" id="st-kveld" role="tabpanel" aria-label="I kveld" hidden></div>
+  <div class="stack" id="st-mine" role="tabpanel" aria-label="Mine" hidden></div>
+  <div class="stack" id="st-mer" role="tabpanel" aria-label="Mer" hidden></div>
+</div>
+<nav class="tabbar" role="tablist" aria-label="Faner">
+  <button role="tab" data-tab="program" aria-selected="true"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M7.5 9h9M7.5 12h9M7.5 15h6"/></svg>Program</button>
+  <button role="tab" data-tab="kveld" aria-selected="false"><svg class="i fillon" viewBox="0 0 24 24"><path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5Z"/></svg>I kveld</button>
+  <button role="tab" data-tab="mine" aria-selected="false"><svg class="i fillon" viewBox="0 0 24 24"><path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8Z"/></svg>Mine<span class="badge" id="minebadge" hidden></span></button>
+  <button role="tab" data-tab="mer" aria-selected="false"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8 12h.01M12 12h.01M16 12h.01" stroke-width="2.6"/></svg>Mer</button>
+</nav>
+<div class="scrim" id="scrim" hidden></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheettitle" hidden></section>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toasttext"></span><button id="toastbtn" hidden>Angre</button></div>
+
+<script src="data.js"></script>
+<script>
+"use strict";
+const DATA = window.KASK || { events: [], updatedAt: "" };
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const ICON = {
+  back: '<svg class="i" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>',
+  chev: '<svg class="i chev" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>',
+  chk: '<svg class="i chk" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  star: '<svg class="i" viewBox="0 0 24 24"><path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8Z"/></svg>',
+  filter: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7.5 9.5h9M9.5 13h5M11 16.5h2"/></svg>',
+  search: '<svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>',
+  xc: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="currentColor" stroke="none" opacity=".35"/><path d="m9 9 6 6M15 9l-6 6" stroke="var(--bg)" stroke-width="2"/></svg>',
+  x: '<svg class="i" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17"/></svg>',
+  share: '<svg class="i" viewBox="0 0 24 24"><path d="M12 3.5v11M8 7l4-3.5L16 7"/><path d="M7.5 10.5H6a1.5 1.5 0 0 0-1.5 1.5v7A1.5 1.5 0 0 0 6 20.5h12a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-1.5"/></svg>',
+  cal: '<svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>',
+  pin: '<svg class="i" viewBox="0 0 24 24"><path d="M12 21s6.5-5.6 6.5-11a6.5 6.5 0 1 0-13 0c0 5.4 6.5 11 6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></svg>',
+  ticket: '<svg class="i" viewBox="0 0 24 24"><path d="M3.5 8.5V6.5a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v2a2.5 2.5 0 0 0 0 5v2a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1v-2a2.5 2.5 0 0 0 0-5Z"/><path d="M14.5 6v12" stroke-dasharray="2 2"/></svg>',
+  info: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01" stroke-width="2.2"/></svg>',
+  ext: '<svg class="i chev" viewBox="0 0 24 24"><path d="M9 5h10v10M19 5 6 18"/></svg>',
+  trash: '<svg class="i" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/></svg>',
+  moon: '<svg class="i big" viewBox="0 0 24 24"><path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5Z"/></svg>',
+  wifi: '<svg class="i" viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.8 15.8a4.8 4.8 0 0 1 6.4 0M12 19h.01M3 3l18 18"/></svg>',
+  tree: '<svg class="i" viewBox="0 0 24 24"><path d="m12 3 5 6h-2.5l4 5H16l3.5 4.5h-15L8 14H5.5l4-5H7Z"/><path d="M12 18.5V21"/></svg>',
+  glass: '<svg class="i" viewBox="0 0 24 24"><path d="M7 3.5h10l-1 6a4 4 0 0 1-8 0Z"/><path d="M12 13.5V20M8.5 20.5h7"/></svg>',
+  note: '<svg class="i" viewBox="0 0 24 24"><path d="M9 18V5.5l10-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>',
+  film: '<svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M8 5v14M16 5v14M3.5 9.5H8M3.5 14.5H8M16 9.5h4.5M16 14.5h4.5"/></svg>',
+  ball: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m12 8 3.3 2.4-1.3 3.9h-4l-1.3-3.9Z"/></svg>',
+  q: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.8.7-.8 1.3v.3M12 16.8h.01" stroke-width="2"/></svg>',
+  sun: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>',
+  globe: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3Z"/></svg>',
+  mail: '<svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></svg>',
+  mega: '<svg class="i" viewBox="0 0 24 24"><path d="M4 10v4h3l7 4V6L7 10Z"/><path d="M17.5 9a4 4 0 0 1 0 6"/></svg>',
+};
+const CAT = { konsert: "Konsert", standup: "Standup", show: "Show", barn: "Barn og familie", klubb: "Klubb", happening: "Happening", quiz: "Quiz", sport: "Sport", julebord: "Julebord" };
+const WD = ["søndag", "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag"];
+const MO = ["jan.", "feb.", "mars", "apr.", "mai", "juni", "juli", "aug.", "sep.", "okt.", "nov.", "des."];
+
+/* Demo-klokke (kan settes av forhåndsvisningen). I appen: Europe/Oslo nå. */
+let TODAY = DATA.demoDate || "2026-11-20", NOWMIN = DATA.demoMin ?? (19 * 60 + 40);
+const ud = s => { const [y, m, d] = s.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+const iso = d => d.toISOString().slice(0, 10);
+const addDays = (s, n) => { const d = ud(s); d.setUTCDate(d.getUTCDate() + n); return iso(d); };
+const dayDiff = (a, b) => Math.round((ud(a) - ud(b)) / 864e5);
+const dateLong = s => { const d = ud(s); return `${WD[d.getUTCDay()][0].toUpperCase() + WD[d.getUTCDay()].slice(1)} ${d.getUTCDate()}. ${MO[d.getUTCMonth()]}`; };
+const dateShort = s => { const d = ud(s); return `${WD[d.getUTCDay()].slice(0, 3)} ${d.getUTCDate()}. ${MO[d.getUTCMonth()]}`; };
+const relDay = s => { const n = dayDiff(s, TODAY); return n === 0 ? "I dag" : n === 1 ? "I morgen" : ""; };
+const toMin = t => { const [h, m] = (t || "0:0").split(":").map(Number); return h * 60 + m; };
+
+/* arrangementer: hver forestilling */
+const EV = DATA.events.filter(e => e.cat !== "julebord");
+const JB = DATA.events.filter(e => e.cat === "julebord");
+const BYID = Object.fromEntries(DATA.events.map(e => [e.id, e]));
+function occ(e) {
+  const list = [[e.date, e.time || ""]];
+  (e.moreShows || []).forEach(s => list.push([s.slice(0, 10), s.slice(11, 16)]));
+  return list;
+}
+const nextOcc = e => occ(e).find(([d]) => d >= TODAY);
+const fewOk = (e, d) => e.statusSrc !== "parken" || dayDiff(d, TODAY) <= 14;
+const priceText = e => e.price ? e.price : "Pris hos arrangør";
+function pillsHtml(e, d) {
+  const p = [];
+  if (e.soldOut) p.push('<span class="pill sold">Utsolgt</span>');
+  else if (e.few && fewOk(e, d)) p.push('<span class="pill few">Få igjen</span>');
+  if (e.priceMin === 0) p.push('<span class="pill free">Gratis</span>');
+  const more = occ(e).filter(([x]) => x >= TODAY).length - 1;
+  if (more > 0) p.push(`<span class="pill">+${more} ${more === 1 ? "dato" : "datoer"}</span>`);
+  return p.length ? `<span class="pills">${p.join("")}</span>` : "";
+}
+
+/* tilstand */
+const S = { tab: "program", when: "uke", q: "", cats: new Set(), venue: "", price: "", mode: "normal" };
+let FAV = new Set();
+try { const s = JSON.parse(localStorage.getItem("ios-favs") || "null"); if (Array.isArray(s)) FAV = new Set(s); } catch (_) {}
+function seedFavs() { if (FAV.size) return; EV.filter(e => nextOcc(e) && !e.soldOut).slice(3, 40).filter((_, i) => i % 9 === 0).slice(0, 3).forEach(e => FAV.add(e.id)); }
+function saveFavs() { try { localStorage.setItem("ios-favs", JSON.stringify([...FAV])); } catch (_) {} badge(); }
+function badge() { const b = $("#minebadge"), n = [...FAV].filter(id => BYID[id] && nextOcc(BYID[id])).length; b.hidden = !n; b.textContent = n; }
+
+/* ---------- navigasjon ---------- */
+const stacks = {};
+function mkView(tab, { title, large = true, left = "", right = "", body = "", cls = "" }) {
+  const v = document.createElement("div");
+  v.className = "view " + cls;
+  v.innerHTML = `<header class="nav ${large ? "" : "always"}"><div class="navrow"><div class="navl">${left}</div><div class="ttl">${esc(title)}</div><div class="navr">${right}</div></div></header>${body}`;
+  v.addEventListener("scroll", () => { if (large) v.querySelector(".nav").classList.toggle("scrolled", v.scrollTop > (v.querySelector(".lhead,.dhead")?.offsetHeight || 40) - 8); }, { passive: true });
+  return v;
+}
+function setRoot(tab, v) {
+  const st = $("#st-" + tab); const keep = stacks[tab]?.[0]?.scrollTop || 0;
+  st.innerHTML = ""; st.appendChild(v); stacks[tab] = [v]; v.scrollTop = keep; v.dispatchEvent(new Event("scroll"));
+}
+function push(tab, v) {
+  const st = $("#st-" + tab), stack = stacks[tab], prev = stack[stack.length - 1];
+  v.classList.add("pushed", "off"); st.appendChild(v); stack.push(v);
+  v.getBoundingClientRect();
+  requestAnimationFrame(() => { v.classList.remove("off"); prev.classList.add("under"); });
+  edgeSwipe(tab, v, prev); updateChrome();
+}
+function pop(tab) {
+  const stack = stacks[tab]; if (stack.length < 2) return;
+  const v = stack.pop(), prev = stack[stack.length - 1];
+  v.style.transform = ""; prev.style.transform = ""; prev.style.filter = "";
+  v.classList.add("off"); prev.classList.remove("under");
+  setTimeout(() => v.remove(), 400); updateChrome();
+}
+function updateChrome() {
+  const top = stacks[S.tab]?.[stacks[S.tab].length - 1];
+  document.body.classList.toggle("detailon", !!top?.classList.contains("detail"));
+}
+/* sveip fra venstre kant = tilbake */
+function edgeSwipe(tab, v, prev) {
+  let x0 = null, y0 = 0, dx = 0, w = 1, locked = false;
+  v.addEventListener("touchstart", ev => { const t = ev.touches[0]; if (t.clientX > 24) return; x0 = t.clientX; y0 = t.clientY; dx = 0; locked = false; w = v.offsetWidth; }, { passive: true });
+  v.addEventListener("touchmove", ev => {
+    if (x0 === null) return; const t = ev.touches[0]; dx = Math.max(0, t.clientX - x0);
+    if (!locked && Math.abs(t.clientY - y0) > Math.abs(dx)) { x0 = null; return; } locked = true;
+    v.style.transition = prev.style.transition = "none";
+    v.style.transform = `translateX(${dx}px)`; prev.style.transform = `translateX(${-28 + 28 * dx / w}%)`;
+  }, { passive: true });
+  v.addEventListener("touchend", () => {
+    if (x0 === null) return; x0 = null; v.style.transition = prev.style.transition = "";
+    if (dx > w / 3) pop(tab); else { v.style.transform = ""; prev.style.transform = ""; }
+  });
+}
+function showTab(tab) {
+  if (S.tab === tab) { const st = stacks[tab]; if (st.length > 1) { while (st.length > 1) pop(tab); } else st[0].scrollTo({ top: 0, behavior: "smooth" }); return; }
+  S.tab = tab;
+  document.querySelectorAll(".tabbar [role=tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
+  document.querySelectorAll(".stack").forEach(s => s.hidden = s.id !== "st-" + tab);
+  if (tab === "mine") renderMine(); if (tab === "kveld") renderKveld();
+  updateChrome();
+}
+document.querySelectorAll(".tabbar [role=tab]").forEach(b => b.onclick = () => showTab(b.dataset.tab));
+
+/* ---------- Program ---------- */
+const WHEN = { idag: "I dag", helg: "Helgen", uke: "7 dager", alle: "Alle" };
+function weekend() { const wd = ud(TODAY).getUTCDay(); const fri = addDays(TODAY, wd === 0 ? -2 : wd === 6 ? -1 : 5 - wd); return [fri, addDays(fri, 2)]; }
+function fold(s) { return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/æ/g, "ae").replace(/ø/g, "o").replace(/å/g, "a").replace(/aa/g, "a"); }
+function matches(e, o = S) {
+  const n = nextOcc(e); if (!n) return false; const d = n[0];
+  if (o.when === "idag" && d !== TODAY) return false;
+  if (o.when === "uke" && dayDiff(d, TODAY) > 6) return false;
+  if (o.when === "helg") { const [a, b] = weekend(); if (!occ(e).some(([x]) => x >= a && x <= b && x >= TODAY)) return false; }
+  if (o.cats.size && !o.cats.has(e.cat)) return false;
+  if (o.venue && e.venue !== o.venue) return false;
+  if (o.price === "gratis" && e.priceMin !== 0) return false;
+  if (o.price === "200" && !(e.priceMin != null && e.priceMin <= 200)) return false;
+  if (o.price === "400" && !(e.priceMin != null && e.priceMin <= 400)) return false;
+  if (o.q) { const h = fold([e.title, e.venue, CAT[e.cat], e.note].join(" ")); if (!fold(o.q).split(/\s+/).filter(Boolean).every(w => h.includes(w))) return false; }
+  return true;
+}
+const sortKey = e => { const n = nextOcc(e); return n[0] + (n[1] || "99:99"); };
+function rowHtml(e, d, t) {
+  const fav = FAV.has(e.id);
+  return `<li class="row" data-id="${esc(e.id)}"><button class="open" data-open="${esc(e.id)}" style="--c:var(--c-${e.cat})">
+    <span class="tm">${esc(t || "–")}<i aria-hidden="true"></i></span>
+    <span class="main"><span class="t">${esc(e.title)}</span><span class="s">${esc(e.venue)} · <b>${esc(priceText(e))}</b></span>${pillsHtml(e, d)}</span>
+  </button><button class="star" data-star="${esc(e.id)}" aria-pressed="${fav}" aria-label="${fav ? "Fjern fra Mine" : "Lagre i Mine"}: ${esc(e.title)}">${ICON.star}</button></li>`;
+}
+function filterCount() { return S.cats.size + (S.venue ? 1 : 0) + (S.price ? 1 : 0); }
+function renderProgram() {
+  const nf = filterCount();
+  const right = `<button class="nbtn" id="fbtn" aria-label="Filter${nf ? `, ${nf} på` : ""}">${ICON.filter}${nf ? `<span class="badge">${nf}</span>` : ""}</button>`;
+  let body = `<div class="lhead"><h1 class="t-large" style="margin:0">Program</h1><div class="sub t-sub">Ålesund · oppdatert ${esc(DATA.updatedLabel || "")}</div></div>
+    <label class="search">${ICON.search}<input id="q" type="search" enterkeyhint="search" autocomplete="off" placeholder="Søk etter artist, scene …" value="${esc(S.q)}" aria-label="Søk i programmet">${S.q ? `<button class="x" id="qx" aria-label="Tøm søket">${ICON.xc}</button>` : ""}</label>
+    <div class="seg" role="group" aria-label="Når">${Object.entries(WHEN).map(([k, v]) => `<button data-when="${k}" aria-pressed="${S.when === k}">${v}</button>`).join("")}</div>`;
+  if (nf) body += `<div class="fsum">${[...S.cats].map(c => `<button data-unf="cat:${c}">${CAT[c]} ${ICON.x}</button>`).join("")}${S.venue ? `<button data-unf="venue">${esc(S.venue)} ${ICON.x}</button>` : ""}${S.price ? `<button data-unf="price">${{ gratis: "Gratis", 200: "Opptil 200 kr", 400: "Opptil 400 kr" }[S.price]} ${ICON.x}</button>` : ""}</div>`;
+  if (S.mode === "offline") body += `<div class="banner" role="status">${ICON.wifi}<span>Du er uten nett. Viser programmet slik det var ${esc(DATA.updatedLabel || "sist")}.</span></div>`;
+  if (S.mode === "loading") {
+    body += `<div style="height:10px"></div>` + Array.from({ length: 7 }, () => `<div class="skel" aria-hidden="true"><span style="width:2.6rem"></span><div><span style="width:80%"></span><span style="width:55%"></span></div></div>`).join("") + `<p class="t-foot" style="text-align:center;color:var(--fg2)" role="status">Henter programmet …</p>`;
+  } else if (S.mode === "error") {
+    body += `<div class="empty">${ICON.wifi.replace('class="i"', 'class="i big"')}<h2 class="t-title3" style="margin:0">Fikk ikke hentet programmet</h2><p>Sjekk at du har nett, og prøv igjen.</p><button class="btn fill small" id="retry" style="margin-top:10px">Prøv igjen</button></div>`;
+  } else {
+    const list = EV.filter(e => matches(e)).sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
+    if (!list.length) body += emptyProgram();
+    else {
+      const byDay = new Map();
+      list.forEach(e => { let [d, t] = nextOcc(e); if (S.when === "helg") { const [a] = weekend(); [d, t] = occ(e).find(([x]) => x >= a && x >= TODAY); } (byDay.get(d) || byDay.set(d, []).get(d)).push([e, d, t]); });
+      [...byDay.keys()].sort().forEach(d => {
+        const items = byDay.get(d).sort((a, b) => (a[2] || "99").localeCompare(b[2] || "99"));
+        const r = relDay(d);
+        body += `<h2 class="sec">${esc(r ? `${r}, ${dateShort(d)}` : dateLong(d))}<small>${items.length} ${items.length === 1 ? "arrangement" : "arrangementer"}</small></h2><ul class="rows">${items.map(([e, dd, t]) => rowHtml(e, dd, t)).join("")}</ul>`;
+      });
+      body += `<p class="t-foot" style="text-align:center;color:var(--fg3);padding:18px 24px 0">Priser og datoer fra arrangørene. Sjekk alltid hos arrangøren før du kjøper.</p>`;
+    }
+  }
+  const v = mkView("program", { title: "Program", right, body });
+  setRoot("program", v);
+  const qi = $("#q", v);
+  qi.oninput = () => { S.q = qi.value; renderProgram(); const n = $("#q"); n.focus(); n.setSelectionRange(n.value.length, n.value.length); };
+  $("#qx", v) && ($("#qx", v).onclick = () => { S.q = ""; renderProgram(); });
+  $("#retry", v) && ($("#retry", v).onclick = () => { S.mode = "loading"; renderProgram(); setTimeout(() => { S.mode = "normal"; renderProgram(); }, 900); });
+}
+function emptyProgram() {
+  const tries = [];
+  if (S.q && S.when !== "alle" && EV.some(e => matches(e, { ...S, when: "alle" }))) tries.push(["alle", `Søk i alle datoer (${EV.filter(e => matches(e, { ...S, when: "alle" })).length})`]);
+  else if (S.when !== "alle" && EV.some(e => matches(e, { ...S, when: "alle" }))) tries.push(["alle", `Vis alle datoer (${EV.filter(e => matches(e, { ...S, when: "alle" })).length})`]);
+  if (filterCount()) tries.push(["reset", "Nullstill filtre"]);
+  const what = S.q ? `Ingen treff på «${esc(S.q)}»` : "Ingenting her";
+  return `<div class="empty">${ICON.search.replace('class="i"', 'class="i big"')}<h2 class="t-title3" style="margin:0">${what}</h2><p>${tries.length ? "Prøv en annen periode eller færre filtre." : "Prøv et annet ord, eller tips oss om noe som mangler."}</p>
+    ${tries.map(([k, l], i) => `<button class="btn ${i ? "tinted" : "fill"} small" data-try="${k}" style="margin-top:${i ? 0 : 10}px">${l}</button>`).join("")}</div>`;
+}
+
+/* klikk i lister (alle faner) */
+document.addEventListener("click", ev => {
+  const t = ev.target.closest("[data-open],[data-star],[data-when],[data-unf],[data-try],#fbtn,[data-back],[data-go],[data-toast],[data-theme-set]");
+  if (!t) return;
+  if (t.dataset.open) { if (t.closest(".swipe")?.querySelector(".row.opened")) return; openDetail(t.dataset.open); }
+  else if (t.dataset.star) toggleFav(t.dataset.star, t);
+  else if (t.dataset.when) { S.when = t.dataset.when; renderProgram(); }
+  else if (t.dataset.unf) { const [k, v] = t.dataset.unf.split(":"); if (k === "cat") S.cats.delete(v); else S[k] = ""; renderProgram(); }
+  else if (t.dataset.try) { if (t.dataset.try === "alle") S.when = "alle"; else { S.cats.clear(); S.venue = ""; S.price = ""; } renderProgram(); }
+  else if (t.id === "fbtn") openFilter();
+  else if (t.dataset.back) pop(t.dataset.back);
+  else if (t.dataset.go) { showTab(t.dataset.go); }
+  else if (t.dataset.toast) toast(t.dataset.toast);
+  else if (t.dataset.themeSet !== undefined) { setTheme(t.dataset.themeSet); renderAppearance(t.closest(".view")); }
+});
+function toggleFav(id, btn) {
+  const on = !FAV.has(id); on ? FAV.add(id) : FAV.delete(id); saveFavs();
+  document.querySelectorAll(`[data-star="${CSS.escape(id)}"]`).forEach(b => { b.setAttribute("aria-pressed", on); b.setAttribute("aria-label", (on ? "Fjern fra Mine" : "Lagre i Mine") + ": " + BYID[id].title); });
+  const dbtn = document.querySelector(`[data-dstar="${CSS.escape(id)}"]`); if (dbtn) dbtn.setAttribute("aria-pressed", on);
+  if (on) toast("Lagret i Mine"); else toast("Fjernet fra Mine", () => toggleFav(id));
+}
+
+/* ---------- arrangementsside ---------- */
+function openDetail(id) {
+  const e = BYID[id]; if (!e) return; const tab = S.tab;
+  const up = occ(e).filter(([d]) => d >= TODAY); const [d, t] = up[0] || occ(e)[0];
+  const backLabel = { program: "Program", kveld: "I kveld", mine: "Mine", mer: "Mer" }[tab];
+  const fav = FAV.has(id);
+  const right = `<button class="nbtn" data-toast="Her åpnes iPhones delearket med lenken til arrangementet." aria-label="Del">${ICON.share}</button>
+    <button class="nbtn star" data-dstar="${esc(id)}" data-star="${esc(id)}" aria-pressed="${fav}" aria-label="Lagre i Mine" style="width:44px;padding:0">${ICON.star}</button>`;
+  const shows = e.shows && e.shows.length > 1 ? e.shows : null;
+  const more = up.slice(1);
+  const status = e.soldOut ? "Utsolgt" : e.few && fewOk(e, d) ? "Få billetter igjen" : "";
+  const maps = e.address || e.venue ? `https://maps.apple.com/?q=${encodeURIComponent((e.venue + ", " + (e.address || "Ålesund")))}` : "";
+  let body = `<div class="dhead" style="--c:var(--c-${e.cat})"><span class="cat">${CAT[e.cat] || e.cat}</span><h1 class="t-title1" style="margin:0">${esc(e.title)}</h1></div>
+    <div class="group">
+      <div class="cell ic"><span class="ico" style="--c:var(--c-${e.cat})">${ICON.cal}</span><span class="lab">${esc(dateLong(d))}${t ? ` kl. ${esc(t)}` : ""}<small>${esc(relDay(d) || dateShort(d))}${more.length && !shows ? ` · og ${more.length} ${more.length === 1 ? "dato" : "datoer"} til` : ""}</small></span></div>
+      <a class="cell ic" ${maps ? `href="${maps}" target="_blank" rel="noopener"` : ""}><span class="ico" style="--c:#d0544a">${ICON.pin}</span><span class="lab">${esc(e.venue)}<small>${esc(e.address || "Ålesund")}</small></span>${maps ? `<span class="val t-sub">Kart</span>${ICON.chev}` : ""}</a>
+      <div class="cell ic"><span class="ico" style="--c:#c9902a">${ICON.ticket}</span><span class="lab">${esc(priceText(e))}${status ? `<small style="color:${e.soldOut ? "var(--danger)" : "var(--few)"};font-weight:600">${status}</small>` : ""}</span></div>
+    </div>`;
+  if (shows) body += `<h2 class="ghead">Tider</h2><div class="group"><div class="times">${shows.filter(([s]) => s.slice(0, 10) >= TODAY).map(([s, st]) => `<span class="${st === "sold" ? "sold" : st === "few" && fewOk(e, s.slice(0, 10)) ? "few" : ""}">${esc(dateShort(s.slice(0, 10)))} ${esc(s.slice(11, 16))}${st === "sold" ? "<small>utsolgt</small>" : st === "few" && fewOk(e, s.slice(0, 10)) ? "<small>få igjen</small>" : ""}</span>`).join("")}</div></div>`;
+  else if (more.length) body += `<h2 class="ghead">Flere datoer</h2><div class="group"><div class="times">${more.slice(0, 24).map(([x, tt]) => `<span>${esc(dateShort(x))}${tt ? " " + esc(tt) : ""}</span>`).join("")}</div></div>${more.length > 24 ? `<p class="gfoot">Og ${more.length - 24} til. Se alle hos arrangøren.</p>` : ""}`;
+  if (e.note) body += `<h2 class="ghead">Om arrangementet</h2><div class="group"><div class="note">${esc(e.note)}</div></div>`;
+  if (e.uncertain) body += `<p class="gfoot">Kildene er uenige om noe her. Sjekk hos arrangøren.</p>`;
+  body += `<div class="group" style="margin-top:22px">
+      <button class="cell act ic" data-toast="Her legges arrangementet i Kalender-appen."><span class="ico" style="--c:var(--tint)">${ICON.cal}</span><span class="lab">Legg i kalender</span></button>
+      <button class="cell act ic" data-toast="Her åpnes iPhones delearket med lenken til arrangementet."><span class="ico" style="--c:var(--tint)">${ICON.share}</span><span class="lab">Del med noen</span></button>
+    </div><p class="gfoot">Fra ${esc(hostOf(e.url))}. Priser og datoer kan endres.</p>`;
+  const v = mkView(tab, { title: e.title, cls: "grouped detail",
+    left: `<button class="nbtn back" data-back="${tab}" aria-label="Tilbake til ${backLabel}">${ICON.back}<span>${backLabel}</span></button>`, right, body });
+  const bar = document.createElement("div"); bar.className = "buybar";
+  bar.innerHTML = e.soldOut
+    ? `<a class="btn tinted" href="${esc(e.url)}" target="_blank" rel="noopener">Utsolgt – se arrangørens side ${ICON.ext}</a>`
+    : `<a class="btn fill" href="${esc(e.url)}" target="_blank" rel="noopener">${e.price ? (e.priceMin === 0 ? "Se hos arrangør" : "Kjøp billett") : "Se pris og billetter"} ${ICON.ext}</a><small>Du kjøper hos ${esc(hostOf(e.url))}</small>`;
+  v.appendChild(bar);
+  push(tab, v);
+}
+function hostOf(u) { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (_) { return "arrangøren"; } }
+
+/* ---------- filter-ark ---------- */
+let draft = null, detent = "medium";
+function openFilter() {
+  draft = { cats: new Set(S.cats), venue: S.venue, price: S.price };
+  const venues = Object.entries(EV.filter(e => nextOcc(e)).reduce((m, e) => (m[e.venue] = (m[e.venue] || 0) + 1, m), {})).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  const cnt = c => EV.filter(e => e.cat === c && matches(e, { ...S, cats: new Set(), venue: "", price: "", q: "" })).length;
+  const sh = $("#sheet");
+  sh.innerHTML = `<div class="shead"><div class="grab" aria-hidden="true"></div><div class="navrow" style="padding:0">
+      <div class="navl"><button class="nbtn" id="fcancel">Avbryt</button></div><h2 class="ttl" id="sheettitle" tabindex="-1" style="opacity:1;margin:0;outline:none">Filter</h2><div class="navr"><button class="nbtn" id="fapply"><b>Bruk</b></button></div></div></div>
+    <div class="sbody">
+      <h3 class="ghead">Kategori</h3><div class="group">${Object.keys(CAT).filter(c => c !== "julebord").map(c => `<button class="cell" data-fcat="${c}" role="checkbox" aria-checked="${draft.cats.has(c)}" style="--c:var(--c-${c})"><span class="dot"></span><span class="lab">${CAT[c]}</span><span class="val t-sub">${cnt(c)}</span><span class="cw">${draft.cats.has(c) ? ICON.chk : ""}</span></button>`).join("")}</div>
+      <p class="gfoot">Velg flere for å se dem sammen. Julebord har egen side under Mer.</p>
+      <h3 class="ghead">Pris</h3><div class="group">${[["", "Alle priser"], ["gratis", "Gratis"], ["200", "Opptil 200 kr"], ["400", "Opptil 400 kr"]].map(([k, l]) => `<button class="cell" data-fprice="${k}" role="radio" aria-checked="${draft.price === k}"><span class="lab">${l}</span><span class="cw">${draft.price === k ? ICON.chk : ""}</span></button>`).join("")}</div>
+      <h3 class="ghead">Scene</h3><div class="group">${[["", "Alle scener"], ...venues.map(([v]) => [v, v])].map(([k, l]) => `<button class="cell" data-fvenue="${esc(k)}" role="radio" aria-checked="${draft.venue === k}"><span class="lab">${esc(l)}</span><span class="cw">${draft.venue === k ? ICON.chk : ""}</span></button>`).join("")}</div>
+      <p class="gfoot">De ti scenene med mest på programmet.</p>
+      <div style="padding:20px 16px 0;text-align:center"><button class="nbtn" id="freset">Nullstill filtre</button></div>
+    </div>
+    <div class="sfoot"><button class="btn fill" id="fshow"></button></div>`;
+  const upd = () => {
+    sh.querySelectorAll("[data-fcat]").forEach(b => { const on = draft.cats.has(b.dataset.fcat); b.setAttribute("aria-checked", on); b.querySelector(".cw").innerHTML = on ? ICON.chk : ""; });
+    sh.querySelectorAll("[data-fprice]").forEach(b => { const on = draft.price === b.dataset.fprice; b.setAttribute("aria-checked", on); b.querySelector(".cw").innerHTML = on ? ICON.chk : ""; });
+    sh.querySelectorAll("[data-fvenue]").forEach(b => { const on = draft.venue === b.dataset.fvenue; b.setAttribute("aria-checked", on); b.querySelector(".cw").innerHTML = on ? ICON.chk : ""; });
+    const n = EV.filter(e => matches(e, { ...S, ...draft })).length;
+    $("#fshow").textContent = n ? `Vis ${n} ${n === 1 ? "arrangement" : "arrangementer"}` : "Ingen treff med disse filtrene";
+    $("#fshow").disabled = !n; $("#fshow").style.opacity = n ? 1 : .5;
+  };
+  sh.onclick = ev => {
+    const b = ev.target.closest("button"); if (!b) return;
+    if (b.dataset.fcat) { draft.cats.has(b.dataset.fcat) ? draft.cats.delete(b.dataset.fcat) : draft.cats.add(b.dataset.fcat); upd(); }
+    else if (b.dataset.fprice !== undefined) { draft.price = b.dataset.fprice; upd(); }
+    else if (b.dataset.fvenue !== undefined) { draft.venue = b.dataset.fvenue; upd(); }
+    else if (b.id === "freset") { draft = { cats: new Set(), venue: "", price: "" }; upd(); }
+    else if (b.id === "fcancel") closeSheet();
+    else if (b.id === "fapply" || b.id === "fshow") { Object.assign(S, draft); closeSheet(); renderProgram(); }
+  };
+  upd();
+  sh.hidden = false; $("#scrim").hidden = false; detent = "medium";
+  requestAnimationFrame(() => { $("#scrim").classList.add("on"); placeSheet(); });
+  sheetDrag(sh); setTimeout(() => $("#sheettitle").focus({ preventScroll: true }), 50);
+}
+function sheetY() { const h = $("#sheet").offsetHeight, full = innerHeight; return detent === "large" ? 0 : Math.max(0, h - full * 0.58); }
+function placeSheet() { $("#sheet").style.transform = `translateY(${sheetY()}px)`; }
+function closeSheet() {
+  const sh = $("#sheet"); sh.style.transform = "translateY(100%)"; $("#scrim").classList.remove("on");
+  setTimeout(() => { sh.hidden = true; $("#scrim").hidden = true; $("#fbtn")?.focus(); }, 380);
+}
+$("#scrim").onclick = closeSheet;
+document.addEventListener("keydown", ev => { if (ev.key === "Escape" && !$("#sheet").hidden) closeSheet(); });
+function sheetDrag(sh) {
+  const hd = sh.querySelector(".shead"); let y0 = null, base = 0, dy = 0;
+  hd.onpointerdown = ev => { if (ev.target.closest("button")) return; y0 = ev.clientY; base = sheetY(); dy = 0; sh.classList.add("drag"); hd.setPointerCapture(ev.pointerId); };
+  hd.onpointermove = ev => { if (y0 === null) return; dy = ev.clientY - y0; sh.style.transform = `translateY(${Math.max(0, base + dy)}px)`; };
+  hd.onpointerup = () => {
+    if (y0 === null) return; y0 = null; sh.classList.remove("drag");
+    if (Math.abs(dy) < 6) { detent = detent === "large" ? "medium" : "large"; placeSheet(); return; }
+    if (dy < -60) detent = "large"; else if (dy > 80) { if (detent === "large") detent = "medium"; else return closeSheet(); }
+    placeSheet();
+  };
+}
+
+/* ---------- I kveld ---------- */
+function renderKveld() {
+  const tonight = [], tomorrow = [], tm = addDays(TODAY, 1);
+  EV.forEach(e => occ(e).forEach(([d, t]) => { if (d === TODAY && t) tonight.push([e, t]); if (d === tm && t) tomorrow.push([e, t]); }));
+  tonight.sort((a, b) => a[1].localeCompare(b[1])); tomorrow.sort((a, b) => a[1].localeCompare(b[1]));
+  const hh = `${String(Math.floor(NOWMIN / 60)).padStart(2, "0")}:${String(NOWMIN % 60).padStart(2, "0")}`;
+  const later = tonight.filter(([, t]) => toMin(t) >= NOWMIN);
+  let body = `<div class="lhead"><h1 class="t-large" style="margin:0">I kveld</h1><div class="sub t-sub">${esc(dateLong(TODAY))} · ${later.length ? `${later.length} starter etter ${hh}` : "ingenting mer starter i kveld"}</div></div><div class="tl">`;
+  let nowDone = false;
+  const card = (e, t, past) => {
+    const m = toMin(t) - NOWMIN;
+    const rel = past ? `startet ${t}` : m <= 90 ? `om ${m} min` : "";
+    return `<div class="tlrow ${past ? "past" : ""}"><span class="h">${esc(t)}</span><button class="tlcard" data-open="${esc(e.id)}" style="--c:var(--c-${e.cat})">
+      ${rel ? `<span class="rel" style="${past ? "color:var(--fg2)" : ""}">${rel}</span>` : ""}<span class="t-head">${esc(e.title)}</span><span class="t-sub" style="color:var(--fg2)">${esc(e.venue)} · ${esc(priceText(e))}</span>${pillsHtml(e, TODAY)}</button></div>`;
+  };
+  tonight.forEach(([e, t]) => {
+    const past = toMin(t) < NOWMIN;
+    if (!past && !nowDone) { body += `<div class="nowline" role="separator">Nå ${hh}</div>`; nowDone = true; }
+    body += card(e, t, past);
+  });
+  if (!nowDone && tonight.length) body += `<div class="nowline" role="separator">Nå ${hh}</div>`;
+  body += `</div>`;
+  if (!later.length) body += `<div class="empty" style="padding-top:24px">${ICON.moon}<h2 class="t-title3" style="margin:0">Det er ikke mer på programmet i kveld</h2><p>Se hva som skjer i morgen, eller bla i hele programmet.</p><button class="btn tinted small" data-go="program" style="margin-top:8px">Åpne programmet</button></div>`;
+  if (tomorrow.length) body += `<h2 class="sec" style="margin-top:18px">I morgen, ${esc(dateShort(tm))}<small>${tomorrow.length}</small></h2><ul class="rows">${tomorrow.map(([e, t]) => rowHtml(e, tm, t)).join("")}</ul>`;
+  setRoot("kveld", mkView("kveld", { title: "I kveld", body }));
+}
+
+/* ---------- Mine ---------- */
+let lastRemoved = null;
+function renderMine() {
+  const list = [...FAV].map(id => BYID[id]).filter(e => e && nextOcc(e)).sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
+  const right = list.length ? `<button class="nbtn" data-toast="Her åpnes delearket med en lenke til lista di." aria-label="Del lista">${ICON.share}</button>` : "";
+  let body = `<div class="lhead"><h1 class="t-large" style="margin:0">Mine</h1><div class="sub t-sub">${list.length ? `${list.length} lagret · sveip mot venstre for å fjerne` : "Lagres bare på denne telefonen"}</div></div>`;
+  if (!list.length) body += `<div class="empty">${ICON.star.replace('class="i"', 'class="i big"')}<h2 class="t-title3" style="margin:0">Ingen lagrede ennå</h2><p>Trykk på stjernen ved et arrangement, så samles det her.</p><button class="btn fill small" data-go="program" style="margin-top:10px">Bla i programmet</button></div>`;
+  else body += `<ul class="rows">${list.map(e => { const [d, t] = nextOcc(e); return `<li class="swipe"><div class="del" aria-hidden="true"><span>${ICON.trash}Fjern</span></div>${rowHtml(e, d, t).replace(/^<li class="row"/, '<div class="row"').replace(/<\/li>$/, "</div>").replace(`<span class="tm">`, `<span class="tm"><small class="t-cap" style="color:var(--fg2);font-weight:500">${esc(dateShort(d))}</small>`)}</li>`; }).join("")}</ul>`;
+  const v = mkView("mine", { title: "Mine", right, body });
+  setRoot("mine", v);
+  v.querySelectorAll(".swipe").forEach(li => swipeRow(li));
+}
+function swipeRow(li) {
+  const row = li.querySelector(".row"), id = row.dataset.id; let x0 = null, y0 = 0, dx = 0, open = false, lock = null;
+  row.addEventListener("pointerdown", ev => { if (ev.pointerType === "mouse" && ev.button) return; x0 = ev.clientX; y0 = ev.clientY; dx = 0; lock = null; });
+  row.addEventListener("pointermove", ev => {
+    if (x0 === null) return; const mx = ev.clientX - x0, my = ev.clientY - y0;
+    if (lock === null && (Math.abs(mx) > 8 || Math.abs(my) > 8)) lock = Math.abs(mx) > Math.abs(my) ? "x" : "y";
+    if (lock !== "x") return; row.classList.add("drag"); try { row.setPointerCapture(ev.pointerId); } catch (_) {}
+    dx = Math.min(0, mx + (open ? -88 : 0)); row.style.transform = `translateX(${dx}px)`;
+  });
+  const end = () => {
+    if (x0 === null) return; x0 = null; row.classList.remove("drag"); if (lock !== "x") return;
+    const w = row.offsetWidth;
+    if (dx < -w * 0.55) return removeFav(id, li);
+    open = dx < -50; row.style.transform = open ? "translateX(-88px)" : ""; row.classList.toggle("opened", open);
+    setTimeout(() => row.classList.toggle("opened", open), 0);
+  };
+  row.addEventListener("pointerup", end); row.addEventListener("pointercancel", end);
+  li.querySelector(".del").onclick = () => removeFav(id, li);
+  li.querySelector(".del").style.pointerEvents = "auto";
+  row.addEventListener("click", ev => { if (open) { ev.stopPropagation(); open = false; row.style.transform = ""; row.classList.remove("opened"); } }, true);
+}
+function removeFav(id, li) {
+  const row = li.querySelector(".row"); row.style.transform = "translateX(-100%)";
+  setTimeout(() => { FAV.delete(id); saveFavs(); renderMine(); toast(`Fjernet «${BYID[id].title}»`, () => { FAV.add(id); saveFavs(); renderMine(); }); }, 200);
+}
+
+/* ---------- Mer ---------- */
+function cell(href, ico, c, label, sub = "", val = "", ext = true) {
+  return `<a class="cell ic" href="${href}" target="_blank" rel="noopener"><span class="ico" style="--c:${c}">${ico}</span><span class="lab">${label}${sub ? `<small>${sub}</small>` : ""}</span>${val ? `<span class="val t-sub">${val}</span>` : ""}${ext ? ICON.ext : ICON.chev}</a>`;
+}
+function renderMer() {
+  const B = "https://kaskjerda.no/";
+  const jul = EV.filter(e => nextOcc(e) && /jul|advent|nøtteknekk|lucia|nisse/i.test(e.title + " " + e.note)).length;
+  const jbMin = Math.min(...JB.map(e => e.priceMin).filter(x => x != null));
+  const quiz = EV.filter(e => e.cat === "quiz" && nextOcc(e)).length, sport = EV.filter(e => e.cat === "sport" && nextOcc(e)).length;
+  let body = `<div class="lhead"><h1 class="t-large" style="margin:0">Mer</h1></div>
+    <h2 class="ghead">Jula i Ålesund</h2><div class="group">
+      ${cell(B + "jul-i-alesund/", ICON.tree, "#2f8a4c", "Jul i Ålesund", "Konserter, markeder og familie", jul || "")}
+      ${cell(B + "julebord/", ICON.glass, "#b3262d", "Julebord", isFinite(jbMin) ? `${JB.length} julebord fra ${jbMin} kr` : "", "")}
+      ${cell(B + "julekonserter-i-alesund/", ICON.note, "#1f6f78", "Julekonserter")}
+    </div>
+    <h2 class="ghead">Mer å gjøre</h2><div class="group">
+      ${cell(B + "kino/", ICON.film, "#5b6fc7", "Kino", "ODEON Ålesund, Amfi Moa")}
+      ${cell(B + "quiz/", ICON.q, "#7a4fb0", "Quiz", "", quiz || "")}
+      ${cell(B + "aafk-hjemmekamper/", ICON.ball, "#2b5fa8", "AaFK hjemmekamper", "", sport || "")}
+    </div>
+    <h2 class="ghead">Innstillinger</h2><div class="group">
+      <button class="cell ic" id="appear"><span class="ico" style="--c:#56676a">${ICON.sun}</span><span class="lab">Utseende</span><span class="val t-sub" id="appearval">${{ system: "Som telefonen", dark: "Mørkt", light: "Lyst" }[THEME]}</span>${ICON.chev}</button>
+      ${cell(B + "en/", ICON.globe, "#56676a", "English", "What's on in Ålesund")}
+    </div>
+    <h2 class="ghead">Kontakt</h2><div class="group">
+      ${cell(B + "kontakt/", ICON.mail, "#c9902a", "Tips oss om et arrangement")}
+      ${cell(B + "arrangor/", ICON.mega, "#c9902a", "For arrangører")}
+    </div>
+    <p class="gfoot" style="margin-top:22px;text-align:center">Skjer i Ålesund · kaskjerda.no<br>Programmet hentes fra arrangørene hver andre time.</p>`;
+  const v = mkView("mer", { title: "Mer", body, cls: "grouped" });
+  setRoot("mer", v);
+  $("#appear", v).onclick = () => { const p = mkView("mer", { title: "Utseende", large: false, cls: "grouped", left: `<button class="nbtn back" data-back="mer" aria-label="Tilbake til Mer">${ICON.back}<span>Mer</span></button>`, body: "" }); renderAppearance(p); push("mer", p); };
+}
+function renderAppearance(p) {
+  p.querySelector(".ap")?.remove();
+  const box = document.createElement("div"); box.className = "ap";
+  box.innerHTML = `<div style="height:16px"></div><div class="group">${[["system", "Som telefonen"], ["dark", "Mørkt (kveld)"], ["light", "Lyst"]].map(([k, l]) => `<button class="cell" data-theme-set="${k}" role="radio" aria-checked="${THEME === k}"><span class="lab">${l}</span>${THEME === k ? ICON.chk : ""}</button>`).join("")}</div><p class="gfoot">«Som telefonen» følger mørk modus i iPhone-innstillingene.</p>`;
+  p.appendChild(box);
+}
+let THEME = "system";
+try { THEME = localStorage.getItem("ios-theme") || "system"; } catch (_) {}
+function setTheme(k) { THEME = k; try { localStorage.setItem("ios-theme", k); } catch (_) {} applyTheme(); const v = $("#appearval"); if (v) v.textContent = { system: "Som telefonen", dark: "Mørkt", light: "Lyst" }[k]; }
+function applyTheme() { if (THEME === "system") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", THEME); }
+
+/* ---------- toast ---------- */
+let toastT = 0;
+function toast(text, undo) {
+  $("#toasttext").textContent = text; const b = $("#toastbtn"); b.hidden = !undo;
+  b.onclick = () => { $("#toast").classList.remove("on"); undo && undo(); };
+  $("#toast").classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => $("#toast").classList.remove("on"), undo ? 6000 : 2600);
+}
+
+/* ---------- Dynamic Type: stor tekst gir stablet radoppsett ---------- */
+function checkAx() { document.documentElement.classList.toggle("ax", parseFloat(getComputedStyle(document.documentElement).fontSize) >= 26); }
+
+/* ---------- styring fra forhåndsvisningen ---------- */
+function renderAll() { renderProgram(); renderKveld(); renderMine(); renderMer(); badge(); }
+window.addEventListener("message", ev => {
+  const m = ev.data || {}; if (m.type !== "cfg") return;
+  const r = document.documentElement.style;
+  if (m.insets) { r.setProperty("--sat", m.insets[0] + "px"); r.setProperty("--sab", m.insets[1] + "px"); }
+  if (m.text) r.fontSize = m.text + "px";
+  if (m.theme) { THEME = m.theme; applyTheme(); }
+  if (m.mode) S.mode = m.mode;
+  if (m.tab && m.tab !== S.tab) showTab(m.tab);
+  checkAx();
+  if (m.open === null) { // bare utseende/tekst: behold åpne visninger, tegn listene på nytt
+    const top = stacks[S.tab]; if (top && top.length > 1) { badge(); return; }
+    renderAll(); return;
+  }
+  if (!$("#sheet").hidden) { $("#sheet").hidden = true; $("#scrim").hidden = true; $("#scrim").classList.remove("on"); }
+  renderAll(); updateChrome();
+  if (m.open === "filter") openFilter(); else if (m.open) openDetail(m.open);
+});
+seedFavs(); applyTheme(); checkAx(); renderAll();
+</script>
+</body>
+</html>
