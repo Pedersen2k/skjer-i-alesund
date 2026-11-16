@@ -1545,6 +1545,25 @@
    "url": "https://devoldfabrikken.no/hva-skjer/julekortfotografering-med-fotograf-lene-cs/",
    "addedAt": "2026-11-10T16:13:41Z",
    "last": "2026-11-15"
+  },
+  {
+   "id": "parken-50876-parken-kulturhus",
+   "date": "2026-11-16",
+   "time": "18:00",
+   "title": "Tonje Glimmerdal",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/50876-tonje-glimmerdal/",
+   "addedAt": "2026-10-22T12:10:15Z",
+   "last": "2026-11-16"
   }
  ]
 }
