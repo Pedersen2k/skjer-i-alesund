@@ -780,5 +780,35 @@
       "2026-12-16T18:00",
       "2026-12-30T18:00"
     ]
+  },
+  {
+    "id": "juletonar-sonja-alnes-trio-2026",
+    "date": "2026-12-13",
+    "time": "19:00",
+    "title": "Juletonar med Sonja Alnes Trio",
+    "venue": "Alnes fyr og opplevelsessenter",
+    "address": "Alnesgard, 6055 Godøya",
+    "cat": "konsert",
+    "price": "300 kr",
+    "priceMin": 300,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Julesanger fra norsk, europeisk og amerikansk tradisjon med Sonja Remmen Alnes (sopran), Vegard Kvamme Holum og Norvald Dahl (piano). Kl. 19–21 på Alnes fyr (Godøya, Giske).",
+    "url": "https://tikkio.com/events/67389"
+  },
+  {
+    "id": "adventskonsert-aaum-2026",
+    "date": "2026-12-06",
+    "time": "18:00",
+    "title": "Adventskonsert med AaUM",
+    "venue": "Ålesund kirke",
+    "address": "Kirkegata 2, 6004 Ålesund",
+    "cat": "konsert",
+    "price": "Gratis",
+    "priceMin": 0,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Aalesunds Ungdomsmusikkorps, dirigent Stefan Bocken: alt fra filmmusikk til julesalmer. Gratis inngang, kollekt til menighetspleien. Kilde: Bypatrioten.",
+    "url": "https://www.aaum.no/"
   }
 ]
