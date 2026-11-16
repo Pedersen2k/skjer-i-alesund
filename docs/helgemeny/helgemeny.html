@@ -1,0 +1,712 @@
+<title>Helgemenyen Ålesund</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=Caveat:wght@500;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: en mørk restaurantbordplate i 3D; en tredelt meny ligger på bordet, folder seg ut, og papirfigurer for helgas arrangementer reiser seg fra sidene. Under: kvitteringen for «helga mi». */
+:root{
+  color-scheme: dark;
+  --wood-1:#2a1a12; --wood-2:#3a2418; --wood-3:#1a100b;
+  --paper:#f2e8d3; --paper-2:#e6d8bb; --paper-edge:#cdb994;
+  --ink:#1d2f33; --ink-soft:#5a5446;
+  --teal:#123a40; --teal-2:#0b2a2f;
+  --gold:#c9a24a; --gold-2:#e8cf8a;
+  --red:#a3242f; --navy:#1d2744; --amber:#e3a33c;
+  --ui-bg:#120c09; --ui-fg:#f1e7d6; --ui-mute:#b5a58c;
+  --c-konsert:#1f6f78; --c-standup:#b5531c; --c-show:#6a4fa3; --c-klubb:#a83167;
+  --c-happening:#8a6d12; --c-barn:#2f8a4c; --c-sport:#2b5fa8;
+  --f-display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-hand:"Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --W:320px; --H:780px;
+  --T:46deg; --Z:0deg; --s:1; --px:0px; --cy:0px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--ui-bg); color:var(--ui-fg); font-family:var(--f-body);
+  margin:0; overflow-x:hidden;
+}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold-2); outline-offset:3px}
+
+/* ---------- topp ---------- */
+.top{
+  position:relative; z-index:5;
+  padding-left:max(16px, env(safe-area-inset-left,0px));
+  padding-right:max(16px, env(safe-area-inset-right,0px));
+  padding-block:18px 0;
+  display:flex; flex-wrap:wrap; align-items:end; justify-content:space-between; gap:10px 24px;
+  max-width:1180px; margin:0 auto;
+}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ui-fg)}
+.brand svg{width:30px;height:30px}
+.brand b{font-family:var(--f-display); font-style:italic; font-weight:600; font-size:19px; letter-spacing:.01em}
+.brand span{display:block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ui-mute)}
+.hint{font-size:13px; color:var(--ui-mute); max-width:46ch; text-wrap:balance}
+
+/* ---------- scene ---------- */
+.scene{
+  position:relative; height:clamp(560px, 86svh, 880px);
+  perspective:1500px; perspective-origin:50% 22%;
+  overflow:hidden; touch-action:pan-y;
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(255,190,120,.10), transparent 60%),
+    var(--ui-bg);
+}
+.cam{
+  position:absolute; left:50%; top:57%; width:0; height:0;
+  transform-style:preserve-3d;
+  transform: translateY(var(--cy)) scale(var(--s)) rotateX(var(--T)) rotateZ(var(--Z)) translateX(var(--px));
+  transition: transform 1s cubic-bezier(.2,.8,.2,1);
+}
+.cam.live{transition: transform 1s cubic-bezier(.2,.8,.2,1), none}
+.table{
+  position:absolute; width:2600px; height:2000px; left:-1300px; top:-1000px;
+  transform-style:preserve-3d;
+  background:
+    radial-gradient(closest-side at 50% 50%, transparent 55%, rgba(0,0,0,.65) 100%),
+    repeating-linear-gradient(92deg, rgba(255,255,255,.018) 0 2px, transparent 2px 9px),
+    repeating-linear-gradient(88deg, rgba(0,0,0,.10) 0 1px, transparent 1px 23px),
+    linear-gradient(90deg, var(--wood-1), var(--wood-2) 30%, var(--wood-1) 52%, var(--wood-2) 76%, var(--wood-3));
+}
+.table::after{ /* plankeskjøter */
+  content:""; position:absolute; inset:0; pointer-events:none; transform:translateZ(-2px);
+  background:repeating-linear-gradient(90deg, transparent 0 432px, rgba(0,0,0,.45) 432px 434px, rgba(255,255,255,.03) 434px 435px);
+}
+.glow{
+  position:absolute; left:calc(50% + 330px); top:calc(50% - 650px); width:1100px; height:1100px; margin:-0px;
+  transform:translateZ(2px);
+  background:radial-gradient(closest-side, rgba(255,176,86,.32), rgba(255,140,60,.10) 45%, transparent 75%);
+  animation:flick 3.2s ease-in-out infinite; pointer-events:none;
+}
+@keyframes flick{0%,100%{opacity:.9}35%{opacity:1}52%{opacity:.78}70%{opacity:.95}}
+
+/* ---------- menyen ---------- */
+.menu{
+  position:absolute; left:50%; top:50%;
+  width:calc(var(--W)*3); height:var(--H);
+  margin-left:calc(var(--W)*-1.5); margin-top:calc(var(--H)*-.5);
+  transform-style:preserve-3d;
+  transform: translateZ(8px) rotateZ(-7deg) translate(18px,10px);
+  transition: transform 1.2s cubic-bezier(.3,.7,.2,1) .2s;
+}
+.menu.open{transform:translateZ(8px); transition-delay:0s}
+.panel{
+  position:absolute; top:0; width:var(--W); height:var(--H);
+  transform-style:preserve-3d;
+}
+.p-mid{left:var(--W)}
+.p-l{left:0; transform-origin:100% 50%; transform:translateZ(5px) rotateY(180deg);
+  transition:transform 1.15s cubic-bezier(.45,.05,.2,1) .75s}
+.p-r{left:calc(var(--W)*2); transform-origin:0 50%; transform:translateZ(2.5px) rotateY(-180deg);
+  transition:transform 1.15s cubic-bezier(.45,.05,.2,1) .35s}
+.open .p-l{transform:translateZ(0) rotateY(0); transition-delay:.05s}
+.open .p-r{transform:translateZ(0) rotateY(0); transition-delay:.55s}
+
+.face{
+  position:absolute; inset:0; transform-style:preserve-3d;
+  backface-visibility:hidden; -webkit-backface-visibility:hidden;
+}
+.front{
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .13 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, var(--paper), var(--paper-2));
+  color:var(--ink);
+}
+.p-l .front{box-shadow: inset -14px 0 18px -14px rgba(60,40,10,.35)}
+.p-r .front{box-shadow: inset 14px 0 18px -14px rgba(60,40,10,.35)}
+.p-mid .front{box-shadow: inset 10px 0 14px -12px rgba(60,40,10,.3), inset -10px 0 14px -12px rgba(60,40,10,.3)}
+.back{transform:rotateY(180deg)}
+.under{ /* skygge på bordet */
+  position:absolute; inset:6px -4px -18px -4px; transform:translateZ(-1px);
+  background:rgba(0,0,0,.55); filter:blur(14px); border-radius:6px;
+  pointer-events:none; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+}
+
+/* omslag */
+.cover{
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(120% 80% at 30% 20%, #1a4a51, var(--teal) 55%, var(--teal-2));
+  color:var(--gold-2); cursor:pointer; border:0; padding:0; display:block; width:100%; height:100%;
+  text-align:center;
+}
+.cover .frame{position:absolute; inset:16px; border:1.5px solid var(--gold); border-radius:3px}
+.cover .frame::after{content:""; position:absolute; inset:6px; border:.5px solid rgba(201,162,74,.6)}
+.cover .in{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:40px}
+.cover svg.logo{width:92px; height:92px}
+.cover .kicker{font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:var(--gold)}
+.cover h1{
+  margin:0; font-family:var(--f-display); font-weight:500; font-style:italic;
+  font-size:56px; line-height:.95; letter-spacing:-.01em;
+  background:linear-gradient(170deg, #f7e6b0 10%, #c9a24a 45%, #f1dca0 60%, #a8822f 90%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.cover .dates{font-family:var(--f-display); font-size:19px; color:var(--gold-2)}
+.cover .orn{width:150px; height:14px}
+.cover .count{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold)}
+.cover .tap{
+  position:absolute; bottom:44px; left:50%; transform:translateX(-50%);
+  font-family:var(--f-hand); font-size:24px; color:var(--paper); white-space:nowrap;
+  animation:bob 1.8s ease-in-out infinite;
+}
+@keyframes bob{50%{transform:translate(-50%,-5px)}}
+.cover .site{position:absolute; bottom:24px; left:0; right:0; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:rgba(232,207,138,.7)}
+.backcover{background:radial-gradient(120% 80% at 70% 20%, #1a4a51, var(--teal) 55%, var(--teal-2))}
+.backcover p{position:absolute; bottom:40px; width:100%; text-align:center; font-family:var(--f-display); font-style:italic; color:var(--gold); font-size:18px; margin:0}
+
+/* trykk på sidene */
+.deco{pointer-events:none; position:absolute; left:18px; right:18px; top:18px; height:200px; border:1px solid rgba(29,47,51,.18); border-bottom:0; border-radius:120px 120px 0 0}
+.page{position:absolute; left:0; right:0; top:248px; bottom:0; padding:0 24px 20px}
+.course{display:flex; align-items:baseline; justify-content:space-between; gap:8px; border-bottom:1.5px solid var(--ink); padding-bottom:6px}
+.course h2{margin:0; font-family:var(--f-display); font-style:italic; font-weight:600; font-size:30px; line-height:1}
+.course small{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft)}
+.day{font-family:var(--f-display); font-size:14px; margin:6px 0 10px; color:var(--ink-soft)}
+.lines{list-style:none; margin:0; padding:0; display:grid; gap:0}
+.line{
+  display:grid; grid-template-columns:44px 1fr auto; gap:0 8px; align-items:baseline;
+  width:100%; text-align:left; background:none; border:0; padding:3px 4px; border-radius:3px; line-height:1.2;
+  cursor:pointer; color:var(--ink); position:relative;
+}
+.line:hover{background:rgba(29,47,51,.07)}
+.line .t{font-family:var(--f-display); font-weight:700; font-size:12.5px; font-variant-numeric:tabular-nums lining-nums}
+.line .n{font-weight:600; font-size:12.5px; line-height:1.25; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.line .n::after{ /* prikkelinje til prisen */
+  content:""; display:inline-block; width:0;
+}
+.line .p{font-family:var(--f-display); font-size:13px; font-weight:600; white-space:nowrap; font-variant-numeric:tabular-nums lining-nums}
+.line .p.q{font-family:var(--f-body); font-weight:500; font-size:10px; color:var(--ink-soft); font-style:italic}
+.line .v{grid-column:2 / 4; white-space:nowrap; overflow:hidden; font-family:var(--f-display); font-style:italic; font-size:10.5px; color:var(--ink-soft); display:flex; gap:6px; align-items:center}
+.dot{width:7px; height:7px; border-radius:50%; flex:none; background:var(--c, var(--ink-soft))}
+.tag{font-family:var(--f-body); font-style:normal; font-size:8.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:1px 5px; border-radius:2px}
+.tag.sold{background:var(--red); color:#fff}
+.tag.few{border:1px solid #9a5a00; color:#8a4f00}
+.line.is-sold .n{text-decoration:line-through; text-decoration-color:rgba(163,36,47,.7); text-decoration-thickness:1.5px}
+.line.picked::before{
+  content:"✓"; position:absolute; left:-14px; top:3px; font-family:var(--f-hand); font-size:20px; color:var(--red); line-height:1;
+}
+.chef{margin-top:14px; font-family:var(--f-hand); font-size:21px; line-height:1.05; color:#7a3b1d}
+.chef a{color:inherit}
+.foot{position:absolute; left:24px; right:24px; bottom:16px; display:flex; justify-content:space-between; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft)}
+
+/* ---------- popups ---------- */
+.pop{
+  position:absolute; transform-origin:50% 100%;
+  transform: rotateX(0deg);
+  opacity:0;
+  transition: transform .55s cubic-bezier(.5,0,.75,0), opacity .2s linear .35s;
+  background:none; border:0; padding:0; cursor:pointer;
+}
+.open .pop{
+  transform: rotateX(calc(var(--T) * -1 + 2deg));
+  opacity:1;
+  transition: transform 1s cubic-bezier(.3,1.6,.5,1) var(--d,1s), opacity .15s linear var(--d,1s);
+}
+.pop .in{display:block; width:100%; height:100%; transform-origin:50% 100%}
+.pop svg{display:block; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 3px 2px rgba(0,0,0,.35))}
+.pop:hover .in, .pop.wig .in{animation:wig .6s ease}
+@keyframes wig{0%{transform:none}30%{transform:translateY(-8px) rotate(-2deg)}60%{transform:translateY(-3px) rotate(1.5deg)}100%{transform:none}}
+.shade{
+  position:absolute; height:34px; transform-origin:50% 100%;
+  background:radial-gradient(closest-side, rgba(40,25,5,.38), transparent);
+  opacity:0; transition:opacity .4s; pointer-events:none;
+}
+.open .shade{opacity:1; transition-delay:var(--d,1s)}
+.flag{
+  position:absolute; top:-2px; left:50%; transform:translate(-50%,-100%);
+  font-family:var(--f-body); font-size:9.5px; font-weight:700; letter-spacing:.06em; white-space:nowrap;
+  background:var(--paper); color:var(--ink); padding:2px 6px; border-radius:2px;
+  box-shadow:0 1px 2px rgba(0,0,0,.4); opacity:0; transition:opacity .2s; pointer-events:none;
+}
+.pop:hover .flag, .pop:focus-visible .flag, .pop.wig .flag{opacity:1}
+
+/* ---------- lys og bordkort ---------- */
+.candle{position:absolute; left:calc(50% + 640px); top:calc(50% - 200px); transform-style:preserve-3d}
+.plate{position:absolute; width:110px; height:110px; left:-55px; top:-55px; border-radius:50%;
+  background:radial-gradient(circle at 40% 35%, #f3efe6, #bdb5a5 60%, #8d8576); box-shadow:0 10px 18px rgba(0,0,0,.6)}
+.stick{
+  position:absolute; width:46px; height:150px; left:-23px; top:-150px; transform-origin:50% 100%;
+  transform:rotateX(calc(var(--T) * -1));
+  transform-style:preserve-3d;
+}
+.stick .wax{position:absolute; inset:24px 0 0 0; border-radius:6px 6px 3px 3px;
+  background:linear-gradient(90deg, #d9cdb2, #fbf4e2 40%, #e9dec4 70%, #b9ab8c)}
+.stick .wax::before{content:""; position:absolute; left:6px; right:6px; top:-3px; height:10px; border-radius:50%; background:#efe4c9}
+.flame{position:absolute; left:50%; top:-14px; width:18px; height:38px; margin-left:-9px;
+  border-radius:50% 50% 45% 45% / 65% 65% 35% 35%;
+  background:radial-gradient(ellipse at 50% 75%, #fff8e0 0 20%, #ffd166 40%, #ff8a2a 70%, transparent 72%);
+  filter:blur(.4px); animation:fl 1.6s ease-in-out infinite; transform-origin:50% 90%;
+  box-shadow:0 0 30px 10px rgba(255,170,60,.35)}
+@keyframes fl{0%,100%{transform:scale(1) rotate(0)}25%{transform:scale(.94,1.06) rotate(-3deg)}55%{transform:scale(1.04,.95) rotate(2deg)}80%{transform:scale(.97,1.03) rotate(-1deg)}}
+.tent{position:absolute; left:calc(50% - 760px); top:calc(50% + 40px); width:190px; height:118px; transform-origin:50% 100%;
+  transform:translateZ(3px) rotateZ(-14deg);}
+.tent .card{position:absolute; inset:0; background:linear-gradient(180deg,var(--paper),var(--paper-2)); border-radius:2px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; color:var(--teal);
+  box-shadow:0 8px 14px rgba(0,0,0,.55)}
+.tent b{font-family:var(--f-display); font-style:italic; font-size:26px; font-weight:600}
+.tent span{font-size:9px; letter-spacing:.3em; text-transform:uppercase}
+
+/* ---------- styring ---------- */
+.tabs{
+  position:absolute; left:50%; bottom:max(14px, env(safe-area-inset-bottom,0px)); transform:translateX(-50%);
+  display:flex; gap:4px; padding:4px; border-radius:999px; z-index:4;
+  background:rgba(18,12,9,.78); border:1px solid rgba(232,207,138,.22); backdrop-filter:blur(8px);
+  opacity:0; pointer-events:none; transition:opacity .4s 1.2s; max-width:calc(100% - 32px); flex-wrap:nowrap;
+}
+.scene.is-open .tabs{opacity:1; pointer-events:auto}
+.tabs button{border:0; background:none; padding:8px 13px; border-radius:999px; font-size:13px; font-weight:600; color:var(--ui-mute); cursor:pointer; white-space:nowrap}
+.tabs button[aria-pressed="true"]{background:var(--gold-2); color:#2a1a10}
+.tabs .close{color:var(--ui-fg)}
+.prompt{
+  position:absolute; left:0; right:0; bottom:22px; text-align:center; z-index:3; pointer-events:none;
+  font-family:var(--f-hand); font-size:24px; color:var(--gold-2); transition:opacity .4s;
+}
+.scene.is-open .prompt{opacity:0}
+
+/* ---------- bestillingslapp ---------- */
+.slipwrap{position:fixed; inset:0; z-index:20; display:flex; align-items:flex-end; justify-content:center;
+  background:rgba(8,5,3,.45); opacity:0; pointer-events:none; transition:opacity .25s;
+  padding-left:max(12px, env(safe-area-inset-left,0px)); padding-right:max(12px, env(safe-area-inset-right,0px));
+  padding-bottom:max(12px, env(safe-area-inset-bottom,0px))}
+.slipwrap.on{opacity:1; pointer-events:auto}
+.slip{
+  width:min(420px, 100%); position:relative; color:var(--ink);
+  background:
+    linear-gradient(transparent 31px, rgba(29,90,120,.16) 32px) 0 52px / 100% 32px,
+    linear-gradient(180deg, #fbf6ea, #f1e7d1);
+  padding:30px 22px 20px; border-radius:2px;
+  box-shadow:0 30px 60px rgba(0,0,0,.6);
+  transform:translateY(40px) rotate(-1.5deg); transition:transform .35s cubic-bezier(.3,1.4,.5,1);
+  max-height:calc(100svh - 40px); overflow:auto;
+}
+.slipwrap.on .slip{transform:translateY(0) rotate(-1deg)}
+.slip::before{ /* perforering */
+  content:""; position:absolute; left:0; right:0; top:0; height:12px;
+  background:radial-gradient(circle at 8px 0, var(--ui-bg) 4px, transparent 4.5px) 0 0 / 16px 12px repeat-x;
+}
+.slip .x{position:absolute; top:14px; right:12px; width:36px; height:36px; border:0; background:none; font-size:24px; cursor:pointer; color:var(--ink-soft)}
+.slip .hd{font-family:var(--f-hand); font-size:30px; color:#7a3b1d; line-height:1}
+.slip .cat{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--c, var(--ink-soft)); margin-top:10px}
+.slip h3{font-family:var(--f-display); font-weight:600; font-size:26px; line-height:1.08; margin:4px 0 10px; text-wrap:balance}
+.slip dl{display:grid; grid-template-columns:auto 1fr; gap:4px 14px; margin:0 0 12px; font-size:14px}
+.slip dt{font-family:var(--f-hand); font-size:20px; color:var(--ink-soft); line-height:1}
+.slip dd{margin:0; font-weight:600}
+.slip .note{font-size:13.5px; line-height:1.45; color:#3b3a33; margin:0 0 16px}
+.slip .acts{display:flex; flex-wrap:wrap; gap:8px}
+.btn{display:inline-flex; align-items:center; gap:6px; padding:10px 14px; border-radius:3px; font-weight:700; font-size:14px; text-decoration:none; cursor:pointer; border:1.5px solid var(--teal)}
+.btn.main{background:var(--teal); color:var(--paper)}
+.btn.alt{background:transparent; color:var(--teal)}
+.btn.add{background:var(--red); border-color:var(--red); color:#fff}
+.btn.add[aria-pressed="true"]{background:transparent; color:var(--red)}
+.btn[disabled]{opacity:.5; cursor:not-allowed}
+
+/* ---------- kvittering ---------- */
+.below{
+  padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px));
+  padding-block:28px 60px; max-width:1180px; margin:0 auto;
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,380px); gap:28px 48px; align-items:start;
+}
+.about h2{font-family:var(--f-display); font-style:italic; font-weight:500; font-size:30px; margin:0 0 10px; text-wrap:balance}
+.about p{color:var(--ui-mute); line-height:1.55; margin:0 0 10px; max-width:60ch}
+.about a{color:var(--gold-2)}
+.receipt{
+  background:linear-gradient(180deg,#fbf8f1,#efe9dc); color:#222; font-family:"Courier New", ui-monospace, monospace;
+  padding:22px 20px 26px; position:relative; font-size:13px; box-shadow:0 20px 40px rgba(0,0,0,.45);
+  transform:rotate(1deg);
+}
+.receipt::after{content:""; position:absolute; left:0; right:0; bottom:-10px; height:10px;
+  background:linear-gradient(-45deg, transparent 6px, #efe9dc 6px) 0 0/12px 10px, linear-gradient(45deg, transparent 6px, #efe9dc 6px) 0 0/12px 10px}
+.receipt h3{margin:0; text-align:center; font-size:15px; letter-spacing:.2em}
+.receipt .sub{text-align:center; font-size:11px; margin:4px 0 12px; color:#666}
+.receipt hr{border:0; border-top:1px dashed #999; margin:10px 0}
+.receipt ol{list-style:none; margin:0; padding:0; display:grid; gap:6px}
+.receipt li{display:grid; grid-template-columns:auto 1fr auto; gap:8px; align-items:baseline; animation:print .4s ease}
+@keyframes print{from{opacity:0; transform:translateY(-6px)}}
+.receipt li span:nth-child(2){min-width:0; overflow-wrap:anywhere}
+.receipt li button{grid-column:3; background:none; border:0; cursor:pointer; font:inherit; color:#a3242f; padding:0 0 0 6px}
+.receipt .empty{color:#777; text-align:center; font-size:12px; line-height:1.5}
+.receipt .sum{display:flex; justify-content:space-between; font-weight:700; font-size:14px}
+.receipt .small{font-size:11px; color:#666; margin-top:6px}
+.receipt .thanks{text-align:center; margin-top:12px; font-size:11px; letter-spacing:.15em}
+.src{grid-column:1 / -1; font-size:12px; color:var(--ui-mute)}
+.src a{color:var(--gold-2)}
+
+@media (max-width:760px){
+  .below{grid-template-columns:minmax(0,1fr)}
+  .receipt{transform:none}
+  .tabs button{padding:8px 10px; font-size:12.5px}
+}
+@media (prefers-reduced-motion: reduce){
+  .cam,.menu,.p-l,.p-r,.pop,.open .pop{transition-duration:.01s !important; transition-delay:0s !important}
+  .glow,.flame,.cover .tap{animation:none}
+}
+</style>
+
+<header class="top">
+  <a class="brand" href="https://kaskjerda.no/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 30V17l6-6 6-7 6 7 6 6v13" fill="none" stroke="#e8cf8a" stroke-width="2.2" stroke-linejoin="round"/><circle cx="20" cy="15" r="2.6" fill="#e8cf8a"/><path d="M4 33c4-3 8-3 12 0s8 3 12 0 8-3 8-3" fill="none" stroke="#5ab7bf" stroke-width="2.2" stroke-linecap="round"/></svg>
+    <div><b>Ka skjer da?</b><span>kaskjerda.no</span></div>
+  </a>
+  <p class="hint" id="hint">Helgemenyen ligger på bordet. Åpne den, og trykk på en rett eller en papirfigur for å bestille.</p>
+</header>
+
+<section class="scene" id="scene" aria-label="Helgemenyen, en meny i 3D">
+  <div class="cam" id="cam">
+    <div class="table">
+      <div class="glow"></div>
+      <div class="tent"><div class="card"><span>Reservert</span><b>for helga</b><span>kaskjerda.no</span></div></div>
+      <div class="candle"><div class="plate"></div><div class="stick"><div class="wax"></div><div class="flame"></div></div></div>
+
+      <div class="menu" id="menu">
+        <div class="panel p-mid"><div class="under"></div><div class="face front" id="f-lor"></div></div>
+        <div class="panel p-r"><div class="under"></div>
+          <div class="face front" id="f-son"></div>
+          <div class="face back backcover"><p>Velbekomme!</p></div>
+        </div>
+        <div class="panel p-l"><div class="under"></div>
+          <div class="face front" id="f-fre"></div>
+          <div class="face back">
+            <button class="cover" id="cover" aria-label="Åpne helgemenyen">
+              <span class="frame"></span>
+              <span class="in">
+                <span class="kicker">Ålesund · Uke 47</span>
+                <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+                  <path d="M18 76V44l14-14 18-20 18 20 14 14v32" fill="none" stroke="#e8cf8a" stroke-width="3" stroke-linejoin="round"/>
+                  <path d="M30 76V50q20-22 40 0v26" fill="none" stroke="#c9a24a" stroke-width="2"/>
+                  <circle cx="50" cy="36" r="6" fill="none" stroke="#e8cf8a" stroke-width="2.4"/>
+                  <path d="M8 86c7-5 14-5 21 0s14 5 21 0 14-5 21 0 14 5 21 0" fill="none" stroke="#5ab7bf" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <h1>Helge&shy;menyen</h1>
+                <svg class="orn" viewBox="0 0 150 14" aria-hidden="true"><path d="M0 7h58M92 7h58" stroke="#c9a24a"/><path d="M75 1l6 6-6 6-6-6z" fill="#c9a24a"/><circle cx="62" cy="7" r="2" fill="#c9a24a"/><circle cx="88" cy="7" r="2" fill="#c9a24a"/></svg>
+                <span class="dates">20.–22. november 2026</span>
+                <span class="count" id="covercount"></span>
+              </span>
+              <span class="tap">trykk for å åpne</span>
+              <span class="site">kaskjerda.no</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs" aria-label="Velg dag">
+    <button data-f="alle">Hele menyen</button>
+    <button data-f="fre">Fre</button>
+    <button data-f="lor">Lør</button>
+    <button data-f="son">Søn</button>
+    <button class="close" data-f="lukk" aria-label="Lukk menyen">Lukk</button>
+  </nav>
+</section>
+
+<section class="below">
+  <div class="about">
+    <h2>Hva skal du ha i helga?</h2>
+    <p>Alt på menyen er helgas ekte program i Ålesund, 20.–22. november, hentet fra arrangørene. Trykk på en rett for tid, sted og pris, og legg den på kvitteringen din. Billetten kjøper du hos arrangøren.</p>
+    <p>Hele programmet, med kalender og filtre, ligger på <a href="https://kaskjerda.no/denne-helgen/" target="_blank" rel="noopener">kaskjerda.no/denne-helgen</a>.</p>
+  </div>
+  <aside class="receipt" aria-live="polite">
+    <h3>HELGA MI</h3>
+    <div class="sub">Bord for 1 · 20.–22.11.2026</div>
+    <hr>
+    <div id="rc"></div>
+  </aside>
+  <p class="src">Priser og tider er hentet fra billettsidene til arrangørene 16. november og kan endres. Sjekk alltid hos arrangøren før du kjøper.</p>
+</section>
+
+<div class="slipwrap" id="slipwrap" aria-hidden="true">
+  <div class="slip" role="dialog" aria-modal="true" aria-labelledby="sl-t">
+    <button class="x" id="sl-x" aria-label="Lukk">×</button>
+    <div class="hd">Bestilling</div>
+    <div class="cat" id="sl-c"></div>
+    <h3 id="sl-t"></h3>
+    <dl id="sl-d"></dl>
+    <p class="note" id="sl-n"></p>
+    <div class="acts" id="sl-a"></div>
+  </div>
+</div>
+
+<script>
+(() => {
+const CAT = {konsert:"Konsert", standup:"Standup", show:"Show", klubb:"Klubb", happening:"Happening", barn:"Barn og familie", sport:"Sport"};
+const EV = {
+  juleshow:{id:"juleshow-pa-lovenvold-vol-4-lovenvold-theater", t:"Juleshow på Løvenvold Vol. 4", v:"Løvenvold Theater", c:"standup", p:"699 kr", min:699, u:"https://tikkio.com/events/62681-juleshow-pa-lovenvold-vol-4-1911", n:"Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Begge forestillingene er utsolgt fredag og lørdag denne helgen; det er flere datoer fram til 18. desember."},
+  ballett:{id:"parken-51238-parken-kulturhus", t:"Ålesund ballettskole / Kulturskolen", v:"Parken kulturhus", c:"show", p:"130–230 kr", min:130, from:true, u:"https://www.parkenkulturhus.no/program/51238-alesund-ballettskole-kulturskolen/", n:"Fredag kl. 18:00 og lørdag kl. 17:00."},
+  pitch:{id:"oconnors-2026-11-20-pitch-en-venn-o-connor-s", t:"Pitch en venn", v:"O'Connor's", c:"", p:"", u:"https://oconnors.no/alesund/event/pitch-en-venn-nykndcoaql/", n:""},
+  valkyrien:{id:"valkyrien-allstars-terminalen-byscene", t:"Valkyrien Allstars", v:"Terminalen Byscene", c:"konsert", p:"400 kr", min:400, u:"https://tikkio.com/events/65468-valkyrien-allstars-terminalen-byscene", n:"Rabatt for DNB-kunder: 320 kr."},
+  livrore:{id:"livrore-dj-liv-rore-moa", t:"DJ hver helg", v:"Liv & Røre Moa", c:"klubb", p:"", u:"https://livrore.no/dj-hver-helg-pa-liv-rore/", n:"Nattklubb fredag og lørdag kl. 23–03. DJ-er: Nic, Bigs, Sierra og Hamy."},
+  omvisning:{id:"viti-loerdagsomvisning-i-jugendstilsenteret-jugendstilsenter", t:"Lørdagsomvisning i Jugendstilsenteret", v:"Jugendstilsenteret og KUBE", c:"happening", p:"120 kr", min:120, u:"https://www.vitimusea.no/arrangement/loerdagsomvisning-i-jugendstilsenteret-", n:"Inkludert i inngangsbilletten (120 kr). Kunstnere og kunststudenter går gratis."},
+  krans:{id:"juleverksted-alesund-cupcakekrans-thon-hotel-baronen", t:"Juleverksted – cupcakekrans", v:"Thon Hotel Baronen", c:"happening", p:"599 kr", min:599, u:"https://tikkio.com/events/66657-juleverksted-cupcakekrans", n:"Liten krans: 349 kr."},
+  familie:{id:"viti-familiedag-design-din-egen-jugendplakat-jugendstilsente", t:"Familiedag: Design din egen jugendplakat", v:"Jugendstilsenteret og KUBE", c:"barn", p:"120 kr", min:120, u:"https://www.vitimusea.no/arrangement/familiedag-design-din-egen-jugendplakat", n:"Gratis for barn i følge med en voksen som betaler inngang (120 kr)."},
+  jazz:{id:"jazzsirkelen-arnt-inge-saeter-2026", t:"Jazzkafé med Arnt-Inge Sæter kvartett", v:"Quality Hotel Ålesund", c:"konsert", p:"", u:"https://jazzsirkelen.no/", n:"Jazzsirkelen. Swingjazz fra Molde. Billetter i døra, prisen er ikke oppgitt."},
+  kristiansen:{id:"kristiansen-spjelkavik-kirke", t:"Kristiansen // Vemøy – julekonsert", v:"Spjelkavik kirke", c:"konsert", p:"218 kr", min:218, u:"https://tikkio.com/events/66594-kristiansen-vemoy", n:""},
+  molja:{id:"jul-pa-molja-thon-hotel-alesund", t:"Jul på Molja", v:"Thon Hotel Ålesund", c:"show", p:"fra 550 kr", min:550, from:true, u:"https://billetto.no/e/jul-pa-molja-fredrik-steen-jorunn-torsheim-billetter-1901018", n:"Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Dørene åpner 18:00, 15 år."},
+  dadsh:{id:"dj-hver-lordag-bryt-tapas", t:"DJ Dadsh hver lørdag", v:"Bryt Tapas", c:"klubb", p:"", u:"https://www.bryttapas.no/", n:"Fra kl. 21:00. Bord kan bestilles hos Bryt."},
+  rave:{id:"rave-in-white-stisema-terminalen-byscene", t:"Rave in White | Stisema", v:"Terminalen Byscene", c:"konsert", p:"150 kr", min:150, u:"https://tikkio.com/events/67209-white-rave-stisema-terminalen", n:"Early Bird 50 kr, ÅSS/student 100 kr."},
+  damp:{id:"klubb-damp-dampsentralen", t:"KLUBB DAMP", v:"Dampsentralen", c:"klubb", p:"", u:"https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh", n:"Klubbkveld på Dampsentralen."},
+  aafk:{id:"aafk-2026-11-22-aalesund-rosenborg", t:"Aalesund – Rosenborg", v:"Color Line Stadion", c:"sport", p:"", u:"https://aafk.ticketco.events/no/nb", n:"Fotball. Pris og billetter hos AaFK (TicketCo)."}
+};
+const DAYS = {
+  fre:{course:"Forrett", day:"Fredag 20. november", short:"fre 20.11", lines:[
+    ["17:30","juleshow","sold","17:30 og 20:00"],["18:00","ballett","few"],["19:00","pitch"],["20:00","valkyrien"],["23:00","livrore"]]},
+  lor:{course:"Hovedrett", day:"Lørdag 21. november", short:"lør 21.11", lines:[
+    ["12:00","omvisning"],["12:45","krans"],["13:00","familie"],["14:00","jazz"],["16:30","kristiansen"],["17:00","ballett"],
+    ["17:30","juleshow","sold","17:30 og 20:00"],["18:30","molja"],["21:00","dadsh"],["23:00","rave"],["23:00","damp"],["23:00","livrore"]]},
+  son:{course:"Dessert", day:"Søndag 22. november", short:"søn 22.11", lines:[["17:00","aafk"]]}
+};
+
+/* ---- papirfigurer (SVG) ---- */
+const S = {
+curtain:`<svg viewBox="0 0 260 200"><path d="M4 200V30Q130-14 256 30V200Z" fill="#5c111b"/><rect x="24" y="44" width="212" height="156" fill="#1c1114"/>
+<path d="M60 200h140l18-30H42z" fill="#3a2418"/>
+<path d="M24 44H128C114 86 74 104 54 122C68 146 72 176 66 200H24Z" fill="#a3242f"/><path d="M236 44H132C146 86 186 104 206 122C192 146 188 176 194 200H236Z" fill="#a3242f"/>
+<path d="M44 44c6 40 4 60 12 78M70 44c4 30-2 50-14 78M214 44c-6 40-4 60-12 78M190 44c-4 30 2 50 14 78" stroke="#6e1520" stroke-width="2" fill="none"/>
+<circle cx="56" cy="122" r="5" fill="#e8cf8a"/><circle cx="204" cy="122" r="5" fill="#e8cf8a"/>
+<path d="M14 24H246V52C228 66 208 66 188 52C170 66 150 66 130 52C110 66 90 66 72 52C52 66 32 66 14 52Z" fill="#c9a24a"/>
+<text x="130" y="44" text-anchor="middle" font-family="Bodoni Moda,Georgia,serif" font-size="17" font-weight="700" fill="#5c111b" letter-spacing="3">JULESHOW</text>
+<g transform="rotate(-12 130 128)"><rect x="66" y="112" width="128" height="32" fill="#f2e8d3" stroke="#a3242f" stroke-width="3"/><text x="130" y="135" text-anchor="middle" font-family="Figtree,Arial,sans-serif" font-size="19" font-weight="800" fill="#a3242f" letter-spacing="4">UTSOLGT</text></g></svg>`,
+band:`<svg viewBox="0 0 200 130"><path d="M0 130l14-30h172l14 30z" fill="#2a1a12"/><rect x="14" y="94" width="172" height="8" fill="#4a2f20"/>
+<path d="M30 0L10 100h50z M100 0L76 100h48z M170 0L140 100h50z" fill="#ffd98a" opacity=".28"/>
+<g fill="#0f1a2c"><circle cx="46" cy="40" r="8"/><path d="M36 50h20l3 44h-7l-3-24-3 24h-7z"/><circle cx="154" cy="40" r="8"/><path d="M144 50h20l3 44h-7l-3-24-3 24h-7z"/><circle cx="100" cy="34" r="8"/><path d="M90 44h20l3 50h-7l-3-26-3 26h-7z"/></g>
+<g fill="#a3242f"><ellipse cx="50" cy="70" rx="12" ry="8" transform="rotate(-25 50 70)"/><rect x="56" y="52" width="26" height="3" transform="rotate(-25 56 52)"/><ellipse cx="150" cy="70" rx="12" ry="8" transform="rotate(25 150 70)"/><rect x="118" y="63" width="26" height="3" transform="rotate(25 118 63)"/></g>
+<rect x="98" y="46" width="3" height="40" fill="#c9a24a"/><circle cx="100" cy="100" r="20" fill="#f2e8d3" stroke="#1c1114" stroke-width="3"/>
+<text x="100" y="104" text-anchor="middle" font-family="Figtree,Arial,sans-serif" font-size="7.5" font-weight="800" fill="#1d2f33">VALKYRIEN</text></svg>`,
+ballerina:`<svg viewBox="0 0 80 110"><g fill="#6a4fa3" stroke="#6a4fa3" stroke-linecap="round"><circle cx="40" cy="16" r="7" stroke="none"/><circle cx="43" cy="9" r="3.5" stroke="none"/>
+<path d="M36 24h8l3 26H33z" stroke="none"/><path d="M36 28C28 22 22 14 20 6M44 28C52 22 58 14 60 6" fill="none" stroke-width="3.5"/>
+<ellipse cx="40" cy="52" rx="24" ry="7" stroke="none" fill="#ab93e6"/><path d="M38 58L36 104M43 58C52 70 62 76 72 74" fill="none" stroke-width="4"/></g>
+<rect x="10" y="102" width="60" height="6" rx="2" fill="#c9a24a"/></svg>`,
+pint:`<svg viewBox="0 0 70 90"><path d="M10 14h50l-6 74H16z" fill="#d08a2a"/><path d="M10 14h50l-1 12H11z" fill="#fff6e0"/>
+<circle cx="18" cy="12" r="7" fill="#fff6e0"/><circle cx="30" cy="9" r="8" fill="#fff6e0"/><circle cx="44" cy="10" r="8" fill="#fff6e0"/><circle cx="55" cy="13" r="6" fill="#fff6e0"/>
+<path d="M22 34v44" stroke="#f3c06a" stroke-width="3" opacity=".7"/><circle cx="40" cy="60" r="2" fill="#f7d48a"/><circle cx="46" cy="44" r="1.6" fill="#f7d48a"/><circle cx="34" cy="74" r="1.5" fill="#f7d48a"/></svg>`,
+skyline:`<svg viewBox="0 0 300 190"><defs><linearGradient id="sky" x1="0" x2="1"><stop offset="0" stop-color="#f6cf8e"/><stop offset=".45" stop-color="#e48a5a"/><stop offset=".7" stop-color="#3a3a63"/><stop offset="1" stop-color="#1d2744"/></linearGradient></defs>
+<path d="M0 190V46Q150-16 300 46V190Z" fill="url(#sky)"/><circle cx="58" cy="58" r="17" fill="#fff1c8"/><path d="M252 40a14 14 0 1 0 12 20a11 11 0 1 1-12-20z" fill="#f2e8d3"/>
+<g fill="#f2e8d3"><circle cx="210" cy="40" r="1.4"/><circle cx="232" cy="66" r="1.2"/><circle cx="280" cy="78" r="1.4"/><circle cx="196" cy="70" r="1"/></g>
+<g fill="#123a40"><path d="M0 190V96l25-28 25 28v94z"/><path d="M50 190V78h30v112z"/><path d="M48 78l17-40 17 40z"/><rect x="64" y="22" width="2" height="18"/>
+<path d="M80 190V104c0-20 15-30 30-46 15 16 30 26 30 46v86z"/><path d="M140 190V98h10V88h10V78h10v10h10v10h10v92z"/>
+<path d="M190 190V104h60v86z"/><path d="M198 104q22-46 44 0z"/><rect x="219" y="50" width="2" height="12"/><path d="M250 190V86l25-28 25 28v104z"/></g>
+<g fill="#e3a33c"><rect x="12" y="110" width="7" height="10"/><rect x="30" y="110" width="7" height="10"/><circle cx="25" cy="88" r="5"/><rect x="60" y="96" width="9" height="14" rx="4"/>
+<rect x="95" y="116" width="7" height="12"/><rect x="118" y="116" width="7" height="12"/><circle cx="110" cy="84" r="6"/><rect x="152" y="110" width="7" height="10"/><rect x="171" y="110" width="7" height="10"/>
+<rect x="202" y="118" width="9" height="12"/><rect x="230" y="118" width="9" height="12"/><rect x="262" y="104" width="7" height="10"/><rect x="282" y="104" width="7" height="10"/><circle cx="275" cy="80" r="4"/></g>
+<rect x="0" y="176" width="300" height="14" fill="#0b2a2f"/><text x="150" y="187" text-anchor="middle" font-family="Figtree,Arial,sans-serif" font-size="9" font-weight="700" fill="#e8cf8a" letter-spacing="3">JUGENDSTILBYEN</text></svg>`,
+church:`<svg viewBox="0 0 110 140"><path d="M50 4h4v12h8v4h-8v8h-4v-8h-8v-4h8z" fill="#c9a24a"/><path d="M40 70V40l12-14 12 14v30z" fill="#e9e1cc"/><path d="M38 42l14-20 14 20z" fill="#2b4a50"/>
+<path d="M8 140V84l44-24 44 24v56z" fill="#f2ead6"/><path d="M4 86L52 56l48 30-4 6-44-28-44 28z" fill="#2b4a50"/>
+<path d="M42 140v-30a10 10 0 0 1 20 0v30z" fill="#6b3a1d"/><g fill="#ffd166"><rect x="18" y="98" width="10" height="18" rx="5"/><rect x="76" y="98" width="10" height="18" rx="5"/><circle cx="52" cy="48" r="5"/></g>
+<circle cx="52" cy="48" r="12" fill="#ffd166" opacity=".25"/></svg>`,
+molja:`<svg viewBox="0 0 110 140"><path d="M0 124q14-8 28 0t27 0 28 0 27 0v16H0z" fill="#1f6f78"/><path d="M0 132q14-6 28 0t27 0 28 0 27 0v8H0z" fill="#123a40"/>
+<path d="M20 124h70l-4-10H24z" fill="#8d8576"/><path d="M38 114l4-70h26l4 70z" fill="#f7f2e6"/><rect x="40" y="70" width="30" height="7" fill="#a3242f"/><rect x="42" y="94" width="26" height="6" fill="#a3242f"/>
+<rect x="44" y="30" width="22" height="16" fill="#2a2a2a"/><rect x="47" y="33" width="16" height="10" fill="#ffd166"/><path d="M40 30l15-14 15 14z" fill="#a3242f"/><rect x="54" y="8" width="2" height="9" fill="#2a2a2a"/>
+<path d="M55 38L0 22v22zM55 38l55-16v22z" fill="#ffd98a" opacity=".3"/>
+<path d="M6 60q24 22 49 6t49-6" fill="none" stroke="#2b4a50" stroke-width="1"/>
+<g><circle cx="14" cy="66" r="3" fill="#ff5d5d"/><circle cx="28" cy="72" r="3" fill="#ffd166"/><circle cx="42" cy="70" r="3" fill="#6cc98a"/><circle cx="68" cy="63" r="3" fill="#ff5d5d"/><circle cx="82" cy="60" r="3" fill="#ffd166"/><circle cx="96" cy="60" r="3" fill="#6cc98a"/></g></svg>`,
+wreath:`<svg viewBox="0 0 70 70"><circle cx="35" cy="35" r="24" fill="none" stroke="#2f6b3c" stroke-width="13"/><circle cx="35" cy="35" r="24" fill="none" stroke="#3f8a4f" stroke-width="5" stroke-dasharray="3 5"/>
+<g><circle cx="35" cy="11" r="5" fill="#f4a6c0"/><circle cx="56" cy="24" r="5" fill="#fff1c8"/><circle cx="57" cy="47" r="5" fill="#f4a6c0"/><circle cx="35" cy="59" r="5" fill="#fff1c8"/><circle cx="13" cy="46" r="5" fill="#f4a6c0"/><circle cx="14" cy="23" r="5" fill="#fff1c8"/></g>
+<path d="M35 58l-10 10 4-12zM35 58l10 10-4-12z" fill="#a3242f"/><circle cx="35" cy="58" r="4" fill="#a3242f"/></svg>`,
+sax:`<svg viewBox="0 0 60 95"><path d="M26 4l8 2" stroke="#1c1114" stroke-width="4" stroke-linecap="round"/><path d="M33 6C38 16 36 22 36 34V64C36 82 22 88 14 78" fill="none" stroke="#c9a24a" stroke-width="10" stroke-linecap="round"/>
+<path d="M8 72q2 14 14 10" fill="none" stroke="#e8cf8a" stroke-width="9" stroke-linecap="round"/><ellipse cx="12" cy="70" rx="9" ry="6" fill="#a8822f"/>
+<g fill="#f2e8d3"><circle cx="36" cy="36" r="2.4"/><circle cx="36" cy="46" r="2.4"/><circle cx="36" cy="56" r="2.4"/><circle cx="34" cy="66" r="2.4"/></g>
+<g fill="#e8cf8a"><path d="M48 18l4-6 2 3-4 5z"/><circle cx="51" cy="25" r="2"/></g></svg>`,
+disco:`<svg viewBox="0 0 85 110"><defs><clipPath id="bc"><circle cx="42" cy="62" r="28"/></clipPath><radialGradient id="bg" cx=".35" cy=".3"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#b9c2cc"/><stop offset="1" stop-color="#5c6670"/></radialGradient></defs>
+<rect x="41" y="0" width="2" height="34" fill="#c9a24a"/><circle cx="42" cy="62" r="28" fill="url(#bg)"/>
+<g clip-path="url(#bc)" stroke="#5c6670" stroke-width="1" opacity=".7"><path d="M10 40h64M10 48h64M10 56h64M10 64h64M10 72h64M10 80h64M18 30v64M26 30v64M34 30v64M42 30v64M50 30v64M58 30v64M66 30v64"/></g>
+<g fill="#ec78ab"><rect x="49" y="47" width="7" height="7"/><rect x="26" y="66" width="7" height="7"/></g><g fill="#5ab7bf"><rect x="34" y="56" width="7" height="7"/><rect x="57" y="72" width="7" height="7"/></g>
+<g stroke="#ffd98a" stroke-width="2" stroke-linecap="round"><path d="M6 34l8 6M78 34l-8 6M2 66h8M75 66h8M8 98l8-6M77 98l-8-6"/></g></svg>`,
+stadium:`<svg viewBox="0 0 290 180"><rect x="0" y="20" width="290" height="160" rx="6" fill="#1d2744"/><g fill="#f2e8d3"><circle cx="120" cy="40" r="1.2"/><circle cx="170" cy="32" r="1.4"/><circle cx="200" cy="52" r="1"/></g>
+<path d="M30 0L4 110h52zM260 0l-26 110h52z" fill="#fff6d0" opacity=".18"/>
+<g fill="#cfd6df"><rect x="28" y="10" width="4" height="120"/><rect x="258" y="10" width="4" height="120"/><rect x="16" y="2" width="28" height="14" rx="2"/><rect x="246" y="2" width="28" height="14" rx="2"/></g>
+<g fill="#fff6d0"><circle cx="22" cy="9" r="3"/><circle cx="30" cy="9" r="3"/><circle cx="38" cy="9" r="3"/><circle cx="252" cy="9" r="3"/><circle cx="260" cy="9" r="3"/><circle cx="268" cy="9" r="3"/></g>
+<path d="M0 110h290v70H0z" fill="#e07a1f"/><path d="M0 126h290M0 142h290M0 158h290" stroke="#b85c10" stroke-width="3"/>
+<g fill="#1d2744" opacity=".55"><circle cx="20" cy="119" r="3"/><circle cx="44" cy="120" r="3"/><circle cx="70" cy="118" r="3"/><circle cx="98" cy="120" r="3"/><circle cx="130" cy="119" r="3"/><circle cx="160" cy="120" r="3"/><circle cx="190" cy="118" r="3"/><circle cx="222" cy="120" r="3"/><circle cx="250" cy="119" r="3"/><circle cx="276" cy="120" r="3"/><circle cx="32" cy="135" r="3"/><circle cx="84" cy="136" r="3"/><circle cx="144" cy="135" r="3"/><circle cx="206" cy="136" r="3"/><circle cx="262" cy="135" r="3"/></g>
+<text x="145" y="98" text-anchor="middle" font-family="Figtree,Arial,sans-serif" font-size="12" font-weight="800" fill="#e8cf8a" letter-spacing="4">COLOR LINE STADION</text></svg>`,
+goal:`<svg viewBox="0 0 200 100"><path d="M0 100h200" stroke="#2f8a4c" stroke-width="8"/><g stroke="#f2e8d3" stroke-width="1" opacity=".75"><path d="M22 20v76M40 20v76M58 20v76M76 20v76M94 20v76M112 20v76M130 20v76M148 20v76M166 20v76M178 20v76M12 32h176M12 46h176M12 60h176M12 74h176M12 88h176"/></g>
+<path d="M10 98V14h180v84" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round"/></svg>`,
+ball:`<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="#fbfbf7" stroke="#1c1114" stroke-width="2"/><path d="M30 18l10 7-4 12H24l-4-12z" fill="#1c1114"/>
+<path d="M30 18V5M40 25l12-5M36 37l8 11M24 37l-8 11M20 25L8 20" stroke="#1c1114" stroke-width="2"/><path d="M24 4l6 2 6-2M54 18l-1 7 3 5M48 52l-6-1-4 5M12 52l6-1 4 5M6 18l1 7-3 5" fill="#1c1114" stroke="#1c1114" stroke-width="3"/></svg>`
+};
+// figur: [ark, nøkkel, svg, x, bunnlinje y, bredde, høyde, forsinkelse]
+const POPS = [
+  ["fre","juleshow","curtain",30,128,260,200,1.25],
+  ["fre","valkyrien","band",60,180,200,130,1.4],
+  ["fre","ballett","ballerina",16,226,80,110,1.55],
+  ["fre","pitch","pint",232,226,70,90,1.62],
+  ["lor","omvisning","skyline",10,126,300,190,.95],
+  ["lor","kristiansen","church",14,182,110,140,1.1],
+  ["lor","molja","molja",196,182,110,140,1.18],
+  ["lor","krans","wreath",18,232,70,70,1.3],
+  ["lor","jazz","sax",118,232,60,95,1.36],
+  ["lor","rave","disco",214,232,85,110,1.42],
+  ["son","aafk","stadium",15,132,290,180,1.75],
+  ["son","aafk","goal",60,186,200,100,1.9],
+  ["son","aafk","ball",130,234,60,60,2.05]
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const priceOf = e => e.p || "Pris hos arrangør";
+
+/* ---- bygg sidene ---- */
+function buildFace(key){
+  const d = DAYS[key], f = $("#f-"+key);
+  let h = `<div class="deco"></div>`;
+  POPS.filter(p => p[0]===key).forEach(([, ev, svg, x, y, w, hh, dl]) => {
+    const e = EV[ev];
+    h += `<div class="shade" style="left:${x}px;top:${y-30}px;width:${w}px;--d:${dl}s"></div>`;
+    h += `<button class="pop" data-day="${key}" data-ev="${ev}" style="left:${x}px;top:${y-hh}px;width:${w}px;height:${hh}px;--d:${dl}s" aria-label="${esc(e.t)}, ${esc(d.day)}" tabindex="-1"><span class="in">${S[svg]}</span><span class="flag">${esc(e.t)}</span></button>`;
+  });
+  h += `<div class="page"><div class="course"><h2>${d.course}</h2><small>${key==="fre"?"I":key==="lor"?"II":"III"}</small></div><div class="day">${d.day}</div><ul class="lines">`;
+  d.lines.forEach(([tm, ev, st, times]) => {
+    const e = EV[ev], c = e.c ? `var(--c-${e.c})` : "var(--ink-soft)";
+    const pr = e.p ? `<span class="p">${esc(e.p.replace(" kr",""))}</span>` : `<span class="p q">hos arrangør</span>`;
+    const tag = st==="sold" ? `<span class="tag sold">Utsolgt</span>` : st==="few" ? `<span class="tag few">Få igjen</span>` : "";
+    h += `<li><button class="line${st==="sold"?" is-sold":""}" data-day="${key}" data-ev="${ev}" data-st="${st||""}" data-times="${times||tm}" tabindex="-1">
+      <span class="t">${tm}</span><span class="n">${esc(e.t)}</span>${pr}
+      <span class="v"><span class="dot" style="--c:${c}"></span>${esc(e.v)} ${tag}</span></button></li>`;
+  });
+  h += `</ul>`;
+  if (key==="son") h += `<p class="chef">Søndagen er rolig på programmet.<br>Kino går hele helga: <a href="https://kaskjerda.no/kino/" target="_blank" rel="noopener">se kinoprogrammet</a>.</p>`;
+  h += `</div><div class="foot"><span>Ka skjer da?</span><span>${d.short}</span></div>`;
+  f.innerHTML = h;
+}
+["fre","lor","son"].forEach(buildFace);
+const uniq = new Set(Object.values(DAYS).flatMap(d => d.lines.map(l => l[1])));
+$("#covercount").textContent = `${uniq.size} arrangementer på menyen`;
+
+/* ---- kamera ---- */
+const scene = $("#scene"), cam = $("#cam"), menu = $("#menu"), root = document.documentElement;
+let open = false, focus = "alle";
+const W = 320, H = 780, ORDER = ["fre","lor","son"];
+const narrow = () => innerWidth < 980;
+let baseT = 46, tgt = {x:0,y:0}, cur = {x:0,y:0};
+
+function layout(){
+  const vw = innerWidth, vh = scene.clientHeight;
+  baseT = narrow() ? 38 : 46;
+  let s, px = 0, cy = 0;
+  if (!open){ s = Math.min(.92, (vw-40)/(W*1.3), vh/(H*1.2)); cy = -10; }
+  else if (focus === "alle"){ s = Math.min(1, (vw-40)/(3*W+80), vh/(H*1.42)); cy = -30*s; }
+  else { s = Math.min(1.25, (vw-28)/(W+24), vh/(H*1.02)); px = (1-ORDER.indexOf(focus))*W; cy = 20; }
+  root.style.setProperty("--s", s.toFixed(3));
+  root.style.setProperty("--px", px+"px");
+  root.style.setProperty("--cy", cy+"px");
+  document.querySelectorAll("#tabs button[data-f]").forEach(b => b.setAttribute("aria-pressed", b.dataset.f===focus ? "true":"false"));
+}
+function setOpen(v){
+  open = v; menu.classList.toggle("open", v); scene.classList.toggle("is-open", v);
+  if (v && focus==="alle" && narrow()) focus = "fre";
+  document.querySelectorAll(".pop,.line").forEach(b => b.tabIndex = v ? 0 : -1);
+  $("#cover").tabIndex = v ? -1 : 0;
+  layout(); track(v ? "helgemeny/åpne" : "helgemeny/lukk");
+}
+$("#cover").addEventListener("click", e => { e.stopPropagation(); setOpen(true); });
+$("#tabs").addEventListener("click", e => {
+  const b = e.target.closest("button[data-f]"); if (!b) return;
+  if (b.dataset.f === "lukk"){ focus = "alle"; setOpen(false); return; }
+  focus = b.dataset.f; layout();
+});
+addEventListener("resize", layout);
+scene.addEventListener("scroll", () => { scene.scrollTop = 0; scene.scrollLeft = 0; });
+
+/* parallakse */
+scene.addEventListener("pointermove", e => {
+  if (e.pointerType !== "mouse") return;
+  const r = scene.getBoundingClientRect();
+  tgt.x = (e.clientX - r.left)/r.width - .5; tgt.y = (e.clientY - r.top)/r.height - .5;
+});
+scene.addEventListener("pointerleave", () => { tgt.x = 0; tgt.y = 0; });
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+(function tick(){
+  cur.x += (tgt.x-cur.x)*.06; cur.y += (tgt.y-cur.y)*.06;
+  root.style.setProperty("--T", (baseT + (REDUCE?0:cur.y*6)).toFixed(2)+"deg");
+  root.style.setProperty("--Z", (REDUCE?0:cur.x*-5).toFixed(2)+"deg");
+  requestAnimationFrame(tick);
+})();
+
+/* sveip mellom dagene */
+let sx = null, sy = 0;
+scene.addEventListener("pointerdown", e => { sx = e.clientX; sy = e.clientY; });
+scene.addEventListener("pointerup", e => {
+  if (sx === null || !open || focus === "alle") { sx = null; return; }
+  const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)*1.4){
+    const i = ORDER.indexOf(focus) + (dx < 0 ? 1 : -1);
+    if (i >= 0 && i < 3){ focus = ORDER[i]; layout(); }
+  }
+});
+
+/* ---- kobling liste <-> figur ---- */
+menu.addEventListener("pointerover", e => {
+  const l = e.target.closest(".line"); if (!l) return;
+  document.querySelectorAll(`.pop[data-day="${l.dataset.day}"][data-ev="${l.dataset.ev}"]`).forEach(p => {
+    p.classList.remove("wig"); void p.offsetWidth; p.classList.add("wig");
+  });
+});
+menu.addEventListener("animationend", e => { const p = e.target.closest(".pop"); if (p) p.classList.remove("wig"); });
+
+/* ---- bestillingslapp ---- */
+const wrap = $("#slipwrap"); let lastFocus = null;
+function lineFor(day, ev){ return DAYS[day].lines.find(l => l[1]===ev) || DAYS.lor.lines.find(l => l[1]===ev); }
+function openSlip(day, ev){
+  const e = EV[ev], ln = lineFor(day, ev), st = ln[2] || "", times = ln[3] || ln[0];
+  const key = day+"|"+ev, picked = has(key);
+  $("#sl-c").textContent = e.c ? CAT[e.c] : "";
+  $("#sl-c").style.setProperty("--c", e.c ? `var(--c-${e.c})` : "var(--ink-soft)");
+  $("#sl-t").textContent = e.t;
+  $("#sl-d").innerHTML =
+    `<dt>Når</dt><dd>${esc(DAYS[day].day)} kl. ${esc(times)}</dd>
+     <dt>Hvor</dt><dd>${esc(e.v)}</dd>
+     <dt>Pris</dt><dd>${esc(priceOf(e))}${st==="sold" ? ' · <span style="color:var(--red)">utsolgt</span>' : st==="few" ? ' · få billetter igjen' : ""}</dd>`;
+  $("#sl-n").textContent = e.n; $("#sl-n").hidden = !e.n;
+  $("#sl-a").innerHTML =
+    (st==="sold"
+      ? `<button class="btn add" disabled>Utsolgt denne helga</button>`
+      : `<button class="btn add" id="sl-add" aria-pressed="${picked}">${picked ? "Fjern fra helga mi" : "Legg på helga mi"}</button>`) +
+    `<a class="btn main" href="https://kaskjerda.no/arrangement/${e.id}/" target="_blank" rel="noopener">${st==="sold" ? "Se andre datoer" : "Se arrangementet"}</a>
+     <a class="btn alt" href="${e.u}" target="_blank" rel="noopener">Hos arrangør ↗</a>`;
+  const add = $("#sl-add");
+  if (add) add.onclick = () => { toggle(key); openSlip(day, ev); };
+  lastFocus = document.activeElement;
+  wrap.classList.add("on"); wrap.setAttribute("aria-hidden","false");
+  setTimeout(() => (add || $("#sl-x")).focus(), 30);
+  track("helgemeny/rett");
+}
+function closeSlip(){ wrap.classList.remove("on"); wrap.setAttribute("aria-hidden","true"); if (lastFocus) lastFocus.focus({preventScroll:true}); }
+menu.addEventListener("click", e => {
+  const b = e.target.closest(".pop,.line"); if (!b || !open) return;
+  openSlip(b.dataset.day, b.dataset.ev);
+});
+$("#sl-x").onclick = closeSlip;
+wrap.addEventListener("click", e => { if (e.target === wrap) closeSlip(); });
+addEventListener("keydown", e => { if (e.key === "Escape") wrap.classList.contains("on") ? closeSlip() : open && setOpen(false); });
+
+/* ---- kvittering ---- */
+const SK = "helgemeny-47";
+let picks = [];
+try { picks = JSON.parse(localStorage.getItem(SK) || "[]").filter(k => { const [d,v] = k.split("|"); return DAYS[d] && EV[v]; }); } catch(_) {}
+const has = k => picks.includes(k);
+function toggle(k){
+  picks = has(k) ? picks.filter(x => x!==k) : [...picks, k];
+  try { localStorage.setItem(SK, JSON.stringify(picks)); } catch(_) {}
+  renderReceipt(); markLines();
+}
+function markLines(){ document.querySelectorAll(".line").forEach(l => l.classList.toggle("picked", has(l.dataset.day+"|"+l.dataset.ev))); }
+function renderReceipt(){
+  const rc = $("#rc");
+  if (!picks.length){ rc.innerHTML = `<p class="empty">Ingenting bestilt ennå.<br>Trykk på en rett i menyen.</p><hr><div class="thanks">TAKK FOR BESØKET</div>`; return; }
+  const rows = picks.map(k => { const [d,v] = k.split("|"); const ln = lineFor(d,v); return {k, d, v, tm:ln[0], e:EV[v], o:ORDER.indexOf(d)*10000 + parseInt(ln[0].replace(":",""),10)}; })
+    .sort((a,b) => a.o-b.o);
+  let sum = 0, unk = 0, from = false;
+  rows.forEach(r => { if (r.e.min){ sum += r.e.min; if (r.e.from) from = true; } else unk++; });
+  rc.innerHTML = `<ol>${rows.map(r => `<li><span>${DAYS[r.d].short.slice(0,3)} ${r.tm}</span><span>${esc(r.e.t)}<br><small style="color:#666">${esc(r.e.v)} · ${esc(r.e.min ? r.e.p : "pris hos arrangør")}</small></span><button aria-label="Fjern ${esc(r.e.t)}" data-k="${r.k}">✕</button></li>`).join("")}</ol>
+  <hr><div class="sum"><span>SUM${from?" (fra)":""}</span><span>${sum.toLocaleString("nb-NO")} kr</span></div>
+  ${unk ? `<div class="small">+ ${unk} med pris hos arrangør</div>` : ""}
+  <div class="small">Én billett per rett. Kjøp hos arrangøren.</div>
+  <hr><div class="thanks">GOD HELG!</div>`;
+  rc.querySelectorAll("button[data-k]").forEach(b => b.onclick = () => toggle(b.dataset.k));
+}
+renderReceipt(); markLines();
+
+function track(){ /* teller ingenting i forhåndsvisningen */ }
+layout();
+if (location.hash === "#apen") setOpen(true);
+})();
+</script>

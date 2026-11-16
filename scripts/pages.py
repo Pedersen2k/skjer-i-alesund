@@ -1149,6 +1149,12 @@ def main():
         image = (f"{BASE}denne-helgen/helgen.png?v={today.isoformat()}", helgepost.W, helgepost.H)
     except Exception as err:  # bildet skal aldri stoppe publiseringen
         print(f"Lager ikke helgebilde ({err!r})", file=sys.stderr)
+    # «Lørdagen i ett sveip», sømløs karusell for lørdagen som kommer (scripts/panorama.py). Bare bilder, ingen side.
+    try:
+        import panorama
+        panorama.render_all(today, OUT / "denne-helgen")
+    except Exception as err:
+        print(f"Lager ikke panorama ({err!r})", file=sys.stderr)
     # Ukepostene til Instagram («Uka i Ålesund» og «Under hundrelappen»), se scripts/ukepost.py. Bare bilder, ingen side.
     try:
         import ukepost
