@@ -2,10 +2,11 @@
 
 Kort oversikt. All detaljert historikk (beslutninger, forslag som ikke ble valgt, testnotater per dato) ligger i `docs/HANDOFF-arkiv.md`: søk der (`grep`) ved behov, ikke les hele filen.
 
-## State as of 17 Nov 2026
+## State as of 17 Nov 2026 (kveld)
 - Live på https://kaskjerda.no/ (repo: Pedersen2k/skjer-i-alesund). Ca. 150 kommende arrangementer.
 - Sync hver andre time 06–22 (`oppdater.yml`, også på push til main). Varsler kommer som GitHub-issues til eieren.
 - Instagram-poster som lages automatisk som issues: Helgepost (tors), «Helga i ett sveip» (`panorama.yml`, tors kveld), «Under hundrelappen» (søn) og «Uka i Ålesund» (man) via `ukepost.yml`. Ukepost-workflowen er bare prøvd for hånd; første planlagte kjøringer er 22.–23. nov.
+- 17 Nov: «I kveld»-historie hver morgen (`ikveld.yml`, `scripts/ikveld.py`, variant G «Hemmelig liste» med farge etter ukedag; forslag i `docs/ikveld-historie/`). Erstatter dagsbildene i «Uka i Ålesund». Lenke `kaskjerda.no/i-dag/?ref=ig-story`: sjekk «ig-story» i GoatCounter om 2–3 uker (30 dager før start: ig ~15, Facebook ~6, Google ~500 besøk).
 - Alle forsøk fra 1. nov (I kveld-linja, stjerne S4, overgang O3, tom liste T7) er permanente.
 - 17 Nov: Bypatrioten krediteres bare for opplysninger som ikke står hos arrangøren (se CLAUDE.md). Jazzsirkelen og AaUM har mistet kreditten; Ålesund Filmklubb har bare pris/dørtid/medlemspris igjen fra Bypatrioten.
 
@@ -15,7 +16,7 @@ Kort oversikt. All detaljert historikk (beslutninger, forslag som ikke ble valgt
 | `index.html` | Hele forsiden (HTML/CSS/JS), leser `data/events.json` |
 | `scripts/sync.py` | Henter Tikkio, Parken, AaFK, Dampsentralen, O'Connor's, Viti, Fabrikken, Liv & Røre, Forum, Vino Bar, Sobra, Devoldfabrikken; slår sammen, bruker overrides, skriver `events.json`, `past.json`, `renamed.json` |
 | `scripts/pages.py` | Bygger `_site/`: undersider, sitemap, 404, delingsbilder, ukepost-/panoramabilder |
-| `scripts/helgepost.py`, `ukepost.py`, `panorama.py`, `delingsbilde.py`, `kino.py`, `nytt_i_dag.py`, `indexnow.py` | Hjelpeskript |
+| `scripts/helgepost.py`, `ukepost.py`, `ikveld.py`, `panorama.py`, `delingsbilde.py`, `kino.py`, `nytt_i_dag.py`, `indexnow.py` | Hjelpeskript |
 | `data/manual.json`, `overrides.json`, `julebord.json`, `jul.json` | Håndredigerte data (events.json er generert, aldri rediger) |
 | `data/status.json`, `status.html` | Skjult dashboard `status/` |
 | `docs/` | Mockuper og forslag (ikke publisert); `docs/HANDOFF-arkiv.md` er full historikk |

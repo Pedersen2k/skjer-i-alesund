@@ -1,0 +1,42 @@
+name: I kveld
+
+# «I kveld»-historien til Instagram hver morgen, lagt i et issue (eieren får e-post).
+# Bildet lages av «Oppdater og publiser» (første kjøring ca. 06:17) og ligger på i-kveld/historie.png.
+# Kan også startes for hånd under Actions → I kveld → Run workflow.
+
+on:
+  schedule:
+    - cron: "13 6 * * *"   # hver dag, UTC. Vintertid ca. 07:13, sommertid 08:13.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  ikveld:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Lag teksten
+        id: post
+        run: |
+          python3 scripts/ikveld.py body.md
+
+      - name: Legg historien i et issue
+        if: steps.post.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: ${{ steps.post.outputs.title }}
+        run: |
+          # Gårsdagens historie lukkes, så bare den nyeste er åpen
+          for num in $(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"I kveld:\" in:title" --json number --jq '.[].number'); do
+            gh issue close "$num" --repo "$GITHUB_REPOSITORY" --comment "Erstattet av dagens historie."
+          done
+          # Tildeles eieren, så GitHub sender varsel på e-post uten at repoet må følges
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file body.md --assignee "$GITHUB_REPOSITORY_OWNER"

@@ -1,8 +1,8 @@
 """To faste Instagram-karuseller for uka, i tillegg til helgeposten:
 
 - «Under hundrelappen» (søndag ettermiddag): det som er gratis eller koster høyst 100 kr hele neste uke, ett per bilde.
-- «Uka i Ålesund» (mandag morgen): ett tips for hver dag mandag–torsdag, hver dag i sin farge, pluss de samme
-  dagsbildene i historieformat (1080 × 1920).
+- «Uka i Ålesund» (mandag morgen): ett tips for hver dag mandag–torsdag, hver dag i sin farge. Historiene hver dag
+  kommer fra scripts/ikveld.py («I kveld»).
 
 Bildene lages av scripts/pages.py ved hver publisering og ligger i uka/. Teksten lages av
 .github/workflows/ukepost.yml og legges i et issue, så eieren får den på e-post. Alt kommer fra
@@ -436,10 +436,6 @@ def uka_names(days):
     return [f"uka-{i}.png" for i in range(1, len(days) + 2)] if days else []
 
 
-def story_names(days):
-    return [f"historie-{pages.WD_SHORT[d['i']].lower()}.png" for d in days]
-
-
 def billig_names(main, rest):
     return [f"billig-{i}.png" for i in range(1, len(main) + 2 + bool(rest))] if main else []
 
@@ -461,9 +457,8 @@ def render_all(today, folder):
     if days:
         names = uka_names(days)
         uka_cover(days, mon, folder / names[0])
-        for d, name, sname in zip(days, names[1:], story_names(days)):
+        for d, name in zip(days, names[1:]):
             uka_day(d, names.index(name) + 1, len(names), folder / name)
-            uka_day(d, 0, 0, folder / sname, STORY)
     if main:
         names = billig_names(main, rest)
         billig_cover(main, rest, mon, folder / names[0])
@@ -471,7 +466,7 @@ def render_all(today, folder):
             billig_slide(e, i + 2, len(names), not rest and i == len(main) - 1, folder / names[i + 1])
         if rest:
             billig_rest(rest, len(names), len(names), folder / names[-1])
-    return uka_names(days) + story_names(days) + billig_names(main, rest)
+    return uka_names(days) + billig_names(main, rest)
 
 
 def img_md(names, alt, v):
@@ -511,7 +506,7 @@ Tips: del innlegget i historien etterpå med lenkeklistremerke til kaskjerda.no.
 
 
 def uka_body(mon, days, v):
-    names, stories = uka_names(days), story_names(days)
+    names = uka_names(days)
     lines = []
     for d in days:
         wd = pages.WD[d["i"]].upper()
@@ -524,7 +519,6 @@ def uka_body(mon, days, v):
         ["Uka i Ålesund, mandag til torsdag 🌊", "Ett tips for hver dag:", ""] + lines
         + ["", "🎟️ Hele programmet med priser og billettlenker: kaskjerda.no (lenke i bio)", "💾 Lagre innlegget, så har du uka klar!", "",
            " ".join(helgepost.hashtags(evs, mon, thu))])
-    story_list = "\n\n".join(f"**{pages.WD[d['i']].capitalize()}**\n\n![Historie {pages.WD[d['i']]}]({pages.BASE}uka/{n}?v={v})" for d, n in zip(days, stories))
     return f"""Her er «Uka i Ålesund» for {pages.range_text(mon, thu)}: ett tips for hver dag. Post karusellen mandag.
 
 ### Bilder (Instagram-karusell, 1080 × 1350)
@@ -537,10 +531,7 @@ Det er {len(names)} bilder. Trykk på hvert bilde og lagre det, og legg dem ut s
 {caption}
 ```
 
-### Dagens bilde til historien (1080 × 1920)
-Legg ut dagens bilde i historien om morgenen den dagen, med lenkeklistremerke til kaskjerda.no.
-
-{story_list}
+Historien hver dag kommer som eget issue om morgenen («I kveld: …»).
 
 Tipsene er valgt automatisk (ikke julebord, utsolgte eller arrangementer for bedrifter, og helst noe annet enn det som var med i «Under hundrelappen»). Bytt gjerne ut et bilde hvis du vet om noe bedre. Dette issuet lukkes når neste ukes post kommer.
 """
