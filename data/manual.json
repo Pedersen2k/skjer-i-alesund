@@ -541,14 +541,14 @@
     "id": "jazzsirkelen-arnt-inge-saeter-2026",
     "date": "2026-11-21",
     "time": "14:00",
-    "title": "Jazzsirkelen: Jazzkafé med Arnt-Inge Sæter kvartett",
+    "title": "Jazzsirkelen: Jazzkafé med Arnt-Inge Sæther kvartett",
     "venue": "Quality Hotel Ålesund",
     "address": "Sorenskriver Bulls gate 7, 6002 Ålesund",
     "cat": "konsert",
     "price": "Pris hos arrangør",
     "soldOut": false,
     "uncertain": false,
-    "note": "Swingjazz fra Molde. Billetter i døra, pris står ikke oppgitt. Kilde: Bypatrioten.",
+    "note": "Billetter i døra, pris står ikke oppgitt.",
     "url": "https://jazzsirkelen.no/"
   },
   {
@@ -563,8 +563,8 @@
     "priceMin": 100,
     "soldOut": false,
     "uncertain": false,
-    "note": "Hitchcock-klassiker, 12 år, norsk tekst. Student/under 18 år 50 kr. Dørene åpner 18:30. Medlemskap 150 kr (første film inkludert), sesongkort 400 kr. Kilde: Bypatrioten og Ålesund Filmklubb.",
-    "url": "https://www.alesundfilmklubb.com/"
+    "note": "Alfred Hitchcock (1959), 2 t 16 min, 12 år, engelsk tale med norsk tekst. Filmklubben krever medlemskap (filmklubbmedlem.no). Pris, dørtid og medlemspris (100 kr, student/under 18 år 50 kr, dørene åpner 18:30, medlemskap 150 kr med første film, sesongkort 400 kr): Bypatrioten.",
+    "url": "https://www.alesundfilmklubb.com/program/"
   },
   {
     "id": "julekonsert-spjelkavik-kirke-gjallarhorn-2026",
@@ -592,8 +592,8 @@
     "priceMin": 100,
     "soldOut": false,
     "uncertain": false,
-    "note": "Film av Wim Wenders, tillatt for alle. Student/under 18 år 50 kr. Dørene åpner 18:30. Medlemskap 150 kr (første film inkludert), sesongkort 400 kr. Kilde: Bypatrioten og Ålesund Filmklubb.",
-    "url": "https://www.alesundfilmklubb.com/"
+    "note": "Wim Wenders (2023), 2 t 4 min, tillatt for alle, japansk tale med norsk tekst. Filmklubben krever medlemskap (filmklubbmedlem.no). Pris, dørtid og medlemspris (100 kr, student/under 18 år 50 kr, dørene åpner 18:30, medlemskap 150 kr med første film, sesongkort 400 kr): Bypatrioten.",
+    "url": "https://www.alesundfilmklubb.com/program/"
   },
   {
     "id": "weniff-2027",
