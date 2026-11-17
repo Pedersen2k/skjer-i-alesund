@@ -170,7 +170,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-17T06:12:35Z",
+  "updatedAt": "2026-11-17T12:33:50Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -656,14 +656,14 @@
    "id": "jazzsirkelen-arnt-inge-saeter-2026",
    "date": "2026-11-21",
    "time": "14:00",
-   "title": "Jazzsirkelen: Jazzkafé med Arnt-Inge Sæter kvartett",
+   "title": "Jazzsirkelen: Jazzkafé med Arnt-Inge Sæther kvartett",
    "venue": "Quality Hotel Ålesund",
    "address": "Sorenskriver Bulls gate 7, 6002 Ålesund",
    "cat": "konsert",
    "price": "Pris hos arrangør",
    "soldOut": false,
    "uncertain": false,
-   "note": "Swingjazz fra Molde. Billetter i døra, pris står ikke oppgitt. Kilde: Bypatrioten.",
+   "note": "Billetter i døra, pris står ikke oppgitt.",
    "url": "https://jazzsirkelen.no/",
    "addedAt": "2026-11-01T21:47:04Z"
   },
@@ -1239,8 +1239,8 @@
    "priceMin": 100,
    "soldOut": false,
    "uncertain": false,
-   "note": "Hitchcock-klassiker, 12 år, norsk tekst. Student/under 18 år 50 kr. Dørene åpner 18:30. Medlemskap 150 kr (første film inkludert), sesongkort 400 kr. Kilde: Bypatrioten og Ålesund Filmklubb.",
-   "url": "https://www.alesundfilmklubb.com/",
+   "note": "Alfred Hitchcock (1959), 2 t 16 min, 12 år, engelsk tale med norsk tekst. Filmklubben krever medlemskap (filmklubbmedlem.no). Pris, dørtid og medlemspris (100 kr, student/under 18 år 50 kr, dørene åpner 18:30, medlemskap 150 kr med første film, sesongkort 400 kr): Bypatrioten.",
+   "url": "https://www.alesundfilmklubb.com/program/",
    "addedAt": "2026-11-01T21:47:04Z"
   },
   {
@@ -1433,7 +1433,7 @@
    "title": "Karaoke på Venterommet",
    "venue": "Venterommet, Terminalen",
    "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "happening",
    "price": "100 kr",
    "priceMin": 100,
    "soldOut": false,
@@ -1639,7 +1639,7 @@
    "priceMin": 0,
    "soldOut": false,
    "uncertain": false,
-   "note": "Aalesunds Ungdomsmusikkorps, dirigent Stefan Bocken: alt fra filmmusikk til julesalmer. Gratis inngang, kollekt til menighetspleien. Kilde: Bypatrioten.",
+   "note": "Aalesunds Ungdomsmusikkorps, dirigent Stefan Bocken: alt fra filmmusikk til julesalmer. Gratis inngang, kollekt til menighetspleien.",
    "url": "https://www.aaum.no/",
    "addedAt": "2026-11-16T09:25:50Z"
   },
@@ -1998,8 +1998,8 @@
    "priceMin": 100,
    "soldOut": false,
    "uncertain": false,
-   "note": "Film av Wim Wenders, tillatt for alle. Student/under 18 år 50 kr. Dørene åpner 18:30. Medlemskap 150 kr (første film inkludert), sesongkort 400 kr. Kilde: Bypatrioten og Ålesund Filmklubb.",
-   "url": "https://www.alesundfilmklubb.com/",
+   "note": "Wim Wenders (2023), 2 t 4 min, tillatt for alle, japansk tale med norsk tekst. Filmklubben krever medlemskap (filmklubbmedlem.no). Pris, dørtid og medlemspris (100 kr, student/under 18 år 50 kr, dørene åpner 18:30, medlemskap 150 kr med første film, sesongkort 400 kr): Bypatrioten.",
+   "url": "https://www.alesundfilmklubb.com/program/",
    "addedAt": "2026-11-01T21:47:04Z"
   },
   {
@@ -2760,6 +2760,24 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "parken-51672-parken-kulturhus",
+   "date": "2027-02-04",
+   "time": "19:00",
+   "title": "Åpningskonsert",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "100–350 kr",
+   "priceMin": 100,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51672-apningskonsert/",
+   "addedAt": "2026-11-17T11:59:34Z"
+  },
+  {
    "id": "parken-49087-parken-kulturhus",
    "date": "2027-02-05",
    "time": "19:00",
@@ -2776,6 +2794,24 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49087-finn-tre-feil/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-51675-parken-kulturhus",
+   "date": "2027-02-05",
+   "time": "19:00",
+   "title": "På sporet av folkemusikken",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "135–385 kr",
+   "priceMin": 135,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51675-pa-sporet-av-folkemusikken/",
+   "addedAt": "2026-11-17T11:59:34Z"
   },
   {
    "id": "ingen-kim-ingen-kos-en-hyllest-til-kim-larsen-fabrikken-kult",
@@ -2811,6 +2847,24 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/64290-men-har-du-provd-yoga-et-standupshow-om-a-skli-pa-isen",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-51679-parken-kulturhus",
+   "date": "2027-02-07",
+   "time": "17:00",
+   "title": "Avslutningskonsert Oceana",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "135–435 kr",
+   "priceMin": 135,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51679-avslutningskonsert-oceana/",
+   "addedAt": "2026-11-17T11:59:34Z"
   },
   {
    "id": "johan-reyneke-kommer-til-vino-bar-vino-bar",
@@ -3067,6 +3121,22 @@
    "addedAt": "2026-11-12T12:07:58Z"
   },
   {
+   "id": "bmi-presenterer-verdens-beste-show-3-lovenvold-theater",
+   "date": "2027-03-12",
+   "time": "17:30",
+   "title": "BMI presenterer: Verdens Beste Show 3",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "show",
+   "price": "550 kr",
+   "priceMin": 550,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67528-bare-moro-impro",
+   "addedAt": "2026-11-17T10:24:46Z"
+  },
+  {
    "id": "ylva-maskulin-tour-terminalen-byscene",
    "date": "2027-03-12",
    "time": "20:00",
@@ -3081,6 +3151,40 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67158-ylva-maskulin-tour",
    "addedAt": "2026-11-10T08:20:11Z"
+  },
+  {
+   "id": "parken-51635-parken-kulturhus",
+   "date": "2027-03-12",
+   "time": "21:00",
+   "title": "Nina Nakling",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "show",
+   "price": "450 kr",
+   "priceMin": 450,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51635-nina-nakling/",
+   "addedAt": "2026-11-17T10:03:16Z"
+  },
+  {
+   "id": "linda-eide-livet-er-eit-spraksjov-lovenvold-theater",
+   "date": "2027-03-13",
+   "time": "17:30",
+   "title": "Linda Eide: LIVET ER EIT SPRÅKSJOV",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "show",
+   "price": "499 kr",
+   "priceMin": 499,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67509-linda-eide-livet-er-eit-spraksjov",
+   "addedAt": "2026-11-17T10:24:46Z"
   },
   {
    "id": "parken-51055-parken-kulturhus",
@@ -3133,6 +3237,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48778-balletak-pa-bransjen/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "the-buzz-lovers-nirvana-tribute-terminalen-byscene",
+   "date": "2027-04-03",
+   "time": "19:00",
+   "title": "The Buzz Lovers – Nirvana Tribute",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "399 kr",
+   "priceMin": 399,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67498-the-buzz-lovers-nirvana-tribute-terminalen",
+   "addedAt": "2026-11-17T10:03:16Z"
   },
   {
    "id": "parken-48269-parken-kulturhus",
