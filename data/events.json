@@ -170,9 +170,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-17T10:19:02Z",
+  "updatedAt": "2026-11-17T10:24:46Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -3067,6 +3067,22 @@
    "addedAt": "2026-11-12T12:07:58Z"
   },
   {
+   "id": "bmi-presenterer-verdens-beste-show-3-lovenvold-theater",
+   "date": "2027-03-12",
+   "time": "17:30",
+   "title": "BMI presenterer: Verdens Beste Show 3",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "550 kr",
+   "priceMin": 550,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67528-bare-moro-impro",
+   "addedAt": "2026-11-17T10:24:46Z"
+  },
+  {
    "id": "ylva-maskulin-tour-terminalen-byscene",
    "date": "2027-03-12",
    "time": "20:00",
@@ -3089,7 +3105,7 @@
    "title": "Nina Nakling",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "show",
    "price": "450 kr",
    "priceMin": 450,
    "soldOut": false,
@@ -3099,6 +3115,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/51635-nina-nakling/",
    "addedAt": "2026-11-17T10:03:16Z"
+  },
+  {
+   "id": "linda-eide-livet-er-eit-spraksjov-lovenvold-theater",
+   "date": "2027-03-13",
+   "time": "17:30",
+   "title": "Linda Eide: LIVET ER EIT SPRÅKSJOV",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "499 kr",
+   "priceMin": 499,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67509-linda-eide-livet-er-eit-spraksjov",
+   "addedAt": "2026-11-17T10:24:46Z"
   },
   {
    "id": "parken-51055-parken-kulturhus",
