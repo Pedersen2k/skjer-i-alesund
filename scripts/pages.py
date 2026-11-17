@@ -1161,6 +1161,12 @@ def main():
         ukepost.render_all(today, OUT / "uka")
     except Exception as err:
         print(f"Lager ikke ukebilder ({err!r})", file=sys.stderr)
+    # «I kveld»-historien til Instagram, se scripts/ikveld.py. Bare bildet, ingen side.
+    try:
+        import ikveld
+        ikveld.render_all(today, OUT / "i-kveld")
+    except Exception as err:
+        print(f"Lager ikke I kveld-historie ({err!r})", file=sys.stderr)
     listing_page("denne-helgen/", f"Hva skjer i Ålesund i helgen? {span} | {SITE}", "Skjer i Ålesund i helgen",
                  f"Alt vi har funnet i Ålesund {span}: konserter, standup, show, klubb og familie, med billettpriser.", weekend,
                  "Vi har ingen arrangementer registrert denne helgen ennå.", f"Hva skjer i Ålesund i helgen, {span}", image)

@@ -37,9 +37,13 @@ Hver torsdag formiddag lager workflowen `.github/workflows/helgepost.yml` et iss
 To faste Instagram-karuseller i tillegg til helgeposten, laget av `.github/workflows/ukepost.yml` og `scripts/ukepost.py`:
 
 - **Søndag ettermiddag: «Under hundrelappen».** Det som er gratis eller koster høyst 100 kr hele neste uke, ett arrangement per bilde med prisen som blikkfang. Har uka færre enn tre, kommer det ingen post.
-- **Mandag morgen: «Uka i Ålesund».** Ett tips for hver dag mandag–torsdag, hver dag i sin farge. Er en dag tom, blir tipset kveldens kino. I samme e-post ligger dagsbildene i historieformat (1080 × 1920), til å legge ut i historien den dagen.
+- **Mandag morgen: «Uka i Ålesund».** Ett tips for hver dag mandag–torsdag, hver dag i sin farge. Er en dag tom, blir tipset kveldens kino. Historiene kommer fra «I kveld» (under).
 
 Hver post kommer som et issue med bilder og ferdig bildetekst, så du får den på e-post. Bildene ligger i `uka/` på nettsiden og lages ved hver publisering. Julebord, utsolgte og usikre arrangementer og arrangementer for bedrifter (fagseminar o.l.) er aldri med. Grensene står øverst i `scripts/ukepost.py` (`BILLIG_MAX`, `BILLIG_MIN`, `BILLIG_SLIDES`, `INTERN`). Start en post for hånd under Actions → Ukepost → Run workflow.
+
+## I kveld (historie hver dag)
+
+Hver morgen (ca. kl. 07:13) lager `.github/workflows/ikveld.yml` et issue «I kveld: …» med dagens Instagram-historie (1080 × 1920). Kveldens tips vises helt (tittel, tid, sted, pris); resten av kvelden står uskarpt under med «+ N til i kveld», og en pil peker ned til der lenkemerket skal stå: `https://kaskjerda.no/i-dag/?ref=ig-story` (besøkene vises som «ig-story» i GoatCounter). Hver ukedag har sin fargeovergang. Bare det som starter kl. 16 eller senere er med; samme tips gjentas ikke tre dager på rad; er kvelden tom, blir tipset kino, og uten kino kommer det ingen historie. Issuet foreslår hvilken konto som skal tagges. Bildet (`i-kveld/historie.png`) lages av `scripts/ikveld.py` ved hver publisering. Se det lokalt med `python3 scripts/ikveld.py --bilde fil.png 2026-11-20`. Designforslagene ligger i `docs/ikveld-historie/`.
 
 ## Helga i ett sveip
 

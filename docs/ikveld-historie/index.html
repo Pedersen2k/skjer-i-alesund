@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I kveld-historien</title>
+<style>
+  :root { --bg: #f4f7f6; --fg: #0a171b; --muted: #4a5d61; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0a171b; --fg: #e8f1ef; --muted: #8fa8ab; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.5 system-ui, sans-serif; }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { margin: 0 0 4px; } h2 { margin-top: 40px; }
+  p { color: var(--muted); max-width: 70ch; }
+  img { width: 100%; height: auto; border-radius: 12px; display: block; margin: 12px 0; }
+</style>
+</head>
+<body>
+<main>
+<h1>«I kveld»-historien</h1>
+<p>Designforslag fra 17. nov. 2026 til den daglige Instagram-historien (1080 × 1920). Valgt: <strong>G «Hemmelig liste»</strong>, med fargeovergang etter ukedag. Laget av <code>scripts/ikveld.py</code>.</p>
+
+<h2>Valgt: G med farge etter ukedag</h2>
+<p>Kveldens tips vises helt; resten av kvelden er uskarp med «+ N til i kveld», så folk trykker på lenkemerket under pila. Samme tips gjentas ikke tre dager på rad. Tom kveld: kino.</p>
+<img src="valgt-G-uke.png" alt="Uke med G-historier, onsdag til tirsdag">
+
+<h2>Runde 2: mer farger, bare ett tips</h2>
+<p>E Solnedgang, F Neon, G Hemmelig liste, H Billett. Eieren ville ha mer «wow», og at ikke alt skulle vises (da er det ingen grunn til å trykke). <code>runde2.py</code>.</p>
+<img src="runde2-onsdag.png" alt="Runde 2, onsdag 18. november">
+<img src="runde2-fredag.png" alt="Runde 2, fredag 20. november">
+
+<h2>Runde 1: hele kvelden</h2>
+<p>A Kveldslista, B Plakat, C Klokka, D Fargekort. Viser alt som skjer, ble valgt bort. <code>runde1.py</code>.</p>
+<img src="runde1-onsdag.png" alt="Runde 1, onsdag 18. november">
+<img src="runde1-torsdag.png" alt="Runde 1, torsdag 19. november">
+</main>
+</body>
+</html>
