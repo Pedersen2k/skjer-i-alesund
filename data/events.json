@@ -182,7 +182,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-17T18:10:17Z",
+  "updatedAt": "2026-11-17T18:36:11Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -895,7 +895,7 @@
    "title": "Kransekurs og førjulskos",
    "venue": "Fabrikken Kulturscene",
    "address": "",
-   "cat": "konsert",
+   "cat": "happening",
    "price": "950 kr",
    "priceMin": 950,
    "soldOut": false,
