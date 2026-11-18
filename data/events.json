@@ -182,9 +182,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-18T10:16:44Z",
+  "updatedAt": "2026-11-18T10:37:05Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 3,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -382,7 +382,7 @@
    "title": "Klypa",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
+   "cat": "show",
    "price": "605 kr",
    "priceMin": 605,
    "soldOut": false,
