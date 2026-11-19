@@ -1581,6 +1581,40 @@
    "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-6fypx-j3xch",
    "addedAt": "2026-11-10T11:58:45Z",
    "last": "2026-11-17"
+  },
+  {
+   "id": "vin-til-julmat-m-anders-goransson-vino-bar",
+   "date": "2026-11-18",
+   "time": "18:00",
+   "title": "Vin til julemat med Anders Gøransson",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "1495 kr",
+   "priceMin": 1495,
+   "soldOut": false,
+   "note": "Smaksprøver av pinnekjøtt, ribbe og lutefisk med fem viner valgt av kokk og sommelier Anders Gøransson, kl. 18–20.",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-18-11-2026-kl-1800/",
+   "addedAt": "2026-11-10T08:20:11Z",
+   "last": "2026-11-18"
+  },
+  {
+   "id": "visekveld-pa-fabrikken-fabrikken-kulturscene",
+   "date": "2026-11-18",
+   "time": "20:00",
+   "title": "Visekveld på Fabrikken",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/visekveld-pa-fabrikken-onsdag-18-november-billetter-1993424",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-18"
   }
  ]
 }

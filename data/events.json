@@ -182,9 +182,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-18T22:37:04Z",
+  "updatedAt": "2026-11-19T14:26:48Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 9,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -200,61 +200,6 @@
   ]
  },
  "events": [
-  {
-   "id": "vin-til-julmat-m-anders-goransson-vino-bar",
-   "date": "2026-11-18",
-   "time": "18:00",
-   "title": "Vin til julemat med Anders Gøransson",
-   "venue": "Vino Bar",
-   "address": "Apotekergata 10, 6004 Ålesund",
-   "cat": "happening",
-   "price": "1495 kr",
-   "priceMin": 1495,
-   "soldOut": false,
-   "note": "Smaksprøver av pinnekjøtt, ribbe og lutefisk med fem viner valgt av kokk og sommelier Anders Gøransson, kl. 18–20.",
-   "uncertain": false,
-   "url": "https://vinobar.no/product/vin-til-julmat-m-mindor-klauseth-18-11-2026-kl-1800/",
-   "addedAt": "2026-11-10T08:20:11Z"
-  },
-  {
-   "id": "brosundet-etter-seks-2026",
-   "date": "2026-11-18",
-   "time": "18:00",
-   "title": "Brosundet ETTER SEKS",
-   "venue": "Hotel Brosundet",
-   "address": "Apotekergata 1-5, 6004 Ålesund",
-   "cat": "konsert",
-   "price": "Gratis",
-   "priceMin": 0,
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Akustisk konsert foran peisen hver onsdag kl. 18–20, mat fra egen meny 16–22. 11.11 Rikke og Svein, 18.11 Ståle Heggset og Geir Harald, 25.11 Sofie Laxxa, 2.12 Gutta Boys, 9.12 Danielle Langedal, 16.12 Rikke og Svein, 30.12 Elise Nærø. Fortsetter til påske.",
-   "url": "https://www.brosundet.no/aktiviteter/brosundet-etter-seks",
-   "moreShows": [
-    "2026-11-25T18:00",
-    "2026-12-02T18:00",
-    "2026-12-09T18:00",
-    "2026-12-16T18:00",
-    "2026-12-30T18:00"
-   ],
-   "addedAt": "2026-11-10T08:41:18Z"
-  },
-  {
-   "id": "visekveld-pa-fabrikken-fabrikken-kulturscene",
-   "date": "2026-11-18",
-   "time": "20:00",
-   "title": "Visekveld på Fabrikken",
-   "venue": "Fabrikken Kulturscene",
-   "address": "",
-   "cat": "konsert",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Dørene åpner 19.00.",
-   "uncertain": false,
-   "url": "https://billetto.no/e/visekveld-pa-fabrikken-onsdag-18-november-billetter-1993424",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "lag-din-egen-nisse-hos-siws-keramikk-devoldfabrikken",
    "date": "2026-11-19",
@@ -468,6 +413,22 @@
    "uncertain": false,
    "url": "https://oconnors.no/alesund/event/pitch-en-venn-nykndcoaql/",
    "addedAt": "2026-10-30T14:11:01Z"
+  },
+  {
+   "id": "sobra-alesund-kammermusikk-nar-barokken-moter-nord-sobra-sce",
+   "date": "2026-11-20",
+   "time": "19:00",
+   "title": "Ålesund Kammermusikk - Når Barokken møter Nord",
+   "venue": "Sobra Scene",
+   "address": "Korsegata 6, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.sobrascene.no/event-details/alesund-kammermusikk-nar-barokken-moter-nord",
+   "addedAt": "2026-11-19T14:26:48Z"
   },
   {
    "id": "julebord-pa-alnes",
@@ -926,6 +887,28 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "brosundet-etter-seks-2026",
+   "date": "2026-11-25",
+   "time": "18:00",
+   "title": "Brosundet ETTER SEKS",
+   "venue": "Hotel Brosundet",
+   "address": "Apotekergata 1-5, 6004 Ålesund",
+   "cat": "konsert",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Akustisk konsert foran peisen hver onsdag kl. 18–20, mat fra egen meny 16–22. 11.11 Rikke og Svein, 18.11 Ståle Heggset og Geir Harald, 25.11 Sofie Laxxa, 2.12 Gutta Boys, 9.12 Danielle Langedal, 16.12 Rikke og Svein, 30.12 Elise Nærø. Fortsetter til påske.",
+   "url": "https://www.brosundet.no/aktiviteter/brosundet-etter-seks",
+   "moreShows": [
+    "2026-12-02T18:00",
+    "2026-12-09T18:00",
+    "2026-12-16T18:00",
+    "2026-12-30T18:00"
+   ],
+   "addedAt": "2026-11-10T08:41:18Z"
+  },
+  {
    "id": "kontrabass-og-heimelaga-lyrikk-med-arne-hjeltnes-og-roger-al",
    "date": "2026-11-25",
    "time": "20:00",
@@ -1182,6 +1165,23 @@
    "addedAt": "2026-11-01T08:08:26Z"
   },
   {
+   "id": "pepperkakeverksted-med-racoon-sunnmorsposten",
+   "date": "2026-11-29",
+   "time": "12:30",
+   "title": "Pepperkakeverksted med Racoon",
+   "venue": "Sunnmørsposten",
+   "address": "Keiser Wilhelms g. 22, 6003 Ålesund",
+   "cat": "happening",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "few": true,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67697-pepperkakeverksted-med-racoon",
+   "addedAt": "2026-11-19T14:26:48Z"
+  },
+  {
    "id": "zimmermann-julekonsert-lovenvold-theater",
    "date": "2026-11-29",
    "time": "17:00",
@@ -1220,7 +1220,9 @@
    "cat": "konsert",
    "price": "105–280 kr",
    "priceMin": 105,
-   "soldOut": true,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "Konserten er i Ålesund kirke (billetter hos Parken). Nøtteknekkeren, Guilmants orgelsymfoni og julesanger med barnekoret 123.klang og allsang. Gratis for barn i følge med voksen.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/43180-alesund-symfoniorkester/",
@@ -1767,6 +1769,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/45560-emil-solli-tangen/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "sobra-syngande-kommune-allsang-pa-sobra-scene-sobra-scene",
+   "date": "2026-12-09",
+   "time": "19:00",
+   "title": "Syngande kommune - Allsang på Sobra Scene",
+   "venue": "Sobra Scene",
+   "address": "Korsegata 6, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.sobrascene.no/event-details/syngande-kommune-allsang-pa-sobra-scene",
+   "addedAt": "2026-11-19T14:26:48Z"
   },
   {
    "id": "juleoperapub-fabrikken-kulturscene",
@@ -2608,6 +2626,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "sobra-kulturkafe-krusedullmakar-sobra-scene",
+   "date": "2027-01-16",
+   "time": "13:00",
+   "title": "Kulturkafé - Krusedullmakar",
+   "venue": "Sobra Scene",
+   "address": "Korsegata 6, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.sobrascene.no/event-details/kulturkafe-krusedullmakar",
+   "addedAt": "2026-11-19T14:26:48Z"
+  },
+  {
    "id": "introduksjon-i-vinens-verden-vino-bar",
    "date": "2027-01-16",
    "time": "16:00",
@@ -2622,6 +2656,22 @@
    "uncertain": false,
    "url": "https://vinobar.no/product/introduksjon-i-vinens-verden-16-01-2027-kl-16-00/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-51726-parken-kulturhus",
+   "date": "2027-01-16",
+   "time": "21:00",
+   "title": "Jacob Young trio m/Tore Brunborg",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "300–350 kr",
+   "priceMin": 300,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51726-jacob-young-trio-m-tore-brunborg/",
+   "addedAt": "2026-11-19T14:26:48Z"
   },
   {
    "id": "parken-51384-parken-kulturhus",
@@ -3136,6 +3186,22 @@
    "addedAt": "2026-11-12T12:07:58Z"
   },
   {
+   "id": "sobra-tom-roger-aadland-sobra-scene",
+   "date": "2027-03-11",
+   "time": "20:00",
+   "title": "TOM ROGER AADLAND",
+   "venue": "Sobra Scene",
+   "address": "Korsegata 6, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.sobrascene.no/event-details/tom-roger-aadland",
+   "addedAt": "2026-11-19T14:26:48Z"
+  },
+  {
    "id": "bmi-presenterer-verdens-beste-show-3-lovenvold-theater",
    "date": "2027-03-12",
    "time": "17:30",
@@ -3220,6 +3286,24 @@
    "addedAt": "2026-10-21T06:13:20Z"
   },
   {
+   "id": "parken-51565-parken-kulturhus",
+   "date": "2027-03-19",
+   "time": "19:00",
+   "title": "Vekslepenger",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "260–485 kr",
+   "priceMin": 260,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51565-vekslepenger/",
+   "addedAt": "2026-11-19T14:26:48Z"
+  },
+  {
    "id": "synne-vo-her-vil-e-vaer-norgesturne-terminalen-byscene",
    "date": "2027-03-19",
    "time": "20:00",
@@ -3252,6 +3336,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48778-balletak-pa-bransjen/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "mandalai-lamas-terminalen-byscene",
+   "date": "2027-04-02",
+   "time": "20:00",
+   "title": "Mandalai Lamas",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "375 kr",
+   "priceMin": 375,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67690-mandalai-lamas-terminalen",
+   "addedAt": "2026-11-19T14:26:48Z"
   },
   {
    "id": "the-buzz-lovers-nirvana-tribute-terminalen-byscene",
@@ -3316,6 +3416,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67496-kakkmaddafakka-terminalen",
    "addedAt": "2026-11-13T10:11:47Z"
+  },
+  {
+   "id": "parken-51728-parken-kulturhus",
+   "date": "2027-04-10",
+   "time": "21:00",
+   "title": "Cortex m/Hedvig Mollestad",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "1284 kr",
+   "priceMin": 1284,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51728-cortex-m-hedvig-mollestad/",
+   "addedAt": "2026-11-19T14:26:48Z"
   },
   {
    "id": "hope-hurper-og-heltinner-et-historisk-humorshow-lovenvold-th",
@@ -3411,7 +3527,9 @@
    "cat": "konsert",
    "price": "150–390 kr",
    "priceMin": 150,
-   "soldOut": true,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48673-chopin-klaverets-poet/",
