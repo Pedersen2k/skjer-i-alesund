@@ -164,15 +164,23 @@
    "parken-50876-parken-kulturhus": [
     "2026-10-22T12:10:15Z",
     "2026-11-16T20:06:34Z"
+   ],
+   "livrore-2026-11-19-musikkquiz-med-oystein-liv-rore-moa": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-19T22:40:39Z"
+   ],
+   "nar-barokken-moter-nord-sobra-scene": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-19T22:40:39Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-19T19:06:57Z",
+  "updatedAt": "2026-11-19T22:40:39Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 5,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -209,22 +217,6 @@
    "addedAt": "2026-11-10T16:13:41Z"
   },
   {
-   "id": "livrore-2026-11-19-musikkquiz-med-oystein-liv-rore-moa",
-   "date": "2026-11-19",
-   "time": "18:00",
-   "title": "Musikkquiz med Øystein",
-   "venue": "Liv & Røre Moa",
-   "address": "Langelandsvegen 35, 6010 Ålesund",
-   "cat": "quiz",
-   "price": "75 kr",
-   "priceMin": 75,
-   "soldOut": false,
-   "note": "Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.",
-   "uncertain": true,
-   "url": "https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-whdzpxt35o/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
    "id": "california-pinot-noir-smaking-med-jeanette-vino-bar",
    "date": "2026-11-19",
    "time": "18:00",
@@ -238,22 +230,6 @@
    "note": "",
    "uncertain": false,
    "url": "https://vinobar.no/product/california-pinot-noir-smaking-med-jeanette-%f0%9f%a5%82-19-11-2026-kl-1800/",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "nar-barokken-moter-nord-sobra-scene",
-   "date": "2026-11-19",
-   "time": "18:30",
-   "title": "Når Barokken møter Nord",
-   "venue": "Sobra Scene",
-   "address": "Korsegata 6, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "250 kr",
-   "priceMin": 250,
-   "soldOut": false,
-   "note": "Rabatt: Under 20 100 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/65879-nar-barokken-moter-nord",
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
@@ -2506,7 +2482,7 @@
    "cat": "happening",
    "price": "995 kr",
    "priceMin": 995,
-   "soldOut": false,
+   "soldOut": true,
    "note": "",
    "uncertain": false,
    "url": "https://vinobar.no/product/vinkurs-engelske-bobler-28-12-2026-kl-18-00/",
@@ -3050,7 +3026,7 @@
    "id": "parken-51526-parken-kulturhus",
    "date": "2027-02-11",
    "time": "20:00",
-   "title": "Oscar Danielson",
+   "title": "Lydhør: Oscar Danielson",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "konsert",
@@ -3059,7 +3035,7 @@
    "soldOut": false,
    "note": "",
    "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51526-oscar-danielson/",
+   "url": "https://www.parkenkulturhus.no/program/51526-lydhor-oscar-danielson/",
    "addedAt": "2026-11-12T18:00:17Z"
   },
   {

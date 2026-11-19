@@ -1615,6 +1615,40 @@
    "url": "https://billetto.no/e/visekveld-pa-fabrikken-onsdag-18-november-billetter-1993424",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-18"
+  },
+  {
+   "id": "livrore-2026-11-19-musikkquiz-med-oystein-liv-rore-moa",
+   "date": "2026-11-19",
+   "time": "18:00",
+   "title": "Musikkquiz med Øystein",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "quiz",
+   "price": "75 kr",
+   "priceMin": 75,
+   "soldOut": false,
+   "note": "Aldersgrense 20 år. Arrangementssiden sier kl. 18:00, men teksten under sier kl. 19:00. Sjekk hos Liv & Røre.",
+   "uncertain": true,
+   "url": "https://livrore.no/event/musikkquiz-med-oystein-pa-liv-rore-whdzpxt35o/",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-19"
+  },
+  {
+   "id": "nar-barokken-moter-nord-sobra-scene",
+   "date": "2026-11-19",
+   "time": "18:30",
+   "title": "Når Barokken møter Nord",
+   "venue": "Sobra Scene",
+   "address": "Korsegata 6, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "250 kr",
+   "priceMin": 250,
+   "soldOut": false,
+   "note": "Rabatt: Under 20 100 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/65879-nar-barokken-moter-nord",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-19"
   }
  ]
 }
