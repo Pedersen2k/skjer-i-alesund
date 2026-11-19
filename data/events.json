@@ -164,27 +164,15 @@
    "parken-50876-parken-kulturhus": [
     "2026-10-22T12:10:15Z",
     "2026-11-16T20:06:34Z"
-   ],
-   "parken-51672-parken-kulturhus": [
-    "2026-11-17T11:59:34Z",
-    "2026-11-17T16:07:21Z"
-   ],
-   "parken-51675-parken-kulturhus": [
-    "2026-11-17T11:59:34Z",
-    "2026-11-17T16:07:21Z"
-   ],
-   "parken-51679-parken-kulturhus": [
-    "2026-11-17T11:59:34Z",
-    "2026-11-17T16:07:21Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-19T14:26:48Z",
+  "updatedAt": "2026-11-19T19:06:57Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 9,
+  "lastAdded": 5,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -269,60 +257,6 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater",
-   "date": "2026-11-19",
-   "time": "18:30",
-   "title": "Juleshow på Løvenvold Vol. 4",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata 11, 6002 Ålesund",
-   "cat": "standup",
-   "price": "699 kr",
-   "priceMin": 699,
-   "soldOut": false,
-   "soldShows": [
-    "2026-11-20T17:30",
-    "2026-11-21T17:30",
-    "2026-11-21T20:00",
-    "2026-11-27T17:30",
-    "2026-11-28T17:30",
-    "2026-12-04T17:30",
-    "2026-12-04T20:00",
-    "2026-12-05T17:30",
-    "2026-12-05T20:00",
-    "2026-12-11T17:30",
-    "2026-12-12T17:30",
-    "2026-12-18T17:30"
-   ],
-   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 20. nov, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 20. nov, 21. nov, 26. nov, 27. nov, 28. nov m.fl.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/62681-juleshow-pa-lovenvold-vol-4-1911",
-   "moreShows": [
-    "2026-11-20T17:30",
-    "2026-11-20T20:00",
-    "2026-11-21T17:30",
-    "2026-11-21T20:00",
-    "2026-11-26T17:30",
-    "2026-11-27T17:30",
-    "2026-11-27T20:00",
-    "2026-11-28T17:30",
-    "2026-11-28T20:00",
-    "2026-12-03T17:30",
-    "2026-12-04T17:30",
-    "2026-12-04T20:00",
-    "2026-12-05T17:30",
-    "2026-12-05T20:00",
-    "2026-12-10T17:30",
-    "2026-12-11T17:30",
-    "2026-12-11T20:00",
-    "2026-12-12T17:30",
-    "2026-12-12T20:00",
-    "2026-12-17T17:30",
-    "2026-12-18T17:30",
-    "2026-12-18T20:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
    "id": "parken-51566-parken-kulturhus",
    "date": "2026-11-19",
    "time": "18:30",
@@ -340,6 +274,22 @@
     "2026-11-20T18:30"
    ],
    "addedAt": "2026-11-18T10:16:44Z"
+  },
+  {
+   "id": "boklansering-soster-soster-gratis-fabrikken-kulturscene",
+   "date": "2026-11-19",
+   "time": "19:00",
+   "title": "Boklansering «Søster søster» – Gratis",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 18.00.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/boklansering-soster-soster-gratis-billetter-2044234",
+   "addedAt": "2026-11-19T19:06:57Z"
   },
   {
    "id": "parken-51238-parken-kulturhus",
@@ -397,6 +347,59 @@
     "2026-12-19T18:00"
    ],
    "addedAt": "2026-10-26T20:53:51Z"
+  },
+  {
+   "id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater",
+   "date": "2026-11-20",
+   "time": "18:30",
+   "title": "Juleshow på Løvenvold Vol. 4",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata 11, 6002 Ålesund",
+   "cat": "standup",
+   "price": "699 kr",
+   "priceMin": 699,
+   "soldOut": false,
+   "soldShows": [
+    "2026-11-20T17:30",
+    "2026-11-21T17:30",
+    "2026-11-21T20:00",
+    "2026-11-27T17:30",
+    "2026-11-28T17:30",
+    "2026-12-04T17:30",
+    "2026-12-04T20:00",
+    "2026-12-05T17:30",
+    "2026-12-05T20:00",
+    "2026-12-11T17:30",
+    "2026-12-12T17:30",
+    "2026-12-18T17:30"
+   ],
+   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Også kl. 20:00. Utsolgt: 17:30, 21. nov, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 21. nov, 26. nov, 27. nov, 28. nov, 3. des m.fl.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/62682-juleshow-pa-lovenvold-vol-4-1911",
+   "moreShows": [
+    "2026-11-20T20:00",
+    "2026-11-21T17:30",
+    "2026-11-21T20:00",
+    "2026-11-26T17:30",
+    "2026-11-27T17:30",
+    "2026-11-27T20:00",
+    "2026-11-28T17:30",
+    "2026-11-28T20:00",
+    "2026-12-03T17:30",
+    "2026-12-04T17:30",
+    "2026-12-04T20:00",
+    "2026-12-05T17:30",
+    "2026-12-05T20:00",
+    "2026-12-10T17:30",
+    "2026-12-11T17:30",
+    "2026-12-11T20:00",
+    "2026-12-12T17:30",
+    "2026-12-12T20:00",
+    "2026-12-17T17:30",
+    "2026-12-18T17:30",
+    "2026-12-18T20:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "oconnors-2026-11-20-pitch-en-venn-o-connor-s",
@@ -2863,6 +2866,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "parken-51672-parken-kulturhus",
+   "date": "2027-02-04",
+   "time": "19:00",
+   "title": "Åpningskonsert",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "100–350 kr",
+   "priceMin": 100,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51672-apningskonsert/",
+   "addedAt": "2026-11-17T11:59:34Z"
+  },
+  {
    "id": "parken-49087-parken-kulturhus",
    "date": "2027-02-05",
    "time": "19:00",
@@ -2879,6 +2898,38 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/49087-finn-tre-feil/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-51675-parken-kulturhus",
+   "date": "2027-02-05",
+   "time": "19:00",
+   "title": "På sporet av folkemusikken",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "135–385 kr",
+   "priceMin": 135,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51675-pa-sporet-av-folkemusikken/",
+   "addedAt": "2026-11-17T11:59:34Z"
+  },
+  {
+   "id": "hilde-marie-kjersem-med-venner-lovenvold-theater",
+   "date": "2027-02-05",
+   "time": "20:00",
+   "title": "Hilde Marie Kjersem med venner",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "380 kr",
+   "priceMin": 380,
+   "soldOut": false,
+   "note": "Rabatt: Under 26 180 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67654-hilde-marie-kjersem-med-venner",
+   "addedAt": "2026-11-19T19:06:57Z"
   },
   {
    "id": "ingen-kim-ingen-kos-en-hyllest-til-kim-larsen-fabrikken-kult",
@@ -2900,6 +2951,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "parken-51678-parken-kulturhus",
+   "date": "2027-02-06",
+   "time": "16:00",
+   "title": "DuoGvito",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "135–285 kr",
+   "priceMin": 135,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51678-duogvito/",
+   "addedAt": "2026-11-19T19:06:57Z"
+  },
+  {
    "id": "men-har-du-provd-yoga-et-standupshow-om-a-skli-pa-isen-loven",
    "date": "2027-02-06",
    "time": "18:00",
@@ -2914,6 +2981,54 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/64290-men-har-du-provd-yoga-et-standupshow-om-a-skli-pa-isen",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-51670-parken-kulturhus",
+   "date": "2027-02-06",
+   "time": "19:00",
+   "title": "Festkveld med Kammerorkesteret",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "135–385 kr",
+   "priceMin": 135,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51670-festkveld-med-kammerorkesteret/",
+   "addedAt": "2026-11-19T19:06:57Z"
+  },
+  {
+   "id": "parken-51671-parken-kulturhus",
+   "date": "2027-02-06",
+   "time": "20:30",
+   "title": "Kammermusikalsk nachspiel",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "185–285 kr",
+   "priceMin": 185,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51671-kammermusikalsk-nachspiel/",
+   "addedAt": "2026-11-19T19:06:57Z"
+  },
+  {
+   "id": "parken-51679-parken-kulturhus",
+   "date": "2027-02-07",
+   "time": "17:00",
+   "title": "Avslutningskonsert Oceana",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "135–435 kr",
+   "priceMin": 135,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51679-avslutningskonsert-oceana/",
+   "addedAt": "2026-11-17T11:59:34Z"
   },
   {
    "id": "johan-reyneke-kommer-til-vino-bar-vino-bar",
