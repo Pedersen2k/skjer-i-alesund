@@ -178,9 +178,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-20T14:02:01Z",
+  "updatedAt": "2026-11-20T18:15:51Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 2,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -305,22 +305,6 @@
     "2026-12-18T20:00"
    ],
    "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "parken-51566-parken-kulturhus",
-   "date": "2026-11-20",
-   "time": "18:30",
-   "title": "Klypa",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "show",
-   "price": "605 kr",
-   "priceMin": 605,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51566-klypa/",
-   "addedAt": "2026-11-18T10:16:44Z"
   },
   {
    "id": "oconnors-2026-11-20-pitch-en-venn-o-connor-s",
@@ -3686,6 +3670,25 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/51292-erlend-osnes/",
    "addedAt": "2026-11-10T11:58:45Z"
+  },
+  {
+   "id": "parken-51566-parken-kulturhus",
+   "date": "2027-11-19",
+   "time": "18:30",
+   "title": "Klypa",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "show",
+   "price": "605 kr",
+   "priceMin": 605,
+   "soldOut": false,
+   "note": "Flere forestillinger: 20. nov.",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51566-klypa/",
+   "moreShows": [
+    "2027-11-20T18:30"
+   ],
+   "addedAt": "2026-11-18T10:16:44Z"
   }
  ]
 }
