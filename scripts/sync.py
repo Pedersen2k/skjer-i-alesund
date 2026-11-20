@@ -197,10 +197,17 @@ def parse_parken(page, today):
 
     shows = []
     status = {"Utsolgt": "sold", "Få billetter igjen": "few"}
+    # Tidspunktlista har ikke år («19.11 - kl. 18:30»). Event-JSON-LD har neste forestilling med år; bruk den som
+    # anker når gjetningen havner langt før den, ellers blir et arrangement neste høst gjettet til i år (Klypa 19.–20. nov. 2027 ble 2026).
+    first = re.search(r'"@type":\s*"Event".{0,400}?"startDate":\s*"(\d{4})-(\d{2})-(\d{2})', page, re.S)
+    first = datetime.date(*(int(x) for x in first.groups())) if first else None
     for m in re.finditer(r"\b(\d{1,2})\.(\d{1,2})\s*-\s*kl\.\s*(\d{1,2})[:.](\d{2})(?:\s*-\s*\d{1,2}[:.]\d{2})?\s*(Utsolgt|Få billetter igjen)?", text):
         d, mo, hh, mm = (int(x) for x in m.group(1, 2, 3, 4))
         try:
-            start = datetime.datetime(guess_year(d, mo, today), mo, d, hh, mm, tzinfo=TZ)
+            year = guess_year(d, mo, today)
+            if first and datetime.date(year, mo, d) < first - datetime.timedelta(days=60):
+                year = first.year + (datetime.date(first.year, mo, d) < first - datetime.timedelta(days=60))
+            start = datetime.datetime(year, mo, d, hh, mm, tzinfo=TZ)
         except ValueError:
             continue
         if all(s != start for s, _ in shows):
