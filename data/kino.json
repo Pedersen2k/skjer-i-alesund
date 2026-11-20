@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-20T09:10:56Z",
+  "updatedAt": "2026-11-20T14:06:37Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -23,7 +23,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/8f39926f-fc39-41e7-a255-ae627698cb74",
+     "url": "",
      "club": false
     },
     {
@@ -926,7 +926,7 @@
      "start": "2026-11-20T12:15:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/05b7de2a-054e-4631-af05-c3db9c746e0d",
+     "url": "",
      "club": true
     },
     {
@@ -1293,7 +1293,7 @@
      "start": "2026-11-20T13:00:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/70a407ec-587a-48c3-ba1a-223c56d23db6",
+     "url": "",
      "club": false
     },
     {
@@ -1302,7 +1302,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/0e1976eb-edea-4e99-9396-ed469960e1ed",
+     "url": "",
      "club": false
     },
     {
@@ -1588,7 +1588,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/dabe370d-ae88-4b18-9495-3f243c3b63d0",
+     "url": "",
      "club": false
     },
     {
@@ -1852,7 +1852,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/7f09be3c-f69c-4f57-a02e-ecbf80dfda2e",
+     "url": "",
      "club": false
     },
     {
@@ -2056,7 +2056,7 @@
     "Biografi",
     "Dokumentar"
    ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/84249b8e77c9edb589ae2254f1b899a59bd74dc1-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6aa7e5292065b386328165fbb04c8202a34c87c4-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-20",
    "shows": [
     {
