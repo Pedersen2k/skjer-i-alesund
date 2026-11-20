@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-19T22:45:43Z",
+  "updatedAt": "2026-11-20T09:10:56Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -178,15 +178,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ece98fe1e9a1b24ef010288a35d3384c503d2f72-954x1350.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
-    {
-     "start": "2026-11-19T20:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-20T18:15:00",
      "screen": "Sal 6",
@@ -378,13 +369,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/64c2d1b5a4e3cfc67b7676b3c854f89f431fac86-1295x1920.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-06",
    "shows": [
-    {
-     "start": "2026-11-19T20:45:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-21T20:50:00",
      "screen": "4",
@@ -593,26 +577,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6709e48a4ac96bb7821de663e44feff52c689458-1190x1684.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-06",
    "shows": [
-    {
-     "start": "2026-11-19T15:20:00",
-     "screen": "Sal 2",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T17:20:00",
-     "screen": "Sal 2",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-20T15:45:00",
      "screen": "4",
@@ -959,31 +923,6 @@
    "premiere": "2026-10-30",
    "shows": [
     {
-     "start": "2026-11-19T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-19T14:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-19T17:30:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
      "start": "2026-11-20T12:15:00",
      "screen": "4",
      "tags": [],
@@ -1113,13 +1052,6 @@
    "premiere": "2026-10-16",
    "shows": [
     {
-     "start": "2026-11-19T16:45:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-20T16:00:00",
      "screen": "Sal 6",
      "tags": [
@@ -1206,13 +1138,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6be14bfa9aad17827d66f04f8ffce118b4efa17f-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
-    {
-     "start": "2026-11-19T12:00:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-23T12:10:00",
      "screen": "Sal 6",
@@ -1364,38 +1289,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/4fe030b928d64fd21116e82118c14e872c70ee09-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-11-19T12:00:00",
-     "screen": "1 isense",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T14:45:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T15:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T18:10:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-20T13:00:00",
      "screen": "3",
@@ -1690,49 +1583,6 @@
    "premiere": "2026-11-18",
    "shows": [
     {
-     "start": "2026-11-19T12:00:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T14:45:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T17:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T19:20:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T21:00:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-20T12:00:00",
      "screen": "Sal 2",
      "tags": [
@@ -1997,33 +1847,6 @@
    "premiere": "2026-11-13",
    "shows": [
     {
-     "start": "2026-11-19T12:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T12:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-19T18:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-20T12:15:00",
      "screen": "Sal 5",
      "tags": [
@@ -2187,15 +2010,6 @@
    "premiere": "2026-10-30",
    "shows": [
     {
-     "start": "2026-11-19T21:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-21T12:20:00",
      "screen": "Sal 6",
      "tags": [
@@ -2245,13 +2059,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/84249b8e77c9edb589ae2254f1b899a59bd74dc1-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-20",
    "shows": [
-    {
-     "start": "2026-11-19T19:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-20T17:45:00",
      "screen": "4",
