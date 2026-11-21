@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-21T13:33:07Z",
+  "updatedAt": "2026-11-21T18:18:15Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -23,7 +23,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/8baa7f8a-e7af-4bb9-b895-6a3dd2016874",
+     "url": "",
      "club": false
     },
     {
@@ -166,7 +166,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/e4969b36-b43f-439f-a6bd-d56b7d67e58a",
+     "url": "",
      "club": false
     },
     {
@@ -538,7 +538,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/fc8e9ea8-db89-43ba-bdb0-e55931934226",
+     "url": "",
      "club": false
     },
     {
@@ -547,7 +547,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/0874a5ea-2c1c-4ea0-8c88-c08303409252",
+     "url": "",
      "club": false
     },
     {
@@ -875,7 +875,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/94e50c72-d199-4f63-9ec0-938c9fc34d6d",
+     "url": "",
      "club": true
     },
     {
@@ -1199,14 +1199,14 @@
      "start": "2026-11-21T15:15:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/ee865766-588f-49f7-b08a-5c0c0aec984a",
+     "url": "",
      "club": false
     },
     {
      "start": "2026-11-21T18:00:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/86c1e95b-f33e-429b-9a32-f23d4709dc49",
+     "url": "",
      "club": false
     },
     {
@@ -1469,7 +1469,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/32f5d56c-70d2-4f41-8672-9e2f8abf25b2",
+     "url": "",
      "club": false
     },
     {
@@ -1478,7 +1478,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/87397500-977e-4e82-bcab-9c88cae7114e",
+     "url": "",
      "club": false
     },
     {
@@ -1686,7 +1686,7 @@
      "start": "2026-11-21T18:30:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/ffe24a60-81fe-400a-94f7-de6dd42f9747",
+     "url": "",
      "club": false
     },
     {

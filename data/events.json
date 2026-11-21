@@ -188,15 +188,23 @@
    "viti-loerdagsomvisning-i-jugendstilsenteret-jugendstilsenter": [
     "2026-10-19T12:59:56Z",
     "2026-11-21T12:03:51Z"
+   ],
+   "juleverksted-alesund-cupcakekrans-thon-hotel-baronen": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-21T18:13:50Z"
+   ],
+   "viti-familiedag-design-din-egen-jugendplakat-jugendstilsente": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-21T18:13:50Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-21T13:29:12Z",
+  "updatedAt": "2026-11-21T18:13:50Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -212,38 +220,6 @@
   ]
  },
  "events": [
-  {
-   "id": "juleverksted-alesund-cupcakekrans-thon-hotel-baronen",
-   "date": "2026-11-21",
-   "time": "12:45",
-   "title": "Juleverksted – cupcakekrans",
-   "venue": "Thon Hotel Baronen",
-   "address": "Kanalvegen 1, 6010 Ålesund",
-   "cat": "happening",
-   "price": "599 kr",
-   "priceMin": 599,
-   "soldOut": false,
-   "note": "Rabatt: LITEN krans - 1 billett 349 kr.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/66657-juleverksted-cupcakekrans",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "viti-familiedag-design-din-egen-jugendplakat-jugendstilsente",
-   "date": "2026-11-21",
-   "time": "13:00",
-   "title": "Familiedag: Design din egen jugendplakat",
-   "venue": "Jugendstilsenteret og KUBE",
-   "address": "Apotekergata 16, Ålesund",
-   "cat": "barn",
-   "price": "120 kr",
-   "priceMin": 120,
-   "soldOut": false,
-   "note": "Gratis for barn i følge med en voksen som betaler inngang (120,-)",
-   "uncertain": false,
-   "url": "https://www.vitimusea.no/arrangement/familiedag-design-din-egen-jugendplakat",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "jazzsirkelen-arnt-inge-saeter-2026",
    "date": "2026-11-21",
