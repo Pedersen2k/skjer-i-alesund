@@ -810,5 +810,35 @@
     "uncertain": false,
     "note": "Aalesunds Ungdomsmusikkorps, dirigent Stefan Bocken: alt fra filmmusikk til julesalmer. Gratis inngang, kollekt til menighetspleien.",
     "url": "https://www.aaum.no/"
+  },
+  {
+    "id": "toner-i-en-forjulstid-spjelkavik-kirke-2026",
+    "date": "2026-11-24",
+    "time": "19:00",
+    "title": "Toner i en førjulstid",
+    "venue": "Spjelkavik kirke",
+    "address": "Vestmoa 20, 6018 Ålesund",
+    "cat": "konsert",
+    "price": "250 kr",
+    "priceMin": 250,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Førjulstoner med Sangkoret Cantábile, cellist Kristian F. Sylthe og pianist Asgeir Hoffart, Mannskoret Dovre og blandakoret Von Dess. Dørene åpner 18:30. Kilde: Bypatrioten.",
+    "url": "https://www.spjelkavik.kyrkjelyd.no/"
+  },
+  {
+    "id": "bokkino-julefortelling-moa-bibliotek-2026",
+    "date": "2026-12-12",
+    "time": "12:00",
+    "title": "Bokkino Spesial: En julefortelling",
+    "venue": "Moa bibliotek",
+    "address": "Langelandsvegen 35, 6010 Ålesund",
+    "cat": "barn",
+    "price": "Gratis",
+    "priceMin": 0,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Månedens klassiker er En julefortelling av Charles Dickens, tilpasset barn. Kilde: Bypatrioten.",
+    "url": "https://alesundsbiblioteka.no/biblioteka/moa/"
   }
 ]
