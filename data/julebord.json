@@ -1,5 +1,5 @@
 {
-  "_info": "Julemeny på restaurant uten faste datoer, vist på julebord/. Bare tilbud med kildelenke; sjekk hver sesong (sist sjekket 26. okt 2026).",
+  "_info": "Julemeny på restaurant uten faste datoer, vist på julebord/. Bare tilbud med kildelenke; sjekk hver sesong (sist sjekket 21. nov 2026).",
   "julemeny": [
     {
       "name": "Julemeny på Apotekergata No. 5",
@@ -56,6 +56,14 @@
       "price": "retter 129–299 kr",
       "note": "Julerettene på tapasmenyen: grillet pinnekjøtt fra Bjorli med appelsinglaze 299 kr, crispy tynnribbe 225 kr, surkål med klementin 129 kr og krumkake med multekrem 159 kr. Grupper fra 8 kan velge tapasmeny (825 kr) eller sharingmeny (1050 kr). Bestill bord på nett.",
       "url": "https://www.bryttapas.no/"
+    },
+    {
+      "name": "Julefrokost på Skansekaia",
+      "venue": "Quality Hotel Ålesund",
+      "period": "1.–22. desember, kl. 6:30–9:30 (7:30–10:30 i helgene)",
+      "price": "190 kr",
+      "note": "Frokostbuffet med juleavslutning-stemning, per person. Bestill bord på q.alesund@strawberry.no eller 70 16 00 00. Kilde: Bypatrioten.",
+      "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/"
     }
   ]
 }
