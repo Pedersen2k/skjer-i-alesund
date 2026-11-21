@@ -1706,6 +1706,23 @@
    "last": "2026-11-19"
   },
   {
+   "id": "julebord-pa-alnes",
+   "date": "2026-11-20",
+   "time": "19:00",
+   "title": "Julebord på Alnes",
+   "venue": "Alnes fyr og opplevelsessenter",
+   "address": "Alnesgard, 6055 Godøya",
+   "cat": "julebord",
+   "price": "600 kr",
+   "priceMin": 600,
+   "soldOut": false,
+   "note": "Stor julebuffet og live underholdning på Alnes fyr (Godøya, Giske). Fire fredager i november og desember; bedrifter, lag, foreninger og private grupper er velkomne. Prisen er per person. Facebook-arrangementet til Alnes fyr viser fredag 13. november, Bypatrioten 20. november kl. 19:00; de andre fredagene står ikke noe sted ennå. Bestill hos Alnes fyr (post@alnesfyr.no, tlf. 908 54 449). Kilde: Bypatrioten.",
+   "uncertain": true,
+   "url": "https://www.facebook.com/events/2059622078252059/",
+   "addedAt": "2026-11-11T19:44:02Z",
+   "last": "2026-11-20"
+  },
+  {
    "id": "oconnors-2026-11-20-pitch-en-venn-o-connor-s",
    "date": "2026-11-20",
    "time": "19:00",
@@ -1720,6 +1737,23 @@
    "uncertain": false,
    "url": "https://oconnors.no/alesund/event/pitch-en-venn-nykndcoaql/",
    "addedAt": "2026-10-30T14:11:01Z",
+   "last": "2026-11-20"
+  },
+  {
+   "id": "sobra-alesund-kammermusikk-nar-barokken-moter-nord-sobra-sce",
+   "date": "2026-11-20",
+   "time": "19:00",
+   "title": "Ålesund Kammermusikk - Når Barokken møter Nord",
+   "venue": "Sobra Scene",
+   "address": "Korsegata 6, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.sobrascene.no/event-details/alesund-kammermusikk-nar-barokken-moter-nord",
+   "addedAt": "2026-11-19T14:26:48Z",
    "last": "2026-11-20"
   },
   {
