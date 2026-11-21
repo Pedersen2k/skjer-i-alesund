@@ -33,10 +33,6 @@
     "2026-10-19T12:59:56Z",
     "2026-11-02T18:40:18Z"
    ],
-   "julekonsert-spjelkavik-kyrkje-spjelkavik-kyrkje": [
-    "2026-10-19T12:59:56Z",
-    "2026-11-02T18:40:18Z"
-   ],
    "parken-50918-parken-kulturhus": [
     "2026-10-19T12:59:56Z",
     "2026-11-02T21:38:18Z"
@@ -196,15 +192,31 @@
    "viti-familiedag-design-din-egen-jugendplakat-jugendstilsente": [
     "2026-10-19T12:59:56Z",
     "2026-11-21T18:13:50Z"
+   ],
+   "kristiansen-spjelkavik-kirke": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-21T20:54:37Z"
+   ],
+   "parken-51238-parken-kulturhus": [
+    "2026-10-28T16:02:24Z",
+    "2026-11-21T20:54:37Z"
+   ],
+   "julekonsert-spjelkavik-kyrkje-spjelkavik-kirke": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-21T20:54:37Z"
+   ],
+   "klassisk-jul-julefavorittar-med-tradisjonar-spjelkavik-kirke": [
+    "2026-11-21T13:29:12Z",
+    "2026-11-21T20:54:37Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-21T18:13:50Z",
+  "updatedAt": "2026-11-21T20:54:37Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -236,40 +248,6 @@
    "addedAt": "2026-11-01T21:47:04Z"
   },
   {
-   "id": "kristiansen-spjelkavik-kirke",
-   "date": "2026-11-21",
-   "time": "16:30",
-   "title": "Kristiansen // Vemøy – julekonsert",
-   "venue": "Spjelkavik kirke",
-   "address": "Vestmoa 20, 6018 Ålesund",
-   "cat": "konsert",
-   "price": "218 kr",
-   "priceMin": 218,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/66594-kristiansen-vemoy",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "parken-51238-parken-kulturhus",
-   "date": "2026-11-21",
-   "time": "17:00",
-   "title": "Ålesund ballettskole / Kulturskolen",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "130–230 kr",
-   "priceMin": 130,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51238-alesund-ballettskole-kulturskolen/",
-   "addedAt": "2026-10-28T16:02:24Z"
-  },
-  {
    "id": "juleinspirert-tapasbuffet-hotel-1904",
    "date": "2026-11-21",
    "time": "18:00",
@@ -296,56 +274,6 @@
    "addedAt": "2026-10-26T20:53:51Z"
   },
   {
-   "id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater",
-   "date": "2026-11-21",
-   "time": "18:30",
-   "title": "Juleshow på Løvenvold Vol. 4",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata 11, 6002 Ålesund",
-   "cat": "standup",
-   "price": "699 kr",
-   "priceMin": 699,
-   "soldOut": false,
-   "soldShows": [
-    "2026-11-21T17:30",
-    "2026-11-21T20:00",
-    "2026-11-27T17:30",
-    "2026-11-28T17:30",
-    "2026-12-04T17:30",
-    "2026-12-04T20:00",
-    "2026-12-05T17:30",
-    "2026-12-05T20:00",
-    "2026-12-11T17:30",
-    "2026-12-12T17:30",
-    "2026-12-18T17:30"
-   ],
-   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Også kl. 20:00. Utsolgt: 17:30, 20:00, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 26. nov, 27. nov, 28. nov, 3. des, 4. des m.fl.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/62683-juleshow-pa-lovenvold-vol-4-2111",
-   "moreShows": [
-    "2026-11-21T20:00",
-    "2026-11-26T17:30",
-    "2026-11-27T17:30",
-    "2026-11-27T20:00",
-    "2026-11-28T17:30",
-    "2026-11-28T20:00",
-    "2026-12-03T17:30",
-    "2026-12-04T17:30",
-    "2026-12-04T20:00",
-    "2026-12-05T17:30",
-    "2026-12-05T20:00",
-    "2026-12-10T17:30",
-    "2026-12-11T17:30",
-    "2026-12-11T20:00",
-    "2026-12-12T17:30",
-    "2026-12-12T20:00",
-    "2026-12-17T17:30",
-    "2026-12-18T17:30",
-    "2026-12-18T20:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
    "id": "jul-pa-molja-thon-hotel-alesund",
    "date": "2026-11-21",
    "time": "18:30",
@@ -367,6 +295,54 @@
     "2026-12-11T18:30"
    ],
    "addedAt": "2026-11-10T08:20:11Z"
+  },
+  {
+   "id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater",
+   "date": "2026-11-21",
+   "time": "20:00",
+   "title": "Juleshow på Løvenvold Vol. 4",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata 11, 6002 Ålesund",
+   "cat": "standup",
+   "price": "699 kr",
+   "priceMin": 699,
+   "soldOut": false,
+   "soldShows": [
+    "2026-11-21T20:00",
+    "2026-11-27T17:30",
+    "2026-11-28T17:30",
+    "2026-12-04T17:30",
+    "2026-12-04T20:00",
+    "2026-12-05T17:30",
+    "2026-12-05T20:00",
+    "2026-12-11T17:30",
+    "2026-12-12T17:30",
+    "2026-12-18T17:30"
+   ],
+   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dører 17:30. Utsolgt: 20:00, 27. nov, 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 26. nov, 27. nov, 28. nov, 3. des, 4. des m.fl.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/62698-ekstrashow-juleshow-pa-lovenvold-vol-4-2111",
+   "moreShows": [
+    "2026-11-26T17:30",
+    "2026-11-27T17:30",
+    "2026-11-27T20:00",
+    "2026-11-28T17:30",
+    "2026-11-28T20:00",
+    "2026-12-03T17:30",
+    "2026-12-04T17:30",
+    "2026-12-04T20:00",
+    "2026-12-05T17:30",
+    "2026-12-05T20:00",
+    "2026-12-10T17:30",
+    "2026-12-11T17:30",
+    "2026-12-11T20:00",
+    "2026-12-12T17:30",
+    "2026-12-12T20:00",
+    "2026-12-17T17:30",
+    "2026-12-18T17:30",
+    "2026-12-18T20:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "julebord-pa-fabrikken-fabrikken-kulturscene",
@@ -1262,11 +1238,11 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
-   "id": "julekonsert-spjelkavik-kyrkje-spjelkavik-kirke",
+   "id": "julekonsert-spjelkavik-kyrkje-spjelkavik-kyrkje",
    "date": "2026-12-04",
    "time": "18:30",
    "title": "Julekonsert i Spjelkavik kyrkje",
-   "venue": "Spjelkavik kirke",
+   "venue": "Spjelkavik Kyrkje",
    "address": "Vestmoa 20, 6018 Ålesund",
    "cat": "konsert",
    "price": "375 kr",
@@ -1276,6 +1252,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66724-julekonsert-spjelkavik-kyrkje",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "sip-and-decorate-racoon-coffee",
+   "date": "2026-12-04",
+   "time": "20:00",
+   "title": "Sip and Decorate",
+   "venue": "Racoon Coffee",
+   "address": "Kongens gate 6, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "186 kr",
+   "priceMin": 186,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67740-sip-and-decorate",
+   "addedAt": "2026-11-21T20:54:37Z"
   },
   {
    "id": "julefest-for-danseglade-varde",
@@ -1324,6 +1316,22 @@
    "note": "Julekonsert. Rabatt: Student 250 kr. Barn under 12 år gratis.",
    "url": "https://ebillett.no/skruk",
    "addedAt": "2026-10-27T07:56:21Z"
+  },
+  {
+   "id": "kids-gingerbread-decorating-blend-by-racoon",
+   "date": "2026-12-05",
+   "time": "09:30",
+   "title": "Kids Gingerbread Decorating",
+   "venue": "Blend by Racoon",
+   "address": "",
+   "cat": "konsert",
+   "price": "140 kr",
+   "priceMin": 140,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67741-kids-gingerbread-decorating",
+   "addedAt": "2026-11-21T20:54:37Z"
   },
   {
    "id": "julemarked-hatlane-skole-2026",
@@ -1954,11 +1962,11 @@
    "addedAt": "2026-11-16T09:25:50Z"
   },
   {
-   "id": "klassisk-jul-julefavorittar-med-tradisjonar-spjelkavik-kirke",
+   "id": "klassisk-jul-julefavorittar-med-tradisjonar-spjelkavik-kyrkj",
    "date": "2026-12-14",
    "time": "17:30",
    "title": "Klassisk Jul  – julefavorittar med tradisjonar",
-   "venue": "Spjelkavik kirke",
+   "venue": "Spjelkavik Kyrkje",
    "address": "Vestmoa 20, 6018 Ålesund",
    "cat": "konsert",
    "price": "300 kr",
@@ -2829,7 +2837,7 @@
    "date": "2027-02-04",
    "time": "18:30",
    "title": "Iver Kleive & Knut Reiersrud – «Vidunderligst av alt på jord»",
-   "venue": "Spjelkavik kirke",
+   "venue": "Spjelkavik Kyrkje",
    "address": "Vestmoa 20, 6018 Ålesund",
    "cat": "konsert",
    "price": "428 kr",
