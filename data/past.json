@@ -1772,6 +1772,23 @@
    "url": "https://tikkio.com/events/65468-valkyrien-allstars-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-20"
+  },
+  {
+   "id": "viti-loerdagsomvisning-i-jugendstilsenteret-jugendstilsenter",
+   "date": "2026-11-21",
+   "time": "12:00",
+   "title": "Lørdagsomvisning i Jugendstilsenteret",
+   "venue": "Jugendstilsenteret og KUBE",
+   "address": "Apotekergata 16, Ålesund",
+   "cat": "happening",
+   "price": "120 kr",
+   "priceMin": 120,
+   "soldOut": false,
+   "note": "Inkludert i inngangsbillett (120,-). Kunstnere og kunststudenter gratis.",
+   "uncertain": false,
+   "url": "https://www.vitimusea.no/arrangement/loerdagsomvisning-i-jugendstilsenteret-",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-21"
   }
  ]
 }

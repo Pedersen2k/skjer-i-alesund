@@ -184,15 +184,19 @@
    "bbb-biff-bearnaise-bordeaux-vino-bar": [
     "2026-11-18T10:16:44Z",
     "2026-11-21T11:39:37Z"
+   ],
+   "viti-loerdagsomvisning-i-jugendstilsenteret-jugendstilsenter": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-21T11:58:07Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-21T11:39:37Z",
+  "updatedAt": "2026-11-21T11:58:07Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 9,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -208,22 +212,6 @@
   ]
  },
  "events": [
-  {
-   "id": "viti-loerdagsomvisning-i-jugendstilsenteret-jugendstilsenter",
-   "date": "2026-11-21",
-   "time": "12:00",
-   "title": "Lørdagsomvisning i Jugendstilsenteret",
-   "venue": "Jugendstilsenteret og KUBE",
-   "address": "Apotekergata 16, Ålesund",
-   "cat": "happening",
-   "price": "120 kr",
-   "priceMin": 120,
-   "soldOut": false,
-   "note": "Inkludert i inngangsbillett (120,-). Kunstnere og kunststudenter gratis.",
-   "uncertain": false,
-   "url": "https://www.vitimusea.no/arrangement/loerdagsomvisning-i-jugendstilsenteret-",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "juleverksted-alesund-cupcakekrans-thon-hotel-baronen",
    "date": "2026-11-21",
@@ -670,6 +658,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "toner-i-en-forjulstid-spjelkavik-kirke-2026",
+   "date": "2026-11-24",
+   "time": "19:00",
+   "title": "Toner i en førjulstid",
+   "venue": "Spjelkavik kirke",
+   "address": "Vestmoa 20, 6018 Ålesund",
+   "cat": "konsert",
+   "price": "250 kr",
+   "priceMin": 250,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Førjulstoner med Sangkoret Cantábile, cellist Kristian F. Sylthe og pianist Asgeir Hoffart, Mannskoret Dovre og blandakoret Von Dess. Dørene åpner 18:30. Kilde: Bypatrioten.",
+   "url": "https://www.spjelkavik.kyrkjelyd.no/",
+   "addedAt": "2026-11-21T11:58:07Z"
+  },
+  {
    "id": "kransekurs-og-forjulskos-fabrikken-kulturscene",
    "date": "2026-11-24",
    "time": "",
@@ -934,6 +938,25 @@
     "2026-11-29"
    ],
    "addedAt": "2026-11-10T08:20:11Z"
+  },
+  {
+   "id": "julekonsert-pa-laven-tennfjord-2026",
+   "date": "2026-11-28",
+   "time": "16:00",
+   "title": "Julekonsert på låven i Tennfjord",
+   "venue": "Låven, Tennfjord",
+   "address": "Tennfjordvegen 182, 6264 Tennfjord",
+   "cat": "konsert",
+   "price": "250 kr",
+   "priceMin": 250,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Jazzsangerinne Gine Gaustad Anderssen og pianist Arne Torvik. To konserter, kl. 16 og kl. 19. Dørene åpner 15:30. Billetter må kjøpes på forhånd ved å sende melding til 986 30 495. Tennfjord ligger i Ålesund kommune. Kilde: Bypatrioten.",
+   "url": "https://www.facebook.com/share/1fv5JZMsyi/?mibextid=wwXIfr",
+   "moreShows": [
+    "2026-11-28T19:00"
+   ],
+   "addedAt": "2026-11-21T11:58:07Z"
   },
   {
    "id": "for-var-jord-borgund-kyrkje-2026",
@@ -1393,6 +1416,38 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "himmelske-juletoner-langevag-kyrkje-2026",
+   "date": "2026-12-05",
+   "time": "18:00",
+   "title": "Himmelske Juletoner",
+   "venue": "Langevåg kyrkje",
+   "address": "Råsa 41, 6030 Langevåg",
+   "cat": "konsert",
+   "price": "fra 175 kr",
+   "priceMin": 175,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Julekonsert med den profesjonelle herretrioen Operatørene, orgel og flygel. Voksne 350 kr, barn til og med 15 år og honnør 175 kr. Langevåg ligger på Sula.",
+   "url": "https://tikkio.com/events/66899-himmelske-juletoner",
+   "addedAt": "2026-11-21T11:58:07Z"
+  },
+  {
+   "id": "slaget-om-sunnmores-beste-juleol-kaab-2026",
+   "date": "2026-12-05",
+   "time": "18:00",
+   "title": "Slaget om Sunnmøres beste juleøl",
+   "venue": "KaaB Bryggeri",
+   "address": "Geilneset 16, 6030 Langevåg",
+   "cat": "happening",
+   "price": "480 kr",
+   "priceMin": 480,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Trollbryggeriet, Molo, KaaB og Geiranger Bryggeri: smak åtte juleøl og finn din favoritt. Langevåg ligger på Sula.",
+   "url": "https://tikkio.com/events/67733-slaget-om-sunnmores-beste-juleol",
+   "addedAt": "2026-11-21T11:58:07Z"
+  },
+  {
    "id": "kamelen-terminalen-byscene",
    "date": "2026-12-05",
    "time": "20:00",
@@ -1511,6 +1566,22 @@
    "addedAt": "2026-11-16T09:25:50Z"
   },
   {
+   "id": "jul-i-nytt-lys-langevag-kyrkje-2026",
+   "date": "2026-12-06",
+   "time": "18:30",
+   "title": "Jul i nytt lys",
+   "venue": "Langevåg kyrkje",
+   "address": "Råsa 41, 6030 Langevåg",
+   "cat": "konsert",
+   "price": "250 kr",
+   "priceMin": 250,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Håvard Sveås (sang) og Lars Nikolay Riksheim (lysdesign) med julesanger og lyssetting i kirka. Barn under 12 år gratis. Langevåg ligger på Sula.",
+   "url": "https://tikkio.com/events/67440-jul-i-nytt-lys",
+   "addedAt": "2026-11-21T11:58:07Z"
+  },
+  {
    "id": "sobra-trygve-seim-og-andreas-utnem-sobra-scene",
    "date": "2026-12-06",
    "time": "20:00",
@@ -1571,6 +1642,22 @@
    "note": "Gjallarhorn Brass med Sunnmøre Senior Storband og Nørvøy Ungdomskorps som gjester. Billetter selges i døra, pris står ikke oppgitt. Kilde: Bypatrioten.",
    "url": "https://www.spjelkavik.kyrkjelyd.no/",
    "addedAt": "2026-11-01T21:47:04Z"
+  },
+  {
+   "id": "coca-cola-juletraileren-extra-skarbovik-2026",
+   "date": "2026-12-09",
+   "time": "13:00",
+   "title": "Coca-Cola Juletraileren",
+   "venue": "Extra Skarbøvik",
+   "address": "Skarbøvikgata 21, 6006 Ålesund",
+   "cat": "happening",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Julelastebilen til Coca-Cola gjester Ålesund kl. 13–18. Kilde for tider og sted: Coca-Colas egen turnéside.",
+   "url": "https://www.coca-cola.com/no/no/offerings/christmas/juletrailer",
+   "addedAt": "2026-11-21T11:58:07Z"
   },
   {
    "id": "neon-ion-venterommet-terminalen",
@@ -1772,6 +1859,22 @@
     "2026-12-13T14:00"
    ],
    "addedAt": "2026-10-30T13:23:27Z"
+  },
+  {
+   "id": "bokkino-julefortelling-moa-bibliotek-2026",
+   "date": "2026-12-12",
+   "time": "12:00",
+   "title": "Bokkino Spesial: En julefortelling",
+   "venue": "Moa bibliotek",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "barn",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Månedens klassiker er En julefortelling av Charles Dickens, tilpasset barn. Kilde: Bypatrioten.",
+   "url": "https://alesundsbiblioteka.no/biblioteka/moa/",
+   "addedAt": "2026-11-21T11:58:07Z"
   },
   {
    "id": "viti-familiedag-jul-i-apotekergaarden-jugendstilsenteret-og-",
@@ -2120,6 +2223,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "scala-brio-julenattine-langevag-kirke-2026",
+   "date": "2026-12-18",
+   "time": "21:30",
+   "title": "Scala Brio Julenattine 2026",
+   "venue": "Langevåg kirke",
+   "address": "Råsa 41, 6030 Langevåg",
+   "cat": "konsert",
+   "price": "375 kr",
+   "priceMin": 375,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Scala Brios tradisjonelle julekonsert med lokale artister. Langevåg ligger på Sula.",
+   "url": "https://tikkio.com/events/67114-scala-brio-julenattine-2026",
+   "addedAt": "2026-11-21T11:58:07Z"
+  },
+  {
    "id": "julematmarked-pa-devoldfabrikken-devoldfabrikken",
    "date": "2026-12-19",
    "time": "11:00",
@@ -2182,6 +2301,22 @@
     "2026-12-19T19:00"
    ],
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "o-helga-natt-nerskoyloa-skodje-2026",
+   "date": "2026-12-19",
+   "time": "18:00",
+   "title": "O Helga Natt",
+   "venue": "Nerskøyløa",
+   "address": "Nedreskodjevegen 29, 6260 Skodje",
+   "cat": "konsert",
+   "price": "400 kr",
+   "priceMin": 400,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Julekonsert med Charlotte Fongen og Magne Fremmerlid, cellist Kristian Ferenc Sylthe og pianist Odd Johan Overøye. Skodje er en del av Ålesund kommune.",
+   "url": "https://tikkio.com/events/67497-o-helga-natt",
+   "addedAt": "2026-11-21T11:58:07Z"
   },
   {
    "id": "parken-48634-parken-kulturhus",
