@@ -22,6 +22,7 @@ Kort oversikt. All detaljert historikk (beslutninger, forslag som ikke ble valgt
 | `docs/` | Mockuper og forslag (ikke publisert); `docs/HANDOFF-arkiv.md` er full historikk |
 
 ## Faste rutiner
+- **Daglig julesjekk** (Claude-oppgave `trig_011NAMxmv4Q1oyjsyo9JttDG`, hver dag kl. 07:41 til 27. des; eieren krever at dette gjøres HVER dag): ny økt sjekker Bypatrioten, Tikkio (inkl. Langevåg/Skodje/Tennfjord, som eieren vil ha med), Parken, kirker, julebord-steder og julegrantenning, legger det som mangler i `manual.json`/`julebord.json`, merger og publiserer. Skru av etter jul.
 - **Ukentlig julesjekk** (Claude-oppgave, mandager 10:23 til 21. des): Bypatrioten, Fjord Norway, Atlanterhavsparken, julegrantenning, kyrkja.alesund.no. Nye desemberkonserter hos Parken er ofte julekonserter uten «jul» i tittelen: legg dem i `data/jul.json` `include`.
 - **Vakt** (`trig_01LynTH5ThdCUziUnoPQrC4j`): sjekker at planlagte kjøringer går. Skru av etter jul. Hvis planlagte kjøringer stopper: slå workflowene av og på i Actions, eller merge en liten endring i workflow-filene.
 - **Julebord**: sjekk Scandic Parken, MS Bruvik, Hotel 1904 og Quality-hotellene hver uke i november. Neste høst: tøm `julebord.json` og julebord i `manual.json`.
