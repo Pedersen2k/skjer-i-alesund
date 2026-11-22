@@ -1774,6 +1774,22 @@
    "last": "2026-11-20"
   },
   {
+   "id": "jazzsirkelen-arnt-inge-saeter-2026",
+   "date": "2026-11-21",
+   "time": "14:00",
+   "title": "Jazzsirkelen: Jazzkafé med Arnt-Inge Sæther kvartett",
+   "venue": "Quality Hotel Ålesund",
+   "address": "Sorenskriver Bulls gate 7, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "Pris hos arrangør",
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Billetter i døra, pris står ikke oppgitt.",
+   "url": "https://jazzsirkelen.no/",
+   "addedAt": "2026-11-01T21:47:04Z",
+   "last": "2026-11-21"
+  },
+  {
    "id": "juleverksted-alesund-cupcakekrans-thon-hotel-baronen",
    "date": "2026-11-21",
    "time": "12:45",
@@ -1824,6 +1840,23 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/51238-alesund-ballettskole-kulturskolen/",
    "addedAt": "2026-10-28T16:02:24Z",
+   "last": "2026-11-21"
+  },
+  {
+   "id": "rave-in-white-stisema-terminalen-byscene",
+   "date": "2026-11-21",
+   "time": "23:00",
+   "title": "Rave in White | Stisema",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "150 kr",
+   "priceMin": 150,
+   "soldOut": false,
+   "note": "Rabatt: Early Bird 50 kr, ÅSS / Student-billett 100 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67209-white-rave-stisema-terminalen",
+   "addedAt": "2026-10-28T09:59:36Z",
    "last": "2026-11-21"
   },
   {
