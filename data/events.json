@@ -177,10 +177,6 @@
     "2026-10-19T12:59:56Z",
     "2026-11-20T22:15:04Z"
    ],
-   "bbb-biff-bearnaise-bordeaux-vino-bar": [
-    "2026-11-18T10:16:44Z",
-    "2026-11-21T11:39:37Z"
-   ],
    "viti-loerdagsomvisning-i-jugendstilsenteret-jugendstilsenter": [
     "2026-10-19T12:59:56Z",
     "2026-11-21T12:03:51Z"
@@ -214,9 +210,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-22T01:20:47Z",
+  "updatedAt": "2026-11-22T13:22:14Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 5,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -2437,6 +2433,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "gin-smaking-grova-vino-bar",
+   "date": "2026-12-29",
+   "time": "16:00",
+   "title": "Gin-smaking Grova",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "995 kr",
+   "priceMin": 995,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/gin-smaking-grova-29-12-2026-kl-16-00/",
+   "addedAt": "2026-11-22T13:22:14Z"
+  },
+  {
    "id": "singeltreff-alesund-romjulsfest-30-45-ar-thon-hotel-alesund",
    "date": "2026-12-29",
    "time": "19:30",
@@ -2891,6 +2903,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "vinkurs-vin-til-sushi-den-perfekte-kombinasjonen-vino-bar",
+   "date": "2027-02-06",
+   "time": "14:00",
+   "title": "Vinkurs: Vin til sushi – den perfekte kombinasjonen",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "995 kr",
+   "priceMin": 995,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/vinkurs-vin-til-sushi-den-perfekte-kombinasjonen-06-02-2027-kl-1400/",
+   "addedAt": "2026-11-22T13:22:14Z"
+  },
+  {
    "id": "parken-51678-parken-kulturhus",
    "date": "2027-02-06",
    "time": "16:00",
@@ -3019,6 +3047,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "bbb-biff-bearnaise-bordeaux-vino-bar",
+   "date": "2027-02-12",
+   "time": "18:00",
+   "title": "BBB – BIFF, BÉARNAISE & BORDEAUX",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "1995 kr",
+   "priceMin": 1995,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/bbb-biff-bearnaise-bordeaux-12-02-2027-kl-1800/",
+   "addedAt": "2026-11-18T10:16:44Z"
+  },
+  {
    "id": "parken-49633-parken-kulturhus",
    "date": "2027-02-12",
    "time": "19:00",
@@ -3117,6 +3161,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66636-andre-ulveseter",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "vinkurs-ost-og-vin-finn-de-beste-kombinasjonene-vino-bar",
+   "date": "2027-02-25",
+   "time": "18:00",
+   "title": "Vinkurs: Ost og vin – finn de beste kombinasjonene",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "995 kr",
+   "priceMin": 995,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/vinkurs-ost-og-vin-finn-de-beste-kombinasjonene-25-02-2027-kl-1800/",
+   "addedAt": "2026-11-22T13:22:14Z"
   },
   {
    "id": "rotlaus-terminalen-byscene",
@@ -3655,6 +3715,41 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66161-karpe-alesund-live",
    "addedAt": "2026-10-27T16:49:40Z"
+  },
+  {
+   "id": "vincruise-om-bord-i-ms-bruvik-med-musikk-av-stine-hole-ulla-",
+   "date": "2027-07-04",
+   "time": "18:00",
+   "title": "VINCRUISE OM BORD I MS BRUVIK MED MUSIKK AV STINE HOLE ULLA OG KNUT BJØRNAR ASPHOL",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "1990 kr",
+   "priceMin": 1990,
+   "soldOut": false,
+   "note": "Flere forestillinger: 13. aug.",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/vincruise-om-bord-i-ms-bruvik-med-musikk-av-stine-hole-ulla-og-knut-bjornar-asphol-04-07-2027-kl-1900/",
+   "moreShows": [
+    "2027-08-13T18:00"
+   ],
+   "addedAt": "2026-11-22T13:22:14Z"
+  },
+  {
+   "id": "vinens-historie-en-musikalsk-smaksreise-m-knut-bjornar-og-st",
+   "date": "2027-08-26",
+   "time": "19:00",
+   "title": "Vinens historie – en musikalsk smaksreise m/Knut Bjørnar og Stine Hole Ulla",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "1195 kr",
+   "priceMin": 1195,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/smaking-icon-hadeland-vinglass-for-ulike-druer-26-08-2027-kl-1900/",
+   "addedAt": "2026-11-22T13:22:14Z"
   },
   {
    "id": "parken-51292-parken-kulturhus",
