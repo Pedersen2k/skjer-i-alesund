@@ -1892,6 +1892,26 @@
    "url": "https://www.vitimusea.no/arrangement/loerdagsomvisning-i-jugendstilsenteret-",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-21"
+  },
+  {
+   "id": "aafk-2026-11-22-aalesund-rosenborg",
+   "date": "2026-11-22",
+   "time": "17:00",
+   "title": "Aalesund – Rosenborg",
+   "home": "Aalesund",
+   "away": "Rosenborg",
+   "league": "Eliteserien",
+   "venue": "Color Line Stadion",
+   "address": "",
+   "cat": "sport",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
+   "uncertain": false,
+   "url": "https://aafk.ticketco.events/no/nb",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-22"
   }
  ]
 }

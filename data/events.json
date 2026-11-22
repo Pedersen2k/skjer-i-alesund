@@ -204,15 +204,19 @@
    "klassisk-jul-julefavorittar-med-tradisjonar-spjelkavik-kirke": [
     "2026-11-21T13:29:12Z",
     "2026-11-21T20:54:37Z"
+   ],
+   "aafk-2026-11-22-aalesund-rosenborg": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-22T19:19:50Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-22T13:37:02Z",
+  "updatedAt": "2026-11-22T19:19:50Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -228,25 +232,6 @@
   ]
  },
  "events": [
-  {
-   "id": "aafk-2026-11-22-aalesund-rosenborg",
-   "date": "2026-11-22",
-   "time": "17:00",
-   "title": "Aalesund – Rosenborg",
-   "home": "Aalesund",
-   "away": "Rosenborg",
-   "league": "Eliteserien",
-   "venue": "Color Line Stadion",
-   "address": "",
-   "cat": "sport",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Fotball. Pris og billetter hos AaFK (TicketCo).",
-   "uncertain": false,
-   "url": "https://aafk.ticketco.events/no/nb",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "arkitektkafe-kontakt-med-sjoen-23-11-2026-maf-drape-cafe",
    "date": "2026-11-23",
@@ -1093,6 +1078,22 @@
    "note": "Førjulskonsert med kjente julesanger; 10-årsjubileum. Rein Alexander med Elisabeth Andreassen og Kim Rysstad. Billetter på Eventim.",
    "url": "https://www.eventim.no/event/deilig-er-jorden-aalesund-kirke-21549755/",
    "addedAt": "2026-10-27T07:56:21Z"
+  },
+  {
+   "id": "julekonsert-sveinung-holmebakk-misjonssalen-2026",
+   "date": "2026-12-01",
+   "time": "19:00",
+   "title": "Julekonsert med Sveinung Hølmebakk",
+   "venue": "Misjonssalen",
+   "address": "Spjelkavikvegen 132, Ålesund",
+   "cat": "konsert",
+   "price": "390 kr",
+   "priceMin": 390,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Julekonsert med Sveinung Hølmebakk i Misjonssalen. Varer ca. til kl. 20:15.",
+   "url": "https://www.sveinung.no/events/alesundjul26",
+   "addedAt": "2026-11-22T19:19:50Z"
   },
   {
    "id": "smaking-icon-hadeland-vinglass-for-ulike-druer-vino-bar",
