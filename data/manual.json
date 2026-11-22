@@ -948,5 +948,20 @@
     "uncertain": false,
     "note": "Julelastebilen til Coca-Cola gjester Ålesund kl. 13–18. Kilde for tider og sted: Coca-Colas egen turnéside.",
     "url": "https://www.coca-cola.com/no/no/offerings/christmas/juletrailer"
+  },
+  {
+    "id": "julekonsert-sveinung-holmebakk-misjonssalen-2026",
+    "date": "2026-12-01",
+    "time": "19:00",
+    "title": "Julekonsert med Sveinung Hølmebakk",
+    "venue": "Misjonssalen",
+    "address": "Spjelkavikvegen 132, Ålesund",
+    "cat": "konsert",
+    "price": "390 kr",
+    "priceMin": 390,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Julekonsert med Sveinung Hølmebakk i Misjonssalen. Varer ca. til kl. 20:15.",
+    "url": "https://www.sveinung.no/events/alesundjul26"
   }
 ]
