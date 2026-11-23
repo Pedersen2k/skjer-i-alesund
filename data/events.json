@@ -226,9 +226,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-23T20:39:07Z",
+  "updatedAt": "2026-11-23T22:09:11Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -798,6 +798,22 @@
     "2026-11-28T19:00"
    ],
    "addedAt": "2026-11-21T12:03:51Z"
+  },
+  {
+   "id": "lysparken-spjelkavika-2026",
+   "date": "2026-11-28",
+   "time": "17:00",
+   "title": "Lysparken tennes i Spjelkavika",
+   "venue": "Lillevatnet, Spjelkavika",
+   "address": "",
+   "cat": "happening",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Julelysene i Lysparken rundt Lillevatnet tennes for sjuende året, med Spjelkavikas Venner. Kl. 17 julekonsert med blandakoret Von Dess, 17.30 tennes lysene til «Det lyser i stille grender», 17.45 fyrverkeri, slutt ca. 18.30. Gratis og åpent for alle. Lysparken står hele desember.",
+   "url": "https://spjelkavikasvenner.no/nyheter/lysparken-2026-vi-tenner-lysene-28-november",
+   "addedAt": "2026-11-23T22:09:11Z"
   },
   {
    "id": "for-var-jord-borgund-kyrkje-2026",
