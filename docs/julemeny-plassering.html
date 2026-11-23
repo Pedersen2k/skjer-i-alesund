@@ -1,0 +1,46 @@
+<!doctype html><html lang="nb"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Julemeny: plassering</title><style>
+:root{--bg:#0a171b;--surface:#13252d;--fg:#e8f1ef;--muted:#8fa8ab;--line:#25414a;--accent:#ff8a6b;--jb:#e8b4a0;--gold:#f7c873;color-scheme:dark}
+*{box-sizing:border-box}body{background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,sans-serif;margin:0;padding:24px 16px 48px}
+.wrap{max-width:1100px;margin:0 auto}h1{font-size:26px;margin:0 0 6px}.lead{color:var(--muted);max-width:64ch;margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:28px 24px;align-items:start}
+.opt>h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#5ab7bf;margin:0 0 4px}.opt>p{color:var(--muted);font-size:13px;margin:0 0 10px}
+.frame{border:1px solid var(--line);border-radius:18px;padding:14px;background:#0c1d23;max-width:380px}
+a{color:inherit;text-decoration:none}
+.julcard{background:linear-gradient(160deg,#7a1f2b,#3b0f1a);border:1px solid #c9a24a66;border-radius:14px;padding:14px;margin-bottom:10px}
+.julcard small{color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-size:11px}.julcard h3{margin:2px 0 4px;font-size:22px}.julcard p{margin:0 0 10px;font-size:13.5px;color:#f1d9d9}
+.btns{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--gold);color:var(--gold);border-radius:10px;padding:8px 11px;font-size:13px;font-weight:600}.btn.main{background:var(--gold);color:#2a0d12}
+.btn.menu{border-color:var(--jb);color:var(--jb)}
+.ph{border:1px dashed var(--line);border-radius:10px;padding:10px;color:var(--muted);font-size:12.5px;margin-bottom:8px}
+.strip{display:block;border:1px solid var(--jb);background:#e8b4a012;border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:14px}.strip b{color:var(--fg)}.strip span{color:var(--muted)}
+.tabs{display:flex;gap:6px;margin:0 0 12px}.tab{border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:13px}.tab.on{background:var(--gold);color:#2a0d12;border-color:var(--gold);font-weight:700}
+.m{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 8px}.m b{display:block;font-size:14.5px}.m span{color:var(--muted);font-size:12.5px}.m i{float:right;font:700 13px ui-monospace,monospace;color:var(--jb);font-style:normal}
+.row{display:flex;gap:10px;overflow:hidden}.row .m{min-width:150px;flex:0 0 150px}
+.all{color:var(--accent);font-weight:600;font-size:13.5px;display:block;margin-top:4px}
+h4{margin:12px 0 6px;font-size:15px}
+</style><body><div class="wrap">
+<h1>Julemeny: hvor skal den stå?</h1><p class="lead">Variant B (gruppert etter rett) på egen side <code>julemeny-i-alesund/</code>, med fire måter å nå den på. Alle kan kombineres. Teksten og prisene er ekte fra <code>data/julebord.json</code>.</p>
+<div class="grid">
+
+<section class="opt"><h2>1 · Tredje knapp i julekortet på forsiden</h2><p>Julekortet har to knapper i dag. Den nye er minst påtrengende, og vises bare i julesesongen akkurat som kortet.</p><div class="frame">
+<div class="julcard"><small>Ålesund · julen 2026</small><h3>Jul i Ålesund</h3><p><b>31</b> dager til julaften. Julekonserter, juleshow og julemarked samlet på ett sted.</p>
+<div class="btns"><a class="btn main">Se alt som skjer i jula →</a><a class="btn">🎄 Julebord</a><a class="btn menu">🍽 Julemeny</a></div></div></div></section>
+
+<section class="opt"><h2>2 · Egen stripe under julekortet</h2><p>Mer synlig, med tall og pris. Passer hvis menyene skal få mest trafikk.</p><div class="frame">
+<div class="julcard"><small>Ålesund · julen 2026</small><h3>Jul i Ålesund</h3><p>Julekonserter, juleshow og julemarked.</p><div class="btns"><a class="btn main">Se alt som skjer i jula →</a><a class="btn">🎄 Julebord</a></div></div>
+<a class="strip"><b>🍽 Julemeny på restaurant</b> <span>· 9 steder, fra 190 kr. Ribbe, pinnekjøtt, lutefisk og tapas →</span></a></div></section>
+
+<section class="opt"><h2>3 · Fane på jul-i-alesund/</h2><p>Siden får to faner: «Arrangementer» (som i dag) og «Julemeny». Alt julestoffet blir på samme side, uten at lista blir lengre.</p><div class="frame">
+<h1 style="font-size:20px">Jul i Ålesund</h1><div class="tabs"><span class="tab">Arrangementer</span><span class="tab on">Julemeny</span></div>
+<div class="m"><i>695 kr</i><b>Juletallerken</b><span>Anno</span></div><div class="m"><i>fra 440 kr</i><b>Julemeny på Egon</b><span>Egon Ålesund</span></div><div class="m"><i>950 kr</i><b>Julemeny på Apotekergata No. 5</b><span>Hotel Brosundet</span></div><a class="all">Se alle 9 julemenyene →</a></div></section>
+
+<section class="opt"><h2>4 · Stripe over lista på jul-i-alesund/</h2><p>Der «N julebord i Ålesund» står i dag, kommer en tilsvarende stripe for julemenyene. Minste endring av siden.</p><div class="frame">
+<h1 style="font-size:20px">Jul i Ålesund</h1>
+<a class="strip"><b>🎄 Julebord i Ålesund</b> <span>fra 625 kr: hoteller, restauranter og dinnershow →</span></a>
+<a class="strip"><b>🍽 9 julemenyer på restaurant</b> <span>ribbe, pinnekjøtt, lutefisk og tapas →</span></a>
+<div class="ph">Alle julearrangementer · filtre · liste …</div></div></section>
+
+<section class="opt"><h2>5 · Rad med tre menyer på jul-i-alesund/</h2><p>Viser noen av menyene på selve siden, med lenke videre. Mest «butikkvindu», men tar plass og må velges ut (hvilke tre?).</p><div class="frame">
+<h1 style="font-size:20px">Jul i Ålesund</h1><h4>🍽 Julemat på restaurant</h4>
+<div class="row"><div class="m"><i>950 kr</i><b>Julemeny på Apotekergata No. 5</b><span>Hotel Brosundet</span></div><div class="m"><i>695 kr</i><b>Juletallerken</b><span>Anno</span></div><div class="m"><i>698 kr</i><b>Lutefisk fra Værøy</b><span>Anno</span></div></div><a class="all">Se alle 9 julemenyene →</a><div class="ph" style="margin-top:10px">Alle julearrangementer · filtre · liste …</div></div></section>
+
+</div></div></body></html>
