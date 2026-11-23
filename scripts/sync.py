@@ -16,6 +16,7 @@ import re
 import sys
 import time
 import unicodedata
+from concurrent.futures import ThreadPoolExecutor
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -69,7 +70,7 @@ SKIP = re.compile(r"medlemsskap|gruppe, høst|day pass|cowork|festivalpass|SPIRE
 # Steder rundt Ålesund: Tikkio-arrangementer som siles bort, men nevner et av dem eller mangler sted, gir varsel
 NEAR_ALESUND = re.compile(r"Ålesund|Aalesund|Spjelkavik|Moa\b|Borgund|Vigra|Giske|Hessa|Valderøy|Ellingsøy|Nørvasundet|Volsdalen", re.I)
 UNSURE = []  # (url, tekst) fra siste fetch_tikkio()
-PARKEN_FAILED = set()  # Parken-sider som ikke svarte i siste fetch_parken()
+PARKEN_FAILED = set()  # Parken-sider som ikke svarte i siste fetched["fetch_parken"]
 # Billettyper som ikke er reelle priser
 NOISE = re.compile(r"ledsager|rullestol|gjest|faktura|flyttet|uttak|copy|gratisbillett", re.I)
 REGULAR = re.compile(r"ordin|^billett$|^standard|^voksen|^kinobillett|^parkett", re.I)
@@ -111,11 +112,23 @@ def fetch_tikkio():
     spelling = {}  # Tikkio staver samme sted ulikt («kyrkje»/«Kyrkje»); første skrivemåte vinner
     today = datetime.datetime.now(TZ).date()
     raw = []
-    for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', page, re.S):
-        items = json.loads(m.group(1)).get("itemListElement")
-        if not items:
-            continue
-        for it in (items.values() if isinstance(items, dict) else items):
+    lists = [json.loads(m.group(1)).get("itemListElement")
+             for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', page, re.S)]
+    lists = [items.values() if isinstance(items, dict) else items for items in lists if items]
+    # Arrangementsidene hentes tre om gangen (hver venter fortsatt litt etter seg), ellers tar Tikkio over to minutter
+    wanted = []
+    for items in lists:
+        for it in items:
+            it = it.get("item", it)
+            offer = it.get("offers") or {}
+            offer = offer[0] if isinstance(offer, list) else offer
+            url = offer.get("url") or ""
+            if url and url not in wanted:
+                wanted.append(url)
+    with ThreadPoolExecutor(3) as pool:
+        pages = dict(zip(wanted, pool.map(tikkio_page, wanted)))
+    for items in lists:
+        for it in items:
             it = it.get("item", it)
             loc = it.get("location") or {}
             addr = loc.get("address") if isinstance(loc.get("address"), dict) else {}
@@ -139,7 +152,7 @@ def fetch_tikkio():
             if start.date() < today:
                 continue
             venue = spelling.setdefault(venue.casefold(), VENUE_NAMES.get(venue, venue))
-            info = tikkio_event(url, "SoldOut" in json.dumps(offer.get("availability")))
+            info = tikkio_event(url, "SoldOut" in json.dumps(offer.get("availability")), pages.get(url))
             # Oversikten har dørtiden som startDate; selve siden har «Programstart». Bruk den når dørtiden stemmer.
             prog = info.pop("prog", None)
             if prog and prog[0] == start.replace(tzinfo=None) and prog[1] > prog[0]:
@@ -151,16 +164,22 @@ def fetch_tikkio():
     return raw
 
 
-def tikkio_event(url, sold=False):
+def tikkio_page(url):
+    """Én Tikkio-side, eller "" hvis den ikke svarer (en enkelt side som feiler skal ikke stoppe hele kjøringen)."""
+    try:
+        page = get(url)
+        time.sleep(0.5)
+        return page
+    except Exception as e:
+        print("feil:", url, e, file=sys.stderr)
+        return ""
+
+
+def tikkio_event(url, sold=False, page=None):
     """Billettypene og statusen fra én Tikkio-side. Oversikten sier alltid «InStock»; bare merket på
     selve siden («Utsolgt» / «Få billetter igjen», over bildet) sier om det er utsolgt eller nesten."""
-    page = ""
-    if url:
-        try:
-            page = get(url)
-            time.sleep(0.5)
-        except Exception as e:  # en enkelt side som feiler skal ikke stoppe hele kjøringen
-            print("feil:", url, e, file=sys.stderr)
+    if page is None:
+        page = tikkio_page(url) if url else ""
     badge = re.search(r'whitespace-nowrap">\s*(Utsolgt|Få billetter igjen)\s*<', page)
     info = {"tickets": tikkio_tickets(page), "soldOut": sold or bool(badge and badge.group(1) == "Utsolgt"),
             "few": bool(badge and badge.group(1) == "Få billetter igjen")}
@@ -1156,10 +1175,17 @@ def main():
 
     now = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     today = datetime.datetime.now(TZ).date().isoformat()
-    events = build_events(fetch_tikkio(), overrides)
+    # Kildene ligger på hver sin server, så de hentes samtidig (hver kilde venter fortsatt mellom sine egne sider).
+    # Det tok over fire minutter å hente dem én etter én.
+    fetchers = [fetch_tikkio, fetch_parken, fetch_aafk, fetch_dampsentralen, fetch_oconnors, fetch_viti, fetch_livrore,
+                fetch_fabrikken, fetch_vinobar, fetch_sobra, fetch_forum, fetch_devold]
+    with ThreadPoolExecutor(len(fetchers)) as pool:
+        jobs = {f.__name__: pool.submit(f) for f in fetchers}
+    fetched = {name: job.result() for name, job in jobs.items()}  # en feil i en henter kommer fram her, som før
+    events = build_events(fetched["fetch_tikkio"], overrides)
     if not events:
         sys.exit("Fant ingen arrangementer på Tikkio – beholder forrige versjon.")
-    parken = build_events(fetch_parken(), overrides)
+    parken = build_events(fetched["fetch_parken"], overrides)
     if parken and PARKEN_FAILED:
         # Sider som ikke svarte denne gangen: behold det vi hadde, så arrangementene ikke forsvinner og senere ser nye ut
         have = {e["id"] for e in parken}
@@ -1168,14 +1194,14 @@ def main():
         print(f"Parken: {len(PARKEN_FAILED)} sider svarte ikke, beholdt {len(kept)} arrangementer fra forrige gang", file=sys.stderr)
     if not parken:
         warn("Fikk ingen arrangementer fra Parken kulturhus. Siden viser reserven i data/manual.json, som kan være utdatert.")
-    aafk = fetch_aafk()
+    aafk = fetched["fetch_aafk"]
     events += aafk
-    damp_raw = fetch_dampsentralen()
+    damp_raw = fetched["fetch_dampsentralen"]
     if damp_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         damp = [e for e in old["events"] if e["venue"] == DAMP_VENUE and e["date"] >= today]
     else:
         damp = build_events(damp_raw, overrides)
-    oc_raw = fetch_oconnors()
+    oc_raw = fetched["fetch_oconnors"]
     if oc_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         oconnors = [e for e in old["events"] if e["venue"] == OCONNORS_VENUE and e["date"] >= today]
     else:
@@ -1184,22 +1210,22 @@ def main():
             if e["priceMin"] and any(r.get("gratis") for r in oc_raw) and "quiz" in e["title"].lower():
                 e["uncertain"] = True
                 e["note"] = (e["note"] + " " if e["note"] else "") + f"Oversikten deres sier kl. 20 og gratis, men arrangementssiden sier kl. {e['time']} og {e['price']}. Sjekk hos O'Connor's."
-    viti_raw = fetch_viti()
+    viti_raw = fetched["fetch_viti"]
     if viti_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         viti = [e for e in old["events"] if e["venue"] in {v for v, _ in VITI_MUSEUMS.values()} and e["date"] >= today]
     else:
         viti = build_events(viti_raw, overrides)
-    lr_raw = fetch_livrore()
+    lr_raw = fetched["fetch_livrore"]
     if lr_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         livrore = [e for e in old["events"] if e["venue"] == LIVRORE_VENUE and e["date"] >= today]
     else:
         livrore = build_events(lr_raw, overrides)
-    fab_raw = fetch_fabrikken()
+    fab_raw = fetched["fetch_fabrikken"]
     if fab_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         fabrikken = [e for e in old["events"] if e["venue"] == FABRIKKEN_VENUE and e["date"] >= today]
     else:
         fabrikken = build_events(fab_raw, overrides)
-    vino_raw = fetch_vinobar()
+    vino_raw = fetched["fetch_vinobar"]
     if vino_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         vinobar = [e for e in old["events"] if e["url"].startswith(VINOBAR) and e["date"] >= today]
     else:
@@ -1207,17 +1233,17 @@ def main():
     # Vino Bar arrangerer noe på Fabrikken (Ålesund bobler); Vino Bar har pris og status, så den versjonen vinner
     vino_keys = {(e["date"], norm_key(e["title"])) for e in vinobar}
     fabrikken = [e for e in fabrikken if (e["date"], norm_key(e["title"])) not in vino_keys]
-    sobra_raw = fetch_sobra()
+    sobra_raw = fetched["fetch_sobra"]
     if sobra_raw is None:
         sobra = [e for e in old["events"] if e["venue"] == SOBRA_VENUE and e["date"] >= today and not e["url"].startswith("https://tikkio")]
     else:
         sobra = build_events(sobra_raw, overrides)
-    forum_raw = fetch_forum()
+    forum_raw = fetched["fetch_forum"]
     if forum_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         forum = [e for e in old["events"] if e["venue"] == FORUM_VENUE and e["date"] >= today]
     else:
         forum = build_events(forum_raw, overrides)
-    devold_raw = fetch_devold()
+    devold_raw = fetched["fetch_devold"]
     if devold_raw is None:  # siden svarte ikke: behold det vi hadde fra forrige gang
         devold = [e for e in old["events"] if e["venue"] == DEVOLD_VENUE and e["date"] >= today]
     else:

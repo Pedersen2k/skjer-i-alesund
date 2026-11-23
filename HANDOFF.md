@@ -10,6 +10,8 @@ Kort oversikt. All detaljert historikk (beslutninger, forslag som ikke ble valgt
 - Alle forsøk fra 1. nov (I kveld-linja, stjerne S4, overgang O3, tom liste T7) er permanente.
 - 17 Nov: Bypatrioten krediteres bare for opplysninger som ikke står hos arrangøren (se CLAUDE.md). Jazzsirkelen og AaUM har mistet kreditten; Ålesund Filmklubb har bare pris/dørtid/medlemspris igjen fra Bypatrioten.
 
+- 23 Nov: `sync.py` henter kildene samtidig (og Tikkio-sidene tre om gangen): 4,5 → 1,5 min, samme resultat. `oppdater.yml` har tidsgrense (25 min), nytt forsøk på publiseringen når GitHub ikke finner artefakten, og kjører ikke ved push som bare endrer `docs/` eller `*.md`.
+
 ## Filer
 | Fil | Hva |
 |---|---|

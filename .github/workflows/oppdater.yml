@@ -14,6 +14,10 @@ on:
   # Botens egen commit bruker GITHUB_TOKEN og starter ikke en ny kjøring, så det blir ingen løkke.
   push:
     branches: [main]
+    # Endringer som ikke påvirker siden (notater, forslag) trenger ingen ny kjøring
+    paths-ignore:
+      - "docs/**"
+      - "*.md"
   workflow_dispatch:
 
 permissions:
@@ -29,6 +33,8 @@ concurrency:
 jobs:
   oppdater:
     runs-on: ubuntu-latest
+    # Uten grense kan en kjøring som henger, stå i seks timer og holde alle de neste igjen i køen
+    timeout-minutes: 25
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -87,8 +93,25 @@ jobs:
         with:
           path: _site
 
-      - id: deploy
+      # GitHub finner av og til ikke bildet som nettopp ble lastet opp («No artifacts named github-pages»).
+      # Da venter vi litt og prøver igjen, i stedet for å lage et varsel.
+      - id: deploy1
         uses: actions/deploy-pages@v5
+        continue-on-error: true
+
+      - name: Vent litt før nytt forsøk
+        if: steps.deploy1.outcome == 'failure'
+        run: sleep 30
+
+      - id: deploy2
+        if: steps.deploy1.outcome == 'failure'
+        uses: actions/deploy-pages@v5
+
+      - id: deploy
+        name: Publisert
+        env:
+          URL: ${{ steps.deploy1.outputs.page_url || steps.deploy2.outputs.page_url }}
+        run: echo "page_url=$URL" >> "$GITHUB_OUTPUT"
 
       # Gi Bing m.fl. beskjed om sidene som endrer seg (IndexNow). Feil her stopper ikke noe.
       - name: Si fra til søkemotorer
