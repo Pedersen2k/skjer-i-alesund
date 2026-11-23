@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-22T21:08:52Z",
+  "updatedAt": "2026-11-23T01:48:40Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -17,15 +17,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/a510c7da3f35cfd934709ac7f54d736e9eeffd3d-1080x1514.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-20",
    "shows": [
-    {
-     "start": "2026-11-22T15:15:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-23T20:45:00",
      "screen": "Sal 6",
@@ -151,15 +142,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ece98fe1e9a1b24ef010288a35d3384c503d2f72-954x1350.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
-    {
-     "start": "2026-11-22T20:45:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-23T18:00:00",
      "screen": "Sal 6",
@@ -293,13 +275,6 @@
    "premiere": "2026-11-06",
    "shows": [
     {
-     "start": "2026-11-22T20:45:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-23T21:10:00",
      "screen": "4",
      "tags": [],
@@ -417,26 +392,6 @@
    ]
   },
   {
-   "id": "EDI20261653",
-   "title": "Instruktorius",
-   "age": 15,
-   "minutes": 90,
-   "genres": [
-    "Komedie"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/3b49b9befecf3c8c3bd4c85ba53a7ba0c528e20a-1080x1920.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-11-20",
-   "shows": [
-    {
-     "start": "2026-11-22T18:30:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "NOR20240691",
    "title": "Julenissens verksted",
    "age": 0,
@@ -449,52 +404,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6709e48a4ac96bb7821de663e44feff52c689458-1190x1684.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-06",
    "shows": [
-    {
-     "start": "2026-11-22T10:30:00",
-     "screen": "Sal 6",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T11:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T13:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T15:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T16:30:00",
-     "screen": "4",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-23T12:00:00",
      "screen": "1 isense",
@@ -647,32 +556,6 @@
    ]
   },
   {
-   "id": "WAB20240223",
-   "title": "Katten med hatten",
-   "age": 6,
-   "minutes": 107,
-   "genres": [
-    "Animasjon",
-    "Barnefilm",
-    "Familiefilm",
-    "Komedie"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/051358c6db07b7d5eb86cc8bc9374ff3715237ec-1500x2223.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-12-04",
-   "shows": [
-    {
-     "start": "2026-11-22T12:45:00",
-     "screen": "3",
-     "tags": [
-      "Norsk tale",
-      "Utekstet"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20260975",
    "title": "Lille spøkelset Laban skøyer igjen",
    "age": 0,
@@ -684,16 +567,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/9af456586f2b90f0e08d670bdedef2f96e4ee48d-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-23",
    "shows": [
-    {
-     "start": "2026-11-22T10:30:00",
-     "screen": "4",
-     "tags": [
-      "Norsk tale",
-      "Utekstet"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-24T12:15:00",
      "screen": "Sal 6",
@@ -758,24 +631,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/0054744e1f36936a0b20e8ec95cf475d967bb7a6-1080x1514.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-30",
    "shows": [
-    {
-     "start": "2026-11-22T14:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-22T17:15:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-11-23T13:00:00",
      "screen": "4",
@@ -853,20 +708,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/e796551111af9fba503fffcbd45d77f4a13d0521-1080x1527.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-11-22T12:15:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T14:20:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-23T17:30:00",
      "screen": "Sal 5",
@@ -947,30 +788,6 @@
    ]
   },
   {
-   "id": "EDI20261769",
-   "title": "NASZA REWOLUCJA",
-   "age": 15,
-   "minutes": 125,
-   "genres": [
-    "Biografi",
-    "Drama",
-    "Romantikk"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/603f6d21d02b9458de6393d789d93c4afdabddc6-1055x1491.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-11-20",
-   "shows": [
-    {
-     "start": "2026-11-22T17:45:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20250893",
    "title": "Other Mommy",
    "age": 15,
@@ -998,30 +815,6 @@
    ]
   },
   {
-   "id": "EDI20251106",
-   "title": "Paw Patrol: Dinofilmen",
-   "age": 0,
-   "minutes": 88,
-   "genres": [
-    "Animasjon",
-    "Barnefilm"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/b0c96c74829fac249da479447cb08a07a4ebf7ef-1500x2123.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-08-07",
-   "shows": [
-    {
-     "start": "2026-11-22T10:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20250183",
    "title": "Pensjonskuppet",
    "age": 9,
@@ -1033,29 +826,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/4fe030b928d64fd21116e82118c14e872c70ee09-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-11-22T11:30:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T15:15:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T18:00:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-23T12:00:00",
      "screen": "Sal 2",
@@ -1208,31 +978,6 @@
    ]
   },
   {
-   "id": "EDI20250794",
-   "title": "Sauen Shaun - Gårdens fårbannelse",
-   "age": 0,
-   "minutes": 81,
-   "genres": [
-    "Animasjon",
-    "Barnefilm",
-    "Familiefilm"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/0690cc492885fe739c3d101a3af245ffa6db81a9-1500x2143.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-10-02",
-   "shows": [
-    {
-     "start": "2026-11-22T10:30:00",
-     "screen": "3",
-     "tags": [
-      "Norsk tale",
-      "Utekstet"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "SMN20051022",
    "title": "The Departed",
    "age": 15,
@@ -1268,51 +1013,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/759098369c8d9e4e168cd21dec664a9588893e2e-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-18",
    "shows": [
-    {
-     "start": "2026-11-22T12:40:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T16:00:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T17:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T19:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-22T21:00:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-23T12:45:00",
      "screen": "3",
@@ -1451,13 +1151,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/36f2aeb3c5e2f75e430c2f28cb3bd64c5175221d-1080x1514.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
-    {
-     "start": "2026-11-22T20:30:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-23T12:20:00",
      "screen": "Sal 5",
@@ -1619,15 +1312,6 @@
    "premiere": "2026-10-30",
    "shows": [
     {
-     "start": "2026-11-22T12:20:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-23T15:00:00",
      "screen": "Sal 6",
      "tags": [
@@ -1659,15 +1343,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6aa7e5292065b386328165fbb04c8202a34c87c4-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-20",
    "shows": [
-    {
-     "start": "2026-11-22T20:30:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-23T20:00:00",
      "screen": "Sal 5",
