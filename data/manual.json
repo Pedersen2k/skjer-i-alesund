@@ -684,6 +684,21 @@
     ]
   },
   {
+    "id": "adventslunch-thon-hotel-alesund-2026",
+    "date": "2026-12-06",
+    "time": "13:00",
+    "title": "Adventslunch på Thon Hotel Ålesund",
+    "venue": "Thon Hotel Ålesund",
+    "address": "Molovegen 6, 6004 Ålesund",
+    "cat": "julebord",
+    "price": "",
+    "priceMin": null,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Adventsbuffet i førjulstiden, kl. 13–16. Pris er ikke oppgitt. Bordbestilling: alesund@thon.no eller 70 10 20 82. Kilde: Bypatrioten.",
+    "url": "https://www.thonhotels.no/hoteller/norge/alesund/thon-hotel-alesund/"
+  },
+  {
     "id": "adventsbasar-hessatun",
     "date": "2026-11-23",
     "time": "18:00",
