@@ -226,9 +226,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-23T19:37:32Z",
+  "updatedAt": "2026-11-23T19:50:12Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1485,6 +1485,22 @@
    "uncertain": false,
    "url": "https://www.vitimusea.no/arrangement/foerjulssondag-paa-sunnmore-museum",
    "addedAt": "2026-11-03T13:17:40Z"
+  },
+  {
+   "id": "adventslunch-thon-hotel-alesund-2026",
+   "date": "2026-12-06",
+   "time": "13:00",
+   "title": "Adventslunch på Thon Hotel Ålesund",
+   "venue": "Thon Hotel Ålesund",
+   "address": "Molovegen 6, 6004 Ålesund",
+   "cat": "julebord",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Adventsbuffet i førjulstiden, kl. 13–16. Pris er ikke oppgitt. Bordbestilling: alesund@thon.no eller 70 10 20 82. Kilde: Bypatrioten.",
+   "url": "https://www.thonhotels.no/hoteller/norge/alesund/thon-hotel-alesund/",
+   "addedAt": "2026-11-23T19:50:12Z"
   },
   {
    "id": "familiejulebord-quality-hotel-alesund",
