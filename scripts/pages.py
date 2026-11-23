@@ -621,14 +621,41 @@ def quiz_week(evs, today):
     return f'<div class="qweek" aria-label="Neste syv dager, prikk der det er quiz">{cells}</div>'
 
 
-def julemeny_html():
-    """Julemeny på restaurant uten faste datoer (data/julebord.json), som en egen boks på julebord/. Bare tilbud med kildelenke."""
+JULEMENY_PATH = "julemeny-i-alesund/"
+JULEMENY_TYPES = ["Ribbe og pinnekjøtt", "Lutefisk", "Flere retter", "À la carte", "Tapas", "Frokost og lunsj"]
+
+
+def julemeny_items():
     f = ROOT / "data" / "julebord.json"
-    items = json.loads(f.read_text()).get("julemeny", []) if f.exists() else []
-    rows = "".join(f"""<li><a href="{escape(i['url'])}" target="_blank" rel="noopener"><b>{escape(i['name'])}</b></a> <span>{escape(i['venue'])}</span>
-      <small>{escape(" · ".join(x for x in (i.get("period", ""), i.get("price") or "Pris hos arrangør") if x))}</small>{f"<p>{escape(i['note'])}</p>" if i.get("note") else ""}</li>""" for i in items)
+    return json.loads(f.read_text()).get("julemeny", []) if f.exists() else []
+
+
+def julemeny_html():
+    """På julebord/: en kort lenke til julemeny-i-alesund/ (menyene har egen side), og tips-lenken."""
+    n = len(julemeny_items())
+    box = (f'<a class="jul-jm-box" href="../{JULEMENY_PATH}"><b>Bare lyst på julemat?</b> {n} restauranter og hoteller har julemeny uten faste datoer: '
+           f'ribbe, pinnekjøtt, lutefisk og tapas. <span>Se julemenyene →</span></a>' if n else "")
     tips = '<p class="jbtips">Har du et julebord som alle kan bestille? <a href="../kontakt/">Tips oss</a>.</p>'
-    return (f'<section class="julemeny"><h2>Julemeny på restaurant</h2><p>Hele førjulen, uten faste datoer: bestill bord direkte hos restauranten.</p><ul>{rows}</ul></section>' if rows else "") + tips
+    return box + tips
+
+
+def julemeny_body(items):
+    """Innholdet på julemeny-i-alesund/: tilbudene gruppert etter rett, billigst først i hver gruppe."""
+    def pmin(i):
+        m = re.search(r"\d+", (i.get("price") or "").replace(" ", ""))
+        return int(m.group()) if m else 10**6
+    groups = {}
+    for i in items:
+        groups.setdefault(i.get("type") or "Flere retter", []).append(i)
+    order = [g for g in JULEMENY_TYPES if g in groups] + [g for g in groups if g not in JULEMENY_TYPES]
+    chips = "".join(f'<a class="chip" href="#{slug(g)}">{escape(g)} <i>{len(groups[g])}</i></a>' for g in order)
+    secs = ""
+    for g in order:
+        rows = "".join(f"""<li><a href="{escape(i['url'])}" target="_blank" rel="noopener"><b>{escape(i['name'])}</b></a> <span>{escape(i['venue'])}</span>
+      <small>{escape(" · ".join(x for x in (i.get("period", ""), i.get("price") or "Pris hos restauranten") if x))}</small>{f"<p>{escape(i['note'])}</p>" if i.get("note") else ""}</li>"""
+                       for i in sorted(groups[g], key=pmin))
+        secs += f'<section class="julemeny" id="{slug(g)}"><h2>{escape(g)}</h2><ul>{rows}</ul></section>'
+    return f'<nav class="jmchips" aria-label="Rettyper">{chips}</nav>{secs}<p class="jbtips">Savner du en restaurant? <a href="../kontakt/">Tips oss</a>.</p>'
 
 
 def write(path, html):
@@ -771,7 +798,7 @@ def jul_theme_events(events, today, cfg):
 
 def jul_links(up, current, themes):
     """«Mer jul i Ålesund»: lenker mellom julesiden, julebordsiden og temasidene."""
-    items = [("jul-i-alesund/", "Jul i Ålesund"), ("julebord/", "Julebord")] + [(p, h1.replace(" i Ålesund", "")) for p, (h1, _, _) in themes.items()]
+    items = [("jul-i-alesund/", "Jul i Ålesund"), ("julebord/", "Julebord")] + ([(JULEMENY_PATH, "Julemeny")] if julemeny_items() else []) + [(p, h1.replace(" i Ålesund", "")) for p, (h1, _, _) in themes.items()]
     return '<nav class="more julx"><h2>Mer jul i Ålesund</h2><div class="row">' + "".join(
         f'<a class="chip" href="{up}{p}"{" aria-current=\"page\"" if p == current else ""}>{escape(l)}</a>' for p, l in items) + "</div></nav>"
 
@@ -809,6 +836,8 @@ def jul_page(events, today, themes=None):
     jb_prices = [e["priceMin"] for e in jb if isinstance(e.get("priceMin"), (int, float)) and e["priceMin"] > 0]
     jb_html = (f'<a class="jul-jb" href="{up}julebord/">🎄 <b>{len(jb)} julebord i Ålesund</b>{f" fra {min(jb_prices)} kr" if jb_prices else ""}: hoteller, restauranter og dinnershow →</a>'
                if jb else "")
+    nm = len(julemeny_items())
+    jm_html = (f'<a class="jul-jb jul-jm" href="{up}{JULEMENY_PATH}">🍽 <b>{nm} julemenyer på restaurant</b>: ribbe, pinnekjøtt, lutefisk og tapas →</a>' if nm else "")
     if not occ:
         return None
     by_id = {}
@@ -832,7 +861,7 @@ def jul_page(events, today, themes=None):
   <small>Ålesund · julen {year}</small><h1>Jul i Ålesund</h1>
   <p>Julekonserter, juleshow, adventskonserter og julemarked i Ålesund, samlet på ett sted med datoer og billettpriser.</p>{cd_html}</div>
 <main class="jul-main">
-  {jb_html}
+  {jb_html}{jm_html}
   <section class="jlist"><div class="jhd"><h2>Alle julearrangementer</h2><div class="jchips" id="jchips">
     <button type="button" class="chip" data-c="konsert" aria-pressed="false">Konsert</button><button type="button" class="chip" data-c="standup,show" aria-pressed="false">Standup og show</button><button type="button" class="chip" data-c="happening" aria-pressed="false">Marked og verksted</button><button type="button" class="chip" data-p="350" aria-pressed="false">Under 350 kr</button></div></div>
   <div class="jcnt" id="jcnt">{n_ev} arrangementer</div>{rows}</section>
@@ -1068,6 +1097,7 @@ def main():
     themes = jul_theme_events(all_events, today, cfg)
     has_jul = any(is_jul(e, cfg) for e in all_events)
     extra = ([("jul-i-alesund/", "Jul i Ålesund")] if has_jul else []) + ([("julebord/", "Julebord")] if any(e["cat"] == "julebord" for e in all_events) else []) \
+        + ([(JULEMENY_PATH, "Julemeny")] if julemeny_items() else []) \
         + [(p, h1.replace(" i Ålesund", "")) for p, (h1, _, _) in themes.items()]
     YEAR_PAGES.clear()
     for y in sorted({e["date"][:4] for e in events if e["cat"] == "konsert"}):
@@ -1175,8 +1205,7 @@ def main():
         # Lages også uten arrangementer, så lenkene fra forsiden aldri blir døde
         evs = [e for e in all_events if e["cat"] == k]
         if k == "julebord":
-            jf = ROOT / "data" / "julebord.json"
-            nmeny = len(json.loads(jf.read_text()).get("julemeny", [])) if jf.exists() else 0
+            nmeny = len(julemeny_items())
             jname = f"Julebord og julemiddag i Ålesund {today.year}"
             listing_page(p + "/", f"{jname}: pris og dato | {SITE}", jname,
                          f"{len(evs)} julebord med dato og pris per person" + (f", og {nmeny} julemenyer på restaurant." if nmeny else "."),
@@ -1204,7 +1233,19 @@ def main():
         listing_page(p + "/", f"{h1} – program og billettpriser | {SITE}", h1,
                      f"{what}: {len(evs)} kommende {'arrangement' if len(evs) == 1 else 'arrangementer'}, " + ("med avspark og billettlenker." if k == "sport" else "med datoer og billettpriser."),
                      evs, f"Ingen kommende arrangementer i denne kategorien akkurat nå. Se hele programmet.", what, about=CAT_TEXT.get(k, ""),
-                     lead=quiz_week(evs, today) if k == "quiz" else julemeny_html() if k == "julebord" else "")
+                     lead=quiz_week(evs, today) if k == "quiz" else "")
+
+    # Julemeny på restaurant (data/julebord.json): egen side, lages også uten tilbud så lenken fra forsiden aldri blir død
+    mitems = julemeny_items()
+    mtitle = f"Julemeny i Ålesund {today.year}: ribbe, pinnekjøtt og lutefisk | {SITE}"
+    mlede = (f"{len(mitems)} restauranter og hoteller i Ålesund med julemeny uten faste datoer, med pris der den er oppgitt. Bestill bord direkte hos stedet."
+             if mitems else "Julemenyene for sesongen kommer i oktober.")
+    mhtml = listing(JULEMENY_PATH, f"Julemeny i Ålesund {today.year}", mlede, [], "", cats_present,
+                    about="Julemat på restaurant gjennom hele førjulen: ribbe, pinnekjøtt, lutefisk, tapas og julefrokost. Prisene står som hos stedet og kan endres.",
+                    lead=julemeny_body(mitems) + jul_links("../", JULEMENY_PATH, themes)).replace('<p class="empty"></p>', "")
+    write(JULEMENY_PATH, page(JULEMENY_PATH, mtitle, f"Julemeny i Ålesund {today.year}: {len(mitems)} restauranter og hoteller, med pris og lenke til menyen.", mhtml,
+                              {"@context": "https://schema.org", "@graph": [breadcrumb_ld([(SITE, BASE), (f"Julemeny i Ålesund {today.year}", BASE + JULEMENY_PATH)])]}, jul=True))
+    pages.append((JULEMENY_PATH, updated))
 
     for v, p in VENUE_PAGES.items():
         evs = [e for e in events if e["venue"] == v]
@@ -1838,6 +1879,11 @@ html[data-tema="kveld"] .ikveld .it .bt { color: var(--gold); }
 .julemeny li span { color: var(--muted); font-size: 14px; }
 .julemeny li small { display: block; font: 600 13px var(--font-mono); color: var(--c-julebord); margin-top: 2px; }
 .julemeny li p { margin: 4px 0 0; font-size: 14px; }
+.jul-jm-box { display: block; margin: 0 0 14px; padding: 12px 14px; border: 1px solid var(--c-julebord); border-radius: 12px; background: color-mix(in srgb, var(--c-julebord) 7%, var(--surface)); color: var(--fg); text-decoration: none; font-size: 14.5px; }
+.jul-jm-box span { display: block; margin-top: 4px; color: var(--c-julebord); font-weight: 700; }
+.jmchips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.jmchips .chip i { font-style: normal; color: var(--muted); }
+.julemeny h2 { scroll-margin-top: 12px; }
 .jbtips { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
 .kform { display: grid; gap: 14px; max-width: 560px; }
 .kform label { display: grid; gap: 6px; font: 600 14px/1.3 var(--font-body); }
@@ -1975,6 +2021,7 @@ body.jul { background: #f6efe0; color: #2a2a22; font-family: "Figtree", system-u
 .jul .jdt { text-align: center; background: #0d3327; color: #fff; border-radius: 12px; padding: 6px 0; height: max-content; box-shadow: 0 3px 0 #0003; }
 .jul .jdt small { display: block; font: 700 10px "Figtree", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #e8b04a; } .jul .jdt b { display: block; font: 700 24px/1 "Fraunces", serif; }
 .jul .jul-jb { display: block; margin: 18px 0 4px; padding: 13px 16px; border-radius: 14px; background: #b3262d; color: #fff; text-decoration: none; font-size: 15px; box-shadow: 0 4px 12px #0002; }
+.jul .jul-jm { margin-top: 8px; }
 .jul .jul-jb:hover { filter: brightness(1.07); }
 .jul .jul-note { margin: 22px 0 0; font-size: 12.5px; color: #6b6455; } .jul .jul-note a { color: #1b5a45; }
 .jul .more { margin-top: 26px; } .jul .more h2 { font: italic 700 20px "Fraunces", serif; color: #0d3327; margin: 0 0 8px; }
