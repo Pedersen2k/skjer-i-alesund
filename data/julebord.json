@@ -1,5 +1,5 @@
 {
-  "_info": "Julemeny på restaurant uten faste datoer, vist på julebord/. Bare tilbud med kildelenke; sjekk hver sesong (sist sjekket 21. nov 2026).",
+  "_info": "Julemeny på restaurant uten faste datoer, vist på julebord/. Bare tilbud med kildelenke; sjekk hver sesong (sist sjekket 23. nov 2026).",
   "julemeny": [
     {
       "name": "Julemeny på Apotekergata No. 5",
@@ -16,6 +16,14 @@
       "price": "",
       "note": "Julemat à la carte i hotellets øverste etasje. Chambre séparée for opptil 20 personer kan leies.",
       "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026"
+    },
+    {
+      "name": "Juletallerken",
+      "venue": "Anno",
+      "period": "À la carte kl. 15–21",
+      "price": "695 kr",
+      "note": "Pinnekjøtt av lam, svineribbe, julemør, svinemør, kålrotstappe, surkål, rødkål, pinnefett og kokte mandelpoteter.",
+      "url": "https://www.anno.no/meny/"
     },
     {
       "name": "Lutefisk fra Værøy",
