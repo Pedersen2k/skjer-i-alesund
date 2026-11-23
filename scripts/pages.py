@@ -723,7 +723,7 @@ def build_ics(name, events, today):
 
 
 # --- Jul i Ålesund (sesongside) ---
-JUL_PREFIXES = ("jul", "advent", "nøtteknekk", "lucia", "romjul", "nisse", "tomte", "christmas")
+JUL_PREFIXES = ("jul", "førjul", "advent", "nøtteknekk", "lucia", "romjul", "nisse", "tomte", "christmas")
 JUL_NOT = {"juli", "julie", "julia", "julian", "julius"}
 
 
