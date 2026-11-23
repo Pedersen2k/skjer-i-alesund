@@ -1,5 +1,5 @@
 {
-  "_info": "Julemeny på restaurant uten faste datoer, vist på julebord/. Bare tilbud med kildelenke; sjekk hver sesong (sist sjekket 23. nov 2026).",
+  "_info": "Julemeny på restaurant uten faste datoer, vist på julebord/. Bare tilbud med kildelenke; «type» styrer gruppene på julemeny-i-alesund/ (Ribbe og pinnekjøtt, Lutefisk, À la carte, Tapas, Flere retter, Frokost og lunsj); sjekk hver sesong (sist sjekket 23. nov 2026).",
   "julemeny": [
     {
       "name": "Julemeny på Apotekergata No. 5",
@@ -7,7 +7,8 @@
       "period": "6. november – 19. desember",
       "price": "950 kr",
       "note": "Firerettersmeny med juleinspirasjon. Vinpakke 850 kr, aperitiff 160 kr. Bestilles med forespørsel til hotellet.",
-      "url": "https://www.brosundet.no/julebord"
+      "url": "https://www.brosundet.no/julebord",
+      "type": "Flere retter"
     },
     {
       "name": "Jule à la carte i Polarbjørn",
@@ -15,7 +16,8 @@
       "period": "Hele førjulen",
       "price": "",
       "note": "Julemat à la carte i hotellets øverste etasje. Chambre séparée for opptil 20 personer kan leies.",
-      "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026"
+      "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026",
+      "type": "À la carte"
     },
     {
       "name": "Juletallerken",
@@ -23,7 +25,8 @@
       "period": "À la carte kl. 15–21",
       "price": "695 kr",
       "note": "Pinnekjøtt av lam, svineribbe, julemør, svinemør, kålrotstappe, surkål, rødkål, pinnefett og kokte mandelpoteter.",
-      "url": "https://www.anno.no/meny/"
+      "url": "https://www.anno.no/meny/",
+      "type": "Ribbe og pinnekjøtt"
     },
     {
       "name": "Lutefisk fra Værøy",
@@ -31,7 +34,8 @@
       "period": "À la carte kl. 15–21",
       "price": "698 kr",
       "note": "Med grønn erterstuing, bacon, sennepssaus og mandelpotet, flatbrød og lefse.",
-      "url": "https://www.anno.no/meny/"
+      "url": "https://www.anno.no/meny/",
+      "type": "Lutefisk"
     },
     {
       "name": "Julemeny på Egon",
@@ -39,7 +43,8 @@
       "period": "Fra 5. november",
       "price": "fra 440 kr",
       "note": "Kjedens julemeny: ribbetallerken 440 kr, pinnekjøtt 549 kr, julekombo med begge 529 kr og julelunsj 290 kr (til kl. 15). Bestill bord på nett.",
-      "url": "https://egon.no/julebord"
+      "url": "https://egon.no/julebord",
+      "type": "Ribbe og pinnekjøtt"
     },
     {
       "name": "Julemeny på Egon",
@@ -47,7 +52,8 @@
       "period": "Fra 5. november",
       "price": "fra 440 kr",
       "note": "Kjedens julemeny: ribbetallerken 440 kr, pinnekjøtt 549 kr, julekombo med begge 529 kr og julelunsj 290 kr (til kl. 15). Bestill bord på nett.",
-      "url": "https://egon.no/julebord"
+      "url": "https://egon.no/julebord",
+      "type": "Ribbe og pinnekjøtt"
     },
     {
       "name": "Julemeny à la carte",
@@ -55,7 +61,8 @@
       "period": "Førjulen",
       "price": "",
       "note": "Egen julemeny ved siden av buffeten, blant annet klassisk juletallerken. For mindre selskap og en roligere julekveld.",
-      "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/"
+      "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
+      "type": "À la carte"
     },
     {
       "name": "Juleinspirert tapas",
@@ -63,7 +70,8 @@
       "period": "",
       "price": "retter 129–299 kr",
       "note": "Julerettene på tapasmenyen: grillet pinnekjøtt fra Bjorli med appelsinglaze 299 kr, crispy tynnribbe 225 kr, surkål med klementin 129 kr og krumkake med multekrem 159 kr. Grupper fra 8 kan velge tapasmeny (825 kr) eller sharingmeny (1050 kr). Bestill bord på nett.",
-      "url": "https://www.bryttapas.no/"
+      "url": "https://www.bryttapas.no/",
+      "type": "Tapas"
     },
     {
       "name": "Julefrokost på Skansekaia",
@@ -71,7 +79,8 @@
       "period": "1.–22. desember, kl. 6:30–9:30 (7:30–10:30 i helgene)",
       "price": "190 kr",
       "note": "Frokostbuffet med juleavslutning-stemning, per person. Bestill bord på q.alesund@strawberry.no eller 70 16 00 00. Kilde: Bypatrioten.",
-      "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/"
+      "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
+      "type": "Frokost og lunsj"
     }
   ]
 }

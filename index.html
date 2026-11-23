@@ -469,7 +469,7 @@ html[data-tema="jul"] .sqsug { background: #3a0b12; } html[data-tema="kveld"] .s
       <small id="julyear">Ålesund · julen</small><h3>Jul i Ålesund</h3>
       <p><b id="julcd"></b> dager til julaften. Julekonserter, juleshow og julemarked samlet på ett sted.</p>
     </a>
-    <div class="julbtns"><a class="julbtn" href="jul-i-alesund/">Se alt som skjer i jula →</a><a class="julbtn jb" id="jbbtn" href="julebord/" hidden></a></div>
+    <div class="julbtns"><a class="julbtn" href="jul-i-alesund/">Se alt som skjer i jula →</a><a class="julbtn jb" id="jbbtn" href="julebord/" hidden></a><a class="julbtn jb" id="jmbtn" href="julemeny-i-alesund/">🍽 Julemeny →</a></div>
   </div>
 
   <a class="kinostrip" id="kinostrip" href="kino/" hidden></a>
@@ -827,6 +827,7 @@ function julebordEntry() {
   $("julcard").hidden = false;
   $("julmain").addEventListener("click", () => track("jul/forside"));
   $("julcard").querySelector(".julbtn").addEventListener("click", () => track("jul/forside"));
+  $("jmbtn").addEventListener("click", () => track("julemeny/julekort"));
 })();
 
 // Kart: Google Maps-søk fungerer på alle telefoner og åpner kart-appen der den finnes
