@@ -139,9 +139,15 @@ def fetch_tikkio():
             if start.date() < today:
                 continue
             venue = spelling.setdefault(venue.casefold(), VENUE_NAMES.get(venue, venue))
+            info = tikkio_event(url, "SoldOut" in json.dumps(offer.get("availability")))
+            # Oversikten har dørtiden som startDate; selve siden har «Programstart». Bruk den når dørtiden stemmer.
+            prog = info.pop("prog", None)
+            if prog and prog[0] == start.replace(tzinfo=None) and prog[1] > prog[0]:
+                info["note"] = f"Dørene åpner {start:%H.%M}."
+                start = prog[1].replace(tzinfo=TZ)
             raw.append({"name": name, "venue": venue, "start": start,
                         "address": clean_address(addr.get("streetAddress"), venue),
-                        "url": url, **tikkio_event(url, "SoldOut" in json.dumps(offer.get("availability")))})
+                        "url": url, **info})
     return raw
 
 
@@ -156,8 +162,30 @@ def tikkio_event(url, sold=False):
         except Exception as e:  # en enkelt side som feiler skal ikke stoppe hele kjøringen
             print("feil:", url, e, file=sys.stderr)
     badge = re.search(r'whitespace-nowrap">\s*(Utsolgt|Få billetter igjen)\s*<', page)
-    return {"tickets": tikkio_tickets(page), "soldOut": sold or bool(badge and badge.group(1) == "Utsolgt"),
+    info = {"tickets": tikkio_tickets(page), "soldOut": sold or bool(badge and badge.group(1) == "Utsolgt"),
             "few": bool(badge and badge.group(1) == "Få billetter igjen")}
+    prog = tikkio_programstart(page)
+    if prog:
+        info["prog"] = prog
+    return info
+
+
+def tikkio_programstart(page):
+    """(dørtid, programstart) fra «Dørene åpner 14.12.2026 17:30 … Programstart 19:00» på en Tikkio-side, eller None.
+    Programstart har ikke dato; den regnes til samme dag som dørene (eller dagen etter hvis den er før dørtiden)."""
+    m = re.search(r"Dørene åpner\s+(\d{2})\.(\d{2})\.(\d{4})\s+(\d{1,2}):(\d{2})\s+(?:Slutt\s+[\d.]+\s+[\d:]+\s+)?"
+                  r"Programstart\s+(\d{1,2}):(\d{2})", page_text(page).replace("\n", " "))
+    if not m:
+        return None
+    d, mo, y, h, mi, ph, pm = (int(x) for x in m.groups())
+    try:
+        doors = datetime.datetime(y, mo, d, h, mi)
+        prog = doors.replace(hour=ph, minute=pm)
+    except ValueError:
+        return None
+    if prog < doors:
+        prog += datetime.timedelta(days=1)
+    return doors, prog
 
 
 def tikkio_tickets(page):
@@ -910,6 +938,8 @@ def build_events(raw, overrides):
         o = overrides.get(key) or overrides.get(title_key, {})
         price, price_min, disc = first.get("price") or price_info(first["tickets"])
         notes = [o.get("note", ""), first.get("note", "")]
+        if re.search(r"\bDør", notes[0]) and notes[1].startswith("Dørene åpner"):
+            notes[1] = ""  # overstyringen har allerede dørtiden (Tikkio-henteren legger den til selv)
         # Status per forestilling. Med 2–6 forestillinger og minst én status vises tidene som knapper med status på kortet
         # (i stedet for «Også kl.», «Utsolgt:» og «Flere forestillinger» i notatet)
         status = ["sold" if s["soldOut"] else "few" if s.get("few") else "" for s in shows]
