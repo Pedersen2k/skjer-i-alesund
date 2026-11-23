@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-23T09:35:13Z",
+  "updatedAt": "2026-11-23T16:03:26Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -410,7 +410,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/9a390d17-f1b6-4f25-adb7-d2fc8dd6d7ec",
+     "url": "",
      "club": false
     },
     {
@@ -419,7 +419,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/f0feb84d-2abb-4067-a437-1d7d1c8c9dd0",
+     "url": "",
      "club": false
     },
     {
@@ -508,9 +508,11 @@
   {
    "id": "EDI20261679",
    "title": "Kaizers Orchestra - Live - Dine gamle dager er nå",
-   "age": null,
+   "age": 0,
    "minutes": 116,
-   "genres": [],
+   "genres": [
+    "Konsert"
+   ],
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/9103642db6dc71b38a311853b5a07c0ff5d6026a-1080x1920.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-27",
    "shows": [
@@ -635,7 +637,7 @@
      "start": "2026-11-23T13:00:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/a6c723db-d90a-492b-901c-faa2373e26bd",
+     "url": "",
      "club": true
     },
     {
@@ -644,7 +646,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/f0a52080-50b3-41f4-b0bd-492ee8f4f283",
+     "url": "",
      "club": true
     },
     {
@@ -764,7 +766,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/4e0b6488-05c0-48ca-a178-c9f4c60dba4b",
+     "url": "",
      "club": false
     },
     {
@@ -832,7 +834,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/52b6e190-1b6e-4d2f-b5e4-a3e77ffbbcfd",
+     "url": "",
      "club": false
     },
     {
@@ -841,14 +843,14 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/72786ecb-8507-4bb8-bd45-dd7a8dca4f1c",
+     "url": "",
      "club": false
     },
     {
      "start": "2026-11-23T16:10:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/53f85ca0-0f12-4e2a-b1ea-420b8f32b770",
+     "url": "",
      "club": false
     },
     {
@@ -1017,7 +1019,7 @@
      "start": "2026-11-23T12:45:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/95cc63b8-f278-4c7b-a2ac-90588bf7986e",
+     "url": "",
      "club": false
     },
     {
@@ -1026,7 +1028,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/4d35fa40-2ce6-493b-9a43-096fb385cb35",
+     "url": "",
      "club": false
     },
     {
@@ -1157,7 +1159,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/e01609ad-3aee-4d53-bc9a-d37d403827d7",
+     "url": "",
      "club": false
     },
     {
@@ -1252,7 +1254,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/a5a70d72-7200-4071-92f4-a615178ed693",
+     "url": "",
      "club": false
     }
    ]
@@ -1317,7 +1319,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/d61755bb-2587-4107-85f8-7ee0e65f6b9c",
+     "url": "",
      "club": false
     },
     {
