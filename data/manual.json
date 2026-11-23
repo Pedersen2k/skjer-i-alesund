@@ -340,6 +340,21 @@
     "note": "Beatles-tributeband i Bankettsalen. Prisen inkluderer underholdning, stor varm julematbuffet, kaldtbord med blant annet spekemat og sjømat, kake- og dessertbord og kaffe. Pris og klokkeslett står ikke på hotellets side; bestilling på e-post til Scandic Parken."
   },
   {
+    "id": "lysparken-spjelkavika-2026",
+    "date": "2026-11-28",
+    "time": "17:00",
+    "title": "Lysparken tennes i Spjelkavika",
+    "venue": "Lillevatnet, Spjelkavika",
+    "address": "",
+    "cat": "happening",
+    "price": "Gratis",
+    "priceMin": 0,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Julelysene i Lysparken rundt Lillevatnet tennes for sjuende året, med Spjelkavikas Venner. Kl. 17 julekonsert med blandakoret Von Dess, 17.30 tennes lysene til «Det lyser i stille grender», 17.45 fyrverkeri, slutt ca. 18.30. Gratis og åpent for alle. Lysparken står hele desember.",
+    "url": "https://spjelkavikasvenner.no/nyheter/lysparken-2026-vi-tenner-lysene-28-november"
+  },
+  {
     "id": "julemarked-spjelkavikhallen-2026",
     "date": "2026-12-05",
     "time": "",
