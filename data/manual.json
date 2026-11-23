@@ -963,5 +963,38 @@
     "uncertain": false,
     "note": "Julekonsert med Sveinung Hølmebakk i Misjonssalen. Varer ca. til kl. 20:15.",
     "url": "https://www.sveinung.no/events/alesundjul26"
+  },
+  {
+    "id": "julemarked-steinerskolen-2026",
+    "date": "2026-11-28",
+    "time": "11:00",
+    "title": "Julemarked på Steinerskolen",
+    "venue": "Steinerskolen Ålesund",
+    "address": "Hatlaskaret 9, 6016 Ålesund",
+    "cat": "happening",
+    "price": "Pris hos arrangør",
+    "priceMin": null,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Tradisjonsrikt julemarked kl. 11–17 med kafé, salgsboder og aktiviteter for store og små. Kilde: Bypatrioten.",
+    "url": "https://www.aalesund.steinerskolen.no/"
+  },
+  {
+    "id": "juleutstilling-kreativklynge-2026",
+    "date": "2026-12-05",
+    "time": "12:00",
+    "title": "Juleutstilling i Kreativklynge",
+    "venue": "Kreativklynge",
+    "address": "Tollbugata 6, 6002 Ålesund",
+    "cat": "happening",
+    "price": "Pris hos arrangør",
+    "priceMin": null,
+    "soldOut": false,
+    "uncertain": false,
+    "note": "Åpne atelierer kl. 12–16 begge dager: malerier, tegninger og kunsthåndverk til salgs. Tollbugata 6, 4. etasje. Kilde: Bypatrioten.",
+    "url": "https://www.kreativklynge.com/",
+    "moreShows": [
+      "2026-12-06T12:00"
+    ]
   }
 ]
