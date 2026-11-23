@@ -1912,6 +1912,23 @@
    "url": "https://aafk.ticketco.events/no/nb",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-22"
+  },
+  {
+   "id": "arkitektkafe-kontakt-med-sjoen-23-11-2026-maf-drape-cafe",
+   "date": "2026-11-23",
+   "time": "17:00",
+   "title": "Arkitektkafè - Kontakt med sjøen, 23.11.2026, MAF",
+   "venue": "Dråpe Cafe",
+   "address": "Storgata 4, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67575-arkitekturkafe-23112026",
+   "addedAt": "2026-11-14T19:52:32Z",
+   "last": "2026-11-23"
   }
  ]
 }

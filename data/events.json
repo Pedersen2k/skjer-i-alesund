@@ -216,13 +216,17 @@
    "vinkurs-engelske-bobler-vino-bar": [
     "2026-10-19T12:59:56Z",
     "2026-11-23T09:30:49Z"
+   ],
+   "arkitektkafe-kontakt-med-sjoen-23-11-2026-maf-drape-cafe": [
+    "2026-11-14T19:52:32Z",
+    "2026-11-23T19:37:32Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-23T16:30:52Z",
+  "updatedAt": "2026-11-23T19:37:32Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -240,22 +244,6 @@
   ]
  },
  "events": [
-  {
-   "id": "arkitektkafe-kontakt-med-sjoen-23-11-2026-maf-drape-cafe",
-   "date": "2026-11-23",
-   "time": "17:00",
-   "title": "Arkitektkafè - Kontakt med sjøen, 23.11.2026, MAF",
-   "venue": "Dråpe Cafe",
-   "address": "Storgata 4, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "Gratis",
-   "priceMin": 0,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/67575-arkitekturkafe-23112026",
-   "addedAt": "2026-11-14T19:52:32Z"
-  },
   {
    "id": "adventsbasar-hessatun",
    "date": "2026-11-23",
@@ -283,6 +271,7 @@
    "price": "399 kr",
    "priceMin": 399,
    "soldOut": false,
+   "few": true,
    "note": "Dørene åpner 18.00.",
    "uncertain": false,
    "url": "https://tikkio.com/events/66682-erlend-gunstveit-my-nashville-christmas-to-you",
