@@ -43,7 +43,9 @@ def concerts():
           and not MANUAL.get(e["id"], {}).get("soldOut")]
     out, d = [], FROM
     while d <= TO:
-        out += sorted(pages.occurrences(ok, d, d), key=lambda e: e.get("time") or "")
+        # Parken merker nesten alt «få igjen»; som på nettsiden stoles det bare på de siste 14 dagene
+        out += sorted(({**e, "few": bool(e.get("few")) and (e.get("statusSrc") != "parken" or (d - FROM).days <= 14)}
+                       for e in pages.occurrences(ok, d, d)), key=lambda e: e.get("time") or "")
         d += datetime.timedelta(days=1)
     return out
 
@@ -68,6 +70,7 @@ SHORT = {
     "Julekonsert på låven i Tennfjord": "Låven i Tennfjord",
     "For vår Jord – julekonsert": "For vår Jord",
     "Julekonsert med allsang": "Allsang i Volsdalen",
+    "Erlend Gunstveit - A Very Nashville Christmas": "Erlend Gunstveit",
 }
 
 
