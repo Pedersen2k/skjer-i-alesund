@@ -226,9 +226,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-23T22:09:11Z",
+  "updatedAt": "2026-11-24T03:20:10Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -244,22 +244,6 @@
   ]
  },
  "events": [
-  {
-   "id": "adventsbasar-hessatun",
-   "date": "2026-11-23",
-   "time": "18:00",
-   "title": "Adventsbasar på Hessatun",
-   "venue": "Hessatun",
-   "address": "Hessavegen 65, 6006 Ålesund",
-   "cat": "happening",
-   "price": "Pris hos arrangør",
-   "priceMin": null,
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Nasjonalforeningen, Hessa Helselag, holder sin årlige adventsbasar. Kilde: Bypatrioten.",
-   "url": "https://www.facebook.com/Hessahelselag",
-   "addedAt": "2026-11-10T08:20:11Z"
-  },
   {
    "id": "erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate",
    "date": "2026-11-24",

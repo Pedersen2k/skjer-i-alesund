@@ -1914,6 +1914,23 @@
    "last": "2026-11-22"
   },
   {
+   "id": "adventsbasar-hessatun",
+   "date": "2026-11-23",
+   "time": "18:00",
+   "title": "Adventsbasar på Hessatun",
+   "venue": "Hessatun",
+   "address": "Hessavegen 65, 6006 Ålesund",
+   "cat": "happening",
+   "price": "Pris hos arrangør",
+   "priceMin": null,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Nasjonalforeningen, Hessa Helselag, holder sin årlige adventsbasar. Kilde: Bypatrioten.",
+   "url": "https://www.facebook.com/Hessahelselag",
+   "addedAt": "2026-11-10T08:20:11Z",
+   "last": "2026-11-23"
+  },
+  {
    "id": "arkitektkafe-kontakt-med-sjoen-23-11-2026-maf-drape-cafe",
    "date": "2026-11-23",
    "time": "17:00",
