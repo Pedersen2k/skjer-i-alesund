@@ -226,7 +226,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-24T15:54:05Z",
+  "updatedAt": "2026-11-24T15:59:56Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -2737,9 +2737,12 @@
    "price": "185–510 kr",
    "priceMin": 185,
    "soldOut": false,
-   "note": "",
+   "note": "Flere forestillinger: 24. jan.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/51631-nyttarskonserten/",
+   "moreShows": [
+    "2027-01-24T18:30"
+   ],
    "addedAt": "2026-11-24T10:21:39Z"
   },
   {
