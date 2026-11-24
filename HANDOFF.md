@@ -48,4 +48,6 @@ Kort oversikt. All detaljert historikk (beslutninger, forslag som ikke ble valgt
 - Ikke `pkill -f` med mønster som matcher egen shell. Playwright: `npm i playwright-core` og `executablePath: '/opt/pw-browsers/chromium'`.
 - Parken kan svare 429: `sync.py` har ventetid og beholder forrige data for feilede sider.
 - Tikkios oversikt sier alltid «på lager»; utsolgt-status leses fra hver arrangementsside.
+- Samme sted kan komme med ulik skrivemåte fra ulike kilder (Tikkio «Spjelkavik Kyrkje», manual.json «Spjelkavik kirke»). Eieren vil at de ALLTID slås sammen: legg skrivemåten i `SAME_VENUE` øverst i `sync.py` (små bokstaver → navnet som vises). Sammenslåingen skjer etter at id-ene er laget, så adressene til arrangementssidene endres ikke.
+- Parken merker nesten alt «få billetter igjen» (også konserter et halvt år fram). Stol bare på det de siste 14 dagene (som `fewOk` i `index.html`), også i Instagram-poster.
 - Instagram-poster: stor tekst (titler ≥ 50 px, mange bilder med få rader). Verifiserte kontoer for tagging: @terminalen_byscene, @lovenvoldtheater, @dampsentralen, @livogrore_moa, @oconnors_alesund, @bryt_tapas, @aalesundsfk, @parken_kulturhus, @sobrascene, @aalesundsfk_kvinner.

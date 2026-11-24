@@ -64,6 +64,13 @@ UA = {"User-Agent": "Mozilla/5.0 (skjer-i-alesund; +https://github.com)", "Accep
 
 ALESUND_VENUES = ("Løvenvold", "Terminalen", "Venterommet")
 VENUE_NAMES = {"Terminalen": "Terminalen Byscene", "Spjelkavik kyrkje": "Spjelkavik kirke"}
+# Samme sted skrevet ulikt i ulike kilder. Slås sammen helt til slutt (uansett store/små bokstaver), etter at id-ene
+# er laget, så arrangementssidene beholder adressen. Venstre side: skrivemåte i små bokstaver; høyre: navnet som vises.
+SAME_VENUE = {
+    "spjelkavik kyrkje": "Spjelkavik kirke", "spjelkavik kirke": "Spjelkavik kirke",
+    "langevåg kirke": "Langevåg kyrkje", "langevåg kyrkje": "Langevåg kyrkje",
+    "borgund kirke": "Borgund kirke", "borgund kyrkje": "Borgund kirke",
+}
 # Kurs, medlemskap og ungdomsforestillinger som ikke hører hjemme i kalenderen
 SKIP = re.compile(r"medlemsskap|gruppe, høst|day pass|cowork|festivalpass|SPIRE|foredrag|påmelding|^FUND$|^test ?arrangement$|^årskort\b", re.I)
 # Steder rundt Ålesund: Tikkio-arrangementer som siles bort, men nevner et av dem eller mangler sted, gir varsel
@@ -1237,6 +1244,9 @@ def main():
     # Manuelle Parken-arrangementer er reserve når Parken-siden (eller én av undersidene) ikke svarer
     parken_ids = {e["id"] for e in parken}
     events += [e for e in map(roll_forward, manual) if e["date"] >= today and e["id"] not in parken_ids]
+
+    for e in events:
+        e["venue"] = SAME_VENUE.get(e["venue"].casefold(), e["venue"])
 
     # Ikke alle Tikkio-arrangementer har adresse; bruk den fra et annet arrangement på samme scene
     known = {e["venue"]: e["address"] for e in events if e.get("address")}
