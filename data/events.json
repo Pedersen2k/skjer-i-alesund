@@ -226,9 +226,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-24T08:13:40Z",
+  "updatedAt": "2026-11-24T10:15:37Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 5,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -1658,7 +1658,7 @@
    "price": "199 kr",
    "priceMin": 199,
    "soldOut": false,
-   "note": "Dørene åpner 18.00.",
+   "note": "Dørene åpner 18.00. Rabatt: DNB-kunde 159 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67495-neon-ion-venterommet",
    "addedAt": "2026-11-11T10:10:27Z"
@@ -2727,6 +2727,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "parken-51631-parken-kulturhus",
+   "date": "2027-01-23",
+   "time": "18:30",
+   "title": "Nyttårskonserten",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "185–510 kr",
+   "priceMin": 185,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51631-nyttarskonserten/",
+   "addedAt": "2026-11-24T10:15:37Z"
+  },
+  {
    "id": "hoyt-lavt-badesken-og-rune-nilson-lovenvold-theater",
    "date": "2027-01-23",
    "time": "19:00",
@@ -3479,10 +3495,42 @@
    "price": "599 kr",
    "priceMin": 599,
    "soldOut": false,
-   "note": "Dørene åpner 19.00.",
+   "note": "Dørene åpner 19.00. Rabatt: DNB-kunde 479 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67701-maggie-reilly-my-oldfield-years-revisited-terminalen",
    "addedAt": "2026-11-20T14:02:01Z"
+  },
+  {
+   "id": "norge-england-dampsentralen",
+   "date": "2027-03-27",
+   "time": "17:00",
+   "title": "NORGE-ENGLAND",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-bp7tw-r3emt-78w9k-w27fw-zccng",
+   "addedAt": "2026-11-24T10:15:37Z"
+  },
+  {
+   "id": "england-norge-dampsentralen",
+   "date": "2027-03-30",
+   "time": "19:00",
+   "title": "ENGLAND-NORGE",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-bp7tw-r3emt-78w9k-w27fw-zccng-h9wz3",
+   "addedAt": "2026-11-24T10:15:37Z"
   },
   {
    "id": "parken-48778-parken-kulturhus",
@@ -3513,7 +3561,7 @@
    "price": "375 kr",
    "priceMin": 375,
    "soldOut": false,
-   "note": "Dørene åpner 20.00.",
+   "note": "Dørene åpner 20.00. Rabatt: DNB-kunde 300 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67690-mandalai-lamas-terminalen",
    "addedAt": "2026-11-19T14:26:48Z"
@@ -3545,7 +3593,7 @@
    "price": "399 kr",
    "priceMin": 399,
    "soldOut": false,
-   "note": "Dørene åpner 19.00.",
+   "note": "Dørene åpner 19.00. Rabatt: DNB-kunde 319 kr.",
    "uncertain": false,
    "url": "https://tikkio.com/events/67498-the-buzz-lovers-nirvana-tribute-terminalen",
    "addedAt": "2026-11-17T10:03:16Z"
@@ -3613,6 +3661,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67531-hope-hurper-og-heltinner-et-historisk-humorshow",
    "addedAt": "2026-11-18T12:09:16Z"
+  },
+  {
+   "id": "parken-51630-parken-kulturhus",
+   "date": "2027-04-18",
+   "time": "18:30",
+   "title": "Hyllest til Dvorak",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "185–410 kr",
+   "priceMin": 185,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51630-hyllest-til-dvorak/",
+   "addedAt": "2026-11-24T10:15:37Z"
   },
   {
    "id": "parken-51493-parken-kulturhus",
@@ -3715,6 +3779,22 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/48673-chopin-klaverets-poet/",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "parken-51629-parken-kulturhus",
+   "date": "2027-05-17",
+   "time": "18:30",
+   "title": "Nasjonal festkonsert",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "185–510 kr",
+   "priceMin": 185,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51629-nasjonal-festkonsert/",
+   "addedAt": "2026-11-24T10:15:37Z"
   },
   {
    "id": "parken-47917-parken-kulturhus",
