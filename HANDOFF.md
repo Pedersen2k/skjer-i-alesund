@@ -8,6 +8,7 @@ Kort oversikt. All detaljert historikk (beslutninger, forslag som ikke ble valgt
 - 24 Nov: GitHubs cron leverte bare ca. 2 av 18 kjøringer om dagen (ofte timer for sent). Nå starter `klokke.yml` oppdateringen hver andre time (06:17–22:17 norsk tid): den sover til neste tidspunkt og starter seg selv på nytt med `workflow_dispatch` (offentlig repo, gratis minutter); cron hver 3. time starter klokka igjen hvis kjeden ryker. Publiseringen (`deploy-pages`) prøver nå tre ganger med ventetid, fordi GitHub to ganger på rad ikke fant opplastingen («No artifacts named github-pages»). Vakt-oppgaven (`trig_01LynTH5ThdCUziUnoPQrC4j`) er slått av av serveren (krevde brukskreditt) og ser bare etter `schedule`-kjøringer: må skrives om før den slås på igjen.
 - Instagram-poster som lages automatisk som issues: Helgepost (tors), «Helga i ett sveip» (`panorama.yml`, tors kveld), «Under hundrelappen» (søn) og «Uka i Ålesund» (man) via `ukepost.yml`. Ukepost-workflowen er bare prøvd for hånd; første planlagte kjøringer er 22.–23. nov.
 - 17 Nov: «I kveld»-historie hver morgen (`ikveld.yml`, `scripts/ikveld.py`, variant G «Hemmelig liste» med farge etter ukedag; forslag i `docs/ikveld-historie/`). Erstatter dagsbildene i «Uka i Ålesund». Lenke `kaskjerda.no/i-dag/?ref=ig-story`: sjekk «ig-story» i GoatCounter om 2–3 uker (30 dager før start: ig ~15, Facebook ~6, Google ~500 besøk).
+- 24 Nov: `get()` i `sync.py` prøver én gang til (5 s) ved tidsavbrudd/brudd/5xx før varsel. `oppdater.yml` kjører ikke på push som bare endrer `docs/` eller `.md`, og planlagte kjøringer hopper over når en oppdatering startet den siste timen (jobben `sjekk`). Engangsrettelsen (`addedat.json`) er fjernet.
 - Alle forsøk fra 1. nov (I kveld-linja, stjerne S4, overgang O3, tom liste T7) er permanente.
 - 17 Nov: Bypatrioten krediteres bare for opplysninger som ikke står hos arrangøren (se CLAUDE.md). Jazzsirkelen og AaUM har mistet kreditten; Ålesund Filmklubb har bare pris/dørtid/medlemspris igjen fra Bypatrioten.
 
@@ -37,7 +38,7 @@ Kort oversikt. All detaljert historikk (beslutninger, forslag som ikke ble valgt
 5. **Brosundet ETTER SEKS**: legg inn 2027-datoer når Brosundet publiserer dem.
 6. **Musikkquiz på Liv & Røre** er `uncertain` (kl. 18/19): spør Liv & Røre, så kommer quizene med i «Under hundrelappen».
 7. «Rigget for fremtiden» (Dampsentralen 17. nov.) står som `konsert`, er trolig fagseminar med rart klokkeslett.
-8. Etter ca. 7. nov.: `data/addedat.json` og «Engangsrettelse»-blokken i `sync.py` (~linje 1113) kan fjernes når alle 11 Parken-arrangementene har riktig tid.
+8. Rydding i `docs/` (9,6 MB, ca. 70 forslag, mange avgjort): gå gjennom med eieren etter jul. Ikke del opp `sync.py`/`pages.py` før etter jul.
 9. Bing Webmaster Tools (import fra Search Console), «Gratis og billig»-side, kino-gjennomgang på mobil, AaFK-priser (TicketCo), Aalesunds Museum (Elfsight-widget), iPhone-delingskompass (parkert til nyttår), store mobildesign (parkert til etter jul).
 10. Sjekk GoatCounter om noen uker: `nytt/fane`, `lagre/*`, `delt/*`, `sok/*`, `side/*`.
 
