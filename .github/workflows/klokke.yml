@@ -41,6 +41,7 @@ jobs:
           echo "Andre klokker som går: $andre"
           if [ "$andre" -gt 0 ]; then echo "stopp=true" >> "$GITHUB_OUTPUT"; fi
 
+      # Hopper bare over når en oppdatering startet for under 30 min siden (f.eks. etter en merge), så hullet aldri blir mye over to timer
       - name: Start oppdatering hvis det er dagtid og en stund siden sist
         if: steps.sjekk.outputs.stopp != 'true'
         continue-on-error: true
@@ -50,7 +51,7 @@ jobs:
           alder=999
           if [ -n "$sist" ]; then alder=$(( ($(date +%s) - $(date -d "$sist" +%s)) / 60 )); fi
           echo "Klokka er $time i Ålesund, siste oppdatering startet for $alder min siden."
-          if [ "$time" -ge 6 ] && [ "$time" -le 22 ] && [ "$alder" -ge 90 ]; then
+          if [ "$time" -ge 6 ] && [ "$time" -le 22 ] && [ "$alder" -ge 30 ]; then
             gh workflow run oppdater.yml --ref main
             echo "Startet «Oppdater og publiser»."
           else
