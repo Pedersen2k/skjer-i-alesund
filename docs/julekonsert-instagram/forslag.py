@@ -9,6 +9,7 @@ Kjør: FONT_DIR=<skrifter> python3 docs/julekonsert-instagram/forslag.py <mappe 
 import datetime
 import json
 import math
+import os
 import random
 import re
 import subprocess
@@ -25,7 +26,9 @@ from PIL import Image, ImageDraw, ImageFilter
 
 W = 1080
 TODAY = datetime.date(2026, 11, 24)
-FROM, TO = datetime.date(2026, 11, 28), datetime.date(2026, 12, 31)
+# Startdato kan settes med JUL_FRA=ÅÅÅÅ-MM-DD (f.eks. dagen reelen legges ut)
+FROM = datetime.date.fromisoformat(os.environ.get("JUL_FRA", "2026-11-28"))
+TO = datetime.date(2026, 12, 31)
 CFG = pages.jul_config()
 MANUAL = {e["id"]: e for e in json.loads((pages.ROOT / "data" / "manual.json").read_text())}
 
@@ -576,6 +579,10 @@ if __name__ == "__main__":
         e = next(x for x in EV if x["title"].startswith("Adam Douglas"))
         sheet([("A Billetten", story_a(e, day)), ("B Nedtelling", story_b(e, day)), ("C Avgangstavla", story_c(day))],
               png / "snart-utsolgt.png")
+    if what == "reel-b":
+        stills = []
+        reel_b(mp4 / f"reel-B-klipp-{FROM.isoformat()}.mp4", stills)
+        sheet([(n.replace("b-", "B "), im) for n, im in stills], png / f"reel-B-{FROM.isoformat()}.png", 0.4)
     if what in ("alle", "reel"):
         stills = []
         reel_a(mp4 / "reel-A-sveip.mp4", stills)
