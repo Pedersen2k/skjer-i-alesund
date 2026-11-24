@@ -12,8 +12,10 @@ on:
     - cron: "47 5-21/2 * * *"
   # Også ved push til main: ellers blir endringer i manual.json, overrides.json og sync.py liggende til neste planlagte kjøring.
   # Botens egen commit bruker GITHUB_TOKEN og starter ikke en ny kjøring, så det blir ingen løkke.
+  # Endringer bare i docs/ eller .md-filer (HANDOFF, README, forslag) endrer ikke nettsiden og starter ingen oppdatering.
   push:
     branches: [main]
+    paths-ignore: ["docs/**", "**.md"]
   workflow_dispatch:
 
 permissions:
@@ -21,13 +23,38 @@ permissions:
   pages: write
   id-token: write
   issues: write
+  actions: read
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
+  # Reserve-cron (over) skal bare fylle hull: har en oppdatering startet den siste timen (klokka, en merge eller for hånd),
+  # hopper en planlagt kjøring over, så kildene ikke får to-tre fulle runder på kort tid. Push og «Run workflow» kjører alltid.
+  sjekk:
+    runs-on: ubuntu-latest
+    outputs:
+      kjor: ${{ steps.sjekk.outputs.kjor }}
+    steps:
+      - id: sjekk
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          kjor=true
+          if [ "$EVENT" = "schedule" ]; then
+            nylig=$(gh run list --workflow oppdater.yml --limit 10 --json databaseId,createdAt \
+              --jq "[.[] | select(.databaseId != $GITHUB_RUN_ID) | select((now - (.createdAt | fromdateiso8601)) < 3600)] | length" || echo 0)
+            echo "Andre oppdateringer startet siste time: $nylig"
+            if [ "${nylig:-0}" -gt 0 ]; then kjor=false; echo "Hopper over denne planlagte kjøringen."; fi
+          fi
+          echo "kjor=$kjor" >> "$GITHUB_OUTPUT"
+
   oppdater:
+    needs: sjekk
+    if: needs.sjekk.outputs.kjor == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
