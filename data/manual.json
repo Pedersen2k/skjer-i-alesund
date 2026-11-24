@@ -289,7 +289,7 @@
     "venue": "Ålesund kirke",
     "address": "",
     "cat": "konsert",
-    "soldOut": false,
+    "soldOut": true,
     "uncertain": false,
     "note": "Med Lars Støvland. Tiårsjubileum for juleturneen. Rabatt: Student 225 kr, barn under 16 år 75 kr.",
     "url": "https://secure.tickster.com/no/lnnyulljpvcjp60/products"
