@@ -226,7 +226,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-24T13:14:02Z",
+  "updatedAt": "2026-11-24T15:17:27Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -3438,7 +3438,7 @@
    "id": "parken-51891-parken-kulturhus",
    "date": "2027-03-18",
    "time": "18:00",
-   "title": "1+1",
+   "title": "Øyeåpner: 1+1",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "konsert",
@@ -3449,24 +3449,6 @@
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/51891-11/",
    "addedAt": "2026-11-23T15:59:12Z"
-  },
-  {
-   "id": "parken-51565-parken-kulturhus",
-   "date": "2027-03-19",
-   "time": "19:00",
-   "title": "Vekslepenger",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "260–485 kr",
-   "priceMin": 260,
-   "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
-   "note": "",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51565-vekslepenger/",
-   "addedAt": "2026-11-19T14:26:48Z"
   },
   {
    "id": "synne-vo-her-vil-e-vaer-norgesturne-terminalen-byscene",
@@ -3531,6 +3513,24 @@
    "uncertain": false,
    "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-bp7tw-r3emt-78w9k-w27fw-zccng-h9wz3",
    "addedAt": "2026-11-24T10:21:39Z"
+  },
+  {
+   "id": "parken-51565-parken-kulturhus",
+   "date": "2027-03-31",
+   "time": "19:00",
+   "title": "Vekslepenger",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "260–485 kr",
+   "priceMin": 260,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51565-vekslepenger/",
+   "addedAt": "2026-11-19T14:26:48Z"
   },
   {
    "id": "parken-48778-parken-kulturhus",
