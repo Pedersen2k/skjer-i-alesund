@@ -554,6 +554,71 @@ def reel_b(out, stills):
     proc.wait()
 
 
+
+def day_frame(d, evs, k, total):
+    """Ett bilde per dag: dato stort, alle kveldens julekonserter under."""
+    H = 1920
+    bg, fg = PAL[k % len(PAL)]
+    img = Image.new("RGB", (W, H), bg)
+    dr = ImageDraw.Draw(img)
+    dr.text((72, 150), f"{k + 1}/{total}", font=M(34), fill=fg)
+    dr.text((W - 72, 150), "JULEKONSERTENE", font=M(34), fill=fg, anchor="ra")
+    dr.text((60, 260), str(d.day), font=B(360, 800), fill=fg)
+    dr.text((72, 660), f"{pages.MO[d.month - 1].upper()} · {pages.WD[d.weekday()].upper()}", font=M(44, 800), fill=fg)
+    n = len(evs)
+    size = 96 if n == 1 else 76 if n == 2 else 60
+    y = 780
+    for e in evs:
+        lines = wrap(dr, short(e), FR(size, 800), W - 144)[:2]
+        for ln in lines:
+            dr.text((66, y), ln, font=FR(size, 800), fill=fg)
+            y += round(size * 1.08)
+        meta = " · ".join(p for p in (tm(e), e["venue"], price(e)) if p)
+        dr.text((72, y + 6), fit(dr, meta, F(36, 650), W - 144), font=F(36, 650), fill=fg)
+        y += 56
+        if e.get("few"):
+            dr.rounded_rectangle((72, y, 380, y + 56), radius=28, fill=fg)
+            dr.text((226, y + 28), "Få billetter igjen", font=F(30, 800), fill=bg, anchor="mm")
+            y += 70
+        y += 34 if n > 2 else 50
+    dr.text((72, 1700), "kaskjerda.no", font=B(44, 800), fill=fg)
+    return img
+
+
+def reel_dag(out, stills):
+    """Som reel B, men ett bilde per dag og lengre tid per bilde (0,9 s + 0,35 s per konsert)."""
+    H = 1920
+    fps = 30
+    days = {}
+    for e in EV:
+        days.setdefault(d_of(e), []).append(e)
+    proc = ffmpeg(out, W, H, fps)
+    intro = Image.new("RGB", (W, H), "#2a0610")
+    dr = ImageDraw.Draw(intro)
+    dr.text((W // 2, 760), f"{len(EV)}", font=B(400, 800), fill="#ffcf6b", anchor="mm")
+    dr.text((W // 2, 1010), "julekonserter", font=FR(110, 750, True), fill="#fff4dc", anchor="mm")
+    dr.text((W // 2, 1130), "i Ålesund før og i jula", font=F(48, 650), fill="#fff4dc", anchor="mm")
+    dr.text((W // 2, 1300), "Ta skjermbilde av din →", font=F(40, 700), fill="#ffcf6b", anchor="mm")
+    for _ in range(45):
+        proc.stdin.write(intro.tobytes())
+    stills.append(("intro", intro))
+    for k, (d, evs) in enumerate(sorted(days.items())):
+        fr = day_frame(d, evs, k, len(days))
+        if len(evs) >= 3 and len(stills) < 3 or k == 1:
+            stills.append((f"{d.day}.{d.month}", fr))
+        for _ in range(round(fps * (0.9 + 0.35 * len(evs)))):
+            proc.stdin.write(fr.tobytes())
+    outro = Image.new("RGB", (W, H), "#2a0610")
+    dr = ImageDraw.Draw(outro)
+    dr.text((W // 2, 820), "Alle datoer og priser", font=FR(84, 700, True), fill="#fff4dc", anchor="mm")
+    dr.text((W // 2, 940), "kaskjerda.no", font=B(110, 800), fill="#ffcf6b", anchor="mm")
+    dr.text((W // 2, 1060), "lenke i bio", font=F(44, 650), fill="#fff4dc", anchor="mm")
+    for _ in range(75):
+        proc.stdin.write(outro.tobytes())
+    stills.append(("slutt", outro))
+    proc.stdin.close()
+    proc.wait()
+
 def sheet(items, out, scale=0.5, head=90, gap=36):
     w = int(items[0][1].width * scale)
     h = max(int(im.height * scale) for _, im in items)
@@ -583,6 +648,10 @@ if __name__ == "__main__":
         stills = []
         reel_b(mp4 / f"reel-B-klipp-{FROM.isoformat()}.mp4", stills)
         sheet([(n.replace("b-", "B "), im) for n, im in stills], png / f"reel-B-{FROM.isoformat()}.png", 0.4)
+    if what == "reel-dag":
+        stills = []
+        reel_dag(mp4 / f"reel-B-dag-{FROM.isoformat()}.mp4", stills)
+        sheet(stills[:5], png / f"reel-B-dag-{FROM.isoformat()}.png", 0.4)
     if what in ("alle", "reel"):
         stills = []
         reel_a(mp4 / "reel-A-sveip.mp4", stills)
