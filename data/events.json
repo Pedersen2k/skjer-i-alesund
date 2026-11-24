@@ -221,16 +221,16 @@
     "2026-11-14T19:52:32Z",
     "2026-11-23T19:37:32Z"
    ],
-   "sobra-julebord-med-edru-livsstil-pa-sobra-scene-sobra-scene": [
-    "2026-11-24T17:17:24Z",
-    "2026-11-24T19:17:29Z"
+   "erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-24T21:17:24Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-24T19:17:29Z",
+  "updatedAt": "2026-11-24T21:17:24Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -248,23 +248,6 @@
   ]
  },
  "events": [
-  {
-   "id": "erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate",
-   "date": "2026-11-24",
-   "time": "19:00",
-   "title": "Erlend Gunstveit - A Very Nashville Christmas",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "399 kr",
-   "priceMin": 399,
-   "soldOut": false,
-   "few": true,
-   "note": "Dørene åpner 18.00.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/66682-erlend-gunstveit-my-nashville-christmas-to-you",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "toner-i-en-forjulstid-spjelkavik-kirke-2026",
    "date": "2026-11-24",
@@ -1390,6 +1373,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66419",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "sobra-julebord-med-edru-livsstil-pa-sobra-scene-sobra-scene",
+   "date": "2026-12-05",
+   "time": "18:00",
+   "title": "Julebord med Edru livsstil på Sobra Scene",
+   "venue": "Sobra Scene",
+   "address": "Korsegata 6, 6002 Ålesund",
+   "cat": "julebord",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.sobrascene.no/event-details/julebord-med-edru-livsstil-pa-sobra-scene",
+   "addedAt": "2026-11-24T17:17:24Z"
   },
   {
    "id": "himmelske-juletoner-langevag-kyrkje-2026",

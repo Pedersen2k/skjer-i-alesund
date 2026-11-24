@@ -1946,6 +1946,24 @@
    "url": "https://tikkio.com/events/67575-arkitekturkafe-23112026",
    "addedAt": "2026-11-14T19:52:32Z",
    "last": "2026-11-23"
+  },
+  {
+   "id": "erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate",
+   "date": "2026-11-24",
+   "time": "19:00",
+   "title": "Erlend Gunstveit - A Very Nashville Christmas",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
+   "cat": "konsert",
+   "price": "399 kr",
+   "priceMin": 399,
+   "soldOut": false,
+   "few": true,
+   "note": "Dørene åpner 18.00.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/66682-erlend-gunstveit-my-nashville-christmas-to-you",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-24"
   }
  ]
 }
