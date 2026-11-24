@@ -8,7 +8,7 @@ on:
     # UTC. Vintertid: ca. 06:17, 08:17 … 22:17 (sommertid: en time senere).
     - cron: "17 5-21/2 * * *"
     # Reserve: GitHub dropper planlagte kjøringer når det er mye trafikk (fra 18. nov kom bare ca. to om dagen).
-    # Disse ekstra tidspunktene gir flere forsøk, så det blir en kjøring omtrent hver time.
+    # Disse ekstra tidspunktene gir flere forsøk. Det som faktisk holder takten, er klokke.yml (starter denne via workflow_dispatch).
     - cron: "47 5-21/2 * * *"
   # Også ved push til main: ellers blir endringer i manual.json, overrides.json og sync.py liggende til neste planlagte kjøring.
   # Botens egen commit bruker GITHUB_TOKEN og starter ikke en ny kjøring, så det blir ingen løkke.
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.deploy_1.outputs.page_url || steps.deploy_2.outputs.page_url || steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
 
@@ -87,12 +87,32 @@ jobs:
         with:
           path: _site
 
+      # GitHub finner av og til ikke opplastingen rett etterpå («No artifacts named github-pages», 24. nov to ganger på rad).
+      # Da venter vi og prøver igjen, i stedet for at hele oppdateringen går tapt.
+      - id: deploy_1
+        uses: actions/deploy-pages@v5
+        continue-on-error: true
+
+      - name: Vent før nytt forsøk på publisering
+        if: steps.deploy_1.outcome == 'failure'
+        run: sleep 60
+
+      - id: deploy_2
+        if: steps.deploy_1.outcome == 'failure'
+        uses: actions/deploy-pages@v5
+        continue-on-error: true
+
+      - name: Vent før siste forsøk på publisering
+        if: steps.deploy_2.outcome == 'failure'
+        run: sleep 180
+
       - id: deploy
+        if: steps.deploy_2.outcome == 'failure'
         uses: actions/deploy-pages@v5
 
       # Gi Bing m.fl. beskjed om sidene som endrer seg (IndexNow). Feil her stopper ikke noe.
       - name: Si fra til søkemotorer
-        if: steps.deploy.outcome == 'success'
+        if: steps.deploy_1.outcome == 'success' || steps.deploy_2.outcome == 'success' || steps.deploy.outcome == 'success'
         continue-on-error: true
         run: python3 scripts/indexnow.py
 

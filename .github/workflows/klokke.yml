@@ -1,0 +1,78 @@
+name: Klokke
+
+# GitHub sine planlagte kjøringer (cron) er upålitelige: fra 18. nov kom bare ca. to av 18 om dagen, ofte timer for sent.
+# Denne workflowen er en egen «klokke» som starter «Oppdater og publiser» hver andre time på dagtid (ca. 06:17, 08:17 … 22:17
+# norsk tid). Den sover til neste tidspunkt og starter så seg selv på nytt (workflow_dispatch virker med GITHUB_TOKEN og blir
+# ikke droppet slik cron blir). Repoet er offentlig, så minuttene er gratis.
+# Stopp klokka: Actions → Klokke → «…» → Disable workflow. Cron-linjene under starter klokka igjen hvis kjeden skulle ryke.
+
+on:
+  workflow_dispatch:
+    inputs:
+      kjede:
+        description: "Startet av klokka selv (ikke rør)"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "29 */3 * * *"
+  push:
+    branches: [main]
+    paths: [".github/workflows/klokke.yml"]
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  klokke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      # Bare én klokke om gangen: en oppstart fra cron/push/hånd gir seg hvis klokka allerede går
+      - name: Går klokka allerede?
+        id: sjekk
+        if: ${{ !inputs.kjede }}
+        run: |
+          andre=$(gh run list --workflow klokke.yml --status in_progress --json databaseId \
+            --jq "[.[] | select(.databaseId != $GITHUB_RUN_ID)] | length")
+          echo "Andre klokker som går: $andre"
+          if [ "$andre" -gt 0 ]; then echo "stopp=true" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Start oppdatering hvis det er dagtid og en stund siden sist
+        if: steps.sjekk.outputs.stopp != 'true'
+        continue-on-error: true
+        run: |
+          time=$(TZ=Europe/Oslo date +%H | sed 's/^0//')
+          sist=$(gh run list --workflow oppdater.yml --limit 1 --json createdAt --jq '.[0].createdAt // empty')
+          alder=999
+          if [ -n "$sist" ]; then alder=$(( ($(date +%s) - $(date -d "$sist" +%s)) / 60 )); fi
+          echo "Klokka er $time i Ålesund, siste oppdatering startet for $alder min siden."
+          if [ "$time" -ge 6 ] && [ "$time" -le 22 ] && [ "$alder" -ge 90 ]; then
+            gh workflow run oppdater.yml --ref main
+            echo "Startet «Oppdater og publiser»."
+          else
+            echo "Ingen oppdatering nå."
+          fi
+
+      - name: Sov til neste tidspunkt
+        if: steps.sjekk.outputs.stopp != 'true'
+        run: |
+          sek=$(python3 - <<'EOF'
+          from datetime import datetime, timedelta
+          from zoneinfo import ZoneInfo
+          now = datetime.now(ZoneInfo("Europe/Oslo"))
+          slots = [(now + timedelta(days=d)).replace(hour=h, minute=17, second=0, microsecond=0)
+                   for d in (0, 1) for h in range(6, 23, 2)]
+          nxt = min(t for t in slots if t > now + timedelta(minutes=10))
+          print(nxt.strftime("%H:%M"), min(int((nxt - now).total_seconds()), 330 * 60))
+          EOF
+          )
+          echo "Neste tidspunkt: ${sek% *} norsk tid. Sover ${sek#* } sekunder."
+          sleep "${sek#* }"
+
+      - name: Start klokka på nytt
+        if: steps.sjekk.outputs.stopp != 'true'
+        run: gh workflow run klokke.yml --ref main -f kjede=true
