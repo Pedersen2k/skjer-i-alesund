@@ -450,5 +450,11 @@
   },
   "linda-eide-livet-er-eit-spraksjov": {
     "cat": "show"
+  },
+  "england-norge": {
+    "cat": "happening"
+  },
+  "norge-england": {
+    "cat": "happening"
   }
 }
