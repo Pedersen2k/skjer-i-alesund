@@ -230,7 +230,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-25T11:17:26Z",
+  "updatedAt": "2026-11-25T13:17:24Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 2,
   "sources": [
@@ -3505,6 +3505,22 @@
    "addedAt": "2026-11-20T14:02:01Z"
   },
   {
+   "id": "nations-league-norge-vs-england-terminalen-byscene",
+   "date": "2027-03-27",
+   "time": "16:00",
+   "title": "Nations League: Norge vs. England",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "5500 kr",
+   "priceMin": 5500,
+   "soldOut": false,
+   "note": "Rabatt: Sone 2 4000 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67781-nations-league-norge-vs-england-terminalen",
+   "addedAt": "2026-11-25T13:17:24Z"
+  },
+  {
    "id": "norge-england-dampsentralen",
    "date": "2027-03-27",
    "time": "17:00",
@@ -3519,6 +3535,22 @@
    "uncertain": false,
    "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-bp7tw-r3emt-78w9k-w27fw-zccng",
    "addedAt": "2026-11-24T10:21:39Z"
+  },
+  {
+   "id": "nations-league-england-vs-norge-terminalen-byscene",
+   "date": "2027-03-30",
+   "time": "18:30",
+   "title": "Nations League: England vs. Norge",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "5500 kr",
+   "priceMin": 5500,
+   "soldOut": false,
+   "note": "Rabatt: Sone 2 4000 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67808-nations-league-england-vs-norge-terminalen",
+   "addedAt": "2026-11-25T13:17:24Z"
   },
   {
    "id": "england-norge-dampsentralen",
@@ -3660,8 +3692,8 @@
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "konsert",
-   "price": "1284 kr",
-   "priceMin": 1284,
+   "price": "300–630 kr",
+   "priceMin": 300,
    "soldOut": false,
    "note": "",
    "uncertain": false,
