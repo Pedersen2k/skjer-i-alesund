@@ -1,0 +1,203 @@
+<title>Putti Plutti Pott-poster</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Inter:wght@400;600&family=Special+Elite&display=swap">
+<style>
+/* Layout: en kolonne med forslag; hvert forslag viser Instagram-bildene i en sidelengs rad (4:5 for karusell, 9:16 for reel) */
+:root{
+  --bg:#0d1420; --panel:#151f2e; --ink:#eef2f7; --soft:#a9b6c8; --line:#26344a;
+  --red:#d8333c; --gold:#f7c873; --snow:#f4f6fa; --night:#0b1a33; --green:#3f8a5a; --paper:#efe2c4; --brown:#3a2414;
+  --display:"Bricolage Grotesque",system-ui,sans-serif; --body:Inter,system-ui,sans-serif; --type:"Special Elite","Courier New",monospace;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);margin:0}
+.wrap{max-width:1100px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font:800 clamp(30px,5vw,48px)/1.05 var(--display);margin:0 0 10px;text-wrap:balance}
+h2{font:800 24px/1.15 var(--display);margin:0;text-wrap:balance}
+.lede{color:var(--soft);max-width:65ch;margin:0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:22px 0 8px}
+.facts div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.facts b{display:block;font:600 11px/1.3 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.src{font-size:13px;color:var(--soft);margin:6px 0 0}
+.src a{color:var(--gold)}
+section{margin-top:44px;display:grid;gap:12px}
+.tag{font:600 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.why{color:var(--soft);max-width:70ch;margin:0}
+.row{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 14px;scroll-snap-type:x mandatory}
+.row>*{flex:0 0 auto;scroll-snap-align:start}
+.cap{font-size:12px;color:var(--soft);margin-top:6px;max-width:240px}
+.post{width:240px;aspect-ratio:4/5;border-radius:8px;overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:center;padding:20px;box-sizing:border-box;font-family:var(--display)}
+.reel{width:180px;aspect-ratio:9/16;border-radius:10px;overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:16px;box-sizing:border-box;font-family:var(--display)}
+.copy{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;white-space:pre-wrap;font-size:14px;max-width:70ch}
+.note{border-left:3px solid var(--gold);padding:4px 0 4px 12px;color:var(--soft);max-width:70ch}
+
+/* Natt i Nisseland */
+.night{background:radial-gradient(120% 70% at 50% 110%,#1d3a66 0%,var(--night) 60%);color:var(--snow)}
+.night::after{content:"";position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff9 50%,transparent 51%),radial-gradient(1px 1px at 70% 18%,#fff8 50%,transparent 51%),radial-gradient(1.5px 1.5px at 85% 60%,#fff7 50%,transparent 51%),radial-gradient(1px 1px at 40% 75%,#fff8 50%,transparent 51%),radial-gradient(1px 1px at 10% 85%,#fff6 50%,transparent 51%);pointer-events:none}
+.redbg{background:var(--red);color:var(--snow)}
+.snowbg{background:var(--snow);color:var(--night)}
+.big{font-weight:800;font-size:30px;line-height:1.02;text-wrap:balance}
+.mid{font-weight:800;font-size:20px;line-height:1.1}
+.small{font:600 12px/1.35 var(--body)}
+.kicker{font:600 10px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-bottom:8px}
+.foot{position:absolute;left:20px;right:20px;bottom:14px;font:600 10px/1 var(--body);opacity:.75;display:flex;justify-content:space-between}
+.beard{width:110px;align-self:center;margin:6px 0 12px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:10px}
+.chip{font:600 11px/1.2 var(--body);border-radius:6px;padding:5px 6px;background:#ffffff14;border:1px solid #ffffff30}
+.chip i{font-style:normal;display:block;color:var(--gold);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase}
+.snowbg .chip{background:#0b1a330d;border-color:#0b1a3330}
+.snowbg .chip i{color:var(--red)}
+.stamp{position:absolute;right:14px;top:16px;transform:rotate(-12deg);border:2px solid var(--red);color:var(--red);font:800 11px/1 var(--display);letter-spacing:.08em;padding:5px 7px;border-radius:4px;text-transform:uppercase;background:#fff8}
+
+/* Etterlyst-plakat */
+.wanted{background:var(--paper);color:var(--brown);font-family:var(--type);text-align:center;align-items:center;border:6px double #8a6a42}
+.wanted .w1{font:800 34px/1 var(--display);letter-spacing:.06em}
+.wanted .frame{width:120px;height:120px;border:3px solid var(--brown);margin:10px 0;display:grid;place-items:center;background:#e4d3ae}
+.wanted p{margin:4px 0;font-size:12px;line-height:1.35}
+.wanted .rew{font:800 15px/1.1 var(--display);margin-top:6px}
+
+/* Reel */
+.t{font-weight:800;font-size:22px;line-height:1.05;text-wrap:balance}
+.sec{position:absolute;top:10px;left:10px;font:600 10px/1 var(--body);background:#0006;color:#fff;padding:4px 6px;border-radius:4px}
+.line{position:absolute;top:28%;left:-10%;right:-10%;height:2px;background:#ffffff55;transform:rotate(-3deg)}
+.reelbar{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.reelbar span{width:12px;height:12px;border-radius:3px;background:var(--gold)}
+.reelbar span.on{background:var(--red)}
+@media (prefers-reduced-motion:no-preference){
+  .anim .beardfly{animation:fly 4s ease-in-out infinite}
+  @keyframes fly{0%,35%{transform:translate(0,0) rotate(0)}70%,100%{transform:translate(140px,-60px) rotate(25deg);opacity:0}}
+}
+.timeline{display:grid;gap:8px;text-align:left;width:100%}
+.timeline div{font:600 12px/1.3 var(--body)}
+.timeline b{font:800 18px/1 var(--display);display:block;color:var(--gold)}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="beard" viewBox="0 0 120 110">
+      <path d="M10 18c8 6 22 9 50 9s42-3 50-9c4 30-4 62-22 78-8 7-18 12-28 12s-20-5-28-12C14 80 6 48 10 18z" fill="#f4f6fa"/>
+      <path d="M38 30c6 6 16 8 22 8s16-2 22-8c-2 10-10 16-22 16S40 40 38 30z" fill="#d9dee8"/>
+      <circle cx="60" cy="18" r="4" fill="#d8333c"/>
+    </symbol>
+    <symbol id="hat" viewBox="0 0 120 120">
+      <path d="M18 92C30 52 58 20 96 14c-8 16-10 30-6 46 3 12 8 22 10 32z" fill="#d8333c"/>
+      <rect x="10" y="88" width="98" height="18" rx="9" fill="#f4f6fa"/>
+      <circle cx="98" cy="14" r="10" fill="#f4f6fa"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <h1>Putti Plutti Pott på Instagram</h1>
+  <p class="lede">Alle 11 forestillingene står med «Få billetter igjen» hos Parken, og første forestilling er fredag. Her er tre karuseller og tre reels å velge mellom. Ingenting er laget ferdig ennå: velg det du liker, så lager jeg bildene i 1080 × 1350 (karusell) og 1080 × 1920 (reel), pluss bildetekst.</p>
+
+  <div class="facts">
+    <div><b>Hvem</b>Jugendteateret / Ålesund kulturskole, 35. gang, ca. 200 elever på scenen, ny scenografi</div>
+    <div><b>Når</b>27. nov – 6. des, 11 forestillinger (13:00, 16:00, 18:00)</div>
+    <div><b>Pris og alder</b>350 kr. Anbefalt fra 3 år</div>
+    <div><b>Historien</b>Per Asplins juleplate fra 1969, på NRK i 1970. Putti rapper julenissens skjegg og drar hjem til Onkel Per, Pernille, Petter og Lille Caroline</div>
+  </div>
+  <p class="src">Kilder: <a href="https://www.parkenkulturhus.no/program/49740-putti-plutti-pott/">Parken kulturhus</a>, <a href="https://en.wikipedia.org/wiki/Putti_Plutti_Pott_and_Santa%27s_Beard">Wikipedia</a>, <a href="https://sceneweb.no/en/artwork/107155/Putti_Plutti%20Pott%20and%20Santa's%20Beard">Sceneweb</a>. «Få billetter igjen» er fra Parken i dag (25. nov.).</p>
+
+  <!-- KARUSELL A -->
+  <section>
+    <span class="tag">Karusell A · 5 bilder</span>
+    <h2>«Noen har rappet julenissens skjegg»</h2>
+    <p class="why">Starter som en liten mysteriehistorie, så folk sveiper for å se hvem det var. Fakta og tidene kommer til slutt. Fungerer best for foreldre og besteforeldre som kjenner historien.</p>
+    <div class="row">
+      <div><div class="post night"><div class="kicker">Ålesund, november</div><svg class="beard"><use href="#beard"/></svg><div class="big">Noen har rappet julenissens skjegg.</div><div class="foot"><span>kaskjerda.no</span><span>sveip →</span></div></div><div class="cap">1. Kroken: skjegget alene på nattehimmel.</div></div>
+      <div><div class="post redbg"><svg style="width:80px;height:80px;margin-bottom:8px"><use href="#hat"/></svg><div class="big">Det var Putti Plutti Pott. Igjen.</div><div class="small" style="margin-top:10px">Og nå er han på vei hjem til Onkel Per, Pernille, Petter og Lille Caroline.</div><div class="foot"><span>1/5</span><span>→</span></div></div><div class="cap">2. Avsløringen.</div></div>
+      <div><div class="post night"><div class="kicker">Jugendteateret</div><div class="big" style="font-size:44px">200</div><div class="mid">elever på scenen</div><div class="small" style="margin-top:12px">35. gang Jugendteateret setter den opp. Ny scenografi. Fra 3 år.</div><div class="foot"><span>Parken kulturhus</span><span>→</span></div></div><div class="cap">3. Det lokale: barna i byen spiller.</div></div>
+      <div><div class="post snowbg"><span class="stamp">Få igjen</span><div class="kicker" style="color:var(--red)">Alle 11 forestillinger</div><div class="mid">Få billetter igjen</div><div class="chips">
+        <div class="chip"><i>Fre 27.11</i>18:00</div><div class="chip"><i>Lør 28.11</i>13:00 · 16:00</div>
+        <div class="chip"><i>Søn 29.11</i>13:00 · 16:00</div><div class="chip"><i>Tor 3.12</i>18:00</div>
+        <div class="chip"><i>Fre 4.12</i>18:00</div><div class="chip"><i>Lør 5.12</i>13:00 · 16:00</div>
+        <div class="chip"><i>Søn 6.12</i>13:00 · 16:00</div><div class="chip"><i>Pris</i>350 kr</div></div></div><div class="cap">4. Alle tidene på ett bilde (det folk lagrer).</div></div>
+      <div><div class="post redbg" style="text-align:center;align-items:center"><div class="big">Rekk det før skjegget er borte.</div><div class="small" style="margin-top:12px">Billetter hos Parken kulturhus<br>Lenke i bio · kaskjerda.no</div><div class="foot"><span>@parken_kulturhus</span><span></span></div></div><div class="cap">5. Oppfordring.</div></div>
+    </div>
+  </section>
+
+  <!-- KARUSELL B -->
+  <section>
+    <span class="tag">Karusell B · 4 bilder</span>
+    <h2>«Etterlyst: Putti Plutti Pott»</h2>
+    <p class="why">En etterlysningsplakat som i en gammel western, med humor. Skiller seg ut i feeden og er lett å dele i Facebook-grupper for foreldre.</p>
+    <div class="row">
+      <div><div class="post wanted"><div class="w1">ETTERLYST</div><div class="frame"><svg style="width:90px;height:90px"><use href="#hat"/></svg></div><p><b>PUTTI PLUTTI POTT</b></p><p>Sist sett med julenissens skjegg under armen.</p><div class="rew">Dusør: 350 kr</div></div><div class="cap">1. Plakaten. «Dusøren» er billettprisen.</div></div>
+      <div><div class="post wanted" style="text-align:left;align-items:stretch"><div class="w1" style="font-size:22px">Signalement</div><p style="text-align:left">Liten nisse. Rød lue.<br>Rask til beins.<br>Har gjort det før: 35 ganger i Ålesund.<br>Har med seg ca. 200 medhjelpere.</p></div><div class="cap">2. Fakta i «signalement»-form.</div></div>
+      <div><div class="post wanted" style="text-align:left;align-items:stretch"><div class="w1" style="font-size:22px">Observasjoner</div><p style="text-align:left">Parken kulturhus, hovedscenen:<br>Fre 27.11 kl. 18<br>Lør 28.11 og søn 29.11 kl. 13 og 16<br>Tor 3.12 og fre 4.12 kl. 18<br>Lør 5.12 og søn 6.12 kl. 13 og 16</p><div class="rew" style="color:#a3262d">Få billetter igjen på alle</div></div><div class="cap">3. Tidene.</div></div>
+      <div><div class="post wanted"><div class="w1" style="font-size:24px">Har du sett ham?</div><p>Ta med barna (fra 3 år) og meld fra til Parken kulturhus.</p><p style="margin-top:10px"><b>kaskjerda.no</b></p></div><div class="cap">4. Oppfordring.</div></div>
+    </div>
+  </section>
+
+  <!-- KARUSELL C -->
+  <section>
+    <span class="tag">Karusell C · 3 bilder</span>
+    <h2>«Billettvakta: Putti Plutti Pott»</h2>
+    <p class="why">Den enkleste og mest praktiske: én helg per bilde med store tider. Passer som repost i historien de dagene det spilles, og ligner de faste postene våre.</p>
+    <div class="row">
+      <div><div class="post night"><div class="kicker">Få billetter igjen</div><div class="big">Putti Plutti Pott</div><div class="small" style="margin-top:8px">Parken kulturhus · 27. nov – 6. des · 350 kr · fra 3 år</div><div class="reelbar" style="justify-content:flex-start"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div><div class="small" style="margin-top:6px;opacity:.8">11 forestillinger, alle nesten fulle</div></div><div class="cap">1. Forside med 11 røde «seter».</div></div>
+      <div><div class="post snowbg"><div class="kicker" style="color:var(--red)">Første helg</div><div class="mid">27.–29. november</div><div class="chips" style="grid-template-columns:1fr"><div class="chip"><i>Fredag · premiere</i>18:00</div><div class="chip"><i>Lørdag</i>13:00 · 16:00</div><div class="chip"><i>Søndag</i>13:00 · 16:00</div></div></div><div class="cap">2. Første helg.</div></div>
+      <div><div class="post snowbg"><div class="kicker" style="color:var(--red)">Andre helg</div><div class="mid">3.–6. desember</div><div class="chips" style="grid-template-columns:1fr"><div class="chip"><i>Torsdag · premiere gr. 2</i>18:00</div><div class="chip"><i>Fredag</i>18:00</div><div class="chip"><i>Lørdag</i>13:00 · 16:00</div><div class="chip"><i>Søndag</i>13:00 · 16:00</div></div></div><div class="cap">3. Andre helg (to grupper elever, to premierer).</div></div>
+    </div>
+  </section>
+
+  <h1 style="margin-top:60px;font-size:34px">Reels</h1>
+  <p class="lede">Reels lager jeg som animasjon (MP4, 1080 × 1920, 8–15 sekunder) uten lyd. Legg på musikk fra Instagrams eget lydbibliotek når du publiserer: da er rettighetene i orden. Ikke last opp egne opptak av Asplin-sangene.</p>
+
+  <section>
+    <span class="tag">Reel 1 · ca. 10 sek</span>
+    <h2>«Skjegget på tørkesnora»</h2>
+    <p class="why">Fra historien: skjegget henger til tørk, en liten hånd napper det, og det flyr ut av bildet. Kort, morsom og lett å se om igjen (bra for rekkevidde).</p>
+    <div class="row">
+      <div><div class="reel night anim"><span class="sec">0–3 s</span><div class="line"></div><svg class="beardfly" style="width:90px;height:82px;margin-top:-40px"><use href="#beard"/></svg><div class="small" style="margin-top:30px">Julenissens skjegg henger til tørk …</div></div><div class="cap">Skjegget på snora (animert her).</div></div>
+      <div><div class="reel night"><span class="sec">3–5 s</span><svg style="width:70px;height:70px"><use href="#hat"/></svg><div class="t" style="margin-top:10px">Han har gjort det igjen.</div></div><div class="cap">Lua stikker opp, teksten smeller inn.</div></div>
+      <div><div class="reel redbg"><span class="sec">5–8 s</span><div class="t">Putti Plutti Pott</div><div class="small" style="margin-top:8px">Jugendteateret · 200 elever<br>Parken kulturhus<br>27. nov – 6. des</div></div><div class="cap">Tittel og fakta.</div></div>
+      <div><div class="reel snowbg"><span class="sec">8–10 s</span><div class="mid">11 forestillinger</div><div class="reelbar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div><div class="small" style="margin-top:8px">Få billetter igjen på alle.<br>kaskjerda.no</div></div><div class="cap">Rutene blir røde én og én.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="tag">Reel 2 · ca. 12 sek</span>
+    <h2>«Fra 1969 til i år»</h2>
+    <p class="why">En tidslinje som treffer nostalgien: foreldre og besteforeldre har hørt plata eller sett den på NRK. Avslutter med at det nå er barnas tur.</p>
+    <div class="row">
+      <div><div class="reel night"><span class="sec">0–3 s</span><div class="t">Du kjenner kanskje plata.</div></div><div class="cap">Kroken.</div></div>
+      <div><div class="reel night"><span class="sec">3–8 s</span><div class="timeline"><div><b>1969</b>Per Asplin lager juleplata</div><div><b>1970</b>På NRK</div><div><b>2026</b>Jugendteateret setter den opp for 35. gang</div></div></div><div class="cap">Årstallene ruller inn ett om gangen.</div></div>
+      <div><div class="reel redbg"><span class="sec">8–12 s</span><div class="t">Nå er det barnas tur.</div><div class="small" style="margin-top:8px">Parken kulturhus · 27. nov – 6. des<br>Få billetter igjen · kaskjerda.no</div></div><div class="cap">Avslutning.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="tag">Reel 3 · ca. 8 sek</span>
+    <h2>«Nedtelling til premieren»</h2>
+    <p class="why">Rask og praktisk, til i morgen og torsdag: et kalenderark som blar fra 27. nov. til 6. des., og hver dato får stempelet «Få igjen». Kan også legges i historien.</p>
+    <div class="row">
+      <div><div class="reel snowbg"><span class="sec">0–2 s</span><div class="kicker" style="color:var(--red)">Premiere</div><div class="t" style="font-size:44px">27</div><div class="mid">november</div><span class="stamp" style="top:auto;bottom:70px;right:30px">Få igjen</span></div><div class="cap">Ett ark per dato, stempel klasker ned.</div></div>
+      <div><div class="reel snowbg"><span class="sec">2–6 s</span><div class="t" style="font-size:44px">5</div><div class="mid">desember</div><span class="stamp" style="top:auto;bottom:70px;right:30px">Få igjen</span></div><div class="cap">Arkene blar fortere og fortere.</div></div>
+      <div><div class="reel redbg"><span class="sec">6–8 s</span><div class="t">Ikke vent på utsolgt.</div><div class="small" style="margin-top:8px">Putti Plutti Pott · Parken<br>kaskjerda.no</div></div><div class="cap">Avslutning.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="tag">Bildetekst (felles utkast)</span>
+    <div class="copy">Putti Plutti Pott har rappet julenissens skjegg igjen 🎅
+Jugendteateret setter den opp for 35. gang, med ca. 200 elever på scenen og ny scenografi.
+
+📍 Parken kulturhus
+📅 27. nov – 6. des (11 forestillinger)
+🎟 350 kr · fra 3 år
+
+Det er få billetter igjen på alle forestillingene. Alle tidene står på kaskjerda.no (lenke i bio).
+
+@parken_kulturhus
+#ålesund #juliålesund #puttipluttipott #kaskjerda</div>
+  </section>
+
+  <section>
+    <span class="tag">Før vi publiserer</span>
+    <div class="note">Jeg bruker egne tegninger (lue og skjegg), ikke Jugendteaterets eller Parkens bilder. Har du lov til å bruke foto fra forestillingen, blir postene sterkere: si fra, så legger jeg dem inn.</div>
+    <div class="note">Jeg fant ingen bekreftet Instagram-konto for Jugendteateret / Ålesund kulturskole, så bare @parken_kulturhus står som tagg. Vet du kontoen deres, legger jeg den til.</div>
+    <div class="note">Parken merker nesten alt «få billetter igjen», men her er forestillingene 2–11 dager unna, så merket er til å stole på. Jeg sjekker Parken på nytt rett før bildene lages, og bytter til «Utsolgt» på forestillinger som er gått ut.</div>
+  </div>
+</div>
