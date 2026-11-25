@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T09:22:03Z",
+  "updatedAt": "2026-11-25T11:21:43Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -791,7 +791,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/3a837d4d-a7a3-4732-8fc4-218ee687506d",
+     "url": "",
      "club": false
     },
     {
@@ -1594,7 +1594,7 @@
      "start": "2026-11-25T12:00:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/d72dfcfc-8ca2-4170-b365-7d667d76d871",
+     "url": "",
      "club": false
     },
     {
@@ -1843,7 +1843,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/76354916-b2fa-466b-856c-3d34b4ed4225",
+     "url": "",
      "club": false
     }
    ]
@@ -1927,7 +1927,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/470e2e92-0a8b-4f58-9fa6-1eec90c74037",
+     "url": "",
      "club": false
     },
     {
@@ -2325,8 +2325,8 @@
   {
    "id": "EDI20240230",
    "title": "ViQueens",
-   "age": null,
-   "minutes": null,
+   "age": 0,
+   "minutes": 90,
    "genres": [
     "Familiefilm"
    ],

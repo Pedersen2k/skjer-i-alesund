@@ -230,9 +230,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-25T09:17:21Z",
+  "updatedAt": "2026-11-25T11:17:26Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 1,
+  "lastAdded": 2,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -2358,6 +2358,22 @@
    "addedAt": "2026-11-10T11:58:45Z"
   },
   {
+   "id": "flyt-bar-romjulsfest-alesund-ms-bruvik",
+   "date": "2026-12-26",
+   "time": "20:00",
+   "title": "Flyt-Bar Romjulsfest Ålesund",
+   "venue": "MS Bruvik",
+   "address": "",
+   "cat": "klubb",
+   "price": "300 kr",
+   "priceMin": 300,
+   "soldOut": false,
+   "note": "Dørene åpner 19.45.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67810-flyt-bar-romjulsfest-alesund",
+   "addedAt": "2026-11-25T11:17:26Z"
+  },
+  {
    "id": "romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby",
    "date": "2026-12-26",
    "time": "20:00",
@@ -2468,6 +2484,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67475-singeltreff-alesund-30-45-ar",
    "addedAt": "2026-11-20T14:02:01Z"
+  },
+  {
+   "id": "flyt-bar-nyttarsfest-alesund-ms-bruvik",
+   "date": "2026-12-31",
+   "time": "21:30",
+   "title": "Flyt-Bar Nyttårsfest Ålesund",
+   "venue": "MS Bruvik",
+   "address": "",
+   "cat": "klubb",
+   "price": "300 kr",
+   "priceMin": 300,
+   "soldOut": false,
+   "note": "Dørene åpner 21.00.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67807-flyt-bar-nyttarsfest-alesund",
+   "addedAt": "2026-11-25T11:17:26Z"
   },
   {
    "id": "e39-vol-5-nyttars-molo-molo",
