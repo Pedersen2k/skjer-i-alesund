@@ -1,0 +1,11 @@
+{
+  "name": "skjer-i-alesund",
+  "owner": { "name": "Pedersen2k" },
+  "plugins": [
+    {
+      "name": "kompakt",
+      "source": "./mods/kompakt",
+      "description": "Oppgavepanel, sparemodus og kostnadsmåler på én statuslinje, laget for små skjermer"
+    }
+  ]
+}

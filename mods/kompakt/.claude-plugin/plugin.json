@@ -1,0 +1,6 @@
+{
+  "name": "kompakt",
+  "version": "0.1.0",
+  "description": "Oppgavepanel, sparemodus og kostnadsmåler på én statuslinje, laget for små skjermer",
+  "types": "./types/index.d.ts"
+}
