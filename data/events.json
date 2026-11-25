@@ -230,9 +230,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-25T07:17:26Z",
+  "updatedAt": "2026-11-25T09:17:21Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -3217,6 +3217,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/65937-rotlaus-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "raga-rockers-terminalen-byscene",
+   "date": "2027-02-27",
+   "time": "20:00",
+   "title": "Raga Rockers",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "591 kr",
+   "priceMin": 591,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00. Rabatt: DNB-kunde 425 kr, Pre sale: Early Bird 532 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67754-raga-rockers-terminalen",
+   "addedAt": "2026-11-25T09:17:21Z"
   },
   {
    "id": "parken-47488-parken-kulturhus",
