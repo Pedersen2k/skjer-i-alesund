@@ -224,13 +224,17 @@
    "erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate": [
     "2026-10-19T12:59:56Z",
     "2026-11-24T21:17:24Z"
+   ],
+   "inkluderingskveld-2026-dampsentralen": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-25T21:01:40Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-25T19:17:26Z",
+  "updatedAt": "2026-11-25T21:01:40Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -248,22 +252,6 @@
   ]
  },
  "events": [
-  {
-   "id": "inkluderingskveld-2026-dampsentralen",
-   "date": "2026-11-25",
-   "time": "18:00",
-   "title": "INKLUDERINGSKVELD 2026",
-   "venue": "Dampsentralen",
-   "address": "",
-   "cat": "happening",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Arrangert av Ålesund idrettsråd.",
-   "uncertain": false,
-   "url": "https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "brosundet-etter-seks-2026",
    "date": "2026-11-25",
@@ -695,7 +683,7 @@
    "price": "",
    "priceMin": null,
    "soldOut": false,
-   "note": "Julegaver og håndverk fra lokale designere. Lørdag 10–18, søndag 12–17 (tider: Bypatrioten). I Langevåg (Sula). Flere forestillinger: 29. nov.",
+   "note": "Julegaver og håndverk fra lokale designere. Lørdag 10–18, søndag 12–17. I Langevåg (Sula). Flere forestillinger: 29. nov.",
    "uncertain": false,
    "url": "https://devoldfabrikken.no/hva-skjer/designernes-julemarked/",
    "moreShows": [
@@ -715,7 +703,7 @@
    "priceMin": null,
    "soldOut": false,
    "uncertain": false,
-   "note": "Tradisjonsrikt julemarked kl. 11–17 med kafé, salgsboder og aktiviteter for store og små. Kilde: Bypatrioten.",
+   "note": "Tradisjonsrikt julemarked kl. 11–17 med kafé, salgsboder og aktiviteter for store og små.",
    "url": "https://www.aalesund.steinerskolen.no/",
    "addedAt": "2026-11-23T09:30:49Z"
   },
@@ -731,7 +719,7 @@
    "priceMin": 250,
    "soldOut": false,
    "uncertain": false,
-   "note": "Jazzsangerinne Gine Gaustad Anderssen og pianist Arne Torvik. To konserter, kl. 16 og kl. 19. Dørene åpner 15:30. Billetter må kjøpes på forhånd ved å sende melding til 986 30 495. Tennfjord ligger i Ålesund kommune. Kilde: Bypatrioten.",
+   "note": "Jazzsangerinne Gine Gaustad Anderssen og pianist Arne Torvik. To konserter, kl. 16 og kl. 19. Dørene åpner 15:30. Billetter må kjøpes på forhånd ved å sende melding til 986 30 495. Tennfjord ligger i Ålesund kommune.",
    "url": "https://www.facebook.com/share/1fv5JZMsyi/?mibextid=wwXIfr",
    "moreShows": [
     "2026-11-28T19:00"

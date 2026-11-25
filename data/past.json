@@ -1998,6 +1998,23 @@
    "url": "https://www.spjelkavik.kyrkjelyd.no/",
    "addedAt": "2026-11-21T12:03:51Z",
    "last": "2026-11-24"
+  },
+  {
+   "id": "inkluderingskveld-2026-dampsentralen",
+   "date": "2026-11-25",
+   "time": "18:00",
+   "title": "INKLUDERINGSKVELD 2026",
+   "venue": "Dampsentralen",
+   "address": "",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Arrangert av Ålesund idrettsråd.",
+   "uncertain": false,
+   "url": "https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk",
+   "addedAt": "2026-10-19T12:59:56Z",
+   "last": "2026-11-25"
   }
  ]
 }
