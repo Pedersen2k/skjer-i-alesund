@@ -1964,6 +1964,40 @@
    "url": "https://tikkio.com/events/66682-erlend-gunstveit-my-nashville-christmas-to-you",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-24"
+  },
+  {
+   "id": "kransekurs-og-forjulskos-fabrikken-kulturscene",
+   "date": "2026-11-24",
+   "time": "",
+   "title": "Kransekurs og førjulskos",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "happening",
+   "price": "950 kr",
+   "priceMin": 950,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://billetto.no/e/kransekurs-og-forjulskos-fabrikken-24-november-billetter-2096649",
+   "addedAt": "2026-11-17T14:29:50Z",
+   "last": "2026-11-24"
+  },
+  {
+   "id": "toner-i-en-forjulstid-spjelkavik-kirke-2026",
+   "date": "2026-11-24",
+   "time": "19:00",
+   "title": "Toner i en førjulstid",
+   "venue": "Spjelkavik kirke",
+   "address": "Vestmoa 20, 6018 Ålesund",
+   "cat": "konsert",
+   "price": "250 kr",
+   "priceMin": 250,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Førjulstoner med Sangkoret Cantábile, cellist Kristian F. Sylthe og pianist Asgeir Hoffart, Mannskoret Dovre og blandakoret Von Dess. Dørene åpner 18:30. Kilde: Bypatrioten.",
+   "url": "https://www.spjelkavik.kyrkjelyd.no/",
+   "addedAt": "2026-11-21T12:03:51Z",
+   "last": "2026-11-24"
   }
  ]
 }
