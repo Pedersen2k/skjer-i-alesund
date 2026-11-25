@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T17:23:12Z",
+  "updatedAt": "2026-11-25T19:22:38Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -284,7 +284,7 @@
      "start": "2026-11-25T18:45:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/d111e99f-e8ec-4f67-a619-63057972c1fa",
+     "url": "",
      "club": true
     },
     {
@@ -1608,7 +1608,7 @@
      "start": "2026-11-25T18:30:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/c2848a78-2e1a-4813-9f95-a1c190cbc881",
+     "url": "",
      "club": false
     },
     {
@@ -2428,7 +2428,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/72bb24f6-4824-4dd4-a670-e1a63d359c5c",
+     "url": "",
      "club": false
     },
     {
