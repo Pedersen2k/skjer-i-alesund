@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-26T11:21:40Z",
+  "updatedAt": "2026-11-26T13:21:54Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -1865,7 +1865,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/98d0403f-28e3-4d0a-b30e-203e8c7480a1",
+     "url": "",
      "club": false
     },
     {
