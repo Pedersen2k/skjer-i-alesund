@@ -238,9 +238,9 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-26T13:17:23Z",
+  "updatedAt": "2026-11-26T15:17:32Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 0,
+  "lastAdded": 1,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -2594,6 +2594,25 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "brothers-in-arms-a-tribute-to-dire-straits-fabrikken-kulturs",
+   "date": "2027-01-15",
+   "time": "21:00",
+   "title": "Brothers in arms – A tribute to Dire Straits",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "konsert",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00. Flere forestillinger: 16. jan.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/brothers-in-arms-tribute-to-dire-straits-billetter-2102333",
+   "moreShows": [
+    "2027-01-16T21:00"
+   ],
+   "addedAt": "2026-11-26T15:17:32Z"
+  },
+  {
    "id": "sobra-kulturkafe-krusedullmakar-sobra-scene",
    "date": "2027-01-16",
    "time": "13:00",
@@ -3728,7 +3747,7 @@
    "id": "parken-51630-parken-kulturhus",
    "date": "2027-04-18",
    "time": "18:30",
-   "title": "Hyllest til Dvorak",
+   "title": "Hyllest til Dvorak: Fra den nye verden",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "konsert",
@@ -3737,7 +3756,7 @@
    "soldOut": false,
    "note": "",
    "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51630-hyllest-til-dvorak/",
+   "url": "https://www.parkenkulturhus.no/program/51630-hyllest-til-dvorak-fra-den-nye-verden/",
    "addedAt": "2026-11-24T10:21:39Z"
   },
   {
