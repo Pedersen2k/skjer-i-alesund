@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T21:06:04Z",
+  "updatedAt": "2026-11-26T01:04:58Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -18,21 +18,78 @@
    "premiere": "2026-11-20",
    "shows": [
     {
-     "start": "2026-11-25T17:15:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-26T17:45:00",
      "screen": "Sal 6",
      "tags": [
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/581f93c0-2c20-4755-9cca-0234741a1804",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "BVI20200545",
+   "title": "Avengers: Doomsday",
+   "age": null,
+   "minutes": 150,
+   "genres": [
+    "Action",
+    "Eventyr",
+    "Superheltfilm"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f58adb08dfef8ec012865e3c1b39d61c5c45f4b7-1440x2057.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-12-16",
+   "shows": [
+    {
+     "start": "2026-12-16T00:01:00",
+     "screen": "1 isense",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/656e34c2-ee3c-4950-a285-64fee6194bb3",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T10:15:00",
+     "screen": "1 isense",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/936ee60d-6ef2-4188-9c53-c2768cabad84",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T14:00:00",
+     "screen": "1 isense",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/3d035c19-7626-42cd-8785-a58876faff84",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T16:45:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/2a9f6275-cc4b-4e79-b453-8e2a7a73ab9e",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T17:45:00",
+     "screen": "1 isense",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/60fcacad-9de2-43f4-b923-0b5221a48169",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T18:30:00",
+     "screen": "Sal 2",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/5171dae6-9f31-440d-98c8-624fa7c92611",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T20:30:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/949d98f9-ad29-45f9-89d2-d11e5cb54e13",
      "club": false
     }
    ]
@@ -77,29 +134,6 @@
    ]
   },
   {
-   "id": "NOR20230682",
-   "title": "Drapet på Benjamin Hermansen",
-   "age": 15,
-   "minutes": 96,
-   "genres": [
-    "Drama"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/eb4b617f94d0ff88352912d08252a7d22ada253a-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-10-02",
-   "shows": [
-    {
-     "start": "2026-11-25T12:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "Norsk tale",
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20251026",
    "title": "Dune: Part Three",
    "age": 15,
@@ -120,6 +154,43 @@
      ],
      "url": "https://www.odeonkino.no/booking/kjop/63bcba91-557e-4848-ab0e-58e96b25ad75",
      "club": false
+    },
+    {
+     "start": "2026-12-16T00:01:00",
+     "screen": "4",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/92be92c9-0d71-41da-8a2f-6800b705ffed",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T11:00:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/f240459c-fb89-4e95-8008-b0eabeecce25",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T14:15:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/8b11b8a7-93fe-4862-8bdb-a9d5bd158cb1",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T17:30:00",
+     "screen": "3",
+     "tags": [],
+     "url": "https://www.odeonkino.no/booking/kjop/b4a9ccbe-975e-4c1a-bcce-2d892fbecc8c",
+     "club": false
+    },
+    {
+     "start": "2026-12-16T21:15:00",
+     "screen": "1 isense",
+     "tags": [
+      "Dolby Atmos"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/31cae2a0-c161-4915-a9fd-568bdbf91153",
+     "club": false
     }
    ]
   },
@@ -136,24 +207,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ece98fe1e9a1b24ef010288a35d3384c503d2f72-954x1350.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
-    {
-     "start": "2026-11-25T14:30:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-25T18:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-26T15:00:00",
      "screen": "Sal 6",
@@ -280,13 +333,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/ce797c664fa97646a09fdfdb807c5ec4668040af-1500x2103.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-09-11",
    "shows": [
-    {
-     "start": "2026-11-25T18:45:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
     {
      "start": "2026-11-26T18:45:00",
      "screen": "3",
@@ -510,13 +556,6 @@
    "premiere": "2026-11-06",
    "shows": [
     {
-     "start": "2026-11-25T21:10:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-26T21:10:00",
      "screen": "4",
      "tags": [],
@@ -542,28 +581,6 @@
      "screen": "3",
      "tags": [],
      "url": "https://www.odeonkino.no/booking/kjop/8886be45-02c2-4630-a5b1-5b6895048da6",
-     "club": false
-    }
-   ]
-  },
-  {
-   "id": "EDI20260203",
-   "title": "Heart of the Beast",
-   "age": 12,
-   "minutes": 101,
-   "genres": [
-    "Action"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/f73aa5f1d8a24cb412b69b828e2f56dcd502c171-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-09-25",
-   "shows": [
-    {
-     "start": "2026-11-25T20:45:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
      "club": false
     }
    ]
@@ -785,33 +802,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6709e48a4ac96bb7821de663e44feff52c689458-1190x1684.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-06",
    "shows": [
-    {
-     "start": "2026-11-25T12:00:00",
-     "screen": "1 isense",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-25T14:30:00",
-     "screen": "4",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-25T16:30:00",
-     "screen": "4",
-     "tags": [
-      "Norsk tale"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-26T12:00:00",
      "screen": "1 isense",
@@ -1216,22 +1206,6 @@
    "premiere": "2026-10-30",
    "shows": [
     {
-     "start": "2026-11-25T12:45:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": true
-    },
-    {
-     "start": "2026-11-25T17:00:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": true
-    },
-    {
      "start": "2026-11-26T12:00:00",
      "screen": "3",
      "tags": [],
@@ -1328,15 +1302,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/e796551111af9fba503fffcbd45d77f4a13d0521-1080x1527.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-11-25T15:45:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-26T15:45:00",
      "screen": "Sal 5",
@@ -1556,13 +1521,6 @@
    "premiere": "2026-10-09",
    "shows": [
     {
-     "start": "2026-11-25T21:30:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-26T21:30:00",
      "screen": "3",
      "tags": [],
@@ -1590,27 +1548,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/4fe030b928d64fd21116e82118c14e872c70ee09-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-10-16",
    "shows": [
-    {
-     "start": "2026-11-25T12:00:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-25T16:10:00",
-     "screen": "3",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-25T18:30:00",
-     "screen": "4",
-     "tags": [],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-26T12:00:00",
      "screen": "4",
@@ -1827,28 +1764,6 @@
    ]
   },
   {
-   "id": "EDI20260563",
-   "title": "Sangen fra skogene",
-   "age": 0,
-   "minutes": 93,
-   "genres": [
-    "Dokumentar"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/299654017bf4eea9a09d6f2c85a1f5139b0f90c7-1440x2057.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-10-23",
-   "shows": [
-    {
-     "start": "2026-11-25T12:15:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    }
-   ]
-  },
-  {
    "id": "EDI20250794",
    "title": "Sauen Shaun - Gårdens fårbannelse",
    "age": 0,
@@ -1921,42 +1836,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/759098369c8d9e4e168cd21dec664a9588893e2e-1240x1754.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-18",
    "shows": [
-    {
-     "start": "2026-11-25T12:00:00",
-     "screen": "Sal 5",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-25T14:00:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-25T17:30:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-25T20:50:00",
-     "screen": "1 isense",
-     "tags": [
-      "Dolby Atmos"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-26T14:00:00",
      "screen": "1 isense",
@@ -2203,24 +2082,6 @@
    "premiere": "2026-11-13",
    "shows": [
     {
-     "start": "2026-11-25T14:45:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
-     "start": "2026-11-25T20:30:00",
-     "screen": "Sal 2",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
-    {
      "start": "2026-11-26T12:00:00",
      "screen": "Sal 2",
      "tags": [
@@ -2422,15 +2283,6 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/6aa7e5292065b386328165fbb04c8202a34c87c4-1500x2122.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-20",
    "shows": [
-    {
-     "start": "2026-11-25T19:45:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "",
-     "club": false
-    },
     {
      "start": "2026-11-26T12:00:00",
      "screen": "Sal 5",
