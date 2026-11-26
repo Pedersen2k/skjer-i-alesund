@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-26T09:30:09Z",
+  "updatedAt": "2026-11-26T11:21:40Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -808,7 +808,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/b894ef68-ea46-48c5-ada6-66a5442d1f3e",
+     "url": "",
      "club": false
     },
     {
@@ -1209,7 +1209,7 @@
      "start": "2026-11-26T12:00:00",
      "screen": "3",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/c4f18185-b272-47c1-b7a7-5db1537a36fe",
+     "url": "",
      "club": true
     },
     {
@@ -1428,7 +1428,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/6d9ee3b7-1f09-415d-a5d7-95b9691d86ba",
+     "url": "",
      "club": false
     }
    ]
@@ -1552,7 +1552,7 @@
      "start": "2026-11-26T12:00:00",
      "screen": "4",
      "tags": [],
-     "url": "https://www.odeonkino.no/booking/kjop/0c4ff255-5f9d-4001-842f-d8662d4ec4cd",
+     "url": "",
      "club": false
     },
     {
@@ -1759,6 +1759,29 @@
       "LUXE"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/4e9421c6-9063-42bc-b310-054ef7e29ff0",
+     "club": false
+    }
+   ]
+  },
+  {
+   "id": "NFD20230388",
+   "title": "Reisen til Julestjernen",
+   "age": 0,
+   "minutes": 85,
+   "genres": [
+    "Drama",
+    "Familiefilm"
+   ],
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/573aeffcc26fedcaff6f5f7bc9e2a8a653cc8d94-1500x2667.webp?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "premiere": "2026-11-27",
+   "shows": [
+    {
+     "start": "2026-12-10T18:00:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/3d2c4775-c62c-4a3a-b80c-a773f630efd7",
      "club": false
     }
    ]
@@ -2087,7 +2110,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/8c4c8405-f38b-4fcd-8d5e-d94cbaaf8b85",
+     "url": "",
      "club": false
     },
     {
@@ -2289,7 +2312,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/ee2f4b69-6f09-4514-a0ca-5859ce4057b4",
+     "url": "",
      "club": false
     },
     {
