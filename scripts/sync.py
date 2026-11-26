@@ -84,8 +84,20 @@ MONTHS = ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", 
 
 
 def get(url):
+    """Henter en side. Svarer ikke siden (tidsavbrudd, brutt forbindelse, 5xx), prøves den én gang til
+    etter 5 sekunder før feilen går videre og blir varsel. 4xx (404, 429 osv.) prøves ikke på nytt her."""
     req = urllib.request.Request(url, headers=UA)
-    return urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
+    for attempt in (1, 2):
+        try:
+            return urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
+        except urllib.error.HTTPError as e:
+            if attempt == 2 or e.code < 500:
+                raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+            if attempt == 2:
+                raise
+        print(f"Prøver igjen: {url}", file=sys.stderr)
+        time.sleep(5)
 
 
 def slug(text):
@@ -1154,12 +1166,6 @@ def main():
     gone = {i: v for i, v in old["meta"].get("gone", {}).items() if v[1] >= gone_limit()}
     for i, (added_at, _) in gone.items():
         first_seen.setdefault(i, added_at)
-    # Engangsrettelse: riktig «lagt til»-tid for Parken-arrangementer som fikk ny tid da Parken svarte 429 (30.–31. okt.).
-    # Kan slettes når de er tilbake med riktig tid (fila og disse linjene).
-    fix_path = DATA / "addedat.json"
-    for i, added_at in (json.loads(fix_path.read_text()) if fix_path.exists() else {}).items():
-        if not first_seen.get(i) or added_at < first_seen[i]:
-            first_seen[i] = added_at
 
     now = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     today = datetime.datetime.now(TZ).date().isoformat()

@@ -220,15 +220,23 @@
    "arkitektkafe-kontakt-med-sjoen-23-11-2026-maf-drape-cafe": [
     "2026-11-14T19:52:32Z",
     "2026-11-23T19:37:32Z"
+   ],
+   "erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-24T21:17:24Z"
+   ],
+   "inkluderingskveld-2026-dampsentralen": [
+    "2026-10-19T12:59:56Z",
+    "2026-11-25T21:01:40Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-24T11:38:16Z",
+  "updatedAt": "2026-11-26T05:17:21Z",
   "seededAt": "2026-10-19T12:59:56Z",
-  "lastAdded": 3,
+  "lastAdded": 0,
   "sources": [
    "aafk",
    "dampsentralen",
@@ -244,109 +252,6 @@
   ]
  },
  "events": [
-  {
-   "id": "erlend-gunstveit-a-very-nashville-christmas-lovenvold-theate",
-   "date": "2026-11-24",
-   "time": "19:00",
-   "title": "Erlend Gunstveit - A Very Nashville Christmas",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata, Storgata 11, 6002 Ålesund",
-   "cat": "konsert",
-   "price": "399 kr",
-   "priceMin": 399,
-   "soldOut": false,
-   "few": true,
-   "note": "Dørene åpner 18.00.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/66682-erlend-gunstveit-my-nashville-christmas-to-you",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "toner-i-en-forjulstid-spjelkavik-kirke-2026",
-   "date": "2026-11-24",
-   "time": "19:00",
-   "title": "Toner i en førjulstid",
-   "venue": "Spjelkavik kirke",
-   "address": "Vestmoa 20, 6018 Ålesund",
-   "cat": "konsert",
-   "price": "250 kr",
-   "priceMin": 250,
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Førjulstoner med Sangkoret Cantábile, cellist Kristian F. Sylthe og pianist Asgeir Hoffart, Mannskoret Dovre og blandakoret Von Dess. Dørene åpner 18:30. Kilde: Bypatrioten.",
-   "url": "https://www.spjelkavik.kyrkjelyd.no/",
-   "addedAt": "2026-11-21T12:03:51Z"
-  },
-  {
-   "id": "kransekurs-og-forjulskos-fabrikken-kulturscene",
-   "date": "2026-11-24",
-   "time": "",
-   "title": "Kransekurs og førjulskos",
-   "venue": "Fabrikken Kulturscene",
-   "address": "",
-   "cat": "happening",
-   "price": "950 kr",
-   "priceMin": 950,
-   "soldOut": false,
-   "note": "",
-   "uncertain": false,
-   "url": "https://billetto.no/e/kransekurs-og-forjulskos-fabrikken-24-november-billetter-2096649",
-   "addedAt": "2026-11-17T14:29:50Z"
-  },
-  {
-   "id": "inkluderingskveld-2026-dampsentralen",
-   "date": "2026-11-25",
-   "time": "18:00",
-   "title": "INKLUDERINGSKVELD 2026",
-   "venue": "Dampsentralen",
-   "address": "",
-   "cat": "happening",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Arrangert av Ålesund idrettsråd.",
-   "uncertain": false,
-   "url": "https://www.dampsentralen.no/kalender/8939xp3xcj6h96l-k89kn-2mahn-s4awk",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "brosundet-etter-seks-2026",
-   "date": "2026-11-25",
-   "time": "18:00",
-   "title": "Brosundet ETTER SEKS",
-   "venue": "Hotel Brosundet",
-   "address": "Apotekergata 1-5, 6004 Ålesund",
-   "cat": "konsert",
-   "price": "Gratis",
-   "priceMin": 0,
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Akustisk konsert foran peisen hver onsdag kl. 18–20, mat fra egen meny 16–22. 11.11 Rikke og Svein, 18.11 Ståle Heggset og Geir Harald, 25.11 Sofie Laxxa, 2.12 Gutta Boys, 9.12 Danielle Langedal, 16.12 Rikke og Svein, 30.12 Elise Nærø. Fortsetter til påske.",
-   "url": "https://www.brosundet.no/aktiviteter/brosundet-etter-seks",
-   "moreShows": [
-    "2026-12-02T18:00",
-    "2026-12-09T18:00",
-    "2026-12-16T18:00",
-    "2026-12-30T18:00"
-   ],
-   "addedAt": "2026-11-10T08:41:18Z"
-  },
-  {
-   "id": "kontrabass-og-heimelaga-lyrikk-med-arne-hjeltnes-og-roger-al",
-   "date": "2026-11-25",
-   "time": "20:00",
-   "title": "Kontrabass og heimelaga lyrikk med Arne Hjeltnes og Roger Allan Ivin",
-   "venue": "Fabrikken Kulturscene",
-   "address": "",
-   "cat": "show",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Dørene åpner 19.00.",
-   "uncertain": false,
-   "url": "https://billetto.no/e/arne-hjeltnes-og-roger-a-ivin-kontrabass-og-heimelaga-lyrikk-onsdag-25-november-billetter-1994042",
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
   {
    "id": "vinkurs-spania-rundt-vino-bar",
    "date": "2026-11-26",
@@ -481,7 +386,7 @@
    "venue": "Ålesund kirke",
    "address": "Kirkegata 2, 6004 Ålesund",
    "cat": "konsert",
-   "soldOut": false,
+   "soldOut": true,
    "uncertain": false,
    "note": "Med Lars Støvland. Tiårsjubileum for juleturneen. Rabatt: Student 225 kr, barn under 16 år 75 kr.",
    "url": "https://secure.tickster.com/no/lnnyulljpvcjp60/products",
@@ -740,7 +645,7 @@
    "price": "",
    "priceMin": null,
    "soldOut": false,
-   "note": "Julegaver og håndverk fra lokale designere. Lørdag 10–18, søndag 12–17 (tider: Bypatrioten). I Langevåg (Sula). Flere forestillinger: 29. nov.",
+   "note": "Julegaver og håndverk fra lokale designere. Lørdag 10–18, søndag 12–17. I Langevåg (Sula). Flere forestillinger: 29. nov.",
    "uncertain": false,
    "url": "https://devoldfabrikken.no/hva-skjer/designernes-julemarked/",
    "moreShows": [
@@ -760,7 +665,7 @@
    "priceMin": null,
    "soldOut": false,
    "uncertain": false,
-   "note": "Tradisjonsrikt julemarked kl. 11–17 med kafé, salgsboder og aktiviteter for store og små. Kilde: Bypatrioten.",
+   "note": "Tradisjonsrikt julemarked kl. 11–17 med kafé, salgsboder og aktiviteter for store og små.",
    "url": "https://www.aalesund.steinerskolen.no/",
    "addedAt": "2026-11-23T09:30:49Z"
   },
@@ -776,7 +681,7 @@
    "priceMin": 250,
    "soldOut": false,
    "uncertain": false,
-   "note": "Jazzsangerinne Gine Gaustad Anderssen og pianist Arne Torvik. To konserter, kl. 16 og kl. 19. Dørene åpner 15:30. Billetter må kjøpes på forhånd ved å sende melding til 986 30 495. Tennfjord ligger i Ålesund kommune. Kilde: Bypatrioten.",
+   "note": "Jazzsangerinne Gine Gaustad Anderssen og pianist Arne Torvik. To konserter, kl. 16 og kl. 19. Dørene åpner 15:30. Billetter må kjøpes på forhånd ved å sende melding til 986 30 495. Tennfjord ligger i Ålesund kommune.",
    "url": "https://www.facebook.com/share/1fv5JZMsyi/?mibextid=wwXIfr",
    "moreShows": [
     "2026-11-28T19:00"
@@ -806,7 +711,7 @@
    "title": "For vår Jord – julekonsert",
    "price": "",
    "priceMin": null,
-   "venue": "Borgund Kirke",
+   "venue": "Borgund kirke",
    "address": "Borgundgavlen 30, 6015 Ålesund",
    "cat": "konsert",
    "soldOut": false,
@@ -1010,7 +915,7 @@
    "date": "2026-11-29",
    "time": "18:00",
    "title": "Mannskoret Varde Julekonsert",
-   "venue": "Borgund Kirke",
+   "venue": "Borgund kirke",
    "address": "Borgundgavlen 30, 6015 Ålesund",
    "cat": "konsert",
    "price": "300 kr",
@@ -1142,6 +1047,27 @@
    "addedAt": "2026-11-10T08:20:11Z"
   },
   {
+   "id": "brosundet-etter-seks-2026",
+   "date": "2026-12-02",
+   "time": "18:00",
+   "title": "Brosundet ETTER SEKS",
+   "venue": "Hotel Brosundet",
+   "address": "Apotekergata 1-5, 6004 Ålesund",
+   "cat": "konsert",
+   "price": "Gratis",
+   "priceMin": 0,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Akustisk konsert foran peisen hver onsdag kl. 18–20, mat fra egen meny 16–22. 11.11 Rikke og Svein, 18.11 Ståle Heggset og Geir Harald, 25.11 Sofie Laxxa, 2.12 Gutta Boys, 9.12 Danielle Langedal, 16.12 Rikke og Svein, 30.12 Elise Nærø. Fortsetter til påske.",
+   "url": "https://www.brosundet.no/aktiviteter/brosundet-etter-seks",
+   "moreShows": [
+    "2026-12-09T18:00",
+    "2026-12-16T18:00",
+    "2026-12-30T18:00"
+   ],
+   "addedAt": "2026-11-10T08:41:18Z"
+  },
+  {
    "id": "julekonsert-med-allsang-volsdalen-kirke-2026",
    "date": "2026-12-02",
    "time": "19:00",
@@ -1156,6 +1082,22 @@
    "note": "Volsdalen Salme- og lovsangkor inviterer til tradisjonell julekonsert med allsang. Dørene åpner 18:00. Gratis kaffe og kaker i kirken og menighetshuset etterpå.",
    "url": "https://www.volsdalen.menighet.no/",
    "addedAt": "2026-10-30T13:23:27Z"
+  },
+  {
+   "id": "kransekurs-og-forjulskos-fabrikken-kulturscene",
+   "date": "2026-12-02",
+   "time": "",
+   "title": "Kransekurs og førjulskos",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "happening",
+   "price": "950 kr",
+   "priceMin": 950,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://billetto.no/e/kransekurs-og-forjulskos-fabrikken-24-november-billetter-2096649",
+   "addedAt": "2026-11-26T00:59:49Z"
   },
   {
    "id": "fagdag-fiskeri-2026-dampsentralen",
@@ -1210,7 +1152,7 @@
    "date": "2026-12-04",
    "time": "18:30",
    "title": "Julekonsert i Spjelkavik kyrkje",
-   "venue": "Spjelkavik Kyrkje",
+   "venue": "Spjelkavik kirke",
    "address": "Vestmoa 20, 6018 Ålesund",
    "cat": "konsert",
    "price": "375 kr",
@@ -1386,6 +1328,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66419",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "sobra-julebord-med-edru-livsstil-pa-sobra-scene-sobra-scene",
+   "date": "2026-12-05",
+   "time": "18:00",
+   "title": "Julebord med Edru livsstil på Sobra Scene",
+   "venue": "Sobra Scene",
+   "address": "Korsegata 6, 6002 Ålesund",
+   "cat": "julebord",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.sobrascene.no/event-details/julebord-med-edru-livsstil-pa-sobra-scene",
+   "addedAt": "2026-11-24T17:17:24Z"
   },
   {
    "id": "himmelske-juletoner-langevag-kyrkje-2026",
@@ -1969,7 +1927,7 @@
    "date": "2026-12-14",
    "time": "19:00",
    "title": "Klassisk Jul  – julefavorittar med tradisjonar",
-   "venue": "Spjelkavik Kyrkje",
+   "venue": "Spjelkavik kirke",
    "address": "Vestmoa 20, 6018 Ålesund",
    "cat": "konsert",
    "price": "300 kr",
@@ -2231,7 +2189,7 @@
    "date": "2026-12-18",
    "time": "21:30",
    "title": "Scala Brio Julenattine 2026",
-   "venue": "Langevåg kirke",
+   "venue": "Langevåg kyrkje",
    "address": "Råsa 41, 6030 Langevåg",
    "cat": "konsert",
    "price": "375 kr",
@@ -2387,6 +2345,22 @@
    "addedAt": "2026-11-10T11:58:45Z"
   },
   {
+   "id": "flyt-bar-romjulsfest-alesund-ms-bruvik",
+   "date": "2026-12-26",
+   "time": "20:00",
+   "title": "Flyt-Bar Romjulsfest Ålesund",
+   "venue": "MS Bruvik",
+   "address": "",
+   "cat": "klubb",
+   "price": "300 kr",
+   "priceMin": 300,
+   "soldOut": false,
+   "note": "Dørene åpner 19.45.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67810-flyt-bar-romjulsfest-alesund",
+   "addedAt": "2026-11-25T11:17:26Z"
+  },
+  {
    "id": "romjulsdans-med-steinar-engelbrektson-og-sissel-lunde-sundby",
    "date": "2026-12-26",
    "time": "20:00",
@@ -2497,6 +2471,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/67475-singeltreff-alesund-30-45-ar",
    "addedAt": "2026-11-20T14:02:01Z"
+  },
+  {
+   "id": "flyt-bar-nyttarsfest-alesund-ms-bruvik",
+   "date": "2026-12-31",
+   "time": "21:30",
+   "title": "Flyt-Bar Nyttårsfest Ålesund",
+   "venue": "MS Bruvik",
+   "address": "",
+   "cat": "klubb",
+   "price": "300 kr",
+   "priceMin": 300,
+   "soldOut": false,
+   "note": "Dørene åpner 21.00.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67807-flyt-bar-nyttarsfest-alesund",
+   "addedAt": "2026-11-25T11:17:26Z"
   },
   {
    "id": "e39-vol-5-nyttars-molo-molo",
@@ -2737,9 +2727,12 @@
    "price": "185–510 kr",
    "priceMin": 185,
    "soldOut": false,
-   "note": "",
+   "note": "Flere forestillinger: 24. jan.",
    "uncertain": false,
    "url": "https://www.parkenkulturhus.no/program/51631-nyttarskonserten/",
+   "moreShows": [
+    "2027-01-24T18:30"
+   ],
    "addedAt": "2026-11-24T10:21:39Z"
   },
   {
@@ -2856,7 +2849,7 @@
    "date": "2027-02-04",
    "time": "19:00",
    "title": "Iver Kleive & Knut Reiersrud – «Vidunderligst av alt på jord»",
-   "venue": "Spjelkavik Kyrkje",
+   "venue": "Spjelkavik kirke",
    "address": "Vestmoa 20, 6018 Ålesund",
    "cat": "konsert",
    "price": "428 kr",
@@ -3147,6 +3140,22 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "kurs-i-napolitansk-pizza-m-passende-viner-vino-bar",
+   "date": "2027-02-13",
+   "time": "14:00",
+   "title": "Kurs i napolitansk pizza m/passende viner",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "895 kr",
+   "priceMin": 895,
+   "soldOut": false,
+   "note": "",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/kurs-i-napolitansk-pizza-m-passende-viner-13-02-2027-kl-1400/",
+   "addedAt": "2026-11-26T00:59:49Z"
+  },
+  {
    "id": "parken-49672-parken-kulturhus",
    "date": "2027-02-13",
    "time": "19:00",
@@ -3243,6 +3252,22 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/65937-rotlaus-terminalen-byscene",
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "raga-rockers-terminalen-byscene",
+   "date": "2027-02-27",
+   "time": "20:00",
+   "title": "Raga Rockers",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "591 kr",
+   "priceMin": 591,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00. Rabatt: DNB-kunde 425 kr, Pre sale: Early Bird 532 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67754-raga-rockers-terminalen",
+   "addedAt": "2026-11-25T09:17:21Z"
   },
   {
    "id": "parken-47488-parken-kulturhus",
@@ -3438,7 +3463,7 @@
    "id": "parken-51891-parken-kulturhus",
    "date": "2027-03-18",
    "time": "18:00",
-   "title": "1+1",
+   "title": "Øyeåpner: 1+1",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "konsert",
@@ -3447,26 +3472,24 @@
    "soldOut": false,
    "note": "",
    "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51891-11/",
+   "url": "https://www.parkenkulturhus.no/program/51891-oyeapner-11/",
    "addedAt": "2026-11-23T15:59:12Z"
   },
   {
-   "id": "parken-51565-parken-kulturhus",
-   "date": "2027-03-19",
-   "time": "19:00",
-   "title": "Vekslepenger",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "konsert",
-   "price": "260–485 kr",
-   "priceMin": 260,
+   "id": "slik-finner-du-den-perfekte-vinen-til-borgundfjordtorsk-vino",
+   "date": "2027-03-18",
+   "time": "18:00",
+   "title": "Slik finner du den perfekte vinen til borgundfjordtorsk",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "1495 kr",
+   "priceMin": 1495,
    "soldOut": false,
-   "few": true,
-   "statusSrc": "parken",
    "note": "",
    "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51565-vekslepenger/",
-   "addedAt": "2026-11-19T14:26:48Z"
+   "url": "https://vinobar.no/product/slik-finner-du-den-perfekte-vinen-til-borgundfjordtorsk-18-03-2027-kl-1800/",
+   "addedAt": "2026-11-26T00:59:49Z"
   },
   {
    "id": "synne-vo-her-vil-e-vaer-norgesturne-terminalen-byscene",
@@ -3501,6 +3524,22 @@
    "addedAt": "2026-11-20T14:02:01Z"
   },
   {
+   "id": "nations-league-norge-vs-england-terminalen-byscene",
+   "date": "2027-03-27",
+   "time": "16:00",
+   "title": "Nations League: Norge vs. England",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "5500 kr",
+   "priceMin": 5500,
+   "soldOut": false,
+   "note": "Rabatt: Sone 2 4000 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67781-nations-league-norge-vs-england-terminalen",
+   "addedAt": "2026-11-25T13:17:24Z"
+  },
+  {
    "id": "norge-england-dampsentralen",
    "date": "2027-03-27",
    "time": "17:00",
@@ -3517,6 +3556,22 @@
    "addedAt": "2026-11-24T10:21:39Z"
   },
   {
+   "id": "nations-league-england-vs-norge-terminalen-byscene",
+   "date": "2027-03-30",
+   "time": "18:30",
+   "title": "Nations League: England vs. Norge",
+   "venue": "Terminalen Byscene",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "5500 kr",
+   "priceMin": 5500,
+   "soldOut": false,
+   "note": "Rabatt: Sone 2 4000 kr.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67808-nations-league-england-vs-norge-terminalen",
+   "addedAt": "2026-11-25T13:17:24Z"
+  },
+  {
    "id": "england-norge-dampsentralen",
    "date": "2027-03-30",
    "time": "19:00",
@@ -3531,6 +3586,24 @@
    "uncertain": false,
    "url": "https://www.dampsentralen.no/kalender/ja685kh779w6cww-5f5sk-ebkfh-bhmy7-bp7tw-r3emt-78w9k-w27fw-zccng-h9wz3",
    "addedAt": "2026-11-24T10:21:39Z"
+  },
+  {
+   "id": "parken-51565-parken-kulturhus",
+   "date": "2027-03-31",
+   "time": "19:00",
+   "title": "Vekslepenger",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "260–485 kr",
+   "priceMin": 260,
+   "soldOut": false,
+   "few": true,
+   "statusSrc": "parken",
+   "note": "",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/51565-vekslepenger/",
+   "addedAt": "2026-11-19T14:26:48Z"
   },
   {
    "id": "parken-48778-parken-kulturhus",
@@ -3638,8 +3711,8 @@
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "konsert",
-   "price": "1284 kr",
-   "priceMin": 1284,
+   "price": "300–630 kr",
+   "priceMin": 300,
    "soldOut": false,
    "note": "",
    "uncertain": false,
@@ -3831,6 +3904,26 @@
    "addedAt": "2026-10-19T12:59:56Z"
   },
   {
+   "id": "vincruise-om-bord-i-ms-bruvik-med-musikk-av-stine-hole-ulla-",
+   "date": "2027-06-04",
+   "time": "18:00",
+   "title": "VINCRUISE OM BORD I MS BRUVIK MED MUSIKK AV STINE HOLE ULLA OG KNUT BJØRNAR ASPHOL",
+   "venue": "Vino Bar",
+   "address": "Apotekergata 10, 6004 Ålesund",
+   "cat": "happening",
+   "price": "1990 kr",
+   "priceMin": 1990,
+   "soldOut": false,
+   "note": "Flere forestillinger: 4. jul, 13. aug.",
+   "uncertain": false,
+   "url": "https://vinobar.no/product/vincruise-om-bord-i-ms-bruvik-med-musikk-av-stine-hole-ulla-og-knut-bjornar-asphol-04-06-2027-kl-1800-kopi/",
+   "moreShows": [
+    "2027-07-04T18:00",
+    "2027-08-13T18:00"
+   ],
+   "addedAt": "2026-11-22T13:22:14Z"
+  },
+  {
    "id": "alesund-live-tobias-sten",
    "date": "2027-06-18",
    "title": "Ålesund Live: Tobias Sten",
@@ -3861,25 +3954,6 @@
    "uncertain": false,
    "url": "https://tikkio.com/events/66161-karpe-alesund-live",
    "addedAt": "2026-10-27T16:49:40Z"
-  },
-  {
-   "id": "vincruise-om-bord-i-ms-bruvik-med-musikk-av-stine-hole-ulla-",
-   "date": "2027-07-04",
-   "time": "18:00",
-   "title": "VINCRUISE OM BORD I MS BRUVIK MED MUSIKK AV STINE HOLE ULLA OG KNUT BJØRNAR ASPHOL",
-   "venue": "Vino Bar",
-   "address": "Apotekergata 10, 6004 Ålesund",
-   "cat": "happening",
-   "price": "1990 kr",
-   "priceMin": 1990,
-   "soldOut": false,
-   "note": "Flere forestillinger: 13. aug.",
-   "uncertain": false,
-   "url": "https://vinobar.no/product/vincruise-om-bord-i-ms-bruvik-med-musikk-av-stine-hole-ulla-og-knut-bjornar-asphol-04-07-2027-kl-1900/",
-   "moreShows": [
-    "2027-08-13T18:00"
-   ],
-   "addedAt": "2026-11-22T13:22:14Z"
   },
   {
    "id": "vinens-historie-en-musikalsk-smaksreise-m-knut-bjornar-og-st",
