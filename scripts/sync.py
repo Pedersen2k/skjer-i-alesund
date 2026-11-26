@@ -1033,6 +1033,8 @@ def cat_rule(title):
     t = title.lower()
     if re.search(r"julebord|julebuffet|julegilde", t):
         return "julebord"
+    if re.search(r"nations league", t):  # fotballkamper vist på storskjerm
+        return "happening"
     if re.search(r"standup|stand-up|stand up|komiker|humor|komedie|comedy", t):
         return "standup"
     if re.search(r"quiz|bingo", t):
