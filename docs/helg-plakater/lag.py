@@ -74,7 +74,7 @@ def paste_rot(img, layer, center, angle):
     img.paste(r, (int(center[0] - r.width / 2), int(center[1] - r.height / 2)), r)
 
 
-def sticker(img, text, center, angle, bg, fg=INK, size=48, pad=(30, 16), weight="Black"):
+def sticker_layer(text, angle, bg, fg=INK, size=48, pad=(30, 16), weight="Black"):
     tmp = ImageDraw.Draw(Image.new("RGBA", (10, 10)))
     f = F(size, weight)
     tw = tmp.textlength(text, font=f)
@@ -84,7 +84,12 @@ def sticker(img, text, center, angle, bg, fg=INK, size=48, pad=(30, 16), weight=
     d.rounded_rectangle((12 + 8, 12 + 8, w + 8, h + 8), 16, fill=INK)
     d.rounded_rectangle((12, 12, w, h), 16, fill=bg, outline=INK, width=6)
     d.text((12 + w / 2, 12 + h / 2 - 3), text, font=f, fill=fg, anchor="mm")
-    paste_rot(img, im, center, angle)
+    return im.rotate(angle, resample=Image.BICUBIC, expand=True)
+
+
+def sticker(img, text, center, angle, bg, fg=INK, size=48, pad=(30, 16), weight="Black"):
+    r = sticker_layer(text, angle, bg, fg, size, pad, weight)
+    img.paste(r, (int(center[0] - r.width / 2), int(center[1] - r.height / 2)), r)
 
 
 def skyline(img, base=INK, window=YEL, seed=3):
@@ -129,8 +134,7 @@ def price_bits(e):
     return p, None
 
 
-def card(img, y, e, tilt, chip=None, x0=60, x1=W - 60, h=150):
-    d = ImageDraw.Draw(img)
+def card_layer(e, tilt, chip=None, x0=60, x1=W - 60, h=150):
     layer = Image.new("RGBA", (x1 - x0 + 40, h + 40), (0, 0, 0, 0))
     ld = ImageDraw.Draw(layer)
     ld.rounded_rectangle((20 + 10, 20 + 10, x1 - x0 + 10, h + 10 + 10), 22, fill=INK)
@@ -161,8 +165,12 @@ def card(img, y, e, tilt, chip=None, x0=60, x1=W - 60, h=150):
         pw += 14
     meta, mf = fit(ld, meta, tw - pw, 24, 18, "ExtraBold")
     ld.text((tx, 20 + 98), meta, font=mf, fill="#4b4758")
-    r = layer.rotate(tilt, resample=Image.BICUBIC, expand=True)
-    img.paste(r, (int(x0 - 20 + (layer.width - r.width) / 2), int(y - 20 + (layer.height - r.height) / 2)), r)
+    return layer.rotate(tilt, resample=Image.BICUBIC, expand=True), layer.size
+
+
+def card(img, y, e, tilt, chip=None, x0=60, x1=W - 60, h=150):
+    r, (lw, lh) = card_layer(e, tilt, chip, x0, x1, h)
+    img.paste(r, (int(x0 - 20 + (lw - r.width) / 2), int(y - 20 + (lh - r.height) / 2)), r)
 
 
 def interesting(evs):
