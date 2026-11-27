@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-27T15:12:12Z",
+  "updatedAt": "2026-11-27T17:22:42Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -619,7 +619,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/68e80302-c74b-4e1c-bdc5-b36ab71e354f",
+     "url": "",
      "club": false
     },
     {
@@ -819,7 +819,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/ae51e177-c351-45d2-9d53-36a270645bdb",
+     "url": "",
      "club": false
     },
     {
@@ -1032,7 +1032,7 @@
       "Utekstet",
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/e3a664ed-4be5-4235-b8e9-6ebb5cd5976c",
+     "url": "",
      "club": false
     }
    ]
@@ -1184,7 +1184,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/119b7241-b10e-4112-ae76-7318c7cc69ee",
+     "url": "",
      "club": true
     },
     {
@@ -1764,7 +1764,7 @@
      "tags": [
       "Dolby Atmos"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/a85e7ccf-27ad-4aa4-9fc0-623999113951",
+     "url": "",
      "club": false
     },
     {
