@@ -162,7 +162,7 @@ def slide_text(i, im):
     else:
         text(d, PAD, 330, "ALT SOM SKJER", M(40), GOLD)
         text(d, PAD, 385, "i desember", B(130)); text(d, PAD, 520, "finner du her", B(130))
-        text(d, PAD, 700, "Neste lys tennes 6. desember", F(56), GOLD); text(d, PAD, 780, "Følg oss, så følger lyset deg.", F(46))
+        text(d, PAD, 700, "Neste lys tennes 6. desember", F(56), GOLD);
         lg, mask = logo(150); im.paste(lg, (PAD, 1000), mask)
         text(d, PAD + 190, 1030, "kaskjerda.no", B(64)); text(d, PAD + 190, 1105, "lenke i bio", F(40), (230, 220, 255))
     if i < N - 1: text(d, W - PAD, 80, f"{i + 1}/{N}", M(34), (200, 200, 230), "ra")
