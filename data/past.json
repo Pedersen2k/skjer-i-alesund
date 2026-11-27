@@ -2083,6 +2083,23 @@
    "url": "https://vinobar.no/product/vinkurs-spania-rundt-26-11-2026-kl-1800/",
    "addedAt": "2026-10-19T12:59:56Z",
    "last": "2026-11-26"
+  },
+  {
+   "id": "birk-bream-rumi-rafael-venterommet-terminalen",
+   "date": "2026-11-27",
+   "time": "20:00",
+   "title": "Birk Bream & Rumi Rafael",
+   "venue": "Venterommet, Terminalen",
+   "address": "Keiser Wilhelms g. 6, 6003 Ålesund",
+   "cat": "konsert",
+   "price": "149 kr",
+   "priceMin": 149,
+   "soldOut": false,
+   "note": "Dørene åpner 19.00.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/67446-bream-rumi-rafael-venetrommet",
+   "addedAt": "2026-11-10T09:09:16Z",
+   "last": "2026-11-27"
   }
  ]
 }
