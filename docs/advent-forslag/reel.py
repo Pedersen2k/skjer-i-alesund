@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from PIL import Image, ImageDraw, ImageFilter, ImageChops, ImageEnhance
 from ukepost import B, F, M, block, logo
 import lag
+import park as P
 
 W, H, FPS, DUR = 1080, 1920, 24, 17.0
 GOLD = (255, 207, 112)
@@ -121,16 +122,7 @@ def wreath(d, g, t, lit):
 
 
 def lake(d, g, t):
-    cx, cy, rx, ry = W // 2, 960, 330, 170
-    d.ellipse((cx - rx, cy - ry, cx + rx, cy + ry), fill=(18, 28, 70), outline=(40, 60, 120), width=3)
-    for i in range(46):
-        a = math.tau * i / 46
-        for k, (s, o) in enumerate(((1.0, 0), (1.22, 1))):
-            if t < 5.5 + i * .035 + k * .15: continue
-            x, y = cx + rx * s * math.cos(a + o * .07), cy + ry * s * math.sin(a + o * .07)
-            b = .75 + .25 * math.sin(t * 5 + i + k * 2)
-            col = tuple(int(c * b) for c in (GOLD if (i + k) % 3 else (255, 140, 110)))
-            g.dot(x, y, 30, col, .75); d.ellipse((x - 7, y - 7, x + 7, y + 7), fill=col)
+    P.park(d, g.dot, W // 2, 960, 1.0, t, 5.5)
     for t0, fx, fy, col in ((6.9, 190, 760, GOLD), (7.5, 880, 790, (255, 150, 200)), (8.0, 540, 720, (140, 220, 255))):
         a = t - t0
         if 0 <= a < 1.2:

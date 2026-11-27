@@ -5,6 +5,7 @@ import math, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from PIL import Image, ImageDraw, ImageFilter
+import park as P
 from ukepost import B, F, M, block, logo, W, H, PAD
 
 N = 5
@@ -128,7 +129,12 @@ def slide_text(i, im):
         text(d, PAD, 580, "tre steder lyser opp helga.", F(48), (230, 220, 255))
         text(d, W - PAD, 1230, "sveip  →", M(44), GOLD, "ra")
     elif i == 1:
-        lake(im, W // 2, 930, 330, 170); d = ImageDraw.Draw(im)
+        gl = Image.new("RGB", im.size, (0, 0, 0)); gd = ImageDraw.Draw(gl); d = ImageDraw.Draw(im)
+        def dot(x, y, r, col, k=.8):
+            gd.ellipse((x - r, y - r, x + r, y + r), fill=tuple(int(c * k * .6) for c in col))
+        P.park(d, dot, W // 2, 950, .85)
+        from PIL import ImageChops
+        im.paste(ImageChops.screen(im, gl.filter(ImageFilter.GaussianBlur(14)))); d = ImageDraw.Draw(im)
         text(d, PAD, 300, "LØRDAG 28. NOV", M(40), GOLD)
         f, _, ls = block(d, "Lysparken tennes i Spjelkavik", B, (110, 100, 90), W - 2 * PAD, 3)
         y = 355
