@@ -242,7 +242,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-27T21:17:24Z",
+  "updatedAt": "2026-11-27T23:28:09Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -260,275 +260,6 @@
   ]
  },
  "events": [
-  {
-   "id": "parken-49740-parken-kulturhus",
-   "date": "2026-11-27",
-   "time": "18:00",
-   "title": "Putti Plutti Pott",
-   "venue": "Parken kulturhus",
-   "address": "Parkgata 3B, 6003 Ålesund",
-   "cat": "barn",
-   "price": "350 kr",
-   "priceMin": 350,
-   "soldOut": false,
-   "note": "Flere forestillinger: 28. nov, 29. nov, 3. des, 4. des, 5. des m.fl.",
-   "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/49740-putti-plutti-pott/",
-   "moreShows": [
-    "2026-11-28T13:00",
-    "2026-11-28T16:00",
-    "2026-11-29T13:00",
-    "2026-11-29T16:00",
-    "2026-12-03T18:00",
-    "2026-12-04T18:00",
-    "2026-12-05T13:00",
-    "2026-12-05T16:00",
-    "2026-12-06T13:00",
-    "2026-12-06T16:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "forum-sca-regional-november-2026-forum-alesund",
-   "date": "2026-11-27",
-   "time": "18:00",
-   "title": "SCA regionale mesterskap",
-   "venue": "Forum Ålesund",
-   "address": "Kongensgate 24, 6002 Ålesund",
-   "cat": "happening",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Barista Championship fredag, Brewers Cup lørdag. Påmelding for deltakere via SCA Norway innen 22. november. Flere forestillinger: 28. nov.",
-   "uncertain": false,
-   "url": "https://forumaalesund.no/program/sca-regional-november-2026",
-   "moreShows": [
-    "2026-11-28T18:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "juleinspirert-tapasbuffet-hotel-1904",
-   "date": "2026-11-27",
-   "time": "18:00",
-   "title": "Juleinspirert tapasbuffét",
-   "venue": "Hotel 1904",
-   "address": "Løvenvoldgata 8, 6002 Ålesund",
-   "cat": "julebord",
-   "price": "995 kr",
-   "priceMin": 995,
-   "soldOut": false,
-   "note": "Hver fredag og lørdag i november og desember, kl. 18–22. Prisen er per person; endelig meny kommer. Bestill bord på nett hos hotellet. Siste dato står ikke på siden, vi viser til og med 19. desember.",
-   "uncertain": true,
-   "url": "https://1904.no/kalender/juleinspirert-tapas-buff%C3%A9t",
-   "moreShows": [
-    "2026-11-28T18:00",
-    "2026-12-04T18:00",
-    "2026-12-05T18:00",
-    "2026-12-11T18:00",
-    "2026-12-12T18:00",
-    "2026-12-18T18:00",
-    "2026-12-19T18:00"
-   ],
-   "addedAt": "2026-10-26T20:53:51Z"
-  },
-  {
-   "id": "jul-pa-molja-thon-hotel-alesund",
-   "date": "2026-11-27",
-   "time": "18:30",
-   "title": "Jul på Molja",
-   "venue": "Thon Hotel Ålesund",
-   "address": "Molovegen 6, 6004 Ålesund",
-   "cat": "show",
-   "price": "fra 550 kr",
-   "priceMin": 550,
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Dørene åpner 18:00, 15 år. Billetter fra 550 kr på Billetto.",
-   "url": "https://billetto.no/e/jul-pa-molja-fredrik-steen-jorunn-torsheim-billetter-1901018",
-   "moreShows": [
-    "2026-11-28T18:30",
-    "2026-12-04T18:30",
-    "2026-12-05T18:30",
-    "2026-12-11T18:30"
-   ],
-   "addedAt": "2026-11-10T08:20:11Z"
-  },
-  {
-   "id": "julebord-pa-fabrikken-fabrikken-kulturscene",
-   "date": "2026-11-27",
-   "time": "20:00",
-   "title": "Julebord på Fabrikken",
-   "venue": "Fabrikken Kulturscene",
-   "address": "",
-   "cat": "julebord",
-   "price": "1350 kr",
-   "priceMin": 1350,
-   "soldOut": false,
-   "note": "Julemat, dinnershow og fest. Prisen er per person. Dørene åpner 19.00. Flere forestillinger: 28. nov, 4. des, 5. des, 11. des, 12. des.",
-   "uncertain": false,
-   "url": "https://billetto.no/e/julebord-pa-fabrikken-billetter-1994054",
-   "moreShows": [
-    "2026-11-28T20:00",
-    "2026-12-04T20:00",
-    "2026-12-05T20:00",
-    "2026-12-11T20:00",
-    "2026-12-12T20:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "julebuffet-thon-hotel-alesund",
-   "date": "2026-11-27",
-   "time": "20:00",
-   "title": "Julebuffet på Thon Hotel Ålesund",
-   "venue": "Thon Hotel Ålesund",
-   "address": "Molovegen 6, 6004 Ålesund",
-   "cat": "julebord",
-   "price": "795 kr",
-   "priceMin": 795,
-   "soldOut": false,
-   "uncertain": false,
-   "note": "Ribbe, pinnekjøtt, medisterkaker og julepølser, kalde retter og desserter, fra kl. 20. Barn 6–12 år 350 kr, under 6 år gratis. Bordbestilling: alesund@thon.no. Kilde: Bypatrioten.",
-   "url": "https://www.thonhotels.no/hoteller/norge/alesund/thon-hotel-alesund/",
-   "moreShows": [
-    "2026-11-28T20:00",
-    "2026-12-04T20:00",
-    "2026-12-05T20:00"
-   ],
-   "addedAt": "2026-11-10T08:20:11Z"
-  },
-  {
-   "id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater",
-   "date": "2026-11-27",
-   "time": "21:00",
-   "title": "Juleshow på Løvenvold Vol. 4",
-   "venue": "Løvenvold Theater",
-   "address": "Løvenvoldgata 11, 6002 Ålesund",
-   "cat": "standup",
-   "price": "699 kr",
-   "priceMin": 699,
-   "soldOut": false,
-   "soldShows": [
-    "2026-11-28T18:30",
-    "2026-12-04T18:30",
-    "2026-12-04T21:00",
-    "2026-12-05T18:30",
-    "2026-12-05T21:00",
-    "2026-12-11T18:30",
-    "2026-12-12T18:30",
-    "2026-12-18T18:30"
-   ],
-   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dørene åpner 20.00. Utsolgt: 28. nov, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 28. nov, 3. des, 4. des, 5. des, 10. des m.fl.",
-   "uncertain": false,
-   "url": "https://tikkio.com/events/62700-ekstrashow-juleshow-pa-lovenvold-vol-4-2711",
-   "moreShows": [
-    "2026-11-28T18:30",
-    "2026-11-28T21:00",
-    "2026-12-03T18:30",
-    "2026-12-04T18:30",
-    "2026-12-04T21:00",
-    "2026-12-05T18:30",
-    "2026-12-05T21:00",
-    "2026-12-10T18:30",
-    "2026-12-11T18:30",
-    "2026-12-11T21:00",
-    "2026-12-12T18:30",
-    "2026-12-12T21:00",
-    "2026-12-17T18:30",
-    "2026-12-18T18:30",
-    "2026-12-18T21:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "livrore-dj-liv-rore-moa",
-   "date": "2026-11-27",
-   "time": "23:00",
-   "title": "DJ hver helg",
-   "venue": "Liv & Røre Moa",
-   "address": "Langelandsvegen 35, 6010 Ålesund",
-   "cat": "klubb",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "note": "Nattklubb fredag og lørdag kl. 23–03, hver helg til 19. des. DJ-er: Bigs, Sierra, Nic og Hamy.",
-   "uncertain": false,
-   "url": "https://livrore.no/dj-hver-helg-pa-liv-rore/",
-   "moreShows": [
-    "2026-11-28T23:00",
-    "2026-12-04T23:00",
-    "2026-12-05T23:00",
-    "2026-12-11T23:00",
-    "2026-12-12T23:00",
-    "2026-12-18T23:00",
-    "2026-12-19T23:00"
-   ],
-   "addedAt": "2026-10-19T12:59:56Z"
-  },
-  {
-   "id": "julebuffet-brasserie-normandie-scandic-parken",
-   "date": "2026-11-27",
-   "time": "",
-   "title": "Julebuffet i Brasserie Normandie",
-   "venue": "Scandic Parken",
-   "address": "Storgata 16, 6002 Ålesund",
-   "cat": "julebord",
-   "price": "",
-   "priceMin": null,
-   "soldOut": false,
-   "uncertain": false,
-   "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026",
-   "note": "Stor varm julebuffet, dessertbuffet og kaffe, og trubadur i lobbybaren om kvelden. Også 20., 21. og 27. nov og 4. og 11. des. Pris og klokkeslett står ikke på hotellets side; bestilling på e-post til Scandic Parken.",
-   "moreShows": [
-    "2026-12-04",
-    "2026-12-11"
-   ],
-   "addedAt": "2026-10-26T20:53:51Z"
-  },
-  {
-   "id": "afterwork-christmas-edition-quality-hotel-waterfront",
-   "date": "2026-11-27",
-   "time": "",
-   "title": "Afterwork – Christmas Edition",
-   "venue": "Quality Hotel Waterfront",
-   "address": "",
-   "cat": "julebord",
-   "price": "795 kr",
-   "priceMin": 795,
-   "soldOut": false,
-   "uncertain": false,
-   "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-waterfront-alesund/pakketilbud/julebord/",
-   "note": "Juletapasbuffet med ribbe, pinnekjøtt, julepølser og kålrabistappe, pluss asiatisk ribbe, julesild, bolinhos med pinnekjøtt og mer, og dessertbuffet med sjokoladefontene. Fredager og lørdager til 12. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.",
-   "moreShows": [
-    "2026-11-28",
-    "2026-12-04",
-    "2026-12-05",
-    "2026-12-11",
-    "2026-12-12"
-   ],
-   "addedAt": "2026-10-26T21:12:29Z"
-  },
-  {
-   "id": "julegilde-quality-hotel-alesund",
-   "date": "2026-11-27",
-   "time": "",
-   "title": "Julegilde på Skansekaia",
-   "venue": "Quality Hotel Ålesund",
-   "address": "Sorenskriver Bulls gate 7, 6002 Ålesund",
-   "cat": "julebord",
-   "soldOut": false,
-   "uncertain": false,
-   "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
-   "price": "745 kr",
-   "priceMin": 745,
-   "note": "Buffet med varme, tradisjonelle retter og dessert, deretter DJ og dans. Fredager: også 27. nov, 4. og 11. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.",
-   "moreShows": [
-    "2026-12-04",
-    "2026-12-11"
-   ],
-   "addedAt": "2026-10-26T21:12:29Z"
-  },
   {
    "id": "designernes-julemarked-devoldfabrikken",
    "date": "2026-11-28",
@@ -563,6 +294,33 @@
    "note": "Tradisjonsrikt julemarked kl. 11–17 med kafé, salgsboder og aktiviteter for store og små.",
    "url": "https://www.aalesund.steinerskolen.no/",
    "addedAt": "2026-11-23T09:30:49Z"
+  },
+  {
+   "id": "parken-49740-parken-kulturhus",
+   "date": "2026-11-28",
+   "time": "13:00",
+   "title": "Putti Plutti Pott",
+   "venue": "Parken kulturhus",
+   "address": "Parkgata 3B, 6003 Ålesund",
+   "cat": "barn",
+   "price": "350 kr",
+   "priceMin": 350,
+   "soldOut": false,
+   "note": "Også kl. 16:00. Flere forestillinger: 29. nov, 3. des, 4. des, 5. des, 6. des.",
+   "uncertain": false,
+   "url": "https://www.parkenkulturhus.no/program/49740-putti-plutti-pott/",
+   "moreShows": [
+    "2026-11-28T16:00",
+    "2026-11-29T13:00",
+    "2026-11-29T16:00",
+    "2026-12-03T18:00",
+    "2026-12-04T18:00",
+    "2026-12-05T13:00",
+    "2026-12-05T16:00",
+    "2026-12-06T13:00",
+    "2026-12-06T16:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
   },
   {
    "id": "julekonsert-pa-laven-tennfjord-2026",
@@ -600,6 +358,46 @@
    "addedAt": "2026-11-23T22:09:11Z"
   },
   {
+   "id": "forum-sca-regional-november-2026-forum-alesund",
+   "date": "2026-11-28",
+   "time": "18:00",
+   "title": "SCA regionale mesterskap",
+   "venue": "Forum Ålesund",
+   "address": "Kongensgate 24, 6002 Ålesund",
+   "cat": "happening",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Barista Championship fredag, Brewers Cup lørdag. Påmelding for deltakere via SCA Norway innen 22. november.",
+   "uncertain": false,
+   "url": "https://forumaalesund.no/program/sca-regional-november-2026",
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "juleinspirert-tapasbuffet-hotel-1904",
+   "date": "2026-11-28",
+   "time": "18:00",
+   "title": "Juleinspirert tapasbuffét",
+   "venue": "Hotel 1904",
+   "address": "Løvenvoldgata 8, 6002 Ålesund",
+   "cat": "julebord",
+   "price": "995 kr",
+   "priceMin": 995,
+   "soldOut": false,
+   "note": "Hver fredag og lørdag i november og desember, kl. 18–22. Prisen er per person; endelig meny kommer. Bestill bord på nett hos hotellet. Siste dato står ikke på siden, vi viser til og med 19. desember.",
+   "uncertain": true,
+   "url": "https://1904.no/kalender/juleinspirert-tapas-buff%C3%A9t",
+   "moreShows": [
+    "2026-12-04T18:00",
+    "2026-12-05T18:00",
+    "2026-12-11T18:00",
+    "2026-12-12T18:00",
+    "2026-12-18T18:00",
+    "2026-12-19T18:00"
+   ],
+   "addedAt": "2026-10-26T20:53:51Z"
+  },
+  {
    "id": "for-var-jord-borgund-kyrkje-2026",
    "date": "2026-11-28",
    "time": "18:00",
@@ -614,6 +412,69 @@
    "note": "Julekonsert med Anita Skorgan, Karoline Krüger og Sara Skorgan Teigen. Billetter på Eventim (pris ikke lesbar herfra). Kilde: kyrkja.alesund.no.",
    "url": "https://www.eventim.no/artist/for-var-jord/",
    "addedAt": "2026-11-10T08:33:30Z"
+  },
+  {
+   "id": "juleshow-pa-lovenvold-vol-4-lovenvold-theater",
+   "date": "2026-11-28",
+   "time": "18:30",
+   "title": "Juleshow på Løvenvold Vol. 4",
+   "venue": "Løvenvold Theater",
+   "address": "Løvenvoldgata 11, 6002 Ålesund",
+   "cat": "standup",
+   "price": "699 kr",
+   "priceMin": 699,
+   "soldOut": false,
+   "soldShows": [
+    "2026-11-28T18:30",
+    "2026-12-04T18:30",
+    "2026-12-04T21:00",
+    "2026-12-05T18:30",
+    "2026-12-05T21:00",
+    "2026-12-11T18:30",
+    "2026-12-12T18:30",
+    "2026-12-18T18:30"
+   ],
+   "note": "Med Ørjan Liavåg, Are Kalvø og Marit Voldsæter. Dørene åpner 17.30. Også kl. 21:00. Utsolgt: 18:30, 4. des, 5. des, 11. des, 12. des, 18. des. Flere forestillinger: 3. des, 4. des, 5. des, 10. des, 11. des m.fl.",
+   "uncertain": false,
+   "url": "https://tikkio.com/events/62686-juleshow-pa-lovenvold-vol-4-27811",
+   "moreShows": [
+    "2026-11-28T21:00",
+    "2026-12-03T18:30",
+    "2026-12-04T18:30",
+    "2026-12-04T21:00",
+    "2026-12-05T18:30",
+    "2026-12-05T21:00",
+    "2026-12-10T18:30",
+    "2026-12-11T18:30",
+    "2026-12-11T21:00",
+    "2026-12-12T18:30",
+    "2026-12-12T21:00",
+    "2026-12-17T18:30",
+    "2026-12-18T18:30",
+    "2026-12-18T21:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "jul-pa-molja-thon-hotel-alesund",
+   "date": "2026-11-28",
+   "time": "18:30",
+   "title": "Jul på Molja",
+   "venue": "Thon Hotel Ålesund",
+   "address": "Molovegen 6, 6004 Ålesund",
+   "cat": "show",
+   "price": "fra 550 kr",
+   "priceMin": 550,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Juleshow med Fredrik Steen og Jorunn Torsheim: parodier, standup og musikk. Peter Demirov (tangenter) og Lars Øverås (bass). Dørene åpner 18:00, 15 år. Billetter fra 550 kr på Billetto.",
+   "url": "https://billetto.no/e/jul-pa-molja-fredrik-steen-jorunn-torsheim-billetter-1901018",
+   "moreShows": [
+    "2026-12-04T18:30",
+    "2026-12-05T18:30",
+    "2026-12-11T18:30"
+   ],
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "the-good-the-bad-and-the-zugly-terminalen-byscene",
@@ -646,6 +507,48 @@
    "url": "https://www.cruise-service.no/en/event-details-1/julebord-pa-ms-bruvik-2",
    "note": "Helaftens julebord på fjorden: tradisjonell julemat, dessert og kaffe. Fra Ålesund kl. 19:30, tilbake 23:30 (fra Langevåg kl. 19:00). Cruise Service melder at billettene ikke er i salg lenger.",
    "addedAt": "2026-10-26T20:53:51Z"
+  },
+  {
+   "id": "julebord-pa-fabrikken-fabrikken-kulturscene",
+   "date": "2026-11-28",
+   "time": "20:00",
+   "title": "Julebord på Fabrikken",
+   "venue": "Fabrikken Kulturscene",
+   "address": "",
+   "cat": "julebord",
+   "price": "1350 kr",
+   "priceMin": 1350,
+   "soldOut": false,
+   "note": "Julemat, dinnershow og fest. Prisen er per person. Dørene åpner 19.00. Flere forestillinger: 4. des, 5. des, 11. des, 12. des.",
+   "uncertain": false,
+   "url": "https://billetto.no/e/julebord-pa-fabrikken-billetter-1994054",
+   "moreShows": [
+    "2026-12-04T20:00",
+    "2026-12-05T20:00",
+    "2026-12-11T20:00",
+    "2026-12-12T20:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "julebuffet-thon-hotel-alesund",
+   "date": "2026-11-28",
+   "time": "20:00",
+   "title": "Julebuffet på Thon Hotel Ålesund",
+   "venue": "Thon Hotel Ålesund",
+   "address": "Molovegen 6, 6004 Ålesund",
+   "cat": "julebord",
+   "price": "795 kr",
+   "priceMin": 795,
+   "soldOut": false,
+   "uncertain": false,
+   "note": "Ribbe, pinnekjøtt, medisterkaker og julepølser, kalde retter og desserter, fra kl. 20. Barn 6–12 år 350 kr, under 6 år gratis. Bordbestilling: alesund@thon.no. Kilde: Bypatrioten.",
+   "url": "https://www.thonhotels.no/hoteller/norge/alesund/thon-hotel-alesund/",
+   "moreShows": [
+    "2026-12-04T20:00",
+    "2026-12-05T20:00"
+   ],
+   "addedAt": "2026-11-10T08:20:11Z"
   },
   {
    "id": "dj-hver-lordag-bryt-tapas",
@@ -688,6 +591,52 @@
     "2026-12-19T23:00"
    ],
    "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "livrore-dj-liv-rore-moa",
+   "date": "2026-11-28",
+   "time": "23:00",
+   "title": "DJ hver helg",
+   "venue": "Liv & Røre Moa",
+   "address": "Langelandsvegen 35, 6010 Ålesund",
+   "cat": "klubb",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "note": "Nattklubb fredag og lørdag kl. 23–03, hver helg til 19. des. DJ-er: Bigs, Sierra, Nic og Hamy.",
+   "uncertain": false,
+   "url": "https://livrore.no/dj-hver-helg-pa-liv-rore/",
+   "moreShows": [
+    "2026-12-04T23:00",
+    "2026-12-05T23:00",
+    "2026-12-11T23:00",
+    "2026-12-12T23:00",
+    "2026-12-18T23:00",
+    "2026-12-19T23:00"
+   ],
+   "addedAt": "2026-10-19T12:59:56Z"
+  },
+  {
+   "id": "afterwork-christmas-edition-quality-hotel-waterfront",
+   "date": "2026-11-28",
+   "time": "",
+   "title": "Afterwork – Christmas Edition",
+   "venue": "Quality Hotel Waterfront",
+   "address": "",
+   "cat": "julebord",
+   "price": "795 kr",
+   "priceMin": 795,
+   "soldOut": false,
+   "uncertain": false,
+   "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-waterfront-alesund/pakketilbud/julebord/",
+   "note": "Juletapasbuffet med ribbe, pinnekjøtt, julepølser og kålrabistappe, pluss asiatisk ribbe, julesild, bolinhos med pinnekjøtt og mer, og dessertbuffet med sjokoladefontene. Fredager og lørdager til 12. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.",
+   "moreShows": [
+    "2026-12-04",
+    "2026-12-05",
+    "2026-12-11",
+    "2026-12-12"
+   ],
+   "addedAt": "2026-10-26T21:12:29Z"
   },
   {
    "id": "julebuffet-quality-hotel-alesund",
@@ -1105,6 +1054,44 @@
    "note": "Julekonsert. Rabatt: Student 250 kr. Barn under 12 år gratis.",
    "url": "https://ebillett.no/skruk",
    "addedAt": "2026-10-27T07:56:21Z"
+  },
+  {
+   "id": "julebuffet-brasserie-normandie-scandic-parken",
+   "date": "2026-12-04",
+   "time": "",
+   "title": "Julebuffet i Brasserie Normandie",
+   "venue": "Scandic Parken",
+   "address": "Storgata 16, 6002 Ålesund",
+   "cat": "julebord",
+   "price": "",
+   "priceMin": null,
+   "soldOut": false,
+   "uncertain": false,
+   "url": "https://www.parkenhotel.no/post/julen-p%C3%A5-parken-2026",
+   "note": "Stor varm julebuffet, dessertbuffet og kaffe, og trubadur i lobbybaren om kvelden. Også 20., 21. og 27. nov og 4. og 11. des. Pris og klokkeslett står ikke på hotellets side; bestilling på e-post til Scandic Parken.",
+   "moreShows": [
+    "2026-12-11"
+   ],
+   "addedAt": "2026-10-26T20:53:51Z"
+  },
+  {
+   "id": "julegilde-quality-hotel-alesund",
+   "date": "2026-12-04",
+   "time": "",
+   "title": "Julegilde på Skansekaia",
+   "venue": "Quality Hotel Ålesund",
+   "address": "Sorenskriver Bulls gate 7, 6002 Ålesund",
+   "cat": "julebord",
+   "soldOut": false,
+   "uncertain": false,
+   "url": "https://www.strawberry.no/hotell/norge/alesund/quality-hotel-alesund/tilbud/promo/NO151-julebord/",
+   "price": "745 kr",
+   "priceMin": 745,
+   "note": "Buffet med varme, tradisjonelle retter og dessert, deretter DJ og dans. Fredager: også 27. nov, 4. og 11. des. Prisen er per person. Klokkeslett står ikke på siden; bestill hos hotellet.",
+   "moreShows": [
+    "2026-12-11"
+   ],
+   "addedAt": "2026-10-26T21:12:29Z"
   },
   {
    "id": "kids-gingerbread-decorating-blend-by-racoon",
