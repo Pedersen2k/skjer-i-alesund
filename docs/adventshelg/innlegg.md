@@ -49,7 +49,7 @@ Legg til **Ålesund** som sted.
 Vurder å invitere @parken_kulturhus som **medforfatter** (Collab): innlegget vises da på begge profilene og når begge følgerskarene.
 
 ### Alternativtekst (Avanserte innstillinger → Skriv alt-tekst)
-1. Adventskrans med ett tent lys over Ålesund-silhuett. Tekst: Helga jula starter, første søndag i advent, 19 arrangementer.
+1. Adventskrans med ett tent lys over Ålesund-silhuett. Tekst: Første advent i Ålesund, jul, barn og lys, 19 arrangementer.
 2. Tidslinje for en familielørdag: 11:00 julemarked på Steinerskolen, 13:00 Putti Plutti Pott, 17:00 Lysparken tennes.
 3. Tidslinje for en familiesøndag: 10:30 Julenissens verksted på kino, 13:00 pepperkakeverksted, 17:00 adventskonsert med barnekor.
 4. Lys og marked: Lysparken tennes lørdag 17:00, Designernes julemarked og julemarked på Steinerskolen.
@@ -62,7 +62,7 @@ Vurder å invitere @parken_kulturhus som **medforfatter** (Collab): innlegget vi
 ## Reel: bildetekst
 
 ```
-Helga jula starter 🕯️ Lysparken, nissebesøk, pepperkaker, barneshow og adventskonsert. Alt som skjer i Ålesund 27.–29. nov står på kaskjerda.no (lenke i bio). Send til noen du vil gå med 🎄
+Første advent i Ålesund 🕯️ Lysparken, nissebesøk, pepperkaker, barneshow og adventskonsert. Alt som skjer i Ålesund 27.–29. nov står på kaskjerda.no (lenke i bio). Send til noen du vil gå med 🎄
 
 #ålesund #førsteadvent #sunnmøre
 ```

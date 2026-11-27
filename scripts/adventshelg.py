@@ -317,10 +317,10 @@ def cover(folder):
     wreath(img, W // 2, 1030, 330, 88, lit=1, phase=0.6, candle_h=170)
     img.alpha_composite(snow_layer(W, H, 5, 120))
     dr = Dr(img)
-    dr.text((PAD, 150), "FØRSTE SØNDAG I ADVENT", font=M(34, 800), fill=GOLD)
-    for i, t in enumerate(("Helga jula", "starter")):
-        dr.text((PAD - 4, 200 + i * 170), t, font=FR(168, 800, True), fill=CREAM)
-    dr.text((PAD, 560), "Jul, barn og lys fra fredag til søndag.", font=F(46, 650), fill=CREAM)
+    dr.text((PAD, 150), "JUL, BARN OG LYS", font=M(34, 800), fill=GOLD)
+    for i, t in enumerate(("Første advent", "i Ålesund")):
+        dr.text((PAD - 4, 210 + i * 160), t, font=FR(140, 800, True), fill=CREAM)
+    dr.text((PAD, 560), "Alt som skjer fra fredag til søndag.", font=F(46, 650), fill=CREAM)
     t = f"{antall()} arrangementer"
     f = B(46, 800)
     w = dr.textlength(t, font=f)
@@ -679,11 +679,11 @@ def reel_frames(folder, with_audio):
         add_snow(img, t)
         dr = Dr(img)
         p1, p2, p3 = (ease(t / 0.5), back((t - 0.15) / 0.55), back((t - 0.4) / 0.55))
-        dr.text((W // 2, 330), "FØRSTE SØNDAG I ADVENT", font=M(36, 800), fill=(255, 217, 138, int(255 * p1)), anchor="ma")
-        for i, tx in enumerate(("Helga jula", "starter")):
+        dr.text((W // 2, 330), "27.–29. NOVEMBER", font=M(36, 800), fill=(255, 217, 138, int(255 * p1)), anchor="ma")
+        for i, tx in enumerate(("Første advent", "i Ålesund")):
             pp = (p2, p3)[i]
-            dr.text((W // 2, 420 + i * 190 + (1 - pp) * 80), tx, font=FR(190, 800, True), fill=(255, 244, 220, int(255 * min(1, pp))), anchor="ma")
-        dr.text((W // 2, 830), "Jul, barn og lys i Ålesund", font=F(48, 650), fill=(255, 244, 220, int(255 * ease((t - 0.7) / 0.4))), anchor="ma")
+            dr.text((W // 2, 420 + i * 170 + (1 - pp) * 80), tx, font=FR(150, 800, True), fill=(255, 244, 220, int(255 * min(1, pp))), anchor="ma")
+        dr.text((W // 2, 830), "Jul, barn og lys fra fredag til søndag", font=F(44, 650), fill=(255, 244, 220, int(255 * ease((t - 0.7) / 0.4))), anchor="ma")
         return img
 
     def scene_frame(i, t):
