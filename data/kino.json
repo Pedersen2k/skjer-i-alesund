@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-27T13:22:01Z",
+  "updatedAt": "2026-11-27T15:12:12Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -390,7 +390,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/0d7f8e64-51a2-4beb-a1d4-25f9f57f2561",
+     "url": "",
      "club": false
     },
     {
@@ -610,7 +610,7 @@
     "Eventyr",
     "Familiefilm"
    ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/bf8e21c21311a71e249a351f0799a559591c98da-1440x2057.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
+   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/d6b42d3b81d0c248e28b50f1d622679220f7270f-1440x2057.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-27",
    "shows": [
     {
@@ -810,7 +810,7 @@
      "tags": [
       "Norsk tale"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/24a76f1a-f3df-4cb7-b5c1-c77bc2d31704",
+     "url": "",
      "club": false
     },
     {
@@ -1258,7 +1258,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/18169ff7-17eb-4cae-b65d-0dc77266e774",
+     "url": "",
      "club": false
     },
     {
@@ -1474,7 +1474,7 @@
      "tags": [
       "LUXE"
      ],
-     "url": "https://www.odeonkino.no/booking/kjop/b8229d33-f312-4990-8fac-9aedcfd3e9d7",
+     "url": "",
      "club": false
     },
     {
