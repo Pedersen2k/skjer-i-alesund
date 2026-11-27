@@ -238,7 +238,7 @@
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-27T07:10:30Z",
+  "updatedAt": "2026-11-27T09:17:23Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -2793,7 +2793,7 @@
   {
    "id": "parken-51795-parken-kulturhus",
    "date": "2027-01-30",
-   "time": "14:00",
+   "time": "14:30",
    "title": "Språkbruk",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
@@ -2809,8 +2809,8 @@
   {
    "id": "parken-51796-parken-kulturhus",
    "date": "2027-01-30",
-   "time": "15:00",
-   "title": "NRK Leseklubben: Til fyret 100 år!",
+   "time": "15:45",
+   "title": "Leseklubben: Til fyret 100 år!",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
    "cat": "show",
@@ -2819,13 +2819,13 @@
    "soldOut": false,
    "note": "",
    "uncertain": false,
-   "url": "https://www.parkenkulturhus.no/program/51796-nrk-leseklubben-til-fyret-100-ar/",
+   "url": "https://www.parkenkulturhus.no/program/51796-leseklubben-til-fyret-100-ar/",
    "addedAt": "2026-11-27T01:00:32Z"
   },
   {
    "id": "parken-51799-parken-kulturhus",
    "date": "2027-01-30",
-   "time": "16:15",
+   "time": "17:00",
    "title": "Vinden gjennom oss",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
@@ -2857,7 +2857,7 @@
   {
    "id": "parken-51800-parken-kulturhus",
    "date": "2027-01-30",
-   "time": "18:30",
+   "time": "19:45",
    "title": "Verden sett fra Moskva",
    "venue": "Parken kulturhus",
    "address": "Parkgata 3B, 6003 Ålesund",
@@ -3990,11 +3990,11 @@
    "price": "1990 kr",
    "priceMin": 1990,
    "soldOut": false,
-   "note": "Flere forestillinger: 4. jul, 13. aug.",
+   "note": "Også kl. 18:00. Flere forestillinger: 13. aug.",
    "uncertain": false,
    "url": "https://vinobar.no/product/vincruise-om-bord-i-ms-bruvik-med-musikk-av-stine-hole-ulla-og-knut-bjornar-asphol-04-06-2027-kl-1800-kopi/",
    "moreShows": [
-    "2027-07-04T18:00",
+    "2027-06-04T18:00",
     "2027-08-13T18:00"
    ],
    "addedAt": "2026-11-22T13:22:14Z"

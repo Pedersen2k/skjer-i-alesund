@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-27T07:16:19Z",
+  "updatedAt": "2026-11-27T09:22:06Z",
   "cinema": "ODEON Ålesund",
   "source": "https://www.filmweb.no/program/sted/%C3%A5lesund/odeon%20%C3%A5lesund"
  },
@@ -724,28 +724,6 @@
       "Norsk tale"
      ],
      "url": "https://www.odeonkino.no/booking/kjop/3ac73cc8-58ea-486c-b6f7-77be9bcfcd3f",
-     "club": false
-    }
-   ]
-  },
-  {
-   "id": "EDI20261653",
-   "title": "Instruktorius",
-   "age": 15,
-   "minutes": 90,
-   "genres": [
-    "Komedie"
-   ],
-   "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/3b49b9befecf3c8c3bd4c85ba53a7ba0c528e20a-1080x1920.png?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
-   "premiere": "2026-11-20",
-   "shows": [
-    {
-     "start": "2026-11-27T21:00:00",
-     "screen": "Sal 6",
-     "tags": [
-      "LUXE"
-     ],
-     "url": "https://www.odeonkino.no/booking/kjop/25c68d5a-db83-4425-9922-7d69e2ceef10",
      "club": false
     }
    ]
@@ -1989,6 +1967,15 @@
    "poster": "https://cdn.sanity.io/images/j0wdmpyb/production/36f2aeb3c5e2f75e430c2f28cb3bd64c5175221d-1080x1514.jpg?auto=format&fit=crop&crop=focalpoint&w=360&h=540",
    "premiere": "2026-11-13",
    "shows": [
+    {
+     "start": "2026-11-27T21:00:00",
+     "screen": "Sal 6",
+     "tags": [
+      "LUXE"
+     ],
+     "url": "https://www.odeonkino.no/booking/kjop/82a924a7-eb4e-4585-965d-120c89644154",
+     "club": false
+    },
     {
      "start": "2026-11-28T16:30:00",
      "screen": "Sal 6",
