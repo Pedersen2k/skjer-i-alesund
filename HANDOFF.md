@@ -41,6 +41,7 @@ Kort oversikt. All detaljert historikk (beslutninger, forslag som ikke ble valgt
 8. Rydding i `docs/` (9,6 MB, ca. 70 forslag, mange avgjort): gå gjennom med eieren etter jul. Ikke del opp `sync.py`/`pages.py` før etter jul.
 9. Bing Webmaster Tools (import fra Search Console), «Gratis og billig»-side, kino-gjennomgang på mobil, AaFK-priser (TicketCo), Aalesunds Museum (Elfsight-widget), iPhone-delingskompass (parkert til nyttår), store mobildesign (parkert til etter jul).
 10. Sjekk GoatCounter om noen uker: `nytt/fane`, `lagre/*`, `delt/*`, `sok/*`, `side/*`.
+11. **Flimmer** (stearinlys-maskot, eierens beslutning 27. nov.): en ny reel hver adventssøndag (6., 13., 20. des.), laget med `docs/advent-forslag/reel.py` (+ `lag.py` for karusell). 29. nov. = første lys; 6. des. tenner Flimmer lys nummer to osv. Første sett (karusell, reel, historie) ligger i `docs/advent-forslag/`. Bildene postes manuelt av eieren.
 
 ## Gotchas
 - Miljøet blokkerer trolig den live siden; test lokalt: `python3 scripts/sync.py`, `python3 scripts/pages.py`, `python3 -m http.server -d _site`. En full `sync.py` kan henge i 10+ minutter: for å teste manuelle arrangementer, legg dem i en midlertidig `events.json`, bygg med `pages.py`, og `git checkout data/events.json` (aldri commit den).
