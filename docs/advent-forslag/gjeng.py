@@ -12,12 +12,22 @@ CREAM = (245, 236, 214); GOLD = (255, 207, 112)
 EYE = (30, 20, 50); MOUTH = (60, 30, 60); CHEEK = (255, 170, 170)
 
 
+STATE = 0        # 0 normal, 1 blunk, 2 snakker (åpen munn)
+NOFLAME = False  # reelen tegner flammen selv
+
+
 def face(d, cx, ey, gap=28, r=22, smile=True, cheeks=True, look=0):
     for s in (-gap, gap):
+        if STATE == 1:
+            d.line((cx + s - r + 4, ey, cx + s + r - 4, ey), fill=MOUTH, width=6)
+            continue
         d.ellipse((cx + s - r, ey - r - 2, cx + s + r, ey + r + 2), fill=(255, 255, 255))
         d.ellipse((cx + s + look - r // 2, ey - r // 2 - 1, cx + s + look + r // 2, ey + r // 2 + 3), fill=EYE)
         d.ellipse((cx + s + look - 2, ey - 9, cx + s + look + 4, ey - 3), fill=(255, 255, 255))
-    if smile:
+    if smile and STATE == 2:
+        d.ellipse((cx - 17, ey + 26, cx + 17, ey + 62), fill=MOUTH)
+        d.ellipse((cx - 10, ey + 46, cx + 10, ey + 62), fill=(220, 100, 110))
+    elif smile:
         d.arc((cx - 24, ey + 22, cx + 24, ey + 66), 15, 165, fill=MOUTH, width=6)
     if cheeks:
         for s in (-gap - 26, gap + 26):
@@ -42,7 +52,8 @@ def flimmer(d, g, cx, by):
     d.rounded_rectangle((cx + 38, by - 240, cx + 75, by - 6), 30, fill=(224, 212, 186))
     d.ellipse((cx - 77, by - 266, cx + 77, by - 234), fill=(255, 250, 238))
     d.line((cx, by - 262, cx, by - 288), fill=(50, 40, 40), width=6)
-    flame(d, cx, by - 288, 1.5); glow(g, cx, by - 330, 120, (180, 110, 30))
+    if not NOFLAME: flame(d, cx, by - 288, 1.5)
+    glow(g, cx, by - 330, 120, (180, 110, 30))
     face(d, cx, by - 170, look=7)
 
 
@@ -122,7 +133,7 @@ def pare(d, g, cx, by):
     face(d, cx, by - 235, gap=24, r=19, look=6)
     d.ellipse((cx - 14, by - 202, cx + 14, by - 172), fill=MOUTH)
     d.ellipse((cx - 9, by - 190, cx + 9, by - 174), fill=(220, 100, 110))
-    d.text((cx + 84, by - 345), "NYTT!", font=B(28), fill=GOLD, anchor="mm")
+    if not NOFLAME: d.text((cx + 84, by - 345), "NYTT!", font=B(28), fill=GOLD, anchor="mm")
 
 
 def fnugg(d, g, cx, by):
