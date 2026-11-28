@@ -236,13 +236,17 @@
    "birk-bream-rumi-rafael-venterommet-terminalen": [
     "2026-11-10T09:09:16Z",
     "2026-11-27T21:17:24Z"
+   ],
+   "vinens-historie-en-musikalsk-smaksreise-m-knut-bjornar-og-st": [
+    "2026-11-22T13:22:14Z",
+    "2026-11-28T07:17:26Z"
    ]
   },
   "tikkioChecked": [
    "https://tikkio.com/events/67527-gv33-presenterer-giske-ten-visits-ten-songs",
    "https://tikkio.com/events/67547-gv33-presenterer-giske-ten-visits-ten-songs"
   ],
-  "updatedAt": "2026-11-28T05:17:21Z",
+  "updatedAt": "2026-11-28T07:17:26Z",
   "seededAt": "2026-10-19T12:59:56Z",
   "lastAdded": 0,
   "sources": [
@@ -4037,10 +4041,10 @@
    "addedAt": "2026-10-27T16:49:40Z"
   },
   {
-   "id": "vinens-historie-en-musikalsk-smaksreise-m-knut-bjornar-og-st",
+   "id": "matfestivalen-vinens-historie-en-musikalsk-smaksreise-m-knut",
    "date": "2027-08-26",
    "time": "19:00",
-   "title": "Vinens historie – en musikalsk smaksreise m/Knut Bjørnar og Stine Hole Ulla",
+   "title": "MATFESTIVALEN: Vinens historie – en musikalsk smaksreise m/Knut Bjørnar og Stine Hole Ulla",
    "venue": "Vino Bar",
    "address": "Apotekergata 10, 6004 Ålesund",
    "cat": "happening",
